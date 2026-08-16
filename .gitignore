@@ -52,6 +52,7 @@ outputs/data/logs/
 eda/kuairand/artifacts/
 
 # Large experiment artifacts live on cHARISMa, not in Git.
+!experiments/results.csv
 experiments/ltr_xgb_baseline/ltr_xgb_*/
 experiments/ltr_xgb_baseline/*_sanity/
 experiments/ltr_xgb_baseline/runs/*
