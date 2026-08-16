@@ -213,6 +213,19 @@ def discover_kuairand_files(root: Path) -> dict[str, Path | None]:
     }
 
 
+def discover_kuairand_file_groups(root: Path) -> dict[str, list[Path]]:
+    """Discover all common KuaiRand table files grouped by logical role."""
+
+    return {
+        "standard_early": files_matching(root, ("log_standard", "4_08", "4_21")),
+        "standard_late": files_matching(root, ("log_standard", "4_22", "5_08")),
+        "random": files_matching(root, ("log_random", "4_22", "5_08")),
+        "user_features": files_matching(root, ("user", "feature")),
+        "video_basic": files_matching(root, ("video", "basic")),
+        "video_statistics": files_matching(root, ("video", "stat")),
+    }
+
+
 def scan_table(path: Path, **scan_kwargs: Any) -> Any:
     """Create a lazy scan for CSV or parquet tables."""
 

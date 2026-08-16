@@ -17,4 +17,17 @@ outputs/*
 !outputs/eda/
 outputs/eda/*
 !outputs/eda/.gitkeep
+!outputs/eda/27k_summary.json
+!outputs/eda/27k_binary_feedback_quality.csv
+!outputs/eda/27k_daily.csv
+!outputs/eda/27k_feedback_summary.csv
+!outputs/eda/27k_hourly.csv
+!outputs/eda/27k_item_popularity_summary.csv
+!outputs/eda/27k_policy_counts.csv
+!outputs/eda/27k_sequence_summary.csv
+!outputs/eda/27k_source_counts.csv
+!outputs/eda/27k_tab_summary.csv
+!outputs/eda/27k_watch_time_summary.csv
+outputs/eda/27k_sanity_*
+outputs/eda/logs/
 eda/kuairand/artifacts/

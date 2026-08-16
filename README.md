@@ -8,7 +8,8 @@
 - `src/eda_utils.py` - общие функции для inventory, path validation, lazy scans, summaries.
 - `src/eda_27k.py` - memory-efficient aggregation script для полного KuaiRand-27K.
 - `slurm/eda_27k.sh` - шаблон Slurm job для запуска 27K EDA на cHARISMa.
-- `outputs/eda/` - локальная папка для генерируемых summary-файлов; содержимое игнорируется Git.
+- `outputs/eda/` - компактные 27K summary-файлы; raw данные и logs не коммитятся.
+- `reports/kuairand_27k_eda_report.md` - итоговый отчёт по полному KuaiRand-27K EDA.
 
 ## Данные и окружение
 
@@ -42,13 +43,15 @@ jupyter lab notebooks/01_kuairand_eda.ipynb
 
 Основной notebook рассчитан на Pure и 1K для интерактивного EDA. Полный 27K не загружается целиком в notebook; для него подготовлен отдельный lazy aggregation script.
 
-Для будущего Slurm-запуска 27K EDA сначала заполните cluster-specific TODO в `slurm/eda_27k.sh`, затем:
+Полный KuaiRand-27K EDA был выполнен на cHARISMa через Slurm. Использован E-node (`constraint=type_e`) через partition `rocky`; Slurm policy запрещает запуск type_e без GPU GRES, поэтому job запрашивает минимальный `gpu:a100:1`, но сам EDA-код CPU-only и не использует GPU.
+
+Для повторного Slurm-запуска 27K EDA:
 
 ```bash
 sbatch slurm/eda_27k.sh
 ```
 
-Скрипт пишет `outputs/eda/27k_summary.json` и небольшие CSV summary tables.
+Скрипт пишет `outputs/eda/27k_summary.json` и небольшие CSV summary tables. Sanity/log files остаются локальными generated artifacts.
 
 ## Git workflow
 
@@ -58,6 +61,6 @@ sbatch slurm/eda_27k.sh
 
 - локальные Python environments (`.conda/`, `.venv/`);
 - KuaiRand datasets;
-- CSV/parquet exports;
-- generated outputs;
+- произвольные CSV/parquet exports, кроме компактных `outputs/eda/27k_*` summaries;
+- generated outputs/logs/sanity files;
 - notebook checkpoints.
