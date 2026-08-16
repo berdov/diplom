@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=0
 #SBATCH --time=01:00:00
-#SBATCH --partition=rocky
-#SBATCH --constraint=type_d
+#SBATCH --partition=cpu-e-quick
+#SBATCH --constraint=type_e
 #SBATCH --output=outputs/data/logs/%x-%j.out
 #SBATCH --error=outputs/data/logs/%x-%j.err
 
@@ -45,8 +45,8 @@ mkdir -p "${REPO_OUTPUT_DIR}/logs" "${OUTPUT_DIR}"
 
 GIT_COMMIT="${PROTOCOL_B_GIT_COMMIT:-$(git rev-parse HEAD 2>/dev/null || echo unknown)}"
 
-echo "Slurm config: partition=${SLURM_JOB_PARTITION:-rocky}"
-echo "Slurm config: constraint=type_d"
+echo "Slurm config: partition=${SLURM_JOB_PARTITION:-cpu-e-quick}"
+echo "Slurm config: constraint=type_e"
 echo "Slurm config: gres=none"
 echo "Slurm config: cpus=${SLURM_CPUS_PER_TASK:-8}"
 echo "Slurm config: mem=0"
