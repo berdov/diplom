@@ -18,6 +18,14 @@ DATA_ROOT="/home/daryumin/iberdov/Corpora"
 OUTPUT_DIR="${PROJECT_ROOT}/data/processed/protocol_b"
 REPO_OUTPUT_DIR="${PROJECT_ROOT}/outputs/data"
 REPORT_PATH="${PROJECT_ROOT}/reports/kuairand_protocol_b_data_report.md"
+SANITY_ARGS=()
+
+if [[ -n "${PROTOCOL_B_SANITY_LIMIT:-}" ]]; then
+  OUTPUT_DIR="${PROJECT_ROOT}/data/processed/protocol_b_sanity"
+  REPO_OUTPUT_DIR="${PROJECT_ROOT}/outputs/data_sanity"
+  REPORT_PATH="${PROJECT_ROOT}/reports/kuairand_protocol_b_data_report_sanity.md"
+  SANITY_ARGS=(--sanity-limit "${PROTOCOL_B_SANITY_LIMIT}")
+fi
 
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-8}"
 export OPENBLAS_NUM_THREADS="${SLURM_CPUS_PER_TASK:-8}"
@@ -44,6 +52,7 @@ echo "Slurm config: cpus=${SLURM_CPUS_PER_TASK:-8}"
 echo "Slurm config: mem=0"
 echo "Slurm node list: ${SLURM_JOB_NODELIST:-unknown}"
 echo "Preprocessing code commit: ${GIT_COMMIT}"
+echo "Sanity limit: ${PROTOCOL_B_SANITY_LIMIT:-none}"
 
 "${PYTHON}" --version
 "${PYTHON}" -m py_compile src/prepare_kuairand_protocol_b.py
@@ -52,4 +61,5 @@ echo "Preprocessing code commit: ${GIT_COMMIT}"
   --output-dir "${OUTPUT_DIR}" \
   --repo-output-dir "${REPO_OUTPUT_DIR}" \
   --report-path "${REPORT_PATH}" \
-  --git-commit "${GIT_COMMIT}"
+  --git-commit "${GIT_COMMIT}" \
+  "${SANITY_ARGS[@]}"
