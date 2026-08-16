@@ -1,0 +1,3 @@
+policy,has_video_basic,interactions,duration_non_positive_count,unique_videos,duration_non_positive_share
+random,true,1186059,36920,7583,0.03112829968829544
+standard,true,322278385,27274006,32038693,0.08462871625721967

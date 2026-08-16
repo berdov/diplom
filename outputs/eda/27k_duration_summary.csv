@@ -1,0 +1,3 @@
+policy,interactions,duration_null_count,duration_zero_count,duration_negative_count,duration_non_positive_count,affected_users,affected_videos,duration_null_share,duration_zero_share,duration_negative_share,duration_non_positive_share
+random,1186059,0,36920,0,36920,15461,239,0.0,0.03112829968829544,0.0,0.03112829968829544
+standard,322278385,0,27274006,0,27274006,27277,6761960,0.0,0.08462871625721967,0.0,0.08462871625721967
