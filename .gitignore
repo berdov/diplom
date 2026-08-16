@@ -1,0 +1,7 @@
+.conda/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+outputs/*
+!outputs/.gitkeep
+.DS_Store
