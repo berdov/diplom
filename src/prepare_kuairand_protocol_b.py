@@ -585,7 +585,7 @@ def write_validation_csv(path: Path, manifest: dict[str, object]) -> None:
     ]
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as fh:
-        writer = csv.writer(fh)
+        writer = csv.writer(fh, lineterminator="\n")
         writer.writerow(["metric", "value"])
         writer.writerows(rows)
 
