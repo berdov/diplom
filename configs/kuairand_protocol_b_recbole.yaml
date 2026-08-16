@@ -1,5 +1,5 @@
-# KuaiRand Protocol B: SSD4Rec / TiM4Rec sequential benchmark.
-# Использовать вместе с generated dataset `recbole/kuairand/kuairand.inter`.
+# KuaiRand Protocol B: sequential benchmark SSD4Rec / TiM4Rec.
+# Использовать вместе со сгенерированным dataset `recbole/kuairand/kuairand.inter`.
 dataset: kuairand
 MAX_ITEM_LIST_LENGTH: 50
 

@@ -45,13 +45,13 @@ mkdir -p "${REPO_OUTPUT_DIR}/logs" "${OUTPUT_DIR}"
 
 GIT_COMMIT="${PROTOCOL_B_GIT_COMMIT:-$(git rev-parse HEAD 2>/dev/null || echo unknown)}"
 
-echo "Slurm config: partition=${SLURM_JOB_PARTITION:-cpu-e-quick}"
-echo "Slurm config: constraint=type_e"
-echo "Slurm config: gres=none"
-echo "Slurm config: cpus=${SLURM_CPUS_PER_TASK:-8}"
-echo "Slurm config: mem=0"
-echo "Slurm node list: ${SLURM_JOB_NODELIST:-unknown}"
-echo "Preprocessing code commit: ${GIT_COMMIT}"
+echo "Slurm: partition=${SLURM_JOB_PARTITION:-cpu-e-quick}"
+echo "Slurm: constraint=type_e"
+echo "Slurm: gres=none"
+echo "Slurm: cpus=${SLURM_CPUS_PER_TASK:-8}"
+echo "Slurm: mem=0"
+echo "Slurm: node list=${SLURM_JOB_NODELIST:-unknown}"
+echo "Commit кода препроцессинга: ${GIT_COMMIT}"
 echo "Sanity limit: ${PROTOCOL_B_SANITY_LIMIT:-none}"
 
 "${PYTHON}" --version

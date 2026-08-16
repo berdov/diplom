@@ -166,10 +166,10 @@ def read_source(path: Path, sanity_limit: int | None = None) -> tuple[list[Inter
     with path.open("r", encoding="utf-8", newline="") as fh:
         reader = csv.DictReader(fh)
         if reader.fieldnames is None:
-            raise ValueError(f"CSV has no header: {path}")
+            raise ValueError(f"CSV без заголовка: {path}")
         missing = required.difference(reader.fieldnames)
         if missing:
-            raise ValueError(f"CSV {path} is missing required columns: {sorted(missing)}")
+            raise ValueError(f"В CSV {path} не хватает обязательных колонок: {sorted(missing)}")
 
         for source_row_id, row in enumerate(reader):
             if sanity_limit is not None and len(rows) >= sanity_limit:
@@ -438,7 +438,7 @@ def write_recbole_inter(path: Path, rows: list[Interaction]) -> None:
 def write_recbole_config(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
-        """# KuaiRand Protocol B: SSD4Rec / TiM4Rec sequential benchmark.
+        """# KuaiRand Protocol B: sequential benchmark SSD4Rec / TiM4Rec.
 dataset: kuairand
 MAX_ITEM_LIST_LENGTH: 50
 
@@ -612,28 +612,31 @@ def build_report(manifest: dict[str, object]) -> str:
     lines = [
         "# Отчёт по данным KuaiRand Protocol B",
         "",
-        "Отчёт построен по фактическому full preprocessing run на cHARISMa. Большие processed datasets сохранены во внешнем каталоге, в Git попадают только код, config, manifest, checksums и компактные stats.",
+        "Отчёт построен по фактическому полному препроцессингу на cHARISMa. Большие обработанные датасеты сохранены во внешнем каталоге, в Git попадают только код, конфигурация, manifest, checksums и компактные stats.",
         "",
         "## 1. Протокол из источников",
         "",
+        f"- SSD4Rec paper: {manifest['protocol_sources']['ssd4rec']['paper_url']}.",
+        f"- TiM4Rec paper: {manifest['protocol_sources']['tim4rec']['paper_url']}.",
+        f"- TiM4Rec official repo: {manifest['protocol_sources']['tim4rec']['repo_url']}.",
         "- SSD4Rec: KuaiRand benchmark имеет fingerprint `23,951 users / 7,111 items / 1,134,420 interactions`, использует leave-one-out partition по SASRec и `MAX_ITEM_LIST_LENGTH=50` для KuaiRand.",
-        "- TiM4Rec paper: timestamp sorting, минимум 5 interactions для users/items, тот же fingerprint `23,951 / 7,111 / 1,134,420`.",
+        "- TiM4Rec paper: сортировка по timestamp, минимум 5 interactions для users/items, тот же fingerprint `23,951 / 7,111 / 1,134,420`.",
         f"- TiM4Rec official config: `{tim['kuairand_config_path']}` задаёт `MAX_ITEM_LIST_LENGTH=50`, `load_col=[user_id,item_id,timestamp]`, `user_inter_num_interval=[5,inf)`, `item_inter_num_interval=[5,inf)`, `train_neg_sample_args=~`, но не задаёт явный `eval_args`.",
         f"- Поэтому для TiM4Rec применяется sequential default из RecBole 1.2.0: `{tim['recbole_sequential_default_eval_args']}`.",
         "- Канонический вариант B в этом репозитории: совместимый с SSD4Rec/SASRec/TiM4Rec chronological leave-one-out по раннему standard log из KuaiRand-Pure.",
         "",
         "## 2. Исходные данные",
         "",
-        f"- Source log: `{manifest['source']['source_log']}`.",
+        f"- Исходный log: `{manifest['source']['source_log']}`.",
         f"- Прочитано строк: {format_int(raw['interactions'])}.",
-        f"- Raw users/items: {format_int(raw['users'])} / {format_int(raw['items'])}.",
-        f"- Диапазон дат source: `{manifest['source']['date_min']}`-`{manifest['source']['date_max']}`.",
+        f"- Исходные users/items: {format_int(raw['users'])} / {format_int(raw['items'])}.",
+        f"- Диапазон дат: `{manifest['source']['date_min']}`-`{manifest['source']['date_max']}`.",
         f"- Значения `is_rand`: `{manifest['source']['is_rand_values']}`. Random logs в Protocol B не используются.",
         "",
         "## 3. Фильтрация",
         "",
         f"- Правило фильтрации: итеративный RecBole-style {manifest['filtering']['min_core']}-core по users и items.",
-        "- Duplicate interactions не удаляются, что соответствует default `rm_dup_inter: ~` в RecBole.",
+        "- Дубликаты interactions не удаляются, что соответствует default `rm_dup_inter: ~` в RecBole.",
         f"- Итераций k-core: {len(manifest['filtering']['iterations'])}.",
         f"- Итоговые users/items/interactions: {format_int(filtered['users'])} / {format_int(filtered['items'])} / {format_int(filtered['interactions'])}.",
         f"- Минимум interactions на user/item после фильтрации: {filtered['user_min_interactions']} / {filtered['item_min_interactions']}.",
@@ -641,7 +644,7 @@ def build_report(manifest: dict[str, object]) -> str:
         "",
         "## 4. Разбиение",
         "",
-        f"- Правило tie-breaking: `{manifest['split']['tie_breaking_rule']}`.",
+        f"- Правило разрешения равных timestamp: `{manifest['split']['tie_breaking_rule']}`.",
         f"- Train interactions: {format_int(split['train']['interactions'])}.",
         f"- Validation interactions: {format_int(split['validation']['interactions'])}.",
         f"- Test interactions: {format_int(split['test']['interactions'])}.",
@@ -650,28 +653,28 @@ def build_report(manifest: dict[str, object]) -> str:
         "",
         "## 5. Валидация",
         "",
-        f"- Exact duplicate extra rows после фильтрации: {format_int(filtered['exact_duplicate_extra_rows'])}; протокол их не удаляет.",
-        f"- User+timestamp duplicate extra rows after filtering: {format_int(filtered['user_timestamp_duplicate_extra_rows'])}.",
-        f"- Temporal leakage violations: {format_int(validation['temporal_leakage_violations'])}.",
-        f"- Validation users missing from train: {format_int(validation['validation_users_missing_from_train'])}.",
-        f"- Test users missing from train: {format_int(validation['test_users_missing_from_train'])}.",
-        f"- Split rows match filtered rows: `{validation['split_rows_match_filtered']}`.",
+        f"- Лишние строки exact duplicate после фильтрации: {format_int(filtered['exact_duplicate_extra_rows'])}; протокол их не удаляет.",
+        f"- Лишние строки user+timestamp duplicate после фильтрации: {format_int(filtered['user_timestamp_duplicate_extra_rows'])}.",
+        f"- Нарушения временного порядка: {format_int(validation['temporal_leakage_violations'])}.",
+        f"- Validation users без истории в train: {format_int(validation['validation_users_missing_from_train'])}.",
+        f"- Test users без истории в train: {format_int(validation['test_users_missing_from_train'])}.",
+        f"- Split полностью покрывает filtered rows: `{validation['split_rows_match_filtered']}`.",
         "",
         "## 6. Воспроизводимость",
         "",
         f"- Commit кода препроцессинга: `{manifest['git']['preprocessing_code_commit']}`.",
-        f"- Script: `{manifest['preprocessing_script']}`.",
-        f"- Slurm script: `slurm/prepare_protocol_b.sh`.",
-        f"- Remote storage path: `{manifest['storage']['remote_path']}`.",
-        f"- Manifest path: `{manifest['storage']['manifest_path']}`.",
+        f"- Скрипт: `{manifest['preprocessing_script']}`.",
+        f"- Slurm-скрипт: `slurm/prepare_protocol_b.sh`.",
+        f"- Путь хранения на кластере: `{manifest['storage']['remote_path']}`.",
+        f"- Путь manifest: `{manifest['storage']['manifest_path']}`.",
         "",
-        "Sanity command:",
+        "Команда sanity run:",
         "",
         "```bash",
         "python src/prepare_kuairand_protocol_b.py --sanity-limit 10000 --output-dir data/processed/protocol_b_sanity --repo-output-dir outputs/data_sanity --report-path reports/kuairand_protocol_b_data_report_sanity.md",
         "```",
         "",
-        "Full Slurm command:",
+        "Команда полного Slurm run:",
         "",
         "```bash",
         "sbatch slurm/prepare_protocol_b.sh",
@@ -679,7 +682,7 @@ def build_report(manifest: dict[str, object]) -> str:
         "",
         "## 7. Файлы",
         "",
-        "| relative_path | size | sha256 |",
+        "| relative_path | размер | sha256 |",
         "| --- | --- | --- |",
     ]
     for file_info in files:
@@ -705,22 +708,22 @@ def main() -> None:
     report_path = args.report_path.expanduser().resolve()
 
     if not source_path.exists():
-        raise FileNotFoundError(f"Source log not found: {source_path}")
+        raise FileNotFoundError(f"Исходный log не найден: {source_path}")
 
     output_dir.mkdir(parents=True, exist_ok=True)
     repo_output_dir.mkdir(parents=True, exist_ok=True)
     report_path.parent.mkdir(parents=True, exist_ok=True)
 
-    print(f"Source log: {source_path}")
-    print(f"Output dir: {output_dir}")
+    print(f"Исходный log: {source_path}")
+    print(f"Каталог output: {output_dir}")
     rows, source_stats = read_source(source_path, args.sanity_limit)
     raw_stats = count_stats(rows)
-    print(f"Raw rows/users/items: {raw_stats['interactions']} / {raw_stats['users']} / {raw_stats['items']}")
+    print(f"Исходные rows/users/items: {raw_stats['interactions']} / {raw_stats['users']} / {raw_stats['items']}")
 
     filtered_rows, kcore_iterations = iterative_k_core(rows, args.min_core)
     filtered_stats = count_stats(filtered_rows)
     print(
-        "Filtered rows/users/items: "
+        "После фильтрации rows/users/items: "
         f"{filtered_stats['interactions']} / {filtered_stats['users']} / {filtered_stats['items']}"
     )
 
@@ -805,17 +808,17 @@ def main() -> None:
         },
         "filtering": {
             "min_core": args.min_core,
-            "implementation": "iterative RecBole-style k-core over user_id and item_id",
+            "implementation": "итеративный RecBole-style k-core по user_id и item_id",
             "remove_duplicates": False,
             "rm_dup_inter": None,
             "iterations": kcore_iterations,
         },
         "split": {
             "name": "chronological leave-one-out",
-            "train": "all interactions except last two per user",
-            "validation": "second-to-last interaction per user",
-            "test": "last interaction per user",
-            "tie_breaking_rule": "sort by user_id, timestamp, source_row_id; source_row_id is the zero-based data-row order in the source CSV",
+            "train": "все interactions пользователя, кроме двух последних",
+            "validation": "предпоследний interaction пользователя",
+            "test": "последний interaction пользователя",
+            "tie_breaking_rule": "сортировка по user_id, timestamp, source_row_id; source_row_id - нулевая позиция строки данных в исходном CSV",
             "random_seed": None,
             "max_item_list_length": args.max_seq_len,
         },
@@ -856,10 +859,10 @@ def main() -> None:
     copy_if_different(stats_json_path, repo_stats_json_path)
 
     print(f"Manifest: {manifest_path}")
-    print(f"Repo manifest copy: {repo_manifest_path}")
-    print(f"Report: {report_path}")
+    print(f"Копия manifest для Git: {repo_manifest_path}")
+    print(f"Отчёт: {report_path}")
     print(
-        "Expected fingerprint match: "
+        "Совпадение с ожидаемым fingerprint: "
         f"{manifest['validation']['fingerprint_matches_expected']['all']}"
     )
 
