@@ -2,12 +2,12 @@
 #SBATCH --job-name=kuairand-27k-eda
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=10
 #SBATCH --mem=0
-#SBATCH --time=12:00:00
-#SBATCH --partition=rocky
-#SBATCH --constraint=type_e
-#SBATCH --gres=gpu:a100:1
+#SBATCH --time=00:30:00
+#SBATCH --partition=test
+#SBATCH --constraint=type_a
+#SBATCH --gres=gpu:v100:1
 #SBATCH --output=outputs/eda/logs/%x-%j.out
 #SBATCH --error=outputs/eda/logs/%x-%j.err
 
@@ -18,8 +18,8 @@ PYTHON="${PROJECT_ROOT}/.conda/bin/python"
 DATA_ROOT="/home/daryumin/iberdov/Corpora"
 OUTPUT_DIR="${PROJECT_ROOT}/outputs/eda"
 
-export POLARS_MAX_THREADS="${SLURM_CPUS_PER_TASK:-16}"
-export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-16}"
+export POLARS_MAX_THREADS="${SLURM_CPUS_PER_TASK:-10}"
+export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-10}"
 
 set +u
 source /etc/profile >/dev/null 2>&1 || true
@@ -32,6 +32,13 @@ set -u
 
 cd "${PROJECT_ROOT}"
 mkdir -p "${OUTPUT_DIR}/logs"
+
+echo "Slurm config: partition=${SLURM_JOB_PARTITION:-test}"
+echo "Slurm config: constraint=type_a"
+echo "Slurm config: gres=gpu:v100:1"
+echo "Slurm config: cpus=${SLURM_CPUS_PER_TASK:-10}"
+echo "Slurm config: mem=0 (cluster policy exposes node memory through this setting)"
+echo "Slurm node list: ${SLURM_JOB_NODELIST:-unknown}"
 
 "${PYTHON}" --version
 "${PYTHON}" -m compileall src

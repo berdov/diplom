@@ -43,7 +43,9 @@ jupyter lab notebooks/01_kuairand_eda.ipynb
 
 Основной ноутбук рассчитан на Pure и 1K для интерактивного EDA. Полный 27K не загружается целиком в ноутбук; для него подготовлен отдельный lazy-скрипт агрегации.
 
-Полный KuaiRand-27K EDA был выполнен на cHARISMa через Slurm. Запуск нужен именно на E-node (`constraint=type_e`) через partition `rocky`; политика Slurm не дает запускать `type_e` без GPU GRES, поэтому задание запрашивает минимальный `gpu:a100:1`, но сам EDA-код CPU-only и GPU не использует.
+Полный KuaiRand-27K EDA был выполнен на cHARISMa через Slurm на V100. Финальный успешный запуск: job `4253874`, partition `test`, constraint `type_a`, GRES `gpu:v100:1`, node `cn-012`, 10 CPU, `mem=0`, runtime `00:09:45`, MaxRSS `46537000K`. EDA-код CPU-only, но GPU GRES нужен как часть Slurm-ограничений для выбранных узлов.
+
+Практическая причина выбора: `normal/type_c/gpu:v100:1` стартовал сразу, но упал из-за несовместимости GLIBC старой ОС с текущим `.conda`; очередь `rocky` на V100 прогнозировала слишком поздний старт. Поэтому финальный полный запуск выполнен на Rocky-compatible `test/type_a/gpu:v100:1`.
 
 Для повторного Slurm-запуска 27K EDA:
 

@@ -1,0 +1,7 @@
+feature_table,policy,interactions,interactions_with_feature,interaction_coverage_share,unique_interaction_entities,unique_interaction_entities_with_feature,unique_entity_coverage_share
+user_features,random,1186059,1186059,1.0,27285,27285,1.0
+user_features,standard,322278385,322278385,1.0,27285,27285,1.0
+video_basic,random,1186059,1186059,1.0,7583,7583,1.0
+video_basic,standard,322278385,322278385,1.0,32038693,32038693,1.0
+video_statistic,random,1186059,1186059,1.0,7583,7583,1.0
+video_statistic,standard,322278385,322278385,1.0,32038693,32038693,1.0

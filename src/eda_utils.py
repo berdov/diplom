@@ -312,6 +312,7 @@ def numeric_summary(values: Sequence[float] | np.ndarray) -> dict[str, float | N
             "p90": None,
             "p95": None,
             "p99": None,
+            "p999": None,
             "max": None,
         }
 
@@ -324,6 +325,7 @@ def numeric_summary(values: Sequence[float] | np.ndarray) -> dict[str, float | N
         "p90": float(np.percentile(array, 90)),
         "p95": float(np.percentile(array, 95)),
         "p99": float(np.percentile(array, 99)),
+        "p999": float(np.percentile(array, 99.9)),
         "max": float(np.max(array)),
     }
 
