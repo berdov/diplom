@@ -1,0 +1,50 @@
+run_id: ltr_xgb_001
+seed: 42
+protocol:
+  name: kuairand_protocol_b
+  data_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b
+  manifest_path: /home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json
+candidate_protocol: protocol_b_1pos_100neg_seed42
+remote_artifact_dir: /home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_001
+results_csv: /home/daryumin/iberdov/diplom/experiments/results.csv
+compact_runs_dir: /home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/runs
+candidate_generation:
+  n_negatives: 100
+  train_query_design: one_query_per_user_last_train_item
+  validation_negatives_fixed: true
+  test_negatives_fixed: true
+features:
+  names:
+    - user_history_length
+    - user_unique_items
+    - user_history_unique_ratio
+    - user_history_popularity_mean
+    - user_history_popularity_median
+    - user_history_popularity_max
+    - user_history_popularity_last
+    - user_history_span_days
+    - user_history_mean_gap_hours
+    - candidate_seen_before
+    - item_train_popularity
+    - log1p_item_train_popularity
+    - item_popularity_rank
+    - item_popularity_percentile
+    - candidate_popularity_to_user_mean
+    - candidate_popularity_minus_user_mean
+    - candidate_is_more_popular_than_user_mean
+xgboost:
+  objective: rank:ndcg
+  eval_metric: ndcg@10
+  tree_method: hist
+  max_depth: 6
+  eta: 0.05
+  num_boost_round: 500
+  early_stopping_rounds: 30
+  subsample: 0.8
+  colsample_bytree: 0.8
+  seed: 42
+  nthread: 8
+sanity:
+  max_users: 500
+  num_boost_round: 20
+  early_stopping_rounds: 5

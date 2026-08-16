@@ -50,3 +50,13 @@ outputs/data/*
 !outputs/data/protocol_b_validation_summary.csv
 outputs/data/logs/
 eda/kuairand/artifacts/
+
+# Large experiment artifacts live on cHARISMa, not in Git.
+experiments/ltr_xgb_baseline/ltr_xgb_*/
+experiments/ltr_xgb_baseline/*_sanity/
+experiments/ltr_xgb_baseline/runs/*
+!experiments/ltr_xgb_baseline/runs/.gitkeep
+!experiments/ltr_xgb_baseline/runs/*.json
+!experiments/ltr_xgb_baseline/runs/*_notes.md
+experiments/ltr_xgb_baseline/slurm_logs/*
+!experiments/ltr_xgb_baseline/slurm_logs/.gitkeep
