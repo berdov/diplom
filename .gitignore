@@ -1,0 +1,20 @@
+.conda/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+
+# Local datasets and exported tabular artifacts are too large for git.
+data/
+*.tar.gz
+*.csv
+*.parquet
+
+# Generated research outputs.
+outputs/*
+!outputs/.gitkeep
+!outputs/eda/
+outputs/eda/*
+!outputs/eda/.gitkeep
+eda/kuairand/artifacts/
