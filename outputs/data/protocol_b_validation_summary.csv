@@ -1,0 +1,14 @@
+metric,value
+raw_interactions,1141112
+raw_users,26210
+raw_items,7538
+filtered_interactions,1134420
+filtered_users,23951
+filtered_items,7111
+train_interactions,1086518
+validation_interactions,23951
+test_interactions,23951
+fingerprint_matches_expected,True
+temporal_leakage_violations,0
+validation_users_missing_from_train,0
+test_users_missing_from_train,0

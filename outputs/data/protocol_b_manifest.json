@@ -1,0 +1,290 @@
+{
+  "protocol_name": "KuaiRand Protocol B: SSD4Rec / TiM4Rec sequential benchmark",
+  "created_at_utc": "2026-08-16T17:33:57.303749+00:00",
+  "preprocessing_script": "src/prepare_kuairand_protocol_b.py",
+  "git": {
+    "preprocessing_code_commit": "9da072b3124b267d4a06bb3e23cd3d7d129153c6",
+    "working_directory": "/home/daryumin/iberdov/diplom"
+  },
+  "source": {
+    "source_log": "/home/daryumin/iberdov/Corpora/KuaiRand-Pure/KuaiRand-Pure/data/log_standard_4_08_to_4_21_pure.csv",
+    "source_size_bytes": 83961282,
+    "source_size": "80.1 MiB",
+    "rows_read": 1141112,
+    "sanity_limit": null,
+    "missing_id_rows_skipped": 0,
+    "invalid_timestamp_rows_skipped": 0,
+    "date_min": 20220409,
+    "date_max": 20220421,
+    "is_rand_values": [
+      "0"
+    ]
+  },
+  "protocol_sources": {
+    "ssd4rec": {
+      "paper_url": "https://arxiv.org/html/2409.01192v1",
+      "repo_url": "https://github.com/ZhangYifeng1995/SSD4Rec",
+      "dataset": "KuaiRand-Pure",
+      "paper_fingerprint": {
+        "users": 23951,
+        "items": 7111,
+        "interactions": 1134420
+      },
+      "paper_split": "leave-one-out policy following SASRec",
+      "max_item_list_length": 50
+    },
+    "tim4rec": {
+      "paper_url": "https://arxiv.org/html/2409.16182v1",
+      "repo_url": "https://github.com/AlwaysFHao/TiM4Rec",
+      "kuairand_config_path": "config/config4kuai_64d.yaml",
+      "explicit_eval_args_in_config": false,
+      "recbole_version_in_readme": "1.2.0",
+      "recbole_sequential_default_eval_args": {
+        "split": {
+          "LS": "valid_and_test"
+        },
+        "order": "TO",
+        "group_by": "user",
+        "mode": {
+          "valid": "full",
+          "test": "full"
+        }
+      }
+    }
+  },
+  "filtering": {
+    "min_core": 5,
+    "implementation": "итеративный RecBole-style k-core по user_id и item_id",
+    "remove_duplicates": false,
+    "rm_dup_inter": null,
+    "iterations": [
+      {
+        "iteration": 1,
+        "bad_users": 2259,
+        "bad_items": 423,
+        "dropped_interactions": 6676,
+        "remaining_interactions": 1134436
+      },
+      {
+        "iteration": 2,
+        "bad_users": 0,
+        "bad_items": 4,
+        "dropped_interactions": 16,
+        "remaining_interactions": 1134420
+      }
+    ]
+  },
+  "split": {
+    "name": "chronological leave-one-out",
+    "train": "все interactions пользователя, кроме двух последних",
+    "validation": "предпоследний interaction пользователя",
+    "test": "последний interaction пользователя",
+    "tie_breaking_rule": "сортировка по user_id, timestamp, source_row_id; source_row_id - нулевая позиция строки данных в исходном CSV",
+    "random_seed": null,
+    "max_item_list_length": 50
+  },
+  "raw_stats": {
+    "interactions": 1141112,
+    "users": 26210,
+    "items": 7538,
+    "user_min_interactions": 1,
+    "item_min_interactions": 1,
+    "user_max_interactions": 809,
+    "item_max_interactions": 9110,
+    "timestamp_min": 1649475963278,
+    "timestamp_max": 1650556328855,
+    "exact_duplicate_keys": 16514,
+    "exact_duplicate_extra_rows": 16580,
+    "user_timestamp_duplicate_keys": 81314,
+    "user_timestamp_duplicate_extra_rows": 87503,
+    "user_timestamp_max_rows_per_key": 6
+  },
+  "filtered_stats": {
+    "interactions": 1134420,
+    "users": 23951,
+    "items": 7111,
+    "user_min_interactions": 5,
+    "item_min_interactions": 5,
+    "user_max_interactions": 806,
+    "item_max_interactions": 9015,
+    "timestamp_min": 1649475963278,
+    "timestamp_max": 1650556328855,
+    "exact_duplicate_keys": 16442,
+    "exact_duplicate_extra_rows": 16508,
+    "user_timestamp_duplicate_keys": 81025,
+    "user_timestamp_duplicate_extra_rows": 87198,
+    "user_timestamp_max_rows_per_key": 6
+  },
+  "split_stats": {
+    "train": {
+      "interactions": 1086518,
+      "users": 23951,
+      "items": 7111,
+      "user_min_interactions": 3,
+      "item_min_interactions": 3,
+      "user_max_interactions": 804,
+      "item_max_interactions": 8706,
+      "timestamp_min": 1649475963278,
+      "timestamp_max": 1650555863527,
+      "exact_duplicate_keys": 15521,
+      "exact_duplicate_extra_rows": 15584,
+      "user_timestamp_duplicate_keys": 79547,
+      "user_timestamp_duplicate_extra_rows": 85678,
+      "user_timestamp_max_rows_per_key": 6
+    },
+    "validation": {
+      "interactions": 23951,
+      "users": 23951,
+      "items": 4026,
+      "user_min_interactions": 1,
+      "item_min_interactions": 1,
+      "user_max_interactions": 1,
+      "item_max_interactions": 172,
+      "timestamp_min": 1649522204189,
+      "timestamp_max": 1650556312499,
+      "exact_duplicate_keys": 0,
+      "exact_duplicate_extra_rows": 0,
+      "user_timestamp_duplicate_keys": 0,
+      "user_timestamp_duplicate_extra_rows": 0,
+      "user_timestamp_max_rows_per_key": 1
+    },
+    "test": {
+      "interactions": 23951,
+      "users": 23951,
+      "items": 3955,
+      "user_min_interactions": 1,
+      "item_min_interactions": 1,
+      "user_max_interactions": 1,
+      "item_max_interactions": 157,
+      "timestamp_min": 1649525872090,
+      "timestamp_max": 1650556328855,
+      "exact_duplicate_keys": 0,
+      "exact_duplicate_extra_rows": 0,
+      "user_timestamp_duplicate_keys": 0,
+      "user_timestamp_duplicate_extra_rows": 0,
+      "user_timestamp_max_rows_per_key": 1
+    }
+  },
+  "sequence_stats": {
+    "sequence_length": {
+      "count": 23951,
+      "min": 5,
+      "mean": 47.36420191223748,
+      "median": 34.0,
+      "p75": 63.0,
+      "p90": 101.0,
+      "p95": 131.0,
+      "p99": 210.0,
+      "p999": 358.0,
+      "max": 806
+    },
+    "train_length": {
+      "count": 23951,
+      "min": 3,
+      "mean": 45.36420191223748,
+      "median": 32.0,
+      "p75": 61.0,
+      "p90": 99.0,
+      "p95": 129.0,
+      "p99": 208.0,
+      "p999": 356.0,
+      "max": 804
+    }
+  },
+  "validation": {
+    "expected_fingerprint": {
+      "users": 23951,
+      "items": 7111,
+      "interactions": 1134420
+    },
+    "fingerprint_matches_expected": {
+      "users": true,
+      "items": true,
+      "interactions": true,
+      "all": true
+    },
+    "split_rows_total": 1134420,
+    "split_rows_match_filtered": true,
+    "train_users": 23951,
+    "validation_users": 23951,
+    "test_users": 23951,
+    "validation_users_missing_from_train": 0,
+    "test_users_missing_from_train": 0,
+    "users_outside_filtered_universe": 0,
+    "items_outside_filtered_universe": 0,
+    "temporal_leakage_violations": 0,
+    "min_train_interactions_per_user": 3
+  },
+  "storage": {
+    "remote_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b",
+    "manifest_path": "/home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json",
+    "stats_path": "/home/daryumin/iberdov/diplom/outputs/data/protocol_b_validation_summary.csv",
+    "report_path": "/home/daryumin/iberdov/diplom/reports/kuairand_protocol_b_data_report.md",
+    "parquet_compression": "zstd"
+  },
+  "files": [
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/full_filtered.parquet",
+      "relative_path": "full_filtered.parquet",
+      "size_bytes": 8229299,
+      "size": "7.8 MiB",
+      "sha256": "3c0abfbcca8810a57980a03ad28a12ac7a26f10629161fbb73ace4273468837b"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/item_id_mapping.parquet",
+      "relative_path": "item_id_mapping.parquet",
+      "size_bytes": 39273,
+      "size": "38.4 KiB",
+      "sha256": "d8010cd0539c3d403d85832918f5214f9b26fc919cb8b32d2544b8f8d3d09e04"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand/kuairand.inter",
+      "relative_path": "recbole/kuairand/kuairand.inter",
+      "size_bytes": 27740872,
+      "size": "26.5 MiB",
+      "sha256": "e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand_protocol_b.yaml",
+      "relative_path": "recbole/kuairand_protocol_b.yaml",
+      "size_bytes": 520,
+      "size": "520 B",
+      "sha256": "63bc56ce2cd442fb5db3e7dbf99c559e71bf4151d447a2b5e1186fd2001e1df9"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/sequences.parquet",
+      "relative_path": "sequences.parquet",
+      "size_bytes": 12555439,
+      "size": "12.0 MiB",
+      "sha256": "e175095e9d5c379d529daa32c41285af7b6971e40719211402b716e1fe33f857"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/test.parquet",
+      "relative_path": "test.parquet",
+      "size_bytes": 343710,
+      "size": "335.7 KiB",
+      "sha256": "b25e7032fd071cba235db04bcd8623df95f8eacde9c4545ce763e53dc05b3ab2"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/train.parquet",
+      "relative_path": "train.parquet",
+      "size_bytes": 7886196,
+      "size": "7.5 MiB",
+      "sha256": "ab619ee06f5cc2f033c43cfd0b8a0e2489cd4e8267e4cf74139b3deb8d0f67d8"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/user_id_mapping.parquet",
+      "relative_path": "user_id_mapping.parquet",
+      "size_bytes": 138170,
+      "size": "134.9 KiB",
+      "sha256": "ad1e9cae32b6e815b5db74a3a8867216d830f821ac308f57b9a487f449918134"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/validation.parquet",
+      "relative_path": "validation.parquet",
+      "size_bytes": 345790,
+      "size": "337.7 KiB",
+      "sha256": "92733da83c5b3b75dc451b11aeb2d167e7cadfb77461b070f47d0dc6bfebc40e"
+    }
+  ]
+}
