@@ -1,8 +1,8 @@
-"""Memory-efficient KuaiRand-27K EDA aggregation.
+"""Агрегация EDA для KuaiRand-27K с экономным использованием памяти.
 
-The script is intended for Slurm execution on cHARISMa. It scans KuaiRand-27K
-interaction logs with Polars lazy queries and writes compact summaries only.
-Use ``--sanity-limit`` for a small login-node smoke test.
+Скрипт рассчитан на запуск через Slurm на cHARISMa. Он сканирует логи
+взаимодействий KuaiRand-27K через lazy-запросы Polars и пишет только компактные
+сводки. Для небольшого smoke-теста на login-node используйте ``--sanity-limit``.
 """
 
 from __future__ import annotations
@@ -63,36 +63,36 @@ def parse_args() -> argparse.Namespace:
         "--data-root",
         type=Path,
         default=Path("/home/daryumin/iberdov/Corpora"),
-        help="Root directory containing KuaiRand-* folders.",
+        help="Корневая директория с папками KuaiRand-*.",
     )
     parser.add_argument(
         "--version-root",
         type=Path,
         default=None,
-        help="Explicit KuaiRand-27K/KuaiRand-27K directory. Overrides --data-root.",
+        help="Явная директория KuaiRand-27K/KuaiRand-27K. Имеет приоритет над --data-root.",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
         default=PROJECT_ROOT / "outputs" / "eda",
-        help="Directory for JSON and compact CSV outputs.",
+        help="Директория для JSON и компактных CSV-выходов.",
     )
     parser.add_argument(
         "--infer-schema-length",
         type=int,
         default=10_000,
-        help="Rows used by Polars for CSV schema inference.",
+        help="Число строк, по которым Polars определяет CSV-схему.",
     )
     parser.add_argument(
         "--sanity-limit",
         type=int,
         default=None,
-        help="Read at most this many rows from each interaction file for smoke tests.",
+        help="Читать не больше этого числа строк из каждого файла взаимодействий для smoke-тестов.",
     )
     parser.add_argument(
         "--skip-item-popularity",
         action="store_true",
-        help="Skip interactions-per-item aggregation if resources are constrained.",
+        help="Пропустить агрегацию interactions-per-item, если ресурсов кластера недостаточно.",
     )
     return parser.parse_args()
 
@@ -171,7 +171,7 @@ def build_interaction_frame(
         for source in sources
     ]
     if not scans:
-        raise FileNotFoundError("No KuaiRand-27K interaction logs were discovered.")
+        raise FileNotFoundError("Не найдены логи взаимодействий KuaiRand-27K.")
     return concat_lazy_frames(scans)
 
 
@@ -530,17 +530,17 @@ def main() -> None:
         "item_popularity_summary": dataframe_records(item_summary),
         "tab_summary_preview": dataframe_records(tabs.head(50)) if not tabs.is_empty() else [],
         "notes": [
-            "Documentation / README statistics are not mixed with computed results.",
-            "Video statistic feature files are not scanned by this script because they are aggregated item-level features and may be temporally leaky.",
-            "Item popularity aggregation groups by video_id and may be skipped with --skip-item-popularity if cluster resources are constrained.",
+            "Статистика из документации / README не смешивается с вычисленными результатами.",
+            "Файлы video statistic features не сканируются этим скриптом, потому что это агрегированные item-level признаки с возможным temporal leakage.",
+            "Агрегация item popularity группирует данные по video_id; ее можно пропустить через --skip-item-popularity, если ресурсов кластера недостаточно.",
         ],
     }
 
     json_path = output_dir / f"{prefix}_summary.json"
     write_json(json_path, make_jsonable(summary))
-    print(f"Wrote {json_path}")
+    print(f"Записано: {json_path}")
     for name, path in sorted(csv_outputs.items()):
-        print(f"Wrote {name}: {path}")
+        print(f"Записано {name}: {path}")
 
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
-"""Utilities for KuaiRand exploratory data analysis.
+"""Вспомогательные функции для exploratory data analysis KuaiRand.
 
-The helpers in this module avoid loading full interaction logs into memory.
-Heavy tabular operations are expressed as Polars lazy queries and collected
-only after aggregation.
+Функции в этом модуле не загружают полные логи взаимодействий в память.
+Тяжелые табличные операции описываются как lazy-запросы Polars и собираются
+только после агрегации.
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 import numpy as np
 
-try:  # Polars is installed on cHARISMa, but may be absent on a local laptop.
+try:  # Polars установлен на cHARISMa, но может отсутствовать локально.
     import polars as pl
 except ModuleNotFoundError:  # pragma: no cover - depends on local environment
     pl = None  # type: ignore[assignment]
@@ -56,18 +56,18 @@ WATCH_TIME_COLUMNS: tuple[str, ...] = ("play_time_ms", "duration_ms")
 
 
 def require_polars() -> Any:
-    """Return the Polars module or raise an actionable error."""
+    """Вернуть модуль Polars или выбросить ошибку с понятным действием."""
 
     if pl is None:
         raise ModuleNotFoundError(
-            "Polars is required for KuaiRand EDA. It is installed in the "
-            "cHARISMa environment at /home/daryumin/iberdov/diplom/.conda."
+            "Для KuaiRand EDA нужен Polars. Он установлен в окружении cHARISMa "
+            "по пути /home/daryumin/iberdov/diplom/.conda."
         )
     return pl
 
 
 def human_size(num_bytes: int | float | None) -> str:
-    """Format a byte count with binary units."""
+    """Отформатировать размер в байтах через бинарные единицы."""
 
     if num_bytes is None:
         return "n/a"
@@ -80,7 +80,7 @@ def human_size(num_bytes: int | float | None) -> str:
 
 
 def version_roots(data_root: Path) -> dict[str, Path]:
-    """Return canonical KuaiRand version paths under ``data_root``."""
+    """Вернуть канонические пути версий KuaiRand внутри ``data_root``."""
 
     return {
         "Pure": data_root / "KuaiRand-Pure" / "KuaiRand-Pure",
@@ -90,34 +90,34 @@ def version_roots(data_root: Path) -> dict[str, Path]:
 
 
 def classify_dataset_file(path: Path) -> str:
-    """Classify a KuaiRand file by name into a compact EDA category."""
+    """Классифицировать файл KuaiRand по имени в компактную EDA-категорию."""
 
     name = path.name.lower()
     suffix = path.suffix.lower()
 
     if name in {"readme", "readme.md", "license", "license.txt"}:
-        return "README / documentation"
+        return "README / документация"
     if suffix == ".py" or "load_data" in name or "loader" in name:
-        return "loader script"
+        return "скрипт загрузки"
     if "log_standard" in name:
-        return "interaction log: standard"
+        return "лог взаимодействий: standard"
     if "log_random" in name:
-        return "interaction log: random"
+        return "лог взаимодействий: random"
     if "user" in name and "feature" in name:
-        return "user features"
+        return "признаки пользователей"
     if "video" in name and "basic" in name:
-        return "video basic features"
+        return "базовые признаки видео"
     if "video" in name and ("stat" in name or "statistic" in name):
-        return "video statistic features"
+        return "статистические признаки видео"
     if suffix == ".csv":
-        return "other CSV table"
+        return "другая CSV-таблица"
     if suffix == ".parquet":
-        return "other parquet table"
-    return "other"
+        return "другая parquet-таблица"
+    return "другое"
 
 
 def iter_files(root: Path, max_depth: int = 3) -> Iterable[Path]:
-    """Yield files under ``root`` up to a shallow relative depth."""
+    """Итерироваться по файлам внутри ``root`` до заданной глубины."""
 
     root = Path(root)
     if not root.exists():
@@ -128,7 +128,7 @@ def iter_files(root: Path, max_depth: int = 3) -> Iterable[Path]:
 
 
 def dataset_inventory(root: Path, max_depth: int = 3) -> list[dict[str, Any]]:
-    """Build a lightweight inventory for a KuaiRand version directory."""
+    """Собрать легкую инвентаризацию директории версии KuaiRand."""
 
     root = Path(root)
     if not root.exists():
@@ -151,7 +151,7 @@ def dataset_inventory(root: Path, max_depth: int = 3) -> list[dict[str, Any]]:
 
 
 def total_size_bytes(inventory_rows: Sequence[Mapping[str, Any]]) -> int:
-    """Return the summed file size from inventory rows."""
+    """Вернуть суммарный размер файлов по строкам inventory."""
 
     return int(sum(int(row.get("size_bytes", 0) or 0) for row in inventory_rows))
 
@@ -162,7 +162,7 @@ def files_matching(
     exclude_tokens: Sequence[str] = (),
     suffixes: Sequence[str] = (".csv", ".parquet"),
 ) -> list[Path]:
-    """Find dataset files whose normalized names contain all include tokens."""
+    """Найти файлы датасета, чьи нормализованные имена содержат все include-токены."""
 
     root = Path(root)
     if not root.exists():
@@ -190,14 +190,14 @@ def first_matching_file(
     exclude_tokens: Sequence[str] = (),
     suffixes: Sequence[str] = (".csv", ".parquet"),
 ) -> Path | None:
-    """Return the first matching file, or ``None`` when absent."""
+    """Вернуть первый подходящий файл или ``None``, если его нет."""
 
     matches = files_matching(root, include_tokens, exclude_tokens, suffixes)
     return matches[0] if matches else None
 
 
 def discover_kuairand_files(root: Path) -> dict[str, Path | None]:
-    """Discover common KuaiRand tables without hard-coding version suffixes."""
+    """Найти основные таблицы KuaiRand без жесткой привязки к суффиксам версий."""
 
     return {
         "standard_early": first_matching_file(
@@ -214,7 +214,7 @@ def discover_kuairand_files(root: Path) -> dict[str, Path | None]:
 
 
 def discover_kuairand_file_groups(root: Path) -> dict[str, list[Path]]:
-    """Discover all common KuaiRand table files grouped by logical role."""
+    """Найти основные таблицы KuaiRand и сгруппировать их по логической роли."""
 
     return {
         "standard_early": files_matching(root, ("log_standard", "4_08", "4_21")),
@@ -227,7 +227,7 @@ def discover_kuairand_file_groups(root: Path) -> dict[str, list[Path]]:
 
 
 def scan_table(path: Path, **scan_kwargs: Any) -> Any:
-    """Create a lazy scan for CSV or parquet tables."""
+    """Создать lazy scan для CSV или parquet-таблицы."""
 
     polars = require_polars()
     path = Path(path)
@@ -243,20 +243,20 @@ def scan_table(path: Path, **scan_kwargs: Any) -> Any:
         }
         kwargs.update(scan_kwargs)
         return polars.scan_csv(str(path), **kwargs)
-    raise ValueError(f"Unsupported table format: {path}")
+    raise ValueError(f"Неподдерживаемый формат таблицы: {path}")
 
 
 def collect_lazy(lazy_frame: Any) -> Any:
-    """Collect a Polars LazyFrame with streaming when the installed version supports it."""
+    """Собрать Polars LazyFrame в streaming-режиме, если установленная версия это поддерживает."""
 
     try:
         return lazy_frame.collect(engine="streaming")
-    except TypeError:  # Older Polars versions used a boolean flag.
+    except TypeError:  # В старых версиях Polars использовался булев флаг.
         return lazy_frame.collect(streaming=True)
 
 
 def lazy_schema_names(lazy_frame: Any) -> list[str]:
-    """Return column names from a Polars LazyFrame without materializing rows."""
+    """Вернуть имена колонок Polars LazyFrame без материализации строк."""
 
     if hasattr(lazy_frame, "collect_schema"):
         return list(lazy_frame.collect_schema().names())
@@ -264,11 +264,11 @@ def lazy_schema_names(lazy_frame: Any) -> list[str]:
 
 
 def concat_lazy_frames(lazy_frames: Sequence[Any]) -> Any:
-    """Concatenate lazy frames while tolerating minor schema differences."""
+    """Склеить lazy frames с учетом небольших различий схемы."""
 
     polars = require_polars()
     if not lazy_frames:
-        raise ValueError("No LazyFrames were provided for concatenation.")
+        raise ValueError("Для конкатенации не передано ни одного LazyFrame.")
     if len(lazy_frames) == 1:
         return lazy_frames[0]
     try:
@@ -278,7 +278,7 @@ def concat_lazy_frames(lazy_frames: Sequence[Any]) -> Any:
 
 
 def available_columns(lazy_frame: Any, columns: Sequence[str]) -> list[str]:
-    """Return requested columns that exist in a lazy frame."""
+    """Вернуть запрошенные колонки, которые существуют в lazy frame."""
 
     names = set(lazy_schema_names(lazy_frame))
     return [column for column in columns if column in names]
@@ -288,7 +288,7 @@ def safe_percentiles(
     values: Sequence[float] | np.ndarray,
     percentiles: Sequence[float] = (0, 25, 50, 75, 90, 95, 99, 100),
 ) -> dict[str, float | None]:
-    """Calculate percentiles after dropping non-finite values."""
+    """Посчитать перцентили после удаления нечисловых и бесконечных значений."""
 
     array = np.asarray(values, dtype=float)
     array = array[np.isfinite(array)]
@@ -298,7 +298,7 @@ def safe_percentiles(
 
 
 def numeric_summary(values: Sequence[float] | np.ndarray) -> dict[str, float | None]:
-    """Return compact numeric summary statistics for a vector."""
+    """Вернуть компактную числовую сводку для вектора."""
 
     array = np.asarray(values, dtype=float)
     array = array[np.isfinite(array)]
@@ -329,7 +329,7 @@ def numeric_summary(values: Sequence[float] | np.ndarray) -> dict[str, float | N
 
 
 def ensure_output_dir(path: Path) -> Path:
-    """Create and return an output directory."""
+    """Создать и вернуть выходную директорию."""
 
     path = Path(path)
     path.mkdir(parents=True, exist_ok=True)
@@ -337,7 +337,7 @@ def ensure_output_dir(path: Path) -> Path:
 
 
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
-    """Write JSON with stable formatting."""
+    """Записать JSON со стабильным форматированием."""
 
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)

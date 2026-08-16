@@ -397,9 +397,9 @@
   ],
   "mode": "full",
   "notes": [
-    "Documentation / README statistics are not mixed with computed results.",
-    "Video statistic feature files are not scanned by this script because they are aggregated item-level features and may be temporally leaky.",
-    "Item popularity aggregation groups by video_id and may be skipped with --skip-item-popularity if cluster resources are constrained."
+    "Статистика из документации / README не смешивается с вычисленными результатами.",
+    "Файлы video statistic features не сканируются этим скриптом, потому что это агрегированные item-level признаки с возможным temporal leakage.",
+    "Агрегация item popularity группирует данные по video_id; ее можно пропустить через --skip-item-popularity, если ресурсов кластера недостаточно."
   ],
   "policy_counts": [
     {
