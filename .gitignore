@@ -1,63 +1,78 @@
+# Python and local environments.
 .conda/
 .venv/
+venv/
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+
+# Notebooks and OS/editor files.
 .ipynb_checkpoints/
 .DS_Store
 
-# Local datasets and exported tabular artifacts are too large for git.
+# Raw datasets and bulky generic exports.
 data/
+Corpora/
+KuaiRand*/
+*.tar
 *.tar.gz
-*.csv
+*.zip
 *.parquet
+*.csv
 
-# Generated research outputs.
+# Logs and temporary runtime outputs.
+*.log
+*.out
+*.err
+slurm-*.out
+outputs/**/logs/
+experiments/**/slurm_logs/*
+!experiments/ltr_xgb_baseline/slurm_logs/.gitkeep
+
+# Model binaries and dense arrays.
+models/
+experiments/**/model/
+*.model
+*.ubj
+*.bin
+*.ckpt
+*.pt
+*.pth
+*.pkl
+*.pickle
+*.joblib
+*.npy
+*.npz
+
+# Large experiment artifacts stay on cHARISMa.
+experiments/ltr_xgb_baseline/ltr_xgb_*/
+experiments/ltr_xgb_baseline/*_sanity/
+experiments/ltr_xgb_baseline/rankings/
+experiments/ltr_xgb_baseline/features/
+experiments/ltr_xgb_baseline/candidates/
+
+# Keep compact experiment registry and run summaries.
+!experiments/results.csv
+experiments/ltr_xgb_baseline/runs/*
+!experiments/ltr_xgb_baseline/runs/.gitkeep
+!experiments/ltr_xgb_baseline/runs/*.json
+!experiments/ltr_xgb_baseline/runs/*_notes.md
+
+# Generated research outputs: ignore by default, keep compact summaries.
 outputs/*
 !outputs/.gitkeep
 !outputs/eda/
 outputs/eda/*
 !outputs/eda/.gitkeep
 !outputs/eda/27k_summary.json
-!outputs/eda/27k_binary_feedback_quality.csv
-!outputs/eda/27k_daily.csv
-!outputs/eda/27k_duplicate_key_summary.csv
-!outputs/eda/27k_duration_by_date.csv
-!outputs/eda/27k_duration_by_tab.csv
-!outputs/eda/27k_duration_metadata_coverage.csv
-!outputs/eda/27k_duration_summary.csv
-!outputs/eda/27k_feature_coverage.csv
-!outputs/eda/27k_feedback_summary.csv
-!outputs/eda/27k_hourly.csv
-!outputs/eda/27k_item_popularity_summary.csv
-!outputs/eda/27k_item_universe_comparison.csv
-!outputs/eda/27k_max_user_duplicate_summary.csv
-!outputs/eda/27k_max_user_sequence.csv
-!outputs/eda/27k_play_ratio_summary.csv
-!outputs/eda/27k_policy_counts.csv
-!outputs/eda/27k_sequence_summary.csv
-!outputs/eda/27k_source_counts.csv
-!outputs/eda/27k_standard_random_comparison.csv
-!outputs/eda/27k_tab_summary.csv
-!outputs/eda/27k_temporal_period_summary.csv
-!outputs/eda/27k_watch_time_summary.csv
+!outputs/eda/27k_*.csv
 outputs/eda/27k_sanity_*
-outputs/eda/logs/
 !outputs/data/
 outputs/data/*
 !outputs/data/.gitkeep
 !outputs/data/protocol_b_manifest.json
 !outputs/data/protocol_b_stats.json
 !outputs/data/protocol_b_validation_summary.csv
-outputs/data/logs/
-eda/kuairand/artifacts/
-
-# Large experiment artifacts live on cHARISMa, not in Git.
-!experiments/results.csv
-experiments/ltr_xgb_baseline/ltr_xgb_*/
-experiments/ltr_xgb_baseline/*_sanity/
-experiments/ltr_xgb_baseline/runs/*
-!experiments/ltr_xgb_baseline/runs/.gitkeep
-!experiments/ltr_xgb_baseline/runs/*.json
-!experiments/ltr_xgb_baseline/runs/*_notes.md
-experiments/ltr_xgb_baseline/slurm_logs/*
-!experiments/ltr_xgb_baseline/slurm_logs/.gitkeep

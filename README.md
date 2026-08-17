@@ -1,68 +1,105 @@
-Репозиторий дипломной работы ученика 4 курса НИУ ВШЭ СПБ Бердова Игоря Вячеславовича.
+# KuaiRand — дипломный проект
 
-Проект исследует рекомендательные системы на датасете KuaiRand: структуру логов взаимодействий, режимы сбора `standard`/`random`, feedback-сигналы, последовательные пользовательские истории, риски leakage и возможные benchmark-протоколы.
+Репозиторий дипломной работы по рекомендательным системам на датасете KuaiRand. Цель проекта — построить воспроизводимый исследовательский pipeline: изучить данные, подготовить последовательный benchmark-протокол и получить первые baseline-результаты для дальнейшего сравнения с более сильными sequential/causal методами.
 
-## Структура
+## Данные
 
-- `notebooks/01_kuairand_eda.ipynb` - основной исследовательский EDA-ноутбук.
-- `src/eda_utils.py` - общие функции для инвентаризации файлов, проверки путей, lazy scans и сводных таблиц.
-- `src/eda_27k.py` - скрипт агрегации для полного KuaiRand-27K, рассчитанный на экономное использование памяти.
-- `slurm/eda_27k.sh` - шаблон Slurm-задания для запуска 27K EDA на cHARISMa.
-- `outputs/eda/` - компактные 27K summary-файлы; raw-данные и logs не коммитятся.
-- `reports/kuairand_27k_eda_report.md` - итоговый отчёт по полному KuaiRand-27K EDA.
+Используется KuaiRand: датасет коротких видео с логами взаимодействий пользователей и item metadata. В проекте важны два режима сбора:
 
-## Данные и окружение
+- `standard` interactions — обычные рекомендации платформы, полезны для моделирования типичного пользовательского поведения;
+- `random` exposure — случайные показы, потенциально важны для дальнейшей causal/off-policy части, потому что помогают отделять предпочтения от bias рекомендательной политики.
 
-Код пишется локально, но реальные данные KuaiRand ожидаются на cHARISMa:
+Raw datasets и большие промежуточные parquet/CSV не хранятся в Git. В репозиторий попадают только код, конфиги, compact summaries, manifests, отчёты и compact experiment results.
 
-```text
-/home/daryumin/iberdov/Corpora/KuaiRand-Pure/KuaiRand-Pure/
-/home/daryumin/iberdov/Corpora/KuaiRand-1K/KuaiRand-1K/
-/home/daryumin/iberdov/Corpora/KuaiRand-27K/KuaiRand-27K/
-```
+## EDA
 
-Серверное окружение Python:
+Выполнен полный EDA для KuaiRand-27K. Интерактивный notebook находится в [notebooks/01_kuairand_eda.ipynb](notebooks/01_kuairand_eda.ipynb), batch-агрегации для полного 27K — в [src/eda_27k.py](src/eda_27k.py).
 
-```text
-/home/daryumin/iberdov/diplom/.conda
-```
+Основной отчёт: [reports/kuairand_27k_eda_report.md](reports/kuairand_27k_eda_report.md).
 
-Ядро Jupyter: `Python 3.11 — KuaiRand`.
+Compact результаты лежат в [outputs/eda/](outputs/eda/): `27k_summary.json` и небольшие `27k_*.csv`. Raw interaction logs и Slurm logs не коммитятся.
 
-Ноутбук использует `pathlib.Path` и по умолчанию ищет данные в `/home/daryumin/iberdov/Corpora`. Если каталог не найден, он сообщает `KuaiRand data directory not found` и не скачивает данные.
-
-## Как выполнить EDA
-
-На cHARISMa:
-
-```bash
-cd /home/daryumin/iberdov/diplom
-git pull
-jupyter lab notebooks/01_kuairand_eda.ipynb
-```
-
-Основной ноутбук рассчитан на Pure и 1K для интерактивного EDA. Полный 27K не загружается целиком в ноутбук; для него подготовлен отдельный lazy-скрипт агрегации.
-
-Полный KuaiRand-27K EDA был выполнен на cHARISMa через Slurm на V100. Финальный успешный запуск: job `4253874`, partition `test`, constraint `type_a`, GRES `gpu:v100:1`, node `cn-012`, 10 CPU, `mem=0`, runtime `00:09:45`, MaxRSS `46537000K`. EDA-код CPU-only, но GPU GRES нужен как часть Slurm-ограничений для выбранных узлов.
-
-Практическая причина выбора: `normal/type_c/gpu:v100:1` стартовал сразу, но упал из-за несовместимости GLIBC старой ОС с текущим `.conda`; очередь `rocky` на V100 прогнозировала слишком поздний старт. Поэтому финальный полный запуск выполнен на Rocky-compatible `test/type_a/gpu:v100:1`.
-
-Для повторного Slurm-запуска 27K EDA:
+Повторный запуск EDA на кластере:
 
 ```bash
 sbatch slurm/eda_27k.sh
 ```
 
-Скрипт пишет `outputs/eda/27k_summary.json` и небольшие сводные CSV-таблицы. Sanity/log-файлы остаются локальными сгенерированными артефактами.
+## Экспериментальный протокол
 
-## Git-процесс
+Подготовлен Protocol B для последовательной рекомендации:
 
-Работа ведется в ветке `eda`, которая отслеживает `origin/eda`.
+- фильтрация `5-core`;
+- chronological ordering внутри пользователя;
+- leave-one-out split;
+- `train` = все interactions кроме двух последних;
+- `validation` = предпоследняя interaction;
+- `test` = последняя interaction.
 
-Не коммитить:
+Fingerprint Protocol B:
 
-- локальные Python-окружения (`.conda/`, `.venv/`);
-- датасеты KuaiRand;
-- произвольные CSV/parquet-экспорты, кроме компактных сводок `outputs/eda/27k_*`;
-- сгенерированные outputs/logs/sanity files;
-- checkpoints ноутбука.
+- users: `23,951`;
+- items: `7,111`;
+- interactions: `1,134,420`;
+- train: `1,086,518`;
+- validation: `23,951`;
+- test: `23,951`.
+
+Код подготовки: [src/prepare_kuairand_protocol_b.py](src/prepare_kuairand_protocol_b.py).
+Конфиг RecBole: [configs/kuairand_protocol_b_recbole.yaml](configs/kuairand_protocol_b_recbole.yaml).
+Отчёт: [reports/kuairand_protocol_b_data_report.md](reports/kuairand_protocol_b_data_report.md).
+Manifest: [outputs/data/protocol_b_manifest.json](outputs/data/protocol_b_manifest.json).
+
+Повторный запуск preprocessing на кластере:
+
+```bash
+sbatch slurm/prepare_protocol_b.sh
+```
+
+## Эксперименты
+
+Экспериментальный код и результаты находятся в [experiments/](experiments/). Главная таблица результатов: [experiments/results.csv](experiments/results.csv).
+
+Первый baseline — XGBoost LambdaMART с простыми leakage-safe popularity/history features:
+
+- `ltr_xgb_001` использовал `sampled-100` evaluation: 1 positive + 100 sampled negatives. Он сохранён как sanity/exploratory experiment и не сопоставим с published full-ranking результатами.
+- `ltr_xgb_002` использует full-ranking evaluation по `7,111` item Protocol B и является основным XGBoost baseline.
+
+Test results для `ltr_xgb_002`:
+
+| Model | HR@10 | NDCG@10 |
+| --- | ---: | ---: |
+| Random | 0.00129 | 0.00056 |
+| MostPopular | 0.02952 | 0.01668 |
+| XGBoost LambdaMART | 0.03140 | 0.01500 |
+
+Подробности по baseline:
+
+- [experiments/ltr_xgb_baseline/README.md](experiments/ltr_xgb_baseline/README.md);
+- [experiments/ltr_xgb_baseline/runs/ltr_xgb_001_notes.md](experiments/ltr_xgb_baseline/runs/ltr_xgb_001_notes.md);
+- [experiments/ltr_xgb_baseline/runs/ltr_xgb_002_notes.md](experiments/ltr_xgb_baseline/runs/ltr_xgb_002_notes.md).
+
+Повторный запуск baseline на кластере:
+
+```bash
+sbatch slurm/ltr_xgb_baseline.sh
+```
+
+Большие experiment artifacts остаются на cHARISMa: candidates, feature matrices, model files, rankings и Slurm logs не попадают в Git.
+
+## Структура проекта
+
+- [src/](src/) — preprocessing, EDA utilities и batch-скрипты;
+- [configs/](configs/) — конфиги протоколов и инструментов;
+- [slurm/](slurm/) — Slurm jobs для кластера;
+- [reports/](reports/) — человекочитаемые отчёты;
+- [outputs/](outputs/) — compact reproducible summaries и manifests;
+- [experiments/](experiments/) — экспериментальный код, compact metrics и notes;
+- [notebooks/](notebooks/) — исследовательские notebooks.
+
+## Текущее состояние
+
+1. EDA — завершён.
+2. Protocol B — подготовлен и проверен.
+3. XGBoost LambdaMART baseline — выполнен; `ltr_xgb_002` является актуальным full-ranking baseline.
+4. Следующий этап — более сильные sequential/causal методы.
