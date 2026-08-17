@@ -1,0 +1,624 @@
+{
+  "run_id": "mostpop_002",
+  "created_at_utc": "2026-08-17T15:24:45.156168+00:00",
+  "sanity": false,
+  "branch": "exp/ltr-xgb-baseline",
+  "git_commit": "e9a7a4e3484f438431495820280c61f10bf83919",
+  "protocol": {
+    "name": "kuairand_protocol_b",
+    "data_dir": "/home/daryumin/iberdov/diplom/data/processed/protocol_b",
+    "manifest_path": "/home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json",
+    "item_universe_size": 7111
+  },
+  "candidate_protocol": "protocol_b_1pos_100neg_seed42_train",
+  "evaluation_protocol": "protocol_b_full_recbole_sequential",
+  "train_candidate_protocol": "sampled_100",
+  "eval_candidate_protocol": "full_7111_items",
+  "protocol_version": "recbole_sequential_full_v1",
+  "candidate_generation": {
+    "n_negatives": 100,
+    "train_query_design": "one_query_per_user_last_train_item",
+    "validation_negatives_fixed": true,
+    "test_negatives_fixed": true
+  },
+  "evaluation_config": {
+    "mode": "full",
+    "batch_users": 128,
+    "topk": 50,
+    "mask_seen_items": false,
+    "mask_padding_item": true,
+    "recbole_reference": "sequential_mode_full"
+  },
+  "model_selection": {
+    "strategy": "fixed_num_boost_round",
+    "num_boost_round": 1,
+    "rationale": "best_iteration in ltr_xgb_001 was 0; 002 avoids sampled validation early stopping and changes only evaluation protocol."
+  },
+  "feature_list": [
+    "user_history_length",
+    "user_unique_items",
+    "user_history_unique_ratio",
+    "user_history_popularity_mean",
+    "user_history_popularity_median",
+    "user_history_popularity_max",
+    "user_history_popularity_last",
+    "user_history_span_days",
+    "user_history_mean_gap_hours",
+    "candidate_seen_before",
+    "item_train_popularity",
+    "log1p_item_train_popularity",
+    "item_popularity_rank",
+    "item_popularity_percentile",
+    "candidate_popularity_to_user_mean",
+    "candidate_popularity_minus_user_mean",
+    "candidate_is_more_popular_than_user_mean"
+  ],
+  "dataset_sizes": {
+    "train": {
+      "candidate_rows": 2419051,
+      "feature_rows": 2419051,
+      "queries": 23951
+    },
+    "validation": {
+      "candidate_rows": 2419051,
+      "feature_rows": 2419051,
+      "queries": 23951
+    },
+    "test": {
+      "candidate_rows": 2419051,
+      "feature_rows": 2419051,
+      "queries": 23951
+    }
+  },
+  "candidate_summary": {
+    "stage": "prepare_candidates",
+    "sanity": false,
+    "seed": 42,
+    "n_negatives": 100,
+    "item_universe": 7111,
+    "dataset_fingerprint": {
+      "users": 23951,
+      "items": 7111,
+      "interactions": 1134420,
+      "train": 1086518,
+      "validation": 23951,
+      "test": 23951
+    },
+    "remove_target_from_context": {
+      "train": true,
+      "validation": false,
+      "test": false
+    },
+    "item_features_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/features/item_train_popularity.parquet",
+    "splits": {
+      "train": {
+        "queries": 23951,
+        "rows": 2419051,
+        "candidates_per_query": 101,
+        "positive_per_query": 1,
+        "duplicate_candidate_queries": 0,
+        "negative_equals_positive_rows": 0,
+        "content_sha256": "9eea5f314e5e2f971f6abf78ec04896d3e87398d6775fb8d5922c4f59752fe97",
+        "queries_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/candidates/train_queries.parquet",
+        "candidates_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/candidates/train_candidates.parquet",
+        "target_occurrences_in_history_total": 946,
+        "target_occurrences_in_history_queries": 903,
+        "target_removed_from_history_total": 946,
+        "target_removed_from_history_queries": 903,
+        "context_contains_target_queries": 0,
+        "remove_target_from_context": true
+      },
+      "validation": {
+        "queries": 23951,
+        "rows": 2419051,
+        "candidates_per_query": 101,
+        "positive_per_query": 1,
+        "duplicate_candidate_queries": 0,
+        "negative_equals_positive_rows": 0,
+        "content_sha256": "333e8c609bf7c7269fc8cf133a2408eb6ce6b909308dc5e0d3154ae056c4b1a1",
+        "queries_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/candidates/validation_queries.parquet",
+        "candidates_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/candidates/validation_candidates.parquet",
+        "target_occurrences_in_history_total": 995,
+        "target_occurrences_in_history_queries": 907,
+        "target_removed_from_history_total": 0,
+        "target_removed_from_history_queries": 0,
+        "context_contains_target_queries": 907,
+        "remove_target_from_context": false
+      },
+      "test": {
+        "queries": 23951,
+        "rows": 2419051,
+        "candidates_per_query": 101,
+        "positive_per_query": 1,
+        "duplicate_candidate_queries": 0,
+        "negative_equals_positive_rows": 0,
+        "content_sha256": "743364ffc6d91fd12fd000878c6129349d31d0f40aa445a71912921b396504f0",
+        "queries_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/candidates/test_queries.parquet",
+        "candidates_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/candidates/test_candidates.parquet",
+        "target_occurrences_in_history_total": 1012,
+        "target_occurrences_in_history_queries": 963,
+        "target_removed_from_history_total": 0,
+        "target_removed_from_history_queries": 0,
+        "context_contains_target_queries": 963,
+        "remove_target_from_context": false
+      }
+    }
+  },
+  "feature_summary": {
+    "stage": "build_features",
+    "feature_names": [
+      "user_history_length",
+      "user_unique_items",
+      "user_history_unique_ratio",
+      "user_history_popularity_mean",
+      "user_history_popularity_median",
+      "user_history_popularity_max",
+      "user_history_popularity_last",
+      "user_history_span_days",
+      "user_history_mean_gap_hours",
+      "candidate_seen_before",
+      "item_train_popularity",
+      "log1p_item_train_popularity",
+      "item_popularity_rank",
+      "item_popularity_percentile",
+      "candidate_popularity_to_user_mean",
+      "candidate_popularity_minus_user_mean",
+      "candidate_is_more_popular_than_user_mean"
+    ],
+    "splits": {
+      "train": {
+        "rows": 2419051,
+        "queries": 23951,
+        "features_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/features/train_features.parquet",
+        "feature_sha256": "2c0bb9c2df474b67793f95910459d08837dfbea517fa8483bd67508a686a355f"
+      },
+      "validation": {
+        "rows": 2419051,
+        "queries": 23951,
+        "features_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/features/validation_features.parquet",
+        "feature_sha256": "365b4ca7bddc5336550e9c793378bd9da3d13b5d28cd1d179eada44eeff4fe40"
+      },
+      "test": {
+        "rows": 2419051,
+        "queries": 23951,
+        "features_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/features/test_features.parquet",
+        "feature_sha256": "4aa54f7d04d41b2340a0cd668792076cb96cf33045d431cbe4aa06c1ecea90e5"
+      }
+    }
+  },
+  "train_summary": {
+    "stage": "train",
+    "xgboost_version": "3.2.0",
+    "params": {
+      "objective": "rank:ndcg",
+      "eval_metric": "ndcg@10",
+      "tree_method": "hist",
+      "max_depth": 6,
+      "eta": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "seed": 42,
+      "nthread": 8,
+      "verbosity": 1
+    },
+    "num_boost_round_requested": 1,
+    "early_stopping_rounds": null,
+    "model_selection": {
+      "strategy": "fixed_num_boost_round",
+      "num_boost_round": 1,
+      "rationale": "best_iteration in ltr_xgb_001 was 0; 002 avoids sampled validation early stopping and changes only evaluation protocol."
+    },
+    "group_validation": {
+      "train": {
+        "split": "train",
+        "rows": 2419051,
+        "groups": 23951,
+        "expected_group_size": 101,
+        "sum_group_sizes": 2419051,
+        "one_positive_per_group": true,
+        "query_index_monotonic_non_decreasing": true
+      },
+      "validation_sampled_diagnostic": {
+        "split": "validation",
+        "rows": 2419051,
+        "groups": 23951,
+        "expected_group_size": 101,
+        "sum_group_sizes": 2419051,
+        "one_positive_per_group": true,
+        "query_index_monotonic_non_decreasing": true
+      }
+    },
+    "best_iteration": null,
+    "best_score": null,
+    "num_boosted_rounds": 1,
+    "train_time_sec": 1.034078418277204,
+    "model_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/model/xgb_lambdamart.json",
+    "model_sha256": "1d8ba065baf6b3aa101d029cce8a33776763430d25862a62eef50aa262dc7485",
+    "feature_importance_gain": {
+      "user_history_length": 34.53010559082031,
+      "user_unique_items": 13.146194458007812,
+      "user_history_unique_ratio": 15.2264404296875,
+      "user_history_popularity_mean": 17.23636245727539,
+      "user_history_popularity_median": 13.906575202941895,
+      "user_history_span_days": 17.471298217773438,
+      "user_history_mean_gap_hours": 9.991641998291016,
+      "item_train_popularity": 4294.8046875,
+      "item_popularity_rank": 28.708730697631836,
+      "item_popularity_percentile": 63.49352264404297,
+      "candidate_popularity_to_user_mean": 495.2955627441406,
+      "candidate_popularity_minus_user_mean": 30.993896484375
+    },
+    "evals_result": {
+      "train": {
+        "ndcg@10": [
+          0.3548500144146115
+        ]
+      },
+      "validation": {
+        "ndcg@10": [
+          0.3474550478054229
+        ]
+      }
+    }
+  },
+  "evaluation_summary": {
+    "stage": "evaluate",
+    "evaluation_protocol": "protocol_b_full_recbole_sequential",
+    "feature_names": [
+      "user_history_length",
+      "user_unique_items",
+      "user_history_unique_ratio",
+      "user_history_popularity_mean",
+      "user_history_popularity_median",
+      "user_history_popularity_max",
+      "user_history_popularity_last",
+      "user_history_span_days",
+      "user_history_mean_gap_hours",
+      "candidate_seen_before",
+      "item_train_popularity",
+      "log1p_item_train_popularity",
+      "item_popularity_rank",
+      "item_popularity_percentile",
+      "candidate_popularity_to_user_mean",
+      "candidate_popularity_minus_user_mean",
+      "candidate_is_more_popular_than_user_mean"
+    ],
+    "metrics": {
+      "validation": {
+        "random": {
+          "HR@5": 0.0005010229217986723,
+          "Recall@5": 0.0005010229217986723,
+          "NDCG@5": 0.00024348560698411715,
+          "HR@10": 0.0011273015740470127,
+          "Recall@10": 0.0011273015740470127,
+          "NDCG@10": 0.0004416858505128215,
+          "HR@20": 0.002922633710492255,
+          "Recall@20": 0.002922633710492255,
+          "NDCG@20": 0.0008870526599476237,
+          "HR@50": 0.007557095737129974,
+          "Recall@50": 0.007557095737129974,
+          "NDCG@50": 0.0017881813494307665,
+          "ranking_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/rankings/random_validation_top50.parquet",
+          "ranking_sha256": "c08d8449bfebababeef64eaa7a9fe91fa4ff7dad426d4331a1946c3a4da1fb95",
+          "queries": 23951,
+          "rows_saved": 1197550,
+          "topk_saved": 50
+        },
+        "mostpop": {
+          "HR@5": 0.021878000918542022,
+          "Recall@5": 0.021878000918542022,
+          "NDCG@5": 0.014204611059147509,
+          "HR@10": 0.029977871487620558,
+          "Recall@10": 0.029977871487620558,
+          "NDCG@10": 0.016763898155764186,
+          "HR@20": 0.05907895286209344,
+          "Recall@20": 0.05907895286209344,
+          "NDCG@20": 0.023990062088862295,
+          "HR@50": 0.10500605402697173,
+          "Recall@50": 0.10500605402697173,
+          "NDCG@50": 0.03293994305386549,
+          "ranking_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/rankings/mostpop_validation_top50.parquet",
+          "ranking_sha256": "70a9371c1537b0b39c4f97cd6befc8c0151c6961ce9e521fb0d2d5f11f2ef049",
+          "queries": 23951,
+          "rows_saved": 1197550,
+          "topk_saved": 50
+        },
+        "ltr_xgb": {
+          "HR@5": 0.019790405411047554,
+          "Recall@5": 0.019790405411047554,
+          "NDCG@5": 0.011350573830811837,
+          "HR@10": 0.030854661600768236,
+          "Recall@10": 0.030854661600768236,
+          "NDCG@10": 0.014971581041018362,
+          "HR@20": 0.05557179240950273,
+          "Recall@20": 0.05557179240950273,
+          "NDCG@20": 0.021026416150299685,
+          "HR@50": 0.0988267713247881,
+          "Recall@50": 0.0988267713247881,
+          "NDCG@50": 0.029575685760803935,
+          "ranking_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/rankings/ltr_xgb_validation_top50.parquet",
+          "ranking_sha256": "cf9e49cb9693f4485767cd9b8cf34a10c8477e840190f00479fb1d2b4ee75401",
+          "queries": 23951,
+          "rows_saved": 1197550,
+          "topk_saved": 50
+        }
+      },
+      "test": {
+        "random": {
+          "HR@5": 0.0006680305623982297,
+          "Recall@5": 0.0006680305623982297,
+          "NDCG@5": 0.0003645872892101673,
+          "HR@10": 0.00129430921464657,
+          "Recall@10": 0.00129430921464657,
+          "NDCG@10": 0.0005618258840094757,
+          "HR@20": 0.003006137530792034,
+          "Recall@20": 0.003006137530792034,
+          "NDCG@20": 0.0009829844126440603,
+          "HR@50": 0.007640599557429752,
+          "Recall@50": 0.007640599557429752,
+          "NDCG@50": 0.001879637864802375,
+          "ranking_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/rankings/random_test_top50.parquet",
+          "ranking_sha256": "223009ae3c37be4abb61a0cdfdc36666ba2f6742529cb5f90fd77a58e7bbc79f",
+          "queries": 23951,
+          "rows_saved": 1197550,
+          "topk_saved": 50
+        },
+        "mostpop": {
+          "HR@5": 0.02217026428959125,
+          "Recall@5": 0.02217026428959125,
+          "NDCG@5": 0.01435409636060013,
+          "HR@10": 0.029518600475971775,
+          "Recall@10": 0.029518600475971775,
+          "NDCG@10": 0.01667747748169395,
+          "HR@20": 0.06008099870569079,
+          "Recall@20": 0.06008099870569079,
+          "NDCG@20": 0.024266759078028197,
+          "HR@50": 0.10304371424992693,
+          "Recall@50": 0.10304371424992693,
+          "NDCG@50": 0.03268254010537256,
+          "ranking_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/rankings/mostpop_test_top50.parquet",
+          "ranking_sha256": "406d8b9b879b687876363b7f5041c8495889510c68ab16bb2378748aea640cee",
+          "queries": 23951,
+          "rows_saved": 1197550,
+          "topk_saved": 50
+        },
+        "ltr_xgb": {
+          "HR@5": 0.01945639012984844,
+          "Recall@5": 0.01945639012984844,
+          "NDCG@5": 0.01108548506417911,
+          "HR@10": 0.031397436432716794,
+          "Recall@10": 0.031397436432716794,
+          "NDCG@10": 0.015003374204744816,
+          "HR@20": 0.0556970481399524,
+          "Recall@20": 0.0556970481399524,
+          "NDCG@20": 0.02094622001262514,
+          "HR@50": 0.09991232098868523,
+          "Recall@50": 0.09991232098868523,
+          "NDCG@50": 0.029735186005941133,
+          "ranking_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/rankings/ltr_xgb_test_top50.parquet",
+          "ranking_sha256": "57fcb96fd6de7422a05d9739b137db782e7b844d1ea3e682a463611b9dfa2f78",
+          "queries": 23951,
+          "rows_saved": 1197550,
+          "topk_saved": 50
+        }
+      }
+    },
+    "inference_time_sec": {
+      "random_validation": 2.332168116234243,
+      "mostpop_validation": 1.3230324871838093,
+      "ltr_xgb_validation": 31.349807439371943,
+      "random_test": 2.250244367867708,
+      "mostpop_test": 1.3650395050644875,
+      "ltr_xgb_test": 31.289170232601464
+    },
+    "full_evaluation": {
+      "item_universe_size": 7111,
+      "topk_saved": 50,
+      "batch_users": 128,
+      "mask_seen_items": false,
+      "mask_padding_item": true,
+      "recbole_semantics": {
+        "recbole_version_checked": "1.2.0",
+        "source": {
+          "sequential_yaml": "recbole/properties/quick_start_config/sequential.yaml",
+          "dataset_split": "recbole/data/dataset/dataset.py",
+          "full_sort_loader": "recbole/data/dataloader/general_dataloader.py",
+          "trainer_full_sort": "recbole/trainer/trainer.py",
+          "metrics": "recbole/evaluator/collector.py, recbole/evaluator/metrics.py"
+        },
+        "eval_args": {
+          "split": {
+            "LS": "valid_and_test"
+          },
+          "order": "TO",
+          "group_by": "user",
+          "mode": {
+            "valid": "full",
+            "test": "full"
+          }
+        },
+        "leave_one_out": "после сортировки по timestamp последние две user interactions становятся validation и test",
+        "validation_history": "train history до validation target",
+        "test_history": "train history + validation interaction до test target",
+        "candidate_universe": "все real Protocol B items: 7111",
+        "sequential_history_mask": false,
+        "mask_seen_items": false,
+        "padding_mask": "RecBole trainer ставит score[:, 0] = -inf для internal padding item; raw Protocol B item_id не являются internal padding id",
+        "repeated_targets": "если target item встречался раньше, для sequential full-sort он остаётся evaluable при mask_seen_items=false",
+        "excluded_items": "нет sampled negatives; из raw universe ничего не исключается при mask_seen_items=false",
+        "metrics": "top-k Hit/Recall/NDCG; при одном positive HR@K == Recall@K"
+      },
+      "split_stats": {
+        "validation": {
+          "random": {
+            "queries": 23951,
+            "candidate_count_min": 7111,
+            "candidate_count_max": 7111,
+            "candidate_count_mean": 7111.0,
+            "mask_seen_items": false,
+            "target_evaluable_queries": 23951,
+            "repeated_target_queries": 907,
+            "repeated_target_evaluable_queries": 907
+          },
+          "mostpop": {
+            "queries": 23951,
+            "candidate_count_min": 7111,
+            "candidate_count_max": 7111,
+            "candidate_count_mean": 7111.0,
+            "mask_seen_items": false,
+            "target_evaluable_queries": 23951,
+            "repeated_target_queries": 907,
+            "repeated_target_evaluable_queries": 907
+          },
+          "ltr_xgb": {
+            "queries": 23951,
+            "candidate_count_min": 7111,
+            "candidate_count_max": 7111,
+            "candidate_count_mean": 7111.0,
+            "mask_seen_items": false,
+            "target_evaluable_queries": 23951,
+            "repeated_target_queries": 907,
+            "repeated_target_evaluable_queries": 907
+          }
+        },
+        "test": {
+          "random": {
+            "queries": 23951,
+            "candidate_count_min": 7111,
+            "candidate_count_max": 7111,
+            "candidate_count_mean": 7111.0,
+            "mask_seen_items": false,
+            "target_evaluable_queries": 23951,
+            "repeated_target_queries": 963,
+            "repeated_target_evaluable_queries": 963
+          },
+          "mostpop": {
+            "queries": 23951,
+            "candidate_count_min": 7111,
+            "candidate_count_max": 7111,
+            "candidate_count_mean": 7111.0,
+            "mask_seen_items": false,
+            "target_evaluable_queries": 23951,
+            "repeated_target_queries": 963,
+            "repeated_target_evaluable_queries": 963
+          },
+          "ltr_xgb": {
+            "queries": 23951,
+            "candidate_count_min": 7111,
+            "candidate_count_max": 7111,
+            "candidate_count_mean": 7111.0,
+            "mask_seen_items": false,
+            "target_evaluable_queries": 23951,
+            "repeated_target_queries": 963,
+            "repeated_target_evaluable_queries": 963
+          }
+        }
+      }
+    }
+  },
+  "cluster": {
+    "hostname": "cn-044",
+    "slurm_job_id": "4257031",
+    "slurm_job_partition": "cpu-e-quick",
+    "slurm_cpus_per_task": "8",
+    "slurm_mem_per_node": null,
+    "slurm_job_nodelist": "cn-044"
+  },
+  "remote_artifact_location": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002",
+  "model": "MostPopular",
+  "metrics": {
+    "validation": {
+      "HR@5": 0.021878000918542022,
+      "Recall@5": 0.021878000918542022,
+      "NDCG@5": 0.014204611059147509,
+      "HR@10": 0.029977871487620558,
+      "Recall@10": 0.029977871487620558,
+      "NDCG@10": 0.016763898155764186,
+      "HR@20": 0.05907895286209344,
+      "Recall@20": 0.05907895286209344,
+      "NDCG@20": 0.023990062088862295,
+      "HR@50": 0.10500605402697173,
+      "Recall@50": 0.10500605402697173,
+      "NDCG@50": 0.03293994305386549,
+      "ranking_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/rankings/mostpop_validation_top50.parquet",
+      "ranking_sha256": "70a9371c1537b0b39c4f97cd6befc8c0151c6961ce9e521fb0d2d5f11f2ef049",
+      "queries": 23951,
+      "rows_saved": 1197550,
+      "topk_saved": 50
+    },
+    "test": {
+      "HR@5": 0.02217026428959125,
+      "Recall@5": 0.02217026428959125,
+      "NDCG@5": 0.01435409636060013,
+      "HR@10": 0.029518600475971775,
+      "Recall@10": 0.029518600475971775,
+      "NDCG@10": 0.01667747748169395,
+      "HR@20": 0.06008099870569079,
+      "Recall@20": 0.06008099870569079,
+      "NDCG@20": 0.024266759078028197,
+      "HR@50": 0.10304371424992693,
+      "Recall@50": 0.10304371424992693,
+      "NDCG@50": 0.03268254010537256,
+      "ranking_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/rankings/mostpop_test_top50.parquet",
+      "ranking_sha256": "406d8b9b879b687876363b7f5041c8495889510c68ab16bb2378748aea640cee",
+      "queries": 23951,
+      "rows_saved": 1197550,
+      "topk_saved": 50
+    }
+  },
+  "slurm_execution": {
+    "sanity": {
+      "job_id": "4257029",
+      "job_name": "ltr-xgb-002-sanity",
+      "partition": "cpu-e-quick",
+      "constraint": "type_e",
+      "node": "cn-044",
+      "cpus_per_task": 8,
+      "gpu": "none",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:00:51",
+      "max_rss_batch": "4108K"
+    },
+    "full": {
+      "job_id": "4257031",
+      "job_name": "ltr-xgb-002-full",
+      "partition": "cpu-e-quick",
+      "constraint": "type_e",
+      "node": "cn-044",
+      "cpus_per_task": 8,
+      "gpu": "none",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:01:53",
+      "max_rss_batch": "766156K"
+    },
+    "worktree": "/home/daryumin/iberdov/diplom_ltr_xgb_002_run"
+  },
+  "artifact_storage": {
+    "remote_artifact_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002",
+    "remote_artifact_size": "188M",
+    "previous_ltr_xgb_001_artifact_size": "206M",
+    "full_scores_saved": false,
+    "saved_rankings": "Top-50 per user/model/split only"
+  },
+  "literature_reference": {
+    "source": "SSD4Rec arXiv:2409.01192v1 Table 4",
+    "kuairand": {
+      "SASRec": {
+        "HR@10": 0.104,
+        "HR@20": 0.1705,
+        "NDCG@10": 0.0567,
+        "NDCG@20": 0.0733
+      },
+      "SSD4Rec": {
+        "HR@10": 0.1076,
+        "HR@20": 0.1704,
+        "NDCG@10": 0.0602,
+        "NDCG@20": 0.0759
+      }
+    },
+    "caveat": "Comparable only if dataset split and full-ranking evaluation semantics match.",
+    "url": "https://arxiv.org/html/2409.01192v1"
+  }
+}
