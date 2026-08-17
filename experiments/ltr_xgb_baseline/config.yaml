@@ -1,18 +1,35 @@
-run_id: ltr_xgb_001
+run_id: ltr_xgb_002
 seed: 42
+protocol_version: recbole_sequential_full_v1
 protocol:
   name: kuairand_protocol_b
   data_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b
   manifest_path: /home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json
-candidate_protocol: protocol_b_1pos_100neg_seed42
-remote_artifact_dir: /home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_001
+  item_universe_size: 7111
+candidate_protocol: protocol_b_1pos_100neg_seed42_train
+evaluation_protocol: protocol_b_full_recbole_sequential
+train_candidate_protocol: sampled_100
+eval_candidate_protocol: full_7111_items
+remote_artifact_dir: /home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002
 results_csv: /home/daryumin/iberdov/diplom/experiments/results.csv
 compact_runs_dir: /home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/runs
+context:
+  remove_target_from_context:
+    train: true
+    validation: false
+    test: false
 candidate_generation:
   n_negatives: 100
   train_query_design: one_query_per_user_last_train_item
   validation_negatives_fixed: true
   test_negatives_fixed: true
+evaluation:
+  mode: full
+  batch_users: 128
+  topk: 50
+  mask_seen_items: false
+  mask_padding_item: true
+  recbole_reference: sequential_mode_full
 features:
   names:
     - user_history_length
@@ -38,13 +55,17 @@ xgboost:
   tree_method: hist
   max_depth: 6
   eta: 0.05
-  num_boost_round: 500
-  early_stopping_rounds: 30
+  num_boost_round: 1
+  early_stopping_rounds: null
   subsample: 0.8
   colsample_bytree: 0.8
   seed: 42
   nthread: 8
+model_selection:
+  strategy: fixed_num_boost_round
+  num_boost_round: 1
+  rationale: best_iteration in ltr_xgb_001 was 0; 002 avoids sampled validation early stopping and changes only evaluation protocol.
 sanity:
   max_users: 500
-  num_boost_round: 20
-  early_stopping_rounds: 5
+  num_boost_round: 1
+  early_stopping_rounds: null
