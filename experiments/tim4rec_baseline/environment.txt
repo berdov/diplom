@@ -1,0 +1,61 @@
+# Среда TiM4Rec
+
+Требования official upstream из README/environment.yaml:
+
+- CUDA 11.8
+- Python 3.10.14
+- PyTorch 2.3.0
+- RecBole 1.2.0
+- mamba-ssm 2.2.2
+- causal-conv1d 1.2.2 optional
+- numpy 1.26.4
+- psutil 6.1.0 in README; upstream environment.yaml contains psutil 5.9.8
+
+Целевой кластер:
+
+- host alias: `hse-karizma`
+- кластер: cHARISMa
+- основной smoke partition: `gpu-ef-quick`
+- ресурсы smoke: 1 GPU, короткий wall time, без полного обучения
+- постоянный путь env: `/home/daryumin/iberdov/diplom/envs/tim4rec`
+
+Команды чистой установки на cHARISMa:
+
+```bash
+module load Python/miniconda
+conda create -y -p /home/daryumin/iberdov/diplom/envs/tim4rec python=3.10.14 pip
+PYTHONNOUSERSITE=1 conda run -p /home/daryumin/iberdov/diplom/envs/tim4rec \
+  pip install torch==2.3.0 torchvision==0.18.0 torchaudio==2.3.0 \
+  --index-url https://download.pytorch.org/whl/cu118
+PYTHONNOUSERSITE=1 conda run -p /home/daryumin/iberdov/diplom/envs/tim4rec \
+  pip install recbole==1.2.0 numpy==1.26.4 pandas==2.2.2 scipy==1.13.1 \
+  scikit-learn==1.5.0 tqdm==4.66.4 colorlog==4.7.2 colorama==0.4.4 \
+  tensorboard==2.16.2 tensorboardx==2.2 psutil==6.1.0 pyyaml==6.0.1 \
+  einops==0.8.0 filelock typing_extensions sympy networkx jinja2 fsspec pillow
+PYTHONNOUSERSITE=1 conda run -p /home/daryumin/iberdov/diplom/envs/tim4rec \
+  pip install mamba-ssm==2.2.2 causal-conv1d==1.2.2.post1 --no-build-isolation
+PYTHONNOUSERSITE=1 conda run -p /home/daryumin/iberdov/diplom/envs/tim4rec \
+  pip install transformers==4.40.2 tokenizers==0.19.1 \
+  huggingface-hub==0.23.0 safetensors==0.4.3
+```
+
+`PYTHONNOUSERSITE=1` нужен на cHARISMa, потому что Python по умолчанию видит пакеты из `~/.local`; это может скрыть недостающие зависимости или подмешать несовместимые версии в запуск.
+
+`transformers` нужно pin-ить на upstream-совместимую ветку 4.x. Без pin pip ставит 5.x, который требует PyTorch >= 2.5 и ломает import `mamba_ssm==2.2.2` при официальном PyTorch 2.3.0.
+
+Каталог среды, checkpoints, raw logs и model artifacts намеренно игнорируются Git.
+
+Фактически проверено на cHARISMa 2026-08-18:
+
+- env: `/home/daryumin/iberdov/diplom/envs/tim4rec`;
+- Python `3.10.14`;
+- PyTorch `2.3.0+cu118`, CUDA runtime `11.8`;
+- RecBole `1.2.0`;
+- mamba-ssm `2.2.2`;
+- causal-conv1d `1.2.2.post1`;
+- transformers `4.40.2`;
+- tokenizers `0.19.1`;
+- huggingface-hub `0.23.0`;
+- safetensors `0.4.3`.
+
+На cluster PyPI proxy `mamba-ssm` и `causal-conv1d` были собраны из source tarball в этой conda env. Smoke job `4260040` подтвердил импорт и GPU forward на A100.

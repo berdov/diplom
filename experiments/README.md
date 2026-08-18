@@ -13,3 +13,8 @@
 - evaluation protocol нельзя менять между runs без нового protocol identifier.
 
 Текущий candidate/evaluation protocol для первого baseline: `protocol_b_1pos_100neg_seed42`.
+
+Подготовленные каталоги:
+
+- `ltr_xgb_baseline/` - full-ranking XGBoost baseline и простые ранжирующие baselines.
+- `tim4rec_baseline/` - аудит и smoke-подготовка TiM4Rec для KuaiRand Protocol B без полного обучения.

@@ -2,6 +2,7 @@
 .conda/
 .venv/
 venv/
+envs/
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -31,6 +32,7 @@ slurm-*.out
 outputs/**/logs/
 experiments/**/slurm_logs/*
 !experiments/ltr_xgb_baseline/slurm_logs/.gitkeep
+!experiments/tim4rec_baseline/slurm_logs/.gitkeep
 
 # Model binaries and dense arrays.
 models/
@@ -53,6 +55,9 @@ experiments/ltr_xgb_baseline/*_sanity/
 experiments/ltr_xgb_baseline/rankings/
 experiments/ltr_xgb_baseline/features/
 experiments/ltr_xgb_baseline/candidates/
+experiments/tim4rec_baseline/checkpoints/
+experiments/tim4rec_baseline/logs/
+experiments/tim4rec_baseline/cache/
 
 # Keep compact experiment registry and run summaries.
 !experiments/results.csv
@@ -60,6 +65,10 @@ experiments/ltr_xgb_baseline/runs/*
 !experiments/ltr_xgb_baseline/runs/.gitkeep
 !experiments/ltr_xgb_baseline/runs/*.json
 !experiments/ltr_xgb_baseline/runs/*_notes.md
+experiments/tim4rec_baseline/runs/*
+!experiments/tim4rec_baseline/runs/.gitkeep
+!experiments/tim4rec_baseline/runs/smoke_*.json
+!experiments/tim4rec_baseline/runs/smoke_*.md
 
 # Generated research outputs: ignore by default, keep compact summaries.
 outputs/*
