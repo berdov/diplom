@@ -15,8 +15,10 @@ REPO_DIR="${REPO_DIR:-/home/daryumin/iberdov/diplom}"
 ENV_DIR="${TIM4REC_ENV_DIR:-/home/daryumin/iberdov/diplom/envs/tim4rec}"
 PYTHON="${ENV_DIR}/bin/python"
 STAGE="${TIM4REC_STAGE:-smoke}"
+RUN_ID="${TIM4REC_RUN_ID:-tim4rec_sanity_001}"
 CONFIG="${TIM4REC_CONFIG:-${REPO_DIR}/experiments/tim4rec_baseline/config_kuairand.yaml}"
 RUNS_DIR="${REPO_DIR}/experiments/tim4rec_baseline/runs"
+ARTIFACT_ROOT="${TIM4REC_ARTIFACT_ROOT:-/home/daryumin/iberdov/diplom/experiments/tim4rec_baseline}"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 
 cd "${REPO_DIR}"
@@ -42,8 +44,11 @@ echo "Slurm: constraint=type_e"
 echo "Slurm: gres=${SLURM_JOB_GPUS:-gpu:1}"
 echo "Slurm: cpus=${SLURM_CPUS_PER_TASK:-4}"
 echo "Slurm: mem=0"
+echo "Slurm: mem per node=${SLURM_MEM_PER_NODE:-unknown}"
+echo "Slurm: mem per cpu=${SLURM_MEM_PER_CPU:-unknown}"
 echo "Slurm: node list=${SLURM_JOB_NODELIST:-unknown}"
 echo "Stage: ${STAGE}"
+echo "Run ID: ${RUN_ID}"
 
 case "${STAGE}" in
   smoke)
@@ -56,8 +61,16 @@ case "${STAGE}" in
       --config "${CONFIG}" \
       --result-json "${RUNS_DIR}/train_${STAMP}.json"
     ;;
+  sanity)
+    "${PYTHON}" experiments/tim4rec_baseline/sanity_train.py \
+      --config "${CONFIG}" \
+      --run-id "${RUN_ID}" \
+      --epochs "${TIM4REC_SANITY_EPOCHS:-5}" \
+      --artifact-dir "${ARTIFACT_ROOT}/${RUN_ID}" \
+      --result-json "${RUNS_DIR}/${RUN_ID}.json"
+    ;;
   *)
-    echo "Unknown TIM4REC_STAGE=${STAGE}; expected smoke or train" >&2
+    echo "Unknown TIM4REC_STAGE=${STAGE}; expected smoke, train or sanity" >&2
     exit 2
     ;;
 esac
