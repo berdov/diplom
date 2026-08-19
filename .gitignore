@@ -58,6 +58,7 @@ experiments/ltr_xgb_baseline/candidates/
 experiments/tim4rec_baseline/checkpoints/
 experiments/tim4rec_baseline/logs/
 experiments/tim4rec_baseline/cache/
+experiments/tim4rec_baseline/tim4rec_*/
 experiments/tim4rec_baseline/tim4rec_sanity_*/
 
 # Keep compact experiment registry and run summaries.
@@ -70,6 +71,8 @@ experiments/tim4rec_baseline/runs/*
 !experiments/tim4rec_baseline/runs/.gitkeep
 !experiments/tim4rec_baseline/runs/smoke_*.json
 !experiments/tim4rec_baseline/runs/smoke_*.md
+!experiments/tim4rec_baseline/runs/tim4rec_*.json
+!experiments/tim4rec_baseline/runs/tim4rec_*_notes.md
 !experiments/tim4rec_baseline/runs/tim4rec_sanity_*.json
 !experiments/tim4rec_baseline/runs/tim4rec_sanity_*_notes.md
 

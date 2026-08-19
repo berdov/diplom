@@ -21,6 +21,10 @@ RUNS_DIR="${REPO_DIR}/experiments/tim4rec_baseline/runs"
 ARTIFACT_ROOT="${TIM4REC_ARTIFACT_ROOT:-/home/daryumin/iberdov/diplom/experiments/tim4rec_baseline}"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 
+if [ "${STAGE}" = "reproduce" ] && [ "${RUN_ID}" = "tim4rec_sanity_001" ]; then
+  RUN_ID="tim4rec_001"
+fi
+
 cd "${REPO_DIR}"
 mkdir -p "${RUNS_DIR}" "${REPO_DIR}/experiments/tim4rec_baseline/slurm_logs"
 
@@ -69,8 +73,16 @@ case "${STAGE}" in
       --artifact-dir "${ARTIFACT_ROOT}/${RUN_ID}" \
       --result-json "${RUNS_DIR}/${RUN_ID}.json"
     ;;
+  reproduce)
+    "${PYTHON}" experiments/tim4rec_baseline/reproduce.py \
+      --config "${CONFIG}" \
+      --run-id "${RUN_ID}" \
+      --epochs "${TIM4REC_EPOCHS:-300}" \
+      --artifact-dir "${ARTIFACT_ROOT}/${RUN_ID}" \
+      --result-json "${RUNS_DIR}/${RUN_ID}.json"
+    ;;
   *)
-    echo "Unknown TIM4REC_STAGE=${STAGE}; expected smoke, train or sanity" >&2
+    echo "Unknown TIM4REC_STAGE=${STAGE}; expected smoke, train, sanity or reproduce" >&2
     exit 2
     ;;
 esac
