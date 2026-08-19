@@ -6,7 +6,7 @@ gpu_id: '0'
 use_gpu: True
 log_wandb: False
 reproducibility: True
-seed: 2026
+seed: 2024
 state: INFO
 show_progress: False
 

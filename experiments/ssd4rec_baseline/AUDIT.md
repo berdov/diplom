@@ -217,7 +217,7 @@ causal-conv1d `1.2.2.post1`. Exact upstream environment по
 `upstream/environment.yaml` остается целевым вариантом для отдельной
 environment-lock задачи.
 
-## Known issues в upstream
+## Известные upstream issues
 
 - `custom_utils.py` вызывает `getLogger()` без явного import. Smoke wrapper
   добавляет runtime shim `custom_utils.getLogger = logging.getLogger`.
@@ -235,9 +235,10 @@ environment-lock задачи.
 - Создана ветка `exp/ssd4rec-baseline`.
 - Upstream snapshot сохранен локально без датасетов.
 - Подготовлены config, environment notes, Slurm script и smoke test.
-- Полное обучение SSD4Rec не запускалось.
+- Smoke test и 5-epoch sanity прошли на полном KuaiRand Protocol B.
+- Полное 300-epoch обучение SSD4Rec не запускалось.
 
-## Smoke result
+## Результат smoke
 
 Успешный короткий smoke:
 
@@ -266,4 +267,49 @@ environment-lock задачи.
 - one full-ranking validation batch: scores shape `[2048, 7112]`, finite positive
   scores `2048`.
 
-Полное обучение SSD4Rec этим job не запускалось.
+Этот job был только smoke; полноценные эпохи в нем не запускались.
+
+## Результат sanity
+
+Успешный 5-epoch sanity:
+
+- JSON: `experiments/ssd4rec_baseline/runs/ssd4rec_sanity_001.json`;
+- notes: `experiments/ssd4rec_baseline/runs/ssd4rec_sanity_001_notes.md`;
+- Slurm job: `4264406`;
+- partition: `test`;
+- constraint: `type_e`;
+- node: `cn-046`;
+- GPU: `NVIDIA A100-SXM4-80GB`;
+- status: `COMPLETED`, exit code `0:0`, elapsed `00:12:35`;
+- MaxRSS batch step: `2993M`;
+- peak VRAM allocated: `3753577472` bytes;
+- peak VRAM reserved: `11087642624` bytes.
+
+Sanity использовал полный train split Protocol B, выполнял full-ranking validation
+после каждой эпохи и не считал test metrics.
+
+| epoch | loss | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 7.166289 | 0.0851 | 0.1379 | 0.2403 | 0.0480 | 0.0613 | 0.0815 |
+| 2 | 6.672622 | 0.0912 | 0.1455 | 0.2590 | 0.0513 | 0.0650 | 0.0874 |
+| 3 | 6.569422 | 0.0942 | 0.1472 | 0.2686 | 0.0526 | 0.0660 | 0.0899 |
+| 4 | 6.502672 | 0.0984 | 0.1555 | 0.2807 | 0.0546 | 0.0689 | 0.0936 |
+| 5 | 6.448484 | 0.1008 | 0.1615 | 0.2857 | 0.0559 | 0.0712 | 0.0956 |
+
+Лучший sanity checkpoint выбран по validation `NDCG@10`, epoch `5`.
+Сравнение с paper v2 для KuaiRand: sanity `HR@10=0.1008`,
+`HR@20=0.1615`, `NDCG@10=0.0559`, `NDCG@20=0.0712` против опубликованных
+SSD4Rec `HR@10=0.1075`, `HR@20=0.1731`, `NDCG@10=0.0593`,
+`NDCG@20=0.0757`. Это sanity pipeline, не заявка на полное воспроизведение.
+
+Дополнительно подтверждено:
+
+- official `hidden_size=256`, `var_len=True`, `num_layers=2`, Mamba2/BiSSD;
+- first train batch: `1024` targets, `46493` flat sequence tokens;
+- sequence length min/median/mean/max: `1 / 29.0 / 45.4033 / 510`;
+- `cum_item_length_shape=[1024]`, `item_idx_shape=[46493]`;
+- sequence registers присутствуют, `flip_index` является permutation;
+- оба направления BiSSD активны: каждая из 2 BiSSD layers вызвала Mamba2 дважды;
+- gradients/parameters/optimizer update finite;
+- item id `0` маскируется в full-ranking validation;
+- seen history items не маскируются, что соответствует upstream custom trainer.

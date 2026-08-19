@@ -1,0 +1,1107 @@
+{
+  "run_id": "ssd4rec_sanity_001",
+  "status": "ok",
+  "sanity": true,
+  "created_at_utc": "2026-08-19T12:31:20.185987+00:00",
+  "starting_project_commit": "dabba34e567e72cf10d578302a855d36ae823ed0",
+  "project_git_branch": "exp/ssd4rec-baseline",
+  "working_tree_state_at_submission": " M experiments/ssd4rec_baseline/config_kuairand.yaml; M experiments/ssd4rec_baseline/environment.txt; M slurm/ssd4rec_baseline.sh;?? experiments/ssd4rec_baseline/sanity_train.py;",
+  "upstream": {
+    "repository": "https://github.com/ZhangYifeng1995/SSD4Rec",
+    "commit": "bdbfe5193f3a6697bb6ee0699ab43386d80c6198",
+    "license": "MIT License, copyright 2025 Zhang Yifeng"
+  },
+  "paper": {
+    "reference": "arXiv 2409.01192 v2",
+    "url": "https://arxiv.org/abs/2409.01192",
+    "published_metrics": {
+      "split": "paper reported evaluation",
+      "hr@10": 0.1075,
+      "hr@20": 0.1731,
+      "ndcg@10": 0.0593,
+      "ndcg@20": 0.0757,
+      "mrr@10": 0.0448,
+      "mrr@20": 0.0493
+    }
+  },
+  "host": "cn-046",
+  "platform": "Linux-5.14.0-611.55.1.el9_7.0.3.x86_64-x86_64-with-glibc2.34",
+  "slurm": {
+    "job_id": "4264406",
+    "job_name": "ssd4rec-sanity",
+    "partition": "test",
+    "node_list": "cn-046",
+    "cpus_per_task": "4",
+    "job_gpus": "4",
+    "cuda_visible_devices": "0",
+    "mem_per_node": null,
+    "mem_per_cpu": null,
+    "time_limit": "00:30:00",
+    "constraint": "type_e",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "00:12:35",
+    "alloc_cpus": "4",
+    "alloc_tres": "billing=4,cpu=4,gres/gpu:a100=1,gres/gpu=1,node=1",
+    "req_tres": "billing=4,cpu=4,gres/gpu=1,mem=1M,node=1",
+    "allocated_gpu_tres": "gres/gpu:a100=1",
+    "job_gpu_ids": "4",
+    "requested_gpus": 1,
+    "allocated_gpus": 1
+  },
+  "environment": {
+    "upstream_requirements": {
+      "source": "experiments/ssd4rec_baseline/upstream/environment.yaml",
+      "python": "3.10.15",
+      "cuda_toolkit": "11.8.0",
+      "cuda_nvcc": "11.8.89",
+      "torch": "2.1.1+cu118",
+      "torchaudio": "2.1.1+cu118",
+      "torchvision": "0.16.1+cu118",
+      "recbole": "1.2.0",
+      "mamba_ssm": "2.2.2",
+      "causal_conv1d": "1.4.0",
+      "triton": "2.1.0",
+      "numpy": "1.26.3",
+      "scipy": "1.14.1",
+      "pandas": "2.2.3",
+      "pyyaml": "6.0.2",
+      "tqdm": "4.67.1",
+      "psutil": "6.1.0",
+      "einops": "0.8.0",
+      "transformers": "4.46.3"
+    },
+    "actual": {
+      "python": "3.10.14",
+      "python_executable": "/home/daryumin/iberdov/diplom/envs/ssd4rec/bin/python",
+      "sys_prefix": "/home/daryumin/iberdov/diplom/envs/ssd4rec",
+      "sys_base_prefix": "/home/daryumin/iberdov/diplom/envs/tim4rec",
+      "torch": "2.3.0+cu118",
+      "torch_cuda": "11.8",
+      "cuda_available": true,
+      "recbole": "1.2.0",
+      "mamba_ssm": "2.2.2",
+      "causal_conv1d": "1.2.2.post1",
+      "triton": "2.3.0",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1",
+      "pandas": "2.2.2",
+      "pyyaml": "6.0.1",
+      "tqdm": "4.66.4",
+      "psutil": "6.1.0",
+      "einops": "0.8.0",
+      "transformers": "4.40.2"
+    },
+    "known_differences": {
+      "python": {
+        "upstream": "3.10.15",
+        "actual": "3.10.14",
+        "matches_exact_pin": false
+      },
+      "torch": {
+        "upstream": "2.1.1+cu118",
+        "actual": "2.3.0+cu118",
+        "matches_exact_pin": false
+      },
+      "recbole": {
+        "upstream": "1.2.0",
+        "actual": "1.2.0",
+        "matches_exact_pin": true
+      },
+      "mamba_ssm": {
+        "upstream": "2.2.2",
+        "actual": "2.2.2",
+        "matches_exact_pin": true
+      },
+      "causal_conv1d": {
+        "upstream": "1.4.0",
+        "actual": "1.2.2.post1",
+        "matches_exact_pin": false
+      },
+      "triton": {
+        "upstream": "2.1.0",
+        "actual": "2.3.0",
+        "matches_exact_pin": false
+      },
+      "numpy": {
+        "upstream": "1.26.3",
+        "actual": "1.26.4",
+        "matches_exact_pin": false
+      },
+      "scipy": {
+        "upstream": "1.14.1",
+        "actual": "1.13.1",
+        "matches_exact_pin": false
+      },
+      "pandas": {
+        "upstream": "2.2.3",
+        "actual": "2.2.2",
+        "matches_exact_pin": false
+      },
+      "pyyaml": {
+        "upstream": "6.0.2",
+        "actual": "6.0.1",
+        "matches_exact_pin": false
+      },
+      "tqdm": {
+        "upstream": "4.67.1",
+        "actual": "4.66.4",
+        "matches_exact_pin": false
+      },
+      "psutil": {
+        "upstream": "6.1.0",
+        "actual": "6.1.0",
+        "matches_exact_pin": true
+      },
+      "einops": {
+        "upstream": "0.8.0",
+        "actual": "0.8.0",
+        "matches_exact_pin": true
+      },
+      "transformers": {
+        "upstream": "4.46.3",
+        "actual": "4.40.2",
+        "matches_exact_pin": false
+      }
+    },
+    "dependency_sources": {
+      "explicitly_pinned_upstream": [
+        "causal_conv1d",
+        "cuda_nvcc",
+        "cuda_toolkit",
+        "einops",
+        "mamba_ssm",
+        "numpy",
+        "pandas",
+        "psutil",
+        "python",
+        "pyyaml",
+        "recbole",
+        "scipy",
+        "source",
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "tqdm",
+        "transformers",
+        "triton"
+      ],
+      "not_pinned_by_upstream": [
+        "В upstream snapshot нет requirements.txt, setup.py или pyproject.toml.",
+        "Stdlib imports отдельно не version-pinned."
+      ],
+      "project_compatibility_shims": [
+        "alias np.float для NumPy >= 1.24",
+        "добавление custom_utils.getLogger"
+      ]
+    },
+    "exact_upstream_environment": false,
+    "separate_environment_path": "/home/daryumin/iberdov/diplom/envs/ssd4rec",
+    "mutates_tim4rec_env": false
+  },
+  "gpu": {
+    "device": "cuda",
+    "name": "NVIDIA A100-SXM4-80GB",
+    "capability": "8.0",
+    "peak_allocated_bytes": 3753577472,
+    "peak_reserved_bytes": 11087642624
+  },
+  "memory": {
+    "process_ru_maxrss_kb": 4084944,
+    "slurm_batch_max_rss": "2993M",
+    "slurm_batch_max_vm_size": "31038660K"
+  },
+  "dataset": {
+    "manifest": {
+      "path": "/home/daryumin/iberdov/diplom_ssd4rec_sanity_stage_20260819T121358Z/outputs/data/protocol_b_manifest.json",
+      "loaded": true
+    },
+    "fingerprint": {
+      "users": 23951,
+      "items": 7111,
+      "interactions": 1134420,
+      "train": 1086518,
+      "validation": 23951,
+      "test": 23951
+    },
+    "expected_fingerprint": {
+      "users": 23951,
+      "items": 7111,
+      "interactions": 1134420,
+      "train": 1086518,
+      "validation": 23951,
+      "test": 23951
+    },
+    "sequence_stats": {
+      "count": 23951,
+      "min": 5,
+      "mean": 47.36420191223748,
+      "median": 34.0,
+      "p75": 63.0,
+      "p90": 101.0,
+      "p95": 131.0,
+      "p99": 210.0,
+      "p999": 358.0,
+      "max": 806
+    },
+    "filtering": {
+      "min_core": 5,
+      "source": "Protocol B manifest"
+    },
+    "split": {
+      "name": "Protocol B chronological leave-one-out",
+      "train": 1086518,
+      "validation": 23951,
+      "test": 23951,
+      "test_loader_created_not_iterated": true,
+      "test_metrics_computed": false,
+      "random_exposure_logs_used": false
+    },
+    "recbole": {
+      "user_num_with_padding": 23952,
+      "item_num_with_padding": 7112,
+      "item_universe_without_padding": 7111,
+      "inter_num_after_ssd4rec_augmentation": 1110469,
+      "train_batches": 1038,
+      "valid_batches": 12
+    }
+  },
+  "config": {
+    "config_file": "/home/daryumin/iberdov/diplom_ssd4rec_sanity_stage_20260819T121358Z/experiments/ssd4rec_baseline/config_kuairand.yaml",
+    "seed": 2024,
+    "seed_source": "upstream config.yaml global seed",
+    "paper_seed": null,
+    "upstream_config_seed": 2024,
+    "seed_tuned": false,
+    "learning_rate": 0.001,
+    "optimizer": "adam",
+    "weight_decay": 0.0,
+    "epochs_requested": 5,
+    "epochs_completed": 5,
+    "train_batch_size": 1024,
+    "eval_batch_size": 2048,
+    "metrics": [
+      "Hit",
+      "Recall",
+      "NDCG"
+    ],
+    "topk": [
+      5,
+      10,
+      20,
+      50
+    ],
+    "valid_metric": "NDCG@10",
+    "eval_args": {
+      "split": {
+        "LS": "valid_and_test"
+      },
+      "order": "TO",
+      "group_by": "user",
+      "mode": {
+        "valid": "full",
+        "test": "full"
+      }
+    },
+    "var_len": true,
+    "maskratio": 0.2,
+    "hyperparameter_sources": {
+      "hidden_size": "глобальная настройка SSD4Rec из upstream config; paper использует high-dimensional SSD4Rec с размерностью 256",
+      "num_layers": "KuaiRand-блок upstream config",
+      "d_state": "глобальная настройка SSD block из upstream config",
+      "d_conv": "глобальная настройка SSD block из upstream config",
+      "expand": "глобальная настройка SSD block из upstream config",
+      "headdim": "глобальная настройка SSD block из upstream config",
+      "dropout_prob": "KuaiRand-блок upstream config",
+      "norm_embedding": "KuaiRand-блок upstream config",
+      "beta": "KuaiRand-блок upstream config",
+      "maskratio": "KuaiRand-блок upstream config и paper-анализ mask ratio",
+      "var_len": "training setting из upstream config",
+      "learning_rate": "training setting из upstream config",
+      "optimizer": "training setting из upstream config",
+      "weight_decay": "eval/training setting из upstream config",
+      "train_batch_size": "training setting из upstream config",
+      "eval_batch_size": "evaluation setting из upstream config",
+      "max_sequence_length": "KuaiRand-настройка из upstream config; при var_len=True это не active truncation limit",
+      "epochs": "upstream config задает 300; sanity compatibility override задает 5",
+      "stopping_step": "training setting из upstream config",
+      "seed": "глобальная настройка из upstream config",
+      "loss": "upstream code SSD4Rec.calculate_loss использует CrossEntropyLoss по всем items",
+      "validation_metric": "upstream config задает valid_metric=NDCG@10",
+      "metrics": "sanity compatibility override исключает MRR, потому что текущий sanity просит только HR/Recall/NDCG"
+    },
+    "architecture": {
+      "model": "Official SSD4Rec",
+      "hidden_size": 256,
+      "num_layers": 2,
+      "dropout_prob": 0.2,
+      "norm_embedding": true,
+      "beta": 0.1,
+      "d_state": 64,
+      "d_conv": 4,
+      "expand": 2,
+      "headdim": 16,
+      "bissd_layer_count": 2,
+      "uses_mamba2": true,
+      "uses_sequence_registers": true,
+      "uses_bidirectional_ssd": true,
+      "uses_original_masking": true,
+      "loss": "CrossEntropyLoss over full item logits"
+    }
+  },
+  "variable_length_diagnostics": {
+    "first_train_batch": {
+      "targets": 1024,
+      "flat_sequence_tokens": 46493,
+      "item_id_list_shape": [
+        46493
+      ],
+      "cum_item_length_shape": [
+        1024
+      ],
+      "cum_item_length_last": 46493,
+      "item_idx_shape": [
+        46493
+      ],
+      "item_idx_unique_segments": 1024,
+      "flip_index_shape": [
+        46493
+      ],
+      "flip_index_is_permutation": true,
+      "sequence_length": {
+        "min": 1,
+        "median": 29.0,
+        "mean": 45.4033203125,
+        "max": 510
+      },
+      "sequence_registers_present": true,
+      "var_len": true,
+      "max_item_list_length_config": 50,
+      "uses_flat_representation_in_forward": true,
+      "mask_zero_tokens": 9364,
+      "mask_zero_ratio": 0.20140667259693146,
+      "bidirectional": {
+        "bidirectional_expected_mamba_calls_total": 4,
+        "mamba_calls_per_layer": {
+          "0": 2,
+          "1": 2
+        },
+        "mamba_output_shapes_sample": {
+          "0": [
+            [
+              1,
+              46493,
+              256
+            ],
+            [
+              1,
+              46493,
+              256
+            ]
+          ],
+          "1": [
+            [
+              1,
+              46493,
+              256
+            ],
+            [
+              1,
+              46493,
+              256
+            ]
+          ]
+        },
+        "forward_direction_active": true,
+        "backward_reversed_direction_active": true,
+        "flip_index_present": true,
+        "bissd_layer_count": 2,
+        "bissd_layers_are_official_class": true,
+        "mamba_module_shared_for_forward_backward": true,
+        "mamba_calls_total": 4,
+        "all_layers_called_twice": true
+      }
+    },
+    "full_dataset_var_len_true": true,
+    "note": "With upstream var_len=True, MAX_ITEM_LIST_LENGTH is not an active truncation cap in SSD4RecDataset.data_augmentation."
+  },
+  "bidirectional_diagnostics": {
+    "bidirectional_expected_mamba_calls_total": 4,
+    "mamba_calls_per_layer": {
+      "0": 2,
+      "1": 2
+    },
+    "mamba_output_shapes_sample": {
+      "0": [
+        [
+          1,
+          46493,
+          256
+        ],
+        [
+          1,
+          46493,
+          256
+        ]
+      ],
+      "1": [
+        [
+          1,
+          46493,
+          256
+        ],
+        [
+          1,
+          46493,
+          256
+        ]
+      ]
+    },
+    "forward_direction_active": true,
+    "backward_reversed_direction_active": true,
+    "flip_index_present": true,
+    "bissd_layer_count": 2,
+    "bissd_layers_are_official_class": true,
+    "mamba_module_shared_for_forward_backward": true,
+    "mamba_calls_total": 4,
+    "all_layers_called_twice": true
+  },
+  "gradient_diagnostics": {
+    "first_backward": {
+      "total_grad_norm": 0.9724729061126709,
+      "total_grad_norm_finite": true,
+      "nonfinite_grad_tensors": [],
+      "all_gradients_finite": true,
+      "sampled_parameters": [
+        {
+          "name": "item_embedding.weight",
+          "shape": [
+            7112,
+            256
+          ],
+          "grad_norm": 0.8240253925323486,
+          "grad_norm_finite": true,
+          "update_norm": null,
+          "update_norm_finite": true,
+          "updated": false
+        },
+        {
+          "name": "BiSSD_layers.0.forward_ssd.dt_bias",
+          "shape": [
+            32
+          ],
+          "grad_norm": 0.00003004776590387337,
+          "grad_norm_finite": true,
+          "update_norm": null,
+          "update_norm_finite": true,
+          "updated": false
+        },
+        {
+          "name": "BiSSD_layers.0.ffn.w_1.weight",
+          "shape": [
+            1024,
+            256
+          ],
+          "grad_norm": 0.07353419065475464,
+          "grad_norm_finite": true,
+          "update_norm": null,
+          "update_norm_finite": true,
+          "updated": false
+        },
+        {
+          "name": "BiSSD_layers.1.forward_ssd.dt_bias",
+          "shape": [
+            32
+          ],
+          "grad_norm": 0.00005510385017259978,
+          "grad_norm_finite": true,
+          "update_norm": null,
+          "update_norm_finite": true,
+          "updated": false
+        }
+      ],
+      "sampled_parameters_after_update": [
+        {
+          "name": "item_embedding.weight",
+          "shape": [
+            7112,
+            256
+          ],
+          "grad_norm": 0.8240253925323486,
+          "grad_norm_finite": true,
+          "update_norm": 1.3468331098556519,
+          "update_norm_finite": true,
+          "updated": true
+        },
+        {
+          "name": "BiSSD_layers.0.forward_ssd.dt_bias",
+          "shape": [
+            32
+          ],
+          "grad_norm": 0.00003004776590387337,
+          "grad_norm_finite": true,
+          "update_norm": 0.005582515150308609,
+          "update_norm_finite": true,
+          "updated": true
+        },
+        {
+          "name": "BiSSD_layers.0.ffn.w_1.weight",
+          "shape": [
+            1024,
+            256
+          ],
+          "grad_norm": 0.07353419065475464,
+          "grad_norm_finite": true,
+          "update_norm": 0.511732280254364,
+          "update_norm_finite": true,
+          "updated": true
+        },
+        {
+          "name": "BiSSD_layers.1.forward_ssd.dt_bias",
+          "shape": [
+            32
+          ],
+          "grad_norm": 0.00005510385017259978,
+          "grad_norm_finite": true,
+          "update_norm": 0.005634407512843609,
+          "update_norm_finite": true,
+          "updated": true
+        }
+      ],
+      "all_sampled_updates_finite": true,
+      "any_sampled_parameter_updated": true
+    }
+  },
+  "validation_protocol": {
+    "candidate_protocol": "full_7111_items",
+    "evaluation_protocol": "full_7111_items",
+    "mask_item_zero": true,
+    "mask_seen_history_items": false,
+    "test_metrics_computed": false,
+    "first_epoch_full_ranking_checks": {
+      "mode": "full",
+      "candidate_protocol": "full_7111_items",
+      "evaluation_protocol": "full_7111_items",
+      "item_num_with_padding": 7112,
+      "candidate_universe_size": 7111,
+      "validation_rows": 23951,
+      "positive_targets": 23951,
+      "one_positive_per_row": true,
+      "min_positive_item_id": 1,
+      "max_positive_item_id": 7111,
+      "zero_positive_targets": 0,
+      "raw_score_batches": 12,
+      "raw_nan_scores": 0,
+      "raw_inf_scores": 0,
+      "positive_score_nonfinite": 0,
+      "raw_scores_all_finite": true,
+      "positive_scores_all_finite": true,
+      "padding_item_zero_masked": true,
+      "seen_history_items_masked": false,
+      "seen_history_note": "Matches official SSD4Rec custom_trainer semantics: only item id 0 is masked."
+    }
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss_sum": 7438.608285903931,
+      "train_loss_avg": 7.1662892927783535,
+      "learning_rate": 0.001,
+      "train_time_sec": 239.81268957071006,
+      "validation_time_sec": 1.2148799821734428,
+      "epoch_time_sec": 241.23880439531058,
+      "validation": {
+        "hit@5": 0.0547,
+        "hit@10": 0.0851,
+        "hit@20": 0.1379,
+        "hit@50": 0.2403,
+        "recall@5": 0.0547,
+        "recall@10": 0.0851,
+        "recall@20": 0.1379,
+        "recall@50": 0.2403,
+        "ndcg@5": 0.0383,
+        "ndcg@10": 0.048,
+        "ndcg@20": 0.0613,
+        "ndcg@50": 0.0815
+      },
+      "valid_score": 0.048,
+      "valid_metric": "ndcg@10",
+      "early_stopping": {
+        "cur_step": 0,
+        "update_flag": true,
+        "stop_flag": false,
+        "best_valid_score": 0.048
+      },
+      "hit_recall_equal_check": {
+        "ok": true,
+        "abs_diffs": {
+          "5": 0.0,
+          "10": 0.0,
+          "20": 0.0,
+          "50": 0.0
+        }
+      },
+      "full_ranking_checks": {
+        "mode": "full",
+        "candidate_protocol": "full_7111_items",
+        "evaluation_protocol": "full_7111_items",
+        "item_num_with_padding": 7112,
+        "candidate_universe_size": 7111,
+        "validation_rows": 23951,
+        "positive_targets": 23951,
+        "one_positive_per_row": true,
+        "min_positive_item_id": 1,
+        "max_positive_item_id": 7111,
+        "zero_positive_targets": 0,
+        "raw_score_batches": 12,
+        "raw_nan_scores": 0,
+        "raw_inf_scores": 0,
+        "positive_score_nonfinite": 0,
+        "raw_scores_all_finite": true,
+        "positive_scores_all_finite": true,
+        "padding_item_zero_masked": true,
+        "seen_history_items_masked": false,
+        "seen_history_note": "Matches official SSD4Rec custom_trainer semantics: only item id 0 is masked."
+      },
+      "parameters_finite_check": {
+        "ok": true,
+        "nonfinite_parameter_tensors": [],
+        "trainable_parameter_count": 3750336
+      },
+      "gpu_peak_allocated_bytes_so_far": 3753577472,
+      "gpu_peak_reserved_bytes_so_far": 11087642624
+    },
+    {
+      "epoch": 2,
+      "train_loss_sum": 6926.181736469269,
+      "train_loss_avg": 6.672622096791203,
+      "learning_rate": 0.001,
+      "train_time_sec": 115.70381178148091,
+      "validation_time_sec": 1.2349337739869952,
+      "epoch_time_sec": 117.16485138237476,
+      "validation": {
+        "hit@5": 0.0562,
+        "hit@10": 0.0912,
+        "hit@20": 0.1455,
+        "hit@50": 0.259,
+        "recall@5": 0.0562,
+        "recall@10": 0.0912,
+        "recall@20": 0.1455,
+        "recall@50": 0.259,
+        "ndcg@5": 0.0402,
+        "ndcg@10": 0.0513,
+        "ndcg@20": 0.065,
+        "ndcg@50": 0.0874
+      },
+      "valid_score": 0.0513,
+      "valid_metric": "ndcg@10",
+      "early_stopping": {
+        "cur_step": 0,
+        "update_flag": true,
+        "stop_flag": false,
+        "best_valid_score": 0.0513
+      },
+      "hit_recall_equal_check": {
+        "ok": true,
+        "abs_diffs": {
+          "5": 0.0,
+          "10": 0.0,
+          "20": 0.0,
+          "50": 0.0
+        }
+      },
+      "full_ranking_checks": {
+        "mode": "full",
+        "candidate_protocol": "full_7111_items",
+        "evaluation_protocol": "full_7111_items",
+        "item_num_with_padding": 7112,
+        "candidate_universe_size": 7111,
+        "validation_rows": 23951,
+        "positive_targets": 23951,
+        "one_positive_per_row": true,
+        "min_positive_item_id": 1,
+        "max_positive_item_id": 7111,
+        "zero_positive_targets": 0,
+        "raw_score_batches": 12,
+        "raw_nan_scores": 0,
+        "raw_inf_scores": 0,
+        "positive_score_nonfinite": 0,
+        "raw_scores_all_finite": true,
+        "positive_scores_all_finite": true,
+        "padding_item_zero_masked": true,
+        "seen_history_items_masked": false,
+        "seen_history_note": "Matches official SSD4Rec custom_trainer semantics: only item id 0 is masked."
+      },
+      "parameters_finite_check": {
+        "ok": true,
+        "nonfinite_parameter_tensors": [],
+        "trainable_parameter_count": 3750336
+      },
+      "gpu_peak_allocated_bytes_so_far": 3753577472,
+      "gpu_peak_reserved_bytes_so_far": 11087642624
+    },
+    {
+      "epoch": 3,
+      "train_loss_sum": 6819.0604429244995,
+      "train_loss_avg": 6.569422392027456,
+      "learning_rate": 0.001,
+      "train_time_sec": 115.8502101963386,
+      "validation_time_sec": 1.1980380341410637,
+      "epoch_time_sec": 117.27761206496507,
+      "validation": {
+        "hit@5": 0.0569,
+        "hit@10": 0.0942,
+        "hit@20": 0.1472,
+        "hit@50": 0.2686,
+        "recall@5": 0.0569,
+        "recall@10": 0.0942,
+        "recall@20": 0.1472,
+        "recall@50": 0.2686,
+        "ndcg@5": 0.0407,
+        "ndcg@10": 0.0526,
+        "ndcg@20": 0.066,
+        "ndcg@50": 0.0899
+      },
+      "valid_score": 0.0526,
+      "valid_metric": "ndcg@10",
+      "early_stopping": {
+        "cur_step": 0,
+        "update_flag": true,
+        "stop_flag": false,
+        "best_valid_score": 0.0526
+      },
+      "hit_recall_equal_check": {
+        "ok": true,
+        "abs_diffs": {
+          "5": 0.0,
+          "10": 0.0,
+          "20": 0.0,
+          "50": 0.0
+        }
+      },
+      "full_ranking_checks": {
+        "mode": "full",
+        "candidate_protocol": "full_7111_items",
+        "evaluation_protocol": "full_7111_items",
+        "item_num_with_padding": 7112,
+        "candidate_universe_size": 7111,
+        "validation_rows": 23951,
+        "positive_targets": 23951,
+        "one_positive_per_row": true,
+        "min_positive_item_id": 1,
+        "max_positive_item_id": 7111,
+        "zero_positive_targets": 0,
+        "raw_score_batches": 12,
+        "raw_nan_scores": 0,
+        "raw_inf_scores": 0,
+        "positive_score_nonfinite": 0,
+        "raw_scores_all_finite": true,
+        "positive_scores_all_finite": true,
+        "padding_item_zero_masked": true,
+        "seen_history_items_masked": false,
+        "seen_history_note": "Matches official SSD4Rec custom_trainer semantics: only item id 0 is masked."
+      },
+      "parameters_finite_check": {
+        "ok": true,
+        "nonfinite_parameter_tensors": [],
+        "trainable_parameter_count": 3750336
+      },
+      "gpu_peak_allocated_bytes_so_far": 3753577472,
+      "gpu_peak_reserved_bytes_so_far": 11087642624
+    },
+    {
+      "epoch": 4,
+      "train_loss_sum": 6749.773961544037,
+      "train_loss_avg": 6.502672409965354,
+      "learning_rate": 0.001,
+      "train_time_sec": 116.66568310093135,
+      "validation_time_sec": 1.2104323403909802,
+      "epoch_time_sec": 118.10395195428282,
+      "validation": {
+        "hit@5": 0.0625,
+        "hit@10": 0.0984,
+        "hit@20": 0.1555,
+        "hit@50": 0.2807,
+        "recall@5": 0.0625,
+        "recall@10": 0.0984,
+        "recall@20": 0.1555,
+        "recall@50": 0.2807,
+        "ndcg@5": 0.043,
+        "ndcg@10": 0.0546,
+        "ndcg@20": 0.0689,
+        "ndcg@50": 0.0936
+      },
+      "valid_score": 0.0546,
+      "valid_metric": "ndcg@10",
+      "early_stopping": {
+        "cur_step": 0,
+        "update_flag": true,
+        "stop_flag": false,
+        "best_valid_score": 0.0546
+      },
+      "hit_recall_equal_check": {
+        "ok": true,
+        "abs_diffs": {
+          "5": 0.0,
+          "10": 0.0,
+          "20": 0.0,
+          "50": 0.0
+        }
+      },
+      "full_ranking_checks": {
+        "mode": "full",
+        "candidate_protocol": "full_7111_items",
+        "evaluation_protocol": "full_7111_items",
+        "item_num_with_padding": 7112,
+        "candidate_universe_size": 7111,
+        "validation_rows": 23951,
+        "positive_targets": 23951,
+        "one_positive_per_row": true,
+        "min_positive_item_id": 1,
+        "max_positive_item_id": 7111,
+        "zero_positive_targets": 0,
+        "raw_score_batches": 12,
+        "raw_nan_scores": 0,
+        "raw_inf_scores": 0,
+        "positive_score_nonfinite": 0,
+        "raw_scores_all_finite": true,
+        "positive_scores_all_finite": true,
+        "padding_item_zero_masked": true,
+        "seen_history_items_masked": false,
+        "seen_history_note": "Matches official SSD4Rec custom_trainer semantics: only item id 0 is masked."
+      },
+      "parameters_finite_check": {
+        "ok": true,
+        "nonfinite_parameter_tensors": [],
+        "trainable_parameter_count": 3750336
+      },
+      "gpu_peak_allocated_bytes_so_far": 3753577472,
+      "gpu_peak_reserved_bytes_so_far": 11087642624
+    },
+    {
+      "epoch": 5,
+      "train_loss_sum": 6693.52662229538,
+      "train_loss_avg": 6.448484221864527,
+      "learning_rate": 0.001,
+      "train_time_sec": 116.57179451454431,
+      "validation_time_sec": 1.209686822257936,
+      "epoch_time_sec": 118.00471653789282,
+      "validation": {
+        "hit@5": 0.0638,
+        "hit@10": 0.1008,
+        "hit@20": 0.1615,
+        "hit@50": 0.2857,
+        "recall@5": 0.0638,
+        "recall@10": 0.1008,
+        "recall@20": 0.1615,
+        "recall@50": 0.2857,
+        "ndcg@5": 0.044,
+        "ndcg@10": 0.0559,
+        "ndcg@20": 0.0712,
+        "ndcg@50": 0.0956
+      },
+      "valid_score": 0.0559,
+      "valid_metric": "ndcg@10",
+      "early_stopping": {
+        "cur_step": 0,
+        "update_flag": true,
+        "stop_flag": false,
+        "best_valid_score": 0.0559
+      },
+      "hit_recall_equal_check": {
+        "ok": true,
+        "abs_diffs": {
+          "5": 0.0,
+          "10": 0.0,
+          "20": 0.0,
+          "50": 0.0
+        }
+      },
+      "full_ranking_checks": {
+        "mode": "full",
+        "candidate_protocol": "full_7111_items",
+        "evaluation_protocol": "full_7111_items",
+        "item_num_with_padding": 7112,
+        "candidate_universe_size": 7111,
+        "validation_rows": 23951,
+        "positive_targets": 23951,
+        "one_positive_per_row": true,
+        "min_positive_item_id": 1,
+        "max_positive_item_id": 7111,
+        "zero_positive_targets": 0,
+        "raw_score_batches": 12,
+        "raw_nan_scores": 0,
+        "raw_inf_scores": 0,
+        "positive_score_nonfinite": 0,
+        "raw_scores_all_finite": true,
+        "positive_scores_all_finite": true,
+        "padding_item_zero_masked": true,
+        "seen_history_items_masked": false,
+        "seen_history_note": "Matches official SSD4Rec custom_trainer semantics: only item id 0 is masked."
+      },
+      "parameters_finite_check": {
+        "ok": true,
+        "nonfinite_parameter_tensors": [],
+        "trainable_parameter_count": 3750336
+      },
+      "gpu_peak_allocated_bytes_so_far": 3753577472,
+      "gpu_peak_reserved_bytes_so_far": 11087642624
+    }
+  ],
+  "best_validation_epoch": {
+    "epoch": 5,
+    "train_loss_sum": 6693.52662229538,
+    "train_loss_avg": 6.448484221864527,
+    "learning_rate": 0.001,
+    "train_time_sec": 116.57179451454431,
+    "validation_time_sec": 1.209686822257936,
+    "epoch_time_sec": 118.00471653789282,
+    "validation": {
+      "hit@5": 0.0638,
+      "hit@10": 0.1008,
+      "hit@20": 0.1615,
+      "hit@50": 0.2857,
+      "recall@5": 0.0638,
+      "recall@10": 0.1008,
+      "recall@20": 0.1615,
+      "recall@50": 0.2857,
+      "ndcg@5": 0.044,
+      "ndcg@10": 0.0559,
+      "ndcg@20": 0.0712,
+      "ndcg@50": 0.0956
+    },
+    "valid_score": 0.0559,
+    "valid_metric": "ndcg@10",
+    "early_stopping": {
+      "cur_step": 0,
+      "update_flag": true,
+      "stop_flag": false,
+      "best_valid_score": 0.0559
+    },
+    "hit_recall_equal_check": {
+      "ok": true,
+      "abs_diffs": {
+        "5": 0.0,
+        "10": 0.0,
+        "20": 0.0,
+        "50": 0.0
+      }
+    },
+    "full_ranking_checks": {
+      "mode": "full",
+      "candidate_protocol": "full_7111_items",
+      "evaluation_protocol": "full_7111_items",
+      "item_num_with_padding": 7112,
+      "candidate_universe_size": 7111,
+      "validation_rows": 23951,
+      "positive_targets": 23951,
+      "one_positive_per_row": true,
+      "min_positive_item_id": 1,
+      "max_positive_item_id": 7111,
+      "zero_positive_targets": 0,
+      "raw_score_batches": 12,
+      "raw_nan_scores": 0,
+      "raw_inf_scores": 0,
+      "positive_score_nonfinite": 0,
+      "raw_scores_all_finite": true,
+      "positive_scores_all_finite": true,
+      "padding_item_zero_masked": true,
+      "seen_history_items_masked": false,
+      "seen_history_note": "Matches official SSD4Rec custom_trainer semantics: only item id 0 is masked."
+    },
+    "parameters_finite_check": {
+      "ok": true,
+      "nonfinite_parameter_tensors": [],
+      "trainable_parameter_count": 3750336
+    },
+    "gpu_peak_allocated_bytes_so_far": 3753577472,
+    "gpu_peak_reserved_bytes_so_far": 11087642624
+  },
+  "best_epoch_by_early_stopping_tracker": 5,
+  "best_valid_score_by_early_stopping_tracker": 0.0559,
+  "best_valid_metric": "ndcg@10",
+  "checkpoints": {
+    "best_validation": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/ssd4rec_baseline/ssd4rec_sanity_001/checkpoints/best_validation.pth",
+      "size_bytes": 45051034,
+      "sha256": "d7658401ee96c758f24771f9a842a1e3fc8529435563eea185e75de5744fe8c1"
+    },
+    "last": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/ssd4rec_baseline/ssd4rec_sanity_001/checkpoints/last.pth",
+      "size_bytes": 45042730,
+      "sha256": "08b7406c8b8498c3d264e14c58fa72b395668e1b404a5a6c9671b3e96d9eaa69"
+    }
+  },
+  "remote_artifact_path": "/home/daryumin/iberdov/diplom/experiments/ssd4rec_baseline/ssd4rec_sanity_001",
+  "runtime": {
+    "total_sec": 740.5830488288775,
+    "mean_epoch_sec": 142.3579872669652,
+    "mean_train_sec": 140.92083783280106,
+    "mean_validation_sec": 1.2135941905900836
+  },
+  "comparison_references": {
+    "validation_references": {
+      "random_full_ranking_validation": {
+        "hr@10": 0.001127301574,
+        "ndcg@10": 0.000441685851
+      },
+      "mostpopular_full_ranking_validation": {
+        "hr@10": 0.029977871488,
+        "ndcg@10": 0.016763898156
+      },
+      "xgboost_ltr_xgb_002_validation": {
+        "hr@10": 0.030854661601,
+        "ndcg@10": 0.014971581041
+      },
+      "tim4rec_001_best_validation": {
+        "epoch": 12,
+        "hr@10": 0.1086,
+        "ndcg@10": 0.0593
+      }
+    },
+    "paper_ssd4rec_v2": {
+      "split": "paper reported evaluation",
+      "hr@10": 0.1075,
+      "hr@20": 0.1731,
+      "ndcg@10": 0.0593,
+      "ndcg@20": 0.0757,
+      "mrr@10": 0.0448,
+      "mrr@20": 0.0493
+    }
+  },
+  "decision": {
+    "pipeline_ready": true,
+    "original_ssd4rec": true,
+    "variable_length_path_working": true,
+    "bidirectional_path_working": true,
+    "environment_sufficient_for_sanity": true,
+    "exact_env_rebuild_recommended_before_final": true,
+    "loss_decreased": true,
+    "ndcg10_improved": true,
+    "best_validation_above_random_hr10": true,
+    "estimated_full_300_epoch_hours": 12.343050813814624,
+    "recommended_gpu": "A100/type_e",
+    "full_run_auto_started": false
+  },
+  "warnings": [],
+  "slurm_sacct": {
+    "job_id": "4264406",
+    "job_name": "ssd4rec-sanity",
+    "partition": "test",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "00:12:35",
+    "time_limit": "00:30:00",
+    "node": "cn-046",
+    "constraint": "type_e",
+    "alloc_cpus": "4",
+    "alloc_tres": "billing=4,cpu=4,gres/gpu:a100=1,gres/gpu=1,node=1",
+    "req_tres": "billing=4,cpu=4,gres/gpu=1,mem=1M,node=1",
+    "batch_max_rss": "2993M",
+    "batch_max_vm_size": "31038660K",
+    "extern_max_rss": "1M",
+    "submit_time": "2026-08-19T15:14:18+03:00",
+    "start_time": "2026-08-19T15:18:47+03:00",
+    "end_time": "2026-08-19T15:31:22+03:00"
+  }
+}

@@ -3,36 +3,112 @@
 Цель: держать SSD4Rec отдельно от TiM4Rec, потому что версии PyTorch, CUDA wheels
 и `causal-conv1d` у официальных репозиториев расходятся.
 
-## Upstream specification
+## UPSTREAM REQUIREMENTS
 
 Файл upstream: `experiments/ssd4rec_baseline/upstream/environment.yaml`.
 
 Ключевые версии из official SSD4Rec snapshot:
 
 - Python `3.10.15`
-- CUDA toolkit / nvcc `11.8`
+- CUDA toolkit `11.8.0`
+- CUDA nvcc `11.8.89`
 - PyTorch `2.1.1+cu118`
+- torchaudio `2.1.1+cu118`
+- torchvision `0.16.1+cu118`
 - RecBole `1.2.0`
 - mamba-ssm `2.2.2`
 - causal-conv1d `1.4.0`
 - numpy `1.26.3`
+- scipy `1.14.1`
 - pandas `2.2.3`
+- PyYAML `6.0.2`
+- tqdm `4.67.1`
+- psutil `6.1.0`
+- einops `0.8.0`
 - triton `2.1.0`
 - transformers `4.46.3`
 
-## Cluster path
+Других lock/spec файлов в official snapshot нет: `requirements.txt`, `setup.py`
+и `pyproject.toml` отсутствуют.
 
-Persistent path for this branch:
+## ACTUAL ENVIRONMENT
+
+Текущий persistent path для этой ветки:
 
 ```bash
 /home/daryumin/iberdov/diplom/envs/ssd4rec
 ```
 
-This directory is ignored by Git.
+Перед sanity среда создана как отдельный venv по этому пути с
+`sys.base_prefix=/home/daryumin/iberdov/diplom/envs/tim4rec`. Она не изменяет
+conda-среду TiM4Rec, но наследует уже установленный GPU stack.
 
-## Recommended creation command
+Smoke `4264304` подтвердил:
 
-On cHARISMa:
+- Python `3.10.14`
+- PyTorch `2.3.0+cu118`
+- CUDA used by PyTorch `11.8`
+- RecBole `1.2.0`
+- mamba-ssm `2.2.2`
+- causal-conv1d `1.2.2.post1`
+- numpy `1.26.4`
+- pandas `2.2.2`
+
+Sanity `4264406` подтвердил полный фактический snapshot:
+
+- Python `3.10.14`
+- Python executable `/home/daryumin/iberdov/diplom/envs/ssd4rec/bin/python`
+- `sys.prefix=/home/daryumin/iberdov/diplom/envs/ssd4rec`
+- `sys.base_prefix=/home/daryumin/iberdov/diplom/envs/tim4rec`
+- PyTorch `2.3.0+cu118`
+- CUDA used by PyTorch `11.8`
+- RecBole `1.2.0`
+- mamba-ssm `2.2.2`
+- causal-conv1d `1.2.2.post1`
+- Triton `2.3.0`
+- numpy `1.26.4`
+- scipy `1.13.1`
+- pandas `2.2.2`
+- PyYAML `6.0.1`
+- tqdm `4.66.4`
+- psutil `6.1.0`
+- einops `0.8.0`
+- transformers `4.40.2`
+
+Полная машинно-читаемая запись сохранена в:
+
+```bash
+experiments/ssd4rec_baseline/runs/ssd4rec_sanity_001.json
+```
+
+## UNPINNED/UNKNOWN VERSIONS
+
+- Upstream фиксирует зависимости только в `environment.yaml`; отдельного `requirements.txt`,
+  `setup.py` или `pyproject.toml` нет.
+- Stdlib imports отдельно не version-pinned.
+- Версии cluster driver/runtime фиксируются из фактического Slurm job, не из
+  upstream.
+- `MAX_ITEM_LIST_LENGTH=50` задан в config, но при upstream `var_len=True`
+  `SSD4RecDataset.data_augmentation` сохраняет полные variable-length histories.
+
+## KNOWN DIFFERENCES
+
+- Фактически Python `3.10.14` vs upstream `3.10.15`.
+- Фактически PyTorch `2.3.0+cu118` vs upstream `2.1.1+cu118`.
+- Фактически causal-conv1d `1.2.2.post1` vs upstream `1.4.0`.
+- Фактически Triton `2.3.0` vs upstream `2.1.0`.
+- Фактически numpy `1.26.4` vs upstream `1.26.3`.
+- Фактически scipy `1.13.1` vs upstream `1.14.1`.
+- Фактически pandas `2.2.2` vs upstream `2.2.3`.
+- Фактически PyYAML `6.0.1` vs upstream `6.0.2`.
+- Фактически tqdm `4.66.4` vs upstream `4.67.1`.
+- Фактически transformers `4.40.2` vs upstream `4.46.3`.
+- Exact upstream environment не заявляется.
+- Среда изолирована по пути SSD4Rec и не изменяет TiM4Rec env in place.
+
+## Рекомендуемая команда создания
+
+На cHARISMa:
 
 ```bash
 module load Python/miniconda || true
@@ -40,23 +116,25 @@ conda env create -p /home/daryumin/iberdov/diplom/envs/ssd4rec \
   -f /home/daryumin/iberdov/diplom/experiments/ssd4rec_baseline/upstream/environment.yaml
 ```
 
-If exact upstream solving is unavailable on the login node, a compatible fallback is
-to clone the already working TiM4Rec environment into a separate path and then pin
-SSD4Rec-specific wheels there. This must still use `/home/daryumin/iberdov/diplom/envs/ssd4rec`
-or another SSD4Rec-only path, never the TiM4Rec environment in place.
+Если exact upstream solving недоступен на login node, допустимый fallback -
+создать отдельный clone уже рабочей TiM4Rec-среды в отдельном пути и затем
+зафиксировать SSD4Rec-specific wheels там. Это все равно должно быть
+`/home/daryumin/iberdov/diplom/envs/ssd4rec` или другой SSD4Rec-only путь, но
+не изменение TiM4Rec environment in place.
 
-Current smoke preparation on cHARISMa used a separate venv at this path with
-`sys.base_prefix=/home/daryumin/iberdov/diplom/envs/tim4rec`. It does not mutate
-the TiM4Rec conda environment, but it inherits the already installed GPU stack:
-Python `3.10.14`, PyTorch `2.3.0+cu118`, RecBole `1.2.0`, mamba-ssm `2.2.2`,
-causal-conv1d `1.2.2.post1`. Exact upstream pinning remains the target for a
-later locked environment rebuild.
+## Команды smoke и sanity
 
-## Smoke command
+Smoke:
 
 ```bash
 sbatch slurm/ssd4rec_baseline.sh
 ```
 
-The smoke job uses an A100/H100/H200 capable E node via `--constraint=type_e` and
-does not launch full training.
+Five-epoch sanity:
+
+```bash
+SSD4REC_STAGE=sanity sbatch --job-name=ssd4rec-sanity --partition=test slurm/ssd4rec_baseline.sh
+```
+
+Jobs используют E-node через `--constraint=type_e`; sanity останавливается после
+5 эпох и не запускает full run.

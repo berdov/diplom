@@ -14,9 +14,12 @@ set -euo pipefail
 REPO_DIR="${REPO_DIR:-/home/daryumin/iberdov/diplom}"
 ENV_DIR="${SSD4REC_ENV_DIR:-/home/daryumin/iberdov/diplom/envs/ssd4rec}"
 PYTHON="${ENV_DIR}/bin/python"
+STAGE="${SSD4REC_STAGE:-smoke}"
+RUN_ID="${SSD4REC_RUN_ID:-ssd4rec_sanity_001}"
 CONFIG="${SSD4REC_CONFIG:-${REPO_DIR}/experiments/ssd4rec_baseline/config_kuairand.yaml}"
 MANIFEST="${SSD4REC_MANIFEST:-${REPO_DIR}/outputs/data/protocol_b_manifest.json}"
 RUNS_DIR="${REPO_DIR}/experiments/ssd4rec_baseline/runs"
+ARTIFACT_ROOT="${SSD4REC_ARTIFACT_ROOT:-/home/daryumin/iberdov/diplom/experiments/ssd4rec_baseline}"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 
 cd "${REPO_DIR}"
@@ -39,15 +42,36 @@ PY
 
 echo "Slurm: partition=${SLURM_JOB_PARTITION:-gpu-ef-quick}"
 echo "Slurm: constraint=type_e"
-echo "Slurm: job gpus=${SLURM_JOB_GPUS:-unknown}"
+echo "Slurm: requested gpus=1"
+echo "Slurm: job GPU ids=${SLURM_JOB_GPUS:-unknown}"
 echo "CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-unknown}"
 echo "Slurm: cpus=${SLURM_CPUS_PER_TASK:-4}"
 echo "Slurm: mem=0"
 echo "Slurm: node list=${SLURM_JOB_NODELIST:-unknown}"
 echo "Config: ${CONFIG}"
 echo "Manifest: ${MANIFEST}"
+echo "Stage: ${STAGE}"
+echo "Run ID: ${RUN_ID}"
 
-"${PYTHON}" experiments/ssd4rec_baseline/smoke_test.py \
-  --config "${CONFIG}" \
-  --manifest "${MANIFEST}" \
-  --result-json "${RUNS_DIR}/smoke_${STAMP}.json"
+case "${STAGE}" in
+  smoke)
+    "${PYTHON}" experiments/ssd4rec_baseline/smoke_test.py \
+      --config "${CONFIG}" \
+      --manifest "${MANIFEST}" \
+      --result-json "${RUNS_DIR}/smoke_${STAMP}.json"
+    ;;
+  sanity)
+    "${PYTHON}" experiments/ssd4rec_baseline/sanity_train.py \
+      --config "${CONFIG}" \
+      --manifest "${MANIFEST}" \
+      --run-id "${RUN_ID}" \
+      --epochs 5 \
+      --artifact-dir "${ARTIFACT_ROOT}/${RUN_ID}" \
+      --result-json "${RUNS_DIR}/${RUN_ID}.json" \
+      --notes-md "${RUNS_DIR}/${RUN_ID}_notes.md"
+    ;;
+  *)
+    echo "Unknown SSD4REC_STAGE=${STAGE}; expected smoke or sanity" >&2
+    exit 2
+    ;;
+esac
