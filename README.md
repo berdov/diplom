@@ -79,6 +79,11 @@ Test results для `ltr_xgb_002`:
 - [experiments/ltr_xgb_baseline/runs/ltr_xgb_001_notes.md](experiments/ltr_xgb_baseline/runs/ltr_xgb_001_notes.md);
 - [experiments/ltr_xgb_baseline/runs/ltr_xgb_002_notes.md](experiments/ltr_xgb_baseline/runs/ltr_xgb_002_notes.md).
 
+Sequential baselines:
+
+- TiM4Rec reproduction уже выполнен: [experiments/tim4rec_baseline/runs/tim4rec_001_notes.md](experiments/tim4rec_baseline/runs/tim4rec_001_notes.md).
+- SSD4Rec подготовлен отдельной веткой и окружением: [experiments/ssd4rec_baseline/README.md](experiments/ssd4rec_baseline/README.md).
+
 Повторный запуск baseline на кластере:
 
 ```bash
@@ -102,4 +107,5 @@ sbatch slurm/ltr_xgb_baseline.sh
 1. EDA — завершён.
 2. Protocol B — подготовлен и проверен.
 3. XGBoost LambdaMART baseline — выполнен; `ltr_xgb_002` является актуальным full-ranking baseline.
-4. Следующий этап — более сильные sequential/causal методы.
+4. TiM4Rec — воспроизведён на Protocol B.
+5. SSD4Rec — подготовлен audit/smoke, полное обучение будет отдельным run.

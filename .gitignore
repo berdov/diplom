@@ -33,6 +33,7 @@ outputs/**/logs/
 experiments/**/slurm_logs/*
 !experiments/ltr_xgb_baseline/slurm_logs/.gitkeep
 !experiments/tim4rec_baseline/slurm_logs/.gitkeep
+!experiments/ssd4rec_baseline/slurm_logs/.gitkeep
 
 # Model binaries and dense arrays.
 models/
@@ -60,6 +61,11 @@ experiments/tim4rec_baseline/logs/
 experiments/tim4rec_baseline/cache/
 experiments/tim4rec_baseline/tim4rec_*/
 experiments/tim4rec_baseline/tim4rec_sanity_*/
+experiments/ssd4rec_baseline/checkpoints/
+experiments/ssd4rec_baseline/logs/
+experiments/ssd4rec_baseline/cache/
+experiments/ssd4rec_baseline/ssd4rec_*/
+experiments/ssd4rec_baseline/ssd4rec_sanity_*/
 
 # Keep compact experiment registry and run summaries.
 !experiments/results.csv
@@ -75,6 +81,14 @@ experiments/tim4rec_baseline/runs/*
 !experiments/tim4rec_baseline/runs/tim4rec_*_notes.md
 !experiments/tim4rec_baseline/runs/tim4rec_sanity_*.json
 !experiments/tim4rec_baseline/runs/tim4rec_sanity_*_notes.md
+experiments/ssd4rec_baseline/runs/*
+!experiments/ssd4rec_baseline/runs/.gitkeep
+!experiments/ssd4rec_baseline/runs/smoke_*.json
+!experiments/ssd4rec_baseline/runs/smoke_*.md
+!experiments/ssd4rec_baseline/runs/ssd4rec_*.json
+!experiments/ssd4rec_baseline/runs/ssd4rec_*_notes.md
+!experiments/ssd4rec_baseline/runs/ssd4rec_sanity_*.json
+!experiments/ssd4rec_baseline/runs/ssd4rec_sanity_*_notes.md
 
 # Generated research outputs: ignore by default, keep compact summaries.
 outputs/*

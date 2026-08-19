@@ -18,3 +18,4 @@
 
 - `ltr_xgb_baseline/` - full-ranking XGBoost baseline и простые ранжирующие baselines.
 - `tim4rec_baseline/` - аудит и smoke-подготовка TiM4Rec для KuaiRand Protocol B без полного обучения.
+- `ssd4rec_baseline/` - аудит official SSD4Rec и smoke-подготовка отдельного воспроизведения на KuaiRand Protocol B.

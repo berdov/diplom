@@ -1,0 +1,70 @@
+# RecBole-конфиг KuaiRand Protocol B для воспроизведения официального SSD4Rec.
+# Оригинальный upstream config сохранен без изменений:
+# experiments/ssd4rec_baseline/upstream/config.yaml
+
+gpu_id: '0'
+use_gpu: True
+log_wandb: False
+reproducibility: True
+seed: 2026
+state: INFO
+show_progress: False
+
+data_path: /home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole
+checkpoint_dir: /home/daryumin/iberdov/diplom/experiments/ssd4rec_baseline/checkpoints
+
+# Настройки SSD4Rec из official KuaiRand config / arXiv v2 Table 3.
+hidden_size: 256
+loss_type: 'CE'
+
+d_state: 64
+d_conv: 4
+expand: 2
+headdim: 16
+
+dataset: kuairand
+MAX_ITEM_LIST_LENGTH: 50
+dropout_prob: 0.2
+norm_embedding: True
+beta: 0.1
+maskratio: 0.2
+num_layers: 2
+
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+TIME_FIELD: timestamp
+load_col:
+  inter: [user_id, item_id, timestamp]
+numerical_features: []
+
+user_inter_num_interval: "[5,inf)"
+item_inter_num_interval: "[5,inf)"
+rm_dup_inter: ~
+
+# Явные настройки RecBole sequential leave-one-out.
+eval_args:
+  split: {'LS': 'valid_and_test'}
+  order: TO
+  group_by: user
+  mode: full
+repeatable: True
+
+# Настройки обучения. Полное обучение этим коммитом не запускается.
+var_len: True
+epochs: 300
+train_batch_size: 1024
+learner: adam
+learning_rate: 0.001
+eval_step: 1
+stopping_step: 10
+train_neg_sample_args: ~
+train_from_scratch: False
+weight_decay: 0.0
+shuffle: True
+
+# Настройки оценки. @5 добавлен для дипломных таблиц; статья SSD4Rec публикует @10/@20.
+metrics: ['NDCG', 'MRR', 'Hit']
+valid_metric: NDCG@10
+eval_batch_size: 2048
+topk: [5, 10, 20, 50]
+metric_decimal_place: 4

@@ -1,0 +1,62 @@
+# Среда SSD4Rec
+
+Цель: держать SSD4Rec отдельно от TiM4Rec, потому что версии PyTorch, CUDA wheels
+и `causal-conv1d` у официальных репозиториев расходятся.
+
+## Upstream specification
+
+Файл upstream: `experiments/ssd4rec_baseline/upstream/environment.yaml`.
+
+Ключевые версии из official SSD4Rec snapshot:
+
+- Python `3.10.15`
+- CUDA toolkit / nvcc `11.8`
+- PyTorch `2.1.1+cu118`
+- RecBole `1.2.0`
+- mamba-ssm `2.2.2`
+- causal-conv1d `1.4.0`
+- numpy `1.26.3`
+- pandas `2.2.3`
+- triton `2.1.0`
+- transformers `4.46.3`
+
+## Cluster path
+
+Persistent path for this branch:
+
+```bash
+/home/daryumin/iberdov/diplom/envs/ssd4rec
+```
+
+This directory is ignored by Git.
+
+## Recommended creation command
+
+On cHARISMa:
+
+```bash
+module load Python/miniconda || true
+conda env create -p /home/daryumin/iberdov/diplom/envs/ssd4rec \
+  -f /home/daryumin/iberdov/diplom/experiments/ssd4rec_baseline/upstream/environment.yaml
+```
+
+If exact upstream solving is unavailable on the login node, a compatible fallback is
+to clone the already working TiM4Rec environment into a separate path and then pin
+SSD4Rec-specific wheels there. This must still use `/home/daryumin/iberdov/diplom/envs/ssd4rec`
+or another SSD4Rec-only path, never the TiM4Rec environment in place.
+
+Current smoke preparation on cHARISMa used a separate venv at this path with
+`sys.base_prefix=/home/daryumin/iberdov/diplom/envs/tim4rec`. It does not mutate
+the TiM4Rec conda environment, but it inherits the already installed GPU stack:
+Python `3.10.14`, PyTorch `2.3.0+cu118`, RecBole `1.2.0`, mamba-ssm `2.2.2`,
+causal-conv1d `1.2.2.post1`. Exact upstream pinning remains the target for a
+later locked environment rebuild.
+
+## Smoke command
+
+```bash
+sbatch slurm/ssd4rec_baseline.sh
+```
+
+The smoke job uses an A100/H100/H200 capable E node via `--constraint=type_e` and
+does not launch full training.
