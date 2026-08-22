@@ -1,0 +1,104 @@
+{
+  "status": "ok",
+  "created_at_utc": "2026-08-19T11:06:01.875754+00:00",
+  "host": "cn-046",
+  "platform": "Linux-5.14.0-611.55.1.el9_7.0.3.x86_64-x86_64-with-glibc2.34",
+  "slurm": {
+    "job_id": "4264304",
+    "job_name": "ssd4rec-smoke",
+    "partition": "test",
+    "node_list": "cn-046"
+  },
+  "versions": {
+    "python": "3.10.14",
+    "torch": "2.3.0+cu118",
+    "torch_cuda": "11.8",
+    "recbole": "1.2.0",
+    "mamba_ssm": "2.2.2",
+    "causal_conv1d": "1.2.2.post1",
+    "numpy": "1.26.4",
+    "pandas": "2.2.2"
+  },
+  "gpu": {
+    "device": "cuda",
+    "name": "NVIDIA A100-SXM4-80GB",
+    "capability": "8.0"
+  },
+  "config": {
+    "config_file": "/home/daryumin/iberdov/diplom_ssd4rec_stage_20260819T104518Z/experiments/ssd4rec_baseline/config_kuairand.yaml",
+    "manifest": "/home/daryumin/iberdov/diplom_ssd4rec_stage_20260819T104518Z/outputs/data/protocol_b_manifest.json",
+    "dataset": "kuairand",
+    "data_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand",
+    "hidden_size": 256,
+    "d_state": 64,
+    "d_conv": 4,
+    "expand": 2,
+    "headdim": 16,
+    "beta": 0.1,
+    "maskratio": 0.2,
+    "num_layers": 2,
+    "var_len": true,
+    "max_item_list_length": 50,
+    "train_batch_size": 1024,
+    "eval_batch_size": 2048,
+    "topk": [
+      5,
+      10,
+      20,
+      50
+    ],
+    "eval_args": {
+      "split": {
+        "LS": "valid_and_test"
+      },
+      "order": "TO",
+      "group_by": "user",
+      "mode": {
+        "valid": "full",
+        "test": "full"
+      }
+    }
+  },
+  "dataset": {
+    "manifest_users": 23951,
+    "manifest_items": 7111,
+    "manifest_interactions": 1134420,
+    "user_num_without_pad": 23951,
+    "item_num_without_pad": 7111,
+    "inter_num_after_ssd4rec_augmentation": 1110469,
+    "expected_sequential_examples": 1110469,
+    "train_batches": 1038,
+    "valid_batches": 12,
+    "test_batches": 12
+  },
+  "train_batch": {
+    "targets": 1024,
+    "flat_sequence_tokens": 45156,
+    "cum_item_length_last": 45156,
+    "item_idx_tokens": 45156,
+    "flip_index_tokens": 45156,
+    "sequence_length_min": 1,
+    "sequence_length_max": 630,
+    "sequence_length_mean": 44.09765625,
+    "mask_zero_tokens": 9165,
+    "mask_zero_ratio": 0.20296306908130646
+  },
+  "optimizer_step": {
+    "loss": 8.90593433380127,
+    "grad_norm": 0.9579113721847534,
+    "probe_update_max_abs": 0.0010000020265579224,
+    "optimizer": "adam",
+    "learning_rate": 0.001
+  },
+  "validation_batch": {
+    "batch_users": 2048,
+    "scores_shape": [
+      2048,
+      7112
+    ],
+    "scores_dtype": "torch.float32",
+    "finite_positive_scores": 2048,
+    "hits_at_max_topk": 65,
+    "max_topk_checked": 50
+  }
+}
