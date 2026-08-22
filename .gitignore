@@ -66,6 +66,13 @@ experiments/ssd4rec_baseline/logs/
 experiments/ssd4rec_baseline/cache/
 experiments/ssd4rec_baseline/ssd4rec_*/
 experiments/ssd4rec_baseline/ssd4rec_sanity_*/
+experiments/ltr_xgb_optuna/optuna.db*
+experiments/ltr_xgb_optuna/cache/
+experiments/ltr_xgb_optuna/models/
+experiments/ltr_xgb_optuna/trials/
+experiments/ltr_xgb_optuna/rankings/
+experiments/ltr_xgb_optuna/slurm_logs/*
+!experiments/ltr_xgb_optuna/slurm_logs/.gitkeep
 
 # Keep compact experiment registry and run summaries.
 !experiments/results.csv
@@ -89,6 +96,10 @@ experiments/ssd4rec_baseline/runs/*
 !experiments/ssd4rec_baseline/runs/ssd4rec_*_notes.md
 !experiments/ssd4rec_baseline/runs/ssd4rec_sanity_*.json
 !experiments/ssd4rec_baseline/runs/ssd4rec_sanity_*_notes.md
+experiments/ltr_xgb_optuna/runs/*
+!experiments/ltr_xgb_optuna/runs/.gitkeep
+!experiments/ltr_xgb_optuna/runs/*.json
+!experiments/ltr_xgb_optuna/runs/*_notes.md
 
 # Generated research outputs: ignore by default, keep compact summaries.
 outputs/*

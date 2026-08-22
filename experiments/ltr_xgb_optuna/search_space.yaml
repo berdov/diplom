@@ -1,0 +1,58 @@
+version: ltr_xgb_optuna_v1
+description: Search space for tuning existing ltr_xgb_002 LambdaMART without changing features or evaluation protocol.
+parameters:
+  max_depth:
+    type: int
+    low: 3
+    high: 10
+  eta:
+    type: float
+    low: 0.005
+    high: 0.2
+    log: true
+  min_child_weight:
+    type: float
+    low: 0.1
+    high: 20.0
+    log: true
+  subsample:
+    type: float
+    low: 0.5
+    high: 1.0
+  colsample_bytree:
+    type: float
+    low: 0.5
+    high: 1.0
+  reg_lambda:
+    type: float
+    low: 0.001
+    high: 100.0
+    log: true
+  reg_alpha:
+    type: float
+    low: 0.0001
+    high: 10.0
+    log: true
+  gamma:
+    type: float_with_zero
+    low: 0.0001
+    high: 10.0
+    log: true
+    zero_choice_name: gamma_is_zero
+fixed:
+  objective: rank:ndcg
+  eval_metric: ndcg@10
+  tree_method: hist
+  seed: 42
+  nthread: 8
+not_tuned_initially:
+  lambdarank_pair_method:
+    reason: XGBoost exposes pair construction strategies for LambdaMART, but this first study isolates standard tree regularization and learning-rate effects.
+  lambdarank_num_pair_per_sample:
+    reason: Pair sampling changes the ranking-loss construction itself; keep default until a separate methodology decision.
+  grow_policy:
+    reason: Keeping default depthwise policy avoids introducing max_leaves as an additional interaction.
+  max_leaves:
+    reason: Only relevant when grow_policy=lossguide; not enabled in v1.
+  num_boost_round:
+    reason: Not sampled directly; full-ranking validation with early stopping selects iteration.

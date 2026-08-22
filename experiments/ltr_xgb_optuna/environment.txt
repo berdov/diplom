@@ -1,0 +1,28 @@
+# XGBoost Optuna environment
+
+Cluster environment checked on cHARISMa login node `login-02` using:
+
+```bash
+/home/daryumin/iberdov/diplom/.conda/bin/python
+```
+
+Installed package versions after adding Optuna:
+
+- Python `3.11.15`
+- XGBoost `3.2.0`
+- Optuna `4.9.0`
+- NumPy `2.4.6`
+- pandas `3.0.5`
+- pyarrow `25.0.1`
+- polars `1.43.2`
+- PyYAML `6.0.3`
+- SQLAlchemy `2.0.52`
+- Alembic `1.19.1`
+
+Optuna was absent in `.conda` and was installed with:
+
+```bash
+/home/daryumin/iberdov/diplom/.conda/bin/python -m pip install optuna
+```
+
+The install used the cluster internal PyPI proxy and did not update XGBoost.
