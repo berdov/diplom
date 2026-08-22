@@ -15,11 +15,18 @@ REPO_DIR="${REPO_DIR:-/home/daryumin/iberdov/diplom}"
 ENV_DIR="${SSD4REC_ENV_DIR:-/home/daryumin/iberdov/diplom/envs/ssd4rec}"
 PYTHON="${ENV_DIR}/bin/python"
 STAGE="${SSD4REC_STAGE:-smoke}"
-RUN_ID="${SSD4REC_RUN_ID:-ssd4rec_sanity_001}"
+if [ -n "${SSD4REC_RUN_ID:-}" ]; then
+  RUN_ID="${SSD4REC_RUN_ID}"
+elif [ "${STAGE}" = "full" ]; then
+  RUN_ID="ssd4rec_001"
+else
+  RUN_ID="ssd4rec_sanity_001"
+fi
 CONFIG="${SSD4REC_CONFIG:-${REPO_DIR}/experiments/ssd4rec_baseline/config_kuairand.yaml}"
 MANIFEST="${SSD4REC_MANIFEST:-${REPO_DIR}/outputs/data/protocol_b_manifest.json}"
 RUNS_DIR="${REPO_DIR}/experiments/ssd4rec_baseline/runs"
 ARTIFACT_ROOT="${SSD4REC_ARTIFACT_ROOT:-/home/daryumin/iberdov/diplom/experiments/ssd4rec_baseline}"
+REQUESTED_CONSTRAINT="${SSD4REC_CONSTRAINT:-${SLURM_JOB_CONSTRAINT:-type_e}}"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 
 cd "${REPO_DIR}"
@@ -41,7 +48,7 @@ print(sys.version)
 PY
 
 echo "Slurm: partition=${SLURM_JOB_PARTITION:-gpu-ef-quick}"
-echo "Slurm: constraint=type_e"
+echo "Slurm: constraint=${REQUESTED_CONSTRAINT}"
 echo "Slurm: requested gpus=1"
 echo "Slurm: job GPU ids=${SLURM_JOB_GPUS:-unknown}"
 echo "CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-unknown}"
@@ -70,8 +77,18 @@ case "${STAGE}" in
       --result-json "${RUNS_DIR}/${RUN_ID}.json" \
       --notes-md "${RUNS_DIR}/${RUN_ID}_notes.md"
     ;;
+  full)
+    "${PYTHON}" experiments/ssd4rec_baseline/full_train.py \
+      --config "${CONFIG}" \
+      --manifest "${MANIFEST}" \
+      --run-id "${RUN_ID}" \
+      --epochs 300 \
+      --artifact-dir "${ARTIFACT_ROOT}/${RUN_ID}" \
+      --result-json "${RUNS_DIR}/${RUN_ID}.json" \
+      --notes-md "${RUNS_DIR}/${RUN_ID}_notes.md"
+    ;;
   *)
-    echo "Unknown SSD4REC_STAGE=${STAGE}; expected smoke or sanity" >&2
+    echo "Unknown SSD4REC_STAGE=${STAGE}; expected smoke, sanity or full" >&2
     exit 2
     ;;
 esac

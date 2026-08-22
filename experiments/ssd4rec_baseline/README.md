@@ -1,6 +1,6 @@
 # SSD4Rec baseline для KuaiRand Protocol B
 
-Цель ветки `exp/ssd4rec-baseline` - подготовить воспроизводимый запуск официального SSD4Rec на уже зафиксированном KuaiRand Protocol B. На этой ветке выполнены smoke test и 5-epoch sanity на полном train split; полный 300-epoch запуск пока не стартовал.
+Цель ветки `exp/ssd4rec-baseline` - подготовить и выполнить воспроизводимый запуск официального SSD4Rec на уже зафиксированном KuaiRand Protocol B. На этой ветке выполнены smoke test, 5-epoch sanity и один full reproduction run `ssd4rec_001` с early stopping по validation `NDCG@10`.
 
 ## Состав
 
@@ -9,9 +9,10 @@
 - `environment.txt` - требования и отдельный путь окружения на кластере.
 - `smoke_test.py` - короткая GPU-проверка механики official SSD4Rec без полного обучения.
 - `sanity_train.py` - 5-epoch sanity run на полном Protocol B, только с validation.
+- `full_train.py` - full run `ssd4rec_001`: максимум 300 эпох, patience 10, final test ровно один раз после загрузки best validation checkpoint.
 - `UPSTREAM_PATCHES.md` - описание upstream snapshot и runtime shims.
 - `upstream/` - минимальный снимок official SSD4Rec code без датасетов.
-- `runs/` - компактные JSON/MD результаты smoke и sanity.
+- `runs/` - компактные JSON/MD результаты smoke, sanity и full run.
 
 ## Smoke
 
@@ -54,6 +55,33 @@ SSD4REC_STAGE=sanity sbatch --job-name=ssd4rec-sanity --partition=test slurm/ssd
 - JSON: [runs/ssd4rec_sanity_001.json](runs/ssd4rec_sanity_001.json);
 - notes: [runs/ssd4rec_sanity_001_notes.md](runs/ssd4rec_sanity_001_notes.md).
 
-## Что не сделано этим коммитом
+## Full Run
 
-Полное 300-epoch обучение SSD4Rec не запускалось. Следующий отдельный run должен использовать этот каталог, фиксировать `run_id`, сохранить compact JSON/notes в `runs/`, а тяжелые checkpoints/logs держать на cHARISMa вне Git. Sanity run не добавлен в `experiments/results.csv`, потому что это проверка pipeline, а не итоговый эксперимент.
+Итоговый reproduction run на полном KuaiRand Protocol B:
+
+```bash
+SSD4REC_STAGE=full SSD4REC_RUN_ID=ssd4rec_001 SSD4REC_CONSTRAINT=type_h sbatch --job-name=ssd4rec-001 --partition=rocky --constraint=type_h --time=14:00:00 slurm/ssd4rec_baseline.sh
+```
+
+Фактический запуск:
+
+- run id: `ssd4rec_001`;
+- Slurm job: `4270754`;
+- partition: `rocky`;
+- constraint: `type_h`;
+- node: `cn-050`;
+- GPU: `NVIDIA H200 NVL`;
+- status: `COMPLETED`, exit code `0:0`, elapsed `00:37:55`;
+- JSON: [runs/ssd4rec_001.json](runs/ssd4rec_001.json);
+- notes: [runs/ssd4rec_001_notes.md](runs/ssd4rec_001_notes.md).
+
+Запрошено максимум `300` эпох, фактически выполнено `28` эпох из-за early stopping
+с patience `10`; лучший validation checkpoint выбран на эпохе `17`. Final test
+посчитан ровно один раз после загрузки этого checkpoint: `HR@10=0.1032`,
+`HR@20=0.1683`, `NDCG@10=0.0576`, `NDCG@20=0.0739`.
+
+Sanity запускался на `A100/type_e`; full run выполнен на `H200/type_h`, потому что
+был найден более ранний Slurm slot. Модель, config, data split, seed, loss и
+evaluation protocol не менялись. Тяжелые checkpoints/logs остаются на кластере
+в `/home/daryumin/iberdov/diplom/experiments/ssd4rec_baseline/ssd4rec_001` и не
+коммитятся в Git.

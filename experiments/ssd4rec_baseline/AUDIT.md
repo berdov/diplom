@@ -236,7 +236,10 @@ environment-lock задачи.
 - Upstream snapshot сохранен локально без датасетов.
 - Подготовлены config, environment notes, Slurm script и smoke test.
 - Smoke test и 5-epoch sanity прошли на полном KuaiRand Protocol B.
-- Полное 300-epoch обучение SSD4Rec не запускалось.
+- Полный reproduction run `ssd4rec_001` выполнен на полном KuaiRand Protocol B:
+  максимум 300 эпох, early stopping patience 10, checkpoint выбран только по
+  validation `NDCG@10`, final test посчитан ровно один раз после загрузки best
+  validation checkpoint.
 
 ## Результат smoke
 
@@ -313,3 +316,76 @@ SSD4Rec `HR@10=0.1075`, `HR@20=0.1731`, `NDCG@10=0.0593`,
 - gradients/parameters/optimizer update finite;
 - item id `0` маскируется в full-ranking validation;
 - seen history items не маскируются, что соответствует upstream custom trainer.
+
+## Результат full reproduction run
+
+Итоговый запуск `ssd4rec_001`:
+
+- JSON: `experiments/ssd4rec_baseline/runs/ssd4rec_001.json`;
+- notes: `experiments/ssd4rec_baseline/runs/ssd4rec_001_notes.md`;
+- Slurm job: `4270754`;
+- partition: `rocky`;
+- constraint: `type_h`;
+- node: `cn-050`;
+- GPU: `NVIDIA H200 NVL`;
+- status: `COMPLETED`, exit code `0:0`, elapsed `00:37:55`;
+- MaxRSS batch step: `3117868K`;
+- peak VRAM allocated: `3833438208` bytes;
+- peak VRAM reserved: `13784580096` bytes.
+
+Sanity запускался на `A100/type_e`; full run выполнен на `H200/type_h`, потому что
+был найден более ранний Slurm slot. Архитектура, config, seed, split, loss и
+evaluation protocol не менялись.
+
+Training summary:
+
+- requested epochs: `300`;
+- actual epochs: `28`;
+- stop reason: `early_stopping_no_improvement_10`;
+- best epoch: `17`;
+- best validation `NDCG@10`: `0.0603`;
+- final test evaluation count: `1`.
+
+Best validation:
+
+| metric | value |
+| --- | ---: |
+| HR@5 / Recall@5 | 0.0678 |
+| HR@10 / Recall@10 | 0.1096 |
+| HR@20 / Recall@20 | 0.1751 |
+| HR@50 / Recall@50 | 0.3123 |
+| NDCG@5 | 0.0469 |
+| NDCG@10 | 0.0603 |
+| NDCG@20 | 0.0767 |
+| NDCG@50 | 0.1037 |
+
+Final test:
+
+| metric | value |
+| --- | ---: |
+| HR@5 / Recall@5 | 0.0648 |
+| HR@10 / Recall@10 | 0.1032 |
+| HR@20 / Recall@20 | 0.1683 |
+| HR@50 / Recall@50 | 0.3014 |
+| NDCG@5 | 0.0453 |
+| NDCG@10 | 0.0576 |
+| NDCG@20 | 0.0739 |
+| NDCG@50 | 0.1002 |
+
+Сравнение с SSD4Rec paper v2 для KuaiRand:
+
+| metric | ours | paper v2 | absolute diff | relative diff |
+| --- | ---: | ---: | ---: | ---: |
+| HR@10 | 0.1032 | 0.1075 | -0.0043 | -4.00% |
+| HR@20 | 0.1683 | 0.1731 | -0.0048 | -2.77% |
+| NDCG@10 | 0.0576 | 0.0593 | -0.0017 | -2.87% |
+| NDCG@20 | 0.0739 | 0.0757 | -0.0018 | -2.38% |
+
+Подтверждения протокола:
+
+- использован official SSD4Rec snapshot `bdbfe5193f3a6697bb6ee0699ab43386d80c6198`;
+- активны `var_len=True`, segment registers и bidirectional SSD path;
+- evaluation mode: full ranking over `7111` items, без sampled-100;
+- HR и Recall совпадают для всех `@5/@10/@20/@50`, потому что в каждой строке
+  ровно один positive target;
+- test не использовался во время обучения и ранней остановки.
