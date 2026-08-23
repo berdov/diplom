@@ -4,7 +4,7 @@
 
 - Study name: `ltr_xgb_optuna_v1`.
 - Storage: `/home/daryumin/iberdov/diplom/experiments/ltr_xgb_optuna/optuna.db`.
-- COMPLETE / RUNNING / FAIL / PRUNED: `40` / `1` / `0` / `0`.
+- COMPLETE / RUNNING / FAIL / PRUNED: `40` / `0` / `1` / `0`.
 - Optuna: `4.9.0`.
 - XGBoost: `3.2.0`.
 - Sampler: `TPESampler`, seed `2026`.

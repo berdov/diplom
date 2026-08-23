@@ -1,9 +1,9 @@
 {
   "run_id": "optuna_search_001",
-  "created_at_utc": "2026-08-23T01:24:47.068916+00:00",
+  "created_at_utc": "2026-08-23T05:19:35.162153+00:00",
   "git": {
     "branch": "exp/ltr-xgb-optuna",
-    "commit": "0284581518fed098671fc95c2d8fa2f8128fb2f8"
+    "commit": "e047668cb6a89079e7d94f3bdb437202bb08e003"
   },
   "environment": {
     "python": "3.11.15",
@@ -18,15 +18,15 @@
     "storage_db": {
       "path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_optuna/optuna.db",
       "size_bytes": 552960,
-      "sha256": "12018688272ffad3919fe7f13b5c2650841d1df01304072aa99c8ebdd79087d3"
+      "sha256": "5cd53acae688f47b9ec5a000ad42508ea2972ebc81c536d5c2261931f24c9a5c"
     },
     "sampler": "TPESampler",
     "sampler_seed": 2026,
     "state_counts": {
       "COMPLETE": 40,
-      "RUNNING": 1,
-      "FAIL": 0,
+      "FAIL": 1,
       "PRUNED": 0,
+      "RUNNING": 0,
       "WAITING": 0
     },
     "total_trials": 41,
