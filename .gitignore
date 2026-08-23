@@ -76,6 +76,7 @@ experiments/ltr_xgb_optuna/slurm_logs/*
 experiments/multitask_tim4rec/slurm_logs/*
 experiments/multitask_tim4rec/cache/
 experiments/multitask_tim4rec/checkpoints/
+experiments/multitask_tim4rec/multitask_tim4rec_*/
 experiments/multitask_tim4rec/runs/*
 !experiments/multitask_tim4rec/runs/.gitkeep
 !experiments/multitask_tim4rec/runs/*.json

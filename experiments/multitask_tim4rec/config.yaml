@@ -1,52 +1,80 @@
-experiment: multitask_tim4rec
-stage: target_audit_only
-protocol: B
+gpu_id: '0'
+use_gpu: True
+log_wandb: False
+reproducibility: True
+seed: 2026
+state: INFO
+show_progress: False
 
-source:
-  protocol_b_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b
-  protocol_b_manifest: /home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json
-  raw_log: /home/daryumin/iberdov/Corpora/KuaiRand-Pure/KuaiRand-Pure/data/log_standard_4_08_to_4_21_pure.csv
-  join_key: source_row_id
+data_path: /home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/recbole
+dataset: kuairand_multitask
+checkpoint_dir: /home/daryumin/iberdov/diplom/experiments/multitask_tim4rec/checkpoints
 
-output:
-  multitask_dataset_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask
-  manifest: outputs/data/protocol_b_multitask_manifest.json
-  audit: experiments/multitask_tim4rec/AUDIT.md
+# Same TiM4Rec backbone as experiments/tim4rec_baseline/config_kuairand.yaml.
+hidden_size: 64
+num_layers: 2
+dropout_prob: 0.2
+time_drop_out: 0.0
+loss_type: 'CE'
 
-recommended_first_version_targets:
+d_state: 32
+d_conv: 4
+expand: 2
+head_dim: 32
+chunk_size: 32
+norm_eps: 1e-10
+
+is_ffn: True
+is_time: True
+p2p_residual: False
+is_kai_ming_init: False
+
+MAX_ITEM_LIST_LENGTH: 50
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+TIME_FIELD: timestamp
+load_col:
+  inter:
+    - user_id
+    - item_id
+    - timestamp
+    - source_row_id
+    - is_click
+    - long_view
+    - is_like
+    - is_profile_enter
+
+user_inter_num_interval: "[5,inf)"
+item_inter_num_interval: "[5,inf)"
+rm_dup_inter: ~
+
+eval_args:
+  split: {'LS': 'valid_and_test'}
+  order: TO
+  group_by: user
+  mode: full
+
+epochs: 5
+train_batch_size: 2048
+learner: adam
+learning_rate: 0.001
+eval_step: 1
+stopping_step: 10
+train_neg_sample_args: ~
+train_from_scratch: False
+weight_decay: 0.0
+
+metrics: ['Hit', 'Recall', 'NDCG']
+valid_metric: NDCG@10
+eval_batch_size: 4096
+topk: [5, 10, 20, 50]
+metric_decimal_place: 4
+
+multitask_targets:
   - is_click
   - long_view
   - is_like
   - is_profile_enter
-
-raw_binary_targets:
-  - is_click
-  - long_view
-  - is_like
-  - is_follow
-  - is_comment
-  - is_forward
-  - is_hate
-  - is_profile_enter
-
-watch_time_fields:
-  - play_time_ms
-  - duration_ms
-  - play_ratio
-  - profile_stay_time
-  - comment_stay_time
-
-derived_target_candidates:
-  strong_positive: is_like OR is_follow OR is_comment OR is_forward
-  explicit_positive: is_like OR is_follow OR is_comment OR is_forward OR is_profile_enter
-  deep_engagement: long_view OR is_like OR is_follow OR is_comment OR is_forward OR is_profile_enter
-
-leakage_policy:
-  current_interaction_labels_as_inputs: forbidden
-  historical_behavior_context_for_future_experiments: allowed_after_time_aware_construction
-  full_period_item_statistics_as_inputs: forbidden_without_train_window_rebuild
-
-training:
-  run_training: false
-  run_optuna: false
-  implement_architecture: false
+lambda_aux: 0.2
+use_pos_weight: True
+test_evaluation_count: 0
