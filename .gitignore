@@ -73,6 +73,14 @@ experiments/ltr_xgb_optuna/trials/
 experiments/ltr_xgb_optuna/rankings/
 experiments/ltr_xgb_optuna/slurm_logs/*
 !experiments/ltr_xgb_optuna/slurm_logs/.gitkeep
+experiments/multitask_tim4rec/slurm_logs/*
+experiments/multitask_tim4rec/cache/
+experiments/multitask_tim4rec/checkpoints/
+experiments/multitask_tim4rec/runs/*
+!experiments/multitask_tim4rec/runs/.gitkeep
+!experiments/multitask_tim4rec/runs/*.json
+!experiments/multitask_tim4rec/runs/*_notes.md
+!experiments/multitask_tim4rec/*.csv
 
 # Keep compact experiment registry and run summaries.
 !experiments/results.csv
@@ -116,3 +124,4 @@ outputs/data/*
 !outputs/data/protocol_b_manifest.json
 !outputs/data/protocol_b_stats.json
 !outputs/data/protocol_b_validation_summary.csv
+!outputs/data/protocol_b_multitask_manifest.json

@@ -1,0 +1,52 @@
+experiment: multitask_tim4rec
+stage: target_audit_only
+protocol: B
+
+source:
+  protocol_b_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b
+  protocol_b_manifest: /home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json
+  raw_log: /home/daryumin/iberdov/Corpora/KuaiRand-Pure/KuaiRand-Pure/data/log_standard_4_08_to_4_21_pure.csv
+  join_key: source_row_id
+
+output:
+  multitask_dataset_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask
+  manifest: outputs/data/protocol_b_multitask_manifest.json
+  audit: experiments/multitask_tim4rec/AUDIT.md
+
+recommended_first_version_targets:
+  - is_click
+  - long_view
+  - is_like
+  - is_profile_enter
+
+raw_binary_targets:
+  - is_click
+  - long_view
+  - is_like
+  - is_follow
+  - is_comment
+  - is_forward
+  - is_hate
+  - is_profile_enter
+
+watch_time_fields:
+  - play_time_ms
+  - duration_ms
+  - play_ratio
+  - profile_stay_time
+  - comment_stay_time
+
+derived_target_candidates:
+  strong_positive: is_like OR is_follow OR is_comment OR is_forward
+  explicit_positive: is_like OR is_follow OR is_comment OR is_forward OR is_profile_enter
+  deep_engagement: long_view OR is_like OR is_follow OR is_comment OR is_forward OR is_profile_enter
+
+leakage_policy:
+  current_interaction_labels_as_inputs: forbidden
+  historical_behavior_context_for_future_experiments: allowed_after_time_aware_construction
+  full_period_item_statistics_as_inputs: forbidden_without_train_window_rebuild
+
+training:
+  run_training: false
+  run_optuna: false
+  implement_architecture: false

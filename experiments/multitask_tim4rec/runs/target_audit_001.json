@@ -1,0 +1,47 @@
+{
+  "run_id": "target_audit_001",
+  "status": "completed",
+  "created_at_utc": "2026-08-23T08:17:07.772944+00:00",
+  "no_training_performed": true,
+  "join_diagnostics": {
+    "rows_expected": 1134420,
+    "rows_after_join": 1134420,
+    "rows_matched": 1134420,
+    "rows_unmatched": 0,
+    "rows_multiple_matched": 0,
+    "protocol_source_row_duplicate_keys": 0,
+    "protocol_source_row_duplicate_extra_rows": 0,
+    "user_id_mismatches": 0,
+    "item_id_mismatches": 0,
+    "timestamp_mismatches": 0,
+    "join_is_exact": true
+  },
+  "dataset_fingerprint": {
+    "users": 23951,
+    "items": 7111,
+    "interactions": 1134420,
+    "split_counts": {
+      "train": 1086518,
+      "validation": 23951,
+      "test": 23951
+    },
+    "matches_expected": {
+      "users": true,
+      "items": true,
+      "interactions": true,
+      "splits": true,
+      "all": true
+    },
+    "identity_hash_user_item_timestamp_split": "954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7",
+    "identity_hash_source_row_user_item_timestamp_split": "47ad76003400ccad152a5eb7597eb263f53ce370f22a7c4c304c0f2479ae9420",
+    "output_dir": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask"
+  },
+  "recommended_first_version_targets": [
+    "is_click",
+    "long_view",
+    "is_like",
+    "is_profile_enter"
+  ],
+  "manifest_path": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/outputs/data/protocol_b_multitask_manifest.json",
+  "audit_path": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/experiments/multitask_tim4rec/AUDIT.md"
+}

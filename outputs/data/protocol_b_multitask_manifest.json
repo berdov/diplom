@@ -1,0 +1,359 @@
+{
+  "created_at_utc": "2026-08-23T08:17:07.772944+00:00",
+  "experiment": "multitask_tim4rec",
+  "stage": "target_audit_only",
+  "no_training_performed": true,
+  "git": {
+    "branch": "exp/multitask-tim4rec",
+    "commit": "8a48db9270a1b8d69ff6c88bb7d0e561a3370d98",
+    "working_directory": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z"
+  },
+  "source_protocol_b": {
+    "manifest_path": "/home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json",
+    "manifest_sha256": "9f39aa12ec16f697a8bedb91eeb21c46dce514e6f414b7e47fc4064c1fcffd2c",
+    "remote_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b",
+    "fingerprint": {
+      "interactions": 1134420,
+      "users": 23951,
+      "items": 7111,
+      "user_min_interactions": 5,
+      "item_min_interactions": 5,
+      "user_max_interactions": 806,
+      "item_max_interactions": 9015,
+      "timestamp_min": 1649475963278,
+      "timestamp_max": 1650556328855,
+      "exact_duplicate_keys": 16442,
+      "exact_duplicate_extra_rows": 16508,
+      "user_timestamp_duplicate_keys": 81025,
+      "user_timestamp_duplicate_extra_rows": 87198,
+      "user_timestamp_max_rows_per_key": 6
+    },
+    "split_stats": {
+      "train": {
+        "interactions": 1086518,
+        "users": 23951,
+        "items": 7111,
+        "user_min_interactions": 3,
+        "item_min_interactions": 3,
+        "user_max_interactions": 804,
+        "item_max_interactions": 8706,
+        "timestamp_min": 1649475963278,
+        "timestamp_max": 1650555863527,
+        "exact_duplicate_keys": 15521,
+        "exact_duplicate_extra_rows": 15584,
+        "user_timestamp_duplicate_keys": 79547,
+        "user_timestamp_duplicate_extra_rows": 85678,
+        "user_timestamp_max_rows_per_key": 6
+      },
+      "validation": {
+        "interactions": 23951,
+        "users": 23951,
+        "items": 4026,
+        "user_min_interactions": 1,
+        "item_min_interactions": 1,
+        "user_max_interactions": 1,
+        "item_max_interactions": 172,
+        "timestamp_min": 1649522204189,
+        "timestamp_max": 1650556312499,
+        "exact_duplicate_keys": 0,
+        "exact_duplicate_extra_rows": 0,
+        "user_timestamp_duplicate_keys": 0,
+        "user_timestamp_duplicate_extra_rows": 0,
+        "user_timestamp_max_rows_per_key": 1
+      },
+      "test": {
+        "interactions": 23951,
+        "users": 23951,
+        "items": 3955,
+        "user_min_interactions": 1,
+        "item_min_interactions": 1,
+        "user_max_interactions": 1,
+        "item_max_interactions": 157,
+        "timestamp_min": 1649525872090,
+        "timestamp_max": 1650556328855,
+        "exact_duplicate_keys": 0,
+        "exact_duplicate_extra_rows": 0,
+        "user_timestamp_duplicate_keys": 0,
+        "user_timestamp_duplicate_extra_rows": 0,
+        "user_timestamp_max_rows_per_key": 1
+      }
+    },
+    "files": [
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/full_filtered.parquet",
+        "relative_path": "full_filtered.parquet",
+        "size_bytes": 8229299,
+        "size": "7.8 MiB",
+        "sha256": "3c0abfbcca8810a57980a03ad28a12ac7a26f10629161fbb73ace4273468837b"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/item_id_mapping.parquet",
+        "relative_path": "item_id_mapping.parquet",
+        "size_bytes": 39273,
+        "size": "38.4 KiB",
+        "sha256": "d8010cd0539c3d403d85832918f5214f9b26fc919cb8b32d2544b8f8d3d09e04"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/manifest.json",
+        "relative_path": "manifest.json",
+        "size_bytes": 9709,
+        "size": "9.5 KiB",
+        "sha256": "9f39aa12ec16f697a8bedb91eeb21c46dce514e6f414b7e47fc4064c1fcffd2c"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand/kuairand.inter",
+        "relative_path": "recbole/kuairand/kuairand.inter",
+        "size_bytes": 27740872,
+        "size": "26.5 MiB",
+        "sha256": "e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand_protocol_b.yaml",
+        "relative_path": "recbole/kuairand_protocol_b.yaml",
+        "size_bytes": 520,
+        "size": "520 B",
+        "sha256": "63bc56ce2cd442fb5db3e7dbf99c559e71bf4151d447a2b5e1186fd2001e1df9"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/sequences.parquet",
+        "relative_path": "sequences.parquet",
+        "size_bytes": 12555439,
+        "size": "12.0 MiB",
+        "sha256": "e175095e9d5c379d529daa32c41285af7b6971e40719211402b716e1fe33f857"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/stats.json",
+        "relative_path": "stats.json",
+        "size_bytes": 9709,
+        "size": "9.5 KiB",
+        "sha256": "9f39aa12ec16f697a8bedb91eeb21c46dce514e6f414b7e47fc4064c1fcffd2c"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/test.parquet",
+        "relative_path": "test.parquet",
+        "size_bytes": 343710,
+        "size": "335.7 KiB",
+        "sha256": "b25e7032fd071cba235db04bcd8623df95f8eacde9c4545ce763e53dc05b3ab2"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/train.parquet",
+        "relative_path": "train.parquet",
+        "size_bytes": 7886196,
+        "size": "7.5 MiB",
+        "sha256": "ab619ee06f5cc2f033c43cfd0b8a0e2489cd4e8267e4cf74139b3deb8d0f67d8"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/user_id_mapping.parquet",
+        "relative_path": "user_id_mapping.parquet",
+        "size_bytes": 138170,
+        "size": "134.9 KiB",
+        "sha256": "ad1e9cae32b6e815b5db74a3a8867216d830f821ac308f57b9a487f449918134"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/validation.parquet",
+        "relative_path": "validation.parquet",
+        "size_bytes": 345790,
+        "size": "337.7 KiB",
+        "sha256": "92733da83c5b3b75dc451b11aeb2d167e7cadfb77461b070f47d0dc6bfebc40e"
+      },
+      {
+        "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/validation_summary.csv",
+        "relative_path": "validation_summary.csv",
+        "size_bytes": 355,
+        "size": "355 B",
+        "sha256": "2919ff65bea2027f1e6515ab05b91ea2e57a7731ae68bc3fe795ddefb0bf01f7"
+      }
+    ]
+  },
+  "source_raw_files": [
+    {
+      "role": "KuaiRand-Pure early standard log",
+      "path": "/home/daryumin/iberdov/Corpora/KuaiRand-Pure/KuaiRand-Pure/data/log_standard_4_08_to_4_21_pure.csv",
+      "size_bytes": 83961282,
+      "size": "80.1 MiB",
+      "sha256": "5bb6eb0b3d9f47e5436cb5dc82ee1899b845ebf9750a5560b801e929e18bd41c",
+      "schema_columns": [
+        "user_id",
+        "video_id",
+        "date",
+        "hourmin",
+        "time_ms",
+        "is_click",
+        "is_like",
+        "is_follow",
+        "is_comment",
+        "is_forward",
+        "is_hate",
+        "long_view",
+        "play_time_ms",
+        "duration_ms",
+        "profile_stay_time",
+        "comment_stay_time",
+        "is_profile_enter",
+        "is_rand",
+        "tab"
+      ]
+    }
+  ],
+  "join_strategy": {
+    "key": "source_row_id",
+    "description": "Protocol B parquet stores zero-based raw CSV row index; raw CSV is scanned with the same zero-based row index and joined one-to-one.",
+    "not_used_as_primary_key": [
+      "user_id+item_id",
+      "user_id+item_id+timestamp"
+    ],
+    "reason": "Protocol B contains duplicate user/item/timestamp keys; source_row_id is the stable row identity."
+  },
+  "join_diagnostics": {
+    "rows_expected": 1134420,
+    "rows_after_join": 1134420,
+    "rows_matched": 1134420,
+    "rows_unmatched": 0,
+    "rows_multiple_matched": 0,
+    "protocol_source_row_duplicate_keys": 0,
+    "protocol_source_row_duplicate_extra_rows": 0,
+    "user_id_mismatches": 0,
+    "item_id_mismatches": 0,
+    "timestamp_mismatches": 0,
+    "join_is_exact": true
+  },
+  "target_fields": {
+    "raw_binary": [
+      "is_click",
+      "long_view",
+      "is_like",
+      "is_follow",
+      "is_comment",
+      "is_forward",
+      "is_hate",
+      "is_profile_enter"
+    ],
+    "watch_time": [
+      "play_time_ms",
+      "duration_ms",
+      "play_ratio",
+      "profile_stay_time",
+      "comment_stay_time"
+    ],
+    "raw_behavior_fields_in_dataset": [
+      "is_click",
+      "long_view",
+      "is_like",
+      "is_follow",
+      "is_comment",
+      "is_forward",
+      "is_hate",
+      "is_profile_enter",
+      "play_time_ms",
+      "duration_ms",
+      "profile_stay_time",
+      "comment_stay_time"
+    ]
+  },
+  "derived_target_definitions": {
+    "strong_positive": {
+      "formula": "is_like OR is_follow OR is_comment OR is_forward",
+      "source_fields": [
+        "is_like",
+        "is_follow",
+        "is_comment",
+        "is_forward"
+      ]
+    },
+    "explicit_positive": {
+      "formula": "is_like OR is_follow OR is_comment OR is_forward OR is_profile_enter",
+      "source_fields": [
+        "is_like",
+        "is_follow",
+        "is_comment",
+        "is_forward",
+        "is_profile_enter"
+      ]
+    },
+    "deep_engagement": {
+      "formula": "long_view OR is_like OR is_follow OR is_comment OR is_forward OR is_profile_enter",
+      "source_fields": [
+        "long_view",
+        "is_like",
+        "is_follow",
+        "is_comment",
+        "is_forward",
+        "is_profile_enter"
+      ]
+    }
+  },
+  "recommended_first_version_targets": [
+    "is_click",
+    "long_view",
+    "is_like",
+    "is_profile_enter"
+  ],
+  "dataset_fingerprint": {
+    "users": 23951,
+    "items": 7111,
+    "interactions": 1134420,
+    "split_counts": {
+      "train": 1086518,
+      "validation": 23951,
+      "test": 23951
+    },
+    "matches_expected": {
+      "users": true,
+      "items": true,
+      "interactions": true,
+      "splits": true,
+      "all": true
+    },
+    "identity_hash_user_item_timestamp_split": "954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7",
+    "identity_hash_source_row_user_item_timestamp_split": "47ad76003400ccad152a5eb7597eb263f53ce370f22a7c4c304c0f2479ae9420",
+    "output_dir": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask"
+  },
+  "remote_paths": {
+    "multitask_dataset_dir": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask",
+    "train": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/train.parquet",
+    "validation": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/validation.parquet",
+    "test": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/test.parquet",
+    "full_filtered": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/full_filtered.parquet"
+  },
+  "files": [
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/full_filtered.parquet",
+      "relative_path": "full_filtered.parquet",
+      "size_bytes": 22808154,
+      "size": "21.8 MiB",
+      "sha256": "6230484dae795e31e88b8327983d6b97897ec0dd0b42a7fa1f430a96e9cd2f78"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/test.parquet",
+      "relative_path": "test.parquet",
+      "size_bytes": 571681,
+      "size": "558.3 KiB",
+      "sha256": "d2996d16907490c027a4481aca7f478be4bacef6a9287ddd7b027ee8ec7294a2"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/train.parquet",
+      "relative_path": "train.parquet",
+      "size_bytes": 21664860,
+      "size": "20.7 MiB",
+      "sha256": "8856647c77f1215c94ff6fc3868e39500f14ab3782c15c192bc2f20844337e55"
+    },
+    {
+      "path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/validation.parquet",
+      "relative_path": "validation.parquet",
+      "size_bytes": 574687,
+      "size": "561.2 KiB",
+      "sha256": "f3d202fa47011022701f27e2dc2c19eb85e8cba1b38e19b04151248c8bf62027"
+    }
+  ],
+  "compact_outputs": {
+    "source_field_schema": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/experiments/multitask_tim4rec/source_field_schema.csv",
+    "target_statistics": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/experiments/multitask_tim4rec/target_statistics.csv",
+    "target_cooccurrence": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/experiments/multitask_tim4rec/target_cooccurrence.csv",
+    "target_correlations": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/experiments/multitask_tim4rec/target_correlations.csv",
+    "target_user_coverage": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/experiments/multitask_tim4rec/target_user_coverage.csv",
+    "target_item_coverage": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/experiments/multitask_tim4rec/target_item_coverage.csv",
+    "target_temporal_drift": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/experiments/multitask_tim4rec/target_temporal_drift.csv",
+    "target_temporal_by_date": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/experiments/multitask_tim4rec/target_temporal_by_date.csv",
+    "watch_time_diagnostics": "/home/daryumin/iberdov/diplom_multitask_stage_min_20260823T081349Z/experiments/multitask_tim4rec/watch_time_diagnostics.csv"
+  }
+}
