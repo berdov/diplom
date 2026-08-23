@@ -1,0 +1,45 @@
+study_name: ltr_xgb_optuna_v1
+storage_path: /home/daryumin/iberdov/diplom/experiments/ltr_xgb_optuna/optuna.db
+trial_number: 16
+selection_metric: validation_full_ranking_NDCG@10
+selection_value: 0.01840697391006673
+validation_metrics:
+  HR@5: 0.0227547910316897
+  Recall@5: 0.0227547910316897
+  NDCG@5: 0.014750410231740561
+  HR@10: 0.034278318233059164
+  Recall@10: 0.034278318233059164
+  NDCG@10: 0.01840697391006673
+  HR@20: 0.05661559016324997
+  Recall@20: 0.05661559016324997
+  NDCG@20: 0.023980266243388625
+  HR@50: 0.10429627155442361
+  Recall@50: 0.10429627155442361
+  NDCG@50: 0.03340433416906771
+best_iteration: 9
+best_num_boosted_rounds: 10
+suggested_params:
+  max_depth: 7
+  eta: 0.11767873104746542
+  min_child_weight: 2.2399194165687106
+  subsample: 0.8661195199148233
+  colsample_bytree: 0.9311835757131137
+  reg_lambda: 18.413808630043132
+  reg_alpha: 0.004848134217357092
+  gamma_is_zero: true
+xgboost_params:
+  objective: rank:ndcg
+  eval_metric: ndcg@10
+  tree_method: hist
+  max_depth: 7
+  eta: 0.11767873104746542
+  subsample: 0.8661195199148233
+  colsample_bytree: 0.9311835757131137
+  seed: 42
+  nthread: 8
+  verbosity: 1
+  min_child_weight: 2.2399194165687106
+  reg_lambda: 18.413808630043132
+  reg_alpha: 0.004848134217357092
+  gamma: 0.0
+test_evaluation_count: 0

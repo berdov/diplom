@@ -1,0 +1,59 @@
+run_id: ltr_xgb_optuna_001
+smoke_run_id: optuna_smoke_001
+base_run_id: ltr_xgb_002
+study_name: ltr_xgb_optuna_v1
+study_storage: /home/daryumin/iberdov/diplom/experiments/ltr_xgb_optuna/optuna.db
+remote_artifact_dir: /home/daryumin/iberdov/diplom/experiments/ltr_xgb_optuna
+compact_runs_dir: /home/daryumin/iberdov/diplom/experiments/ltr_xgb_optuna/runs
+baseline:
+  config_path: experiments/ltr_xgb_baseline/config.yaml
+  compact_run_json: experiments/ltr_xgb_baseline/runs/ltr_xgb_002.json
+  artifact_dir: /home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002
+protocol:
+  name: kuairand_protocol_b
+  data_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b
+  manifest_path: /home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json
+  users: 23951
+  items: 7111
+  interactions: 1134420
+  train_rows: 1086518
+  validation_rows: 23951
+  test_rows: 23951
+candidate_protocol:
+  train: sampled_100
+  validation_objective: full_7111_items
+  test: locked
+  n_negatives: 100
+  negative_seed: 42
+evaluation:
+  objective_metric: NDCG@10
+  mode: full
+  validation_only: true
+  batch_users: 128
+  topk: 50
+  mask_seen_items: false
+  mask_padding_item: true
+  full_validation_eval_every_rounds: 10
+model:
+  objective: rank:ndcg
+  eval_metric: ndcg@10
+  tree_method: hist
+  model_seed: 42
+  nthread: 8
+  max_boost_rounds: 1000
+  early_stopping_patience_evals: 5
+  early_stopping_min_delta: 0.0
+sampler:
+  name: TPESampler
+  seed: 2026
+smoke:
+  n_trials: 1
+  max_boost_rounds: 20
+  full_validation_eval_every_rounds: 10
+  early_stopping_patience_evals: 2
+  pruning: false
+  write_results_csv: false
+test_policy:
+  load_test_in_search: false
+  evaluate_test_in_search: false
+  test_evaluation_count_expected: 0

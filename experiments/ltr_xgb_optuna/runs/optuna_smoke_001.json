@@ -1,0 +1,359 @@
+{
+  "run_id": "optuna_smoke_001",
+  "created_at_utc": "2026-08-22T17:41:09.634612+00:00",
+  "git": {
+    "branch": "exp/ltr-xgb-optuna",
+    "commit": "pending_final_commit",
+    "commit_note": "Smoke ran from a staging worktree before the final artifact commit; final Git commit is reported in the task summary."
+  },
+  "environment": {
+    "python": "3.11.15",
+    "python_executable": "/home/daryumin/iberdov/diplom/.conda/bin/python",
+    "xgboost": "3.2.0",
+    "optuna": "4.9.0",
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "pyyaml": "6.0.3",
+    "pyarrow": "25.0.1",
+    "polars": "1.43.2",
+    "sqlalchemy": "2.0.52",
+    "alembic": "1.19.1"
+  },
+  "slurm": {
+    "job_id": "4271164",
+    "job_name": "ltr-xgb-optuna-smoke",
+    "partition": "rocky",
+    "node_list": "cn-038",
+    "cpus_per_task": "8",
+    "mem_per_node": null,
+    "hostname": "cn-038"
+  },
+  "baseline": {
+    "run_id": "ltr_xgb_002",
+    "baseline_config": "experiments/ltr_xgb_baseline/config.yaml",
+    "train_candidate_protocol": "sampled_100",
+    "validation_candidate_protocol": "full_7111_items",
+    "evaluation_protocol": "protocol_b_full_recbole_sequential",
+    "seed": 42,
+    "features": [
+      "user_history_length",
+      "user_unique_items",
+      "user_history_unique_ratio",
+      "user_history_popularity_mean",
+      "user_history_popularity_median",
+      "user_history_popularity_max",
+      "user_history_popularity_last",
+      "user_history_span_days",
+      "user_history_mean_gap_hours",
+      "candidate_seen_before",
+      "item_train_popularity",
+      "log1p_item_train_popularity",
+      "item_popularity_rank",
+      "item_popularity_percentile",
+      "candidate_popularity_to_user_mean",
+      "candidate_popularity_minus_user_mean",
+      "candidate_is_more_popular_than_user_mean"
+    ]
+  },
+  "optuna": {
+    "version": "4.9.0",
+    "study_name": "ltr_xgb_optuna_v1",
+    "storage": "sqlite:////home/daryumin/iberdov/diplom/experiments/ltr_xgb_optuna/optuna.db",
+    "storage_path": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_optuna/optuna.db",
+    "sampler": "TPESampler",
+    "sampler_seed": 2026,
+    "n_trials_requested": 1,
+    "trial_count_before": 0,
+    "trial_count_after": 1,
+    "resume_check": true
+  },
+  "search_space": {
+    "version": "ltr_xgb_optuna_v1",
+    "description": "Search space for tuning existing ltr_xgb_002 LambdaMART without changing features or evaluation protocol.",
+    "parameters": {
+      "max_depth": {
+        "type": "int",
+        "low": 3,
+        "high": 10
+      },
+      "eta": {
+        "type": "float",
+        "low": 0.005,
+        "high": 0.2,
+        "log": true
+      },
+      "min_child_weight": {
+        "type": "float",
+        "low": 0.1,
+        "high": 20.0,
+        "log": true
+      },
+      "subsample": {
+        "type": "float",
+        "low": 0.5,
+        "high": 1.0
+      },
+      "colsample_bytree": {
+        "type": "float",
+        "low": 0.5,
+        "high": 1.0
+      },
+      "reg_lambda": {
+        "type": "float",
+        "low": 0.001,
+        "high": 100.0,
+        "log": true
+      },
+      "reg_alpha": {
+        "type": "float",
+        "low": 0.0001,
+        "high": 10.0,
+        "log": true
+      },
+      "gamma": {
+        "type": "float_with_zero",
+        "low": 0.0001,
+        "high": 10.0,
+        "log": true,
+        "zero_choice_name": "gamma_is_zero"
+      }
+    },
+    "fixed": {
+      "objective": "rank:ndcg",
+      "eval_metric": "ndcg@10",
+      "tree_method": "hist",
+      "seed": 42,
+      "nthread": 8
+    },
+    "not_tuned_initially": {
+      "lambdarank_pair_method": {
+        "reason": "XGBoost exposes pair construction strategies for LambdaMART, but this first study isolates standard tree regularization and learning-rate effects."
+      },
+      "lambdarank_num_pair_per_sample": {
+        "reason": "Pair sampling changes the ranking-loss construction itself; keep default until a separate methodology decision."
+      },
+      "grow_policy": {
+        "reason": "Keeping default depthwise policy avoids introducing max_leaves as an additional interaction."
+      },
+      "max_leaves": {
+        "reason": "Only relevant when grow_policy=lossguide; not enabled in v1."
+      },
+      "num_boost_round": {
+        "reason": "Not sampled directly; full-ranking validation with early stopping selects iteration."
+      }
+    }
+  },
+  "cache": {
+    "base_run_id": "ltr_xgb_002",
+    "baseline_git_commit": "e9a7a4e3484f438431495820280c61f10bf83919",
+    "baseline_remote_artifact": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002",
+    "loaded_paths": {
+      "train_features": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/features/train_features.parquet",
+      "validation_queries": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/candidates/validation_queries.parquet",
+      "item_features": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_baseline/ltr_xgb_002/features/item_train_popularity.parquet"
+    },
+    "loaded_path_sha256": {
+      "train_features": "a935f6416fa5327fd3389133888cb18e7cd4d7e33e7f5cfe57651e4aa28a5b86",
+      "validation_queries": "f3ca3e5e2aeb4d59c8a59af20d03abcf956f68df8e999ef3eb87367b587a996b",
+      "item_features": "03c6254297be77173da474830af54ee00a095b6e93c09421dcb66cda5c1d9d7f"
+    },
+    "forbidden_test_paths_loaded": [],
+    "load_time_sec": 3.5070231845602393,
+    "group_validation": {
+      "split": "train",
+      "rows": 2419051,
+      "groups": 23951,
+      "expected_group_size": 101,
+      "sum_group_sizes": 2419051,
+      "one_positive_per_group": true,
+      "query_index_monotonic_non_decreasing": true
+    },
+    "feature_set_version": "8abcf619f10433225767952859d305ec507d2b00eaca5b2118a79d7f29730a25",
+    "feature_set_payload": {
+      "base_run_id": "ltr_xgb_002",
+      "feature_names": [
+        "user_history_length",
+        "user_unique_items",
+        "user_history_unique_ratio",
+        "user_history_popularity_mean",
+        "user_history_popularity_median",
+        "user_history_popularity_max",
+        "user_history_popularity_last",
+        "user_history_span_days",
+        "user_history_mean_gap_hours",
+        "candidate_seen_before",
+        "item_train_popularity",
+        "log1p_item_train_popularity",
+        "item_popularity_rank",
+        "item_popularity_percentile",
+        "candidate_popularity_to_user_mean",
+        "candidate_popularity_minus_user_mean",
+        "candidate_is_more_popular_than_user_mean"
+      ],
+      "candidate_protocol": "protocol_b_1pos_100neg_seed42_train",
+      "train_candidate_protocol": "sampled_100",
+      "eval_candidate_protocol": "full_7111_items",
+      "feature_summary": {
+        "train": "2c0bb9c2df474b67793f95910459d08837dfbea517fa8483bd67508a686a355f",
+        "validation": "365b4ca7bddc5336550e9c793378bd9da3d13b5d28cd1d179eada44eeff4fe40"
+      },
+      "candidate_summary": {
+        "train": "9eea5f314e5e2f971f6abf78ec04896d3e87398d6775fb8d5922c4f59752fe97",
+        "validation": "333e8c609bf7c7269fc8cf133a2408eb6ce6b909308dc5e0d3154ae056c4b1a1"
+      }
+    },
+    "dataset_fingerprint": {
+      "users": 23951,
+      "items": 7111,
+      "interactions": 1134420,
+      "train": 1086518,
+      "validation": 23951,
+      "test": 23951
+    }
+  },
+  "smoke_trial": {
+    "trial_number": 0,
+    "state": "COMPLETE",
+    "params": {
+      "objective": "rank:ndcg",
+      "eval_metric": "ndcg@10",
+      "tree_method": "hist",
+      "max_depth": 4,
+      "eta": 0.022942438908854185,
+      "subsample": 0.5444495108240646,
+      "colsample_bytree": 0.7396449298400908,
+      "seed": 42,
+      "nthread": 8,
+      "verbosity": 1,
+      "min_child_weight": 17.671260541443075,
+      "reg_lambda": 86.64678862932995,
+      "reg_alpha": 0.0009788258835751811,
+      "gamma": 0.0
+    },
+    "objective": "validation_full_ranking_NDCG@10",
+    "validation_ndcg10": 0.01495103535829032,
+    "validation_hr10": 0.030771157780468458,
+    "best_iteration": 19,
+    "best_num_boosted_rounds": 20,
+    "num_boosted_rounds_trained": 20,
+    "stop_reason": "max_boost_rounds_reached",
+    "train_time_sec": 2.6199218099936843,
+    "best_full_validation_time_sec": 41.59065772872418,
+    "validation_metrics": {
+      "HR@5": 0.019623397770447998,
+      "Recall@5": 0.019623397770447998,
+      "NDCG@5": 0.011410708139374646,
+      "HR@10": 0.030771157780468458,
+      "Recall@10": 0.030771157780468458,
+      "NDCG@10": 0.01495103535829032,
+      "HR@20": 0.05536303285875329,
+      "Recall@20": 0.05536303285875329,
+      "NDCG@20": 0.021083859697057884,
+      "HR@50": 0.10225042795707903,
+      "Recall@50": 0.10225042795707903,
+      "NDCG@50": 0.030354178029006636
+    },
+    "validation_eval": {
+      "eval_time_sec": 41.59065772872418,
+      "users": 23951,
+      "items": 7111,
+      "scores": 170315561,
+      "batch_users": 128,
+      "topk": 50,
+      "mask_seen_items": false,
+      "split_stats": {
+        "queries": 23951,
+        "candidate_count_min": 7111,
+        "candidate_count_max": 7111,
+        "candidate_count_mean": 7111.0,
+        "mask_seen_items": false,
+        "target_evaluable_queries": 23951,
+        "repeated_target_queries": 907,
+        "repeated_target_evaluable_queries": 907
+      }
+    },
+    "history": [
+      {
+        "num_boosted_rounds": 10,
+        "iteration_zero_based": 9,
+        "train_step_time_sec": 1.8616785937920213,
+        "full_validation_time_sec": 39.20116520021111,
+        "validation_metrics": {
+          "HR@5": 0.01958164586029811,
+          "Recall@5": 0.01958164586029811,
+          "NDCG@5": 0.011392726570418302,
+          "HR@10": 0.03068765396016868,
+          "Recall@10": 0.03068765396016868,
+          "NDCG@10": 0.014918784142722718,
+          "HR@20": 0.05527952903845351,
+          "Recall@20": 0.05527952903845351,
+          "NDCG@20": 0.02105192532084522,
+          "HR@50": 0.10074735919168303,
+          "Recall@50": 0.10074735919168303,
+          "NDCG@50": 0.03006517169924386
+        },
+        "improved": true
+      },
+      {
+        "num_boosted_rounds": 20,
+        "iteration_zero_based": 19,
+        "train_step_time_sec": 0.758243216201663,
+        "full_validation_time_sec": 41.59065772872418,
+        "validation_metrics": {
+          "HR@5": 0.019623397770447998,
+          "Recall@5": 0.019623397770447998,
+          "NDCG@5": 0.011410708139374646,
+          "HR@10": 0.030771157780468458,
+          "Recall@10": 0.030771157780468458,
+          "NDCG@10": 0.01495103535829032,
+          "HR@20": 0.05536303285875329,
+          "Recall@20": 0.05536303285875329,
+          "NDCG@20": 0.021083859697057884,
+          "HR@50": 0.10225042795707903,
+          "Recall@50": 0.10225042795707903,
+          "NDCG@50": 0.030354178029006636
+        },
+        "improved": true
+      }
+    ],
+    "model_paths": {
+      "best": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_optuna/models/trial_0000_best.json",
+      "final": "/home/daryumin/iberdov/diplom/experiments/ltr_xgb_optuna/models/trial_0000_final.json"
+    },
+    "model_sha256": {
+      "best": "b86ea5a4f05464fb92bfe2da5702120c12cd68fd9566d0cbdf5668d47e02a2d4",
+      "final": "b86ea5a4f05464fb92bfe2da5702120c12cd68fd9566d0cbdf5668d47e02a2d4"
+    },
+    "test_evaluation_count": 0,
+    "trial_runtime_sec": 83.57029128447175,
+    "xgboost_train_time_sec": 2.6199218099936843
+  },
+  "runtime_sec": 83.9248026330024,
+  "test_evaluation_count": 0,
+  "results_csv_updated": false,
+  "future_search_estimate": {
+    "trials": 40,
+    "per_trial_sec_from_smoke": 83.57029128447175,
+    "approx_total_sec": 3342.81165137887,
+    "bottleneck": "repeated full-ranking validation over 23951 users x 7111 items",
+    "per_full_validation_sec_from_smoke": 41.59065772872418,
+    "notes": "Smoke-equivalent estimate. Full 40-trial search cost scales mainly with the number of full-ranking validation checks per trial."
+  },
+  "slurm_sacct": {
+    "job_id": "4271164",
+    "job_name": "ltr-xgb-optuna-smoke",
+    "partition": "rocky",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "00:01:38",
+    "time_limit": "01:00:00",
+    "node": "cn-038",
+    "constraint": "type_d",
+    "alloc_cpus": "8",
+    "alloc_tres": "billing=8,cpu=8,node=1",
+    "req_tres": "billing=8,cpu=8,mem=1M,node=1",
+    "batch_max_rss": "2023540K",
+    "batch_max_vm_size": "5441864K",
+    "extern_max_rss": "1.50M"
+  }
+}
