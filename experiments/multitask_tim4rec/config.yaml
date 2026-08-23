@@ -54,7 +54,7 @@ eval_args:
   group_by: user
   mode: full
 
-epochs: 5
+epochs: 300
 train_batch_size: 2048
 learner: adam
 learning_rate: 0.001
@@ -77,4 +77,5 @@ multitask_targets:
   - is_profile_enter
 lambda_aux: 0.2
 use_pos_weight: True
-test_evaluation_count: 0
+loss_config_source: multitask_tim4rec_sanity_001
+final_test_evaluation_count: 1
