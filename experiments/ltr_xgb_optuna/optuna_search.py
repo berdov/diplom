@@ -471,6 +471,14 @@ def train_trial(
             "best": sha256_file(best_model_path),
             "final": sha256_file(final_model_path),
         },
+        "seed": int(params.get("seed", 42)),
+        "feature_set_version": cached.cache_summary["feature_set_version"],
+        "dataset_fingerprint": cached.cache_summary["dataset_fingerprint"],
+        "git": {
+            "branch": git_value(["rev-parse", "--abbrev-ref", "HEAD"]),
+            "commit": git_value(["rev-parse", "HEAD"]),
+        },
+        "forbidden_test_paths_loaded": [],
         "test_evaluation_count": 0,
     }
 
@@ -549,6 +557,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", default=str(PROJECT_ROOT / "experiments/ltr_xgb_optuna/config.yaml"))
     parser.add_argument("--search-space", default=str(PROJECT_ROOT / "experiments/ltr_xgb_optuna/search_space.yaml"))
     parser.add_argument("--n-trials", type=int, default=None)
+    parser.add_argument("--target-complete", type=int, default=None)
     parser.add_argument("--smoke", action="store_true")
     parser.add_argument("--force-one-smoke-trial", action="store_true")
     return parser.parse_args()
@@ -567,6 +576,8 @@ def main() -> None:
     runs_dir.mkdir(parents=True, exist_ok=True)
 
     smoke = bool(args.smoke)
+    if smoke and args.target_complete is not None:
+        raise AssertionError("target-complete is not supported in smoke mode")
     n_trials = int(args.n_trials if args.n_trials is not None else (optuna_config["smoke"]["n_trials"] if smoke else 1))
     if smoke and n_trials != 1:
         raise AssertionError("smoke mode must run exactly one trial")
@@ -587,6 +598,24 @@ def main() -> None:
         pruner=optuna.pruners.NopPruner(),
     )
     trial_count_before = len(study.trials)
+    complete_before = sum(1 for trial in study.trials if trial.state == optuna.trial.TrialState.COMPLETE)
+    if args.target_complete is not None:
+        target_complete = int(args.target_complete)
+        if target_complete <= 0:
+            raise AssertionError("--target-complete must be positive")
+        n_trials = max(0, target_complete - complete_before)
+        print(
+            json.dumps(
+                {
+                    "study_name": optuna_config["study_name"],
+                    "complete_before": complete_before,
+                    "target_complete": target_complete,
+                    "new_trials_to_run": n_trials,
+                },
+                ensure_ascii=False,
+            ),
+            flush=True,
+        )
 
     max_boost_rounds = int(optuna_config["smoke"]["max_boost_rounds"] if smoke else optuna_config["model"]["max_boost_rounds"])
     eval_every_rounds = int(
@@ -622,7 +651,8 @@ def main() -> None:
         return float(result["validation_ndcg10"])
 
     started = time.perf_counter()
-    study.optimize(objective, n_trials=n_trials, n_jobs=1)
+    if n_trials > 0:
+        study.optimize(objective, n_trials=n_trials, n_jobs=1)
     total_runtime = time.perf_counter() - started
     reloaded = optuna.load_study(study_name=optuna_config["study_name"], storage=storage)
     if len(reloaded.trials) < trial_count_before + n_trials:
