@@ -1,6 +1,6 @@
 # Основные результаты на KuaiRand Protocol B
 
-Сгенерировано из `experiments/results.csv`: 2026-08-25T08:34:15.404093+00:00.
+Сгенерировано из `experiments/results.csv`: 2026-08-25T09:34:12.241538+00:00.
 
 Показаны только сопоставимые full-ranking TEST results.
 
@@ -41,8 +41,10 @@
 | Run | Model | Variant | Split | Evaluation | Status | NDCG@10 | Test count |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | adaptive_smoke_001 | MultitaskTiM4Rec | adaptive_gradient_smoke | train | diagnostic | completed |  | 0 |
+| metabalance_sanity_001 | MultitaskTiM4Rec | adaptive_metabalance_fix | validation | full_7111_items | completed | 0.0518 | 0 |
 | multitask_tim4rec_sanity_001 | MultitaskTiM4Rec | sanity_5_epoch | validation | full_7111_items | completed | 0.0557 | 0 |
 | optuna_smoke_001 | XGBoost LambdaMART | optuna_smoke | validation | full_7111_items | completed | 0.0150 | 0 |
+| pcgrad_sanity_001 | MultitaskTiM4Rec | adaptive_pcgrad_ranking_anchored | validation | full_7111_items | completed | 0.0568 | 0 |
 | smoke_20260818T132855Z | TiM4Rec | smoke_forward | validation | full_7111_items | completed |  | 0 |
 | smoke_20260819T110252Z | SSD4Rec | smoke_forward | validation | full_7111_items | completed |  | 0 |
 | ssd4rec_sanity_001 | SSD4Rec | sanity_5_epoch | validation | full_7111_items | completed | 0.0559 | 0 |
@@ -74,8 +76,10 @@
 | search | multitask_optuna_search_001 | ours | MultitaskTiM4Rec | optuna_search | validation | full_7111_items | completed | 0.1093 | 0.0599 | 0 |
 | search | optuna_search_001 | ours | XGBoost LambdaMART | optuna_search | validation | full_7111_items | completed | 0.0343 | 0.0184 | 0 |
 | sanity | adaptive_smoke_001 | ours | MultitaskTiM4Rec | adaptive_gradient_smoke | train | diagnostic | completed |  |  | 0 |
+| sanity | metabalance_sanity_001 | ours | MultitaskTiM4Rec | adaptive_metabalance_fix | validation | full_7111_items | completed | 0.0951 | 0.0518 | 0 |
 | sanity | multitask_tim4rec_sanity_001 | ours | MultitaskTiM4Rec | sanity_5_epoch | validation | full_7111_items | completed | 0.1011 | 0.0557 | 0 |
 | sanity | optuna_smoke_001 | ours | XGBoost LambdaMART | optuna_smoke | validation | full_7111_items | completed | 0.0308 | 0.0150 | 0 |
+| sanity | pcgrad_sanity_001 | ours | MultitaskTiM4Rec | adaptive_pcgrad_ranking_anchored | validation | full_7111_items | completed | 0.1036 | 0.0568 | 0 |
 | sanity | smoke_20260818T132855Z | ours | TiM4Rec | smoke_forward | validation | full_7111_items | completed |  |  | 0 |
 | sanity | smoke_20260819T110252Z | ours | SSD4Rec | smoke_forward | validation | full_7111_items | completed |  |  | 0 |
 | sanity | ssd4rec_sanity_001 | ours | SSD4Rec | sanity_5_epoch | validation | full_7111_items | completed | 0.1008 | 0.0559 | 0 |

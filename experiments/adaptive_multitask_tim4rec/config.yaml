@@ -13,6 +13,21 @@ base:
   smoke_batches: 3
   diagnostic_shared_selector: all_backbone
 
+sanity:
+  epochs: 5
+  full_train_split: true
+  validation: full_7111_items
+  diagnostic_epochs:
+    - 1
+    - 3
+    - 5
+  run_ids:
+    pcgrad: pcgrad_sanity_001
+    metabalance: metabalance_sanity_001
+  run_order:
+    - pcgrad
+    - metabalance
+
 targets:
   main: rank
   auxiliary:

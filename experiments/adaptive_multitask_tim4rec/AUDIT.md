@@ -156,6 +156,35 @@ Pairwise cosine audit нашёл `3` negative pairs из `10`: `is_click` vs `is
 - Real gradient conflicts есть, но в этом smoke они auxiliary-auxiliary, а не ranking-auxiliary. Поэтому ranking-anchored PCGrad - самый консервативный следующий метод: он вмешивается только когда auxiliary gradient направлен против `g_rank`.
 - GradNorm научно полезен, но в этой реализации намного дороже, потому что требует second-order weight-gradient plumbing поверх auxiliary gradient norms.
 
+## Результат 5-epoch validation sanity
+
+Выполнены только два разрешённых sanity runs: `pcgrad_sanity_001` и `metabalance_sanity_001`. Оба использовали exact tuned fixed trial `110`, полный train split Protocol B и full-ranking validation; test split не загружался и не оценивался (`test_evaluation_count=0`).
+
+Финальные jobs были выполнены на non-preemptive Slurm partition `test`, node `cn-050`, GPU `NVIDIA H200 NVL`: PCGrad job `4275801` (`8m39s`) и MetaBalance job `4275802` (`9m03s`). Первые попытки на `gpu-ef-quick/type_e` были вытеснены Slurm preemption на `cn-044`; `test/type_e` имел поздний старт, поэтому для завершённых sanity runs был использован явный submit override `--constraint=type_h`.
+
+Reference rows ниже приведены только как validation ориентиры и не равны по бюджету 5-epoch sanity:
+
+| method | run | budget | best epoch | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|
+| TiM4Rec reference | `tim4rec_001` | full reference | 12 | 0.1086 | 0.1740 | 0.3126 | 0.0593 | 0.0757 | 0.1030 |
+| Tuned fixed multitask | `multitask_tim4rec_tuned_001` | full tuned reference | 16 | 0.1069 | 0.1769 | 0.3195 | 0.0589 | 0.0765 | 0.1046 |
+| PCGrad ranking-anchored | `pcgrad_sanity_001` | 5 epochs | 5 | 0.1036 | 0.1656 | 0.3007 | 0.0568 | 0.0723 | 0.0990 |
+| MetaBalance-Fix | `metabalance_sanity_001` | 5 epochs | 5 | 0.0951 | 0.1511 | 0.2665 | 0.0518 | 0.0659 | 0.0886 |
+
+Gradient conflict summary:
+
+| method | rank-aux fraction before | rank-aux fraction after | aux-aux fraction before | aux-aux fraction after | peak VRAM |
+|---|---:|---:|---:|---:|---:|
+| PCGrad ranking-anchored | 0.2778 | 0.1303 | 0.2441 | 0.2405 | 2.47 GB |
+| MetaBalance-Fix | 0.2381 | 0.2189 | 0.2336 | 0.1712 | 5.27 GB |
+
+Итог sanity:
+
+- PCGrad за 5 эпох приблизился к tuned fixed validation reference, но ещё ниже full-budget baseline: `NDCG@10 0.0568` против `0.0589`.
+- MetaBalance-Fix на этом коротком бюджете хуже PCGrad по ranking metrics: `NDCG@10 0.0518`.
+- PCGrad ожидаемо сильнее снижает rank-aux conflicts, потому что явно проецирует auxiliary gradients против `g_rank`.
+- MetaBalance сильнее снижает auxiliary-auxiliary conflict fraction после перескалирования magnitudes, но это не дало ranking выигрыша в 5-epoch sanity.
+
 ## Возможные собственные adaptive weighting идеи
 
 1. Behavior-value-aware gradient weighting: стартовать из Optuna tuned weights, затем ограничивать или усиливать auxiliary gradients по rarity, behavior semantics и cosine with `g_rank`.
