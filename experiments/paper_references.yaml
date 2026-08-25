@@ -1,0 +1,51 @@
+{
+  "tim4rec": {
+    "record_type": "paper_reference",
+    "source": "paper",
+    "model": "TiM4Rec",
+    "model_variant": "official_paper",
+    "dataset": "KuaiRand",
+    "protocol": "B",
+    "split": "reference",
+    "evaluation": "paper_reference",
+    "source_paper": "TiM4Rec: An Efficient Sequential Recommendation Model Based on Time-Aware Structured State Space Duality Model",
+    "paper_version": "arXiv:2409.16182v3",
+    "source_url": "https://arxiv.org/abs/2409.16182",
+    "audit_path": "experiments/tim4rec_baseline/AUDIT.md",
+    "notes": "KuaiRand Table 2; статья сообщает Recall/NDCG/MRR @10/@20/@50. Recall равен HR для leave-one-out с одним target item.",
+    "metrics": {
+      "HR@10": 0.1109,
+      "HR@20": 0.1774,
+      "HR@50": 0.3202,
+      "Recall@10": 0.1109,
+      "Recall@20": 0.1774,
+      "Recall@50": 0.3202,
+      "NDCG@10": 0.0611,
+      "NDCG@20": 0.0779,
+      "NDCG@50": 0.1060
+    }
+  },
+  "ssd4rec_v2": {
+    "record_type": "paper_reference",
+    "source": "paper",
+    "model": "SSD4Rec",
+    "model_variant": "official_paper",
+    "dataset": "KuaiRand",
+    "protocol": "B",
+    "split": "reference",
+    "evaluation": "paper_reference",
+    "source_paper": "SSD4Rec: A Structured State Space Duality Model for Efficient Sequential Recommendation",
+    "paper_version": "arXiv:2409.01192v2",
+    "source_url": "https://arxiv.org/abs/2409.01192",
+    "audit_path": "experiments/ssd4rec_baseline/AUDIT.md",
+    "notes": "KuaiRand Table 4; arXiv v2 сообщает HR/NDCG/MRR @10/@20 и не сообщает @50.",
+    "metrics": {
+      "HR@10": 0.1075,
+      "HR@20": 0.1731,
+      "Recall@10": 0.1075,
+      "Recall@20": 0.1731,
+      "NDCG@10": 0.0593,
+      "NDCG@20": 0.0757
+    }
+  }
+}
