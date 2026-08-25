@@ -251,6 +251,15 @@ RUN_METADATA: dict[str, dict[str, Any]] = {
         "train_candidates": "full_sequence",
         "parent_run": "multitask_tim4rec_tuned_001",
     },
+    "behavior_moe_smoke_001": {
+        "record_type": "sanity",
+        "model": "BehaviorMoETiM4Rec",
+        "model_variant": "behavior_specialized_soft_moe_smoke",
+        "split": "train",
+        "evaluation": "diagnostic",
+        "train_candidates": "full_sequence",
+        "parent_run": "multitask_tim4rec_tuned_001",
+    },
     "pcgrad_sanity_001": {
         "record_type": "sanity",
         "model": "MultitaskTiM4Rec",
