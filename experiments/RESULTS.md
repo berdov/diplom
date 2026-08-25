@@ -1,6 +1,6 @@
 # Основные результаты на KuaiRand Protocol B
 
-Сгенерировано из `experiments/results.csv`: 2026-08-25T09:34:12.241538+00:00.
+Сгенерировано из `experiments/results.csv`: 2026-08-25T11:01:17.809845+00:00.
 
 Показаны только сопоставимые full-ranking TEST results.
 
@@ -35,6 +35,12 @@
 | SSD4Rec | HR@20 | 0.1731 | 0.1683 | -0.0048 | -2.77% |
 | SSD4Rec | NDCG@10 | 0.0593 | 0.0576 | -0.0017 | -2.87% |
 | SSD4Rec | NDCG@20 | 0.0757 | 0.0739 | -0.0018 | -2.38% |
+
+# Validation-only experiments
+
+| Run | Model | Variant | Status | Best epoch | Actual epochs | HR@10 | NDCG@10 | Test count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| pcgrad_001 | MultitaskTiM4Rec | adaptive_pcgrad_ranking_anchored_full | completed | 9 | 19 | 0.1082 | 0.0586 | 0 |
 
 # Sanity и диагностические запуски
 
@@ -73,6 +79,7 @@
 | experiment | random_002 | ours | Random | full_ranking_history | test | full_7111_items | completed | 0.0013 | 0.0006 | 1 |
 | experiment | ssd4rec_001 | ours | SSD4Rec | reproduction | test | full_7111_items | completed | 0.1032 | 0.0576 | 1 |
 | experiment | tim4rec_001 | ours | TiM4Rec | reproduction | test | full_7111_items | completed | 0.1053 | 0.0598 | 1 |
+| experiment_validation_only | pcgrad_001 | ours | MultitaskTiM4Rec | adaptive_pcgrad_ranking_anchored_full | validation | full_7111_items | completed | 0.1082 | 0.0586 | 0 |
 | search | multitask_optuna_search_001 | ours | MultitaskTiM4Rec | optuna_search | validation | full_7111_items | completed | 0.1093 | 0.0599 | 0 |
 | search | optuna_search_001 | ours | XGBoost LambdaMART | optuna_search | validation | full_7111_items | completed | 0.0343 | 0.0184 | 0 |
 | sanity | adaptive_smoke_001 | ours | MultitaskTiM4Rec | adaptive_gradient_smoke | train | diagnostic | completed |  |  | 0 |

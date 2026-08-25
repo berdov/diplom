@@ -28,6 +28,23 @@ sanity:
     - pcgrad
     - metabalance
 
+full_pcgrad:
+  run_id: pcgrad_001
+  max_epochs: 300
+  early_stopping:
+    metric: NDCG@10
+    mode: maximize
+    patience: 10
+    min_delta: 0.0
+  full_train_split: true
+  validation: full_7111_items
+  diagnostic_detail_epochs:
+    - 1
+    - 3
+    - 5
+    - 10
+  diagnostic_batches_per_epoch: 10
+
 targets:
   main: rank
   auxiliary:

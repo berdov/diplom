@@ -185,6 +185,39 @@ Gradient conflict summary:
 - PCGrad ожидаемо сильнее снижает rank-aux conflicts, потому что явно проецирует auxiliary gradients против `g_rank`.
 - MetaBalance сильнее снижает auxiliary-auxiliary conflict fraction после перескалирования magnitudes, но это не дало ranking выигрыша в 5-epoch sanity.
 
+## Результат полного validation-only запуска PCGrad
+
+Запуск `pcgrad_001` выполнен как полный validation-only эксперимент: максимум `300` эпох, early stopping по full-ranking validation `NDCG@10`, patience `10`. Использовался тот же tuned fixed trial `110` и тот же ranking-anchored PCGrad: `g_rank` является anchor, auxiliary gradients проецируются только против `g_rank`, auxiliary-auxiliary conflicts не обрабатываются.
+
+Slurm job `4276024` завершился на partition `test`, constraint `type_h`, node `cn-049`, GPU `NVIDIA H200 NVL`. Время выполнения `23m31s`, фактически выполнено эпох `19`, лучшая эпоха `9`, причина остановки `early_stopping_no_validation_ndcg10_improvement_10`. Test split не загружался и не оценивался (`test_evaluation_count=0`).
+
+| метод | запуск | бюджет | лучшая эпоха | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|
+| TiM4Rec reference | `tim4rec_001` | full reference | 12 | 0.1086 | 0.1740 | 0.3126 | 0.0593 | 0.0757 | 0.1030 |
+| Fixed Multitask | `multitask_tim4rec_001` | full reference | 14 | 0.1061 | 0.1733 | 0.3115 | 0.0580 | 0.0749 | 0.1022 |
+| Tuned fixed Multitask | `multitask_tim4rec_tuned_001` | full tuned reference | 16 | 0.1069 | 0.1769 | 0.3195 | 0.0589 | 0.0765 | 0.1046 |
+| PCGrad ranking-anchored | `pcgrad_001` | validation-only full | 9 | 0.1082 | 0.1744 | 0.3089 | 0.0586 | 0.0752 | 0.1018 |
+
+Решение относительно tuned fixed validation reference:
+
+- absolute delta `NDCG@10`: `-0.0003`;
+- relative delta `NDCG@10`: `-0.51%`;
+- разница marginal/practically tied, но PCGrad не превзошёл tuned fixed;
+- locked PCGrad test на этом основании открывать не следует.
+
+Конфликты градиентов в diagnostic sample (`10` train batches на эпоху):
+
+| эпоха | rank-aux до | rank-aux после | любой конфликт до | любой конфликт после | доля batch с проекцией |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 0.0750 | 0.0250 | 0.3000 | 0.1000 | 0.3000 |
+| 3 | 0.3000 | 0.1250 | 0.7000 | 0.4000 | 0.7000 |
+| 5 | 0.2250 | 0.0500 | 0.6000 | 0.2000 | 0.6000 |
+| 9 | 0.2500 | 0.1250 | 0.8000 | 0.5000 | 0.8000 |
+| 10 | 0.2250 | 0.1250 | 0.5000 | 0.4000 | 0.5000 |
+| 19 | 0.3750 | 0.2000 | 0.9000 | 0.6000 | 0.9000 |
+
+PCGrad действительно проецирует gradients в поздних эпохах: всего `10972` projection events по всем train batches, среднее `1.1127` events на train batch. При этом снижение conflict rate не дало validation improvement относительно tuned fixed baseline.
+
 ## Возможные собственные adaptive weighting идеи
 
 1. Behavior-value-aware gradient weighting: стартовать из Optuna tuned weights, затем ограничивать или усиливать auxiliary gradients по rarity, behavior semantics и cosine with `g_rank`.
