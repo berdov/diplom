@@ -20,6 +20,27 @@ smoke:
   full_validation: false
   full_training: false
 
+sanity:
+  run_id: behavior_moe_sanity_001
+  epochs: 5
+  split: validation
+  evaluation: full_7111_items
+  training_data: full_train
+  train_subset: false
+  early_stopping: false
+  full_training_after_sanity: false
+  optuna: false
+  test:
+    load_dataset: false
+    create_dataloader: false
+    evaluate: false
+    evaluation_count: 0
+  routing_diagnostic:
+    split: validation
+    fixed_order: true
+    batches: 5
+    examples: 8
+
 architecture:
   behavior_moe:
     experts:

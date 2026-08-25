@@ -222,6 +222,45 @@ Raw timing из JSON нельзя читать как ускорение MoE: п
 
 Итог `behavior_moe_smoke_001`: pipeline корректен, router не collapsed, task-specific routing signal есть, overhead умеренный. Следующий sanity run лучше запускать как plain Behavior-MoE без load balancing; load balancing оставить как fallback, если collapse появится в 5-epoch sanity.
 
+## 5-Epoch Sanity Result
+
+`behavior_moe_sanity_001` выполнен как plain Behavior-MoE без load balancing, Optuna, hard routing, adaptive loss и test access. Запуск: Slurm job `4276720`, partition `test`, constraint `type_e`, node `cn-045`, GPU `NVIDIA A100-SXM4-80GB`, elapsed `00:09:35`, batch MaxRSS `3050872K`.
+
+Validation trajectory:
+
+| epoch | HR@10 | NDCG@10 | NDCG@20 | NDCG@50 |
+|---:|---:|---:|---:|---:|
+| 1 | 0.0867 | 0.0482 | 0.0603 | 0.0815 |
+| 2 | 0.0954 | 0.0525 | 0.0672 | 0.0895 |
+| 3 | 0.0987 | 0.0546 | 0.0700 | 0.0949 |
+| 4 | 0.1027 | 0.0562 | 0.0717 | 0.0976 |
+| 5 | 0.0992 | 0.0546 | 0.0713 | 0.0974 |
+
+Best validation `NDCG@10=0.0562` на epoch 4. Epoch 5 `NDCG@10=0.0546`, что ниже `multitask_tim4rec_sanity_001` epoch 5 (`0.0557`) на `-0.0011`, но выше epoch 1 и не является collapse/fatal degradation.
+
+Routing diagnostics:
+
+- expert collapse: `false`;
+- dead expert: `false`;
+- shared expert domination: `false`;
+- все experts и routers получают gradients на diagnostic epochs `1`, `3`, `5`;
+- normalized entropy снижается для ranking с `0.5281` до `0.3095`, для click с `0.2316` до `0.3822`, для long_view остаётся около `0.54`, для like около `0.42-0.45`, для profile около `0.49-0.60`;
+- mean required-pair L1 specialization не усиливается: `0.9368 -> 0.6816`.
+
+Итоговое routing на epoch 5:
+
+| task | interest | consumption | positive | shared |
+|---|---:|---:|---:|---:|
+| ranking | 0.0154 | 0.1610 | 0.8065 | 0.0172 |
+| click | 0.1291 | 0.0979 | 0.7344 | 0.0386 |
+| long_view | 0.1021 | 0.2073 | 0.6061 | 0.0845 |
+| like | 0.0353 | 0.7166 | 0.0294 | 0.2187 |
+| profile | 0.0288 | 0.3257 | 0.4453 | 0.2002 |
+
+Semantic labels mostly do not align with learned routes by epoch 5: click, long_view and like do not choose their named expert as top route; profile partially aligns with `positive`. This does not prove architecture failure, but it means expert names should still be treated as interpretive labels, not supervised semantics.
+
+Decision after sanity: pipeline is technically valid, but full plain Behavior-MoE should not be launched immediately. The next step should be analysis of routing architecture or initialization before a full run; load balancing is not needed now because there is no collapse/dead expert/shared domination.
+
 ## Источники related work
 
 - HM2Rec: https://ojs.aaai.org/index.php/AAAI/article/view/34441

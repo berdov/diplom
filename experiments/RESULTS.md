@@ -1,6 +1,6 @@
 # Основные результаты на KuaiRand Protocol B
 
-Сгенерировано из `experiments/results.csv`: 2026-08-25T13:00:12.009824+00:00.
+Сгенерировано из `experiments/results.csv`: 2026-08-25T14:29:14.108046+00:00.
 
 Показаны только сопоставимые full-ranking TEST results.
 
@@ -47,6 +47,7 @@
 | Run | Model | Variant | Split | Evaluation | Status | NDCG@10 | Test count |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | adaptive_smoke_001 | MultitaskTiM4Rec | adaptive_gradient_smoke | train | diagnostic | completed |  | 0 |
+| behavior_moe_sanity_001 | BehaviorMoETiM4Rec | behavior_specialized_soft_moe_sanity_5_epoch | validation | full_7111_items | completed_with_warnings | 0.0562 | 0 |
 | behavior_moe_smoke_001 | BehaviorMoETiM4Rec | behavior_specialized_soft_moe_smoke | train | diagnostic | diagnostic |  | 0 |
 | metabalance_sanity_001 | MultitaskTiM4Rec | adaptive_metabalance_fix | validation | full_7111_items | completed | 0.0518 | 0 |
 | multitask_tim4rec_sanity_001 | MultitaskTiM4Rec | sanity_5_epoch | validation | full_7111_items | completed | 0.0557 | 0 |
@@ -84,6 +85,7 @@
 | search | multitask_optuna_search_001 | ours | MultitaskTiM4Rec | optuna_search | validation | full_7111_items | completed | 0.1093 | 0.0599 | 0 |
 | search | optuna_search_001 | ours | XGBoost LambdaMART | optuna_search | validation | full_7111_items | completed | 0.0343 | 0.0184 | 0 |
 | sanity | adaptive_smoke_001 | ours | MultitaskTiM4Rec | adaptive_gradient_smoke | train | diagnostic | completed |  |  | 0 |
+| sanity | behavior_moe_sanity_001 | ours | BehaviorMoETiM4Rec | behavior_specialized_soft_moe_sanity_5_epoch | validation | full_7111_items | completed_with_warnings | 0.1027 | 0.0562 | 0 |
 | sanity | behavior_moe_smoke_001 | ours | BehaviorMoETiM4Rec | behavior_specialized_soft_moe_smoke | train | diagnostic | diagnostic |  |  | 0 |
 | sanity | metabalance_sanity_001 | ours | MultitaskTiM4Rec | adaptive_metabalance_fix | validation | full_7111_items | completed | 0.0951 | 0.0518 | 0 |
 | sanity | multitask_tim4rec_sanity_001 | ours | MultitaskTiM4Rec | sanity_5_epoch | validation | full_7111_items | completed | 0.1011 | 0.0557 | 0 |
