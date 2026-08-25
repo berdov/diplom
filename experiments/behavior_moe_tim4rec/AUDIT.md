@@ -20,7 +20,7 @@ PCGrad validation-only run `pcgrad_001` уменьшил rank-aux gradient confl
 
 Близкие работы, которые нужно учитывать при формулировке novelty:
 
-- HM2Rec: heterogeneous behavior / MoE-style recommendation для multi-behavior setting.
+- HM2Rec: MoE-Mamba sequential recommender, где FFN заменяется MoE-модулем.
 - HM4SR: hierarchical mixture-of-experts для sequential recommendation.
 - TriSSR: sequential recommendation с multi-interest / multi-expert specialization.
 - Generic MoE sequential recommenders, например HyMoERec и FAME.
@@ -261,10 +261,134 @@ Semantic labels mostly do not align with learned routes by epoch 5: click, long_
 
 Decision after sanity: pipeline is technically valid, but full plain Behavior-MoE should not be launched immediately. The next step should be analysis of routing architecture or initialization before a full run; load balancing is not needed now because there is no collapse/dead expert/shared domination.
 
+## Почему generic Behavior-MoE не специализировался
+
+### Observed facts
+
+- В `behavior_moe_sanity_001` большинство задач к epoch 5 стало использовать один `positive` expert: `ranking=0.8065`, `click=0.7344`, `long_view=0.6061`, `profile=0.4453`.
+- Expert labels не совпали с фактической specialization: `click` не выбрал `interest`, `long_view` не выбрал `consumption`, `like` ушёл в `consumption`, а не в `positive`.
+- На старте smoke routing был почти равномерным и высокоэнтропийным, но это не предотвратило последующее схождение нескольких задач к одному expert.
+- Формального collapse нет: dead expert и shared domination не обнаружены, gradients приходят во все experts/router, но semantic routing не возник.
+- Средний required-pair L1 distance снизился с `0.9368` до `0.6816`, то есть выбранные task routings стали ближе, а не дальше.
+
+### Hypotheses
+
+- Свободный router имеет мало причин сохранять заданную behavior semantics: labels experts являются только именами, а не constraints или supervision.
+- Одинаковые expert architectures симметричны; слабый initial semantic bias `0.05` не обязан пережить оптимизацию.
+- Ranking loss доминирует по масштабу и может делать один expert универсально полезным для нескольких задач.
+- Auxiliary tasks используют общий shared representation `h` и похожие MLP experts, поэтому optimization может предпочитать reuse одного expert вместо чистой поведенческой декомпозиции.
+- Load balancing мог бы сделать usage более ровным, но это не гарантировало бы, что `interest/consumption/positive/shared` получат нужную семантику.
+
+Эти пункты являются интерпретацией наблюдений, а не доказанной причиной failure mode.
+
+## Почему load balancing не основной фикс
+
+Load-balancing loss выравнивает среднюю загрузку experts и полезен против collapse/dead experts. В `behavior_moe_sanity_001` такой проблемы нет: все experts используются и получают gradients.
+
+Для текущей ошибки важнее semantic mismatch: router может равномерно использовать experts, но всё равно не соответствовать behavior groups. Поэтому следующий probe проверяет structural inductive bias через constrained soft routing, а load-balancing остаётся выключенным. Если он понадобится, это должна быть отдельная ablation.
+
+## Связь с MMoE и PLE
+
+Literature check выполнен 2026-08-25 по MMoE, PLE/CGC, structured/expert masking и sequential/multi-behavior MoE recommenders.
+
+Generic `BehaviorMoETiM4Rec` является близким вариантом MMoE: несколько shared experts доступны всем tasks, а каждый task имеет свой gate/router. Отличие в том, что MoE стоит как residual-надстройка после sequential/time-aware TiM4Rec representation, а не как основной bottom-layer recommender tower.
+
+Structured `BehaviorMoE` ближе к PLE/CGC, чем к чистому MMoE: auxiliary task смешивает свой specialist expert и shared expert, а ranking gate видит все specialists + shared. Это не полная PLE: нет multi-level progressive extraction, нет отдельных private expert pools на каждый task, и behavior groups задаются вручную (`click`, `long_view`, `like/profile`) поверх sequential representation. Но общий принцип shared-specific experts уже известен, поэтому такую схему нельзя заявлять как самостоятельную архитектурную новизну.
+
+В просмотренных работах по sequential recommendation есть MoE с shared/specialized branches и behavior-aware/multi-behavior MoE, но этот probe не должен формулироваться как "новый MoE". Для реальной научной новизны нужен дополнительный вклад: например, time-aware behavior grouping, learnable behavior-to-expert constraints, устойчивый anti-degradation criterion, или честный baseline против PLE/CGC в том же Protocol B.
+
+## Structured Behavior-MoE probe design
+
+`StructuredBehaviorMoE` оставляет четыре experts одинаковой мощности:
+
+| expert | initial interpretation |
+|---|---|
+| `interest` | `is_click` |
+| `consumption` | `long_view` |
+| `engagement` | `is_like + is_profile_enter` |
+| `shared` | residual/general |
+
+Allowed expert masks:
+
+| task | allowed experts |
+|---|---|
+| `ranking` | `interest`, `consumption`, `engagement`, `shared` |
+| `click` | `interest`, `shared` |
+| `long_view` | `consumption`, `shared` |
+| `like` | `engagement`, `shared` |
+| `profile` | `engagement`, `shared` |
+
+Formula:
+
+```text
+logits_allowed = mask(router_task(h), allowed_experts)
+p_task = softmax(logits_allowed / temperature)
+h_task = h + residual_scale * sum_e p_task[e] * E_e(h)
+```
+
+Запрещённые experts маскируются до softmax и должны иметь exact-zero weights в expanded 4-expert diagnostics. Current behavior labels не используются как router input; task context задаётся отдельным router head per task. Loss, LR, weight decay, dropout, head LR multiplier, task weights и pos-weight policy остаются из `multitask_tim4rec_optuna_v1` trial `110`.
+
+## Structured Behavior-MoE smoke result
+
+`structured_behavior_moe_smoke_001` выполнен как architecture probe: 5 real train batches, no epochs, no full validation, no test. Засчитанный Slurm job `4278026`: partition `test`, constraint `type_e`, node `cn-044`, GPU `NVIDIA A100-SXM4-80GB`, elapsed `00:05:32`, batch MaxRSS `3014080K`.
+
+Expanded routing после smoke:
+
+| task | interest | consumption | engagement | shared |
+|---|---:|---:|---:|---:|
+| ranking | 0.2282 | 0.2470 | 0.2784 | 0.2465 |
+| click | 0.5070 | 0.0000 | 0.0000 | 0.4930 |
+| long_view | 0.0000 | 0.5362 | 0.0000 | 0.4638 |
+| like | 0.0000 | 0.0000 | 0.4639 | 0.5361 |
+| profile | 0.0000 | 0.0000 | 0.4873 | 0.5127 |
+
+Forbidden paths имеют exact-zero weights для всех auxiliary tasks. Local weights суммируются к 1 с max deviation не выше `1.19e-7`.
+
+Specialist shares:
+
+| metric | value |
+|---|---:|
+| `click_interest_share` | 0.5070 |
+| `long_consumption_share` | 0.5362 |
+| `like_engagement_share` | 0.4639 |
+| `profile_engagement_share` | 0.4873 |
+| `average_specialist_share` | 0.4986 |
+| `uniform_specialist_share_baseline` | 0.5000 |
+| `specialization_above_uniform` | -0.0014 |
+
+Shared domination отсутствует: shared shares `click=0.4930`, `long_view=0.4638`, `like=0.5361`, `profile=0.5127`, none `>0.9`.
+
+Gradient connectivity соответствует structural design:
+
+- `interest <- ranking + click`;
+- `consumption <- ranking + long_view`;
+- `engagement <- ranking + like + profile`;
+- `shared <- ranking + click + long_view + like + profile`;
+- each task router receives gradients only from its own objective.
+
+Parameter count совпадает с generic Behavior-MoE:
+
+| model | params |
+|---|---:|
+| TiM4Rec | 593498 |
+| Tuned MultitaskTiM4Rec | 593758 |
+| Generic Behavior-MoE | 628338 |
+| Structured Behavior-MoE | 628338 |
+
+Compute smoke cost on A100 for structured: raw mean step `0.1285s`, trimmed mean `0.0707s`, peak allocated VRAM `1847309312` bytes. Historical generic smoke was on H200, so its raw `0.0387s` / trimmed `0.0359s` step time is not hardware-comparable. Structured routing is not actually cheaper in this implementation because all four expert outputs are still computed once and ranking uses all experts.
+
+Decision: structured routing is technically correct, but not yet ready for 5-epoch sanity. The reason is not a pipeline failure: forward/backward/optimizer, gradients, updates, masks and test safety are correct. The issue is diagnostic: `average_specialist_share=0.4986` is slightly below the structural uniform baseline `0.5`, so this smoke does not yet show a specialist preference beyond the mask itself. Before a 5-epoch sanity, the better next step is to compare against a proper PLE-style baseline or add a small structured-initialization/regularization ablation, still without claiming novelty from the PLE/CGC-like masking alone.
+
 ## Источники related work
 
-- HM2Rec: https://ojs.aaai.org/index.php/AAAI/article/view/34441
-- HM4SR: https://arxiv.org/abs/2505.13036
-- TriSSR: https://www.sciencedirect.com/science/article/abs/pii/S0020025524003984
-- HyMoERec: https://arxiv.org/abs/2505.21024
-- FAME: https://arxiv.org/abs/2504.10230
+- HM2Rec: https://ojs.aaai.org/index.php/AAAI/article/view/38567
+- HM4SR: https://arxiv.org/abs/2501.14269
+- TriSSR: https://www.sciencedirect.com/science/article/abs/pii/S0925231226009707
+- HyMoERec: https://arxiv.org/abs/2511.06388
+- FAME: https://arxiv.org/abs/2411.01457
+- MMoE: https://www.kdd.org/kdd2018/accepted-papers/view/modeling-task-relationships-in-multi-task-learning-with-multi-gate-mixture-
+- PLE/CGC: https://dl.acm.org/doi/10.1145/3383313.3412236
+- Multi-behavior SR survey: https://www.sciengine.com/doi/10.1007/s11432-024-4568-7
+- HyMoERec shared/specialized sequential MoE: https://arxiv.org/abs/2511.06388
+- MEMBER multi-behavior MoE: https://arxiv.org/abs/2508.19507
+- FAME sequential MoE: https://arxiv.org/abs/2411.01457

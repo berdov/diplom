@@ -19,6 +19,17 @@ smoke:
   full_epochs: 0
   full_validation: false
   full_training: false
+  routing_mode: generic
+
+structured_smoke:
+  run_id: structured_behavior_moe_smoke_001
+  batches: 5
+  split: train
+  full_epochs: 0
+  full_validation: false
+  full_training: false
+  routing_mode: structured
+  compare_with: behavior_moe_smoke_001
 
 sanity:
   run_id: behavior_moe_sanity_001
@@ -43,6 +54,7 @@ sanity:
 
 architecture:
   behavior_moe:
+    routing_mode: generic
     experts:
       - interest
       - consumption
@@ -53,6 +65,36 @@ architecture:
     router_semantic_bias: 0.05
     residual_scale: 0.1
     load_balance_weight: 0.0
+  structured_behavior_moe:
+    routing_mode: structured
+    experts:
+      - interest
+      - consumption
+      - engagement
+      - shared
+    expert_dropout: 0.08565706719893162
+    router_temperature: 1.0
+    router_semantic_bias: 0.05
+    residual_scale: 0.1
+    load_balance_weight: 0.0
+    allowed_experts:
+      rank:
+        - interest
+        - consumption
+        - engagement
+        - shared
+      is_click:
+        - interest
+        - shared
+      long_view:
+        - consumption
+        - shared
+      is_like:
+        - engagement
+        - shared
+      is_profile_enter:
+        - engagement
+        - shared
   load_balance:
     prepared: true
     enabled: false
@@ -71,6 +113,12 @@ experts:
   interest: is_click
   consumption: long_view
   positive: is_like + is_profile_enter
+  shared: residual/general expert
+
+structured_experts:
+  interest: is_click
+  consumption: long_view
+  engagement: is_like + is_profile_enter
   shared: residual/general expert
 
 loss_policy:

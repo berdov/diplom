@@ -11,14 +11,46 @@ from torch import nn
 from experiments.multitask_tim4rec.model import MultitaskTiM4Rec, TARGETS
 
 
-EXPERTS: tuple[str, ...] = ("interest", "consumption", "positive", "shared")
+GENERIC_EXPERTS: tuple[str, ...] = ("interest", "consumption", "positive", "shared")
+STRUCTURED_EXPERTS: tuple[str, ...] = ("interest", "consumption", "engagement", "shared")
+EXPERTS = GENERIC_EXPERTS
 ROUTING_TASKS: tuple[str, ...] = ("rank", *TARGETS)
-TASK_TO_SEMANTIC_EXPERT: dict[str, str | None] = {
+GENERIC_TASK_TO_SEMANTIC_EXPERT: dict[str, str | None] = {
     "rank": None,
     "is_click": "interest",
     "long_view": "consumption",
     "is_like": "positive",
     "is_profile_enter": "positive",
+}
+STRUCTURED_TASK_TO_SEMANTIC_EXPERT: dict[str, str | None] = {
+    "rank": None,
+    "is_click": "interest",
+    "long_view": "consumption",
+    "is_like": "engagement",
+    "is_profile_enter": "engagement",
+}
+TASK_TO_SEMANTIC_EXPERT = GENERIC_TASK_TO_SEMANTIC_EXPERT
+EXPERT_SETS: dict[str, tuple[str, ...]] = {
+    "generic": GENERIC_EXPERTS,
+    "structured": STRUCTURED_EXPERTS,
+}
+GENERIC_ALLOWED_EXPERTS: dict[str, tuple[str, ...]] = {
+    task: GENERIC_EXPERTS for task in ROUTING_TASKS
+}
+STRUCTURED_ALLOWED_EXPERTS: dict[str, tuple[str, ...]] = {
+    "rank": STRUCTURED_EXPERTS,
+    "is_click": ("interest", "shared"),
+    "long_view": ("consumption", "shared"),
+    "is_like": ("engagement", "shared"),
+    "is_profile_enter": ("engagement", "shared"),
+}
+ALLOWED_EXPERTS_BY_MODE: dict[str, dict[str, tuple[str, ...]]] = {
+    "generic": GENERIC_ALLOWED_EXPERTS,
+    "structured": STRUCTURED_ALLOWED_EXPERTS,
+}
+SEMANTIC_EXPERT_BY_MODE: dict[str, dict[str, str | None]] = {
+    "generic": GENERIC_TASK_TO_SEMANTIC_EXPERT,
+    "structured": STRUCTURED_TASK_TO_SEMANTIC_EXPERT,
 }
 
 
@@ -52,10 +84,32 @@ class BehaviorMoETiM4Rec(MultitaskTiM4Rec):
     def __init__(self, config: Any, dataset: Any):
         super().__init__(config, dataset)
         moe_config = dict(config_get(config, "behavior_moe", {}) or {})
-        self.expert_names = tuple(moe_config.get("experts", EXPERTS))
-        if self.expert_names != EXPERTS:
-            raise ValueError(f"Unsupported expert set: {self.expert_names}")
+        self.routing_mode = str(moe_config.get("routing_mode", "generic"))
+        if self.routing_mode not in EXPERT_SETS:
+            raise ValueError(f"Unsupported routing mode: {self.routing_mode}")
+        expected_experts = EXPERT_SETS[self.routing_mode]
+        self.expert_names = tuple(moe_config.get("experts", expected_experts))
+        if self.expert_names != expected_experts:
+            raise ValueError(
+                f"Unsupported expert set for routing_mode={self.routing_mode}: {self.expert_names}"
+            )
         self.routing_tasks = ROUTING_TASKS
+        configured_allowed = dict(moe_config.get("allowed_experts", {}) or {})
+        default_allowed = ALLOWED_EXPERTS_BY_MODE[self.routing_mode]
+        self.allowed_experts = {
+            task: tuple(configured_allowed.get(task, default_allowed[task]))
+            for task in self.routing_tasks
+        }
+        for task, allowed in self.allowed_experts.items():
+            unknown = [expert for expert in allowed if expert not in self.expert_names]
+            if unknown:
+                raise ValueError(f"Unknown experts in allowed_experts[{task}]: {unknown}")
+            if not allowed:
+                raise ValueError(f"allowed_experts[{task}] must not be empty.")
+        self.allowed_expert_indices = {
+            task: tuple(self.expert_names.index(expert) for expert in allowed)
+            for task, allowed in self.allowed_experts.items()
+        }
         self.router_temperature = float(moe_config.get("router_temperature", 1.0))
         self.residual_scale = float(moe_config.get("residual_scale", 0.1))
         self.load_balance_weight = float(moe_config.get("load_balance_weight", 0.0))
@@ -76,7 +130,7 @@ class BehaviorMoETiM4Rec(MultitaskTiM4Rec):
         for task, router in self.router_heads.items():
             nn.init.zeros_(router.weight)
             nn.init.zeros_(router.bias)
-            expert = TASK_TO_SEMANTIC_EXPERT[task]
+            expert = SEMANTIC_EXPERT_BY_MODE[self.routing_mode][task]
             if expert is not None:
                 router.bias.data[self.expert_names.index(expert)] = self.router_semantic_bias
 
@@ -84,12 +138,47 @@ class BehaviorMoETiM4Rec(MultitaskTiM4Rec):
         outputs = [self.experts[name](seq_output) for name in self.expert_names]
         return torch.stack(outputs, dim=1)
 
-    def routing_weights_from_shared(self, seq_output: torch.Tensor) -> dict[str, torch.Tensor]:
-        weights = {}
+    def routing_logits_from_shared(
+        self,
+        seq_output: torch.Tensor,
+        *,
+        masked: bool = False,
+    ) -> dict[str, torch.Tensor]:
+        logits_by_task = {}
         for task, router in self.router_heads.items():
             logits = router(seq_output) / self.router_temperature
+            logits_by_task[task] = self._masked_logits(task, logits) if masked else logits
+        return logits_by_task
+
+    def _masked_logits(self, task: str, logits: torch.Tensor) -> torch.Tensor:
+        allowed = self.allowed_expert_indices[task]
+        if len(allowed) == len(self.expert_names):
+            return logits
+        mask = torch.zeros(len(self.expert_names), dtype=torch.bool, device=logits.device)
+        mask[list(allowed)] = True
+        return logits.masked_fill(~mask.unsqueeze(0), torch.finfo(logits.dtype).min)
+
+    def routing_weights_from_shared(self, seq_output: torch.Tensor) -> dict[str, torch.Tensor]:
+        weights = {}
+        for task, logits in self.routing_logits_from_shared(seq_output, masked=True).items():
             weights[task] = torch.softmax(logits, dim=-1)
         return weights
+
+    def local_routing_weights_from_shared(self, seq_output: torch.Tensor) -> dict[str, torch.Tensor]:
+        expanded = self.routing_weights_from_shared(seq_output)
+        return {
+            task: expanded[task][:, list(self.allowed_expert_indices[task])]
+            for task in self.routing_tasks
+        }
+
+    def routing_metadata(self) -> dict[str, Any]:
+        return {
+            "routing_mode": self.routing_mode,
+            "experts": list(self.expert_names),
+            "allowed_experts": {
+                task: list(experts) for task, experts in self.allowed_experts.items()
+            },
+        }
 
     def task_representations_from_shared(self, seq_output: torch.Tensor) -> dict[str, torch.Tensor]:
         expert_outputs = self.expert_outputs(seq_output)
@@ -197,3 +286,14 @@ class BehaviorMoETiM4Rec(MultitaskTiM4Rec):
             pos_weights=pos_weights,
             task_weights=task_weights,
         )["total"]
+
+
+class StructuredBehaviorMoETiM4Rec(BehaviorMoETiM4Rec):
+    """Behavior-MoE probe with structured task-to-expert access masks."""
+
+    def __init__(self, config: Any, dataset: Any):
+        super().__init__(config, dataset)
+        if self.routing_mode != "structured":
+            raise ValueError(
+                "StructuredBehaviorMoETiM4Rec requires behavior_moe.routing_mode=structured."
+            )

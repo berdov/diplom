@@ -20,6 +20,7 @@ CONFIG="${BEHAVIOR_MOE_CONFIG:-${REPO_DIR}/experiments/behavior_moe_tim4rec/conf
 RUNS_DIR="${REPO_DIR}/experiments/behavior_moe_tim4rec/runs"
 ARTIFACT_ROOT="${BEHAVIOR_MOE_ARTIFACT_ROOT:-/home/daryumin/iberdov/diplom/experiments/behavior_moe_tim4rec}"
 BATCHES="${BEHAVIOR_MOE_BATCHES:-5}"
+ROUTING_MODE="${BEHAVIOR_MOE_ROUTING_MODE:-}"
 
 cd "${REPO_DIR}"
 mkdir -p "${RUNS_DIR}" "${REPO_DIR}/experiments/behavior_moe_tim4rec/slurm_logs"
@@ -55,8 +56,14 @@ echo "Slurm: cpus=${SLURM_CPUS_PER_TASK:-4}"
 echo "Slurm: node list=${SLURM_JOB_NODELIST:-unknown}"
 echo "Run ID: ${RUN_ID}"
 echo "Batches: ${BATCHES}"
+echo "Routing mode: ${ROUTING_MODE:-config-default}"
 
 "${PREP_PYTHON}" experiments/multitask_tim4rec_optuna/prepare_validation_only.py
+
+ROUTING_ARGS=()
+if [ -n "${ROUTING_MODE}" ]; then
+  ROUTING_ARGS=(--routing-mode "${ROUTING_MODE}")
+fi
 
 "${PYTHON}" experiments/behavior_moe_tim4rec/smoke_test.py \
   --config "${CONFIG}" \
@@ -64,4 +71,5 @@ echo "Batches: ${BATCHES}"
   --artifact-dir "${ARTIFACT_ROOT}/${RUN_ID}" \
   --output "${RUNS_DIR}/${RUN_ID}.json" \
   --notes "${RUNS_DIR}/${RUN_ID}_notes.md" \
-  --batches "${BATCHES}"
+  --batches "${BATCHES}" \
+  "${ROUTING_ARGS[@]}"

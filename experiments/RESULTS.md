@@ -1,6 +1,6 @@
 # Основные результаты на KuaiRand Protocol B
 
-Сгенерировано из `experiments/results.csv`: 2026-08-25T14:29:14.108046+00:00.
+Сгенерировано из `experiments/results.csv`: 2026-08-25T19:43:36.182556+00:00.
 
 Показаны только сопоставимые full-ranking TEST results.
 
@@ -56,6 +56,7 @@
 | smoke_20260818T132855Z | TiM4Rec | smoke_forward | validation | full_7111_items | completed |  | 0 |
 | smoke_20260819T110252Z | SSD4Rec | smoke_forward | validation | full_7111_items | completed |  | 0 |
 | ssd4rec_sanity_001 | SSD4Rec | sanity_5_epoch | validation | full_7111_items | completed | 0.0559 | 0 |
+| structured_behavior_moe_smoke_001 | StructuredBehaviorMoE | structured_behavior_moe_architecture_probe | train | diagnostic | diagnostic |  | 0 |
 | target_audit_001 | Multitask target audit | target_labels_audit | train | diagnostic | completed |  | 0 |
 | tim4rec_sanity_001 | TiM4Rec | sanity_5_epoch | validation | full_7111_items | completed | 0.0556 | 0 |
 
@@ -94,6 +95,7 @@
 | sanity | smoke_20260818T132855Z | ours | TiM4Rec | smoke_forward | validation | full_7111_items | completed |  |  | 0 |
 | sanity | smoke_20260819T110252Z | ours | SSD4Rec | smoke_forward | validation | full_7111_items | completed |  |  | 0 |
 | sanity | ssd4rec_sanity_001 | ours | SSD4Rec | sanity_5_epoch | validation | full_7111_items | completed | 0.1008 | 0.0559 | 0 |
+| sanity | structured_behavior_moe_smoke_001 | ours | StructuredBehaviorMoE | structured_behavior_moe_architecture_probe | train | diagnostic | diagnostic |  |  | 0 |
 | sanity | target_audit_001 | ours | Multitask target audit | target_labels_audit | train | diagnostic | completed |  |  | 0 |
 | sanity | tim4rec_sanity_001 | ours | TiM4Rec | sanity_5_epoch | validation | full_7111_items | completed | 0.1000 | 0.0556 | 0 |
 | paper_reference | paper_ssd4rec_v2 | paper | SSD4Rec | official_paper | reference | paper_reference | published | 0.1075 | 0.0593 |  |
