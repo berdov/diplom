@@ -242,6 +242,42 @@ RUN_METADATA: dict[str, dict[str, Any]] = {
         "train_candidates": "sampled_100",
         "parent_run": "ltr_xgb_002",
     },
+    "adaptive_smoke_001": {
+        "record_type": "sanity",
+        "model": "MultitaskTiM4Rec",
+        "model_variant": "adaptive_gradient_smoke",
+        "split": "train",
+        "evaluation": "diagnostic",
+        "train_candidates": "full_sequence",
+        "parent_run": "multitask_tim4rec_tuned_001",
+    },
+    "pcgrad_sanity_001": {
+        "record_type": "sanity",
+        "model": "MultitaskTiM4Rec",
+        "model_variant": "adaptive_pcgrad_ranking_anchored",
+        "split": "validation",
+        "evaluation": "full_7111_items",
+        "train_candidates": "full_sequence",
+        "parent_run": "multitask_tim4rec_tuned_001",
+    },
+    "metabalance_sanity_001": {
+        "record_type": "sanity",
+        "model": "MultitaskTiM4Rec",
+        "model_variant": "adaptive_metabalance_fix",
+        "split": "validation",
+        "evaluation": "full_7111_items",
+        "train_candidates": "full_sequence",
+        "parent_run": "multitask_tim4rec_tuned_001",
+    },
+    "pcgrad_001": {
+        "record_type": "experiment_validation_only",
+        "model": "MultitaskTiM4Rec",
+        "model_variant": "adaptive_pcgrad_ranking_anchored_full",
+        "split": "validation",
+        "evaluation": "full_7111_items",
+        "train_candidates": "full_sequence",
+        "parent_run": "multitask_tim4rec_tuned_001",
+    },
     "optuna_search_001": {
         "record_type": "search",
         "model": "XGBoost LambdaMART",
@@ -649,7 +685,13 @@ def collect_rows() -> tuple[list[dict[str, Any]], list[str]]:
 
 
 def record_order(record_type: str) -> int:
-    return {"experiment": 0, "search": 1, "sanity": 2, "paper_reference": 3}.get(record_type, 99)
+    return {
+        "experiment": 0,
+        "experiment_validation_only": 1,
+        "search": 2,
+        "sanity": 3,
+        "paper_reference": 4,
+    }.get(record_type, 99)
 
 
 def fmt(value: Any, digits: int = 4) -> str:
@@ -768,6 +810,30 @@ def sanity_table(rows: list[dict[str, Any]]) -> str:
     return markdown_table(["Run", "Model", "Variant", "Split", "Evaluation", "Status", "NDCG@10", "Test count"], table_rows)
 
 
+def validation_only_table(rows: list[dict[str, Any]]) -> str:
+    table_rows = []
+    for row in rows:
+        if row["record_type"] != "experiment_validation_only":
+            continue
+        table_rows.append(
+            [
+                row["run_id"],
+                row["model"],
+                row["model_variant"],
+                row["status"],
+                row["best_epoch"],
+                row["actual_epochs"],
+                fmt(row["HR@10"]),
+                fmt(row["NDCG@10"]),
+                row["test_evaluation_count"],
+            ]
+        )
+    return markdown_table(
+        ["Run", "Model", "Variant", "Status", "Best epoch", "Actual epochs", "HR@10", "NDCG@10", "Test count"],
+        table_rows,
+    )
+
+
 def search_table(rows: list[dict[str, Any]]) -> str:
     table_rows = []
     for row in rows:
@@ -833,6 +899,8 @@ def write_markdown(rows: list[dict[str, Any]]) -> None:
         paper_table(rows),
         "# Воспроизводимость опубликованных моделей",
         reproduction_table(rows),
+        "# Validation-only experiments",
+        validation_only_table(rows),
         "# Sanity и диагностические запуски",
         sanity_table(rows),
         "# Hyperparameter search",
@@ -863,6 +931,11 @@ def validate_rows(rows: list[dict[str, Any]]) -> list[str]:
                 issues.append(f"Search row must have test_evaluation_count=0: {row['run_id']}")
         if row["record_type"] == "sanity" and row["run_id"] in {run_id for run_id, _label in MAIN_ORDER}:
             issues.append(f"Sanity row would collide with main table run id: {row['run_id']}")
+        if row["record_type"] == "experiment_validation_only":
+            if row["split"] == "test":
+                issues.append(f"Validation-only experiment cannot use test split: {row['run_id']}")
+            if str(row.get("test_evaluation_count", "")) not in {"", "0"}:
+                issues.append(f"Validation-only experiment must have test_evaluation_count=0: {row['run_id']}")
         if row["evaluation"] == "sampled_100" and row["run_id"].endswith("_002"):
             issues.append(f"*_002 run should not be sampled_100: {row['run_id']}")
         if row["evaluation"] == "full_7111_items" and row["run_id"].endswith("_001") and row["run_id"] in {"ltr_xgb_001"}:
@@ -887,7 +960,8 @@ def validate_rows(rows: list[dict[str, Any]]) -> list[str]:
 
 
 def write_audit(rows: list[dict[str, Any]], notes: list[str], issues: list[str]) -> None:
-    counts = {kind: sum(1 for row in rows if row["record_type"] == kind) for kind in ("experiment", "sanity", "search", "paper_reference")}
+    kinds = sorted({row["record_type"] for row in rows}, key=record_order)
+    counts = {kind: sum(1 for row in rows if row["record_type"] == kind) for kind in kinds}
     lines = [
         "# Аудит результатов",
         "",
@@ -931,7 +1005,8 @@ def main() -> None:
     write_csv(rows)
     write_markdown(rows)
     write_audit(rows, notes, issues)
-    counts = {kind: sum(1 for row in rows if row["record_type"] == kind) for kind in ("experiment", "sanity", "search", "paper_reference")}
+    kinds = sorted({row["record_type"] for row in rows}, key=record_order)
+    counts = {kind: sum(1 for row in rows if row["record_type"] == kind) for kind in kinds}
     print(json.dumps({"rows": len(rows), "counts": counts}, ensure_ascii=False, indent=2))
 
 
