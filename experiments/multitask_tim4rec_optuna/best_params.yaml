@@ -1,0 +1,48 @@
+run_id: multitask_optuna_search_001
+study_name: multitask_tim4rec_optuna_v1
+status: completed
+source_run: multitask_tim4rec_001
+trial_number: 110
+objective: validation_full_ranking_NDCG@10
+validation_metrics:
+  HR@5: 0.0669
+  Recall@5: 0.0669
+  NDCG@5: 0.0463
+  HR@10: 0.1093
+  Recall@10: 0.1093
+  NDCG@10: 0.0599
+  HR@20: 0.1722
+  Recall@20: 0.1722
+  NDCG@20: 0.0757
+  HR@50: 0.3136
+  Recall@50: 0.3136
+  NDCG@50: 0.1036
+best_epoch: 16
+actual_epochs: 21
+params:
+  lambda_aux: 0.13182740780834337
+  learning_rate: 0.0019075370668084298
+  weight_decay: 1.925502656735127e-06
+  dropout_prob: 0.08565706719893162
+  head_lr_multiplier: 0.45851058258621097
+  head_learning_rate: 0.0008746259318071252
+  alpha_common: 0.36848954654003374
+  alpha_rare: 0.5567716833622817
+  w_click_raw: 0.22313562565643394
+  w_long_view_raw: 0.20642631071020304
+  w_like_raw: 2.8349216931692984
+  w_profile_raw: 0.22788780085009308
+normalized_task_weights:
+  is_click: 0.2555691799732421
+  long_view: 0.23643110685667904
+  is_like: 3.246987612489936
+  is_profile_enter: 0.2610121006801428
+effective_pos_weights:
+  is_click: 1.0573239205700589
+  long_view: 1.286659439842131
+  is_like: 9.092198541195886
+  is_profile_enter: 7.598613882204391
+head_lr_multiplier: 0.45851058258621097
+test_evaluation_count: 0
+test_dataset_loaded: false
+final_test_metrics_present: false

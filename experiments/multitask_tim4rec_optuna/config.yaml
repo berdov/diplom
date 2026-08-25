@@ -1,0 +1,106 @@
+study_name: multitask_tim4rec_optuna_v1
+run_id: multitask_optuna_search_001
+smoke_run_id: multitask_optuna_smoke_001
+base_run_id: multitask_tim4rec_001
+base_git_commit: 6cfc11b7fcc9fb9d444eaa0773091dbbe82f9103
+
+study_storage: /home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/optuna.db
+remote_artifact_dir: /home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna
+compact_runs_dir: /home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/runs
+
+source:
+  fixed_multitask_json: experiments/multitask_tim4rec/runs/multitask_tim4rec_001.json
+  tim4rec_json: experiments/tim4rec_baseline/runs/tim4rec_001.json
+  base_config: experiments/multitask_tim4rec/config.yaml
+  multitask_manifest: outputs/data/protocol_b_multitask_manifest.json
+  target_statistics: experiments/multitask_tim4rec/target_statistics.csv
+
+protocol:
+  name: B
+  users: 23951
+  items: 7111
+  interactions: 1134420
+  train: 1086518
+  validation: 23951
+  test: 23951
+  identity_hash: 954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7
+
+validation_only_data:
+  multitask_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask
+  output_root: /home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole
+  dataset: kuairand_multitask_validonly
+  summary_json: /home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/validation_only_dataset.json
+  eval_split: valid_only
+  test_path_passed_to_search: false
+
+trial:
+  max_epochs: 80
+  early_stopping_patience: 5
+  early_stopping_min_delta: 0.0
+  objective: validation_full_ranking_NDCG@10
+  train_full_dataset: true
+  n_jobs: 1
+
+study:
+  target_complete_trials: 60
+  max_total_trials: 180
+  sampler: TPESampler
+  sampler_seed: 2026
+  pruner: MedianPruner
+  n_startup_trials: 10
+  n_warmup_steps: 4
+  interval_steps: 1
+  heartbeat_interval_sec: 60
+  grace_period_sec: 300
+
+recbole_overrides:
+  data_path: /home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole
+  dataset: kuairand_multitask_validonly
+  benchmark_filename:
+    - train
+    - valid
+  eval_args:
+    split:
+      LS: valid_only
+    order: TO
+    group_by: user
+    mode: full
+  metrics:
+    - Hit
+    - Recall
+    - NDCG
+  topk:
+    - 5
+    - 10
+    - 20
+    - 50
+  valid_metric: NDCG@10
+  show_progress: false
+  log_wandb: false
+  save_dataset: false
+  save_dataloaders: false
+  dataset_save_path: null
+  dataloaders_save_path: null
+  alias_of_item_id:
+    - item_id_list
+  load_col:
+    inter:
+      - user_id
+      - item_id
+      - timestamp
+      - source_row_id
+      - is_click
+      - long_view
+      - is_like
+      - is_profile_enter
+      - item_id_list
+      - timestamp_list
+      - item_length
+    item:
+      - item_id
+
+test_policy:
+  load_test_dataset: false
+  create_test_dataloader: false
+  evaluate_test: false
+  test_evaluation_count: 0

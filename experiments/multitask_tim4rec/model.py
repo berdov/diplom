@@ -58,6 +58,11 @@ class MultitaskTiM4Rec(TiM4Rec):
             "is_profile_enter": self.profile_enter_head,
         }
 
+    def forward(self, item_seq: torch.Tensor, item_seq_len: torch.Tensor, time_stamp: torch.Tensor) -> torch.Tensor:
+        if item_seq_len.dtype != torch.long:
+            item_seq_len = item_seq_len.long()
+        return super().forward(item_seq, item_seq_len, time_stamp)
+
     def shared_representation(self, interaction: Any) -> torch.Tensor:
         item_seq = interaction[self.ITEM_SEQ]
         item_seq_len = interaction[self.ITEM_SEQ_LEN]
