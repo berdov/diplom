@@ -1,0 +1,1742 @@
+{
+  "run_id": "adaptive_smoke_001",
+  "status": "completed",
+  "created_at_utc": "2026-08-25T08:21:39.481500+00:00",
+  "completed_at_utc": "2026-08-25T08:25:04.391000+00:00",
+  "git": {
+    "commit": "unknown",
+    "branch": "unknown",
+    "remote": "unknown"
+  },
+  "environment": {
+    "python": "3.10.14",
+    "python_executable": "/home/daryumin/iberdov/diplom/envs/tim4rec/bin/python",
+    "platform": "Linux-5.14.0-611.55.1.el9_7.0.3.x86_64-x86_64-with-glibc2.34",
+    "hostname": "cn-045",
+    "torch": "2.3.0+cu118",
+    "torch_cuda": "11.8",
+    "recbole": "1.2.0",
+    "optuna": "4.9.0",
+    "mamba_ssm": "2.2.2",
+    "causal_conv1d": "1.2.2.post1",
+    "pyyaml": "6.0.1"
+  },
+  "slurm": {
+    "job_id": "4275695",
+    "job_name": "adaptive-mtl-smoke",
+    "partition": "gpu-ef-quick",
+    "constraint": null,
+    "node_list": "cn-045",
+    "job_gpus": "5",
+    "cpus_per_task": "4"
+  },
+  "artifact_dir": "/home/daryumin/iberdov/diplom_adaptive_stage_20260825T081941Z/experiments/adaptive_multitask_tim4rec/adaptive_smoke_001",
+  "dataset": {
+    "name": "KuaiRand",
+    "protocol": "B",
+    "split_used_for_smoke": "train",
+    "fingerprint_expected": {
+      "users": 23951,
+      "items": 7111,
+      "interactions": 1134420,
+      "train": 1086518,
+      "validation": 23951,
+      "test": 23951
+    },
+    "identity_hash_expected": "954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7",
+    "validation_only_summary": {
+      "created_at_utc": "2026-08-25T08:21:15.677788+00:00",
+      "dataset": "kuairand_multitask_validonly",
+      "output_root": "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole",
+      "dataset_dir": "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly",
+      "benchmark_filename": [
+        "train",
+        "valid"
+      ],
+      "train_inter_path": "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/kuairand_multitask_validonly.train.inter",
+      "valid_inter_path": "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/kuairand_multitask_validonly.valid.inter",
+      "item_path": "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/kuairand_multitask_validonly.item",
+      "validation_source_row_ids_path": "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/validation_source_row_ids.txt",
+      "loaded_source_paths": {
+        "train": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/train.parquet",
+        "validation": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/validation.parquet",
+        "item_id_mapping": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/item_id_mapping.parquet"
+      },
+      "forbidden_test_paths_loaded": [],
+      "test_path_passed_to_search": false,
+      "test_rows_in_inter_file": 0,
+      "test_rows_in_benchmark_file": 0,
+      "rows": {
+        "train": 1086518,
+        "validation": 23951,
+        "train_plus_validation": 1110469,
+        "test": 0
+      },
+      "sequential_examples": {
+        "train": 1062567,
+        "validation": 23951,
+        "test": 0,
+        "max_item_list_length": 50
+      },
+      "users": 23951,
+      "items_sidecar_rows": 7111,
+      "items_observed_train_validation": 7111,
+      "item_id_range_train_validation": {
+        "min": 0,
+        "max": 7582
+      },
+      "item_id_mapping_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/item_id_mapping.parquet",
+      "item_id_mapping_sha256": "d8010cd0539c3d403d85832918f5214f9b26fc919cb8b32d2544b8f8d3d09e04",
+      "protocol_fingerprint": {
+        "users": 23951,
+        "items": 7111,
+        "interactions": 1134420,
+        "train": 1086518,
+        "validation": 23951,
+        "test": 23951
+      },
+      "identity_hash": "954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7",
+      "manifest_path": "/home/daryumin/iberdov/diplom_adaptive_stage_20260825T081941Z/outputs/data/protocol_b_multitask_manifest.json",
+      "manifest_sha256": "1e6b5e7366b104efe8904316cf3292167d1833b188d75672f02786d4f17593ad",
+      "manifest_join_is_exact": true,
+      "files": {
+        "train_inter_sha256": "ed6292a9cdfc4ca2880f10cf65a110018bf978075c4b798d8aa7a007c304203d",
+        "valid_inter_sha256": "4bcd6bf6b061effdac6815adb631f5a95252a712e9160f0aa7c0bf3164ec8d42",
+        "item_sha256": "3dfadad37f80449841b561ffef845a1efc86eb61675363b06b04644652a29b9f",
+        "validation_source_row_ids_sha256": "77eda119907aead31cb717f8cdf1bd2988729c07e48a30c4122db75b34e297f9"
+      }
+    },
+    "loader": {
+      "train_batches_available": 519,
+      "smoke_batches": 3,
+      "batch_size": 2048
+    }
+  },
+  "test_safety": {
+    "test_dataset_loaded": false,
+    "test_dataloader_created": false,
+    "test_evaluated": false,
+    "test_evaluation_count": 0
+  },
+  "base_reference_runs": {
+    "base": "tim4rec_001",
+    "fixed_multitask": "multitask_tim4rec_001",
+    "tuned_fixed_multitask": "multitask_tim4rec_tuned_001"
+  },
+  "target_statistics": {
+    "is_click": {
+      "rows": 1086518.0,
+      "positives": 502248.0,
+      "negatives": 584270.0,
+      "positive_rate": 0.46225465201680965,
+      "negative_positive_ratio": 1.1633097593220878
+    },
+    "long_view": {
+      "rows": 1086518.0,
+      "positives": 364383.0,
+      "negatives": 722135.0,
+      "positive_rate": 0.3353676607290445,
+      "negative_positive_ratio": 1.981802114807771
+    },
+    "is_like": {
+      "rows": 1086518.0,
+      "positives": 20232.0,
+      "negatives": 1066286.0,
+      "positive_rate": 0.018620952437051204,
+      "negative_positive_ratio": 52.70294582839067
+    },
+    "is_profile_enter": {
+      "rows": 1086518.0,
+      "positives": 27730.0,
+      "negatives": 1058788.0,
+      "positive_rate": 0.025521896553945725,
+      "negative_positive_ratio": 38.18204111071042
+    }
+  },
+  "tuned_fixed_configuration": {
+    "source_study": "multitask_tim4rec_optuna_v1",
+    "source_trial": 110,
+    "lambda_aux": 0.13182740780834337,
+    "normalized_task_weights": {
+      "is_click": 0.2555691799732421,
+      "long_view": 0.23643110685667904,
+      "is_like": 3.246987612489936,
+      "is_profile_enter": 0.2610121006801428
+    },
+    "effective_pos_weights": {
+      "is_click": 1.0573239205700589,
+      "long_view": 1.286659439842131,
+      "is_like": 9.092198541195886,
+      "is_profile_enter": 7.598613882204391
+    },
+    "effective_loss_multipliers": {
+      "is_click": 0.033691022511576484,
+      "long_view": 0.031168099942173438,
+      "is_like": 0.42804196014035,
+      "is_profile_enter": 0.03440854863927356
+    },
+    "head_lr_multiplier": 0.45851058258621097
+  },
+  "checkpoint": {
+    "path": "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/multitask_tim4rec_tuned_001/checkpoints/best_validation.pth",
+    "epoch": 16,
+    "best_valid_score": 0.0589,
+    "size_bytes": 7197602,
+    "sha256": "8dcce646c9612615731d9c5e0858bc6d08988ec381959ad416616c3e80202c2a"
+  },
+  "model_parameters": {
+    "total": 593758,
+    "trainable": 593758,
+    "auxiliary_heads": 260
+  },
+  "shared_parameters": {
+    "diagnostic": {
+      "selector": "all_backbone",
+      "definition": "all trainable TiM4Rec backbone parameters; auxiliary linear heads excluded",
+      "summary": {
+        "parameter_tensors": 65,
+        "parameter_count": 593498,
+        "first_names": [
+          "item_embedding.weight",
+          "in_layer_norm.weight",
+          "in_layer_norm.bias",
+          "layer_norm_time.weight",
+          "layer_norm_time.bias",
+          "ssd_layers.0.ssd.dt_bias",
+          "ssd_layers.0.ssd.A_log",
+          "ssd_layers.0.ssd.D"
+        ],
+        "last_names": [
+          "ssd_layers.1.layer_norm.weight",
+          "ssd_layers.1.layer_norm.bias",
+          "ssd_layers.1.ffn.fc1.weight",
+          "ssd_layers.1.ffn.fc1.bias",
+          "ssd_layers.1.ffn.fc2.weight",
+          "ssd_layers.1.ffn.fc2.bias",
+          "ssd_layers.1.ffn.layer_norm.weight",
+          "ssd_layers.1.ffn.layer_norm.bias"
+        ],
+        "parameter_count_by_top_module": {
+          "in_layer_norm": 128,
+          "item_embedding": 455168,
+          "layer_norm_time": 100,
+          "ssd_layers": 138102
+        }
+      }
+    },
+    "gradnorm": {
+      "selector": "last_shared_block",
+      "definition": "last shared TiSSDLayer parameters for GradNorm norm loss, matching the paper's last-shared-layer recommendation",
+      "summary": {
+        "parameter_tensors": 30,
+        "parameter_count": 69051,
+        "first_names": [
+          "ssd_layers.1.ssd.dt_bias",
+          "ssd_layers.1.ssd.A_log",
+          "ssd_layers.1.ssd.D",
+          "ssd_layers.1.ssd.in_proj.weight",
+          "ssd_layers.1.ssd.in_proj.bias",
+          "ssd_layers.1.ssd.conv1d.weight",
+          "ssd_layers.1.ssd.conv1d.bias",
+          "ssd_layers.1.ssd.conv1d4time_1.weight"
+        ],
+        "last_names": [
+          "ssd_layers.1.layer_norm.weight",
+          "ssd_layers.1.layer_norm.bias",
+          "ssd_layers.1.ffn.fc1.weight",
+          "ssd_layers.1.ffn.fc1.bias",
+          "ssd_layers.1.ffn.fc2.weight",
+          "ssd_layers.1.ffn.fc2.bias",
+          "ssd_layers.1.ffn.layer_norm.weight",
+          "ssd_layers.1.ffn.layer_norm.bias"
+        ],
+        "parameter_count_by_top_module": {
+          "ssd_layers": 69051
+        }
+      }
+    }
+  },
+  "fixed_tuned_gradient_diagnostics": {
+    "task_table": [
+      {
+        "task": "rank",
+        "raw_loss": 5.959171772003174,
+        "weighted_loss": 5.959171772003174,
+        "shared_gradient_norm": 0.4114544689655304,
+        "cosine_with_ranking": 1.0
+      },
+      {
+        "task": "is_click",
+        "raw_loss": 0.6531721353530884,
+        "weighted_loss": 0.022006036713719368,
+        "shared_gradient_norm": 0.002114069415256381,
+        "cosine_with_ranking": 0.0012474482646211982
+      },
+      {
+        "task": "long_view",
+        "raw_loss": 0.6793926954269409,
+        "weighted_loss": 0.021175378933548927,
+        "shared_gradient_norm": 0.001901834737509489,
+        "cosine_with_ranking": 0.001515255426056683
+      },
+      {
+        "task": "is_like",
+        "raw_loss": 0.3171936869621277,
+        "weighted_loss": 0.1357722133398056,
+        "shared_gradient_norm": 0.2787512540817261,
+        "cosine_with_ranking": 0.0855182632803917
+      },
+      {
+        "task": "is_profile_enter",
+        "raw_loss": 0.5105801224708557,
+        "weighted_loss": 0.017568320035934448,
+        "shared_gradient_norm": 0.004159003030508757,
+        "cosine_with_ranking": 0.005433097947388887
+      }
+    ],
+    "cosine_matrix": {
+      "rank": {
+        "rank": 1.0,
+        "is_click": 0.0012474482646211982,
+        "long_view": 0.001515255426056683,
+        "is_like": 0.0855182632803917,
+        "is_profile_enter": 0.005433097947388887
+      },
+      "is_click": {
+        "rank": 0.0012474482646211982,
+        "is_click": 1.0,
+        "long_view": 0.7304149270057678,
+        "is_like": -0.1023324653506279,
+        "is_profile_enter": -0.05031624063849449
+      },
+      "long_view": {
+        "rank": 0.001515255426056683,
+        "is_click": 0.7304149270057678,
+        "long_view": 0.9999999403953552,
+        "is_like": -0.04330188408493996,
+        "is_profile_enter": 0.04480604827404022
+      },
+      "is_like": {
+        "rank": 0.0855182632803917,
+        "is_click": -0.1023324653506279,
+        "long_view": -0.04330188408493996,
+        "is_like": 0.9999996423721313,
+        "is_profile_enter": 0.21622562408447266
+      },
+      "is_profile_enter": {
+        "rank": 0.005433097947388887,
+        "is_click": -0.05031624063849449,
+        "long_view": 0.04480604827404022,
+        "is_like": 0.21622562408447266,
+        "is_profile_enter": 0.9999997019767761
+      }
+    },
+    "gradient_norms": {
+      "rank": 0.4114544689655304,
+      "is_click": 0.002114069415256381,
+      "long_view": 0.001901834737509489,
+      "is_like": 0.2787512540817261,
+      "is_profile_enter": 0.004159003030508757
+    },
+    "conflicts": {
+      "pairs": 10,
+      "negative_pairs": 3,
+      "fraction_conflicting": 0.3,
+      "negative_pairs_detail": [
+        {
+          "left": "is_click",
+          "right": "is_like",
+          "cosine": -0.1023324653506279
+        },
+        {
+          "left": "is_click",
+          "right": "is_profile_enter",
+          "cosine": -0.05031624063849449
+        },
+        {
+          "left": "long_view",
+          "right": "is_like",
+          "cosine": -0.04330188408493996
+        }
+      ]
+    },
+    "losses": {
+      "total": 6.155693531036377,
+      "rank": 5.959171772003174,
+      "aux_sum": 2.1603386402130127,
+      "weighted_aux_sum": 1.4907517433166504,
+      "is_click_loss": 0.6531721353530884,
+      "long_view_loss": 0.6793926954269409,
+      "is_like_loss": 0.3171936869621277,
+      "is_profile_enter_loss": 0.5105801224708557,
+      "is_click_scaled_contribution": 0.022006036713719368,
+      "long_view_scaled_contribution": 0.021175378933548927,
+      "is_like_scaled_contribution": 0.1357722133398056,
+      "is_profile_enter_scaled_contribution": 0.017568320035934448
+    },
+    "finite_losses": {
+      "all_finite": true,
+      "nonfinite": []
+    }
+  },
+  "methods": {
+    "fixed_tuned_step": {
+      "status": "completed",
+      "steps": 3,
+      "step_times_sec": [
+        0.21801523771137,
+        0.046028004959225655,
+        0.044934566132724285
+      ],
+      "mean_step_time_sec": 0.10299260293443997,
+      "total_time_sec": 0.3100899523124099,
+      "autograd_calls_per_step": {
+        "backward": 1,
+        "autograd_grad": 0
+      },
+      "all_gradients_finite": true,
+      "last_losses": {
+        "total": 6.263162136077881,
+        "rank": 6.098802089691162,
+        "aux_sum": 2.0963354110717773,
+        "weighted_aux_sum": 1.2467830181121826,
+        "is_click_loss": 0.6452127695083618,
+        "long_view_loss": 0.663442850112915,
+        "is_like_loss": 0.24093763530254364,
+        "is_profile_enter_loss": 0.5467422008514404,
+        "is_click_scaled_contribution": 0.021737877279520035,
+        "long_view_scaled_contribution": 0.02067825198173523,
+        "is_like_scaled_contribution": 0.10313142091035843,
+        "is_profile_enter_scaled_contribution": 0.018812604248523712
+      },
+      "cuda_memory": {
+        "allocated_bytes": 31039488,
+        "reserved_bytes": 2795503616,
+        "max_allocated_bytes": 1821965824,
+        "max_reserved_bytes": 2795503616
+      }
+    },
+    "gradnorm": {
+      "status": "completed",
+      "steps": 3,
+      "initial_weights": {
+        "is_click": 0.255569189786911,
+        "long_view": 0.23643110692501068,
+        "is_like": 3.2469875812530518,
+        "is_profile_enter": 0.26101210713386536
+      },
+      "final_weights": {
+        "is_click": 0.2878153622150421,
+        "long_view": 0.2661304175853729,
+        "is_like": 3.152064561843872,
+        "is_profile_enter": 0.29398998618125916
+      },
+      "weights_changed": true,
+      "step_diagnostics": [
+        {
+          "alpha": 1.5,
+          "gradnorm_loss": 1.0654826164245605,
+          "weights": {
+            "is_click": 0.255569189786911,
+            "long_view": 0.23643110692501068,
+            "is_like": 3.2469875812530518,
+            "is_profile_enter": 0.26101210713386536
+          },
+          "gradient_norms": {
+            "is_click": 0.011001578532159328,
+            "long_view": 0.010250904597342014,
+            "is_like": 0.7244884371757507,
+            "is_profile_enter": 0.021247657015919685
+          },
+          "target_gradient_norms": {
+            "is_click": 0.19174715876579285,
+            "long_view": 0.19174715876579285,
+            "is_like": 0.19174715876579285,
+            "is_profile_enter": 0.19174715876579285
+          },
+          "relative_inverse_training_rates": {
+            "is_click": 1.0,
+            "long_view": 1.0,
+            "is_like": 1.0,
+            "is_profile_enter": 1.0
+          },
+          "loss_ratios": {
+            "is_click": 1.0,
+            "long_view": 1.0,
+            "is_like": 1.0,
+            "is_profile_enter": 1.0
+          },
+          "weights_before": {
+            "is_click": 0.255569189786911,
+            "long_view": 0.23643110692501068,
+            "is_like": 3.2469875812530518,
+            "is_profile_enter": 0.26101210713386536
+          },
+          "weights_after": {
+            "is_click": 0.2661040723323822,
+            "long_view": 0.2461770921945572,
+            "is_like": 3.215947151184082,
+            "is_profile_enter": 0.27177131175994873
+          },
+          "weights_changed": true,
+          "log_weight_gradient_finite": true,
+          "model_total_loss": 6.1546101570129395
+        },
+        {
+          "alpha": 1.5,
+          "gradnorm_loss": 0.8475660085678101,
+          "weights": {
+            "is_click": 0.2661040723323822,
+            "long_view": 0.2461770921945572,
+            "is_like": 3.215947151184082,
+            "is_profile_enter": 0.27177131175994873
+          },
+          "gradient_norms": {
+            "is_click": 0.014383126981556416,
+            "long_view": 0.009259920567274094,
+            "is_like": 0.5857360363006592,
+            "is_profile_enter": 0.025815580040216446
+          },
+          "target_gradient_norms": {
+            "is_click": 0.1686590313911438,
+            "long_view": 0.16815777122974396,
+            "is_like": 0.16232503950595856,
+            "is_profile_enter": 0.13679678738117218
+          },
+          "relative_inverse_training_rates": {
+            "is_click": 1.0409786701202393,
+            "long_view": 1.0389151573181152,
+            "is_like": 1.0147501230239868,
+            "is_profile_enter": 0.9053559899330139
+          },
+          "loss_ratios": {
+            "is_click": 0.993643045425415,
+            "long_view": 0.9916733503341675,
+            "is_like": 0.9686071276664734,
+            "is_profile_enter": 0.8641874194145203
+          },
+          "weights_before": {
+            "is_click": 0.2661040723323822,
+            "long_view": 0.2461770921945572,
+            "is_like": 3.215947151184082,
+            "is_profile_enter": 0.27177131175994873
+          },
+          "weights_after": {
+            "is_click": 0.2769491374492645,
+            "long_view": 0.25616171956062317,
+            "is_like": 3.184042453765869,
+            "is_profile_enter": 0.28284668922424316
+          },
+          "weights_changed": true,
+          "log_weight_gradient_finite": true,
+          "model_total_loss": 6.1866326332092285
+        },
+        {
+          "alpha": 1.5,
+          "gradnorm_loss": 1.7022082805633545,
+          "weights": {
+            "is_click": 0.2769491374492645,
+            "long_view": 0.25616171956062317,
+            "is_like": 3.184042453765869,
+            "is_profile_enter": 0.28284668922424316
+          },
+          "gradient_norms": {
+            "is_click": 0.011241450905799866,
+            "long_view": 0.013779922388494015,
+            "is_like": 1.0460673570632935,
+            "is_profile_enter": 0.028643406927585602
+          },
+          "target_gradient_norms": {
+            "is_click": 0.2943805158138275,
+            "long_view": 0.2876383364200592,
+            "is_like": 0.19791269302368164,
+            "is_profile_enter": 0.3256995379924774
+          },
+          "relative_inverse_training_rates": {
+            "is_click": 1.0466177463531494,
+            "long_view": 1.0305756330490112,
+            "is_like": 0.8032137751579285,
+            "is_profile_enter": 1.1195929050445557
+          },
+          "loss_ratios": {
+            "is_click": 0.9892588257789612,
+            "long_view": 0.9740958213806152,
+            "is_like": 0.7591943740844727,
+            "is_profile_enter": 1.058234691619873
+          },
+          "weights_before": {
+            "is_click": 0.2769491374492645,
+            "long_view": 0.25616171956062317,
+            "is_like": 3.184042453765869,
+            "is_profile_enter": 0.28284668922424316
+          },
+          "weights_after": {
+            "is_click": 0.2878153622150421,
+            "long_view": 0.2661304175853729,
+            "is_like": 3.152064561843872,
+            "is_profile_enter": 0.29398998618125916
+          },
+          "weights_changed": true,
+          "log_weight_gradient_finite": true,
+          "model_total_loss": 6.258739948272705
+        }
+      ],
+      "step_times_sec": [
+        6.630446481518447,
+        0.39476839918643236,
+        0.373823300935328
+      ],
+      "mean_step_time_sec": 2.4663460605467358,
+      "total_time_sec": 7.399583329446614,
+      "autograd_calls_per_step": {
+        "backward": 2,
+        "autograd_grad": 4
+      },
+      "all_gradients_finite": true,
+      "cuda_memory": {
+        "allocated_bytes": 100140544,
+        "reserved_bytes": 5930745856,
+        "max_allocated_bytes": 5312318976,
+        "max_reserved_bytes": 5930745856
+      }
+    },
+    "pcgrad": {
+      "status": "completed",
+      "steps": 3,
+      "mode": "ranking_anchored",
+      "step_diagnostics": [
+        {
+          "mode": "ranking_anchored",
+          "cosine_matrix_before": {
+            "rank": {
+              "rank": 1.0,
+              "is_click": 0.0012474482646211982,
+              "long_view": 0.0015152577543631196,
+              "is_like": 0.0855182632803917,
+              "is_profile_enter": 0.005433097947388887
+            },
+            "is_click": {
+              "rank": 0.0012474482646211982,
+              "is_click": 1.0,
+              "long_view": 0.7304149270057678,
+              "is_like": -0.1023324653506279,
+              "is_profile_enter": -0.05031624063849449
+            },
+            "long_view": {
+              "rank": 0.0015152577543631196,
+              "is_click": 0.7304149270057678,
+              "long_view": 0.9999999403953552,
+              "is_like": -0.04330188408493996,
+              "is_profile_enter": 0.044806044548749924
+            },
+            "is_like": {
+              "rank": 0.0855182632803917,
+              "is_click": -0.1023324653506279,
+              "long_view": -0.04330188408493996,
+              "is_like": 0.9999996423721313,
+              "is_profile_enter": 0.21622562408447266
+            },
+            "is_profile_enter": {
+              "rank": 0.005433097947388887,
+              "is_click": -0.05031624063849449,
+              "long_view": 0.044806044548749924,
+              "is_like": 0.21622562408447266,
+              "is_profile_enter": 0.9999997019767761
+            }
+          },
+          "cosine_matrix_after": {
+            "rank": {
+              "rank": 1.0,
+              "is_click": 0.0012474482646211982,
+              "long_view": 0.0015152577543631196,
+              "is_like": 0.0855182632803917,
+              "is_profile_enter": 0.005433097947388887
+            },
+            "is_click": {
+              "rank": 0.0012474482646211982,
+              "is_click": 1.0,
+              "long_view": 0.7304149270057678,
+              "is_like": -0.1023324653506279,
+              "is_profile_enter": -0.05031624063849449
+            },
+            "long_view": {
+              "rank": 0.0015152577543631196,
+              "is_click": 0.7304149270057678,
+              "long_view": 0.9999999403953552,
+              "is_like": -0.04330188408493996,
+              "is_profile_enter": 0.044806044548749924
+            },
+            "is_like": {
+              "rank": 0.0855182632803917,
+              "is_click": -0.1023324653506279,
+              "long_view": -0.04330188408493996,
+              "is_like": 0.9999996423721313,
+              "is_profile_enter": 0.21622562408447266
+            },
+            "is_profile_enter": {
+              "rank": 0.005433097947388887,
+              "is_click": -0.05031624063849449,
+              "long_view": 0.044806044548749924,
+              "is_like": 0.21622562408447266,
+              "is_profile_enter": 0.9999997019767761
+            }
+          },
+          "conflicts_before": {
+            "pairs": 10,
+            "negative_pairs": 3,
+            "fraction_conflicting": 0.3,
+            "negative_pairs_detail": [
+              {
+                "left": "is_click",
+                "right": "is_like",
+                "cosine": -0.1023324653506279
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.05031624063849449
+              },
+              {
+                "left": "long_view",
+                "right": "is_like",
+                "cosine": -0.04330188408493996
+              }
+            ]
+          },
+          "conflicts_after": {
+            "pairs": 10,
+            "negative_pairs": 3,
+            "fraction_conflicting": 0.3,
+            "negative_pairs_detail": [
+              {
+                "left": "is_click",
+                "right": "is_like",
+                "cosine": -0.1023324653506279
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.05031624063849449
+              },
+              {
+                "left": "long_view",
+                "right": "is_like",
+                "cosine": -0.04330188408493996
+              }
+            ]
+          },
+          "gradient_norms_before": {
+            "rank": 0.4114544689655304,
+            "is_click": 0.002114069415256381,
+            "long_view": 0.001901834737509489,
+            "is_like": 0.2787512540817261,
+            "is_profile_enter": 0.004159003030508757
+          },
+          "gradient_norms_after": {
+            "rank": 0.4114544689655304,
+            "is_click": 0.002114069415256381,
+            "long_view": 0.001901834737509489,
+            "is_like": 0.2787512540817261,
+            "is_profile_enter": 0.004159003030508757
+          },
+          "projection_events": [],
+          "projection_event_count": 0,
+          "combined_gradient_norm_before": 0.5167231559753418,
+          "combined_gradient_norm_after": 0.5167231559753418,
+          "model_total_loss": 6.153374671936035,
+          "shared_gradient_finite": {
+            "checked_tensors": 65,
+            "nonfinite_tensor_count": 0,
+            "nonfinite_tensors": [],
+            "all_finite": true
+          }
+        },
+        {
+          "mode": "ranking_anchored",
+          "cosine_matrix_before": {
+            "rank": {
+              "rank": 1.0000001192092896,
+              "is_click": -0.04747144877910614,
+              "long_view": 0.04216625168919563,
+              "is_like": 0.12311547249555588,
+              "is_profile_enter": 0.0955410972237587
+            },
+            "is_click": {
+              "rank": -0.04747144877910614,
+              "is_click": 0.9999999403953552,
+              "long_view": 0.41924938559532166,
+              "is_like": -0.2170540690422058,
+              "is_profile_enter": -0.27642112970352173
+            },
+            "long_view": {
+              "rank": 0.04216625168919563,
+              "is_click": 0.41924938559532166,
+              "long_view": 1.0,
+              "is_like": -0.1168278157711029,
+              "is_profile_enter": 0.022259263321757317
+            },
+            "is_like": {
+              "rank": 0.12311547249555588,
+              "is_click": -0.2170540690422058,
+              "long_view": -0.1168278157711029,
+              "is_like": 0.9999998807907104,
+              "is_profile_enter": 0.3001458942890167
+            },
+            "is_profile_enter": {
+              "rank": 0.0955410972237587,
+              "is_click": -0.27642112970352173,
+              "long_view": 0.022259263321757317,
+              "is_like": 0.3001458942890167,
+              "is_profile_enter": 1.0
+            }
+          },
+          "cosine_matrix_after": {
+            "rank": {
+              "rank": 1.0000001192092896,
+              "is_click": -2.8875168922581906e-09,
+              "long_view": 0.04216625168919563,
+              "is_like": 0.12311547249555588,
+              "is_profile_enter": 0.0955410972237587
+            },
+            "is_click": {
+              "rank": -2.8875168922581906e-09,
+              "is_click": 1.0000001192092896,
+              "long_view": 0.4217265546321869,
+              "is_like": -0.21144801378250122,
+              "is_profile_enter": -0.27219250798225403
+            },
+            "long_view": {
+              "rank": 0.04216625168919563,
+              "is_click": 0.4217265546321869,
+              "long_view": 1.0,
+              "is_like": -0.1168278157711029,
+              "is_profile_enter": 0.022259263321757317
+            },
+            "is_like": {
+              "rank": 0.12311547249555588,
+              "is_click": -0.21144801378250122,
+              "long_view": -0.1168278157711029,
+              "is_like": 0.9999998807907104,
+              "is_profile_enter": 0.3001458942890167
+            },
+            "is_profile_enter": {
+              "rank": 0.0955410972237587,
+              "is_click": -0.27219250798225403,
+              "long_view": 0.022259263321757317,
+              "is_like": 0.3001458942890167,
+              "is_profile_enter": 1.0
+            }
+          },
+          "conflicts_before": {
+            "pairs": 10,
+            "negative_pairs": 4,
+            "fraction_conflicting": 0.4,
+            "negative_pairs_detail": [
+              {
+                "left": "rank",
+                "right": "is_click",
+                "cosine": -0.04747144877910614
+              },
+              {
+                "left": "is_click",
+                "right": "is_like",
+                "cosine": -0.2170540690422058
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.27642112970352173
+              },
+              {
+                "left": "long_view",
+                "right": "is_like",
+                "cosine": -0.1168278157711029
+              }
+            ]
+          },
+          "conflicts_after": {
+            "pairs": 10,
+            "negative_pairs": 4,
+            "fraction_conflicting": 0.4,
+            "negative_pairs_detail": [
+              {
+                "left": "rank",
+                "right": "is_click",
+                "cosine": -2.8875168922581906e-09
+              },
+              {
+                "left": "is_click",
+                "right": "is_like",
+                "cosine": -0.21144801378250122
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.27219250798225403
+              },
+              {
+                "left": "long_view",
+                "right": "is_like",
+                "cosine": -0.1168278157711029
+              }
+            ]
+          },
+          "gradient_norms_before": {
+            "rank": 0.41688600182533264,
+            "is_click": 0.0022691828198730946,
+            "long_view": 0.0016755793476477265,
+            "is_like": 0.23791562020778656,
+            "is_profile_enter": 0.004892312455922365
+          },
+          "gradient_norms_after": {
+            "rank": 0.41688600182533264,
+            "is_click": 0.002266624476760626,
+            "long_view": 0.0016755793476477265,
+            "is_like": 0.23791562020778656,
+            "is_profile_enter": 0.004892312455922365
+          },
+          "projection_events": [
+            {
+              "source": "is_click",
+              "reference": "rank"
+            }
+          ],
+          "projection_event_count": 1,
+          "combined_gradient_norm_before": 0.5055484771728516,
+          "combined_gradient_norm_after": 0.5056436061859131,
+          "model_total_loss": 6.186596393585205,
+          "shared_gradient_finite": {
+            "checked_tensors": 65,
+            "nonfinite_tensor_count": 0,
+            "nonfinite_tensors": [],
+            "all_finite": true
+          }
+        },
+        {
+          "mode": "ranking_anchored",
+          "cosine_matrix_before": {
+            "rank": {
+              "rank": 0.9999999403953552,
+              "is_click": -0.0041647059842944145,
+              "long_view": -0.04181864857673645,
+              "is_like": 0.021938877180218697,
+              "is_profile_enter": 0.006302249617874622
+            },
+            "is_click": {
+              "rank": -0.0041647059842944145,
+              "is_click": 1.0,
+              "long_view": 0.8258554339408875,
+              "is_like": 0.09883883595466614,
+              "is_profile_enter": -0.1505381315946579
+            },
+            "long_view": {
+              "rank": -0.04181864857673645,
+              "is_click": 0.8258554339408875,
+              "long_view": 1.0000001192092896,
+              "is_like": 0.08563102036714554,
+              "is_profile_enter": -0.18855272233486176
+            },
+            "is_like": {
+              "rank": 0.021938877180218697,
+              "is_click": 0.09883883595466614,
+              "long_view": 0.08563102036714554,
+              "is_like": 0.9999998807907104,
+              "is_profile_enter": -0.29209867119789124
+            },
+            "is_profile_enter": {
+              "rank": 0.006302249617874622,
+              "is_click": -0.1505381315946579,
+              "long_view": -0.18855272233486176,
+              "is_like": -0.29209867119789124,
+              "is_profile_enter": 1.0
+            }
+          },
+          "cosine_matrix_after": {
+            "rank": {
+              "rank": 0.9999999403953552,
+              "is_click": -4.916017037892573e-10,
+              "long_view": 5.303233407971675e-09,
+              "is_like": 0.021938877180218697,
+              "is_profile_enter": 0.006302249617874622
+            },
+            "is_click": {
+              "rank": -4.916017037892573e-10,
+              "is_click": 1.0,
+              "long_view": 0.8264113664627075,
+              "is_like": 0.09893105924129486,
+              "is_profile_enter": -0.1505132019519806
+            },
+            "long_view": {
+              "rank": 5.303233407971675e-09,
+              "is_click": 0.8264113664627075,
+              "long_view": 1.0,
+              "is_like": 0.08662424981594086,
+              "is_profile_enter": -0.18845400214195251
+            },
+            "is_like": {
+              "rank": 0.021938877180218697,
+              "is_click": 0.09893105924129486,
+              "long_view": 0.08662424981594086,
+              "is_like": 0.9999998807907104,
+              "is_profile_enter": -0.29209867119789124
+            },
+            "is_profile_enter": {
+              "rank": 0.006302249617874622,
+              "is_click": -0.1505132019519806,
+              "long_view": -0.18845400214195251,
+              "is_like": -0.29209867119789124,
+              "is_profile_enter": 1.0
+            }
+          },
+          "conflicts_before": {
+            "pairs": 10,
+            "negative_pairs": 5,
+            "fraction_conflicting": 0.5,
+            "negative_pairs_detail": [
+              {
+                "left": "rank",
+                "right": "is_click",
+                "cosine": -0.0041647059842944145
+              },
+              {
+                "left": "rank",
+                "right": "long_view",
+                "cosine": -0.04181864857673645
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.1505381315946579
+              },
+              {
+                "left": "long_view",
+                "right": "is_profile_enter",
+                "cosine": -0.18855272233486176
+              },
+              {
+                "left": "is_like",
+                "right": "is_profile_enter",
+                "cosine": -0.29209867119789124
+              }
+            ]
+          },
+          "conflicts_after": {
+            "pairs": 10,
+            "negative_pairs": 4,
+            "fraction_conflicting": 0.4,
+            "negative_pairs_detail": [
+              {
+                "left": "rank",
+                "right": "is_click",
+                "cosine": -4.916017037892573e-10
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.1505132019519806
+              },
+              {
+                "left": "long_view",
+                "right": "is_profile_enter",
+                "cosine": -0.18845400214195251
+              },
+              {
+                "left": "is_like",
+                "right": "is_profile_enter",
+                "cosine": -0.29209867119789124
+              }
+            ]
+          },
+          "gradient_norms_before": {
+            "rank": 0.4208413064479828,
+            "is_click": 0.002198073547333479,
+            "long_view": 0.0024472163058817387,
+            "is_like": 0.6800035834312439,
+            "is_profile_enter": 0.005103425122797489
+          },
+          "gradient_norms_after": {
+            "rank": 0.4208413064479828,
+            "is_click": 0.0021980544552206993,
+            "long_view": 0.002445075660943985,
+            "is_like": 0.6800035834312439,
+            "is_profile_enter": 0.005103425122797489
+          },
+          "projection_events": [
+            {
+              "source": "is_click",
+              "reference": "rank"
+            },
+            {
+              "source": "long_view",
+              "reference": "rank"
+            }
+          ],
+          "projection_event_count": 2,
+          "combined_gradient_norm_before": 0.8065933585166931,
+          "combined_gradient_norm_after": 0.806653618812561,
+          "model_total_loss": 6.255049228668213,
+          "shared_gradient_finite": {
+            "checked_tensors": 65,
+            "nonfinite_tensor_count": 0,
+            "nonfinite_tensors": [],
+            "all_finite": true
+          }
+        }
+      ],
+      "step_times_sec": [
+        0.2041954630985856,
+        0.19354191608726978,
+        0.19396277144551277
+      ],
+      "mean_step_time_sec": 0.1972333835437894,
+      "total_time_sec": 0.5917976619675756,
+      "autograd_calls_per_step": {
+        "backward": 1,
+        "autograd_grad": 5
+      },
+      "all_gradients_finite": true,
+      "cuda_memory": {
+        "allocated_bytes": 138254336,
+        "reserved_bytes": 5932843008,
+        "max_allocated_bytes": 2237426176,
+        "max_reserved_bytes": 5932843008
+      }
+    },
+    "metabalance": {
+      "status": "completed",
+      "steps": 3,
+      "variant": "MetaBalance-Fix",
+      "relax_factor": 0.7,
+      "beta": 0.9,
+      "step_diagnostics": [
+        {
+          "method": "MetaBalance-Fix",
+          "relax_factor": 0.7,
+          "beta": 0.9,
+          "cosine_matrix_before": {
+            "rank": {
+              "rank": 1.0,
+              "is_click": 0.0012474482646211982,
+              "long_view": 0.0015152577543631196,
+              "is_like": 0.0855182632803917,
+              "is_profile_enter": 0.005433097947388887
+            },
+            "is_click": {
+              "rank": 0.0012474482646211982,
+              "is_click": 1.0,
+              "long_view": 0.7304149270057678,
+              "is_like": -0.1023324653506279,
+              "is_profile_enter": -0.05031624063849449
+            },
+            "long_view": {
+              "rank": 0.0015152577543631196,
+              "is_click": 0.7304149270057678,
+              "long_view": 0.9999999403953552,
+              "is_like": -0.04330188408493996,
+              "is_profile_enter": 0.044806044548749924
+            },
+            "is_like": {
+              "rank": 0.0855182632803917,
+              "is_click": -0.1023324653506279,
+              "long_view": -0.04330188408493996,
+              "is_like": 0.9999996423721313,
+              "is_profile_enter": 0.21622562408447266
+            },
+            "is_profile_enter": {
+              "rank": 0.005433097947388887,
+              "is_click": -0.05031624063849449,
+              "long_view": 0.044806044548749924,
+              "is_like": 0.21622562408447266,
+              "is_profile_enter": 0.9999997019767761
+            }
+          },
+          "cosine_matrix_after": {
+            "rank": {
+              "rank": 1.0,
+              "is_click": 0.00017908826703205705,
+              "long_view": -0.012401803396642208,
+              "is_like": 0.035994578152894974,
+              "is_profile_enter": 0.002664013300091028
+            },
+            "is_click": {
+              "rank": 0.00017908826703205705,
+              "is_click": 1.0000001192092896,
+              "long_view": 0.7084971070289612,
+              "is_like": -0.043678801506757736,
+              "is_profile_enter": -0.019977781921625137
+            },
+            "long_view": {
+              "rank": -0.012401803396642208,
+              "is_click": 0.7084971070289612,
+              "long_view": 1.000000238418579,
+              "is_like": -0.023737294599413872,
+              "is_profile_enter": 0.04449286311864853
+            },
+            "is_like": {
+              "rank": 0.035994578152894974,
+              "is_click": -0.043678801506757736,
+              "long_view": -0.023737294599413872,
+              "is_like": 1.0,
+              "is_profile_enter": 0.14103993773460388
+            },
+            "is_profile_enter": {
+              "rank": 0.002664013300091028,
+              "is_click": -0.019977781921625137,
+              "long_view": 0.04449286311864853,
+              "is_like": 0.14103993773460388,
+              "is_profile_enter": 1.0
+            }
+          },
+          "conflicts_before": {
+            "pairs": 10,
+            "negative_pairs": 3,
+            "fraction_conflicting": 0.3,
+            "negative_pairs_detail": [
+              {
+                "left": "is_click",
+                "right": "is_like",
+                "cosine": -0.1023324653506279
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.05031624063849449
+              },
+              {
+                "left": "long_view",
+                "right": "is_like",
+                "cosine": -0.04330188408493996
+              }
+            ]
+          },
+          "conflicts_after": {
+            "pairs": 10,
+            "negative_pairs": 4,
+            "fraction_conflicting": 0.4,
+            "negative_pairs_detail": [
+              {
+                "left": "rank",
+                "right": "long_view",
+                "cosine": -0.012401803396642208
+              },
+              {
+                "left": "is_click",
+                "right": "is_like",
+                "cosine": -0.043678801506757736
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.019977781921625137
+              },
+              {
+                "left": "long_view",
+                "right": "is_like",
+                "cosine": -0.023737294599413872
+              }
+            ]
+          },
+          "gradient_norms_before": {
+            "rank": 0.4114544689655304,
+            "is_click": 0.002114069415256381,
+            "long_view": 0.001901834737509489,
+            "is_like": 0.2787512540817261,
+            "is_profile_enter": 0.004159003030508757
+          },
+          "gradient_norms_after": {
+            "rank": 0.4114544689655304,
+            "is_click": 0.28859636187553406,
+            "long_view": 0.28854307532310486,
+            "is_like": 0.3567936420440674,
+            "is_profile_enter": 0.28918638825416565
+          },
+          "scale_summary": {
+            "rank": {
+              "min": 1.0,
+              "max": 1.0,
+              "mean": 1.0
+            },
+            "is_click": {
+              "min": 0.30000001192092896,
+              "max": 405.11279296875,
+              "mean": 117.8191302556258
+            },
+            "long_view": {
+              "min": 0.30000001192092896,
+              "max": 378.4264831542969,
+              "mean": 125.67605715898367
+            },
+            "is_like": {
+              "min": 0.30000001192092896,
+              "max": 36.08302307128906,
+              "mean": 2.4083616816080533
+            },
+            "is_profile_enter": {
+              "min": 0.30000001192092896,
+              "max": 677.041015625,
+              "mean": 77.64680713140048
+            }
+          },
+          "model_total_loss": 6.153374671936035,
+          "shared_gradient_finite": {
+            "checked_tensors": 65,
+            "nonfinite_tensor_count": 0,
+            "nonfinite_tensors": [],
+            "all_finite": true
+          }
+        },
+        {
+          "method": "MetaBalance-Fix",
+          "relax_factor": 0.7,
+          "beta": 0.9,
+          "cosine_matrix_before": {
+            "rank": {
+              "rank": 1.0,
+              "is_click": -3.4653014154173434e-05,
+              "long_view": 0.014139402657747269,
+              "is_like": 0.13302326202392578,
+              "is_profile_enter": 0.08808425068855286
+            },
+            "is_click": {
+              "rank": -3.4653014154173434e-05,
+              "is_click": 1.0,
+              "long_view": 0.6471640467643738,
+              "is_like": -0.26375696063041687,
+              "is_profile_enter": -0.42296209931373596
+            },
+            "long_view": {
+              "rank": 0.014139402657747269,
+              "is_click": 0.6471640467643738,
+              "long_view": 1.0,
+              "is_like": -0.23040542006492615,
+              "is_profile_enter": -0.24241140484809875
+            },
+            "is_like": {
+              "rank": 0.13302326202392578,
+              "is_click": -0.26375696063041687,
+              "long_view": -0.23040542006492615,
+              "is_like": 1.0000001192092896,
+              "is_profile_enter": 0.33072414994239807
+            },
+            "is_profile_enter": {
+              "rank": 0.08808425068855286,
+              "is_click": -0.42296209931373596,
+              "long_view": -0.24241140484809875,
+              "is_like": 0.33072414994239807,
+              "is_profile_enter": 1.0000001192092896
+            }
+          },
+          "cosine_matrix_after": {
+            "rank": {
+              "rank": 1.0,
+              "is_click": 0.012078667059540749,
+              "long_view": 0.014860383234918118,
+              "is_like": 0.09398996829986572,
+              "is_profile_enter": 0.06730984151363373
+            },
+            "is_click": {
+              "rank": 0.012078667059540749,
+              "is_click": 0.9999999403953552,
+              "long_view": 0.6849827766418457,
+              "is_like": -0.10750531405210495,
+              "is_profile_enter": -0.25007525086402893
+            },
+            "long_view": {
+              "rank": 0.014860383234918118,
+              "is_click": 0.6849827766418457,
+              "long_view": 1.0000001192092896,
+              "is_like": -0.14141573011875153,
+              "is_profile_enter": -0.15450811386108398
+            },
+            "is_like": {
+              "rank": 0.09398996829986572,
+              "is_click": -0.10750531405210495,
+              "long_view": -0.14141573011875153,
+              "is_like": 1.0000001192092896,
+              "is_profile_enter": 0.1771155148744583
+            },
+            "is_profile_enter": {
+              "rank": 0.06730984151363373,
+              "is_click": -0.25007525086402893,
+              "long_view": -0.15450811386108398,
+              "is_like": 0.1771155148744583,
+              "is_profile_enter": 0.9999998211860657
+            }
+          },
+          "conflicts_before": {
+            "pairs": 10,
+            "negative_pairs": 5,
+            "fraction_conflicting": 0.5,
+            "negative_pairs_detail": [
+              {
+                "left": "rank",
+                "right": "is_click",
+                "cosine": -3.4653014154173434e-05
+              },
+              {
+                "left": "is_click",
+                "right": "is_like",
+                "cosine": -0.26375696063041687
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.42296209931373596
+              },
+              {
+                "left": "long_view",
+                "right": "is_like",
+                "cosine": -0.23040542006492615
+              },
+              {
+                "left": "long_view",
+                "right": "is_profile_enter",
+                "cosine": -0.24241140484809875
+              }
+            ]
+          },
+          "conflicts_after": {
+            "pairs": 10,
+            "negative_pairs": 4,
+            "fraction_conflicting": 0.4,
+            "negative_pairs_detail": [
+              {
+                "left": "is_click",
+                "right": "is_like",
+                "cosine": -0.10750531405210495
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.25007525086402893
+              },
+              {
+                "left": "long_view",
+                "right": "is_like",
+                "cosine": -0.14141573011875153
+              },
+              {
+                "left": "long_view",
+                "right": "is_profile_enter",
+                "cosine": -0.15450811386108398
+              }
+            ]
+          },
+          "gradient_norms_before": {
+            "rank": 0.4191610813140869,
+            "is_click": 0.003049850231036544,
+            "long_view": 0.001998217310756445,
+            "is_like": 0.24497976899147034,
+            "is_profile_enter": 0.005216347984969616
+          },
+          "gradient_norms_after": {
+            "rank": 0.4191610813140869,
+            "is_click": 0.3218090236186981,
+            "long_view": 0.2981499135494232,
+            "is_like": 0.32719287276268005,
+            "is_profile_enter": 0.3075673282146454
+          },
+          "scale_summary": {
+            "rank": {
+              "min": 1.0,
+              "max": 1.0,
+              "mean": 1.0
+            },
+            "is_click": {
+              "min": 0.30000001192092896,
+              "max": 270.2525329589844,
+              "mean": 87.21033928577717
+            },
+            "long_view": {
+              "min": 0.30000001192092896,
+              "max": 276.5546569824219,
+              "mean": 124.07692869993356
+            },
+            "is_like": {
+              "min": 0.30000001192092896,
+              "max": 3.5287461280822754,
+              "mean": 1.9506252490557157
+            },
+            "is_profile_enter": {
+              "min": 0.30000001192092896,
+              "max": 241.28111267089844,
+              "mean": 56.36748873270475
+            }
+          },
+          "model_total_loss": 6.184563159942627,
+          "shared_gradient_finite": {
+            "checked_tensors": 65,
+            "nonfinite_tensor_count": 0,
+            "nonfinite_tensors": [],
+            "all_finite": true
+          }
+        },
+        {
+          "method": "MetaBalance-Fix",
+          "relax_factor": 0.7,
+          "beta": 0.9,
+          "cosine_matrix_before": {
+            "rank": {
+              "rank": 1.0,
+              "is_click": 0.030451597645878792,
+              "long_view": -0.0035181306302547455,
+              "is_like": 0.0458005927503109,
+              "is_profile_enter": -0.0013031073613092303
+            },
+            "is_click": {
+              "rank": 0.030451597645878792,
+              "is_click": 1.0,
+              "long_view": 0.9154928922653198,
+              "is_like": 0.16419969499111176,
+              "is_profile_enter": -0.19239601492881775
+            },
+            "long_view": {
+              "rank": -0.0035181306302547455,
+              "is_click": 0.9154928922653198,
+              "long_view": 0.9999999403953552,
+              "is_like": 0.14804139733314514,
+              "is_profile_enter": -0.2008538842201233
+            },
+            "is_like": {
+              "rank": 0.0458005927503109,
+              "is_click": 0.16419969499111176,
+              "long_view": 0.14804139733314514,
+              "is_like": 1.0,
+              "is_profile_enter": -0.2544200122356415
+            },
+            "is_profile_enter": {
+              "rank": -0.0013031073613092303,
+              "is_click": -0.19239601492881775,
+              "long_view": -0.2008538842201233,
+              "is_like": -0.2544200122356415,
+              "is_profile_enter": 1.0
+            }
+          },
+          "cosine_matrix_after": {
+            "rank": {
+              "rank": 1.0,
+              "is_click": 0.03189834579825401,
+              "long_view": 0.0029944332782179117,
+              "is_like": 0.022023551166057587,
+              "is_profile_enter": -0.002950491150841117
+            },
+            "is_click": {
+              "rank": 0.03189834579825401,
+              "is_click": 0.9999998807907104,
+              "long_view": 0.8463009595870972,
+              "is_like": 0.13357630372047424,
+              "is_profile_enter": -0.07533271610736847
+            },
+            "long_view": {
+              "rank": 0.0029944332782179117,
+              "is_click": 0.8463009595870972,
+              "long_view": 1.0000001192092896,
+              "is_like": 0.14961153268814087,
+              "is_profile_enter": -0.0998288094997406
+            },
+            "is_like": {
+              "rank": 0.022023551166057587,
+              "is_click": 0.13357630372047424,
+              "long_view": 0.14961153268814087,
+              "is_like": 0.9999998807907104,
+              "is_profile_enter": -0.15755586326122284
+            },
+            "is_profile_enter": {
+              "rank": -0.002950491150841117,
+              "is_click": -0.07533271610736847,
+              "long_view": -0.0998288094997406,
+              "is_like": -0.15755586326122284,
+              "is_profile_enter": 1.0000001192092896
+            }
+          },
+          "conflicts_before": {
+            "pairs": 10,
+            "negative_pairs": 5,
+            "fraction_conflicting": 0.5,
+            "negative_pairs_detail": [
+              {
+                "left": "rank",
+                "right": "long_view",
+                "cosine": -0.0035181306302547455
+              },
+              {
+                "left": "rank",
+                "right": "is_profile_enter",
+                "cosine": -0.0013031073613092303
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.19239601492881775
+              },
+              {
+                "left": "long_view",
+                "right": "is_profile_enter",
+                "cosine": -0.2008538842201233
+              },
+              {
+                "left": "is_like",
+                "right": "is_profile_enter",
+                "cosine": -0.2544200122356415
+              }
+            ]
+          },
+          "conflicts_after": {
+            "pairs": 10,
+            "negative_pairs": 4,
+            "fraction_conflicting": 0.4,
+            "negative_pairs_detail": [
+              {
+                "left": "rank",
+                "right": "is_profile_enter",
+                "cosine": -0.002950491150841117
+              },
+              {
+                "left": "is_click",
+                "right": "is_profile_enter",
+                "cosine": -0.07533271610736847
+              },
+              {
+                "left": "long_view",
+                "right": "is_profile_enter",
+                "cosine": -0.0998288094997406
+              },
+              {
+                "left": "is_like",
+                "right": "is_profile_enter",
+                "cosine": -0.15755586326122284
+              }
+            ]
+          },
+          "gradient_norms_before": {
+            "rank": 0.40426966547966003,
+            "is_click": 0.0033623024355620146,
+            "long_view": 0.0037313243374228477,
+            "is_like": 0.7845799922943115,
+            "is_profile_enter": 0.00486844452098012
+          },
+          "gradient_norms_after": {
+            "rank": 0.40426966547966003,
+            "is_click": 0.3169613182544708,
+            "long_view": 0.3638397753238678,
+            "is_like": 0.5409668684005737,
+            "is_profile_enter": 0.30142030119895935
+          },
+          "scale_summary": {
+            "rank": {
+              "min": 1.0,
+              "max": 1.0,
+              "mean": 1.0
+            },
+            "is_click": {
+              "min": 0.30000001192092896,
+              "max": 276.0950622558594,
+              "mean": 82.17352534440847
+            },
+            "long_view": {
+              "min": 0.30000001192092896,
+              "max": 272.8810729980469,
+              "mean": 91.03741562549885
+            },
+            "is_like": {
+              "min": 0.30000001192092896,
+              "max": 3.1404805183410645,
+              "mean": 1.4670664796462425
+            },
+            "is_profile_enter": {
+              "min": 0.30000001192092896,
+              "max": 219.88351440429688,
+              "mean": 52.96885131322421
+            }
+          },
+          "model_total_loss": 6.254122257232666,
+          "shared_gradient_finite": {
+            "checked_tensors": 65,
+            "nonfinite_tensor_count": 0,
+            "nonfinite_tensors": [],
+            "all_finite": true
+          }
+        }
+      ],
+      "step_times_sec": [
+        0.2523941481485963,
+        0.24823451787233353,
+        0.24741958733648062
+      ],
+      "mean_step_time_sec": 0.24934941778580347,
+      "total_time_sec": 0.7481525484472513,
+      "autograd_calls_per_step": {
+        "backward": 1,
+        "autograd_grad": 5
+      },
+      "all_gradients_finite": true,
+      "cuda_memory": {
+        "allocated_bytes": 1773021696,
+        "reserved_bytes": 5943328768,
+        "max_allocated_bytes": 3571286528,
+        "max_reserved_bytes": 5943328768
+      }
+    }
+  },
+  "cost_summary": {
+    "fixed_tuned": {
+      "mean_step_time_sec": 0.10299260293443997,
+      "max_allocated_bytes": 1821965824,
+      "autograd_calls_per_step": {
+        "backward": 1,
+        "autograd_grad": 0
+      }
+    },
+    "gradnorm": {
+      "mean_step_time_sec": 2.4663460605467358,
+      "max_allocated_bytes": 5312318976,
+      "autograd_calls_per_step": {
+        "backward": 2,
+        "autograd_grad": 4
+      }
+    },
+    "pcgrad": {
+      "mean_step_time_sec": 0.1972333835437894,
+      "max_allocated_bytes": 2237426176,
+      "autograd_calls_per_step": {
+        "backward": 1,
+        "autograd_grad": 5
+      }
+    },
+    "metabalance": {
+      "mean_step_time_sec": 0.24934941778580347,
+      "max_allocated_bytes": 3571286528,
+      "autograd_calls_per_step": {
+        "backward": 1,
+        "autograd_grad": 5
+      }
+    }
+  },
+  "resource": {
+    "maxrss_kb": 5027976
+  },
+  "recommendation": {
+    "next_sanity_methods": [
+      "ranking_anchored_pcgrad",
+      "gradnorm_auxiliary_only"
+    ],
+    "most_relevant_for_ranking_primary_setup": "ranking_anchored_pcgrad",
+    "real_gradient_conflicts_detected": true,
+    "rank_auxiliary_conflicts_detected": false,
+    "rank_conflicting_pairs": [],
+    "high_is_like_weight_analysis": {
+      "normalized_weight": 3.246987612489936,
+      "positive_rate": 0.018620952437051204,
+      "effective_pos_weight": 9.092198541195886,
+      "raw_loss": 0.3171936869621277,
+      "weighted_loss": 0.1357722133398056,
+      "shared_gradient_norm": 0.2787512540817261,
+      "cosine_with_ranking": 0.0855182632803917,
+      "interpretation": "is_like has the largest tuned fixed loss weight and remains rare; smoke diagnostics should be interpreted as gradient-scale evidence, not as NDCG evidence."
+    },
+    "possible_own_mechanisms": [
+      "behavior-value-aware gradient weighting: start from tuned weights, then cap or boost auxiliary gradients by rank cosine and behavior rarity/value.",
+      "ranking-anchored adaptive routing: keep ranking gradient unchanged and route only auxiliary updates through magnitude/conflict gates per shared block."
+    ]
+  }
+}

@@ -242,6 +242,15 @@ RUN_METADATA: dict[str, dict[str, Any]] = {
         "train_candidates": "sampled_100",
         "parent_run": "ltr_xgb_002",
     },
+    "adaptive_smoke_001": {
+        "record_type": "sanity",
+        "model": "MultitaskTiM4Rec",
+        "model_variant": "adaptive_gradient_smoke",
+        "split": "train",
+        "evaluation": "diagnostic",
+        "train_candidates": "full_sequence",
+        "parent_run": "multitask_tim4rec_tuned_001",
+    },
     "optuna_search_001": {
         "record_type": "search",
         "model": "XGBoost LambdaMART",
