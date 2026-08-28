@@ -31,6 +31,18 @@ structured_smoke:
   routing_mode: structured
   compare_with: behavior_moe_smoke_001
 
+ple_smoke:
+  run_id: ple_tim4rec_smoke_001
+  batches: 5
+  split: train
+  full_epochs: 0
+  full_validation: false
+  full_training: false
+  variant: ple
+  compare_with:
+    - behavior_moe_smoke_001
+    - structured_behavior_moe_smoke_001
+
 sanity:
   run_id: behavior_moe_sanity_001
   epochs: 5
@@ -95,6 +107,48 @@ architecture:
       is_profile_enter:
         - engagement
         - shared
+  ple_tim4rec:
+    canonical_name: CGC-1level PLE-style baseline
+    model_name: PLETiM4Rec
+    extraction_levels: 1
+    shared_experts: 2
+    specific_experts_per_task: 1
+    expert_hidden_size: 37
+    expert_dropout: 0.08565706719893162
+    router_temperature: 1.0
+    load_balance_weight: 0.0
+    residual: false
+    task_specific_experts:
+      rank: ranking_specific
+      is_click: click_specific
+      long_view: long_view_specific
+      is_like: like_specific
+      is_profile_enter: profile_specific
+    shared_expert_names:
+      - shared_0
+      - shared_1
+    gate_input: shared TiM4Rec representation h
+    task_gate_access:
+      rank:
+        - ranking_specific
+        - shared_0
+        - shared_1
+      is_click:
+        - click_specific
+        - shared_0
+        - shared_1
+      long_view:
+        - long_view_specific
+        - shared_0
+        - shared_1
+      is_like:
+        - like_specific
+        - shared_0
+        - shared_1
+      is_profile_enter:
+        - profile_specific
+        - shared_0
+        - shared_1
   load_balance:
     prepared: true
     enabled: false
@@ -120,6 +174,36 @@ structured_experts:
   consumption: long_view
   engagement: is_like + is_profile_enter
   shared: residual/general expert
+
+ple_experts:
+  ranking_specific: rank
+  click_specific: is_click
+  long_view_specific: long_view
+  like_specific: is_like
+  profile_specific: is_profile_enter
+  shared_0: shared task-common expert
+  shared_1: shared task-common expert
+
+ple_sanity:
+  run_id: ple_tim4rec_sanity_001
+  epochs: 5
+  split: validation
+  evaluation: full_7111_items
+  training_data: full_train
+  train_subset: false
+  early_stopping: false
+  full_training_after_sanity: false
+  optuna: false
+  test:
+    load_dataset: false
+    create_dataloader: false
+    evaluate: false
+    evaluation_count: 0
+  routing_diagnostic:
+    split: validation
+    fixed_order: true
+    batches: 5
+    examples: 8
 
 loss_policy:
   source: multitask_tim4rec_optuna_v1 trial 110 / best_params.yaml

@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-"""5-epoch validation sanity training for plain Behavior-MoE TiM4Rec."""
+"""5-epoch validation sanity training for Behavior-MoE/PLE TiM4Rec variants."""
 
 from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import importlib.metadata
 import json
 import math
@@ -36,11 +35,14 @@ if str(UPSTREAM_DIR) not in sys.path:
 
 from tim4rec import TiM4Rec  # noqa: E402
 from experiments.behavior_moe_tim4rec.model import (  # noqa: E402
-    EXPERTS,
+    PLE_SHARED_EXPERTS,
+    PLE_SPECIFIC_EXPERTS,
+    PLETiM4Rec,
     ROUTING_TASKS,
     BehaviorMoETiM4Rec,
 )
 from experiments.behavior_moe_tim4rec.smoke_test import (  # noqa: E402
+    TASK_DISPLAY_ORDER,
     TASK_LABELS,
     count_by_group,
 )
@@ -55,7 +57,6 @@ from experiments.multitask_tim4rec.train import (  # noqa: E402
     evaluate_full_sort_with_checks,
     first_batch,
     load_json,
-    load_target_stats,
     metric_subset,
     sha256_file,
     tensor_to_float,
@@ -77,8 +78,10 @@ from experiments.multitask_tim4rec_optuna.run_locked_tuned import sampled_from_l
 
 
 RUN_ID = "behavior_moe_sanity_001"
+PLE_RUN_ID = "ple_tim4rec_sanity_001"
 DEFAULT_REMOTE_ROOT = Path("/home/daryumin/iberdov/diplom/experiments/behavior_moe_tim4rec")
 SMOKE_RUN = ROOT / "experiments" / "behavior_moe_tim4rec" / "runs" / "behavior_moe_smoke_001.json"
+PLE_SMOKE_RUN = ROOT / "experiments" / "behavior_moe_tim4rec" / "runs" / "ple_tim4rec_smoke_001.json"
 REFERENCE_RUNS = {
     "tim4rec_sanity_001": ROOT / "experiments" / "tim4rec_baseline" / "runs" / "tim4rec_sanity_001.json",
     "multitask_tim4rec_sanity_001": ROOT
@@ -91,6 +94,11 @@ REFERENCE_RUNS = {
     / "multitask_tim4rec_optuna"
     / "runs"
     / "multitask_tim4rec_tuned_001.json",
+    "behavior_moe_sanity_001": ROOT
+    / "experiments"
+    / "behavior_moe_tim4rec"
+    / "runs"
+    / "behavior_moe_sanity_001.json",
 }
 ROUTING_PAIRS = (
     ("ranking", "click"),
@@ -120,6 +128,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--diagnostic-epochs", default="1,3,5")
     parser.add_argument("--routing-diagnostic-batches", type=int, default=5)
     parser.add_argument("--routing-example-limit", type=int, default=8)
+    parser.add_argument("--variant", choices=("behavior_moe", "ple"), default=None)
     parser.add_argument("--allow-overwrite", action="store_true")
     return parser.parse_args()
 
@@ -232,6 +241,36 @@ def run_paths(args: argparse.Namespace) -> tuple[Path, Path, Path, Path]:
     return artifact_dir, result_json, notes, routing_csv
 
 
+def resolve_variant(args: argparse.Namespace, behavior_config: dict[str, Any]) -> dict[str, Any]:
+    variant = args.variant
+    if variant is None:
+        variant = "ple" if args.run_id == PLE_RUN_ID else "behavior_moe"
+    if variant == "ple":
+        run_id = args.run_id if args.run_id != RUN_ID else PLE_RUN_ID
+        return {
+            "variant": "ple",
+            "run_id": run_id,
+            "model_name": "PLETiM4Rec",
+            "model_cls": PLETiM4Rec,
+            "config_key": "ple_tim4rec",
+            "model_config": dict(behavior_config["architecture"]["ple_tim4rec"]),
+            "smoke_path": PLE_SMOKE_RUN,
+            "required_smoke_run_id": "ple_tim4rec_smoke_001",
+        }
+    if args.run_id not in {RUN_ID, PLE_RUN_ID}:
+        raise RuntimeError(f"Unsupported sanity run_id={args.run_id}")
+    return {
+        "variant": "behavior_moe",
+        "run_id": RUN_ID,
+        "model_name": "BehaviorMoETiM4Rec",
+        "model_cls": BehaviorMoETiM4Rec,
+        "config_key": "behavior_moe",
+        "model_config": dict(behavior_config["architecture"]["behavior_moe"]),
+        "smoke_path": SMOKE_RUN,
+        "required_smoke_run_id": "behavior_moe_smoke_001",
+    }
+
+
 def parse_diagnostic_epochs(value: str) -> set[int]:
     epochs = {int(part.strip()) for part in value.split(",") if part.strip()}
     if not epochs:
@@ -243,13 +282,15 @@ def build_behavior_config(
     optuna_config: dict[str, Any],
     artifact_dir: Path,
     sampled: dict[str, Any],
-    moe_config: dict[str, Any],
+    model_config: dict[str, Any],
     epochs: int,
+    model_cls: type[Any],
+    config_key: str,
 ) -> Config:
     overrides = recbole_overrides(optuna_config, artifact_dir / "recbole", sampled)
     overrides.update(
         {
-            "behavior_moe": moe_config,
+            config_key: model_config,
             "epochs": int(epochs),
             "stopping_step": int(epochs) + 1,
             "final_test_evaluation_count": 0,
@@ -262,7 +303,7 @@ def build_behavior_config(
         }
     )
     return Config(
-        model=BehaviorMoETiM4Rec,
+        model=model_cls,
         config_file_list=[str(project_path(optuna_config["source"]["base_config"]))],
         config_dict=overrides,
     )
@@ -289,7 +330,7 @@ def float_losses(losses: dict[str, torch.Tensor]) -> dict[str, float]:
 
 
 def train_one_epoch_behavior(
-    model: BehaviorMoETiM4Rec,
+    model: Any,
     optimizer: torch.optim.Optimizer,
     train_data: Any,
     device: torch.device,
@@ -380,7 +421,7 @@ def module_gradient_norms(modules: torch.nn.ModuleDict) -> dict[str, dict[str, A
 
 
 def fixed_gradient_diagnostic(
-    model: BehaviorMoETiM4Rec,
+    model: Any,
     interaction: Any,
     sampled: dict[str, Any],
     pos_weights: dict[str, torch.Tensor],
@@ -425,9 +466,28 @@ def js_divergence(left: torch.Tensor, right: torch.Tensor) -> float:
     return float((0.5 * (kl_left + kl_right)).cpu().item())
 
 
-def task_distances(mean_probs: dict[str, dict[str, float]]) -> list[dict[str, Any]]:
+def shared_expert_names(expert_names: tuple[str, ...]) -> tuple[str, ...]:
+    if any(name.startswith("shared_") for name in expert_names):
+        return tuple(name for name in expert_names if name.startswith("shared_"))
+    return tuple(name for name in expert_names if name == "shared")
+
+
+def specific_expert_for_task(task: str, expert_names: tuple[str, ...]) -> str | None:
+    if "ranking_specific" in expert_names:
+        return {
+            "ranking": "ranking_specific",
+            "click": "click_specific",
+            "long_view": "long_view_specific",
+            "like": "like_specific",
+            "profile": "profile_specific",
+        }[task]
+    expected = SEMANTIC_EXPECTATIONS.get(task)
+    return expected if expected in expert_names else None
+
+
+def task_distances(mean_probs: dict[str, dict[str, float]], expert_names: tuple[str, ...]) -> list[dict[str, Any]]:
     vectors = {
-        task: torch.tensor([values[expert] for expert in EXPERTS], dtype=torch.float64)
+        task: torch.tensor([values[expert] for expert in expert_names], dtype=torch.float64)
         for task, values in mean_probs.items()
     }
     rows = []
@@ -461,7 +521,7 @@ def task_distances(mean_probs: dict[str, dict[str, float]]) -> list[dict[str, An
 
 @torch.no_grad()
 def routing_diagnostics(
-    model: BehaviorMoETiM4Rec,
+    model: Any,
     valid_data: Any,
     max_batches: int,
     example_limit: int,
@@ -469,7 +529,8 @@ def routing_diagnostics(
     was_training = model.training
     model.eval()
     device = next(model.parameters()).device
-    expert_count = len(EXPERTS)
+    expert_names = tuple(model.expert_names)
+    expert_count = len(expert_names)
     log_experts = math.log(expert_count)
     prob_sums = {task: torch.zeros(expert_count, device=device) for task in ROUTING_TASKS}
     entropy_sums = {task: 0.0 for task in ROUTING_TASKS}
@@ -494,7 +555,7 @@ def routing_diagnostics(
             record["routing"] = {
                 TASK_LABELS[task]: {
                     expert: float(weights[task][local_idx, expert_idx].detach().cpu().item())
-                    for expert_idx, expert in enumerate(EXPERTS)
+                    for expert_idx, expert in enumerate(expert_names)
                 }
                 for task in ROUTING_TASKS
             }
@@ -508,7 +569,7 @@ def routing_diagnostics(
     mean_probs = {
         TASK_LABELS[task]: {
             expert: float((prob_sums[task] / rows)[idx].detach().cpu().item())
-            for idx, expert in enumerate(EXPERTS)
+            for idx, expert in enumerate(expert_names)
         }
         for task in ROUTING_TASKS
     }
@@ -524,9 +585,22 @@ def routing_diagnostics(
     }
     global_usage = {
         expert: sum(mean_probs[TASK_LABELS[task]][expert] for task in ROUTING_TASKS) / len(ROUTING_TASKS)
-        for expert in EXPERTS
+        for expert in expert_names
     }
-    distances = task_distances(mean_probs)
+    shared_names = shared_expert_names(expert_names)
+    shared_total_by_task = {
+        TASK_LABELS[task]: sum(mean_probs[TASK_LABELS[task]][expert] for expert in shared_names)
+        for task in ROUTING_TASKS
+    }
+    specific_share_by_task = {
+        TASK_LABELS[task]: (
+            mean_probs[TASK_LABELS[task]].get(specific_expert_for_task(TASK_LABELS[task], expert_names), 0.0)
+            if specific_expert_for_task(TASK_LABELS[task], expert_names)
+            else None
+        )
+        for task in ROUTING_TASKS
+    }
+    distances = task_distances(mean_probs, expert_names)
     collapse = {
         "thresholds": {
             "expert_collapse_global_max_gt": 0.90,
@@ -536,12 +610,24 @@ def routing_diagnostics(
         },
         "expert_collapse": max(global_usage.values()) > 0.90,
         "dead_expert": min(global_usage.values()) < 0.01,
-        "shared_expert_domination": global_usage["shared"] > 0.70,
+        "shared_expert_domination": sum(global_usage[expert] for expert in shared_names) > 0.70,
+        "all_auxiliary_shared_domination": all(
+            shared_total_by_task[task] > 0.90
+            for task in ("click", "long_view", "like", "profile")
+        ),
+        "all_task_specific_domination": (
+            model.routing_mode == "ple"
+            and all((specific_share_by_task[task] or 0.0) > 0.90 for task in TASK_DISPLAY_ORDER)
+        ),
         "all_task_same_routing": (max(item["l1"] for item in distances) if distances else 0.0) < 0.001,
         "minimum_experts_used_per_task": min(item["experts_above_5pct"] for item in entropy.values()),
     }
     semantic = {}
-    for task, expected_expert in SEMANTIC_EXPECTATIONS.items():
+    semantic_tasks = TASK_DISPLAY_ORDER if model.routing_mode == "ple" else tuple(SEMANTIC_EXPECTATIONS)
+    for task in semantic_tasks:
+        expected_expert = specific_expert_for_task(task, expert_names)
+        if expected_expert is None:
+            continue
         values = mean_probs[task]
         top_expert = max(values, key=values.get)
         semantic[task] = {
@@ -553,21 +639,28 @@ def routing_diagnostics(
             "gap_expected_minus_mean_other": values[expected_expert]
             - (sum(value for expert, value in values.items() if expert != expected_expert) / (len(values) - 1)),
         }
-    rank_values = mean_probs["ranking"]
-    rank_top = max(rank_values, key=rank_values.get)
-    semantic["ranking"] = {
-        "top_expert": rank_top,
-        "top_share": rank_values[rank_top],
-        "mixture": max(rank_values.values()) < 0.50,
-    }
+    if model.routing_mode != "ple":
+        rank_values = mean_probs["ranking"]
+        rank_top = max(rank_values, key=rank_values.get)
+        semantic["ranking"] = {
+            "top_expert": rank_top,
+            "top_share": rank_values[rank_top],
+            "mixture": max(rank_values.values()) < 0.50,
+        }
     model.train(was_training)
     return {
         "batches": batches,
         "rows": rows,
-        "experts": list(EXPERTS),
+        "experts": list(expert_names),
+        "allowed_experts": {
+            TASK_LABELS[task]: list(model.allowed_experts[task])
+            for task in ROUTING_TASKS
+        },
         "mean_probabilities": mean_probs,
         "entropy": entropy,
         "global_expert_utilization": global_usage,
+        "shared_total_by_task": shared_total_by_task,
+        "specific_share_by_task": specific_share_by_task,
         "task_routing_distances": distances,
         "required_task_routing_distances": [
             item for item in distances if item["required_pair"]
@@ -589,6 +682,10 @@ def write_routing_csv(path: Path, epochs: list[dict[str, Any]]) -> None:
                 "task",
                 "expert",
                 "mean_probability",
+                "specific_share",
+                "total_shared_share",
+                "uniform_specific_baseline",
+                "specific_above_uniform",
                 "mean_entropy",
                 "normalized_entropy",
                 "global_expert_utilization",
@@ -599,6 +696,10 @@ def write_routing_csv(path: Path, epochs: list[dict[str, Any]]) -> None:
         for epoch in epochs:
             routing = epoch["routing"]
             for task, values in routing["mean_probabilities"].items():
+                specific_share = routing.get("specific_share_by_task", {}).get(task)
+                total_shared_share = routing.get("shared_total_by_task", {}).get(task)
+                allowed_count = len(routing.get("allowed_experts", {}).get(task, values))
+                uniform_specific = 1.0 / allowed_count if allowed_count else None
                 for expert, probability in values.items():
                     writer.writerow(
                         {
@@ -606,6 +707,12 @@ def write_routing_csv(path: Path, epochs: list[dict[str, Any]]) -> None:
                             "task": task,
                             "expert": expert,
                             "mean_probability": probability,
+                            "specific_share": specific_share,
+                            "total_shared_share": total_shared_share,
+                            "uniform_specific_baseline": uniform_specific,
+                            "specific_above_uniform": None
+                            if specific_share is None or uniform_specific is None
+                            else specific_share - uniform_specific,
                             "mean_entropy": routing["entropy"][task]["mean_entropy"],
                             "normalized_entropy": routing["entropy"][task]["normalized_entropy"],
                             "global_expert_utilization": routing["global_expert_utilization"][expert],
@@ -649,7 +756,7 @@ def load_reference_metrics() -> dict[str, Any]:
     }
 
 
-def parameter_count_summary(config: Config, train_dataset: Any, behavior_model: BehaviorMoETiM4Rec) -> dict[str, Any]:
+def parameter_count_summary(config: Config, train_dataset: Any, behavior_model: Any) -> dict[str, Any]:
     device = config["device"]
     base_model = TiM4Rec(config, train_dataset).to(device)
     multitask_model = MultitaskTiM4Rec(config, train_dataset).to(device)
@@ -664,6 +771,8 @@ def parameter_count_summary(config: Config, train_dataset: Any, behavior_model: 
         "tuned_multitask": multitask,
         "behavior_moe": behavior,
         "behavior_moe_groups": groups,
+        "ple_tim4rec": behavior if getattr(behavior_model, "routing_mode", "") == "ple" else None,
+        "ple_tim4rec_groups": groups if getattr(behavior_model, "routing_mode", "") == "ple" else None,
         "delta_vs_tuned_multitask": int(behavior["total"] - multitask["total"]),
         "relative_increase_vs_tuned_multitask_pct": (behavior["total"] - multitask["total"]) / multitask["total"] * 100.0,
     }
@@ -685,21 +794,30 @@ def fmt(value: float | int | None, digits: int = 4) -> str:
 
 def build_notes(result: dict[str, Any]) -> str:
     final_epoch = result["epochs"][-1]
-    best = result["best_validation"]
+    model_name = result["model_name"]
+    title = "# PLE TiM4Rec sanity 001" if model_name == "PLETiM4Rec" else "# Behavior-MoE TiM4Rec sanity 001"
+    goal = (
+        "Проверить 5-epoch trajectory для one-level CGC/PLE-style baseline без load balancing, Optuna, изменения backbone и доступа к test."
+        if model_name == "PLETiM4Rec"
+        else "Проверить 5-epoch trajectory для plain Behavior-MoE без load balancing, Optuna, изменения backbone и доступа к test."
+    )
+    experts = result["architecture"]["experts"]
+    behavior_config = result["architecture"].get("behavior_moe") or {}
+    residual_scale = behavior_config.get("residual_scale", "n/a")
     lines = [
-        "# Behavior-MoE TiM4Rec sanity 001",
+        title,
         "",
         "## Цель",
         "",
-        "Проверить 5-epoch trajectory для plain Behavior-MoE без load balancing, Optuna, изменения backbone и доступа к test.",
+        goal,
         "",
         "## Архитектура",
         "",
-        f"- Experts: `{', '.join(result['architecture']['experts'])}`.",
+        f"- Experts: `{', '.join(experts)}`.",
         f"- Router: `{result['architecture']['router']}`.",
         f"- Residual: `{result['architecture']['residual']}`.",
         f"- Load balancing: `{result['architecture']['load_balance']['enabled']}`.",
-        f"- Residual scale: `{result['architecture']['behavior_moe']['residual_scale']}` fixed.",
+        f"- Residual scale: `{residual_scale}`.",
         "",
         "## Данные",
         "",
@@ -757,15 +875,12 @@ def build_notes(result: dict[str, Any]) -> str:
         lines += [
             f"Epoch {epoch['epoch']}:",
             "",
-            "| task | interest | consumption | positive | shared |",
-            "|---|---:|---:|---:|---:|",
+            "| task | " + " | ".join(experts) + " |",
+            "|---|" + "|".join("---:" for _ in experts) + "|",
         ]
         for task in ("ranking", "click", "long_view", "like", "profile"):
             values = epoch["routing"]["mean_probabilities"][task]
-            lines.append(
-                f"| {task} | {values['interest']:.4f} | {values['consumption']:.4f} | "
-                f"{values['positive']:.4f} | {values['shared']:.4f} |"
-            )
+            lines.append("| " + task + " | " + " | ".join(f"{values[expert]:.4f}" for expert in experts) + " |")
         lines.append("")
     lines += [
         "## Entropy",
@@ -784,17 +899,34 @@ def build_notes(result: dict[str, Any]) -> str:
         "",
         "## Expert utilization",
         "",
-        "| epoch | interest | consumption | positive | shared | collapse | dead expert | shared domination |",
-        "|---:|---:|---:|---:|---:|---|---|---|",
+        "| epoch | " + " | ".join(experts) + " | collapse | dead expert | shared domination |",
+        "|---:|" + "|".join("---:" for _ in experts) + "|---|---|---|",
     ]
     for epoch in result["epochs"]:
         util = epoch["routing"]["global_expert_utilization"]
         collapse = epoch["routing"]["collapse_checks"]
         lines.append(
-            f"| {epoch['epoch']} | {util['interest']:.4f} | {util['consumption']:.4f} | "
-            f"{util['positive']:.4f} | {util['shared']:.4f} | `{collapse['expert_collapse']}` | "
-            f"`{collapse['dead_expert']}` | `{collapse['shared_expert_domination']}` |"
+            f"| {epoch['epoch']} | "
+            + " | ".join(f"{util[expert]:.4f}" for expert in experts)
+            + f" | `{collapse['expert_collapse']}` | `{collapse['dead_expert']}` | `{collapse['shared_expert_domination']}` |"
         )
+    if model_name == "PLETiM4Rec":
+        lines += [
+            "",
+            "## PLE specific/shared trajectory",
+            "",
+            "| epoch | task | specific_share | total_shared_share | entropy |",
+            "|---:|---|---:|---:|---:|",
+        ]
+        for epoch in result["epochs"]:
+            routing = epoch["routing"]
+            for task in ("ranking", "click", "long_view", "like", "profile"):
+                lines.append(
+                    f"| {epoch['epoch']} | {task} | "
+                    f"{routing['specific_share_by_task'][task]:.4f} | "
+                    f"{routing['shared_total_by_task'][task]:.4f} | "
+                    f"{routing['entropy'][task]['normalized_entropy']:.4f} |"
+                )
     lines += [
         "",
         "## Specialization",
@@ -804,6 +936,16 @@ def build_notes(result: dict[str, Any]) -> str:
         f"L1 `{final_epoch['routing']['strongest_task_difference']['l1']:.6f}`.",
         f"- Specialization L1 trend: `{result['specialization']['mean_required_pair_l1_by_epoch']}`.",
         f"- Semantic matches at epoch 5: `{result['specialization']['epoch5_semantic_matches']}`.",
+    ]
+    if model_name == "PLETiM4Rec":
+        lines.extend(
+            [
+                f"- Mean specific share trend: `{result['specialization']['mean_specific_share_by_epoch']}`.",
+                f"- Uniform specific baseline: `{result['specialization']['mean_uniform_specific_share_baseline']:.4f}`.",
+                f"- Epoch 5 specific above uniform by task: `{result['specialization']['epoch5_specific_above_uniform_by_task']}`.",
+            ]
+        )
+    lines += [
         "",
         "## Gradient diagnostics",
         "",
@@ -824,7 +966,15 @@ def build_notes(result: dict[str, Any]) -> str:
         "| run | type | epoch | HR@10 | NDCG@10 | NDCG@20 | NDCG@50 |",
         "|---|---|---:|---:|---:|---:|---:|",
     ]
-    for run_id in ("tim4rec_sanity_001", "multitask_tim4rec_sanity_001", "behavior_moe_sanity_001", "multitask_tim4rec_tuned_001"):
+    comparison_order = [
+        "tim4rec_sanity_001",
+        "multitask_tim4rec_sanity_001",
+        "behavior_moe_sanity_001",
+    ]
+    if result["run_id"] not in comparison_order:
+        comparison_order.append(result["run_id"])
+    comparison_order.append("multitask_tim4rec_tuned_001")
+    for run_id in comparison_order:
         comp = result["baseline_comparison"][run_id]
         metrics = comp["validation_metrics"]
         lines.append(
@@ -856,13 +1006,13 @@ def build_notes(result: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def compute_specialization(epochs: list[dict[str, Any]]) -> dict[str, Any]:
+def compute_specialization(epochs: list[dict[str, Any]], routing_mode: str) -> dict[str, Any]:
     mean_required_l1 = {}
     for epoch in epochs:
         required = epoch["routing"]["required_task_routing_distances"]
         mean_required_l1[str(epoch["epoch"])] = sum(item["l1"] for item in required) / len(required)
     epoch5 = epochs[-1]["routing"]["semantic_specialization"]
-    return {
+    result = {
         "mean_required_pair_l1_by_epoch": mean_required_l1,
         "mean_required_pair_l1_delta_epoch5_minus_epoch1": mean_required_l1[str(epochs[-1]["epoch"])]
         - mean_required_l1[str(epochs[0]["epoch"])],
@@ -871,19 +1021,54 @@ def compute_specialization(epochs: list[dict[str, Any]]) -> dict[str, Any]:
             for task, details in epoch5.items()
             if task in SEMANTIC_EXPECTATIONS
         },
-        "epoch5_ranking_uses_mixture": bool(epoch5["ranking"]["mixture"]),
+        "epoch5_ranking_uses_mixture": bool(epoch5.get("ranking", {}).get("mixture", False)),
     }
+    if routing_mode == "ple":
+        specific_by_epoch = {
+            str(epoch["epoch"]): epoch["routing"]["specific_share_by_task"]
+            for epoch in epochs
+        }
+        shared_by_epoch = {
+            str(epoch["epoch"]): epoch["routing"]["shared_total_by_task"]
+            for epoch in epochs
+        }
+        mean_specific_by_epoch = {
+            epoch: sum(value for value in shares.values() if value is not None)
+            / sum(value is not None for value in shares.values())
+            for epoch, shares in specific_by_epoch.items()
+        }
+        uniform_specific = {
+            TASK_LABELS[task]: 1.0 / len(epochs[-1]["routing"]["allowed_experts"][TASK_LABELS[task]])
+            for task in ROUTING_TASKS
+        }
+        result.update(
+            {
+                "specific_share_by_epoch": specific_by_epoch,
+                "shared_total_by_epoch": shared_by_epoch,
+                "mean_specific_share_by_epoch": mean_specific_by_epoch,
+                "mean_specific_share_delta_epoch5_minus_epoch1": mean_specific_by_epoch[str(epochs[-1]["epoch"])]
+                - mean_specific_by_epoch[str(epochs[0]["epoch"])],
+                "uniform_specific_share_baseline_by_task": uniform_specific,
+                "mean_uniform_specific_share_baseline": sum(uniform_specific.values()) / len(uniform_specific),
+                "epoch5_specific_above_uniform_by_task": {
+                    task: (share or 0.0) - uniform_specific[task]
+                    for task, share in epochs[-1]["routing"]["specific_share_by_task"].items()
+                },
+            }
+        )
+    return result
 
 
 def main() -> None:
     args = parse_args()
-    if args.run_id != RUN_ID:
-        raise RuntimeError(f"This script is locked to run_id={RUN_ID}, got {args.run_id}")
     if int(args.epochs) != 5:
         raise RuntimeError(f"This sanity must run exactly 5 epochs, got {args.epochs}")
     if int(args.routing_diagnostic_batches) <= 0:
         raise RuntimeError("routing_diagnostic_batches must be positive.")
 
+    behavior_config = load_yaml(Path(args.config))
+    variant = resolve_variant(args, behavior_config)
+    args.run_id = variant["run_id"]
     artifact_dir, result_json, notes_path, routing_csv = run_paths(args)
     partial_json = result_json.with_suffix(".partial.json")
     if not args.allow_overwrite:
@@ -896,24 +1081,38 @@ def main() -> None:
 
     run_started = datetime.now(timezone.utc)
     started = time.monotonic()
-    behavior_config = load_yaml(Path(args.config))
     optuna_config = load_yaml(project_path(behavior_config["base"]["optuna_config"]))
     best_params = load_yaml(project_path(behavior_config["base"]["best_params"]))
     assert_protocol_config(optuna_config)
     summary = load_json(Path(optuna_config["validation_only_data"]["summary_json"]))
     assert_validation_only_summary(summary)
-    smoke_ref = load_json(SMOKE_RUN)
-    moe_config = behavior_config["architecture"]["behavior_moe"]
-    if smoke_ref["architecture"]["behavior_moe"] != moe_config:
-        raise RuntimeError("Behavior-MoE architecture differs from behavior_moe_smoke_001.")
-    if float(moe_config.get("load_balance_weight", 0.0)) != 0.0:
-        raise RuntimeError(f"Load balancing must stay OFF, got behavior_moe.load_balance_weight={moe_config}")
-    if bool(behavior_config["architecture"]["load_balance"]["enabled"]):
+    smoke_ref = load_json(variant["smoke_path"])
+    if smoke_ref.get("run_id") != variant["required_smoke_run_id"]:
+        raise RuntimeError(f"Unexpected smoke run id in {variant['smoke_path']}: {smoke_ref.get('run_id')}")
+    if not bool(smoke_ref.get("decision", {}).get("ready_for_5_epoch_sanity")):
+        raise RuntimeError(f"Smoke did not authorize 5-epoch sanity: {variant['smoke_path']}")
+    model_config = variant["model_config"]
+    smoke_model_config = smoke_ref.get("architecture", {}).get("model_config")
+    if smoke_model_config is None:
+        smoke_model_config = smoke_ref.get("architecture", {}).get(variant["config_key"])
+    if smoke_model_config != model_config:
+        raise RuntimeError(f"{variant['model_name']} architecture differs from smoke artifact.")
+    if float(model_config.get("load_balance_weight", 0.0)) != 0.0:
+        raise RuntimeError(f"Load balancing must stay OFF, got model_config={model_config}")
+    if bool(behavior_config["architecture"].get("load_balance", {}).get("enabled")):
         raise RuntimeError("Load balancing config must stay disabled.")
 
     data = load_data_bundle(optuna_config, artifact_dir / "data_probe")
     sampled = sampled_from_locked_params(best_params, data.target_stats)
-    config = build_behavior_config(optuna_config, artifact_dir, sampled, moe_config, int(args.epochs))
+    config = build_behavior_config(
+        optuna_config,
+        artifact_dir,
+        sampled,
+        model_config,
+        int(args.epochs),
+        variant["model_cls"],
+        variant["config_key"],
+    )
     init_seed(config["seed"] + config["local_rank"], config["reproducibility"])
     if tuple(config["multitask_targets"]) != TARGETS:
         raise RuntimeError(f"Task set changed: {config['multitask_targets']}")
@@ -933,7 +1132,7 @@ def main() -> None:
     fixed_diag_batch = first_batch(train_data, device)
 
     torch.cuda.reset_peak_memory_stats()
-    model = BehaviorMoETiM4Rec(config, train_data.dataset).to(device)
+    model = variant["model_cls"](config, train_data.dataset).to(device)
     optimizer = optimizer_for_trial(model, sampled)
     trainer = Trainer(config, model)
     trainer.optimizer = optimizer
@@ -1026,7 +1225,7 @@ def main() -> None:
         save_json(
             partial_json,
             {
-                "run_id": args.run_id,
+                "run_id": variant["run_id"],
                 "status": "partial",
                 "record_type": "sanity",
                 "epochs_completed": len(epochs),
@@ -1039,7 +1238,7 @@ def main() -> None:
         print(
             json.dumps(
                 {
-                    "run_id": args.run_id,
+                    "run_id": variant["run_id"],
                     "epoch": epoch,
                     "validation_ndcg10": metrics["NDCG@10"],
                     "validation_hr10": metrics["HR@10"],
@@ -1062,15 +1261,15 @@ def main() -> None:
 
     references = load_reference_metrics()
     behavior_epoch5_metrics = epochs[-1]["validation_metrics"]
-    references[RUN_ID] = {
-        "run_id": RUN_ID,
+    references[variant["run_id"]] = {
+        "run_id": variant["run_id"],
         "run_type": "5_epoch_sanity",
         "epoch": 5,
         "validation_metrics": behavior_epoch5_metrics,
         "train_time_sec": epochs[-1]["train_time_sec"],
         "validation_time_sec": epochs[-1]["validation_time_sec"],
     }
-    specialization = compute_specialization(epochs)
+    specialization = compute_specialization(epochs, model.routing_mode)
     final_routing = epochs[-1]["routing"]
     collapse = final_routing["collapse_checks"]
     all_grad_ok = all(
@@ -1097,6 +1296,8 @@ def main() -> None:
         not collapse["expert_collapse"]
         and not collapse["dead_expert"]
         and not collapse["shared_expert_domination"]
+        and not collapse.get("all_auxiliary_shared_domination", False)
+        and not collapse.get("all_task_specific_domination", False)
     )
     runtime_sec = time.monotonic() - started
     mean_train = sum(item["train_time_sec"] for item in epochs) / len(epochs)
@@ -1107,17 +1308,50 @@ def main() -> None:
     ref_gpu = (multitask_ref.get("gpu") or {}).get("name")
     current_gpu = gpu_info().get("name")
     hardware_differs = bool(ref_gpu and current_gpu and ref_gpu != current_gpu)
+    specialization_signal = (
+        specialization.get("mean_specific_share_delta_epoch5_minus_epoch1", 0.0) != 0.0
+        if model.routing_mode == "ple"
+        else specialization["mean_required_pair_l1_delta_epoch5_minus_epoch1"] > 0.0
+    )
     pipeline_ready = bool(
         ndcg_growth
         and ranking_not_crashed
         and no_collapse
         and all_grad_ok
         and aux_not_catastrophic
-        and specialization["mean_required_pair_l1_delta_epoch5_minus_epoch1"] > 0.0
+        and specialization_signal
     )
+    if model.routing_mode == "ple":
+        expert_semantics = {
+            "ranking_specific": "rank",
+            "click_specific": "is_click",
+            "long_view_specific": "long_view",
+            "like_specific": "is_like",
+            "profile_specific": "is_profile_enter",
+            "shared_0": "shared task-common expert",
+            "shared_1": "shared task-common expert",
+        }
+        expert_mlp = (
+            f"Linear(hidden, {model_config.get('expert_hidden_size')}) -> GELU -> Dropout -> "
+            f"Linear({model_config.get('expert_hidden_size')}, hidden)"
+        )
+        router_description = "one gate per task over [own task-specific expert, shared_0, shared_1]"
+        residual_description = "none; h_task = sum_e p(task,e|h) * expert_e(h)"
+        cost_label = "PLETiM4Rec"
+    else:
+        expert_semantics = {
+            "interest": "is_click",
+            "consumption": "long_view",
+            "positive": "is_like + is_profile_enter",
+            "shared": "residual/general",
+        }
+        expert_mlp = "Linear(hidden, hidden) -> GELU -> Dropout -> Linear(hidden, hidden)"
+        router_description = "separate learned Linear(hidden, 4) router head per task; softmax(logits / temperature)"
+        residual_description = "h_task = h + residual_scale * sum_e p(task,e|h) * expert_e(h)"
+        cost_label = "Behavior-MoE"
 
     result: dict[str, Any] = {
-        "run_id": args.run_id,
+        "run_id": variant["run_id"],
         "status": "completed" if pipeline_ready else "completed_with_warnings",
         "record_type": "sanity",
         "execution_status": "completed",
@@ -1129,7 +1363,7 @@ def main() -> None:
             "commit": git_value(["rev-parse", "HEAD"]),
             "branch": git_value(["rev-parse", "--abbrev-ref", "HEAD"]),
             "remote": git_value(["config", "--get", "remote.origin.url"]),
-            "expected_start_commit": "924f18d759fdcdf656300f24758b4f376fb16e8d",
+            "expected_start_commit": "7132fa9aaf1bbdac1d0178bca654f6e59ef53c2a",
         },
         "source_files": source_hashes(),
         "environment": environment_info(),
@@ -1145,7 +1379,7 @@ def main() -> None:
         "artifact_dir": str(artifact_dir),
         "base_model": "MultitaskTiM4Rec",
         "base_run": "multitask_tim4rec_tuned_001",
-        "model_name": "BehaviorMoETiM4Rec",
+        "model_name": variant["model_name"],
         "dataset": {
             "name": "KuaiRand",
             "protocol": "B",
@@ -1171,21 +1405,24 @@ def main() -> None:
         },
         "test_evaluation_count": 0,
         "architecture": {
-            "experts": list(EXPERTS),
-            "expert_semantics": {
-                "interest": "is_click",
-                "consumption": "long_view",
-                "positive": "is_like + is_profile_enter",
-                "shared": "residual/general",
-            },
-            "expert_mlp": "Linear(hidden, hidden) -> GELU -> Dropout -> Linear(hidden, hidden)",
-            "router": "separate learned Linear(hidden, 4) router head per task; softmax(logits / temperature)",
+            "routing_mode": model.routing_mode,
+            "experts": list(model.expert_names),
+            "expert_semantics": expert_semantics,
+            "expert_mlp": expert_mlp,
+            "router": router_description,
             "task_conditioned_routing": {
                 "tasks": [TASK_LABELS[task] for task in ROUTING_TASKS],
                 "current_behavior_labels_used_as_router_input": False,
             },
-            "residual": "h_task = h + residual_scale * sum_e p(task,e|h) * expert_e(h)",
-            "behavior_moe": moe_config,
+            "residual": residual_description,
+            "model_config_key": variant["config_key"],
+            "model_config": model_config,
+            "behavior_moe": model_config if variant["config_key"] == "behavior_moe" else None,
+            "ple_tim4rec": model_config if variant["config_key"] == "ple_tim4rec" else None,
+            "ple_reference": {
+                "specific_experts": dict(PLE_SPECIFIC_EXPERTS),
+                "shared_experts": list(PLE_SHARED_EXPERTS),
+            },
             "load_balance": behavior_config["architecture"]["load_balance"] | {"runtime_weight": load_balance_weight},
         },
         "training_config": {
@@ -1259,6 +1496,10 @@ def main() -> None:
             "delta_epoch5_ndcg10_vs_tim4rec_sanity": epochs[-1]["validation_metrics"]["NDCG@10"]
             - references["tim4rec_sanity_001"]["validation_metrics"]["NDCG@10"],
             "delta_epoch5_ndcg10_vs_multitask_sanity": delta_vs_multitask,
+            "delta_epoch5_ndcg10_vs_behavior_moe_sanity": epochs[-1]["validation_metrics"]["NDCG@10"]
+            - references["behavior_moe_sanity_001"]["validation_metrics"]["NDCG@10"]
+            if "behavior_moe_sanity_001" in references and variant["run_id"] != "behavior_moe_sanity_001"
+            else None,
             "delta_best_ndcg10_vs_tuned_full_validation_reference": best_score
             - references["multitask_tim4rec_tuned_001"]["validation_metrics"]["NDCG@10"],
             "comparison_policy": "Главное сравнение sanity-to-sanity: epoch 5 vs epoch 5. Tuned fixed reference является full-budget validation reference.",
@@ -1274,7 +1515,7 @@ def main() -> None:
             "multitask_sanity_epoch5_train_time_sec": ref_train_time,
             "runtime_overhead_vs_multitask_sanity_epoch5_train_time": runtime_overhead,
             "hardware_differs_from_multitask_sanity": hardware_differs,
-            "hardware_note": f"Behavior-MoE GPU={current_gpu}; Multitask sanity GPU={ref_gpu}.",
+            "hardware_note": f"{cost_label} GPU={current_gpu}; Multitask sanity GPU={ref_gpu}.",
         },
         "risk_checks": {
             "training_stable": True,
@@ -1283,6 +1524,8 @@ def main() -> None:
             "router_collapse": collapse["expert_collapse"],
             "dead_expert": collapse["dead_expert"],
             "shared_expert_domination": collapse["shared_expert_domination"],
+            "all_auxiliary_shared_domination": collapse.get("all_auxiliary_shared_domination", False),
+            "all_task_specific_domination": collapse.get("all_task_specific_domination", False),
             "all_task_same_routing": collapse["all_task_same_routing"],
             "all_experts_and_routers_receive_gradients": all_grad_ok,
             "auxiliary_not_catastrophic": aux_not_catastrophic,
@@ -1290,14 +1533,21 @@ def main() -> None:
         },
         "decision": {
             "pipeline_ready_for_full_run": pipeline_ready,
+            "improves_5_epoch_ranking_vs_multitask_sanity": delta_vs_multitask > 0.0,
             "behavior_moe_improves_5_epoch_ranking_vs_multitask_sanity": delta_vs_multitask > 0.0,
-            "real_task_specialization_observed": specialization["mean_required_pair_l1_delta_epoch5_minus_epoch1"] > 0.0,
+            "real_task_specialization_observed": specialization_signal,
             "load_balancing_regularizer_needed_now": False,
-            "recommended_next_step": "full plain Behavior-MoE"
-            if pipeline_ready and not collapse["expert_collapse"]
-            else "analyze routing architecture before full run",
+            "recommended_next_step": (
+                "stop after 5-epoch PLE sanity; use as baseline before a novel modification"
+                if model.routing_mode == "ple"
+                else "full plain Behavior-MoE"
+                if pipeline_ready and not collapse["expert_collapse"]
+                else "analyze routing architecture before full run"
+            ),
             "summary": (
-                "5-epoch sanity прошёл стабильно: можно переходить к full plain Behavior-MoE без load balancing."
+                "PLE sanity завершён: это baseline, после 5 epochs остановиться без full training/Optuna/test."
+                if model.routing_mode == "ple"
+                else "5-epoch sanity прошёл стабильно: можно переходить к full plain Behavior-MoE без load balancing."
                 if pipeline_ready
                 else "5-epoch sanity завершён, но есть предупреждения; full run лучше не запускать до анализа trajectory."
             ),

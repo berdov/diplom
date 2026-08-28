@@ -379,6 +379,84 @@ Compute smoke cost on A100 for structured: raw mean step `0.1285s`, trimmed mean
 
 Decision: structured routing is technically correct, but not yet ready for 5-epoch sanity. The reason is not a pipeline failure: forward/backward/optimizer, gradients, updates, masks and test safety are correct. The issue is diagnostic: `average_specialist_share=0.4986` is slightly below the structural uniform baseline `0.5`, so this smoke does not yet show a specialist preference beyond the mask itself. Before a 5-epoch sanity, the better next step is to compare against a proper PLE-style baseline or add a small structured-initialization/regularization ablation, still without claiming novelty from the PLE/CGC-like masking alone.
 
+## PLE baseline
+
+Аудит выполнен по первичной статье Tang et al., RecSys 2020, DOI `10.1145/3383313.3412236`, и MMoE Ma et al., KDD 2018, DOI `10.1145/3219819.3220007`. Авторский официальный PLE repository в доступных источниках не найден; публичные реализации вроде DeepCTR используются только как sanity reference для общей схемы, не как первоисточник.
+
+### Что фиксирует первоисточник PLE/CGC
+
+Shared-bottom / hard parameter sharing даёт всем задачам один общий нижний слой и task towers сверху. Это уменьшает число параметров, но может усиливать negative transfer, потому что разные objectives вынуждены использовать одну и ту же shared representation.
+
+MMoE заменяет single shared-bottom на набор shared experts и отдельный gate для каждой task. Все experts в MMoE общие: каждая task может выбрать любую смесь experts. Это уже sample-dependent routing, но без явного понятия task-specific expert.
+
+CGC вводит явное разделение:
+
+- shared experts отвечают за task-common patterns;
+- task-specific experts доступны только своей task;
+- gate каждой task выбирает смесь из `own task-specific experts + shared experts`;
+- параметры shared experts получают gradients от всех tasks;
+- параметры task-specific experts получают gradients только от своей task.
+
+PLE обобщает CGC на несколько extraction networks. На промежуточных уровнях кроме task gates появляется shared gate: shared module смешивает все shared и task-specific experts текущего уровня и передаёт общий сигнал на следующий extraction level. В верхних уровнях separation становится сильнее, поэтому authors называют это progressive separation routing.
+
+### Чем это отличается от StructuredBehaviorMoE
+
+`StructuredBehaviorMoE` был diagnostic probe с четырьмя вручную заданными semantic experts (`interest`, `consumption`, `engagement`, `shared`) и hard masks по behavior groups. В нём `ranking` видит все experts, а некоторые behavior tasks делят один grouped specialist, например `is_like` и `is_profile_enter` оба используют `engagement`.
+
+PLE/CGC baseline устроен иначе:
+
+- у каждой task есть свой private task-specific expert, включая `ranking`;
+- behavior tasks не делят один grouped specialist;
+- каждая task gate выбирает только из своего private expert и shared experts;
+- нет handcrafted behavior masks поверх общего 4-expert пространства;
+- нет residual `h + adapter`, потому что формула CGC/PLE задаёт task representation как weighted sum выбранных expert outputs;
+- one-level вариант не использует shared gate, потому что shared output нужен для следующего extraction level, которого в CGC-1level нет.
+
+### Реализованный baseline
+
+Реализация называется `PLETiM4Rec`, но методологически это минимальный one-level CGC / PLE-style baseline поверх tuned TiM4Rec representation:
+
+```text
+history + time
+  -> TiM4Rec backbone
+  -> shared representation h
+  -> experts:
+       ranking_specific
+       click_specific
+       long_view_specific
+       like_specific
+       profile_specific
+       shared_0
+       shared_1
+  -> task gate k over [k_specific, shared_0, shared_1]
+  -> task representation g_k(h)
+  -> ranking score / behavior heads
+```
+
+Gate input - только shared TiM4Rec representation `h`; current labels не используются. Loss, Protocol B, targets, task weights, pos-weight policy, learning rate, weight decay, dropout и head LR multiplier сохранены из tuned fixed MultitaskTiM4Rec trial `110`.
+
+Capacity control: прямой вариант `5 specific + 2 shared` с `hidden_size=64` дал бы существенно больше параметров, чем Behavior-MoE. Поэтому expert MLP оставлен того же типа, но с bottleneck `expert_hidden_size=37`:
+
+```text
+Linear(64, 37) -> GELU -> Dropout -> Linear(37, 64)
+```
+
+Так PLE overhead остаётся того же порядка, что generic/structured Behavior-MoE: 7 experts и 5 gates почти parameter-matched с 4 full-size experts и 5 gates у Behavior-MoE. Это capacity-control decision, а не новая архитектурная идея.
+
+### Диагностика PLE
+
+Для PLE старый `average_specialist_share` из `StructuredBehaviorMoE` напрямую не используется. Основной diagnostic:
+
+```text
+specific_share(task) = p(task_specific_expert | h)
+shared_total_share(task) = p(shared_0 | h) + p(shared_1 | h)
+mean_specific_share = mean_task specific_share(task)
+```
+
+При `1 specific + 2 shared` uniform baseline для каждой task равен `1/3`. Сравнение specific share идёт с этим baseline. Дополнительно фиксируются entropy, gradients, updates, collapse на shared-only и own-only режимы, parameter count, step time, peak VRAM и test safety.
+
+PLE baseline не является нашей новизной. Его задача - честно проверить, объясняет ли классический shared/specific gating эффект, который мы хотели получить от behavior-specialized MoE.
+
 ## Источники related work
 
 - HM2Rec: https://ojs.aaai.org/index.php/AAAI/article/view/38567
@@ -388,6 +466,7 @@ Decision: structured routing is technically correct, but not yet ready for 5-epo
 - FAME: https://arxiv.org/abs/2411.01457
 - MMoE: https://www.kdd.org/kdd2018/accepted-papers/view/modeling-task-relationships-in-multi-task-learning-with-multi-gate-mixture-
 - PLE/CGC: https://dl.acm.org/doi/10.1145/3383313.3412236
+- DeepCTR PLE implementation, third-party reference only: https://deepctr-doc.readthedocs.io/en/latest/_modules/deepctr/models/multitask/ple.html
 - Multi-behavior SR survey: https://www.sciengine.com/doi/10.1007/s11432-024-4568-7
 - HyMoERec shared/specialized sequential MoE: https://arxiv.org/abs/2511.06388
 - MEMBER multi-behavior MoE: https://arxiv.org/abs/2508.19507

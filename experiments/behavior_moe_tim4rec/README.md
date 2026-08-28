@@ -12,14 +12,15 @@
 - smoke использует только real train batches;
 - `behavior_moe_sanity_001` использует полный train и validation-only full-ranking evaluation;
 - `structured_behavior_moe_smoke_001` проверяет только constrained routing probe на train batches;
+- `ple_tim4rec_smoke_001` и `ple_tim4rec_sanity_001` проверяют честный one-level CGC/PLE-style baseline;
 - full training, Optuna, load balancing и test не запускаются.
 
 Структура:
 
 - `config.yaml` - зафиксированная конфигурация smoke;
-- `model.py` - `BehaviorMoETiM4Rec` и `StructuredBehaviorMoETiM4Rec`;
+- `model.py` - `BehaviorMoETiM4Rec`, `StructuredBehaviorMoETiM4Rec` и `PLETiM4Rec`;
 - `smoke_test.py` - smoke на real train batches и routing diagnostics;
-- `sanity_train.py` - ровно 5 эпох plain Behavior-MoE без load balancing и test;
+- `sanity_train.py` - ровно 5 эпох Behavior-MoE/PLE без load balancing и test;
 - `AUDIT.md` - архитектурный аудит, MMoE/PLE связь и результаты smoke;
 - `runs/behavior_moe_smoke_001.json` - compact JSON-артефакт;
 - `runs/behavior_moe_smoke_001_notes.md` - краткий отчёт smoke.
@@ -27,6 +28,9 @@
 - `runs/behavior_moe_sanity_001_routing.csv` - routing trajectory по эпохам.
 - `runs/structured_behavior_moe_smoke_001.json` - structured routing architecture probe;
 - `runs/structured_behavior_moe_smoke_001_notes.md` - краткий отчёт structured smoke.
+- `runs/ple_tim4rec_smoke_001.json` - PLE/CGC baseline smoke;
+- `runs/ple_tim4rec_sanity_001.json` - PLE/CGC baseline 5-epoch validation sanity;
+- `runs/ple_tim4rec_sanity_001_routing.csv` - PLE gate trajectory по эпохам.
 
 Архитектура:
 
@@ -46,6 +50,16 @@ Structured probe:
 - запрещённые paths маскируются до softmax и должны иметь exact-zero expanded weights;
 - load balancing остаётся выключенным.
 
+PLE/CGC baseline:
+
+- `PLETiM4Rec` реализует минимальный one-level CGC / PLE-style baseline, не нашу новую архитектуру;
+- 5 task-specific experts: `ranking_specific`, `click_specific`, `long_view_specific`, `like_specific`, `profile_specific`;
+- 2 shared experts: `shared_0`, `shared_1`;
+- каждая task gate выбирает только из `[own_specific, shared_0, shared_1]`;
+- shared gate не используется, потому что он нужен только для следующего extraction level, а baseline одноуровневый;
+- residual adapter не используется: `h_task = sum_e p(task,e|h) * expert_e(h)`;
+- expert MLP: `Linear(hidden, 37) -> GELU -> Dropout -> Linear(37, hidden)` для parameter matching с Behavior-MoE.
+
 Запуск на кластере:
 
 ```bash
@@ -58,6 +72,23 @@ Structured smoke:
 BEHAVIOR_MOE_RUN_ID=structured_behavior_moe_smoke_001 \
 BEHAVIOR_MOE_ROUTING_MODE=structured \
 sbatch slurm/behavior_moe_tim4rec.sh
+```
+
+PLE smoke:
+
+```bash
+BEHAVIOR_MOE_RUN_ID=ple_tim4rec_smoke_001 \
+BEHAVIOR_MOE_VARIANT=ple \
+sbatch slurm/behavior_moe_tim4rec.sh
+```
+
+PLE sanity:
+
+```bash
+BEHAVIOR_MOE_RUN_ID=ple_tim4rec_sanity_001 \
+BEHAVIOR_MOE_VARIANT=ple \
+BEHAVIOR_MOE_EPOCHS=5 \
+sbatch slurm/behavior_moe_tim4rec_sanity.sh
 ```
 
 По умолчанию smoke делает `5` optimization steps на train batches и сохраняет только диагностические артефакты. Locked test не загружается и не оценивается.

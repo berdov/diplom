@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Smoke test for Behavior-MoE TiM4Rec on real KuaiRand train batches."""
+"""Smoke test for Behavior-MoE/PLE TiM4Rec variants on real KuaiRand train batches."""
 
 from __future__ import annotations
 
@@ -36,9 +36,12 @@ if str(UPSTREAM_DIR) not in sys.path:
 
 from tim4rec import TiM4Rec  # noqa: E402
 from experiments.behavior_moe_tim4rec.model import (  # noqa: E402
+    PLE_SHARED_EXPERTS,
+    PLE_SPECIFIC_EXPERTS,
     STRUCTURED_ALLOWED_EXPERTS,
     ROUTING_TASKS,
     BehaviorMoETiM4Rec,
+    PLETiM4Rec,
     StructuredBehaviorMoETiM4Rec,
 )
 from experiments.multitask_tim4rec.model import MultitaskTiM4Rec, TARGETS  # noqa: E402
@@ -55,7 +58,6 @@ from experiments.multitask_tim4rec.train import (  # noqa: E402
 from experiments.multitask_tim4rec_optuna.optuna_search import (  # noqa: E402
     assert_validation_only_summary,
     compute_tuned_losses,
-    create_loaders,
     load_yaml,
     optimizer_for_trial,
     pos_weight_tensors,
@@ -67,6 +69,7 @@ from experiments.multitask_tim4rec_optuna.run_locked_tuned import sampled_from_l
 
 RUN_ID = "behavior_moe_smoke_001"
 STRUCTURED_RUN_ID = "structured_behavior_moe_smoke_001"
+PLE_RUN_ID = "ple_tim4rec_smoke_001"
 TASK_LABELS = {
     "rank": "ranking",
     "is_click": "click",
@@ -95,6 +98,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--artifact-dir", default="/home/daryumin/iberdov/diplom/experiments/behavior_moe_tim4rec/behavior_moe_smoke_001")
     parser.add_argument("--batches", type=int, default=None)
     parser.add_argument("--routing-mode", choices=("generic", "structured"), default=None)
+    parser.add_argument("--variant", choices=("generic", "structured", "ple"), default=None)
     parser.add_argument("--allow-overwrite", action="store_true")
     return parser.parse_args()
 
@@ -209,25 +213,42 @@ def trimmed_mean(values: list[float]) -> float:
 
 
 def resolve_variant(args: argparse.Namespace, behavior_config: dict[str, Any]) -> dict[str, Any]:
-    routing_mode = args.routing_mode
-    if routing_mode is None:
-        if args.run_id == STRUCTURED_RUN_ID:
-            routing_mode = "structured"
+    variant = args.variant
+    if variant is None:
+        if args.run_id == PLE_RUN_ID:
+            variant = "ple"
+        elif args.run_id == STRUCTURED_RUN_ID:
+            variant = "structured"
+        elif args.routing_mode is not None:
+            variant = args.routing_mode
         else:
-            routing_mode = str(behavior_config["architecture"]["behavior_moe"].get("routing_mode", "generic"))
-    if routing_mode == "structured":
+            variant = str(behavior_config["architecture"]["behavior_moe"].get("routing_mode", "generic"))
+    if variant == "ple":
+        smoke_config = dict(behavior_config.get("ple_smoke", behavior_config["smoke"]))
+        model_config = dict(behavior_config["architecture"]["ple_tim4rec"])
+        model_cls: type[Any] = PLETiM4Rec
+        default_artifact = f"/home/daryumin/iberdov/diplom/experiments/behavior_moe_tim4rec/{PLE_RUN_ID}"
+        config_key = "ple_tim4rec"
+        routing_mode = "ple"
+    elif variant == "structured":
         smoke_config = dict(behavior_config.get("structured_smoke", behavior_config["smoke"]))
-        moe_config = dict(behavior_config["architecture"]["structured_behavior_moe"])
-        model_cls: type[BehaviorMoETiM4Rec] = StructuredBehaviorMoETiM4Rec
+        model_config = dict(behavior_config["architecture"]["structured_behavior_moe"])
+        model_cls = StructuredBehaviorMoETiM4Rec
         default_artifact = f"/home/daryumin/iberdov/diplom/experiments/behavior_moe_tim4rec/{STRUCTURED_RUN_ID}"
+        config_key = "behavior_moe"
+        routing_mode = "structured"
     else:
         smoke_config = dict(behavior_config["smoke"])
-        moe_config = dict(behavior_config["architecture"]["behavior_moe"])
+        model_config = dict(behavior_config["architecture"]["behavior_moe"])
         model_cls = BehaviorMoETiM4Rec
         default_artifact = f"/home/daryumin/iberdov/diplom/experiments/behavior_moe_tim4rec/{RUN_ID}"
+        config_key = "behavior_moe"
+        routing_mode = "generic"
     run_id = args.run_id
-    if run_id == RUN_ID and routing_mode == "structured":
+    if run_id == RUN_ID and variant == "structured":
         run_id = STRUCTURED_RUN_ID
+    if run_id == RUN_ID and variant == "ple":
+        run_id = PLE_RUN_ID
     output = Path(args.output)
     notes = Path(args.notes)
     if output == DEFAULT_OUTPUT and run_id != RUN_ID:
@@ -239,9 +260,11 @@ def resolve_variant(args: argparse.Namespace, behavior_config: dict[str, Any]) -
         artifact_dir = Path(default_artifact)
     return {
         "run_id": run_id,
+        "variant": variant,
         "routing_mode": routing_mode,
         "smoke_config": smoke_config,
-        "moe_config": moe_config,
+        "model_config": model_config,
+        "config_key": config_key,
         "model_cls": model_cls,
         "output": output,
         "notes": notes,
@@ -261,12 +284,13 @@ def build_behavior_config(
     optuna_config: dict[str, Any],
     artifact_root: Path,
     sampled: dict[str, Any],
-    moe_config: dict[str, Any],
-    model_cls: type[BehaviorMoETiM4Rec],
+    model_config: dict[str, Any],
+    model_cls: type[Any],
+    config_key: str,
 ) -> Config:
     base_config = project_path(optuna_config["source"]["base_config"])
     overrides = recbole_overrides(optuna_config, artifact_root, sampled)
-    overrides["behavior_moe"] = moe_config
+    overrides[config_key] = model_config
     overrides["final_test_evaluation_count"] = 0
     overrides["test_evaluation_count"] = 0
     return Config(
@@ -359,8 +383,8 @@ def new_moe_model(
     train_dataset: Any,
     checkpoint_path: Path,
     sampled: dict[str, Any],
-    model_cls: type[BehaviorMoETiM4Rec],
-) -> tuple[BehaviorMoETiM4Rec, torch.optim.Optimizer, dict[str, Any]]:
+    model_cls: type[Any],
+) -> tuple[Any, torch.optim.Optimizer, dict[str, Any]]:
     init_seed(config["seed"] + config["local_rank"], config["reproducibility"])
     device = config["device"]
     model = model_cls(config, train_dataset).to(device)
@@ -524,8 +548,20 @@ def expected_structured_sources() -> dict[str, set[str]]:
     }
 
 
+def expected_ple_sources() -> dict[str, set[str]]:
+    return {
+        "ranking_specific": {"ranking"},
+        "click_specific": {"click"},
+        "long_view_specific": {"long_view"},
+        "like_specific": {"like"},
+        "profile_specific": {"profile"},
+        "shared_0": {"ranking", "click", "long_view", "like", "profile"},
+        "shared_1": {"ranking", "click", "long_view", "like", "profile"},
+    }
+
+
 def gradient_connectivity_probe(
-    model: BehaviorMoETiM4Rec,
+    model: Any,
     batch: Any,
     sampled: dict[str, Any],
     pos_weights: dict[str, torch.Tensor],
@@ -570,7 +606,18 @@ def gradient_connectivity_probe(
         ]
         for router in TASK_DISPLAY_ORDER
     }
-    if model.routing_mode == "structured":
+    if model.routing_mode == "ple":
+        expected_by_expert = expected_ple_sources()
+        expected_by_router = {task: {task} for task in TASK_DISPLAY_ORDER}
+        expert_connectivity_met = all(
+            set(actual_by_expert.get(expert, [])) == expected
+            for expert, expected in expected_by_expert.items()
+        )
+        router_connectivity_met = all(
+            set(actual_by_router.get(router, [])) == expected
+            for router, expected in expected_by_router.items()
+        )
+    elif model.routing_mode == "structured":
         expected_by_expert = expected_structured_sources()
         expected_by_router = {task: {task} for task in TASK_DISPLAY_ORDER}
         expert_connectivity_met = all(
@@ -811,6 +858,19 @@ def routing_diagnostics(model: BehaviorMoETiM4Rec, batches: list[Any]) -> dict[s
         expert: sum(mean_probs[TASK_LABELS[task]][expert] for task in ROUTING_TASKS) / len(ROUTING_TASKS)
         for expert in expert_names
     }
+    shared_experts = tuple(expert for expert in expert_names if expert == "shared" or expert.startswith("shared_"))
+    shared_total_by_task = {
+        TASK_LABELS[task]: sum(mean_probs[TASK_LABELS[task]][expert] for expert in shared_experts)
+        for task in ROUTING_TASKS
+    }
+    specific_share_by_task = {
+        TASK_LABELS[task]: (
+            mean_probs[TASK_LABELS[task]].get(task_specific_expert(TASK_LABELS[task], expert_names), 0.0)
+            if model.routing_mode == "ple"
+            else 0.0
+        )
+        for task in ROUTING_TASKS
+    }
     allowed_masks = {
         TASK_LABELS[task]: list(model.allowed_experts[task])
         for task in ROUTING_TASKS
@@ -865,10 +925,14 @@ def routing_diagnostics(model: BehaviorMoETiM4Rec, batches: list[Any]) -> dict[s
         }
     collapse = {
         "expert_collapse": max(global_usage.values()) > 0.90 or min(global_usage.values()) < 0.01,
-        "shared_expert_domination": global_usage["shared"] > 0.70,
+        "shared_expert_domination": sum(global_usage[expert] for expert in shared_experts) > 0.70,
         "all_auxiliary_shared_domination": all(
-            mean_probs[task]["shared"] > 0.90
+            shared_total_by_task[task] > 0.90
             for task in ("click", "long_view", "like", "profile")
+        ),
+        "all_task_specific_domination": (
+            model.routing_mode == "ple"
+            and all(specific_share_by_task[task] > 0.90 for task in TASK_DISPLAY_ORDER)
         ),
         "all_task_same_routing": (pairs[0]["l1"] if pairs else 0.0) < 1e-3,
         "minimum_experts_used_per_task": min(item["experts_above_5pct"] for item in entropy.values()),
@@ -886,6 +950,8 @@ def routing_diagnostics(model: BehaviorMoETiM4Rec, batches: list[Any]) -> dict[s
         "local_mean_probabilities": local_mean_probs,
         "entropy": entropy,
         "global_expert_utilization": global_usage,
+        "shared_total_by_task": shared_total_by_task,
+        "specific_share_by_task": specific_share_by_task,
         "task_routing_distances": pairs,
         "strongest_task_difference": pairs[0] if pairs else None,
         "router_logits": logits_summary,
@@ -895,6 +961,15 @@ def routing_diagnostics(model: BehaviorMoETiM4Rec, batches: list[Any]) -> dict[s
 
 
 def specialist_for_task(task: str, expert_names: tuple[str, ...]) -> str:
+    if "ranking_specific" in expert_names:
+        mapping = {
+            "ranking": "ranking_specific",
+            "click": "click_specific",
+            "long_view": "long_view_specific",
+            "like": "like_specific",
+            "profile": "profile_specific",
+        }
+        return mapping[task]
     if task == "click":
         return "interest"
     if task == "long_view":
@@ -911,29 +986,39 @@ def specialization_summary_from_routing(
 ) -> dict[str, Any]:
     mean_probs = routing["mean_probabilities"]
     expert_names = tuple(routing["experts"])
-    aux_tasks = ("click", "long_view", "like", "profile")
+    tasks = TASK_DISPLAY_ORDER if routing_mode == "ple" else ("click", "long_view", "like", "profile")
     shares = {}
     short_names = {
+        "ranking": "ranking",
         "click": "click",
         "long_view": "long",
         "like": "like",
         "profile": "profile",
     }
-    for task in aux_tasks:
+    for task in tasks:
         specialist = specialist_for_task(task, expert_names)
         shares[f"{short_names[task]}_{specialist}_share"] = mean_probs[task][specialist]
-    shared_shares = {task: mean_probs[task]["shared"] for task in aux_tasks}
+    shared_experts = shared_experts_for_routing(routing)
+    shared_shares = {
+        task: sum(mean_probs[task][expert] for expert in shared_experts)
+        for task in tasks
+    }
     average_share = mean(list(shares.values()))
-    if routing_mode == "structured":
-        uniform_baseline = mean([1.0 / len(routing["allowed_experts"][task]) for task in aux_tasks])
+    if routing_mode in {"structured", "ple"}:
+        uniform_baseline = mean([1.0 / len(routing["allowed_experts"][task]) for task in tasks])
     else:
         uniform_baseline = 1.0 / len(expert_names)
     return {
         "task_specialist_shares": shares,
+        "task_specific_shares": shares,
         "shared_shares": shared_shares,
+        "shared_total_shares": shared_shares,
         "average_specialist_share": average_share,
+        "mean_specific_share": average_share,
         "uniform_specialist_share_baseline": uniform_baseline,
+        "uniform_specific_share_baseline": uniform_baseline,
         "specialization_above_uniform": average_share - uniform_baseline,
+        "specific_share_above_uniform": average_share - uniform_baseline,
         "shared_domination": all(value > 0.90 for value in shared_shares.values()),
         "ranking_expert_distribution": mean_probs["ranking"],
     }
@@ -972,8 +1057,28 @@ def generic_reference_summary(reference_path: Path) -> dict[str, Any]:
     }
 
 
+def shared_experts_for_routing(routing: dict[str, Any]) -> tuple[str, ...]:
+    experts = tuple(routing.get("experts", ()))
+    if any(expert.startswith("shared_") for expert in experts):
+        return tuple(expert for expert in experts if expert.startswith("shared_"))
+    return tuple(expert for expert in experts if expert == "shared")
+
+
+def task_specific_expert(task: str, expert_names: tuple[str, ...]) -> str:
+    if "ranking_specific" in expert_names:
+        mapping = {
+            "ranking": "ranking_specific",
+            "click": "click_specific",
+            "long_view": "long_view_specific",
+            "like": "like_specific",
+            "profile": "profile_specific",
+        }
+        return mapping[task]
+    return specialist_for_task(task, expert_names)
+
+
 def run_behavior_moe_steps(
-    model: BehaviorMoETiM4Rec,
+    model: Any,
     optimizer: torch.optim.Optimizer,
     batches: list[Any],
     sampled: dict[str, Any],
@@ -1039,7 +1144,7 @@ def run_behavior_moe_steps(
     }
 
 
-def parameter_count_summary(config: Config, train_dataset: Any, behavior_model: BehaviorMoETiM4Rec) -> dict[str, Any]:
+def parameter_count_summary(config: Config, train_dataset: Any, behavior_model: Any) -> dict[str, Any]:
     device = config["device"]
     base_model = TiM4Rec(config, train_dataset).to(device)
     multitask_model = MultitaskTiM4Rec(config, train_dataset).to(device)
@@ -1060,6 +1165,9 @@ def parameter_count_summary(config: Config, train_dataset: Any, behavior_model: 
     if behavior_model.routing_mode == "structured":
         result["structured_behavior_moe"] = behavior
         result["structured_behavior_moe_groups"] = groups
+    if behavior_model.routing_mode == "ple":
+        result["ple_tim4rec"] = behavior
+        result["ple_tim4rec_groups"] = groups
     return result
 
 
@@ -1067,6 +1175,7 @@ def source_hashes() -> dict[str, str]:
     files = [
         "experiments/behavior_moe_tim4rec/model.py",
         "experiments/behavior_moe_tim4rec/smoke_test.py",
+        "experiments/behavior_moe_tim4rec/sanity_train.py",
         "experiments/behavior_moe_tim4rec/config.yaml",
         "experiments/build_results.py",
         "experiments/multitask_tim4rec/model.py",
@@ -1115,11 +1224,15 @@ def write_notes(path: Path, result: dict[str, Any]) -> None:
     collapse = result["routing_diagnostics_final"]["collapse_checks"]
     strongest = result["routing_diagnostics_final"]["strongest_task_difference"]
     updates = result["behavior_moe_smoke"]["parameter_updates"]
-    title = (
-        "# Structured Behavior-MoE smoke 001"
-        if result["routing_mode"] == "structured"
-        else "# Behavior-MoE smoke 001"
-    )
+    if result["routing_mode"] == "ple":
+        title = "# PLE TiM4Rec smoke 001"
+        adapter_label = "PLE"
+    elif result["routing_mode"] == "structured":
+        title = "# Structured Behavior-MoE smoke 001"
+        adapter_label = "Structured Behavior-MoE"
+    else:
+        title = "# Behavior-MoE smoke 001"
+        adapter_label = "Behavior-MoE"
     generic_ref = result.get("generic_moe_reference", {})
     generic_cost = generic_ref.get("step_time", {}) if generic_ref.get("available") else {}
     lines = [
@@ -1164,6 +1277,7 @@ def write_notes(path: Path, result: dict[str, Any]) -> None:
         f"- Expert collapse: `{collapse['expert_collapse']}`.",
         f"- Shared domination: `{collapse['shared_expert_domination']}`.",
         f"- All auxiliary shared domination: `{collapse['all_auxiliary_shared_domination']}`.",
+        f"- All task specific domination: `{collapse['all_task_specific_domination']}`.",
         f"- Forbidden paths exact zero: `{collapse['all_forbidden_paths_exact_zero']}`.",
         f"- All-task same routing: `{collapse['all_task_same_routing']}`.",
         f"- Minimum experts used per task: `{collapse['minimum_experts_used_per_task']}`.",
@@ -1179,14 +1293,14 @@ def write_notes(path: Path, result: dict[str, Any]) -> None:
         f"- Experts updated: `{updates['experts']['all_tensors_updated']}`.",
         f"- Router updated: `{updates['router']['all_tensors_updated']}`.",
         f"- Auxiliary heads updated: `{updates['auxiliary_heads']['all_tensors_updated']}`.",
-        f"- Expected structured connectivity met: `{result['gradient_connectivity']['expected_connectivity_met']}`.",
+        f"- Expected connectivity met: `{result['gradient_connectivity']['expected_connectivity_met']}`.",
         "",
         "## Cost",
         "",
         f"- Tuned fixed mean step: `{result['cost_summary']['tuned_fixed_reference']['mean_step_time_sec']:.6f}` sec.",
         f"- Tuned fixed trimmed mean step: `{result['cost_summary']['tuned_fixed_reference']['trimmed_mean_step_time_sec']:.6f}` sec.",
-        f"- Behavior-MoE mean step: `{result['cost_summary']['behavior_moe']['mean_step_time_sec']:.6f}` sec.",
-        f"- Behavior-MoE trimmed mean step: `{result['cost_summary']['behavior_moe']['trimmed_mean_step_time_sec']:.6f}` sec.",
+        f"- {adapter_label} mean step: `{result['cost_summary']['behavior_moe']['mean_step_time_sec']:.6f}` sec.",
+        f"- {adapter_label} trimmed mean step: `{result['cost_summary']['behavior_moe']['trimmed_mean_step_time_sec']:.6f}` sec.",
         f"- Step-time overhead: `{result['cost_summary']['overhead_vs_tuned_fixed_step_time']:.4f}`.",
         f"- Peak VRAM: `{result['cost_summary']['behavior_moe']['max_allocated_bytes']}` bytes.",
     ]
@@ -1230,8 +1344,9 @@ def main() -> None:
         optuna_config,
         artifact_dir / "recbole",
         sampled,
-        variant["moe_config"],
+        variant["model_config"],
         variant["model_cls"],
+        variant["config_key"],
     )
     init_seed(config["seed"] + config["local_rank"], config["reproducibility"])
     if not torch.cuda.is_available():
@@ -1260,7 +1375,7 @@ def main() -> None:
     param_counts = parameter_count_summary(config, train_dataset, moe_model)
     initial_probe = forward_probe(moe_model, batches[0])
     routing_initial = routing_diagnostics(moe_model, batches)
-    lb_weight = float(variant["moe_config"].get("load_balance_weight", 0.0))
+    lb_weight = float(variant["model_config"].get("load_balance_weight", 0.0))
     moe_smoke = run_behavior_moe_steps(moe_model, moe_optimizer, batches, sampled, pos_weights, lb_weight)
     final_probe = forward_probe(moe_model, batches[0])
     routing_final = routing_diagnostics(moe_model, batches)
@@ -1287,6 +1402,15 @@ def main() -> None:
             and specialization_final["specialization_above_uniform"] > 0.0
         )
     )
+    ple_checks = (
+        variant["routing_mode"] != "ple"
+        or (
+            collapse["all_forbidden_paths_exact_zero"]
+            and gradient_connectivity["expected_connectivity_met"]
+            and not collapse["all_auxiliary_shared_domination"]
+            and not collapse["all_task_specific_domination"]
+        )
+    )
     ready_for_sanity = (
         final_probe["all_outputs_finite"]
         and moe_smoke["all_losses_finite"]
@@ -1297,9 +1421,14 @@ def main() -> None:
         and not collapse["expert_collapse"]
         and param_counts["relative_increase_vs_tuned_multitask_pct"] < 10.0
         and structured_checks
+        and ple_checks
     )
     next_run = (
-        "5-epoch StructuredBehaviorMoE validation sanity"
+        "5-epoch PLETiM4Rec validation sanity"
+        if variant["routing_mode"] == "ple" and ready_for_sanity
+        else "inspect PLE smoke before sanity"
+        if variant["routing_mode"] == "ple"
+        else "5-epoch StructuredBehaviorMoE validation sanity"
         if variant["routing_mode"] == "structured" and ready_for_sanity
         else "analyze structured routing before 5-epoch sanity"
         if variant["routing_mode"] == "structured"
@@ -1307,31 +1436,56 @@ def main() -> None:
         if not collapse["expert_collapse"]
         else "Behavior-MoE + minimal load balancing"
     )
-    expert_semantics = {
-        "interest": "is_click",
-        "consumption": "long_view",
-        "shared": "residual/general",
-    }
+    if variant["routing_mode"] == "ple":
+        expert_semantics = {
+            "ranking_specific": "rank",
+            "click_specific": "is_click",
+            "long_view_specific": "long_view",
+            "like_specific": "is_like",
+            "profile_specific": "is_profile_enter",
+            "shared_0": "shared task-common expert",
+            "shared_1": "shared task-common expert",
+        }
+    else:
+        expert_semantics = {
+            "interest": "is_click",
+            "consumption": "long_view",
+            "shared": "residual/general",
+        }
     if variant["routing_mode"] == "structured":
         expert_semantics["engagement"] = "is_like + is_profile_enter"
-    else:
+    elif variant["routing_mode"] == "generic":
         expert_semantics["positive"] = "is_like + is_profile_enter"
-    model_name = "StructuredBehaviorMoE" if variant["routing_mode"] == "structured" else "BehaviorMoETiM4Rec"
-    decision_summary = (
-        "Structured smoke технически корректен: forward/backward/optimizer step проходят на real train batches, "
-        "forbidden expert paths имеют exact zero, expected task-to-expert gradient connectivity подтверждена, "
-        "load balancing выключен, test не использован. Это architecture probe; следующий шаг может быть 5-epoch validation sanity, "
-        "но для диплома нужно честно сопоставить эту схему с PLE-style baseline."
-        if variant["routing_mode"] == "structured" and ready_for_sanity
-        else "Structured smoke выявил риск до 5-epoch sanity."
-        if variant["routing_mode"] == "structured"
-        else (
+    if variant["routing_mode"] == "ple":
+        model_name = "PLETiM4Rec"
+    elif variant["routing_mode"] == "structured":
+        model_name = "StructuredBehaviorMoE"
+    else:
+        model_name = "BehaviorMoETiM4Rec"
+    if variant["routing_mode"] == "ple":
+        decision_summary = (
+            "PLE smoke технически корректен: one-level CGC/PLE-style gate делает forward/backward/optimizer step на real train batches, "
+            "task-specific и shared experts получают ожидаемые gradients, load balancing выключен, test не использован. "
+            "Можно запускать ровно 5-epoch validation sanity без full training/Optuna/test."
+            if ready_for_sanity
+            else "PLE smoke выявил риск; 5-epoch sanity не должен запускаться до исправления."
+        )
+    elif variant["routing_mode"] == "structured":
+        decision_summary = (
+            "Structured smoke технически корректен: forward/backward/optimizer step проходят на real train batches, "
+            "forbidden expert paths имеют exact zero, expected task-to-expert gradient connectivity подтверждена, "
+            "load balancing выключен, test не использован. Это architecture probe; следующий шаг может быть 5-epoch validation sanity, "
+            "но для диплома нужно честно сопоставить эту схему с PLE-style baseline."
+            if ready_for_sanity
+            else "Structured smoke выявил риск до 5-epoch sanity."
+        )
+    else:
+        decision_summary = (
             "Smoke pipeline корректен: Behavior-MoE делает forward/backward/optimizer step на real train batches, "
             "router и experts получают gradients, routing не collapsed. Следующий sanity лучше запускать как plain Behavior-MoE без load balancing."
             if ready_for_sanity
             else "Smoke выявил риск, который нужно исправить до 5-epoch sanity."
         )
-    )
     result: dict[str, Any] = {
         "run_id": variant["run_id"],
         "status": "diagnostic",
@@ -1388,10 +1542,20 @@ def main() -> None:
                 TASK_LABELS[task]: list(experts)
                 for task, experts in moe_model.allowed_experts.items()
             },
-            "expert_mlp": "Linear(hidden, hidden) -> GELU -> Dropout -> Linear(hidden, hidden)",
+            "expert_mlp": (
+                f"Linear(hidden, {variant['model_config'].get('expert_hidden_size')}) -> GELU -> Dropout -> "
+                f"Linear({variant['model_config'].get('expert_hidden_size')}, hidden)"
+                if variant["routing_mode"] == "ple"
+                else "Linear(hidden, hidden) -> GELU -> Dropout -> Linear(hidden, hidden)"
+            ),
             "router": (
-                "separate learned Linear(hidden, num_experts) router head per task; "
-                "structured mode masks forbidden logits before softmax"
+                "one task gate per task over [own task-specific expert, shared_0, shared_1]; "
+                "softmax(Linear(h)) over the selected CGC expert set"
+                if variant["routing_mode"] == "ple"
+                else (
+                    "separate learned Linear(hidden, num_experts) router head per task; "
+                    "structured mode masks forbidden logits before softmax"
+                )
             ),
             "task_conditioned_routing": {
                 "tasks": [TASK_LABELS[task] for task in ROUTING_TASKS],
@@ -1400,9 +1564,24 @@ def main() -> None:
                 "explicit_task_embeddings": False,
                 "task_context": "separate router head per task",
             },
-            "residual": "h_task = h + residual_scale * sum_e p(task,e|h) * expert_e(h)",
-            "routing_formula": "allowed logits -> softmax over allowed set -> expanded 4-expert weights with exact zero on forbidden paths",
-            "behavior_moe": variant["moe_config"],
+            "residual": (
+                "none; h_task = sum_e p(task,e|h) * expert_e(h)"
+                if variant["routing_mode"] == "ple"
+                else "h_task = h + residual_scale * sum_e p(task,e|h) * expert_e(h)"
+            ),
+            "routing_formula": (
+                "CGC one-level selected matrix: own specific expert + shared experts; task gate softmax over selected set only"
+                if variant["routing_mode"] == "ple"
+                else "allowed logits -> softmax over allowed set -> expanded expert weights with exact zero on forbidden paths"
+            ),
+            "model_config_key": variant["config_key"],
+            "model_config": variant["model_config"],
+            "behavior_moe": variant["model_config"] if variant["config_key"] == "behavior_moe" else None,
+            "ple_tim4rec": variant["model_config"] if variant["config_key"] == "ple_tim4rec" else None,
+            "ple_reference": {
+                "specific_experts": dict(PLE_SPECIFIC_EXPERTS),
+                "shared_experts": list(PLE_SHARED_EXPERTS),
+            },
             "structured_allowed_experts_reference": {
                 TASK_LABELS[task]: list(experts)
                 for task, experts in STRUCTURED_ALLOWED_EXPERTS.items()
@@ -1448,6 +1627,7 @@ def main() -> None:
         "gradient_connectivity": gradient_connectivity,
         "tuned_fixed_reference_smoke": tuned_fixed_smoke,
         "behavior_moe_smoke": moe_smoke,
+        "ple_smoke": moe_smoke if variant["routing_mode"] == "ple" else None,
         "cost_summary": {
             "tuned_fixed_reference": {
                 "mean_step_time_sec": tuned_fixed_smoke["mean_step_time_sec"],
@@ -1475,6 +1655,7 @@ def main() -> None:
             "all_task_same_routing": collapse["all_task_same_routing"],
             "shared_expert_domination": collapse["shared_expert_domination"],
             "all_auxiliary_shared_domination": collapse["all_auxiliary_shared_domination"],
+            "all_task_specific_domination": collapse["all_task_specific_domination"],
             "forbidden_paths_not_exact_zero": not collapse["all_forbidden_paths_exact_zero"],
             "specialization_not_above_uniform": specialization_final["specialization_above_uniform"] <= 0.0,
             "too_large_model_overhead": param_counts["relative_increase_vs_tuned_multitask_pct"] >= 10.0,
@@ -1482,7 +1663,11 @@ def main() -> None:
             "router_gradient_missing": not router_grad,
             "expected_gradient_connectivity_missing": not gradient_connectivity["expected_connectivity_met"],
             "unstable_routing_logits": any(abs(stats["max"]) > 20.0 or abs(stats["min"]) > 20.0 for stats in routing_final["router_logits"].values()),
-            "moe_drowning_ranking_representation": float(variant["moe_config"]["residual_scale"]) > 0.25,
+            "moe_drowning_ranking_representation": (
+                False
+                if variant["routing_mode"] == "ple"
+                else float(variant["model_config"]["residual_scale"]) > 0.25
+            ),
         },
         "decision": {
             "pipeline_correct": bool(final_probe["all_outputs_finite"] and moe_smoke["all_losses_finite"] and moe_smoke["all_gradients_finite"]),

@@ -21,6 +21,7 @@ RUNS_DIR="${REPO_DIR}/experiments/behavior_moe_tim4rec/runs"
 ARTIFACT_ROOT="${BEHAVIOR_MOE_ARTIFACT_ROOT:-/home/daryumin/iberdov/diplom/experiments/behavior_moe_tim4rec}"
 EPOCHS="${BEHAVIOR_MOE_EPOCHS:-5}"
 ROUTING_BATCHES="${BEHAVIOR_MOE_ROUTING_BATCHES:-5}"
+VARIANT="${BEHAVIOR_MOE_VARIANT:-}"
 
 cd "${REPO_DIR}"
 mkdir -p "${RUNS_DIR}" "${REPO_DIR}/experiments/behavior_moe_tim4rec/slurm_logs"
@@ -57,8 +58,14 @@ echo "Slurm: node list=${SLURM_JOB_NODELIST:-unknown}"
 echo "Run ID: ${RUN_ID}"
 echo "Epochs: ${EPOCHS}"
 echo "Routing diagnostic batches: ${ROUTING_BATCHES}"
+echo "Variant: ${VARIANT:-run-id-default}"
 
 "${PREP_PYTHON}" experiments/multitask_tim4rec_optuna/prepare_validation_only.py
+
+VARIANT_ARGS=()
+if [ -n "${VARIANT}" ]; then
+  VARIANT_ARGS=(--variant "${VARIANT}")
+fi
 
 "${PYTHON}" experiments/behavior_moe_tim4rec/sanity_train.py \
   --config "${CONFIG}" \
@@ -68,4 +75,5 @@ echo "Routing diagnostic batches: ${ROUTING_BATCHES}"
   --result-json "${RUNS_DIR}/${RUN_ID}.json" \
   --notes "${RUNS_DIR}/${RUN_ID}_notes.md" \
   --routing-csv "${RUNS_DIR}/${RUN_ID}_routing.csv" \
-  --routing-diagnostic-batches "${ROUTING_BATCHES}"
+  --routing-diagnostic-batches "${ROUTING_BATCHES}" \
+  "${VARIANT_ARGS[@]}"
