@@ -22,12 +22,24 @@
 | Gradient Weighting | FAMO | single solution |
 | Gradient Manipulation | PCGrad | historical validation-only result |
 | Finite set with preference vectors | EPO | finite preference set |
-| Finite set without preference vectors | GradHV | finite Pareto set |
-| Infinite set hypernetwork | PHN adapter | continuous preference-conditioned adapter |
+| Finite set without preference vectors | HV-Gradient / GradHV-style | finite Pareto set |
+| Infinite set hypernetwork | PHN-adapter | continuous preference-conditioned adapter |
 | Infinite set preference-conditioned net | COSMOS-style direct conditioned model | continuous preference-conditioned model |
 | Infinite set model combination | PaLoRA | continuous preference-conditioned low-rank adapters |
 
-PHN помечен как `PHN adapter`, потому что полный PHN с генерацией всех параметров TiM4Rec, включая item embedding и SSD state-space блоки, не является честным drop-in для текущего RecBole full-sort пути. Реализация генерирует параметры компактного FiLM-adapter поверх общего TiM4Rec representation и явно логирует этот статус.
+PHN помечен как `PHN-adapter`, потому что полный PHN с генерацией всех параметров TiM4Rec, включая item embedding и SSD state-space блоки, не является честным drop-in для текущего RecBole full-sort пути. Реализация генерирует параметры компактного FiLM-adapter поверх общего TiM4Rec representation и явно логирует `representative_fidelity = family-level adaptation`.
+
+`gradhv` помечен как `HV-Gradient / GradHV-style`: код оптимизирует exact dominated hypervolume через autograd по inclusion-exclusion objective, но не является точной репродукцией HIGA-MO/GradHV algorithm.
+
+## Preference Sampling
+
+Для PHN-adapter, COSMOS-style и PaLoRA обучение использует continuous Dirichlet sampling на simplex, а не циклический перебор fixed grid:
+
+- PHN-adapter: `Dirichlet(alpha=0.2)`, как default alpha в official PHN trainer.
+- COSMOS-style: `Dirichlet(alpha=1.2)`, как default в official COSMOS examples.
+- PaLoRA: `Dirichlet(alpha=1.0)`, как official PaLoRA Dirichlet ray sampler default.
+
+`preferences.yaml` остается frozen grid только для validation, Pareto plots и reproducible operating-point evaluation. Validation results не используются для изменения training distribution.
 
 ## Запуски
 
@@ -54,7 +66,7 @@ PCGrad не перезапускается автоматически: испо�
 ## Артефакты
 
 - `config.yaml` - frozen protocol, tuned params, method defaults.
-- `preferences.yaml` - зафиксированная preference grid до просмотра новых validation results.
+- `preferences.yaml` - зафиксированная preference grid для validation/Pareto plots/reproducible operating points.
 - `NORMALIZATION.md` - план и результаты train-only normalization diagnostics.
 - `runs/*.json` - machine-readable run artifacts.
 - `runs/*_notes.md` - краткие notes по каждому run.

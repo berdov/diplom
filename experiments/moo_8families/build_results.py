@@ -92,6 +92,8 @@ def summary_rows(config: dict[str, Any]) -> list[dict[str, Any]]:
                 "family": method.get("family"),
                 "method": method.get("name"),
                 "implementation": method.get("implementation_name"),
+                "representative_fidelity": method.get("representative_fidelity"),
+                "exact_method_reproduction": method.get("exact_method_reproduction"),
                 "solution_type": method.get("solution_type"),
                 "best_epoch": payload.get("best_epoch") or payload.get("historical", {}).get("best_epoch"),
                 "actual_epochs": payload.get("training", {}).get("actual_epochs") or payload.get("historical", {}).get("actual_epochs"),
@@ -129,6 +131,8 @@ def write_summary_csv(rows: list[dict[str, Any]]) -> None:
         "family",
         "method",
         "implementation",
+        "representative_fidelity",
+        "exact_method_reproduction",
         "solution_type",
         "best_epoch",
         "actual_epochs",
@@ -184,14 +188,16 @@ def write_report(rows: list[dict[str, Any]]) -> None:
         "",
         "## Ranking-Oriented Point",
         "",
-        "| family | method | run | stage | HR@10 | NDCG@10 | best epoch | test eval |",
-        "|---|---|---|---|---:|---:|---:|---:|",
+        "| family | method | implementation | fidelity | exact | run | stage | HR@10 | NDCG@10 | best epoch | test eval |",
+        "|---|---|---|---|---:|---|---|---:|---:|---:|---:|",
     ]
     for row in rows:
         if row.get("stage") not in {"sanity", "historical"}:
             continue
         lines.append(
-            f"| {row['family']} | {row['method']} | `{row['run_id']}` | {row['stage']} | "
+            f"| {row['family']} | {row['method']} | {row.get('implementation') or ''} | "
+            f"{row.get('representative_fidelity') or ''} | {row.get('exact_method_reproduction')} | "
+            f"`{row['run_id']}` | {row['stage']} | "
             f"{fmt(row['HR@10'])} | {fmt(row['NDCG@10'])} | {row['best_epoch'] or ''} | {row['test_evaluation_count']} |"
         )
     lines += [

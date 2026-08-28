@@ -59,7 +59,14 @@ def scalar_loss_record(losses: Mapping[str, Any]) -> dict[str, float]:
         "is_like_scaled_contribution",
         "is_profile_enter_scaled_contribution",
     ]
-    return {key: tensor_to_float(losses[key]) for key in keys if key in losses}
+    result = {key: tensor_to_float(losses[key]) for key in keys if key in losses}
+    if "task_vector" in losses:
+        for idx, task in enumerate(TASK_ORDER):
+            result[f"raw_{task}"] = tensor_to_float(losses["task_vector"][idx])
+    if "normalized_task_vector" in losses:
+        for idx, task in enumerate(TASK_ORDER):
+            result[f"normalized_{task}"] = tensor_to_float(losses["normalized_task_vector"][idx])
+    return result
 
 
 def gradient_diagnostics(
@@ -88,6 +95,10 @@ def gradient_diagnostics(
         "gradient_norms": norms,
         "conflicts": conflicts,
         "task_losses": {task: tensor_to_float(task_map[task]) for task in TASK_ORDER},
+        "normalized_task_losses": {
+            task: tensor_to_float(losses["normalized_task_vector"][idx])
+            for idx, task in enumerate(TASK_ORDER)
+        } if "normalized_task_vector" in losses else None,
         "all_finite_vectors": bool(th.isfinite(th.stack(list(vectors.values()))).all()) if vectors else True,
     }
 
@@ -98,4 +109,3 @@ def batch_positive_rates(interaction: Any) -> dict[str, float]:
         for target in TASK_ORDER
         if target != "rank" and target in interaction
     }
-

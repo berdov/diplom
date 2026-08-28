@@ -68,6 +68,7 @@ from experiments.moo_8families.strategies.epo import ExactParetoPreferenceSolver
 from experiments.moo_8families.strategies.famo import FAMO  # noqa: E402
 from experiments.moo_8families.strategies.gradhv import DominatedHypervolume  # noqa: E402
 from experiments.moo_8families.strategies.pcgrad_adapter import load_historical_pcgrad  # noqa: E402
+from experiments.moo_8families.strategies.preferences import ContinuousPreferenceSampler  # noqa: E402
 from experiments.moo_8families.strategies.stch import SmoothTchebycheffScalarizer  # noqa: E402
 from experiments.multitask_tim4rec.model import MultitaskTiM4Rec, TARGETS  # noqa: E402
 from experiments.multitask_tim4rec.train import (  # noqa: E402
@@ -217,6 +218,8 @@ def source_hashes() -> dict[str, str]:
         "experiments/moo_8families/strategies/famo.py",
         "experiments/moo_8families/strategies/epo.py",
         "experiments/moo_8families/strategies/gradhv.py",
+        "experiments/moo_8families/strategies/pcgrad_adapter.py",
+        "experiments/moo_8families/strategies/preferences.py",
         "experiments/moo_8families/pareto_models/phn.py",
         "experiments/moo_8families/pareto_models/cosmos.py",
         "experiments/moo_8families/pareto_models/palora.py",
@@ -666,7 +669,7 @@ def train_conditional_epoch(
     sampled: Mapping[str, Any],
     pos_weights: Mapping[str, Any],
     loss_scales: Sequence[float],
-    train_preferences: Sequence[Mapping[str, Any]],
+    preference_sampler: ContinuousPreferenceSampler,
     method_config: Mapping[str, Any],
     max_batches: int | None,
     epoch: int,
@@ -677,11 +680,16 @@ def train_conditional_epoch(
     examples = 0
     batches = 0
     first_diag = None
-    preference_counts = {item["id"]: 0 for item in train_preferences}
+    sampled_preferences: list[list[float]] = []
 
     for batch_idx, interaction in enumerate(train_data):
-        pref_record = train_preferences[(batch_idx + epoch - 1) % len(train_preferences)]
-        preference = pref_record["weights"]
+        del batch_idx
+        pref_tensor = preference_sampler.sample_tensor(
+            device=next(model.parameters()).device,
+            dtype=next(model.parameters()).dtype,
+        )
+        preference = [tensor_to_float(value) for value in pref_tensor]
+        sampled_preferences.append(preference)
         set_model_preference(model, preference)
         interaction = interaction.to(next(model.parameters()).device)
         batch_size = len(interaction)
@@ -705,16 +713,16 @@ def train_conditional_epoch(
         sums["moo_scalar"] = sums.get("moo_scalar", 0.0) + tensor_to_float(scalar) * batch_size
         examples += batch_size
         batches += 1
-        preference_counts[pref_record["id"]] += 1
         if first_diag is None:
             first_diag = gradient_diagnostics(model, losses, selector="all_backbone") | {
-                "preference_id": pref_record["id"],
+                "preference_id": "dirichlet_sample",
                 "preference": preference,
             }
         if max_batches is not None and batches >= max_batches:
             break
     summary = summarize_epoch(sums, examples, batches)
-    summary["preference_counts"] = preference_counts
+    summary["sampled_preferences_head"] = sampled_preferences[:5]
+    summary["preference_sampling"] = preference_sampler.diagnostics()
     if hasattr(model, "extra_parameter_summary"):
         summary["method_state"] = model.extra_parameter_summary()
     return summary, first_diag
@@ -848,6 +856,9 @@ def build_notes(result: Mapping[str, Any]) -> str:
         "- Test dataset не загружался, test dataloader не создавался.",
         f"- Stage: `{result['stage']}`.",
         f"- Method: `{result['method']['name']}`.",
+        f"- Implementation: `{result['method'].get('implementation_name')}`.",
+        f"- Representative fidelity: `{result['method'].get('representative_fidelity')}`.",
+        f"- Exact method reproduction: `{result['method'].get('exact_method_reproduction')}`.",
         "",
         "## Dataset",
         "",
@@ -1002,6 +1013,7 @@ def main() -> None:
     train_data, valid_data = create_loaders(recbole_config, data.train_dataset, data.valid_dataset)
     device = recbole_config["device"]
     pos_weights = pos_weight_tensors(sampled["effective_pos_weights"], device)
+    preference_sampler = None
 
     if args.method == "epo":
         pref_records = preference_records(preferences, method_config["preference_set"])
@@ -1055,6 +1067,13 @@ def main() -> None:
         else:
             method_state = None
             validation_preferences = preference_records(preferences, method_config["eval_preference_set"])
+            sampling_config = method_config["preference_sampling"]
+            sampler_seed = int(moo_config["continuous_preference_sampling"]["seed"]) + TRAIN_METHODS.index(args.method)
+            preference_sampler = ContinuousPreferenceSampler(
+                alpha=float(sampling_config["alpha"]),
+                seed=sampler_seed,
+                coverage_threshold=float(moo_config["continuous_preference_sampling"]["coverage_threshold"]),
+            )
 
     diagnostic_model = models[0]
     normalization = compute_normalization_diagnostics(
@@ -1122,7 +1141,8 @@ def main() -> None:
                 max_batches=max_batches,
             )
         else:
-            train_preferences = preference_records(preferences, method_config["train_preference_set"])
+            if preference_sampler is None:
+                raise RuntimeError(f"Continuous preference sampler was not initialized for {args.method}")
             losses, first_diag = train_conditional_epoch(
                 method=args.method,
                 model=models[0],
@@ -1131,7 +1151,7 @@ def main() -> None:
                 sampled=sampled,
                 pos_weights=pos_weights,
                 loss_scales=loss_scales,
-                train_preferences=train_preferences,
+                preference_sampler=preference_sampler,
                 method_config=method_config,
                 max_batches=max_batches,
                 epoch=epoch,
@@ -1225,6 +1245,13 @@ def main() -> None:
     if len(models) == 1 and hasattr(models[0], "extra_parameter_summary"):
         extra = models[0].extra_parameter_summary()
 
+    method_warnings = []
+    if not bool(method_config.get("exact_method_reproduction", True)):
+        method_warnings.append(
+            f"{method_config.get('implementation_name', method_config['representative'])} is marked as "
+            f"{method_config.get('representative_fidelity', 'family-level adaptation')}, not exact method reproduction."
+        )
+
     result: dict[str, Any] = {
         "run_id": run_id,
         "status": status,
@@ -1253,6 +1280,8 @@ def main() -> None:
             "method_key": args.method,
             "solution_type": str(method_config["solution_type"]),
             "implementation_name": method_config.get("implementation_name", method_config["representative"]),
+            "representative_fidelity": method_config.get("representative_fidelity", "exact_or_close_reproduction"),
+            "exact_method_reproduction": bool(method_config.get("exact_method_reproduction", True)),
             "config": dict(method_config),
             "state": method_state.state_dict() if hasattr(method_state, "state_dict") else method_state,
         },
@@ -1295,7 +1324,15 @@ def main() -> None:
         },
         "preferences": {
             "objective_order": list(TASK_ORDER),
-            "used_for_training": method_config.get("preference_set") or method_config.get("train_preference_set") or method_config.get("preference_id"),
+            "used_for_training": (
+                {
+                    "distribution": "Dirichlet",
+                    "sampler_diagnostics": preference_sampler.diagnostics(),
+                    "fixed_grid_not_used_for_training": True,
+                }
+                if preference_sampler is not None
+                else method_config.get("preference_set") or method_config.get("preference_id")
+            ),
             "used_for_validation": method_config.get("eval_preference_set") if stage == "sanity" else None,
             "source": project_path(moo_config["source"]["preferences"]),
         },
@@ -1343,7 +1380,7 @@ def main() -> None:
             }[args.method],
             "checkpoint_last_size_bytes": None if last_checkpoint is None else last_checkpoint["size_bytes"],
         },
-        "warnings": [],
+        "warnings": method_warnings,
     }
     save_json(result_json, result)
     notes.parent.mkdir(parents=True, exist_ok=True)

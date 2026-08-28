@@ -36,13 +36,6 @@ sets:
     - long_heavy
     - like_heavy
     - profile_heavy
-  continuous_training_grid:
-    - balanced
-    - rank_heavy
-    - click_heavy
-    - long_heavy
-    - like_heavy
-    - profile_heavy
   continuous_eval_grid:
     - balanced
     - rank_heavy

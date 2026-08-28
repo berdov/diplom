@@ -28,9 +28,13 @@ class DominatedHypervolume:
         eps: float = 1e-12,
     ):
         self.task_order = tuple(task_order)
-        if self.task_order != TASK_ORDER:
-            raise ValueError(f"Expected task order {TASK_ORDER}, got {self.task_order}")
+        if len(self.task_order) < 2:
+            raise ValueError(f"Hypervolume requires at least two objectives, got {self.task_order}")
         self.reference_point_source = [float(value) for value in reference_point]
+        if len(self.reference_point_source) != len(self.task_order):
+            raise ValueError(
+                f"Reference point must have {len(self.task_order)} entries, got {len(self.reference_point_source)}"
+            )
         self.eps = float(eps)
         self.last_record: HypervolumeRecord | None = None
 
@@ -43,6 +47,10 @@ class DominatedHypervolume:
         if points.ndim != 2:
             raise ValueError(f"Expected points [solutions, objectives], got {tuple(points.shape)}")
         solutions, objectives = points.shape
+        if int(objectives) != len(self.reference_point_source):
+            raise ValueError(
+                f"Expected {len(self.reference_point_source)} objectives for task order {self.task_order}, got {int(objectives)}"
+            )
         reference = self.reference(points)
         hv = th.zeros((), dtype=points.dtype, device=points.device)
         for size in range(1, solutions + 1):
@@ -68,4 +76,3 @@ class DominatedHypervolume:
             "task_order": self.task_order,
             "last_record": None if self.last_record is None else self.last_record.__dict__,
         }
-

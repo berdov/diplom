@@ -13,7 +13,7 @@ from typing import Any, Sequence
 
 import numpy as np
 
-from .base import TASK_ORDER, preference_tensor, require_torch, tensor_to_float
+from .base import TASK_ORDER, require_torch, tensor_to_float
 
 
 @dataclass
@@ -96,7 +96,19 @@ class ExactParetoPreferenceSolver:
         alpha_multiplier: float | None = None,
     ):
         self.task_order = tuple(task_order)
-        self.preference_source = [float(value) for value in preference]
+        if len(self.task_order) < 2:
+            raise ValueError(f"EPO requires at least two tasks, got {self.task_order}")
+        pref = np.asarray([float(value) for value in preference], dtype=np.float64)
+        if pref.shape != (len(self.task_order),):
+            raise ValueError(f"Preference must have {len(self.task_order)} entries, got shape {pref.shape}")
+        if not np.isfinite(pref).all():
+            raise ValueError(f"Preference contains non-finite values: {pref}")
+        if np.any(pref < 0):
+            raise ValueError(f"Preference must be non-negative: {pref}")
+        pref_sum = float(pref.sum())
+        if pref_sum <= 1e-12:
+            raise ValueError(f"Preference sum must be positive: {pref}")
+        self.preference_source = (pref / pref_sum).astype(float).tolist()
         self.eps = float(eps)
         self.alpha_multiplier = len(self.task_order) if alpha_multiplier is None else float(alpha_multiplier)
         self.last_result: dict[str, Any] | None = None
@@ -114,16 +126,18 @@ class ExactParetoPreferenceSolver:
     def alpha(self, losses: Any, gradients: Any) -> Any:
         th = require_torch()
         loss_np = losses.detach().float().cpu().numpy()
-        if gradients.ndim != 2:
-            raise ValueError(f"Expected gradients [task, dim], got {tuple(gradients.shape)}")
+        if loss_np.shape != (len(self.task_order),):
+            raise ValueError(f"Expected {len(self.task_order)} losses, got shape {loss_np.shape}")
+        if gradients.ndim != 2 or int(gradients.shape[0]) != len(self.task_order):
+            raise ValueError(f"Expected gradients [task, dim] with {len(self.task_order)} tasks, got {tuple(gradients.shape)}")
         grad_np = gradients.detach().float().cpu().numpy()
-        pref = preference_tensor(self.preference_source, device=losses.device, dtype=losses.dtype)
-        pref_np = pref.detach().float().cpu().numpy()
+        pref_np = np.asarray(self.preference_source, dtype=np.float64)
         c_matrix = grad_np @ grad_np.T
         adjustment, mu_rl, mu = self._adjustments(loss_np, pref_np)
         ca = c_matrix @ adjustment
         m = len(loss_np)
 
+        fallback = None
         if mu_rl > self.eps:
             constraints = c_matrix
             rhs = ca
@@ -138,10 +152,16 @@ class ExactParetoPreferenceSolver:
             lp_type = "dominance"
 
         result = _solve_lp_vertices(objective, constraints, rhs)
+        if lp_type == "dominance" and not result.feasible:
+            fallback = "dominance_relaxed_C_alpha_nonnegative"
+            result = _solve_lp_vertices(objective, c_matrix, np.zeros(m))
+            if not result.feasible:
+                fallback = "uniform_after_infeasible_relaxed_dominance_lp"
         alpha = th.tensor(result.alpha, dtype=losses.dtype, device=losses.device)
         alpha = alpha * self.alpha_multiplier
         self.last_result = {
             "type": lp_type,
+            "fallback": fallback,
             "alpha": [tensor_to_float(value) for value in alpha],
             "alpha_simplex": result.alpha,
             "lp_objective": result.objective,
@@ -160,8 +180,8 @@ class ExactParetoPreferenceSolver:
     def state_dict(self) -> dict[str, Any]:
         return {
             "preference": self.preference_source,
+            "task_order": self.task_order,
             "eps": self.eps,
             "alpha_multiplier": self.alpha_multiplier,
             "last_result": self.last_result,
         }
-

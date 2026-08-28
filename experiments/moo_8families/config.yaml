@@ -70,6 +70,14 @@ run:
   artifact_root: /home/daryumin/iberdov/diplom/experiments/moo_8families
   local_runs_dir: experiments/moo_8families/runs
 
+continuous_preference_sampling:
+  distribution: Dirichlet
+  seed: 20260828
+  coverage_threshold: 0.01
+  min_coverage_fraction_per_coordinate: 0.05
+  validation_preferences_source: experiments/moo_8families/preferences.yaml
+  rationale: PHN, COSMOS and PaLoRA all support Dirichlet/ray sampling in official code; alpha stays method-specific to preserve paper defaults.
+
 methods:
   stch:
     family: loss_balancing
@@ -105,41 +113,63 @@ methods:
     alpha_multiplier: task_count
   gradhv:
     family: finite_no_preference_set
-    representative: GradHV
+    representative: HV-Gradient / GradHV-style
+    paper_reference_name: GradHV / HIGA-MO
     solution_type: finite_set
+    implementation_name: HV-Gradient / GradHV-style
+    representative_fidelity: family-level adaptation
+    exact_method_reproduction: false
     smoke_run_id: gradhv_smoke_001
     sanity_run_id: gradhv_sanity_001
     solution_count: 3
     reference_point_source: train_diagnostic_loss_scale
   phn:
     family: infinite_hypernetwork
-    representative: PHN
+    representative: PHN-adapter
+    paper_reference_name: PHN
     solution_type: continuous
     implementation_name: PHN-adapter
+    representative_fidelity: family-level adaptation
+    exact_method_reproduction: false
     smoke_run_id: phn_smoke_001
     sanity_run_id: phn_sanity_001
-    train_preference_set: continuous_training_grid
     eval_preference_set: continuous_eval_grid
+    preference_sampling:
+      distribution: Dirichlet
+      alpha: 0.2
+      paper_default: 0.2
     adapter_hidden_size: 64
     adapter_scale: 0.1
   cosmos:
     family: infinite_preference_conditioned
     representative: COSMOS-style
     solution_type: continuous
+    implementation_name: COSMOS-style direct preference conditioning
+    representative_fidelity: method-level adaptation
+    exact_method_reproduction: false
     smoke_run_id: cosmos_smoke_001
     sanity_run_id: cosmos_sanity_001
-    train_preference_set: continuous_training_grid
     eval_preference_set: continuous_eval_grid
+    preference_sampling:
+      distribution: Dirichlet
+      alpha: 1.2
+      paper_default: 1.2
     preference_hidden_size: 64
     lambda_cosine: 2.0
   palora:
     family: infinite_model_combination
     representative: PaLoRA
     solution_type: continuous
+    implementation_name: PaLoRA low-rank adapter combination
+    representative_fidelity: method-level adaptation
+    exact_method_reproduction: false
     smoke_run_id: palora_smoke_001
     sanity_run_id: palora_sanity_001
-    train_preference_set: continuous_training_grid
     eval_preference_set: continuous_eval_grid
+    preference_sampling:
+      distribution: Dirichlet
+      alpha: 1.0
+      paper_default: 1.0
     rank: 1
     alpha: 1.0
     target_modules:

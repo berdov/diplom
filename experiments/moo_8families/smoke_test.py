@@ -23,6 +23,7 @@ from experiments.moo_8families.strategies.epo import ExactParetoPreferenceSolver
 from experiments.moo_8families.strategies.famo import FAMO  # noqa: E402
 from experiments.moo_8families.strategies.gradhv import DominatedHypervolume  # noqa: E402
 from experiments.moo_8families.strategies.pcgrad_adapter import load_historical_pcgrad  # noqa: E402
+from experiments.moo_8families.strategies.preferences import ContinuousPreferenceSampler  # noqa: E402
 from experiments.moo_8families.strategies.stch import SmoothTchebycheffScalarizer  # noqa: E402
 
 
@@ -49,11 +50,20 @@ def test_stch() -> dict[str, Any]:
     stch = scalarizer.scalarize(losses)
     linear = (preference_tensor(pref, device=losses.device, dtype=losses.dtype) * losses).sum()
     check = finite_grad_check(stch, [losses])
+    reference_losses = losses.detach().clone().requires_grad_(True)
+    pref_tensor = preference_tensor(pref, device=reference_losses.device, dtype=reference_losses.dtype)
+    reference_terms = pref_tensor * torch.log(reference_losses)
+    reference = torch.logsumexp(reference_terms / 1.0, dim=0) * len(TASK_ORDER)
+    reference.backward()
+    reference_grad = reference_losses.grad.detach().clone()
+    stch_grad = losses.grad.detach().clone()
     return {
         "stch": float(stch.detach().item()),
         "linear": float(linear.detach().item()),
         "stch_not_linear": abs(float(stch.detach().item()) - float(linear.detach().item())) > 1e-6,
         "grad_check": check,
+        "gradient_matches_logsumexp_reference": bool(torch.allclose(stch_grad, reference_grad, atol=1e-6, rtol=1e-6)),
+        "max_gradient_abs_diff": float((stch_grad - reference_grad).abs().max().item()),
     }
 
 
@@ -61,6 +71,9 @@ def test_famo() -> dict[str, Any]:
     param = nn.Parameter(torch.tensor([1.0, -0.5]))
     famo = FAMO(device=param.device)
     losses = torch.stack([(param[0] - i * 0.1).pow(2) + (param[1] + i * 0.2).pow(2) + 1.0 for i in range(5)])
+    z = torch.softmax(famo.w, dim=-1)
+    denom = (losses - famo.min_losses).clamp_min(famo.eps)
+    official_formula = (denom.log() * z / (z / denom).sum().detach().clamp_min(famo.eps)).sum()
     weighted = famo.get_weighted_loss(losses)
     check = finite_grad_check(weighted, [param])
     with torch.no_grad():
@@ -69,6 +82,7 @@ def test_famo() -> dict[str, Any]:
     update = famo.update(current)
     return {
         "weighted_loss": float(weighted.detach().item()),
+        "matches_official_formula": bool(torch.allclose(weighted.detach(), official_formula.detach(), atol=1e-8, rtol=1e-8)),
         "grad_check": check,
         "effective_weights": update.effective_weights,
         "weights_sum": sum(update.effective_weights),
@@ -81,10 +95,21 @@ def test_epo() -> dict[str, Any]:
     solver = ExactParetoPreferenceSolver([0.6, 0.1, 0.1, 0.1, 0.1], alpha_multiplier=5)
     alpha = solver.alpha(losses, gradients)
     simplex = [value / 5.0 for value in alpha.detach().cpu().tolist()]
+    two_task_right = ExactParetoPreferenceSolver([0.5, 0.5], task_order=("rank", "is_click"), alpha_multiplier=2)
+    alpha_right = two_task_right.alpha(torch.tensor([1.0, 2.0]), torch.eye(2))
+    two_task_left = ExactParetoPreferenceSolver([0.5, 0.5], task_order=("rank", "is_click"), alpha_multiplier=2)
+    alpha_left = two_task_left.alpha(torch.tensor([2.0, 1.0]), torch.eye(2))
     return {
         "alpha": alpha.detach().cpu().tolist(),
         "simplex_sum": sum(simplex),
         "all_non_negative": all(value >= -1e-8 for value in simplex),
+        "two_task_known_behavior": {
+            "losses_1_2_pref_balanced_alpha": alpha_right.detach().cpu().tolist(),
+            "losses_2_1_pref_balanced_alpha": alpha_left.detach().cpu().tolist(),
+            "expected_prefers_larger_loss_coordinate_after_task_multiplier": True,
+            "right_case_ok": bool(alpha_right[1] > alpha_right[0]),
+            "left_case_ok": bool(alpha_left[0] > alpha_left[1]),
+        },
         "state": solver.state_dict(),
     }
 
@@ -101,7 +126,50 @@ def test_gradhv() -> dict[str, Any]:
     hv = DominatedHypervolume([1.5, 1.5, 1.5, 1.5, 1.5])
     loss = hv.loss(points)
     check = finite_grad_check(loss, [points])
-    return {"loss": float(loss.detach().item()), "grad_check": check, "state": hv.state_dict()}
+    autograd_grad = points.grad.detach().clone()
+    eps = 1e-4
+    plus = points.detach().clone()
+    minus = points.detach().clone()
+    plus[0, 0] += eps
+    minus[0, 0] -= eps
+    finite_diff = float((hv.loss(plus) - hv.loss(minus)).item() / (2 * eps))
+    dominated = torch.tensor([[1.0, 1.0], [1.2, 1.2]], requires_grad=True)
+    hv2 = DominatedHypervolume([2.0, 2.0], task_order=("rank", "is_click"))
+    dominated_loss = hv2.loss(dominated)
+    dominated_loss.backward()
+    dominated_grad_zero = bool(dominated.grad[1].abs().max().item() < 1e-6)
+    return {
+        "loss": float(loss.detach().item()),
+        "grad_check": check,
+        "finite_difference_coordinate_0_0": finite_diff,
+        "autograd_coordinate_0_0": float(autograd_grad[0, 0].item()),
+        "finite_difference_close": abs(finite_diff - float(autograd_grad[0, 0].item())) < 1e-3,
+        "dominated_solution_gradient_zero": dominated_grad_zero,
+        "state": hv.state_dict(),
+    }
+
+
+def test_continuous_preference_sampler() -> dict[str, Any]:
+    summaries = {}
+    for name, alpha in {"phn": 0.2, "cosmos": 1.2, "palora": 1.0}.items():
+        sampler = ContinuousPreferenceSampler(alpha=alpha, seed=20260828, coverage_threshold=0.01)
+        samples = [sampler.sample_numpy() for _ in range(1000)]
+        array = torch.tensor(samples)
+        diag = sampler.diagnostics(reproduction_samples=1000)
+        summary = diag["summary"]
+        summaries[name] = {
+            "alpha": alpha,
+            "mean": summary["mean"],
+            "min": summary["min"],
+            "max": summary["max"],
+            "max_simplex_sum_error": summary["max_simplex_sum_error"],
+            "coverage_fraction": summary["coverage_fraction"],
+            "coordinate_nonzero_count": summary["coordinate_nonzero_count"],
+            "deterministic_reproduction_max_abs_error": summary["deterministic_reproduction_max_abs_error"],
+            "all_coordinates_meaningfully_covered": all(value >= 0.05 for value in summary["coverage_fraction"]),
+            "all_simplex_sums_ok": bool(torch.allclose(array.sum(dim=1), torch.ones(1000), atol=1e-6, rtol=1e-6)),
+        }
+    return summaries
 
 
 def test_palora() -> dict[str, Any]:
@@ -190,6 +258,7 @@ def main() -> None:
             "famo": test_famo(),
             "epo": test_epo(),
             "gradhv": test_gradhv(),
+            "continuous_preference_sampler": test_continuous_preference_sampler(),
             "phn_adapter": test_phn_adapter_unit(),
             "cosmos_conditioning": test_cosmos_conditioning_unit(),
             "palora": test_palora(),
@@ -205,14 +274,33 @@ def main() -> None:
     failures = []
     if not result["tests"]["stch"]["stch_not_linear"]:
         failures.append("STCH collapsed to linear weighted sum")
+    if not result["tests"]["stch"]["gradient_matches_logsumexp_reference"]:
+        failures.append("STCH detached-max gradient differs from logsumexp reference")
     if not result["tests"]["famo"]["grad_check"]["ok"]:
         failures.append("FAMO gradient check failed")
+    if not result["tests"]["famo"]["matches_official_formula"]:
+        failures.append("FAMO weighted loss differs from official formula")
     if abs(result["tests"]["famo"]["weights_sum"] - 1.0) > 1e-6:
         failures.append("FAMO weights are not simplex")
     if not result["tests"]["epo"]["all_non_negative"] or abs(result["tests"]["epo"]["simplex_sum"] - 1.0) > 1e-6:
         failures.append("EPO alpha is not simplex")
+    if not result["tests"]["epo"]["two_task_known_behavior"]["right_case_ok"]:
+        failures.append("EPO two-task [1,2] regression failed")
+    if not result["tests"]["epo"]["two_task_known_behavior"]["left_case_ok"]:
+        failures.append("EPO two-task [2,1] regression failed")
     if not result["tests"]["gradhv"]["grad_check"]["ok"]:
         failures.append("GradHV gradient check failed")
+    if not result["tests"]["gradhv"]["finite_difference_close"]:
+        failures.append("GradHV finite-difference check failed")
+    if not result["tests"]["gradhv"]["dominated_solution_gradient_zero"]:
+        failures.append("GradHV dominated solution handling failed")
+    for name, summary in result["tests"]["continuous_preference_sampler"].items():
+        if not summary["all_coordinates_meaningfully_covered"]:
+            failures.append(f"{name} Dirichlet sampler does not cover all coordinates")
+        if not summary["all_simplex_sums_ok"]:
+            failures.append(f"{name} Dirichlet sampler simplex sums failed")
+        if summary["deterministic_reproduction_max_abs_error"] != 0.0:
+            failures.append(f"{name} Dirichlet sampler is not deterministic")
     if not result["tests"]["phn_adapter"]["output_changes_with_preference"]:
         failures.append("PHN adapter output does not change with preference")
     if not result["tests"]["phn_adapter"]["grad_check"]["ok"]:
