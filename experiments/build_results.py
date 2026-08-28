@@ -251,6 +251,33 @@ RUN_METADATA: dict[str, dict[str, Any]] = {
         "train_candidates": "full_sequence",
         "parent_run": "multitask_tim4rec_tuned_001",
     },
+    "behavior_moe_smoke_001": {
+        "record_type": "sanity",
+        "model": "BehaviorMoETiM4Rec",
+        "model_variant": "behavior_specialized_soft_moe_smoke",
+        "split": "train",
+        "evaluation": "diagnostic",
+        "train_candidates": "full_sequence",
+        "parent_run": "multitask_tim4rec_tuned_001",
+    },
+    "behavior_moe_sanity_001": {
+        "record_type": "sanity",
+        "model": "BehaviorMoETiM4Rec",
+        "model_variant": "behavior_specialized_soft_moe_sanity_5_epoch",
+        "split": "validation",
+        "evaluation": "full_7111_items",
+        "train_candidates": "full_sequence",
+        "parent_run": "multitask_tim4rec_tuned_001",
+    },
+    "structured_behavior_moe_smoke_001": {
+        "record_type": "sanity",
+        "model": "StructuredBehaviorMoE",
+        "model_variant": "structured_behavior_moe_architecture_probe",
+        "split": "train",
+        "evaluation": "diagnostic",
+        "train_candidates": "full_sequence",
+        "parent_run": "behavior_moe_sanity_001",
+    },
     "pcgrad_sanity_001": {
         "record_type": "sanity",
         "model": "MultitaskTiM4Rec",
@@ -492,6 +519,8 @@ def test_count_for(record_type: str, split: str, payload: dict[str, Any], metric
 
 
 def base_row(path: Path, payload: dict[str, Any], run_id: str, meta: dict[str, Any]) -> dict[str, Any]:
+    best_epoch = best_epoch_for(payload)
+    actual_epochs = actual_epochs_for(payload)
     row = {field: "" for field in FIELDS}
     row.update(
         {
@@ -509,8 +538,8 @@ def base_row(path: Path, payload: dict[str, Any], run_id: str, meta: dict[str, A
             "seed": seed_for(payload) or "",
             "train_candidates": meta.get("train_candidates", ""),
             "item_universe": item_universe(payload),
-            "best_epoch": best_epoch_for(payload) or "",
-            "actual_epochs": actual_epochs_for(payload) or "",
+            "best_epoch": best_epoch if best_epoch is not None else "",
+            "actual_epochs": actual_epochs if actual_epochs is not None else "",
             "validation_ndcg10": "",
             "git_commit": git_commit_for(payload),
             "notes_path": find_notes(path, run_id),

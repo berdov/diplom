@@ -109,6 +109,11 @@ experiments/ltr_xgb_optuna/runs/*
 !experiments/ltr_xgb_optuna/runs/.gitkeep
 !experiments/ltr_xgb_optuna/runs/*.json
 !experiments/ltr_xgb_optuna/runs/*_notes.md
+experiments/behavior_moe_tim4rec/runs/*
+!experiments/behavior_moe_tim4rec/runs/.gitkeep
+!experiments/behavior_moe_tim4rec/runs/*.json
+!experiments/behavior_moe_tim4rec/runs/*_notes.md
+!experiments/behavior_moe_tim4rec/runs/*_routing.csv
 
 # Generated research outputs: ignore by default, keep compact summaries.
 outputs/*
