@@ -1,0 +1,147 @@
+experiment: moo_8families_benchmark
+branch: exp/moo-8families-benchmark
+expected_start_commit: 8baede3cc578103053f1d108a54c877fc8c4f69e
+
+protocol:
+  dataset: KuaiRand-Pure
+  protocol: B
+  users: 23951
+  items: 7111
+  interactions: 1134420
+  train: 1086518
+  validation: 23951
+  test: 23951
+  identity_hash: 954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7
+  processed_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b
+  multitask_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask
+
+source:
+  optuna_config: experiments/multitask_tim4rec_optuna/config.yaml
+  best_params: experiments/multitask_tim4rec_optuna/best_params.yaml
+  preferences: experiments/moo_8families/preferences.yaml
+  pcgrad_historical_json: experiments/adaptive_multitask_tim4rec/runs/pcgrad_001.json
+
+test_policy:
+  load_test_dataset: false
+  create_test_dataloader: false
+  evaluate_test: false
+  test_evaluation_count: 0
+
+objectives:
+  task_order:
+    - rank
+    - is_click
+    - long_view
+    - is_like
+    - is_profile_enter
+  model_selection_metric: NDCG@10
+  validation_topk: [5, 10, 20, 50]
+  auxiliary_metrics:
+    - BCE
+    - ROC-AUC
+    - PR-AUC
+
+tuned_fixed_params:
+  source: experiments/multitask_tim4rec_optuna/best_params.yaml
+  trial_number: 110
+  lambda_aux: 0.13182740780834337
+  learning_rate: 0.0019075370668084298
+  weight_decay: 1.925502656735127e-06
+  dropout_prob: 0.08565706719893162
+  head_lr_multiplier: 0.45851058258621097
+  normalized_task_weights:
+    is_click: 0.2555691799732421
+    long_view: 0.23643110685667904
+    is_like: 3.246987612489936
+    is_profile_enter: 0.2610121006801428
+
+normalization:
+  diagnostic_batches: 8
+  loss_scale_source: train_diagnostic_mean
+  fallback_loss_scale: 1.0
+  gradient_selector: all_backbone
+  reference_point_multiplier: 1.5
+
+run:
+  seed: 2026
+  smoke_batches: 3
+  sanity_epochs: 5
+  diagnostic_epochs: [1, 3, 5]
+  artifact_root: /home/daryumin/iberdov/diplom/experiments/moo_8families
+  local_runs_dir: experiments/moo_8families/runs
+
+methods:
+  stch:
+    family: loss_balancing
+    representative: STCH
+    solution_type: single
+    smoke_run_id: stch_smoke_001
+    sanity_run_id: stch_sanity_001
+    mu: 1.0
+    warmup_epochs: 4
+    preference_id: balanced
+  famo:
+    family: gradient_weighting
+    representative: FAMO
+    solution_type: single
+    smoke_run_id: famo_smoke_001
+    sanity_run_id: famo_sanity_001
+    gamma: 0.01
+    w_lr: 0.025
+    max_norm: 1.0
+  pcgrad:
+    family: gradient_manipulation
+    representative: PCGrad
+    solution_type: single
+    historical_run_id: pcgrad_001
+    rerun: false
+  epo:
+    family: finite_preference_set
+    representative: EPO
+    solution_type: finite_set
+    smoke_run_id: epo_smoke_001
+    sanity_run_id: epo_sanity_001
+    preference_set: finite_preference_set
+    alpha_multiplier: task_count
+  gradhv:
+    family: finite_no_preference_set
+    representative: GradHV
+    solution_type: finite_set
+    smoke_run_id: gradhv_smoke_001
+    sanity_run_id: gradhv_sanity_001
+    solution_count: 3
+    reference_point_source: train_diagnostic_loss_scale
+  phn:
+    family: infinite_hypernetwork
+    representative: PHN
+    solution_type: continuous
+    implementation_name: PHN-adapter
+    smoke_run_id: phn_smoke_001
+    sanity_run_id: phn_sanity_001
+    train_preference_set: continuous_training_grid
+    eval_preference_set: continuous_eval_grid
+    adapter_hidden_size: 64
+    adapter_scale: 0.1
+  cosmos:
+    family: infinite_preference_conditioned
+    representative: COSMOS-style
+    solution_type: continuous
+    smoke_run_id: cosmos_smoke_001
+    sanity_run_id: cosmos_sanity_001
+    train_preference_set: continuous_training_grid
+    eval_preference_set: continuous_eval_grid
+    preference_hidden_size: 64
+    lambda_cosine: 2.0
+  palora:
+    family: infinite_model_combination
+    representative: PaLoRA
+    solution_type: continuous
+    smoke_run_id: palora_smoke_001
+    sanity_run_id: palora_sanity_001
+    train_preference_set: continuous_training_grid
+    eval_preference_set: continuous_eval_grid
+    rank: 1
+    alpha: 1.0
+    target_modules:
+      - last_ssd_out_proj
+      - last_ffn_fc2

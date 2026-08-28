@@ -1,0 +1,52 @@
+version: 1
+created_before_validation_results: true
+objective_order:
+  - rank
+  - is_click
+  - long_view
+  - is_like
+  - is_profile_enter
+normalization: simplex_sum_to_one
+
+preferences:
+  balanced:
+    description: Равный вес пяти objectives.
+    weights: [0.2, 0.2, 0.2, 0.2, 0.2]
+  rank_heavy:
+    description: Основная ranking-точка для single-solution comparison.
+    weights: [0.6, 0.1, 0.1, 0.1, 0.1]
+  click_heavy:
+    description: Упор на is_click при сохранении ranking objective.
+    weights: [0.2, 0.5, 0.1, 0.1, 0.1]
+  long_heavy:
+    description: Упор на long_view при сохранении ranking objective.
+    weights: [0.2, 0.1, 0.5, 0.1, 0.1]
+  like_heavy:
+    description: Упор на is_like при сохранении ranking objective.
+    weights: [0.2, 0.1, 0.1, 0.5, 0.1]
+  profile_heavy:
+    description: Упор на is_profile_enter при сохранении ranking objective.
+    weights: [0.2, 0.1, 0.1, 0.1, 0.5]
+
+sets:
+  finite_preference_set:
+    - balanced
+    - rank_heavy
+    - click_heavy
+    - long_heavy
+    - like_heavy
+    - profile_heavy
+  continuous_training_grid:
+    - balanced
+    - rank_heavy
+    - click_heavy
+    - long_heavy
+    - like_heavy
+    - profile_heavy
+  continuous_eval_grid:
+    - balanced
+    - rank_heavy
+    - click_heavy
+    - long_heavy
+    - like_heavy
+    - profile_heavy
