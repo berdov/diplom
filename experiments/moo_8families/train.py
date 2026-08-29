@@ -1412,6 +1412,7 @@ def main() -> None:
         "status": status,
         "record_type": "sanity" if stage == "sanity" else "smoke",
         "stage": stage,
+        "scientific_result": stage == "sanity",
         "objective": "validation_full_ranking_NDCG@10" if stage == "sanity" else "train_only_smoke",
         "created_at_utc": run_started.isoformat(),
         "completed_at_utc": datetime.now(timezone.utc).isoformat(),
