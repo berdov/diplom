@@ -34,6 +34,14 @@ def load_yaml(path: Path) -> dict[str, Any]:
         return yaml.safe_load(handle)
 
 
+def git_value(args: list[str], default: str = "unknown") -> str:
+    try:
+        value = subprocess.check_output(["git", *args], cwd=ROOT, text=True, stderr=subprocess.DEVNULL).strip()
+        return value or default
+    except Exception:
+        return default
+
+
 def result_path(config: dict[str, Any], run_id: str) -> Path:
     path = Path(config["run"]["local_runs_dir"])
     if not path.is_absolute():
@@ -105,7 +113,16 @@ def check_validation_gate(config: dict[str, Any]) -> None:
 
 
 def command_for(slurm: Path, method: str, stage: str, run_id: str) -> list[str]:
-    export = f"ALL,MOO_METHOD={method},MOO_STAGE={stage},MOO_RUN_ID={run_id},REPO_DIR={ROOT}"
+    export_values = {
+        "MOO_METHOD": method,
+        "MOO_STAGE": stage,
+        "MOO_RUN_ID": run_id,
+        "REPO_DIR": str(ROOT),
+        "MOO_GIT_COMMIT": git_value(["rev-parse", "HEAD"]),
+        "MOO_GIT_BRANCH": git_value(["rev-parse", "--abbrev-ref", "HEAD"]),
+        "MOO_GIT_REMOTE": git_value(["config", "--get", "remote.origin.url"]),
+    }
+    export = "ALL," + ",".join(f"{key}={value}" for key, value in export_values.items())
     command = ["sbatch", f"--export={export}"]
     if stage == "convergence_screening":
         logs_dir = ROOT / "experiments" / "moo_8families" / "slurm_logs"
