@@ -37,11 +37,13 @@ if str(UPSTREAM_DIR) not in sys.path:
     sys.path.insert(0, str(UPSTREAM_DIR))
 
 from experiments.adaptive_multitask_tim4rec.methods.common import (  # noqa: E402
+    assign_flat_gradient,
     ensure_finite_gradients,
     parameter_group_summary,
     shared_parameter_entries,
     task_gradient_vectors,
 )
+from experiments.adaptive_multitask_tim4rec.methods.pcgrad import PCGradProjector  # noqa: E402
 from experiments.moo_8families.evaluation.ranking import evaluate_validation_ranking  # noqa: E402
 from experiments.moo_8families.evaluation.objectives import (  # noqa: E402
     gradient_diagnostics,
@@ -97,14 +99,16 @@ from experiments.multitask_tim4rec_optuna.run_locked_tuned import sampled_from_l
 EXPERIMENT_DIR = ROOT / "experiments" / "moo_8families"
 DEFAULT_CONFIG = EXPERIMENT_DIR / "config.yaml"
 METHODS = ("stch", "famo", "pcgrad", "epo", "gradhv", "phn", "cosmos", "palora")
-TRAIN_METHODS = ("stch", "famo", "epo", "gradhv", "phn", "cosmos", "palora")
+TRAIN_METHODS = ("stch", "famo", "pcgrad", "epo", "gradhv", "phn", "cosmos", "palora")
 CONDITIONAL_METHODS = ("phn", "cosmos", "palora")
+VALIDATION_STAGES = ("sanity", "convergence_screening")
+CONDITIONAL_SEED_OFFSETS = {"phn": 4, "cosmos": 5, "palora": 6}
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--method", choices=METHODS, required=True)
-    parser.add_argument("--stage", choices=("smoke", "sanity", "historical"), default="smoke")
+    parser.add_argument("--stage", choices=("smoke", "sanity", "historical", "convergence_screening"), default="smoke")
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--config", default=str(DEFAULT_CONFIG))
     parser.add_argument("--epochs", type=int, default=None)
@@ -231,6 +235,8 @@ def source_hashes() -> dict[str, str]:
         "experiments/moo_8families/pareto_models/phn.py",
         "experiments/moo_8families/pareto_models/cosmos.py",
         "experiments/moo_8families/pareto_models/palora.py",
+        "experiments/adaptive_multitask_tim4rec/methods/common.py",
+        "experiments/adaptive_multitask_tim4rec/methods/pcgrad.py",
         "experiments/multitask_tim4rec_optuna/optuna_search.py",
         "experiments/multitask_tim4rec_optuna/run_locked_tuned.py",
         "experiments/multitask_tim4rec_optuna/prepare_validation_only.py",
@@ -261,9 +267,14 @@ def load_preferences(path: Path) -> dict[str, Any]:
 
 
 def method_default_run_id(config: Mapping[str, Any], method: str, stage: str) -> str:
-    if method == "pcgrad":
+    if method == "pcgrad" and stage == "historical":
         return str(config["methods"]["pcgrad"]["historical_run_id"])
-    key = "smoke_run_id" if stage == "smoke" else "sanity_run_id"
+    key_by_stage = {
+        "smoke": "smoke_run_id",
+        "sanity": "sanity_run_id",
+        "convergence_screening": "convergence_run_id",
+    }
+    key = key_by_stage[stage]
     return str(config["methods"][method][key])
 
 
@@ -310,6 +321,98 @@ def build_run_config(optuna_config: Mapping[str, Any], artifact_root: Path, samp
         config_file_list=[str(project_path(optuna_config["source"]["base_config"]))],
         config_dict=overrides,
     )
+
+
+def stage_record_type(stage: str) -> str:
+    if stage == "convergence_screening":
+        return "convergence_screening"
+    if stage == "sanity":
+        return "sanity"
+    return "smoke"
+
+
+def stage_scientific_result(stage: str) -> str | bool:
+    return "screening" if stage in {"sanity", "convergence_screening"} else False
+
+
+def validation_interval_for_stage(config: Mapping[str, Any], stage: str) -> int | None:
+    if stage == "sanity":
+        return 1
+    if stage == "convergence_screening":
+        return int(config["run"]["convergence_validation_interval"])
+    return None
+
+
+def optimizer_learning_rates(optimizers: Sequence[Any]) -> dict[str, Any]:
+    per_optimizer = [
+        [float(group["lr"]) for group in optimizer.param_groups]
+        for optimizer in optimizers
+    ]
+    unique = sorted({lr for values in per_optimizer for lr in values})
+    return {
+        "unique": unique,
+        "per_optimizer": per_optimizer,
+    }
+
+
+def default_epochs_for_stage(config: Mapping[str, Any], stage: str) -> int:
+    if stage == "smoke":
+        return 1
+    if stage == "sanity":
+        return int(config["run"]["sanity_epochs"])
+    if stage == "convergence_screening":
+        return int(config["run"]["convergence_max_epochs"])
+    raise RuntimeError(f"Unsupported train stage: {stage}")
+
+
+def objective_for_stage(stage: str) -> str:
+    if stage == "smoke":
+        return "train_only_smoke"
+    if stage == "convergence_screening":
+        return "validation_full_ranking_NDCG@10_convergence_screening"
+    return "validation_full_ranking_NDCG@10"
+
+
+def early_stopping_config_for_stage(config: Mapping[str, Any], stage: str) -> dict[str, Any] | None:
+    if stage != "convergence_screening":
+        return None
+    return {
+        "metric": "ranking_operating_point.NDCG@10",
+        "mode": "maximize",
+        "validation_interval": int(config["run"]["convergence_validation_interval"]),
+        "minimum_training_epochs": int(config["run"]["convergence_min_epochs"]),
+        "patience_validation_checks": int(config["run"]["convergence_patience"]),
+        "min_delta": float(config["run"].get("convergence_min_delta", 0.0)),
+        "strict_improvement": True,
+    }
+
+
+def method_state_payload(method_state: Any) -> Any:
+    if hasattr(method_state, "state_dict"):
+        return method_state.state_dict()
+    if isinstance(method_state, PCGradProjector):
+        return {"mode": method_state.mode, "seed": method_state.seed, "eps": method_state.eps}
+    return method_state
+
+
+def pcgrad_projection_summary(projection: Mapping[str, Any]) -> dict[str, Any]:
+    events = list(projection["projection_events"])
+    return {
+        "mode": projection["mode"],
+        "projection_event_count": int(projection["projection_event_count"]),
+        "projection_event_count_by_target": {
+            target: sum(1 for event in events if event["source"] == target)
+            for target in AUX_TARGETS
+        },
+        "combined_gradient_norm_before": float(projection["combined_gradient_norm_before"]),
+        "combined_gradient_norm_after": float(projection["combined_gradient_norm_after"]),
+        "cosine_matrix_before": projection["cosine_matrix_before"],
+        "cosine_matrix_after": projection["cosine_matrix_after"],
+        "conflicts_before": projection["conflicts_before"],
+        "conflicts_after": projection["conflicts_after"],
+        "gradient_norms_before": projection["gradient_norms_before"],
+        "gradient_norms_after": projection["gradient_norms_after"],
+    }
 
 
 def assert_protocol_guards(config: Mapping[str, Any], data: Any, recbole_config: Any) -> None:
@@ -384,7 +487,7 @@ def set_model_preference(model: Any, preference: Sequence[float] | None) -> None
 
 
 def new_model(method: str, recbole_config: Any, train_dataset: Any, method_config: Mapping[str, Any]) -> Any:
-    if method in {"stch", "famo", "epo", "gradhv"}:
+    if method in {"stch", "famo", "pcgrad", "epo", "gradhv"}:
         return MultitaskTiM4Rec(recbole_config, train_dataset).to(recbole_config["device"])
     if method == "phn":
         return PHNAdapterTiM4Rec(
@@ -640,6 +743,93 @@ def train_single_epoch(
         if max_batches is not None and batches >= max_batches:
             break
     return summarize_epoch(sums, examples, batches) | {"method_state": last_method_state}, first_diag
+
+
+def train_pcgrad_epoch(
+    *,
+    model: Any,
+    optimizer: Any,
+    train_data: Any,
+    sampled: Mapping[str, Any],
+    pos_weights: Mapping[str, Any],
+    loss_scales: Sequence[float],
+    method_state: PCGradProjector,
+    max_batches: int | None,
+    shared_selector: str,
+) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    model.train()
+    shared_entries = shared_parameter_entries(model, shared_selector)
+    sums: dict[str, float] = {}
+    examples = 0
+    batches = 0
+    first_diag = None
+    projection_event_count = 0
+    projection_event_count_by_target = {target: 0 for target in AUX_TARGETS}
+    batches_with_projection = 0
+
+    for interaction in train_data:
+        interaction = interaction.to(next(model.parameters()).device)
+        batch_size = len(interaction)
+        optimizer.zero_grad(set_to_none=True)
+
+        probe = task_losses(model, interaction, sampled, pos_weights, loss_scales=loss_scales)
+        vectors = task_gradient_vectors(normalized_task_map(probe["normalized_task_vector"]), shared_entries, TASK_ORDER)
+        projection = method_state.project(vectors, TASK_ORDER)
+        compact_projection = pcgrad_projection_summary(projection)
+
+        optimizer.zero_grad(set_to_none=True)
+        losses = task_losses(model, interaction, sampled, pos_weights, loss_scales=loss_scales)
+        scalar = losses["normalized_task_vector"].sum()
+        if not torch.isfinite(scalar):
+            raise RuntimeError(f"Non-finite PCGrad scalar loss: {tensor_to_float(scalar)}")
+        scalar.backward()
+        assign_flat_gradient(shared_entries, projection["combined_gradient"])
+        check_backward(model, shared_entries)
+        optimizer.step()
+
+        for key, value in scalar_loss_record(losses).items():
+            sums[key] = sums.get(key, 0.0) + value * batch_size
+        sums["moo_scalar"] = sums.get("moo_scalar", 0.0) + tensor_to_float(scalar) * batch_size
+        examples += batch_size
+        batches += 1
+
+        projection_event_count += int(compact_projection["projection_event_count"])
+        if int(compact_projection["projection_event_count"]) > 0:
+            batches_with_projection += 1
+        for target, value in compact_projection["projection_event_count_by_target"].items():
+            projection_event_count_by_target[target] += int(value)
+        if first_diag is None:
+            first_diag = {
+                "selector": shared_selector,
+                "pcgrad": compact_projection,
+                "task_losses": {
+                    task: tensor_to_float(probe["task_vector"][idx])
+                    for idx, task in enumerate(TASK_ORDER)
+                },
+                "normalized_task_losses": {
+                    task: tensor_to_float(probe["normalized_task_vector"][idx])
+                    for idx, task in enumerate(TASK_ORDER)
+                },
+                "all_finite_vectors": bool(torch.isfinite(torch.stack(list(vectors.values()))).all().detach().cpu().item()),
+            }
+        if max_batches is not None and batches >= max_batches:
+            break
+
+    summary = summarize_epoch(sums, examples, batches)
+    summary["method_state"] = {
+        "mode": method_state.mode,
+        "seed": method_state.seed,
+        "eps": method_state.eps,
+        "shared_selector": shared_selector,
+        "projection_event_count": projection_event_count,
+        "projection_event_count_by_target": projection_event_count_by_target,
+        "batches_with_projection": batches_with_projection,
+        "projection_batch_fraction": batches_with_projection / batches if batches else 0.0,
+        "projection_event_fraction_per_aux_task": (
+            projection_event_count / (batches * len(AUX_TARGETS)) if batches else 0.0
+        ),
+    }
+    return summary, first_diag
 
 
 def train_epo_epoch(
@@ -1015,6 +1205,19 @@ def build_notes(result: Mapping[str, Any]) -> str:
                 f"{aux['is_like']['bce_loss']:.4f} | {aux['is_profile_enter']['bce_loss']:.4f} |"
             )
         lines.append("")
+        if result["stage"] == "convergence_screening":
+            lines += [
+                "## Early Stopping",
+                "",
+                f"- Requested max epochs: `{result['training']['requested_epochs']}`.",
+                f"- Validation interval: `{result['training']['validation_interval']}`.",
+                f"- Best epoch: `{result['best_epoch']}`.",
+                f"- Stop epoch: `{result['stop_epoch']}`.",
+                f"- Validation checks: `{result['validation_checks']}`.",
+                f"- Early stopped: `{result['early_stopped']}`.",
+                f"- Stop reason: `{result['stop_reason']}`.",
+                "",
+            ]
     lines += [
         "## Cost",
         "",
@@ -1106,7 +1309,7 @@ def main() -> None:
     partial_json = result_json.with_suffix(".partial.json")
     assert_output_allowed([result_json, notes, partial_json], artifact_dir, args.allow_overwrite)
 
-    if args.method == "pcgrad" or args.stage == "historical":
+    if args.stage == "historical":
         if args.method != "pcgrad":
             raise RuntimeError("Historical stage is only valid for PCGrad.")
         build_historical_pcgrad_result(args=args, config=moo_config, run_id=run_id, result_json=result_json, notes=notes)
@@ -1116,12 +1319,21 @@ def main() -> None:
 
     stage = args.stage
     method_config = moo_config["methods"][args.method]
-    epochs = int(args.epochs or (1 if stage == "smoke" else moo_config["run"]["sanity_epochs"]))
+    epochs = int(args.epochs or default_epochs_for_stage(moo_config, stage))
     if stage == "sanity" and epochs != int(moo_config["run"]["sanity_epochs"]):
         raise RuntimeError(f"Sanity must run exactly {moo_config['run']['sanity_epochs']} epochs, got {epochs}")
+    if stage == "convergence_screening" and epochs != int(moo_config["run"]["convergence_max_epochs"]):
+        raise RuntimeError(
+            "Convergence screening must request the frozen maximum "
+            f"{moo_config['run']['convergence_max_epochs']} epochs; early stopping controls the actual stop epoch."
+        )
     max_batches = args.max_batches
     if max_batches is None and stage == "smoke":
         max_batches = int(moo_config["run"]["smoke_batches"])
+    if stage == "convergence_screening" and max_batches is not None:
+        raise RuntimeError("Convergence screening must use the full train split; max_batches is not allowed.")
+    validation_interval = validation_interval_for_stage(moo_config, stage)
+    early_stopping = early_stopping_config_for_stage(moo_config, stage)
 
     artifact_dir.mkdir(parents=True, exist_ok=True)
     training_log_path = artifact_dir / "training_log.jsonl"
@@ -1194,11 +1406,19 @@ def main() -> None:
                 max_norm=float(method_config["max_norm"]),
             )
             validation_preferences = None
+        elif args.method == "pcgrad":
+            method_state = PCGradProjector(
+                mode=str(method_config["mode"]),
+                seed=int(method_config.get("seed", moo_config["run"]["seed"])),
+            )
+            if method_state.mode != "ranking_anchored":
+                raise RuntimeError(f"MOO PCGrad convergence run must use ranking_anchored mode, got {method_state.mode}")
+            validation_preferences = None
         else:
             method_state = None
             validation_preferences = preference_records(preferences, method_config["eval_preference_set"])
             sampling_config = method_config["preference_sampling"]
-            sampler_seed = int(moo_config["continuous_preference_sampling"]["seed"]) + TRAIN_METHODS.index(args.method)
+            sampler_seed = int(moo_config["continuous_preference_sampling"]["seed"]) + CONDITIONAL_SEED_OFFSETS[args.method]
             preference_sampler = ContinuousPreferenceSampler(
                 alpha=float(sampling_config["alpha"]),
                 seed=sampler_seed,
@@ -1229,6 +1449,11 @@ def main() -> None:
     best_score = -float("inf")
     best_checkpoint = None
     last_checkpoint = None
+    validation_history = []
+    validation_checks = 0
+    checks_without_improvement = 0
+    early_stopped = False
+    stop_reason = "max_epochs_reached"
     train_start = time.monotonic()
 
     for epoch in range(1, epochs + 1):
@@ -1247,6 +1472,18 @@ def main() -> None:
                 epoch=epoch,
                 preferences=preferences,
                 method_config=method_config,
+            )
+        elif args.method == "pcgrad":
+            losses, first_diag = train_pcgrad_epoch(
+                model=models[0],
+                optimizer=optimizers[0],
+                train_data=train_data,
+                sampled=sampled,
+                pos_weights=pos_weights,
+                loss_scales=loss_scales,
+                method_state=method_state,
+                max_batches=max_batches,
+                shared_selector=str(method_config["shared_selector"]),
             )
         elif args.method == "epo":
             losses, first_diag = train_epo_epoch(
@@ -1291,7 +1528,9 @@ def main() -> None:
             diagnostics.append({"epoch": epoch, **first_diag})
 
         validation_payload = None
-        if stage == "sanity":
+        improved = False
+        should_validate = validation_interval is not None and epoch % validation_interval == 0
+        if should_validate:
             valid_start = time.monotonic()
             validation_payload = evaluate_models(
                 method=args.method,
@@ -1304,8 +1543,12 @@ def main() -> None:
                 preferences=validation_preferences,
             )
             validation_payload["validation_time_sec"] = float(time.monotonic() - valid_start)
+            validation_checks += 1
             score = float(validation_payload["ranking_operating_point"]["metrics"]["NDCG@10"])
-            if score > best_score:
+            min_delta = 0.0 if early_stopping is None else float(early_stopping["min_delta"])
+            if score > best_score + min_delta:
+                improved = True
+                checks_without_improvement = 0
                 best_score = score
                 best_epoch = epoch
                 best_validation = validation_payload
@@ -1322,6 +1565,28 @@ def main() -> None:
                         "selection_is_validation_oracle": validation_payload["selection_is_validation_oracle"],
                     },
                 )
+            else:
+                checks_without_improvement += 1
+            validation_history.append(
+                {
+                    "epoch": epoch,
+                    "validation_check": validation_checks,
+                    "ranking_operating_point_NDCG@10": score,
+                    "oracle_best_validation_NDCG@10": float(
+                        validation_payload["oracle_best_validation_point"]["metrics"]["NDCG@10"]
+                    ),
+                    "improved": improved,
+                    "checks_without_improvement": checks_without_improvement,
+                }
+            )
+            if (
+                stage == "convergence_screening"
+                and early_stopping is not None
+                and epoch >= int(early_stopping["minimum_training_epochs"])
+                and checks_without_improvement >= int(early_stopping["patience_validation_checks"])
+            ):
+                early_stopped = True
+                stop_reason = "early_stopping_patience"
 
         last_checkpoint = save_checkpoint(
             artifact_dir / "checkpoints" / "last.pth",
@@ -1337,6 +1602,7 @@ def main() -> None:
             "validation": validation_payload,
             "train_time_sec": float(train_time),
             "epoch_time_sec": float(time.monotonic() - epoch_start),
+            "learning_rate": optimizer_learning_rates(optimizers),
             "gpu_peak_allocated_bytes_so_far": int(torch.cuda.max_memory_allocated()) if torch.cuda.is_available() else None,
             "gpu_peak_reserved_bytes_so_far": int(torch.cuda.max_memory_reserved()) if torch.cuda.is_available() else None,
         }
@@ -1351,6 +1617,11 @@ def main() -> None:
                 "method": args.method,
                 "epoch": epoch,
                 "epochs_completed": len(epochs_payload),
+                "best_epoch": best_epoch,
+                "best_validation_NDCG@10": None if not math.isfinite(best_score) else best_score,
+                "validation_checks": validation_checks,
+                "early_stopped": early_stopped,
+                "stop_reason": stop_reason,
                 "test_evaluation_count": 0,
             },
         )
@@ -1366,9 +1637,15 @@ def main() -> None:
             "oracle_best_validation_ndcg10": (
                 None if validation_payload is None else validation_payload["oracle_best_validation_point"]["metrics"]["NDCG@10"]
             ),
+            "validation_check": validation_checks if validation_payload is not None else None,
+            "improved": improved if validation_payload is not None else None,
+            "checks_without_improvement": checks_without_improvement if validation_payload is not None else None,
+            "early_stopped": early_stopped,
             "train_time_sec": train_time,
         }
         print(json.dumps(progress, ensure_ascii=False, allow_nan=False, default=json_default), flush=True)
+        if early_stopped:
+            break
 
     preference_sensitivity = None
     preference_sensitivity_failed = False
@@ -1390,10 +1667,11 @@ def main() -> None:
         validation_result = None
     else:
         if best_validation is None or best_epoch is None:
-            raise RuntimeError("Sanity finished without validation.")
+            raise RuntimeError(f"{stage} finished without validation.")
         status = "completed"
         validation_result = best_validation
 
+    stop_epoch = epochs_payload[-1]["epoch"] if epochs_payload else None
     total_params = sum(count_parameters(model)["total"] for model in models)
     trainable_params = sum(count_parameters(model)["trainable"] for model in models)
     extra = {}
@@ -1410,10 +1688,10 @@ def main() -> None:
     result: dict[str, Any] = {
         "run_id": run_id,
         "status": status,
-        "record_type": "sanity" if stage == "sanity" else "smoke",
+        "record_type": stage_record_type(stage),
         "stage": stage,
-        "scientific_result": "screening" if stage == "sanity" else False,
-        "objective": "validation_full_ranking_NDCG@10" if stage == "sanity" else "train_only_smoke",
+        "scientific_result": stage_scientific_result(stage),
+        "objective": objective_for_stage(stage),
         "created_at_utc": run_started.isoformat(),
         "completed_at_utc": datetime.now(timezone.utc).isoformat(),
         "git": {
@@ -1439,7 +1717,7 @@ def main() -> None:
             "representative_fidelity": method_config.get("representative_fidelity", "exact_or_close_reproduction"),
             "exact_method_reproduction": bool(method_config.get("exact_method_reproduction", True)),
             "config": dict(method_config),
-            "state": method_state.state_dict() if hasattr(method_state, "state_dict") else method_state,
+            "state": method_state_payload(method_state),
         },
         "dataset": {
             "name": "KuaiRand",
@@ -1487,9 +1765,21 @@ def main() -> None:
                     "fixed_grid_not_used_for_training": True,
                 }
                 if preference_sampler is not None
-                else method_config.get("preference_set") or method_config.get("preference_id")
+                else (
+                    {
+                        "projection": "ranking_anchored_pcgrad",
+                        "loss_vector": "normalized_task_vector",
+                        "shared_selector": method_config["shared_selector"],
+                    }
+                    if args.method == "pcgrad"
+                    else method_config.get("preference_set") or method_config.get("preference_id")
+                )
             ),
-            "used_for_validation": method_config.get("eval_preference_set") if stage == "sanity" else None,
+            "used_for_validation": (
+                method_config.get("eval_preference_set") or method_config.get("preference_set")
+                if stage in VALIDATION_STAGES
+                else None
+            ),
             "source": project_path(moo_config["source"]["preferences"]),
         },
         "evaluation": {
@@ -1500,12 +1790,25 @@ def main() -> None:
         "preference_sensitivity": preference_sensitivity,
         "training": {
             "epochs": epochs_payload,
+            "requested_epochs": epochs,
             "actual_epochs": len(epochs_payload),
+            "stop_epoch": stop_epoch,
+            "validation_interval": validation_interval,
+            "validation_checks": validation_checks,
+            "early_stopping": early_stopping,
+            "early_stopped": early_stopped,
+            "stop_reason": stop_reason,
             "max_batches": max_batches,
             "training_log_jsonl": str(training_log_path),
         },
+        "validation_history": validation_history,
         "validation": validation_result,
         "best_epoch": best_epoch,
+        "best_validation_NDCG@10": None if not math.isfinite(best_score) else best_score,
+        "stop_epoch": stop_epoch,
+        "validation_checks": validation_checks,
+        "early_stopped": early_stopped,
+        "stop_reason": stop_reason,
         "best_valid_score": None if not math.isfinite(best_score) else best_score,
         "best_valid_metric": "NDCG@10",
         "gradient_diagnostics": diagnostics,
@@ -1534,6 +1837,7 @@ def main() -> None:
             "backward_passes_per_batch": {
                 "stch": 1,
                 "famo": 1,
+                "pcgrad": 6,
                 "epo": 2,
                 "gradhv": 1,
                 "phn": 1,

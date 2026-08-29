@@ -34,7 +34,7 @@ Raw mean losses и выбранные loss scales сохраняются в ка
 - HV-Gradient / GradHV-style считает dominated hypervolume в normalized loss space с deterministic train-only reference point.
 - PHN-adapter, COSMOS-style и PaLoRA обучаются weighted normalized objective на continuous Dirichlet samples; fixed `preferences.yaml` grid используется только для validation operating points.
 
-Scale-sensitive методы в этом benchmark: STCH, FAMO, EPO, HV-Gradient / GradHV-style, PHN-adapter, COSMOS-style и PaLoRA. PCGrad берется как historical validation-only result и дополнительно проверяется только на закрытый test protocol.
+Scale-sensitive методы в этом benchmark: STCH, FAMO, EPO, HV-Gradient / GradHV-style, PHN-adapter, COSMOS-style и PaLoRA. PCGrad в sanity summary остается historical validation-only reference, а в `convergence_screening` перезапускается как fresh ranking-anchored PCGrad на той же MOO loss normalization.
 
 ## Evaluation Reference Separation
 

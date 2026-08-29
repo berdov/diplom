@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from experiments.moo_8families.pareto_models.palora import PaLoRALinear  # noqa: E402
+from experiments.adaptive_multitask_tim4rec.methods.pcgrad import PCGradProjector  # noqa: E402
 from experiments.moo_8families.evaluation.objectives import gradient_diagnostics  # noqa: E402
 from experiments.moo_8families.evaluation.pareto import validation_summary_from_records  # noqa: E402
 from experiments.moo_8families.strategies.base import TASK_ORDER, preference_tensor  # noqa: E402
@@ -348,6 +349,43 @@ def test_cosmos_conditioning_unit() -> dict[str, Any]:
     }
 
 
+def test_pcgrad_current_projection() -> dict[str, Any]:
+    vectors = {
+        "rank": torch.tensor([1.0, 0.0]),
+        "is_click": torch.tensor([-1.0, 0.0]),
+        "long_view": torch.tensor([0.5, 0.5]),
+        "is_like": torch.tensor([0.0, 1.0]),
+        "is_profile_enter": torch.tensor([-0.25, 0.25]),
+    }
+    projector = PCGradProjector(mode="ranking_anchored", seed=2026)
+    projection = projector.project(vectors, TASK_ORDER)
+    adjusted = projection["vectors"]
+    event_count_by_target = {
+        task: sum(1 for event in projection["projection_events"] if event["source"] == task)
+        for task in TASK_ORDER
+        if task != "rank"
+    }
+    rank = adjusted["rank"]
+    rank_aux_dots = {
+        task: float(torch.dot(adjusted[task].float(), rank.float()).item())
+        for task in TASK_ORDER
+        if task != "rank"
+    }
+    return {
+        "mode": projection["mode"],
+        "ranking_anchor_unchanged": bool(torch.allclose(adjusted["rank"], vectors["rank"])),
+        "projection_event_count": projection["projection_event_count"],
+        "projection_event_count_by_target": event_count_by_target,
+        "conflicting_aux_projected": event_count_by_target["is_click"] == 1
+        and event_count_by_target["is_profile_enter"] == 1,
+        "nonconflicting_aux_not_projected": event_count_by_target["long_view"] == 0
+        and event_count_by_target["is_like"] == 0,
+        "projected_aux_nonnegative_dot_with_rank": all(value >= -1e-8 for value in rank_aux_dots.values()),
+        "combined_gradient_finite": bool(torch.isfinite(projection["combined_gradient"]).all()),
+        "rank_aux_dots_after": rank_aux_dots,
+    }
+
+
 def test_pcgrad_historical(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {"status": "missing", "path": str(path)}
@@ -371,6 +409,7 @@ def main() -> None:
             "phn_adapter": test_phn_adapter_unit(),
             "cosmos_conditioning": test_cosmos_conditioning_unit(),
             "palora": test_palora(),
+            "pcgrad_current_projection": test_pcgrad_current_projection(),
             "pcgrad_historical": test_pcgrad_historical(ROOT / args.pcgrad_json),
         },
         "test_policy": {
@@ -437,6 +476,17 @@ def main() -> None:
         failures.append("PaLoRA output does not change with preference")
     if not result["tests"]["palora"]["grad_check"]["ok"]:
         failures.append("PaLoRA gradient check failed")
+    current_pcgrad = result["tests"]["pcgrad_current_projection"]
+    if not current_pcgrad["ranking_anchor_unchanged"]:
+        failures.append("PCGrad current projection changed the ranking anchor")
+    if not current_pcgrad["conflicting_aux_projected"]:
+        failures.append("PCGrad current projection did not project conflicting auxiliary gradients")
+    if not current_pcgrad["nonconflicting_aux_not_projected"]:
+        failures.append("PCGrad current projection changed non-conflicting auxiliary gradients")
+    if not current_pcgrad["projected_aux_nonnegative_dot_with_rank"]:
+        failures.append("PCGrad current projection left a negative rank-auxiliary dot product")
+    if not current_pcgrad["combined_gradient_finite"]:
+        failures.append("PCGrad current combined gradient is not finite")
     result["failures"] = failures
     output = ROOT / args.output
     output.parent.mkdir(parents=True, exist_ok=True)

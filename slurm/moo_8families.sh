@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=moo8-families
-#SBATCH --partition=gpu-ef-quick
+#SBATCH --partition=rocky
 #SBATCH --constraint=type_e
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:a100:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=0
-#SBATCH --time=03:00:00
-#SBATCH --output=/home/daryumin/iberdov/diplom/experiments/moo_8families/slurm_logs/%x-%j.out
-#SBATCH --error=/home/daryumin/iberdov/diplom/experiments/moo_8families/slurm_logs/%x-%j.err
+#SBATCH --time=24:00:00
+#SBATCH --output=/home/daryumin/iberdov/diplom_exp_moo_8families/experiments/moo_8families/slurm_logs/%x-%j.out
+#SBATCH --error=/home/daryumin/iberdov/diplom_exp_moo_8families/experiments/moo_8families/slurm_logs/%x-%j.err
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEFAULT_REPO_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 METHOD="${MOO_METHOD:-${1:-stch}}"
 STAGE="${MOO_STAGE:-${2:-smoke}}"
-REPO_DIR="${REPO_DIR:-/home/daryumin/iberdov/diplom}"
+REPO_DIR="${REPO_DIR:-${DEFAULT_REPO_DIR}}"
 ENV_DIR="${MOO_ENV_DIR:-/home/daryumin/iberdov/diplom/envs/tim4rec}"
 PREP_PYTHON="${MOO_PREP_PYTHON:-/home/daryumin/iberdov/diplom/.conda/bin/python}"
 PYTHON="${MOO_PYTHON:-${ENV_DIR}/bin/python}"
@@ -34,6 +36,14 @@ case "${METHOD}_${STAGE}" in
   phn_sanity) DEFAULT_RUN_ID="phn_sanity_001" ;;
   cosmos_sanity) DEFAULT_RUN_ID="cosmos_sanity_001" ;;
   palora_sanity) DEFAULT_RUN_ID="palora_sanity_001" ;;
+  stch_convergence_screening) DEFAULT_RUN_ID="stch_convergence_001" ;;
+  famo_convergence_screening) DEFAULT_RUN_ID="famo_convergence_001" ;;
+  pcgrad_convergence_screening) DEFAULT_RUN_ID="pcgrad_convergence_001" ;;
+  epo_convergence_screening) DEFAULT_RUN_ID="epo_convergence_001" ;;
+  gradhv_convergence_screening) DEFAULT_RUN_ID="gradhv_convergence_001" ;;
+  phn_convergence_screening) DEFAULT_RUN_ID="phn_convergence_001" ;;
+  cosmos_convergence_screening) DEFAULT_RUN_ID="cosmos_convergence_001" ;;
+  palora_convergence_screening) DEFAULT_RUN_ID="palora_convergence_001" ;;
   *)
     echo "Unsupported MOO_METHOD/MOO_STAGE: ${METHOD}/${STAGE}" >&2
     exit 2
@@ -66,9 +76,9 @@ if [ ! -x "${PREP_PYTHON}" ]; then
   exit 2
 fi
 
-echo "Slurm: partition=${SLURM_JOB_PARTITION:-gpu-ef-quick}"
+echo "Slurm: partition=${SLURM_JOB_PARTITION:-rocky}"
 echo "Slurm: constraint=${SLURM_JOB_CONSTRAINT:-type_e}"
-echo "Slurm: gpus=${SLURM_JOB_GPUS:-gpu:1}"
+echo "Slurm: gpus=${SLURM_JOB_GPUS:-gpu:a100:1}"
 echo "Slurm: node list=${SLURM_JOB_NODELIST:-unknown}"
 echo "Repo: ${REPO_DIR}"
 echo "Method: ${METHOD}"

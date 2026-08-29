@@ -20,7 +20,7 @@
 |---|---|---|
 | Loss Balancing | STCH | single solution |
 | Gradient Weighting | FAMO | single solution |
-| Gradient Manipulation | PCGrad | historical validation-only result |
+| Gradient Manipulation | PCGrad | single solution; historical reference плюс fresh convergence rerun |
 | Finite set with preference vectors | EPO | finite preference set |
 | Finite set without preference vectors | HV-Gradient / GradHV-style | finite Pareto set |
 | Infinite set hypernetwork | PHN-adapter | continuous preference-conditioned adapter |
@@ -61,6 +61,22 @@ Primary ranking result берется не как oracle over all preferences:
 
 Smoke для PHN-adapter, COSMOS-style и PaLoRA дополнительно проверяет real-model preference sensitivity на train batch: `rank_heavy` vs `like_heavy`. Если trained pathway не меняет ranking score выше tolerance, smoke завершается ошибкой.
 
+## Long Convergence Screening
+
+`convergence_screening` - validation-only screening stage для всех 8 семейств, включая fresh PCGrad rerun. Он не является final test, не запускает tuning и не меняет method parameters, loss normalization, training HV reference или operating-point selection.
+
+Frozen schedule:
+
+- max epochs: `100`;
+- validation только на epoch `5, 10, 15, ..., 100`;
+- primary criterion: ranking operating point `NDCG@10`;
+- минимум training epochs до остановки: `20`;
+- patience: `3` validation checks без strict improvement;
+- `min_delta = 0.0`;
+- best checkpoint сохраняется на лучшем validation check.
+
+Все `*_convergence_001` runs должны стартовать с нуля, без resume из sanity checkpoints. Test split остается закрыт: `test_evaluation_count=0` в каждом artifact. Для hardware fairness текущие convergence jobs запускаются на одном типе GPU: NVIDIA A100 через Slurm `--partition=rocky --constraint=type_e --gres=gpu:a100:1`.
+
 ## Запуски
 
 Локально без RecBole/Torch можно проверить только синтаксис. На кластере E:
@@ -81,7 +97,13 @@ sbatch --export=ALL,MOO_METHOD=palora,MOO_STAGE=smoke,MOO_RUN_ID=palora_smoke_00
 python -m experiments.moo_8families.run_benchmark --stage sanity --submit
 ```
 
-PCGrad не перезапускается автоматически: используется существующий `pcgrad_001`, если его validation-only guards проходят.
+PCGrad в `historical` stage не перезапускается: используется существующий `pcgrad_001`, если его validation-only guards проходят.
+
+Long convergence screening после sanity/historical gates:
+
+```bash
+python -m experiments.moo_8families.run_benchmark --stage convergence_screening --submit
+```
 
 ## Артефакты
 

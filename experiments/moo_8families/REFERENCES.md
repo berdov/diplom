@@ -25,7 +25,7 @@
 - Paper: Tianhe Yu, Saurabh Kumar, Abhishek Gupta, Sergey Levine, Karol Hausman, Chelsea Finn. `Gradient Surgery for Multi-Task Learning`. NeurIPS 2020. URL: https://arxiv.org/abs/2001.06782
 - Official code: https://github.com/tianheyu927/PCGrad
 - License: no license file observed in the official repository at review time.
-- Implementation note: новый run не запускается автоматически. Используется исторический `pcgrad_001`, если JSON подтверждает validation-only protocol и `test_evaluation_count=0`.
+- Implementation note: historical summary использует существующий `pcgrad_001`, если JSON подтверждает validation-only protocol и `test_evaluation_count=0`. Для `convergence_screening` запускается fresh ranking-anchored PCGrad rerun на той же locked MOO configuration.
 
 ## 4. Finite Set With Preference Vectors - EPO
 

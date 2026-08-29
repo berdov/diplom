@@ -20,6 +20,7 @@ REPORT = EXPERIMENT_DIR / "BENCHMARK_REPORT.md"
 SUMMARY_CSV = EXPERIMENT_DIR / "runs" / "summary.csv"
 FIGURES_DIR = EXPERIMENT_DIR / "figures"
 REGISTRY = ROOT / "experiments" / "results.csv"
+VALIDATION_STAGES = {"sanity", "historical", "convergence_screening"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -50,8 +51,7 @@ def run_paths(config: dict[str, Any]) -> list[Path]:
     for method, spec in config["methods"].items():
         if method == "pcgrad":
             paths.append(runs_dir / f"{spec['historical_run_id']}.json")
-            continue
-        for key in ("smoke_run_id", "sanity_run_id"):
+        for key in ("smoke_run_id", "sanity_run_id", "convergence_run_id"):
             if key in spec:
                 paths.append(runs_dir / f"{spec[key]}.json")
     return paths
@@ -90,7 +90,7 @@ def summary_rows(config: dict[str, Any]) -> list[dict[str, Any]]:
             continue
         payload = load_json(path)
         stage = payload.get("stage")
-        if stage in {"historical", "sanity"}:
+        if stage in VALIDATION_STAGES:
             method = payload["method"]
             best = validation_primary(payload)
             oracle = validation_oracle(payload)
@@ -112,6 +112,11 @@ def summary_rows(config: dict[str, Any]) -> list[dict[str, Any]]:
                 "solution_type": method.get("solution_type"),
                 "best_epoch": payload.get("best_epoch") or payload.get("historical", {}).get("best_epoch"),
                 "actual_epochs": payload.get("training", {}).get("actual_epochs") or payload.get("historical", {}).get("actual_epochs"),
+                "requested_epochs": payload.get("training", {}).get("requested_epochs"),
+                "stop_epoch": payload.get("stop_epoch") or payload.get("training", {}).get("stop_epoch"),
+                "validation_checks": payload.get("validation_checks") or payload.get("training", {}).get("validation_checks"),
+                "early_stopped": payload.get("early_stopped") or payload.get("training", {}).get("early_stopped"),
+                "stop_reason": payload.get("stop_reason") or payload.get("training", {}).get("stop_reason"),
                 "HR@5": metric(best, "HR@5"),
                 "HR@10": metric(best, "HR@10"),
                 "HR@20": metric(best, "HR@20"),
@@ -160,6 +165,11 @@ def write_summary_csv(rows: list[dict[str, Any]]) -> None:
         "solution_type",
         "best_epoch",
         "actual_epochs",
+        "requested_epochs",
+        "stop_epoch",
+        "validation_checks",
+        "early_stopped",
+        "stop_reason",
         "HR@5",
         "HR@10",
         "HR@20",
@@ -196,7 +206,7 @@ def write_summary_csv(rows: list[dict[str, Any]]) -> None:
 
 
 def plot_metric(rows: list[dict[str, Any]], key: str, filename: str, title: str) -> None:
-    selected = [row for row in rows if row.get("stage") in {"sanity", "historical"} and row.get(key) not in (None, "")]
+    selected = [row for row in rows if row.get("stage") in VALIDATION_STAGES and row.get(key) not in (None, "")]
     if not selected:
         return
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
@@ -211,6 +221,56 @@ def plot_metric(rows: list[dict[str, Any]], key: str, filename: str, title: str)
     plt.close()
 
 
+def plot_learning_curves(config: dict[str, Any]) -> None:
+    validation_curves: dict[str, list[tuple[int, float]]] = {}
+    train_curves: dict[str, list[tuple[int, float]]] = {}
+    for path in run_paths(config):
+        if not path.exists():
+            continue
+        payload = load_json(path)
+        if payload.get("stage") != "convergence_screening":
+            continue
+        run_id = str(payload["run_id"])
+        for epoch in payload.get("training", {}).get("epochs", []):
+            epoch_id = int(epoch["epoch"])
+            losses = epoch.get("losses") or {}
+            if losses.get("moo_scalar") not in (None, ""):
+                train_curves.setdefault(run_id, []).append((epoch_id, float(losses["moo_scalar"])))
+            validation = epoch.get("validation")
+            if validation:
+                value = validation["ranking_operating_point"]["metrics"].get("NDCG@10")
+                if value not in (None, ""):
+                    validation_curves.setdefault(run_id, []).append((epoch_id, float(value)))
+
+    if validation_curves:
+        FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+        plt.figure(figsize=(9, 5))
+        for run_id, points in sorted(validation_curves.items()):
+            xs, ys = zip(*points)
+            plt.plot(xs, ys, marker="o", label=run_id.replace("_convergence_001", ""))
+        plt.xlabel("epoch")
+        plt.ylabel("validation NDCG@10")
+        plt.title("Convergence Validation NDCG@10")
+        plt.legend(fontsize=8)
+        plt.tight_layout()
+        plt.savefig(FIGURES_DIR / "convergence_validation_ndcg10.png", dpi=160)
+        plt.close()
+
+    if train_curves:
+        FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+        plt.figure(figsize=(9, 5))
+        for run_id, points in sorted(train_curves.items()):
+            xs, ys = zip(*points)
+            plt.plot(xs, ys, label=run_id.replace("_convergence_001", ""))
+        plt.xlabel("epoch")
+        plt.ylabel("mean MOO scalar")
+        plt.title("Convergence Training Scalar Loss")
+        plt.legend(fontsize=8)
+        plt.tight_layout()
+        plt.savefig(FIGURES_DIR / "convergence_train_scalar.png", dpi=160)
+        plt.close()
+
+
 def write_report(rows: list[dict[str, Any]]) -> None:
     lines = [
         "# MOO 8 Families Benchmark Report",
@@ -219,18 +279,19 @@ def write_report(rows: list[dict[str, Any]]) -> None:
         "",
         "## Table A: Ranking Operating Point",
         "",
-        "| family | method | point | selection | oracle? | run | stage | HR@10 | NDCG@10 | oracle NDCG@10 | best epoch | test eval |",
-        "|---|---|---|---|---:|---|---|---:|---:|---:|---:|---:|",
+        "| family | method | point | selection | oracle? | run | stage | HR@10 | NDCG@10 | oracle NDCG@10 | best epoch | stop epoch | checks | early stop | test eval |",
+        "|---|---|---|---|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in rows:
-        if row.get("stage") not in {"sanity", "historical"}:
+        if row.get("stage") not in VALIDATION_STAGES:
             continue
         lines.append(
             f"| {row['family']} | {row['method']} | {row.get('ranking_point_id') or ''} | "
             f"{row.get('ranking_operating_point_selection') or ''} | {row.get('selection_is_validation_oracle')} | "
             f"`{row['run_id']}` | {row['stage']} | "
             f"{fmt(row['HR@10'])} | {fmt(row['NDCG@10'])} | {fmt(row.get('oracle_NDCG@10'))} | "
-            f"{row['best_epoch'] or ''} | {row['test_evaluation_count']} |"
+            f"{row['best_epoch'] or ''} | {row.get('stop_epoch') or ''} | {row.get('validation_checks') or ''} | "
+            f"{row.get('early_stopped')} | {row['test_evaluation_count']} |"
         )
     lines += [
         "",
@@ -240,7 +301,7 @@ def write_report(rows: list[dict[str, Any]]) -> None:
         "|---|---|---|---:|---:|---:|",
     ]
     for row in rows:
-        if row.get("stage") not in {"sanity", "historical"}:
+        if row.get("stage") not in VALIDATION_STAGES:
             continue
         lines.append(
             f"| `{row['run_id']}` | {row.get('ranking_point_id') or ''} | {row.get('oracle_point_id') or ''} | "
@@ -255,7 +316,7 @@ def write_report(rows: list[dict[str, Any]]) -> None:
         "|---|---:|---:|---:|---:|",
     ]
     for row in rows:
-        if row.get("stage") not in {"sanity", "historical"}:
+        if row.get("stage") not in VALIDATION_STAGES:
             continue
         peak = row.get("peak_vram_bytes")
         peak_gb = None if peak in (None, "") else float(peak) / 1024**3
@@ -270,6 +331,8 @@ def write_report(rows: list[dict[str, Any]]) -> None:
         f"- Summary CSV: `experiments/moo_8families/runs/summary.csv`.",
         f"- NDCG plot: `experiments/moo_8families/figures/validation_ndcg10.png`.",
         f"- Cost plot: `experiments/moo_8families/figures/wall_time_sec.png`.",
+        f"- Convergence validation curve: `experiments/moo_8families/figures/convergence_validation_ndcg10.png`.",
+        f"- Convergence train scalar curve: `experiments/moo_8families/figures/convergence_train_scalar.png`.",
         "",
     ]
     REPORT.write_text("\n".join(lines), encoding="utf-8")
@@ -291,11 +354,11 @@ def update_registry(rows: list[dict[str, Any]]) -> None:
     existing_ids = {row["run_id"] for row in existing}
     additions = []
     for row in rows:
-        if row.get("stage") not in {"sanity", "historical"} or row["run_id"] in existing_ids:
+        if row.get("stage") not in VALIDATION_STAGES or row["run_id"] in existing_ids:
             continue
         additions.append(
             {
-                "record_type": "sanity" if row["stage"] == "sanity" else "experiment_validation_only",
+                "record_type": "experiment_validation_only" if row["stage"] == "historical" else row["stage"],
                 "source": "ours",
                 "run_id": row["run_id"],
                 "model": "MultitaskTiM4Rec",
@@ -340,6 +403,7 @@ def main() -> None:
     config = load_yaml(Path(args.config))
     rows = summary_rows(config)
     write_summary_csv(rows)
+    plot_learning_curves(config)
     plot_metric(rows, "NDCG@10", "validation_ndcg10.png", "Validation NDCG@10")
     plot_metric(rows, "wall_time_sec", "wall_time_sec.png", "Wall Time")
     if args.write_report:
