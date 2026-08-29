@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from experiments.moo_8families.pareto_models.palora import PaLoRALinear  # noqa: E402
+from experiments.moo_8families.evaluation.objectives import gradient_diagnostics  # noqa: E402
 from experiments.moo_8families.evaluation.pareto import validation_summary_from_records  # noqa: E402
 from experiments.moo_8families.strategies.base import TASK_ORDER, preference_tensor  # noqa: E402
 from experiments.moo_8families.strategies.epo import ExactParetoPreferenceSolver  # noqa: E402
@@ -42,6 +43,53 @@ def finite_grad_check(loss: torch.Tensor, params: list[nn.Parameter]) -> dict[st
     missing = [idx for idx, param in enumerate(params) if param.grad is None]
     nonfinite = [idx for idx, param in enumerate(params) if param.grad is not None and not torch.isfinite(param.grad).all()]
     return {"missing": missing, "nonfinite": nonfinite, "ok": not missing and not nonfinite}
+
+
+class TinyDiagnosticModel(nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+        self.shared = nn.Linear(3, len(TASK_ORDER), bias=False)
+
+    def auxiliary_heads(self) -> dict[str, nn.Module]:
+        return {}
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.shared(x)
+
+
+def tiny_diagnostic_losses(model: TinyDiagnosticModel) -> dict[str, torch.Tensor]:
+    out = model(torch.eye(3))
+    losses = {
+        "rank": out[:, 0].pow(2).mean() + 1.0,
+        "is_click_loss": (out[:, 1] - 0.2).pow(2).mean() + 1.0,
+        "long_view_loss": (out[:, 2] + 0.1).pow(2).mean() + 1.0,
+        "is_like_loss": (out[:, 3] - 0.4).pow(2).mean() + 1.0,
+        "is_profile_enter_loss": (out[:, 4] + 0.3).pow(2).mean() + 1.0,
+    }
+    losses["normalized_task_vector"] = torch.stack(
+        [losses["rank"], *[losses[f"{task}_loss"] for task in TASK_ORDER[1:]]]
+    )
+    return losses
+
+
+def test_fresh_diagnostics_after_backward_regression() -> dict[str, Any]:
+    model = TinyDiagnosticModel()
+    stale_losses = tiny_diagnostic_losses(model)
+    stale_losses["normalized_task_vector"].sum().backward()
+    stale_error = None
+    try:
+        gradient_diagnostics(model, stale_losses, selector="all_backbone")
+    except RuntimeError as exc:
+        stale_error = str(exc)
+    model.zero_grad(set_to_none=True)
+    fresh_diag = gradient_diagnostics(model, tiny_diagnostic_losses(model), selector="all_backbone")
+    return {
+        "stale_graph_rejected": (
+            stale_error is not None and "backward through the graph a second time" in stale_error
+        ),
+        "fresh_graph_after_backward_ok": bool(fresh_diag["all_finite_vectors"]),
+        "fresh_gradient_norms": fresh_diag["gradient_norms"],
+    }
 
 
 def test_stch() -> dict[str, Any]:
@@ -317,6 +365,7 @@ def main() -> None:
             "famo": test_famo(),
             "epo": test_epo(),
             "gradhv": test_gradhv(),
+            "fresh_diagnostics_after_backward_regression": test_fresh_diagnostics_after_backward_regression(),
             "continuous_preference_sampler": test_continuous_preference_sampler(),
             "common_eval_reference_and_selection": test_common_eval_reference_and_selection(),
             "phn_adapter": test_phn_adapter_unit(),
@@ -354,6 +403,10 @@ def main() -> None:
         failures.append("GradHV finite-difference check failed")
     if not result["tests"]["gradhv"]["dominated_solution_gradient_zero"]:
         failures.append("GradHV dominated solution handling failed")
+    if not result["tests"]["fresh_diagnostics_after_backward_regression"]["stale_graph_rejected"]:
+        failures.append("Diagnostic stale-graph regression did not reproduce the freed-graph failure")
+    if not result["tests"]["fresh_diagnostics_after_backward_regression"]["fresh_graph_after_backward_ok"]:
+        failures.append("Fresh diagnostic graph after backward is not finite")
     for name, summary in result["tests"]["continuous_preference_sampler"].items():
         if not summary["all_coordinates_meaningfully_covered"]:
             failures.append(f"{name} Dirichlet sampler does not cover all coordinates")

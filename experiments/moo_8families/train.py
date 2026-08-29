@@ -685,7 +685,8 @@ def train_epo_epoch(
             sol_sums["moo_scalar"] = sol_sums.get("moo_scalar", 0.0) + tensor_to_float(scalar) * batch_size
             sums["moo_scalar"] = sums.get("moo_scalar", 0.0) + tensor_to_float(scalar) * batch_size
             if first_diag is None:
-                first_diag = gradient_diagnostics(model, losses, selector="all_backbone") | {"epo": solver.state_dict()}
+                fresh = task_losses(model, interaction, sampled, pos_weights, loss_scales=loss_scales)
+                first_diag = gradient_diagnostics(model, fresh, selector="all_backbone") | {"epo": solver.state_dict()}
         examples += batch_size
         batches += 1
         if max_batches is not None and batches >= max_batches:
@@ -748,7 +749,8 @@ def train_gradhv_epoch(
             solution_sums[idx]["moo_scalar"] = solution_sums[idx].get("moo_scalar", 0.0) + tensor_to_float(scalar) * batch_size
         sums["moo_scalar"] = sums.get("moo_scalar", 0.0) + tensor_to_float(scalar) * batch_size
         if first_diag is None:
-            first_diag = gradient_diagnostics(models[0], losses_by_solution[0], selector="all_backbone") | {"gradhv": hv.state_dict()}
+            fresh = task_losses(models[0], interaction, sampled, pos_weights, loss_scales=loss_scales)
+            first_diag = gradient_diagnostics(models[0], fresh, selector="all_backbone") | {"gradhv": hv.state_dict()}
         examples += batch_size
         batches += 1
         if max_batches is not None and batches >= max_batches:
@@ -817,7 +819,8 @@ def train_conditional_epoch(
         examples += batch_size
         batches += 1
         if first_diag is None:
-            first_diag = gradient_diagnostics(model, losses, selector="all_backbone") | {
+            fresh = task_losses(model, interaction, sampled, pos_weights, loss_scales=loss_scales)
+            first_diag = gradient_diagnostics(model, fresh, selector="all_backbone") | {
                 "preference_id": "dirichlet_sample",
                 "preference": preference,
             }
