@@ -189,7 +189,7 @@ def write_summary_csv(rows: list[dict[str, Any]]) -> None:
         "source_json",
     ]
     with SUMMARY_CSV.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow(row)
@@ -330,7 +330,7 @@ def update_registry(rows: list[dict[str, Any]]) -> None:
     if not additions:
         return
     with REGISTRY.open("a", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         for addition in additions:
             writer.writerow({field: addition.get(field, "") for field in fields})
 
