@@ -1,0 +1,506 @@
+{
+  "run_id": "pcgrad_001",
+  "status": "completed",
+  "stage": "historical",
+  "record_type": "experiment_validation_only",
+  "method": {
+    "name": "PCGrad",
+    "family": "gradient_manipulation",
+    "representative": "PCGrad",
+    "solution_type": "single"
+  },
+  "historical": {
+    "run_id": "pcgrad_001",
+    "source_json": "/home/daryumin/iberdov/diplom_exp_moo_8families/experiments/adaptive_multitask_tim4rec/runs/pcgrad_001.json",
+    "status": "historical_comparable_validation_only",
+    "method": {
+      "name": "PCGrad",
+      "method": "ranking_anchored_pcgrad",
+      "variant": "ranking_anchored",
+      "shared_selector": "all_backbone",
+      "anchor_gradient": "rank",
+      "projected_gradients": [
+        "is_click",
+        "long_view",
+        "is_like",
+        "is_profile_enter"
+      ],
+      "auxiliary_auxiliary_conflicts_processed": false,
+      "projection_order": "fixed_TASK_ORDER_auxiliaries_after_rank",
+      "random_order_used": false,
+      "seed": 2026,
+      "algorithm": "g_rank is unchanged; each auxiliary gradient is projected only if dot(g_aux, g_rank) < 0; auxiliary-auxiliary conflicts are not processed."
+    },
+    "best_epoch": 9,
+    "actual_epochs": 19,
+    "best_validation_metrics": {
+      "HR@5": 0.0654,
+      "Recall@5": 0.0654,
+      "NDCG@5": 0.0449,
+      "HR@10": 0.1082,
+      "Recall@10": 0.1082,
+      "NDCG@10": 0.0586,
+      "HR@20": 0.1744,
+      "Recall@20": 0.1744,
+      "NDCG@20": 0.0752,
+      "HR@50": 0.3089,
+      "Recall@50": 0.3089,
+      "NDCG@50": 0.1018
+    },
+    "best_auxiliary_metrics": {
+      "is_click": {
+        "rows": 23951,
+        "positives": 11559,
+        "positive_rate": 0.4826103294225711,
+        "bce_loss": 0.6410100227417436,
+        "roc_auc": 0.6843563547803782,
+        "pr_auc": 0.6476961674170447,
+        "random_pr_auc_baseline": 0.4826103294225711
+      },
+      "long_view": {
+        "rows": 23951,
+        "positives": 8561,
+        "positive_rate": 0.3574381027932028,
+        "bce_loss": 0.605597033151669,
+        "roc_auc": 0.6812561786647655,
+        "pr_auc": 0.5180243576362801,
+        "random_pr_auc_baseline": 0.3574381027932028
+      },
+      "is_like": {
+        "rows": 23951,
+        "positives": 469,
+        "positive_rate": 0.01958164586029811,
+        "bce_loss": 0.11658003570032958,
+        "roc_auc": 0.8158002981551536,
+        "pr_auc": 0.15014816913833678,
+        "random_pr_auc_baseline": 0.01958164586029811
+      },
+      "is_profile_enter": {
+        "rows": 23951,
+        "positives": 567,
+        "positive_rate": 0.023673333054987266,
+        "bce_loss": 0.1726797283141231,
+        "roc_auc": 0.687672678706434,
+        "pr_auc": 0.04563434908451177,
+        "random_pr_auc_baseline": 0.023673333054987266
+      }
+    },
+    "test_evaluation_count": 0,
+    "slurm": {
+      "job_id": "4276024",
+      "job_name": "adaptive-pcgrad-full",
+      "partition": "test",
+      "constraint": "type_h",
+      "node_list": "cn-049",
+      "job_gpus": "0",
+      "cpus_per_task": "4",
+      "hostname": "cn-049"
+    },
+    "limitation": "Existing validation-only result is reused; no automatic rerun in this benchmark branch."
+  },
+  "evaluation": {
+    "pareto_reference": {
+      "objective_order": [
+        "1_minus_NDCG@10",
+        "click_BCE",
+        "long_view_BCE",
+        "like_BCE",
+        "profile_BCE"
+      ],
+      "values": [
+        1.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "source": "fixed_multitask_control_validation_plus_conservative_bce_bound",
+      "source_run_id": "multitask_tim4rec_tuned_001",
+      "source_json": "experiments/multitask_tim4rec_optuna/runs/multitask_tim4rec_tuned_001.json",
+      "control_point": [
+        0.9411,
+        0.6399621170730084,
+        0.6081006799200712,
+        0.13487265631727602,
+        0.179403753162381
+      ],
+      "margins": [
+        0.0589,
+        1.3600378829269917,
+        1.3918993200799288,
+        1.865127343682724,
+        1.820596246837619
+      ],
+      "invalid_reference_policy": "raise",
+      "frozen_before_moo_sanity_results": true
+    },
+    "ranking_operating_point_id": "rank_heavy"
+  },
+  "validation": {
+    "records": [
+      {
+        "solution_index": 0,
+        "metrics": {
+          "HR@5": 0.0654,
+          "Recall@5": 0.0654,
+          "NDCG@5": 0.0449,
+          "HR@10": 0.1082,
+          "Recall@10": 0.1082,
+          "NDCG@10": 0.0586,
+          "HR@20": 0.1744,
+          "Recall@20": 0.1744,
+          "NDCG@20": 0.0752,
+          "HR@50": 0.3089,
+          "Recall@50": 0.3089,
+          "NDCG@50": 0.1018
+        },
+        "auxiliary_validation": {
+          "is_click": {
+            "rows": 23951,
+            "positives": 11559,
+            "positive_rate": 0.4826103294225711,
+            "bce_loss": 0.6410100227417436,
+            "roc_auc": 0.6843563547803782,
+            "pr_auc": 0.6476961674170447,
+            "random_pr_auc_baseline": 0.4826103294225711
+          },
+          "long_view": {
+            "rows": 23951,
+            "positives": 8561,
+            "positive_rate": 0.3574381027932028,
+            "bce_loss": 0.605597033151669,
+            "roc_auc": 0.6812561786647655,
+            "pr_auc": 0.5180243576362801,
+            "random_pr_auc_baseline": 0.3574381027932028
+          },
+          "is_like": {
+            "rows": 23951,
+            "positives": 469,
+            "positive_rate": 0.01958164586029811,
+            "bce_loss": 0.11658003570032958,
+            "roc_auc": 0.8158002981551536,
+            "pr_auc": 0.15014816913833678,
+            "random_pr_auc_baseline": 0.01958164586029811
+          },
+          "is_profile_enter": {
+            "rows": 23951,
+            "positives": 567,
+            "positive_rate": 0.023673333054987266,
+            "bce_loss": 0.1726797283141231,
+            "roc_auc": 0.687672678706434,
+            "pr_auc": 0.04563434908451177,
+            "random_pr_auc_baseline": 0.023673333054987266
+          }
+        },
+        "preference_id": "historical_pcgrad",
+        "objective_point": [
+          0.9414,
+          0.6410100227417436,
+          0.605597033151669,
+          0.11658003570032958,
+          0.1726797283141231
+        ],
+        "objective_order": [
+          "1_minus_NDCG@10",
+          "click_BCE",
+          "long_view_BCE",
+          "like_BCE",
+          "profile_BCE"
+        ]
+      }
+    ],
+    "ranking_operating_point": {
+      "solution_index": 0,
+      "metrics": {
+        "HR@5": 0.0654,
+        "Recall@5": 0.0654,
+        "NDCG@5": 0.0449,
+        "HR@10": 0.1082,
+        "Recall@10": 0.1082,
+        "NDCG@10": 0.0586,
+        "HR@20": 0.1744,
+        "Recall@20": 0.1744,
+        "NDCG@20": 0.0752,
+        "HR@50": 0.3089,
+        "Recall@50": 0.3089,
+        "NDCG@50": 0.1018
+      },
+      "auxiliary_validation": {
+        "is_click": {
+          "rows": 23951,
+          "positives": 11559,
+          "positive_rate": 0.4826103294225711,
+          "bce_loss": 0.6410100227417436,
+          "roc_auc": 0.6843563547803782,
+          "pr_auc": 0.6476961674170447,
+          "random_pr_auc_baseline": 0.4826103294225711
+        },
+        "long_view": {
+          "rows": 23951,
+          "positives": 8561,
+          "positive_rate": 0.3574381027932028,
+          "bce_loss": 0.605597033151669,
+          "roc_auc": 0.6812561786647655,
+          "pr_auc": 0.5180243576362801,
+          "random_pr_auc_baseline": 0.3574381027932028
+        },
+        "is_like": {
+          "rows": 23951,
+          "positives": 469,
+          "positive_rate": 0.01958164586029811,
+          "bce_loss": 0.11658003570032958,
+          "roc_auc": 0.8158002981551536,
+          "pr_auc": 0.15014816913833678,
+          "random_pr_auc_baseline": 0.01958164586029811
+        },
+        "is_profile_enter": {
+          "rows": 23951,
+          "positives": 567,
+          "positive_rate": 0.023673333054987266,
+          "bce_loss": 0.1726797283141231,
+          "roc_auc": 0.687672678706434,
+          "pr_auc": 0.04563434908451177,
+          "random_pr_auc_baseline": 0.023673333054987266
+        }
+      },
+      "preference_id": "historical_pcgrad",
+      "objective_point": [
+        0.9414,
+        0.6410100227417436,
+        0.605597033151669,
+        0.11658003570032958,
+        0.1726797283141231
+      ],
+      "objective_order": [
+        "1_minus_NDCG@10",
+        "click_BCE",
+        "long_view_BCE",
+        "like_BCE",
+        "profile_BCE"
+      ],
+      "selection_rule": "single_solution",
+      "selection_is_validation_oracle": false
+    },
+    "oracle_best_validation_point": {
+      "solution_index": 0,
+      "metrics": {
+        "HR@5": 0.0654,
+        "Recall@5": 0.0654,
+        "NDCG@5": 0.0449,
+        "HR@10": 0.1082,
+        "Recall@10": 0.1082,
+        "NDCG@10": 0.0586,
+        "HR@20": 0.1744,
+        "Recall@20": 0.1744,
+        "NDCG@20": 0.0752,
+        "HR@50": 0.3089,
+        "Recall@50": 0.3089,
+        "NDCG@50": 0.1018
+      },
+      "auxiliary_validation": {
+        "is_click": {
+          "rows": 23951,
+          "positives": 11559,
+          "positive_rate": 0.4826103294225711,
+          "bce_loss": 0.6410100227417436,
+          "roc_auc": 0.6843563547803782,
+          "pr_auc": 0.6476961674170447,
+          "random_pr_auc_baseline": 0.4826103294225711
+        },
+        "long_view": {
+          "rows": 23951,
+          "positives": 8561,
+          "positive_rate": 0.3574381027932028,
+          "bce_loss": 0.605597033151669,
+          "roc_auc": 0.6812561786647655,
+          "pr_auc": 0.5180243576362801,
+          "random_pr_auc_baseline": 0.3574381027932028
+        },
+        "is_like": {
+          "rows": 23951,
+          "positives": 469,
+          "positive_rate": 0.01958164586029811,
+          "bce_loss": 0.11658003570032958,
+          "roc_auc": 0.8158002981551536,
+          "pr_auc": 0.15014816913833678,
+          "random_pr_auc_baseline": 0.01958164586029811
+        },
+        "is_profile_enter": {
+          "rows": 23951,
+          "positives": 567,
+          "positive_rate": 0.023673333054987266,
+          "bce_loss": 0.1726797283141231,
+          "roc_auc": 0.687672678706434,
+          "pr_auc": 0.04563434908451177,
+          "random_pr_auc_baseline": 0.023673333054987266
+        }
+      },
+      "preference_id": "historical_pcgrad",
+      "objective_point": [
+        0.9414,
+        0.6410100227417436,
+        0.605597033151669,
+        0.11658003570032958,
+        0.1726797283141231
+      ],
+      "objective_order": [
+        "1_minus_NDCG@10",
+        "click_BCE",
+        "long_view_BCE",
+        "like_BCE",
+        "profile_BCE"
+      ],
+      "selection_rule": "max_validation_NDCG@10",
+      "selection_is_validation_oracle": true
+    },
+    "best": {
+      "solution_index": 0,
+      "metrics": {
+        "HR@5": 0.0654,
+        "Recall@5": 0.0654,
+        "NDCG@5": 0.0449,
+        "HR@10": 0.1082,
+        "Recall@10": 0.1082,
+        "NDCG@10": 0.0586,
+        "HR@20": 0.1744,
+        "Recall@20": 0.1744,
+        "NDCG@20": 0.0752,
+        "HR@50": 0.3089,
+        "Recall@50": 0.3089,
+        "NDCG@50": 0.1018
+      },
+      "auxiliary_validation": {
+        "is_click": {
+          "rows": 23951,
+          "positives": 11559,
+          "positive_rate": 0.4826103294225711,
+          "bce_loss": 0.6410100227417436,
+          "roc_auc": 0.6843563547803782,
+          "pr_auc": 0.6476961674170447,
+          "random_pr_auc_baseline": 0.4826103294225711
+        },
+        "long_view": {
+          "rows": 23951,
+          "positives": 8561,
+          "positive_rate": 0.3574381027932028,
+          "bce_loss": 0.605597033151669,
+          "roc_auc": 0.6812561786647655,
+          "pr_auc": 0.5180243576362801,
+          "random_pr_auc_baseline": 0.3574381027932028
+        },
+        "is_like": {
+          "rows": 23951,
+          "positives": 469,
+          "positive_rate": 0.01958164586029811,
+          "bce_loss": 0.11658003570032958,
+          "roc_auc": 0.8158002981551536,
+          "pr_auc": 0.15014816913833678,
+          "random_pr_auc_baseline": 0.01958164586029811
+        },
+        "is_profile_enter": {
+          "rows": 23951,
+          "positives": 567,
+          "positive_rate": 0.023673333054987266,
+          "bce_loss": 0.1726797283141231,
+          "roc_auc": 0.687672678706434,
+          "pr_auc": 0.04563434908451177,
+          "random_pr_auc_baseline": 0.023673333054987266
+        }
+      },
+      "preference_id": "historical_pcgrad",
+      "objective_point": [
+        0.9414,
+        0.6410100227417436,
+        0.605597033151669,
+        0.11658003570032958,
+        0.1726797283141231
+      ],
+      "objective_order": [
+        "1_minus_NDCG@10",
+        "click_BCE",
+        "long_view_BCE",
+        "like_BCE",
+        "profile_BCE"
+      ],
+      "selection_rule": "single_solution",
+      "selection_is_validation_oracle": false
+    },
+    "ranking_operating_point_selection": "single_solution",
+    "selection_is_validation_oracle": false,
+    "oracle_best_differs_from_ranking_operating_point": false,
+    "pareto_validation": {
+      "solution_count": 1,
+      "non_dominated_count": 1,
+      "non_dominated_mask": [
+        true
+      ],
+      "spread_l2_mean": null,
+      "hypervolume": 0.3821765272108789,
+      "reference_point": [
+        1.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0
+      ]
+    },
+    "reference_check": {
+      "status": "valid",
+      "objective_order": [
+        "1_minus_NDCG@10",
+        "click_BCE",
+        "long_view_BCE",
+        "like_BCE",
+        "profile_BCE"
+      ],
+      "reference_point": [
+        1.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "min_margin_to_reference": 0.058599999999999985,
+      "max_margin_to_reference": 1.8834199642996705,
+      "solution_count": 1
+    }
+  },
+  "test_safety": {
+    "test_dataset_loaded": false,
+    "test_dataloader_created": false,
+    "test_evaluated": false,
+    "test_evaluation_count": 0
+  },
+  "test_evaluation_count": 0,
+  "git": {
+    "commit": "6deef55ba64e1ead0982c18712c24d0277e2822e",
+    "branch": "exp/moo-8families-benchmark",
+    "remote": "https://github.com/berdov/diplom.git"
+  },
+  "source_files": {
+    "experiments/moo_8families/config.yaml": "f9f5e2388b45d457081ac5dfe70dacb641b714765006e40af1058b6f552daade",
+    "experiments/moo_8families/preferences.yaml": "615fbb28e3840dd8ea985a8d11df5e52461bd1635b6d80fd938ee048be1296fc",
+    "experiments/moo_8families/train.py": "ae8374896b3b4be9bb7b074b7bef7ffb67cc1a324aa0c2ae533cfd133d429145",
+    "experiments/moo_8families/smoke_test.py": "2a350858868ed6bf4c9a86b2df306c906cbcdb2568dbbb635e5fb46d5448060c",
+    "experiments/moo_8families/run_benchmark.py": "d4cdf70a39a71c8be923a6e13b721a041c52bdefc801d8e1ee3109386661791d",
+    "experiments/moo_8families/build_results.py": "9de5f97f2693ae8724694254f6159bba30f102688a242b9b132816916f660235",
+    "experiments/moo_8families/evaluation/objectives.py": "2f731067599c2e5ed5535d23acf6c7bbc12837378eb2c0cd6748f9a6c7df322d",
+    "experiments/moo_8families/evaluation/pareto.py": "a8bc891ca6486cd5ae200b9281119f7c3ff379356c7096fdb7bece8e216cc5fb",
+    "experiments/moo_8families/evaluation/ranking.py": "d1cb2ee2c464a2296f45e19a5dcef79e96ac86cdc7d53212a6f0e0387bacbe48",
+    "experiments/moo_8families/strategies/base.py": "45c23a5d9c453b67b150de8da89107cd2501c5504064c70b569758e9b9414896",
+    "experiments/moo_8families/strategies/stch.py": "0aea067753a0089ede8bbfa9c09c53d7320791009961da3f8a1f70c4b4bdc3fc",
+    "experiments/moo_8families/strategies/famo.py": "41df50b5731453d1e9ad05d577f907572f1c474912aa2a722c27a8099b53f393",
+    "experiments/moo_8families/strategies/epo.py": "65b032d3e32c80bff4766c20a47657df310575a4688514caa2438a4f35de2d9b",
+    "experiments/moo_8families/strategies/gradhv.py": "6422682ba791aa9beac91d16276803abdaa6d5a7adb108caf2dd048c998bd225",
+    "experiments/moo_8families/strategies/pcgrad_adapter.py": "3682b8dba930416b3a6d96de3af2e903e02faa77aa5da7e0d631af91d696c6fc",
+    "experiments/moo_8families/strategies/preferences.py": "e5c5113bf0705cd8d85260b26b3ac717db46341993ac8c752382e0303b1292c1",
+    "experiments/moo_8families/pareto_models/phn.py": "5e9450e8e381bf92335cc3dd731ef2d2f919fb83b5a722bd76cee8624c547fa3",
+    "experiments/moo_8families/pareto_models/cosmos.py": "d7ce45845a68698254dfff2115dd6ca665791c86495cdcc628bf9cf0b9896c00",
+    "experiments/moo_8families/pareto_models/palora.py": "813433a2094d202890e23b06a8fbbe0097d3c2bb36b756426dcd3361d2e07264",
+    "experiments/multitask_tim4rec_optuna/optuna_search.py": "501a074020c261d97bfbf8c81c5f6741e17061cb133d382f6ac04ec5830e113d",
+    "experiments/multitask_tim4rec_optuna/run_locked_tuned.py": "bc25ce37ceb82b08df09f99baa872b2d6f0e45413eac2e22429ab34868d08334",
+    "experiments/multitask_tim4rec_optuna/prepare_validation_only.py": "4a3a8b43ada5e32254ce3e5b506a8362dc35fa649c15b3c576fcd26ac2dfdfa0",
+    "slurm/moo_8families.sh": "b9014baa832d80979966e4cd373f5a3fd6d4e575124643ec8064c4ea0285828e"
+  },
+  "created_at_utc": "2026-08-29T13:47:24.458066+00:00"
+}
