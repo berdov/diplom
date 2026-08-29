@@ -196,7 +196,7 @@ def synthetic_validation_record(preference_id: str | None, ndcg10: float) -> dic
 
 
 def test_common_eval_reference_and_selection() -> dict[str, Any]:
-    reference = [1.0, 1.0, 1.0, 1.0, 1.0]
+    reference = [1.0, 2.0, 2.0, 2.0, 2.0]
     records = [
         synthetic_validation_record("rank_heavy", 0.05),
         synthetic_validation_record("click_heavy", 0.08),

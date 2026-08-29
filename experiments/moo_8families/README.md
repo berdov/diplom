@@ -46,10 +46,10 @@ PHN помечен как `PHN-adapter`, потому что полный PHN с
 Validation Pareto hypervolume для Families 4-8 использует один frozen reference point из `config.yaml`:
 
 ```text
-[1 - NDCG@10, click_BCE, long_view_BCE, like_BCE, profile_BCE] <= [1.0, 1.0, 1.0, 1.0, 1.0]
+[1 - NDCG@10, click_BCE, long_view_BCE, like_BCE, profile_BCE] <= [1.0, 2.0, 2.0, 2.0, 2.0]
 ```
 
-Reference построен до MOO sanity results из validation control point `multitask_tim4rec_tuned_001` плюс deterministic worse margin. Это evaluation metric-space reference; он не смешивается с train-only normalized-loss reference для HV-Gradient training. Если validation point хуже reference по любой координате, run падает вместо silent clipping.
+Reference зафиксирован до MOO sanity results: ranking coordinate остается analytic upper bound `1.0` для `1-NDCG@10`, а BCE coordinates получают conservative fixed bound `2.0`, потому что BCE mathematically unbounded above. Проверка существующих historical/control validation records перед запуском MOO sanity нашла maximum BCE `0.6414133221375151` и не нашла BCE выше `2.0`, поэтому `2.0` выбран как достаточно плохой frozen bound. Это evaluation metric-space reference; он не смешивается с train-only normalized-loss reference для HV-Gradient training, не строится по новым MOO outputs и одинаков для Families 4-8. Если validation point хуже reference по любой координате, run падает вместо silent clipping.
 
 Primary ranking result берется не как oracle over all preferences:
 

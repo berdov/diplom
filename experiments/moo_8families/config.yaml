@@ -78,12 +78,13 @@ evaluation:
     - like_BCE
     - profile_BCE
   pareto_reference:
-    source: fixed_multitask_control_validation_plus_deterministic_worse_margin
+    source: fixed_multitask_control_validation_plus_conservative_bce_bound
     source_run_id: multitask_tim4rec_tuned_001
     source_json: experiments/multitask_tim4rec_optuna/runs/multitask_tim4rec_tuned_001.json
     source_fields:
       ranking: validation_reproduction.best_snapshot.validation_metrics.NDCG@10
       auxiliary: validation_reproduction.best_snapshot.auxiliary_metrics.*.bce_loss
+    rationale: BCE losses are unbounded above; existing historical/control validation records had maximum BCE 0.6414133221375151 and no BCE above 2.0, so the BCE coordinates use a frozen conservative pre-MOO bound of 2.0 while the ranking coordinate remains the analytic 1-NDCG@10 upper bound 1.0.
     frozen_before_moo_sanity_results: true
     objective_order:
       - 1_minus_NDCG@10
@@ -99,16 +100,16 @@ evaluation:
       - 0.179403753162381
     margins:
       - 0.0589
-      - 0.3600378829269916
-      - 0.3918993200799288
-      - 0.865127343682724
-      - 0.820596246837619
+      - 1.3600378829269917
+      - 1.3918993200799288
+      - 1.865127343682724
+      - 1.820596246837619
     values:
       - 1.0
-      - 1.0
-      - 1.0
-      - 1.0
-      - 1.0
+      - 2.0
+      - 2.0
+      - 2.0
+      - 2.0
     applies_to_families:
       - finite_preference_set
       - finite_no_preference_set
