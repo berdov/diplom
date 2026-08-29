@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from experiments.moo_8families.pareto_models.palora import PaLoRALinear  # noqa: E402
+from experiments.moo_8families.evaluation.pareto import validation_summary_from_records  # noqa: E402
 from experiments.moo_8families.strategies.base import TASK_ORDER, preference_tensor  # noqa: E402
 from experiments.moo_8families.strategies.epo import ExactParetoPreferenceSolver  # noqa: E402
 from experiments.moo_8families.strategies.famo import FAMO  # noqa: E402
@@ -172,6 +173,64 @@ def test_continuous_preference_sampler() -> dict[str, Any]:
     return summaries
 
 
+def synthetic_validation_record(preference_id: str | None, ndcg10: float) -> dict[str, Any]:
+    return {
+        "preference_id": preference_id,
+        "metrics": {
+            "HR@5": 0.05,
+            "HR@10": 0.1,
+            "HR@20": 0.15,
+            "HR@50": 0.3,
+            "NDCG@5": 0.04,
+            "NDCG@10": float(ndcg10),
+            "NDCG@20": 0.07,
+            "NDCG@50": 0.1,
+        },
+        "auxiliary_validation": {
+            "is_click": {"bce_loss": 0.6},
+            "long_view": {"bce_loss": 0.6},
+            "is_like": {"bce_loss": 0.2},
+            "is_profile_enter": {"bce_loss": 0.2},
+        },
+    }
+
+
+def test_common_eval_reference_and_selection() -> dict[str, Any]:
+    reference = [1.0, 1.0, 1.0, 1.0, 1.0]
+    records = [
+        synthetic_validation_record("rank_heavy", 0.05),
+        synthetic_validation_record("click_heavy", 0.08),
+        synthetic_validation_record("like_heavy", 0.07),
+    ]
+    epo_summary = validation_summary_from_records(records, method="epo", reference_point=reference)
+    phn_summary = validation_summary_from_records(records, method="phn", reference_point=reference)
+    gradhv_summary = validation_summary_from_records(
+        [
+            synthetic_validation_record(None, 0.05) | {"solution_index": 0},
+            synthetic_validation_record(None, 0.08) | {"solution_index": 1},
+        ],
+        method="gradhv",
+        reference_point=reference,
+    )
+    return {
+        "common_reference_identical": (
+            epo_summary["pareto_validation"]["reference_point"]
+            == phn_summary["pareto_validation"]["reference_point"]
+            == gradhv_summary["pareto_validation"]["reference_point"]
+        ),
+        "conditional_ranking_operating_point_is_rank_heavy": (
+            phn_summary["ranking_operating_point"]["preference_id"] == "rank_heavy"
+        ),
+        "conditional_oracle_best_is_separate": (
+            phn_summary["oracle_best_validation_point"]["preference_id"] == "click_heavy"
+            and phn_summary["oracle_best_differs_from_ranking_operating_point"]
+        ),
+        "conditional_primary_not_oracle": not phn_summary["selection_is_validation_oracle"],
+        "gradhv_selection_is_oracle": gradhv_summary["selection_is_validation_oracle"],
+        "gradhv_selection_rule": gradhv_summary["ranking_operating_point_selection"],
+    }
+
+
 def test_palora() -> dict[str, Any]:
     base = nn.Linear(4, 3)
     layer = PaLoRALinear(base, task_count=len(TASK_ORDER), rank=1, alpha=1.0)
@@ -259,6 +318,7 @@ def main() -> None:
             "epo": test_epo(),
             "gradhv": test_gradhv(),
             "continuous_preference_sampler": test_continuous_preference_sampler(),
+            "common_eval_reference_and_selection": test_common_eval_reference_and_selection(),
             "phn_adapter": test_phn_adapter_unit(),
             "cosmos_conditioning": test_cosmos_conditioning_unit(),
             "palora": test_palora(),
@@ -301,6 +361,17 @@ def main() -> None:
             failures.append(f"{name} Dirichlet sampler simplex sums failed")
         if summary["deterministic_reproduction_max_abs_error"] != 0.0:
             failures.append(f"{name} Dirichlet sampler is not deterministic")
+    selection = result["tests"]["common_eval_reference_and_selection"]
+    if not selection["common_reference_identical"]:
+        failures.append("Common evaluation HV reference differs across method summaries")
+    if not selection["conditional_ranking_operating_point_is_rank_heavy"]:
+        failures.append("Conditional ranking operating point is not rank_heavy")
+    if not selection["conditional_oracle_best_is_separate"]:
+        failures.append("Conditional oracle best is not kept separately")
+    if not selection["conditional_primary_not_oracle"]:
+        failures.append("Conditional ranking operating point is marked as validation oracle")
+    if not selection["gradhv_selection_is_oracle"]:
+        failures.append("GradHV preference-free selection is not marked as validation oracle")
     if not result["tests"]["phn_adapter"]["output_changes_with_preference"]:
         failures.append("PHN adapter output does not change with preference")
     if not result["tests"]["phn_adapter"]["grad_check"]["ok"]:

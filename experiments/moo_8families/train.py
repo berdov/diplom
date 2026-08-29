@@ -48,7 +48,11 @@ from experiments.moo_8families.evaluation.objectives import (  # noqa: E402
     scalar_loss_record,
     task_losses,
 )
-from experiments.moo_8families.evaluation.pareto import pareto_summary  # noqa: E402
+from experiments.moo_8families.evaluation.pareto import (  # noqa: E402
+    EVAL_OBJECTIVE_ORDER,
+    RANKING_OPERATING_POINT_ID,
+    validation_summary_from_records,
+)
 from experiments.moo_8families.pareto_models.cosmos import COSMOSTiM4Rec  # noqa: E402
 from experiments.moo_8families.pareto_models.palora import PaLoRATiM4Rec  # noqa: E402
 from experiments.moo_8families.pareto_models.phn import PHNAdapterTiM4Rec  # noqa: E402
@@ -94,6 +98,7 @@ EXPERIMENT_DIR = ROOT / "experiments" / "moo_8families"
 DEFAULT_CONFIG = EXPERIMENT_DIR / "config.yaml"
 METHODS = ("stch", "famo", "pcgrad", "epo", "gradhv", "phn", "cosmos", "palora")
 TRAIN_METHODS = ("stch", "famo", "epo", "gradhv", "phn", "cosmos", "palora")
+CONDITIONAL_METHODS = ("phn", "cosmos", "palora")
 
 
 def parse_args() -> argparse.Namespace:
@@ -213,6 +218,9 @@ def source_hashes() -> dict[str, str]:
         "experiments/moo_8families/smoke_test.py",
         "experiments/moo_8families/run_benchmark.py",
         "experiments/moo_8families/build_results.py",
+        "experiments/moo_8families/evaluation/objectives.py",
+        "experiments/moo_8families/evaluation/pareto.py",
+        "experiments/moo_8families/evaluation/ranking.py",
         "experiments/moo_8families/strategies/base.py",
         "experiments/moo_8families/strategies/stch.py",
         "experiments/moo_8families/strategies/famo.py",
@@ -347,6 +355,29 @@ def preference_records(preferences: Mapping[str, Any], set_id: str) -> list[dict
     ]
 
 
+def evaluation_reference_from_config(config: Mapping[str, Any]) -> dict[str, Any]:
+    reference_config = dict(config["evaluation"]["pareto_reference"])
+    objective_order = list(reference_config["objective_order"])
+    if objective_order != list(EVAL_OBJECTIVE_ORDER):
+        raise RuntimeError(f"Evaluation objective order mismatch: {objective_order} != {list(EVAL_OBJECTIVE_ORDER)}")
+    values = [float(value) for value in reference_config["values"]]
+    if len(values) != len(EVAL_OBJECTIVE_ORDER):
+        raise RuntimeError(f"Evaluation reference must have {len(EVAL_OBJECTIVE_ORDER)} values, got {values}")
+    if any(not math.isfinite(value) for value in values):
+        raise RuntimeError(f"Evaluation reference contains non-finite values: {values}")
+    return {
+        "objective_order": objective_order,
+        "values": values,
+        "source": reference_config.get("source"),
+        "source_run_id": reference_config.get("source_run_id"),
+        "source_json": reference_config.get("source_json"),
+        "control_point": reference_config.get("control_point"),
+        "margins": reference_config.get("margins"),
+        "invalid_reference_policy": reference_config.get("invalid_reference_policy", "raise"),
+        "frozen_before_moo_sanity_results": bool(reference_config.get("frozen_before_moo_sanity_results")),
+    }
+
+
 def set_model_preference(model: Any, preference: Sequence[float] | None) -> None:
     if preference is not None and hasattr(model, "set_preference"):
         model.set_preference(preference)
@@ -389,6 +420,78 @@ def check_backward(model: Any, shared_entries: list[Any]) -> dict[str, Any]:
     if not bool(finite["all_finite"]) or not bool(shared["all_finite"]):
         raise RuntimeError(f"Non-finite gradients: model={finite}, shared={shared}")
     return {"model": finite, "shared": shared}
+
+
+def interaction_from_batch(batch: Any) -> Any:
+    return batch[0] if isinstance(batch, (tuple, list)) else batch
+
+
+def preference_sensitivity_diagnostic(
+    *,
+    model: Any,
+    train_data: Any,
+    preferences: Mapping[str, Any],
+    p1_id: str,
+    p2_id: str,
+    tolerance: float,
+) -> dict[str, Any]:
+    device = next(model.parameters()).device
+    p1 = preference_by_id(preferences, p1_id)
+    p2 = preference_by_id(preferences, p2_id)
+    try:
+        batch = next(iter(train_data))
+    except StopIteration as exc:
+        raise RuntimeError("Cannot run preference sensitivity diagnostic: train loader is empty.") from exc
+    interaction = interaction_from_batch(batch).to(device)
+
+    model.eval()
+    with torch.no_grad():
+        set_model_preference(model, p1)
+        representation_1 = model.shared_representation(interaction).detach().float()
+        logits_1 = model.ranking_logits_from_representation(representation_1)
+        set_model_preference(model, p2)
+        representation_2 = model.shared_representation(interaction).detach().float()
+        logits_2 = model.ranking_logits_from_representation(representation_2)
+
+        if getattr(model, "POS_ITEM_ID", None) in interaction.interaction:
+            item_ids = interaction[model.POS_ITEM_ID].long()
+            score_mode = "positive_item_logits"
+            scores_1 = logits_1.gather(1, item_ids.view(-1, 1)).squeeze(1)
+            scores_2 = logits_2.gather(1, item_ids.view(-1, 1)).squeeze(1)
+        elif getattr(model, "ITEM_ID", None) in interaction.interaction:
+            item_ids = interaction[model.ITEM_ID].long()
+            score_mode = "candidate_item_logits"
+            scores_1 = logits_1.gather(1, item_ids.view(-1, 1)).squeeze(1)
+            scores_2 = logits_2.gather(1, item_ids.view(-1, 1)).squeeze(1)
+        else:
+            score_mode = "full_ranking_logits"
+            scores_1 = logits_1
+            scores_2 = logits_2
+
+    representation_delta = representation_1 - representation_2
+    score_delta = scores_1 - scores_2
+    representation_l2 = float(torch.linalg.vector_norm(representation_delta).cpu().item())
+    representation_mean_abs = float(representation_delta.abs().mean().cpu().item())
+    score_l2 = float(torch.linalg.vector_norm(score_delta).cpu().item())
+    score_mean_abs = float(score_delta.abs().mean().cpu().item())
+    output_metric_passed = bool(score_mean_abs > float(tolerance) or score_l2 > float(tolerance))
+    return {
+        "split": "train",
+        "batch_source": "first_train_batch_after_smoke_training",
+        "batch_examples": int(len(interaction)),
+        "p1_id": p1_id,
+        "p1": p1,
+        "p2_id": p2_id,
+        "p2": p2,
+        "representation_l2": representation_l2,
+        "representation_mean_abs": representation_mean_abs,
+        "ranking_score_l2": score_l2,
+        "ranking_score_mean_abs": score_mean_abs,
+        "output_metric_name": "ranking_score_mean_abs_or_l2",
+        "ranking_score_mode": score_mode,
+        "tolerance": float(tolerance),
+        "output_metric_passed": output_metric_passed,
+    }
 
 
 def compute_normalization_diagnostics(
@@ -761,6 +864,7 @@ def evaluate_models(
     valid_data: Any,
     train_data: Any,
     topk: Sequence[int],
+    pareto_reference_point: Sequence[float],
     preferences: Sequence[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     records = []
@@ -825,25 +929,12 @@ def evaluate_models(
                 "checks": eval_result["checks"],
             }
         )
-    best = max(records, key=lambda item: float(item["metrics"]["NDCG@10"]))
-    objective_points = []
-    for record in records:
-        aux = record["auxiliary_validation"]
-        objective_points.append(
-            [
-                1.0 - float(record["metrics"]["NDCG@10"]),
-                *[float(aux[target]["bce_loss"]) for target in AUX_TARGETS],
-            ]
-        )
-    reference = [
-        max(point[col] for point in objective_points) + 1e-6
-        for col in range(len(TASK_ORDER))
-    ]
-    return {
-        "records": records,
-        "best": best,
-        "pareto_validation": pareto_summary(objective_points, reference),
-    }
+    return validation_summary_from_records(
+        records,
+        method=method,
+        reference_point=pareto_reference_point,
+        ranking_preference_id=RANKING_OPERATING_POINT_ID,
+    )
 
 
 def build_notes(result: Mapping[str, Any]) -> str:
@@ -875,16 +966,37 @@ def build_notes(result: Mapping[str, Any]) -> str:
             "- Validation не запускалась.",
             "",
         ]
+        if result.get("preference_sensitivity") is not None:
+            sensitivity = result["preference_sensitivity"]
+            lines += [
+                "## Preference Sensitivity",
+                "",
+                f"- Split: `{sensitivity['split']}`.",
+                f"- Preferences: `{sensitivity['p1_id']}` vs `{sensitivity['p2_id']}`.",
+                f"- Representation L2: `{sensitivity['representation_l2']}`.",
+                f"- Ranking score L2: `{sensitivity['ranking_score_l2']}`.",
+                f"- Ranking score mean abs: `{sensitivity['ranking_score_mean_abs']}`.",
+                f"- Passed: `{sensitivity['output_metric_passed']}`.",
+                "",
+            ]
     else:
-        best = result["validation"]["best"]
-        metrics = best["metrics"]
+        primary = result["validation"]["ranking_operating_point"]
+        oracle = result["validation"]["oracle_best_validation_point"]
+        metrics = primary["metrics"]
         lines += [
-            "## Best Validation",
+            "## Ranking Operating Point",
             "",
+            f"- Selection: `{result['validation']['ranking_operating_point_selection']}`.",
+            f"- Selection is validation oracle: `{result['validation']['selection_is_validation_oracle']}`.",
             "| HR@5 | HR@10 | HR@20 | HR@50 | NDCG@5 | NDCG@10 | NDCG@20 | NDCG@50 |",
             "|---:|---:|---:|---:|---:|---:|---:|---:|",
             f"| {metrics['HR@5']:.4f} | {metrics['HR@10']:.4f} | {metrics['HR@20']:.4f} | {metrics['HR@50']:.4f} | "
             f"{metrics['NDCG@5']:.4f} | {metrics['NDCG@10']:.4f} | {metrics['NDCG@20']:.4f} | {metrics['NDCG@50']:.4f} |",
+            "",
+            "## Oracle Best Validation Point",
+            "",
+            f"- id: `{oracle.get('preference_id') or oracle.get('solution_index')}`.",
+            f"- NDCG@10: `{oracle['metrics']['NDCG@10']:.4f}`.",
             "",
             "## Validation Points",
             "",
@@ -920,6 +1032,19 @@ def build_historical_pcgrad_result(
     notes: Path,
 ) -> None:
     historical = load_historical_pcgrad(project_path(config["source"]["pcgrad_historical_json"]))
+    evaluation_reference = evaluation_reference_from_config(config)
+    validation_record = {
+        "solution_index": 0,
+        "metrics": historical["best_validation_metrics"],
+        "auxiliary_validation": historical["best_auxiliary_metrics"],
+        "preference_id": "historical_pcgrad",
+    }
+    validation_payload = validation_summary_from_records(
+        [validation_record],
+        method="pcgrad",
+        reference_point=evaluation_reference["values"],
+        ranking_preference_id=RANKING_OPERATING_POINT_ID,
+    )
     result = {
         "run_id": run_id,
         "status": "completed",
@@ -932,10 +1057,11 @@ def build_historical_pcgrad_result(
             "solution_type": "single",
         },
         "historical": historical,
-        "validation": {
-            "best": {"metrics": historical["best_validation_metrics"]},
-            "records": [{"metrics": historical["best_validation_metrics"], "preference_id": "historical_pcgrad"}],
+        "evaluation": {
+            "pareto_reference": evaluation_reference,
+            "ranking_operating_point_id": RANKING_OPERATING_POINT_ID,
         },
+        "validation": validation_payload,
         "test_safety": {
             "test_dataset_loaded": False,
             "test_dataloader_created": False,
@@ -972,6 +1098,7 @@ def main() -> None:
     args = parse_args()
     moo_config = load_yaml_file(Path(args.config))
     preferences = load_preferences(project_path(moo_config["source"]["preferences"]))
+    evaluation_reference = evaluation_reference_from_config(moo_config)
     run_id, artifact_dir, result_json, notes = resolve_paths(args, moo_config)
     partial_json = result_json.with_suffix(".partial.json")
     assert_output_allowed([result_json, notes, partial_json], artifact_dir, args.allow_overwrite)
@@ -1170,10 +1297,11 @@ def main() -> None:
                 valid_data=valid_data,
                 train_data=train_data,
                 topk=list(recbole_config["topk"]),
+                pareto_reference_point=evaluation_reference["values"],
                 preferences=validation_preferences,
             )
             validation_payload["validation_time_sec"] = float(time.monotonic() - valid_start)
-            score = float(validation_payload["best"]["metrics"]["NDCG@10"])
+            score = float(validation_payload["ranking_operating_point"]["metrics"]["NDCG@10"])
             if score > best_score:
                 best_score = score
                 best_epoch = epoch
@@ -1184,7 +1312,12 @@ def main() -> None:
                     optimizers,
                     epoch,
                     best_score,
-                    {"method": args.method, "run_id": run_id},
+                    {
+                        "method": args.method,
+                        "run_id": run_id,
+                        "model_selection": validation_payload["ranking_operating_point_selection"],
+                        "selection_is_validation_oracle": validation_payload["selection_is_validation_oracle"],
+                    },
                 )
 
         last_checkpoint = save_checkpoint(
@@ -1224,14 +1357,33 @@ def main() -> None:
             "stage": stage,
             "epoch": epoch,
             "train_loss_scalar": losses.get("moo_scalar"),
-            "validation_ndcg10": None if validation_payload is None else validation_payload["best"]["metrics"]["NDCG@10"],
+            "ranking_operating_point_ndcg10": (
+                None if validation_payload is None else validation_payload["ranking_operating_point"]["metrics"]["NDCG@10"]
+            ),
+            "oracle_best_validation_ndcg10": (
+                None if validation_payload is None else validation_payload["oracle_best_validation_point"]["metrics"]["NDCG@10"]
+            ),
             "train_time_sec": train_time,
         }
         print(json.dumps(progress, ensure_ascii=False, allow_nan=False, default=json_default), flush=True)
 
+    preference_sensitivity = None
+    preference_sensitivity_failed = False
+    sensitivity_config = dict(moo_config.get("preference_sensitivity", {}))
+    if stage == "smoke" and args.method in tuple(sensitivity_config.get("enabled_methods", CONDITIONAL_METHODS)):
+        preference_sensitivity = preference_sensitivity_diagnostic(
+            model=models[0],
+            train_data=train_data,
+            preferences=preferences,
+            p1_id=str(sensitivity_config.get("p1_id", RANKING_OPERATING_POINT_ID)),
+            p2_id=str(sensitivity_config.get("p2_id", "like_heavy")),
+            tolerance=float(sensitivity_config.get("tolerance", 1e-8)),
+        )
+        preference_sensitivity_failed = not bool(preference_sensitivity["output_metric_passed"])
+
     runtime_sec = time.monotonic() - start
     if stage == "smoke":
-        status = "completed"
+        status = "failed_preference_sensitivity" if preference_sensitivity_failed else "completed"
         validation_result = None
     else:
         if best_validation is None or best_epoch is None:
@@ -1336,6 +1488,12 @@ def main() -> None:
             "used_for_validation": method_config.get("eval_preference_set") if stage == "sanity" else None,
             "source": project_path(moo_config["source"]["preferences"]),
         },
+        "evaluation": {
+            "pareto_reference": evaluation_reference,
+            "ranking_operating_point_id": RANKING_OPERATING_POINT_ID,
+            "model_selection_metric": "ranking_operating_point.NDCG@10",
+        },
+        "preference_sensitivity": preference_sensitivity,
         "training": {
             "epochs": epochs_payload,
             "actual_epochs": len(epochs_payload),
@@ -1387,6 +1545,8 @@ def main() -> None:
     notes.write_text(build_notes(result) + "\n", encoding="utf-8")
     if partial_json.exists():
         partial_json.unlink()
+    if preference_sensitivity_failed:
+        raise RuntimeError(f"Preference sensitivity smoke check failed: {preference_sensitivity}")
 
 
 if __name__ == "__main__":

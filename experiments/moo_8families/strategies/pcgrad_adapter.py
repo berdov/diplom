@@ -27,6 +27,10 @@ def load_historical_pcgrad(path: Path) -> dict[str, Any]:
     best = payload.get("best_validation_metrics") or payload.get("best_validation", {}).get("metrics")
     if not best or "NDCG@10" not in best:
         raise RuntimeError("Historical PCGrad has no validation NDCG@10.")
+    aux = payload.get("best_auxiliary_metrics") or payload.get("best_validation", {}).get("auxiliary_validation")
+    required_aux = ("is_click", "long_view", "is_like", "is_profile_enter")
+    if not aux or any(target not in aux or "bce_loss" not in aux[target] for target in required_aux):
+        raise RuntimeError("Historical PCGrad has no complete auxiliary validation BCE metrics.")
     return {
         "run_id": REQUIRED_RUN_ID,
         "source_json": str(path),
@@ -35,6 +39,7 @@ def load_historical_pcgrad(path: Path) -> dict[str, Any]:
         "best_epoch": payload.get("best_epoch"),
         "actual_epochs": payload.get("actual_epochs"),
         "best_validation_metrics": best,
+        "best_auxiliary_metrics": aux,
         "test_evaluation_count": 0,
         "slurm": payload.get("slurm"),
         "limitation": "Existing validation-only result is reused; no automatic rerun in this benchmark branch.",

@@ -68,6 +68,21 @@ def aux_metric(record: dict[str, Any], target: str, key: str) -> float | None:
     return None if target not in aux else aux[target].get(key)
 
 
+def validation_primary(payload: dict[str, Any]) -> dict[str, Any]:
+    validation = payload.get("validation") or {}
+    return validation.get("ranking_operating_point") or validation.get("best") or {}
+
+
+def validation_oracle(payload: dict[str, Any]) -> dict[str, Any]:
+    validation = payload.get("validation") or {}
+    return validation.get("oracle_best_validation_point") or validation.get("best") or {}
+
+
+def point_id(record: dict[str, Any]) -> Any:
+    preference_id = record.get("preference_id")
+    return preference_id if preference_id is not None else record.get("solution_index")
+
+
 def summary_rows(config: dict[str, Any]) -> list[dict[str, Any]]:
     rows = []
     for path in run_paths(config):
@@ -75,15 +90,15 @@ def summary_rows(config: dict[str, Any]) -> list[dict[str, Any]]:
             continue
         payload = load_json(path)
         stage = payload.get("stage")
-        if stage == "historical":
+        if stage in {"historical", "sanity"}:
             method = payload["method"]
-            best = payload["validation"]["best"]
-        elif stage == "sanity":
-            method = payload["method"]
-            best = payload["validation"]["best"]
+            best = validation_primary(payload)
+            oracle = validation_oracle(payload)
         else:
             method = payload.get("method", {})
             best = {}
+            oracle = {}
+        validation = payload.get("validation") or {}
         rows.append(
             {
                 "run_id": payload["run_id"],
@@ -105,6 +120,15 @@ def summary_rows(config: dict[str, Any]) -> list[dict[str, Any]]:
                 "NDCG@10": metric(best, "NDCG@10"),
                 "NDCG@20": metric(best, "NDCG@20"),
                 "NDCG@50": metric(best, "NDCG@50"),
+                "oracle_HR@10": metric(oracle, "HR@10"),
+                "oracle_NDCG@10": metric(oracle, "NDCG@10"),
+                "oracle_point_id": point_id(oracle),
+                "ranking_point_id": point_id(best),
+                "ranking_operating_point_selection": validation.get("ranking_operating_point_selection"),
+                "selection_is_validation_oracle": validation.get("selection_is_validation_oracle"),
+                "oracle_best_differs_from_ranking_operating_point": validation.get(
+                    "oracle_best_differs_from_ranking_operating_point"
+                ),
                 "click_bce": aux_metric(best, "is_click", "bce_loss"),
                 "long_bce": aux_metric(best, "long_view", "bce_loss"),
                 "like_bce": aux_metric(best, "is_like", "bce_loss"),
@@ -144,6 +168,13 @@ def write_summary_csv(rows: list[dict[str, Any]]) -> None:
         "NDCG@10",
         "NDCG@20",
         "NDCG@50",
+        "oracle_HR@10",
+        "oracle_NDCG@10",
+        "oracle_point_id",
+        "ranking_point_id",
+        "ranking_operating_point_selection",
+        "selection_is_validation_oracle",
+        "oracle_best_differs_from_ranking_operating_point",
         "click_bce",
         "long_bce",
         "like_bce",
@@ -186,19 +217,35 @@ def write_report(rows: list[dict[str, Any]]) -> None:
         "",
         "Отчёт сгенерирован из `experiments/moo_8families/runs/*.json`.",
         "",
-        "## Ranking-Oriented Point",
+        "## Table A: Ranking Operating Point",
         "",
-        "| family | method | implementation | fidelity | exact | run | stage | HR@10 | NDCG@10 | best epoch | test eval |",
-        "|---|---|---|---|---:|---|---|---:|---:|---:|---:|",
+        "| family | method | point | selection | oracle? | run | stage | HR@10 | NDCG@10 | oracle NDCG@10 | best epoch | test eval |",
+        "|---|---|---|---|---:|---|---|---:|---:|---:|---:|---:|",
     ]
     for row in rows:
         if row.get("stage") not in {"sanity", "historical"}:
             continue
         lines.append(
-            f"| {row['family']} | {row['method']} | {row.get('implementation') or ''} | "
-            f"{row.get('representative_fidelity') or ''} | {row.get('exact_method_reproduction')} | "
+            f"| {row['family']} | {row['method']} | {row.get('ranking_point_id') or ''} | "
+            f"{row.get('ranking_operating_point_selection') or ''} | {row.get('selection_is_validation_oracle')} | "
             f"`{row['run_id']}` | {row['stage']} | "
-            f"{fmt(row['HR@10'])} | {fmt(row['NDCG@10'])} | {row['best_epoch'] or ''} | {row['test_evaluation_count']} |"
+            f"{fmt(row['HR@10'])} | {fmt(row['NDCG@10'])} | {fmt(row.get('oracle_NDCG@10'))} | "
+            f"{row['best_epoch'] or ''} | {row['test_evaluation_count']} |"
+        )
+    lines += [
+        "",
+        "## Oracle Best",
+        "",
+        "| run | ranking point | oracle point | ranking NDCG@10 | oracle NDCG@10 | differs |",
+        "|---|---|---|---:|---:|---:|",
+    ]
+    for row in rows:
+        if row.get("stage") not in {"sanity", "historical"}:
+            continue
+        lines.append(
+            f"| `{row['run_id']}` | {row.get('ranking_point_id') or ''} | {row.get('oracle_point_id') or ''} | "
+            f"{fmt(row['NDCG@10'])} | {fmt(row.get('oracle_NDCG@10'))} | "
+            f"{row.get('oracle_best_differs_from_ranking_operating_point')} |"
         )
     lines += [
         "",

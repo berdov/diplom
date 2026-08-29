@@ -36,6 +36,14 @@ Raw mean losses и выбранные loss scales сохраняются в ка
 
 Scale-sensitive методы в этом benchmark: STCH, FAMO, EPO, HV-Gradient / GradHV-style, PHN-adapter, COSMOS-style и PaLoRA. PCGrad берется как historical validation-only result и дополнительно проверяется только на закрытый test protocol.
 
+## Evaluation Reference Separation
+
+Training normalization reference и validation hypervolume reference - разные сущности:
+
+- training reference для HV-Gradient живет в normalized train-loss space и строится из train-only diagnostics;
+- evaluation reference живет в validation metric space `[1-NDCG@10, click_BCE, long_view_BCE, like_BCE, profile_BCE]`;
+- evaluation reference frozen globally in `config.yaml` and reused across Families 4-8.
+
 ## Текущий статус
 
 Код измерения находится в `experiments/moo_8families/train.py` и пишет JSON в `runs/<run_id>.json`.

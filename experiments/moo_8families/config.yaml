@@ -70,6 +70,60 @@ run:
   artifact_root: /home/daryumin/iberdov/diplom/experiments/moo_8families
   local_runs_dir: experiments/moo_8families/runs
 
+evaluation:
+  objective_space:
+    - 1_minus_NDCG@10
+    - click_BCE
+    - long_view_BCE
+    - like_BCE
+    - profile_BCE
+  pareto_reference:
+    source: fixed_multitask_control_validation_plus_deterministic_worse_margin
+    source_run_id: multitask_tim4rec_tuned_001
+    source_json: experiments/multitask_tim4rec_optuna/runs/multitask_tim4rec_tuned_001.json
+    source_fields:
+      ranking: validation_reproduction.best_snapshot.validation_metrics.NDCG@10
+      auxiliary: validation_reproduction.best_snapshot.auxiliary_metrics.*.bce_loss
+    frozen_before_moo_sanity_results: true
+    objective_order:
+      - 1_minus_NDCG@10
+      - click_BCE
+      - long_view_BCE
+      - like_BCE
+      - profile_BCE
+    control_point:
+      - 0.9411
+      - 0.6399621170730084
+      - 0.6081006799200712
+      - 0.13487265631727602
+      - 0.179403753162381
+    margins:
+      - 0.0589
+      - 0.3600378829269916
+      - 0.3918993200799288
+      - 0.865127343682724
+      - 0.820596246837619
+    values:
+      - 1.0
+      - 1.0
+      - 1.0
+      - 1.0
+      - 1.0
+    applies_to_families:
+      - finite_preference_set
+      - finite_no_preference_set
+      - infinite_hypernetwork
+      - infinite_preference_conditioned
+      - infinite_model_combination
+    invalid_reference_policy: raise
+
+preference_sensitivity:
+  enabled_methods: [phn, cosmos, palora]
+  split: train
+  p1_id: rank_heavy
+  p2_id: like_heavy
+  tolerance: 1e-8
+
 continuous_preference_sampling:
   distribution: Dirichlet
   seed: 20260828

@@ -41,6 +41,26 @@ PHN помечен как `PHN-adapter`, потому что полный PHN с
 
 `preferences.yaml` остается frozen grid только для validation, Pareto plots и reproducible operating-point evaluation. Validation results не используются для изменения training distribution.
 
+## Evaluation Protocol
+
+Validation Pareto hypervolume для Families 4-8 использует один frozen reference point из `config.yaml`:
+
+```text
+[1 - NDCG@10, click_BCE, long_view_BCE, like_BCE, profile_BCE] <= [1.0, 1.0, 1.0, 1.0, 1.0]
+```
+
+Reference построен до MOO sanity results из validation control point `multitask_tim4rec_tuned_001` плюс deterministic worse margin. Это evaluation metric-space reference; он не смешивается с train-only normalized-loss reference для HV-Gradient training. Если validation point хуже reference по любой координате, run падает вместо silent clipping.
+
+Primary ranking result берется не как oracle over all preferences:
+
+- EPO, PHN-adapter, COSMOS-style, PaLoRA: predefined `rank_heavy`.
+- STCH, FAMO, PCGrad: единственная solution.
+- HV-Gradient / GradHV-style: best validation NDCG@10 among preference-free finite solutions, явно `selection_is_validation_oracle = true`.
+
+`oracle_best_validation_point` сохраняется отдельно от `ranking_operating_point`.
+
+Smoke для PHN-adapter, COSMOS-style и PaLoRA дополнительно проверяет real-model preference sensitivity на train batch: `rank_heavy` vs `like_heavy`. Если trained pathway не меняет ranking score выше tolerance, smoke завершается ошибкой.
+
 ## Запуски
 
 Локально без RecBole/Torch можно проверить только синтаксис. На кластере E:
