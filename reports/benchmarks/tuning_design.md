@@ -62,6 +62,12 @@ PCGrad tuning is allowed only under the audit conclusion `EXPECTED_PROTOCOL_DIFF
 
 Submit one serial Optuna study per method to avoid unsafe concurrent writes to one SQLite study. Paths in `configs/moo_tuning_spaces.yaml` are relative to the active repo/worktree, so the same commit can run from a clean detached worktree when the named branch is occupied by existing cluster artifacts.
 
+Run validation-only data preparation once before submitting parallel jobs; per-job wrapper does not rewrite shared RecBole files by default:
+
+```bash
+/home/daryumin/iberdov/diplom/.conda/bin/python experiments/multitask_tim4rec_optuna/prepare_validation_only.py
+```
+
 ```bash
 MOO_TUNING_METHOD=epo sbatch --job-name=moo-epo-tuning slurm/moo_tuning.sh
 MOO_TUNING_METHOD=gradhv sbatch --job-name=moo-gradhv-tuning slurm/moo_tuning.sh

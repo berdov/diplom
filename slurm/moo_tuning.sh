@@ -24,6 +24,7 @@ TARGET_COMPLETE="${MOO_TUNING_TARGET_COMPLETE:-}"
 N_TRIALS="${MOO_TUNING_N_TRIALS:-}"
 SUMMARY_ONLY="${MOO_TUNING_SUMMARY_ONLY:-0}"
 ALLOW_DIRTY="${MOO_TUNING_ALLOW_DIRTY:-0}"
+PREPARE_VALIDATION="${MOO_TUNING_PREPARE_VALIDATION:-0}"
 
 case "${METHOD}" in
   epo|gradhv|cosmos|pcgrad|all) ;;
@@ -79,8 +80,16 @@ echo "Method: ${METHOD}"
 echo "Spaces: ${SPACES}"
 echo "Git commit: ${MOO_GIT_COMMIT}"
 echo "Git branch: ${MOO_GIT_BRANCH}"
+echo "Prepare validation-only data: ${PREPARE_VALIDATION}"
 
-"${PREP_PYTHON}" experiments/multitask_tim4rec_optuna/prepare_validation_only.py
+if [ "${PREPARE_VALIDATION}" = "1" ]; then
+  "${PREP_PYTHON}" experiments/multitask_tim4rec_optuna/prepare_validation_only.py
+else
+  if [ ! -s "${REPO_DIR}/experiments/multitask_tim4rec_optuna/validation_only_recbole/validation_only_dataset.json" ]; then
+    echo "Missing validation-only dataset summary; run prepare_validation_only.py once before submitting tuning jobs." >&2
+    exit 2
+  fi
+fi
 
 "${PYTHON}" -m py_compile \
   experiments/moo_8families/train.py \
