@@ -19,6 +19,9 @@ PREP_PYTHON="${MOO_PREP_PYTHON:-/home/daryumin/iberdov/diplom/.conda/bin/python}
 PYTHON="${MOO_PYTHON:-${ENV_DIR}/bin/python}"
 SPACES="${MOO_TUNING_SPACES:-${REPO_DIR}/configs/moo_tuning_spaces.yaml}"
 GIT_BIN="${MOO_GIT_BIN:-/usr/bin/git}"
+VALIDATION_ONLY_ROOT="${MOO_VALIDATION_ONLY_ROOT:-/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole}"
+VALIDATION_ONLY_DATASET="${MOO_VALIDATION_ONLY_DATASET:-kuairand_multitask_validonly}"
+VALIDATION_SUMMARY="${MOO_VALIDATION_ONLY_SUMMARY:-${VALIDATION_ONLY_ROOT}/validation_only_dataset.json}"
 METHOD="${MOO_TUNING_METHOD:-${1:-epo}}"
 TARGET_COMPLETE="${MOO_TUNING_TARGET_COMPLETE:-}"
 N_TRIALS="${MOO_TUNING_N_TRIALS:-}"
@@ -81,14 +84,22 @@ echo "Spaces: ${SPACES}"
 echo "Git commit: ${MOO_GIT_COMMIT}"
 echo "Git branch: ${MOO_GIT_BRANCH}"
 echo "Prepare validation-only data: ${PREPARE_VALIDATION}"
+echo "Validation-only summary: ${VALIDATION_SUMMARY}"
 
 if [ "${PREPARE_VALIDATION}" = "1" ]; then
   "${PREP_PYTHON}" experiments/multitask_tim4rec_optuna/prepare_validation_only.py
 else
-  if [ ! -s "${REPO_DIR}/experiments/multitask_tim4rec_optuna/validation_only_recbole/validation_only_dataset.json" ]; then
+  if [ ! -s "${VALIDATION_SUMMARY}" ]; then
     echo "Missing validation-only dataset summary; run prepare_validation_only.py once before submitting tuning jobs." >&2
     exit 2
   fi
+  for suffix in train.inter valid.inter item; do
+    file="${VALIDATION_ONLY_ROOT}/${VALIDATION_ONLY_DATASET}/${VALIDATION_ONLY_DATASET}.${suffix}"
+    if [ ! -s "${file}" ]; then
+      echo "Missing or empty validation-only RecBole file: ${file}" >&2
+      exit 2
+    fi
+  done
 fi
 
 "${PYTHON}" -m py_compile \
