@@ -18,6 +18,7 @@ ENV_DIR="${MOO_ENV_DIR:-/home/daryumin/iberdov/diplom/envs/tim4rec}"
 PREP_PYTHON="${MOO_PREP_PYTHON:-/home/daryumin/iberdov/diplom/.conda/bin/python}"
 PYTHON="${MOO_PYTHON:-${ENV_DIR}/bin/python}"
 SPACES="${MOO_TUNING_SPACES:-${REPO_DIR}/configs/moo_tuning_spaces.yaml}"
+GIT_BIN="${MOO_GIT_BIN:-/usr/bin/git}"
 METHOD="${MOO_TUNING_METHOD:-${1:-epo}}"
 TARGET_COMPLETE="${MOO_TUNING_TARGET_COMPLETE:-}"
 N_TRIALS="${MOO_TUNING_N_TRIALS:-}"
@@ -39,9 +40,18 @@ module load Python/miniconda || true
 export PYTHONNOUSERSITE=1
 export PYTHONPATH="${REPO_DIR}:${PYTHONPATH:-}"
 export PATH="${ENV_DIR}/bin:${PATH}"
-export MOO_GIT_COMMIT="${MOO_GIT_COMMIT:-$(git rev-parse HEAD 2>/dev/null || echo unknown)}"
-export MOO_GIT_BRANCH="${MOO_GIT_BRANCH:-$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)}"
-export MOO_GIT_REMOTE="${MOO_GIT_REMOTE:-$(git config --get remote.origin.url 2>/dev/null || echo unknown)}"
+if [ ! -x "${GIT_BIN}" ]; then
+  GIT_BIN="$(command -v git || true)"
+fi
+if [ -n "${GIT_BIN}" ]; then
+  export MOO_GIT_COMMIT="${MOO_GIT_COMMIT:-$("${GIT_BIN}" rev-parse HEAD 2>/dev/null || echo unknown)}"
+  export MOO_GIT_BRANCH="${MOO_GIT_BRANCH:-$("${GIT_BIN}" rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)}"
+  export MOO_GIT_REMOTE="${MOO_GIT_REMOTE:-$("${GIT_BIN}" config --get remote.origin.url 2>/dev/null || echo unknown)}"
+else
+  export MOO_GIT_COMMIT="${MOO_GIT_COMMIT:-unknown}"
+  export MOO_GIT_BRANCH="${MOO_GIT_BRANCH:-unknown}"
+  export MOO_GIT_REMOTE="${MOO_GIT_REMOTE:-unknown}"
+fi
 export MOO_TUNING_PRINT_COMMANDS="${MOO_TUNING_PRINT_COMMANDS:-1}"
 
 if [ ! -x "${PYTHON}" ]; then
@@ -54,9 +64,9 @@ if [ ! -x "${PREP_PYTHON}" ]; then
   exit 2
 fi
 
-if [ "${ALLOW_DIRTY}" != "1" ] && [ -n "$(git status --short --untracked-files=no)" ]; then
+if [ "${ALLOW_DIRTY}" != "1" ] && [ -n "${GIT_BIN}" ] && [ -n "$("${GIT_BIN}" status --short --untracked-files=no)" ]; then
   echo "Tracked files are dirty; set MOO_TUNING_ALLOW_DIRTY=1 only for an intentional resume." >&2
-  git status --short --untracked-files=no >&2
+  "${GIT_BIN}" status --short --untracked-files=no >&2
   exit 2
 fi
 
