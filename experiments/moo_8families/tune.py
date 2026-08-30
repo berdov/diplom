@@ -124,7 +124,7 @@ def artifact_paths(spaces: Mapping[str, Any], method_spec: Mapping[str, Any], tr
     study = str(method_spec["study_name"])
     root = project_path(spaces["storage"]["artifact_root"]) / study / f"trial_{trial_number:04d}"
     return {
-        "artifact_dir": root,
+        "artifact_dir": root / "artifacts",
         "result_json": root / "result.json",
         "notes": root / "notes.md",
         "sampled_overrides": root / "sampled_overrides.json",
