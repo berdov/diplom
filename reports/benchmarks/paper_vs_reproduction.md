@@ -2,7 +2,7 @@
 
 Эта таблица использует только canonical TEST reproductions из repository artifacts. MOO validation-only runs сюда не входят.
 
-Источник нашего SSD4Rec: [experiments/ssd4rec_baseline/runs/ssd4rec_001.json](../../experiments/ssd4rec_baseline/runs/ssd4rec_001.json).  
+Источник нашего SSD4Rec: [experiments/ssd4rec_baseline/runs/ssd4rec_001.json](../../experiments/ssd4rec_baseline/runs/ssd4rec_001.json).
 Источник нашего TiM4Rec: [experiments/tim4rec_baseline/runs/tim4rec_001.json](../../experiments/tim4rec_baseline/runs/tim4rec_001.json).
 
 ## SSD4Rec
