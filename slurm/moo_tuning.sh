@@ -6,12 +6,14 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=0
 #SBATCH --time=72:00:00
-#SBATCH --output=/home/daryumin/iberdov/diplom/experiments/moo_8families/slurm_logs/%x-%j.out
-#SBATCH --error=/home/daryumin/iberdov/diplom/experiments/moo_8families/slurm_logs/%x-%j.err
+#SBATCH --output=/home/daryumin/iberdov/diplom_exp_moo_8families/experiments/moo_8families/slurm_logs/%x-%j.out
+#SBATCH --error=/home/daryumin/iberdov/diplom_exp_moo_8families/experiments/moo_8families/slurm_logs/%x-%j.err
 
 set -euo pipefail
 
-REPO_DIR="${REPO_DIR:-/home/daryumin/iberdov/diplom}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEFAULT_REPO_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+REPO_DIR="${REPO_DIR:-${DEFAULT_REPO_DIR}}"
 ENV_DIR="${MOO_ENV_DIR:-/home/daryumin/iberdov/diplom/envs/tim4rec}"
 PREP_PYTHON="${MOO_PREP_PYTHON:-/home/daryumin/iberdov/diplom/.conda/bin/python}"
 PYTHON="${MOO_PYTHON:-${ENV_DIR}/bin/python}"

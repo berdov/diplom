@@ -60,7 +60,7 @@ PCGrad tuning is allowed only under the audit conclusion `EXPECTED_PROTOCOL_DIFF
 
 ## Cluster commands
 
-Submit one serial Optuna study per method to avoid unsafe concurrent writes to one SQLite study:
+Submit one serial Optuna study per method to avoid unsafe concurrent writes to one SQLite study. Paths in `configs/moo_tuning_spaces.yaml` are relative to the active repo/worktree, so the same commit can run from a clean detached worktree when the named branch is occupied by existing cluster artifacts.
 
 ```bash
 MOO_TUNING_METHOD=epo sbatch --job-name=moo-epo-tuning slurm/moo_tuning.sh

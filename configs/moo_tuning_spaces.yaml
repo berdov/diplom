@@ -32,9 +32,9 @@ training_protocol:
   baseline_reproduction_tolerance_ndcg10: 0.001
 
 storage:
-  artifact_root: /home/daryumin/iberdov/diplom/experiments/moo_8families/tuning_artifacts
-  storage_root: /home/daryumin/iberdov/diplom/experiments/moo_8families/tuning_storage
-  summary_root: /home/daryumin/iberdov/diplom/experiments/moo_8families/tuning_summaries
+  artifact_root: experiments/moo_8families/tuning_artifacts
+  storage_root: experiments/moo_8families/tuning_storage
+  summary_root: experiments/moo_8families/tuning_summaries
   raw_artifacts_git_policy: ignored
 
 frozen_parameters:
