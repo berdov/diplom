@@ -8,6 +8,7 @@ Sanity mode runs 5 validation-only epochs and still keeps test closed.
 from __future__ import annotations
 
 import argparse
+import copy
 import importlib.metadata
 import json
 import math
@@ -101,16 +102,19 @@ DEFAULT_CONFIG = EXPERIMENT_DIR / "config.yaml"
 METHODS = ("stch", "famo", "pcgrad", "epo", "gradhv", "phn", "cosmos", "palora")
 TRAIN_METHODS = ("stch", "famo", "pcgrad", "epo", "gradhv", "phn", "cosmos", "palora")
 CONDITIONAL_METHODS = ("phn", "cosmos", "palora")
-VALIDATION_STAGES = ("sanity", "convergence_screening")
+VALIDATION_STAGES = ("sanity", "convergence_screening", "tuning")
 CONDITIONAL_SEED_OFFSETS = {"phn": 4, "cosmos": 5, "palora": 6}
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--method", choices=METHODS, required=True)
-    parser.add_argument("--stage", choices=("smoke", "sanity", "historical", "convergence_screening"), default="smoke")
+    parser.add_argument("--stage", choices=("smoke", "sanity", "historical", "convergence_screening", "tuning"), default="smoke")
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--config", default=str(DEFAULT_CONFIG))
+    parser.add_argument("--sampled-params-json", default=None)
+    parser.add_argument("--method-overrides-json", default=None)
+    parser.add_argument("--tuning-metadata-json", default=None)
     parser.add_argument("--epochs", type=int, default=None)
     parser.add_argument("--max-batches", type=int, default=None)
     parser.add_argument("--artifact-dir", default=None)
@@ -216,9 +220,12 @@ def gpu_info() -> dict[str, Any]:
 
 def source_hashes() -> dict[str, str]:
     relative_paths = [
+        "configs/moo_tuning_spaces.yaml",
         "experiments/moo_8families/config.yaml",
         "experiments/moo_8families/preferences.yaml",
         "experiments/moo_8families/train.py",
+        "experiments/moo_8families/tune.py",
+        "experiments/moo_8families/build_tuning_results.py",
         "experiments/moo_8families/smoke_test.py",
         "experiments/moo_8families/run_benchmark.py",
         "experiments/moo_8families/build_results.py",
@@ -241,6 +248,7 @@ def source_hashes() -> dict[str, str]:
         "experiments/multitask_tim4rec_optuna/run_locked_tuned.py",
         "experiments/multitask_tim4rec_optuna/prepare_validation_only.py",
         "slurm/moo_8families.sh",
+        "slurm/moo_tuning.sh",
     ]
     return {
         path: sha256_file(ROOT / path)
@@ -252,6 +260,78 @@ def source_hashes() -> dict[str, str]:
 def load_yaml_file(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
         return yaml.safe_load(handle)
+
+
+def load_json_file(path: Path | str | None) -> dict[str, Any]:
+    if path is None:
+        return {}
+    with Path(path).open("r", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def deep_merge(base: Mapping[str, Any], extra: Mapping[str, Any]) -> dict[str, Any]:
+    result = copy.deepcopy(dict(base))
+    for key, value in extra.items():
+        if isinstance(value, Mapping) and isinstance(result.get(key), Mapping):
+            result[key] = deep_merge(result[key], value)
+        else:
+            result[key] = copy.deepcopy(value)
+    return result
+
+
+def apply_sampled_overrides(sampled: Mapping[str, Any], overrides: Mapping[str, Any]) -> dict[str, Any]:
+    allowed = {
+        "learning_rate",
+        "weight_decay",
+        "dropout_prob",
+        "head_lr_multiplier",
+        "normalized_task_weights",
+        "effective_pos_weights",
+    }
+    unknown = sorted(set(overrides) - allowed)
+    if unknown:
+        raise RuntimeError(f"Unsupported sampled param override(s): {unknown}")
+
+    result = copy.deepcopy(dict(sampled))
+    for key in ("learning_rate", "weight_decay", "dropout_prob", "head_lr_multiplier"):
+        if key in overrides:
+            result[key] = float(overrides[key])
+    if "normalized_task_weights" in overrides:
+        result["normalized_task_weights"] = {
+            target: float(value)
+            for target, value in dict(overrides["normalized_task_weights"]).items()
+        }
+    if "effective_pos_weights" in overrides:
+        result["effective_pos_weights"] = {
+            target: float(value)
+            for target, value in dict(overrides["effective_pos_weights"]).items()
+        }
+
+    if set(result["normalized_task_weights"]) != set(AUX_TARGETS):
+        raise RuntimeError(f"Task weight override must cover {AUX_TARGETS}: {result['normalized_task_weights']}")
+    if set(result["effective_pos_weights"]) != set(AUX_TARGETS):
+        raise RuntimeError(f"Pos-weight override must cover {AUX_TARGETS}: {result['effective_pos_weights']}")
+    if any(float(value) <= 0.0 for value in result["normalized_task_weights"].values()):
+        raise RuntimeError(f"Task weights must stay positive: {result['normalized_task_weights']}")
+    if any(float(value) <= 0.0 for value in result["effective_pos_weights"].values()):
+        raise RuntimeError(f"Effective pos weights must stay positive: {result['effective_pos_weights']}")
+
+    result["head_learning_rate"] = float(result["learning_rate"]) * float(result["head_lr_multiplier"])
+    result["effective_loss_multipliers"] = {
+        target: float(result["lambda_aux"]) * float(result["normalized_task_weights"][target])
+        for target in AUX_TARGETS
+    }
+    result["effective_positive_multipliers"] = {
+        target: float(result["effective_loss_multipliers"][target]) * float(result["effective_pos_weights"][target])
+        for target in AUX_TARGETS
+    }
+    raw_params = dict(result.get("raw_params", {}))
+    for key in ("learning_rate", "weight_decay", "dropout_prob", "head_lr_multiplier"):
+        if key in raw_params:
+            raw_params[key] = float(result[key])
+    result["raw_params"] = raw_params
+    result["tuning_param_overrides"] = dict(overrides)
+    return result
 
 
 def load_preferences(path: Path) -> dict[str, Any]:
@@ -269,6 +349,8 @@ def load_preferences(path: Path) -> dict[str, Any]:
 def method_default_run_id(config: Mapping[str, Any], method: str, stage: str) -> str:
     if method == "pcgrad" and stage == "historical":
         return str(config["methods"]["pcgrad"]["historical_run_id"])
+    if stage == "tuning":
+        return f"{method}_tuning_trial"
     key_by_stage = {
         "smoke": "smoke_run_id",
         "sanity": "sanity_run_id",
@@ -324,6 +406,8 @@ def build_run_config(optuna_config: Mapping[str, Any], artifact_root: Path, samp
 
 
 def stage_record_type(stage: str) -> str:
+    if stage == "tuning":
+        return "tuning_trial"
     if stage == "convergence_screening":
         return "convergence_screening"
     if stage == "sanity":
@@ -332,12 +416,16 @@ def stage_record_type(stage: str) -> str:
 
 
 def stage_scientific_result(stage: str) -> str | bool:
+    if stage == "tuning":
+        return "validation_only_tuning"
     return "screening" if stage in {"sanity", "convergence_screening"} else False
 
 
 def validation_interval_for_stage(config: Mapping[str, Any], stage: str) -> int | None:
     if stage == "sanity":
         return 1
+    if stage == "tuning":
+        return int(config["tuning"]["validation_interval"])
     if stage == "convergence_screening":
         return int(config["run"]["convergence_validation_interval"])
     return None
@@ -360,6 +448,8 @@ def default_epochs_for_stage(config: Mapping[str, Any], stage: str) -> int:
         return 1
     if stage == "sanity":
         return int(config["run"]["sanity_epochs"])
+    if stage == "tuning":
+        return int(config["tuning"]["max_epochs"])
     if stage == "convergence_screening":
         return int(config["run"]["convergence_max_epochs"])
     raise RuntimeError(f"Unsupported train stage: {stage}")
@@ -368,14 +458,27 @@ def default_epochs_for_stage(config: Mapping[str, Any], stage: str) -> int:
 def objective_for_stage(stage: str) -> str:
     if stage == "smoke":
         return "train_only_smoke"
+    if stage == "tuning":
+        return "validation_full_ranking_NDCG@10_controlled_tuning"
     if stage == "convergence_screening":
         return "validation_full_ranking_NDCG@10_convergence_screening"
     return "validation_full_ranking_NDCG@10"
 
 
 def early_stopping_config_for_stage(config: Mapping[str, Any], stage: str) -> dict[str, Any] | None:
-    if stage != "convergence_screening":
+    if stage not in {"convergence_screening", "tuning"}:
         return None
+    if stage == "tuning":
+        tuning = config["tuning"]
+        return {
+            "metric": "ranking_operating_point.NDCG@10",
+            "mode": "maximize",
+            "validation_interval": int(tuning["validation_interval"]),
+            "minimum_training_epochs": int(tuning["minimum_training_epochs"]),
+            "patience_validation_checks": int(tuning["patience_validation_checks"]),
+            "min_delta": float(tuning.get("min_delta", 0.0)),
+            "strict_improvement": True,
+        }
     return {
         "metric": "ranking_operating_point.NDCG@10",
         "mode": "maximize",
@@ -849,11 +952,14 @@ def train_epo_epoch(
     batches = 0
     first_diag = None
     last_solver_states = []
+    solver_fallback_count = 0
+    solver_fallback_by_type: dict[str, int] = {}
+    solution_fallback_counts = [0 for _ in models]
 
     for interaction in train_data:
         interaction = interaction.to(next(models[0].parameters()).device)
         batch_size = len(interaction)
-        for model, optimizer, solver, sol_sums in zip(models, optimizers, solvers, solution_sums):
+        for idx, (model, optimizer, solver, sol_sums) in enumerate(zip(models, optimizers, solvers, solution_sums)):
             model.train()
             shared_entries = shared_parameter_entries(model, "all_backbone")
             optimizer.zero_grad(set_to_none=True)
@@ -861,6 +967,12 @@ def train_epo_epoch(
             vectors = task_gradient_vectors(normalized_task_map(probe["normalized_task_vector"]), shared_entries, TASK_ORDER)
             gradient_matrix = torch.stack([vectors[task] for task in TASK_ORDER], dim=0)
             alpha = solver.alpha(probe["normalized_task_vector"].detach(), gradient_matrix)
+            fallback = None if solver.last_result is None else solver.last_result.get("fallback")
+            if fallback:
+                fallback_name = str(fallback)
+                solver_fallback_count += 1
+                solution_fallback_counts[idx] += 1
+                solver_fallback_by_type[fallback_name] = solver_fallback_by_type.get(fallback_name, 0) + 1
             optimizer.zero_grad(set_to_none=True)
             losses = task_losses(model, interaction, sampled, pos_weights, loss_scales=loss_scales)
             scalar = (alpha.detach() * losses["normalized_task_vector"]).sum()
@@ -886,10 +998,13 @@ def train_epo_epoch(
     aggregate["batches"] = batches
     aggregate["examples"] = examples
     aggregate["solutions"] = [
-        summarize_epoch(solution_sums[idx], examples, batches) | {"epo": solvers[idx].state_dict()}
+        summarize_epoch(solution_sums[idx], examples, batches)
+        | {"epo": solvers[idx].state_dict(), "solver_fallback_count": int(solution_fallback_counts[idx])}
         for idx in range(len(models))
     ]
     last_solver_states = [solver.state_dict() for solver in solvers]
+    aggregate["solver_fallback_count"] = int(solver_fallback_count)
+    aggregate["solver_fallback_by_type"] = solver_fallback_by_type
     aggregate["method_state"] = {"solvers": last_solver_states}
     return aggregate, first_diag
 
@@ -1205,7 +1320,7 @@ def build_notes(result: Mapping[str, Any]) -> str:
                 f"{aux['is_like']['bce_loss']:.4f} | {aux['is_profile_enter']['bce_loss']:.4f} |"
             )
         lines.append("")
-        if result["stage"] == "convergence_screening":
+        if result["stage"] in {"convergence_screening", "tuning"}:
             lines += [
                 "## Early Stopping",
                 "",
@@ -1318,10 +1433,13 @@ def main() -> None:
         raise RuntimeError(f"Method {args.method} is not trainable in this runner.")
 
     stage = args.stage
-    method_config = moo_config["methods"][args.method]
+    method_config = deep_merge(moo_config["methods"][args.method], load_json_file(args.method_overrides_json))
+    tuning_metadata = load_json_file(args.tuning_metadata_json)
     epochs = int(args.epochs or default_epochs_for_stage(moo_config, stage))
     if stage == "sanity" and epochs != int(moo_config["run"]["sanity_epochs"]):
         raise RuntimeError(f"Sanity must run exactly {moo_config['run']['sanity_epochs']} epochs, got {epochs}")
+    if stage == "tuning" and epochs != int(moo_config["tuning"]["max_epochs"]):
+        raise RuntimeError(f"Tuning must request the frozen maximum {moo_config['tuning']['max_epochs']} epochs, got {epochs}")
     if stage == "convergence_screening" and epochs != int(moo_config["run"]["convergence_max_epochs"]):
         raise RuntimeError(
             "Convergence screening must request the frozen maximum "
@@ -1330,8 +1448,8 @@ def main() -> None:
     max_batches = args.max_batches
     if max_batches is None and stage == "smoke":
         max_batches = int(moo_config["run"]["smoke_batches"])
-    if stage == "convergence_screening" and max_batches is not None:
-        raise RuntimeError("Convergence screening must use the full train split; max_batches is not allowed.")
+    if stage in {"convergence_screening", "tuning"} and max_batches is not None:
+        raise RuntimeError(f"{stage} must use the full train split; max_batches is not allowed.")
     validation_interval = validation_interval_for_stage(moo_config, stage)
     early_stopping = early_stopping_config_for_stage(moo_config, stage)
 
@@ -1344,6 +1462,7 @@ def main() -> None:
     best_params = load_yaml(project_path(moo_config["source"]["best_params"]))
     data = load_data_bundle(optuna_config, artifact_dir / "data_probe")
     sampled = sampled_from_locked_params(best_params, data.target_stats)
+    sampled = apply_sampled_overrides(sampled, load_json_file(args.sampled_params_json))
     recbole_config = build_run_config(optuna_config, artifact_dir, sampled, epochs)
     assert_protocol_guards(moo_config, data, recbole_config)
     init_seed(int(moo_config["run"]["seed"]) + recbole_config["local_rank"], recbole_config["reproducibility"])
@@ -1580,7 +1699,7 @@ def main() -> None:
                 }
             )
             if (
-                stage == "convergence_screening"
+                stage in {"convergence_screening", "tuning"}
                 and early_stopping is not None
                 and epoch >= int(early_stopping["minimum_training_epochs"])
                 and checks_without_improvement >= int(early_stopping["patience_validation_checks"])
@@ -1650,7 +1769,7 @@ def main() -> None:
     preference_sensitivity = None
     preference_sensitivity_failed = False
     sensitivity_config = dict(moo_config.get("preference_sensitivity", {}))
-    if stage == "smoke" and args.method in tuple(sensitivity_config.get("enabled_methods", CONDITIONAL_METHODS)):
+    if stage in {"smoke", "tuning"} and args.method in tuple(sensitivity_config.get("enabled_methods", CONDITIONAL_METHODS)):
         preference_sensitivity = preference_sensitivity_diagnostic(
             model=models[0],
             train_data=train_data,
@@ -1719,6 +1838,7 @@ def main() -> None:
             "config": dict(method_config),
             "state": method_state_payload(method_state),
         },
+        "tuning": tuning_metadata if stage == "tuning" else None,
         "dataset": {
             "name": "KuaiRand",
             "protocol": "B",

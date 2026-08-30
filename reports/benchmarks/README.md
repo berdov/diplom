@@ -12,6 +12,7 @@
 | [project_status_summary.md](project_status_summary.md) | Master summary всей истории project experiments по уровням evidence. |
 | [SUPERVISOR_SUMMARY.md](SUPERVISOR_SUMMARY.md) | Короткая страница для обсуждения с руководителем. |
 | [pcgrad_discrepancy_audit.md](pcgrad_discrepancy_audit.md) | Forensic audit разрыва между historical и current PCGrad. |
+| [tuning_design.md](tuning_design.md) | Frozen design controlled validation-only tuning для EPO, GradHV, COSMOS и PCGrad. |
 
 Правило чтения: paper results и our experiments не объединяются в одну scientific ranking table. MOO convergence в этой ветке является validation-only family screening, поэтому он не сравнивается напрямую с published TEST rows.
 

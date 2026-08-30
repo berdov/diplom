@@ -75,6 +75,16 @@ run:
   artifact_root: /home/daryumin/iberdov/diplom/experiments/moo_8families
   local_runs_dir: experiments/moo_8families/runs
 
+tuning:
+  max_epochs: 100
+  validation_interval: 5
+  minimum_training_epochs: 20
+  patience_validation_checks: 3
+  min_delta: 0.0
+  primary_checkpoint: best_validation_operating_point_NDCG@10
+  reproduction_tolerance_ndcg10: 0.001
+  seed: 2026
+
 evaluation:
   objective_space:
     - 1_minus_NDCG@10

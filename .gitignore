@@ -126,6 +126,9 @@ experiments/moo_8families/*_smoke_*/
 experiments/moo_8families/*_smoke_*.failed_*/
 experiments/moo_8families/*_sanity_*/
 experiments/moo_8families/*_convergence_*/
+experiments/moo_8families/tuning_artifacts/
+experiments/moo_8families/tuning_storage/
+experiments/moo_8families/*.db*
 experiments/moo_8families/runs/*
 !experiments/moo_8families/runs/.gitkeep
 !experiments/moo_8families/runs/summary.csv

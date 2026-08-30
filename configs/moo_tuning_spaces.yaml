@@ -1,0 +1,170 @@
+study_group: moo_four_candidate_tuning_001
+status: prepared_not_launched
+branch: exp/moo-8families-benchmark
+source_config: experiments/moo_8families/config.yaml
+
+protocol:
+  dataset: KuaiRand
+  protocol: B
+  identity_hash: 954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7
+  split: validation
+  test_policy:
+    load_test_dataset: false
+    create_test_dataloader: false
+    evaluate_test: false
+    test_evaluation_count: 0
+
+hardware:
+  gpu_class: A100-SXM4-80GB
+  slurm_constraint: type_e
+  rationale: Primary tuning comparison must use one GPU class and avoid H100/H200 mixing.
+
+training_protocol:
+  max_epochs: 100
+  validation_interval: 5
+  minimum_training_epochs: 20
+  patience_validation_checks: 3
+  min_delta: 0.0
+  primary_checkpoint: best validation operating-point NDCG@10
+  tuning_seed: 2026
+  optuna_pruning: disabled_initially
+  baseline_trial_0: current frozen long-convergence configuration
+  baseline_reproduction_tolerance_ndcg10: 0.001
+
+storage:
+  artifact_root: /home/daryumin/iberdov/diplom/experiments/moo_8families/tuning_artifacts
+  storage_root: /home/daryumin/iberdov/diplom/experiments/moo_8families/tuning_storage
+  summary_root: /home/daryumin/iberdov/diplom/experiments/moo_8families/tuning_summaries
+  raw_artifacts_git_policy: ignored
+
+frozen_parameters:
+  objective_definitions: unchanged from experiments/moo_8families/config.yaml
+  normalization: unchanged from experiments/moo_8families/config.yaml
+  evaluation_reference:
+    values: [1.0, 2.0, 2.0, 2.0, 2.0]
+    invalid_reference_policy: raise
+  ranking_operating_point: unchanged
+  finite_solution_count:
+    epo: 6
+    gradhv: 3
+  lambda_aux_and_task_weights:
+    status: frozen
+    rationale: Current MOO methods optimize normalized task objectives, not the historical scalar multitask total. Tuning lambda_aux or arbitrary task weights here would change the protocol/objective interpretation rather than tune the current family implementation.
+
+current_frozen_params:
+  learning_rate: 0.0019075370668084298
+  weight_decay: 0.000001925502656735127
+  dropout_prob: 0.08565706719893162
+  head_lr_multiplier: 0.45851058258621097
+
+common_parameters:
+  learning_rate:
+    type: float
+    min: 0.0003
+    max: 0.003
+    scale: log
+    current: 0.0019075370668084298
+    rationale: Compact range around the tuned MultitaskTiM4Rec learning rate; wide enough for each MOO geometry without changing optimizer family.
+  weight_decay:
+    type: float
+    min: 0.0000001
+    max: 0.0001
+    scale: log
+    current: 0.000001925502656735127
+    rationale: Small regularization range around the current near-zero value; avoids turning tuning into architecture search.
+  dropout_prob:
+    type: float
+    min: 0.0
+    max: 0.25
+    scale: linear
+    current: 0.08565706719893162
+    rationale: Regularization knob already present in TiM4Rec/MultitaskTiM4Rec config.
+  head_lr_multiplier:
+    type: float
+    min: 0.25
+    max: 2.0
+    scale: log
+    current: 0.45851058258621097
+    rationale: Existing optimizer uses a separate auxiliary-head learning-rate group; range is compact and shared across candidates.
+
+methods:
+  epo:
+    study_name: epo_tuning_001
+    target_complete_trials: 24
+    baseline_run_id: epo_convergence_001
+    current_ndcg10: 0.0584
+    current_hr10: 0.1078
+    parameters:
+      - learning_rate
+      - weight_decay
+      - dropout_prob
+      - head_lr_multiplier
+    frozen_method_params:
+      preference_set: finite_preference_set
+      alpha_multiplier: task_count
+      objective_count: 5
+    selection_rule: Ranking-first; among trials within 0.001 absolute NDCG@10 of best, prefer better HV, better auxiliary trade-off, fewer dominated points and lower compute.
+  gradhv:
+    study_name: gradhv_tuning_001
+    target_complete_trials: 24
+    baseline_run_id: gradhv_convergence_001
+    current_ndcg10: 0.0486
+    current_hr10: 0.0874
+    parameters:
+      - learning_rate
+      - weight_decay
+      - dropout_prob
+      - head_lr_multiplier
+    frozen_method_params:
+      train_hv_reference: train_diagnostic_loss_scale
+      solution_count: 3
+    diagnostic_question: Whether generic hyperparameters improve validation HV/ranking or GradHV remains structurally weak.
+  cosmos:
+    study_name: cosmos_tuning_001
+    target_complete_trials: 24
+    baseline_run_id: cosmos_convergence_001
+    current_ndcg10: 0.0453
+    current_hr10: 0.0810
+    parameters:
+      - learning_rate
+      - weight_decay
+      - dropout_prob
+      - head_lr_multiplier
+      - dirichlet_alpha
+      - lambda_cosine
+    method_parameters:
+      dirichlet_alpha:
+        type: float
+        min: 0.2
+        max: 2.0
+        scale: log
+        current: 1.2
+        target_path: preference_sampling.alpha
+        rationale: Controls preference-space sampling coverage for the conditional model without changing objectives.
+      lambda_cosine:
+        type: float
+        min: 0.5
+        max: 4.0
+        scale: log
+        current: 2.0
+        target_path: lambda_cosine
+        rationale: Existing COSMOS-style conditioning coefficient; directly tests preference controllability.
+    success_guard: Tuning is not considered successful if ranking improves but preference outputs collapse.
+  pcgrad:
+    study_name: pcgrad_tuning_001
+    target_complete_trials: 24
+    baseline_run_id: pcgrad_convergence_001
+    current_ndcg10: 0.0444
+    current_hr10: 0.0790
+    parameters:
+      - learning_rate
+      - weight_decay
+      - dropout_prob
+      - head_lr_multiplier
+    frozen_method_params:
+      projection_algorithm: ranking_anchored
+      shared_selector: all_backbone
+      task_order: [rank, is_click, long_view, is_like, is_profile_enter]
+    prerequisite_audit: reports/benchmarks/pcgrad_discrepancy_audit.md
+    prerequisite_conclusion: EXPECTED_PROTOCOL_DIFFERENCE
+    no_retroactive_cheating: Historical pcgrad_001 is not the current default; trial 0 must reproduce pcgrad_convergence_001.
