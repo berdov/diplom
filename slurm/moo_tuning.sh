@@ -54,9 +54,9 @@ if [ ! -x "${PREP_PYTHON}" ]; then
   exit 2
 fi
 
-if [ "${ALLOW_DIRTY}" != "1" ] && [ -n "$(git status --short)" ]; then
-  echo "Repository is dirty; set MOO_TUNING_ALLOW_DIRTY=1 only for an intentional resume." >&2
-  git status --short >&2
+if [ "${ALLOW_DIRTY}" != "1" ] && [ -n "$(git status --short --untracked-files=no)" ]; then
+  echo "Tracked files are dirty; set MOO_TUNING_ALLOW_DIRTY=1 only for an intentional resume." >&2
+  git status --short --untracked-files=no >&2
   exit 2
 fi
 
