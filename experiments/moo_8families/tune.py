@@ -391,6 +391,22 @@ def ensure_baseline_enqueued(study: optuna.Study, spaces: Mapping[str, Any], met
     study.enqueue_trial(baseline_params(spaces, method_spec))
 
 
+def assert_baseline_ready_for_search(study: optuna.Study, method: str) -> None:
+    trial0 = next((trial for trial in study.trials if trial.number == 0), None)
+    if trial0 is None:
+        raise RuntimeError(f"{method}: baseline trial 0 is missing; stop and recreate/audit the study.")
+    if trial0.state == TrialState.COMPLETE:
+        return
+    if trial0.state == TrialState.WAITING and len(study.trials) == 1:
+        return
+    if trial0.state == TrialState.RUNNING:
+        raise RuntimeError(f"{method}: baseline trial 0 is already running; avoid concurrent writers for this study.")
+    raise RuntimeError(
+        f"{method}: baseline trial 0 state is {trial0.state.name}; "
+        "do not continue search before reproducing the frozen baseline."
+    )
+
+
 def run_method(method: str, args: argparse.Namespace, spaces: Mapping[str, Any]) -> dict[str, Any]:
     method_spec = spaces["methods"][method]
     storage, storage_path = storage_for(spaces, method_spec)
@@ -404,6 +420,7 @@ def run_method(method: str, args: argparse.Namespace, spaces: Mapping[str, Any])
         load_if_exists=True,
     )
     ensure_baseline_enqueued(study, spaces, method_spec)
+    assert_baseline_ready_for_search(study, method)
 
     target = int(method_spec["target_complete_trials"] if args.target_complete is None else args.target_complete)
     remaining = max(target - complete_count(study), 0)
