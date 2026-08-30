@@ -9,6 +9,9 @@
 | [protocol_comparability.md](protocol_comparability.md) | Почему Protocol B strongly comparable с SSD4Rec/TiM4Rec, но не exact byte-level. |
 | [paper_vs_reproduction.md](paper_vs_reproduction.md) | Сравнение published SSD4Rec/TiM4Rec rows с нашими canonical TEST reproductions. |
 | [our_experiments_protocol_b.md](our_experiments_protocol_b.md) | Наши actual runs: canonical TEST, validation-only screening, historical/exploratory/sanity. |
+| [project_status_summary.md](project_status_summary.md) | Master summary всей истории project experiments по уровням evidence. |
+| [SUPERVISOR_SUMMARY.md](SUPERVISOR_SUMMARY.md) | Короткая страница для обсуждения с руководителем. |
+| [pcgrad_discrepancy_audit.md](pcgrad_discrepancy_audit.md) | Forensic audit разрыва между historical и current PCGrad. |
 
 Правило чтения: paper results и our experiments не объединяются в одну scientific ranking table. MOO convergence в этой ветке является validation-only family screening, поэтому он не сравнивается напрямую с published TEST rows.
 
