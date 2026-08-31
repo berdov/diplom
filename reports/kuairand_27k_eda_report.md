@@ -1,6 +1,6 @@
 # Исследовательский анализ KuaiRand-27K
 
-Отчёт построен по фактическим результатам полного KuaiRand-27K EDA, выполненного на cHARISMa. Все числовые выводы ниже берутся из `outputs/eda/27k_summary.json` и компактных `outputs/eda/27k_*.csv`. Raw interaction logs и per-user CSV не коммитятся.
+Отчёт построен по фактическим результатам полного KuaiRand-27K EDA, выполненного на cHARISMa. Compact fingerprint сохранён в `outputs/eda/27k_summary.json`; подробные aggregate CSV можно повторно сгенерировать через `src/eda_27k.py`. Raw interaction logs и per-user CSV не коммитятся.
 
 ## 1. Обзор датасета
 

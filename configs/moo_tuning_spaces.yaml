@@ -165,6 +165,6 @@ methods:
       projection_algorithm: ranking_anchored
       shared_selector: all_backbone
       task_order: [rank, is_click, long_view, is_like, is_profile_enter]
-    prerequisite_audit: reports/benchmarks/pcgrad_discrepancy_audit.md
+    prerequisite_audit: reports/RESULTS.md
     prerequisite_conclusion: EXPECTED_PROTOCOL_DIFFERENCE
     no_retroactive_cheating: Historical pcgrad_001 is not the current default; trial 0 must reproduce pcgrad_convergence_001.
