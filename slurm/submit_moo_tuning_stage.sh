@@ -73,6 +73,8 @@ for method in "${METHODS[@]}"; do
     --cpus-per-task="${CPUS}" \
     --mem="${MEM}" \
     --time="${walltime}" \
+    --output="${REPO_DIR}/experiments/moo_8families/slurm_logs/%x-%j.out" \
+    --error="${REPO_DIR}/experiments/moo_8families/slurm_logs/%x-%j.err" \
     --export="${export_arg}" \
     "${REPO_DIR}/slurm/moo_tuning.sh" "${method}"
 done
