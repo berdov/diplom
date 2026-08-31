@@ -11,3 +11,8 @@
 | [Mamba4Rec](https://arxiv.org/abs/2403.03900) | 2024 | 0.1094 | 0.1768 | 0.3154 | 0.0608 | 0.0777 | 0.1050 |
 | [SSD4Rec*](https://dl.acm.org/doi/10.1145/3773038) | 2024 | 0.1055 | 0.1717 | 0.3088 | 0.0588 | 0.0754 | 0.1024 |
 | [TiM4Rec](https://www.sciencedirect.com/science/article/abs/pii/S0925231225019423) | 2025 | 0.1109 | 0.1774 | 0.3202 | 0.0611 | 0.0779 | 0.1060 |
+
+## Related 2026 work
+
+- [Multi-Task Multi-Behavior Sequential Recommendation](https://dl.acm.org/doi/10.1145/3774904.3792187) (WWW 2026) is thematically relevant, but its results are not added to the benchmark table because its experimental setting/protocol is not confirmed as directly comparable with the TiM4Rec KuaiRand benchmark protocol.
+- [Automated Information Flow Selection for Multi-scenario Multi-task Recommendation (AutoIFS)](https://dl.acm.org/doi/10.1145/3773966.3777992) (WSDM 2026) is thematically relevant, but its results are not added to the benchmark table because its experimental setting/protocol is not confirmed as directly comparable with the TiM4Rec KuaiRand benchmark protocol.
