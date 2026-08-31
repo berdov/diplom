@@ -23,11 +23,39 @@ VALIDATION_ONLY_ROOT="${MOO_VALIDATION_ONLY_ROOT:-/home/daryumin/iberdov/diplom/
 VALIDATION_ONLY_DATASET="${MOO_VALIDATION_ONLY_DATASET:-kuairand_multitask_validonly}"
 VALIDATION_SUMMARY="${MOO_VALIDATION_ONLY_SUMMARY:-${VALIDATION_ONLY_ROOT}/validation_only_dataset.json}"
 METHOD="${MOO_TUNING_METHOD:-${1:-epo}}"
+TUNING_STAGE="${MOO_TUNING_STAGE:-stage_a}"
 TARGET_COMPLETE="${MOO_TUNING_TARGET_COMPLETE:-}"
 N_TRIALS="${MOO_TUNING_N_TRIALS:-}"
+STATUS_ONLY="${MOO_TUNING_STATUS_ONLY:-0}"
 SUMMARY_ONLY="${MOO_TUNING_SUMMARY_ONLY:-0}"
 ALLOW_DIRTY="${MOO_TUNING_ALLOW_DIRTY:-0}"
 PREPARE_VALIDATION="${MOO_TUNING_PREPARE_VALIDATION:-0}"
+MIN_RUNTIME_BUFFER_SEC="${MOO_TUNING_MIN_RUNTIME_BUFFER_SEC:-1800}"
+ESTIMATED_TRIAL_RUNTIME_SEC="${MOO_TUNING_ESTIMATED_TRIAL_RUNTIME_SEC:-}"
+MAX_WORKER_RUNTIME_SEC="${MOO_TUNING_MAX_WORKER_RUNTIME_SEC:-}"
+
+timelimit_to_seconds() {
+  local value="$1"
+  if [ -z "${value}" ] || [ "${value}" = "UNLIMITED" ] || [ "${value}" = "NOT_SET" ]; then
+    echo ""
+    return
+  fi
+  if [[ "${value}" =~ ^[0-9]+$ ]]; then
+    echo $((value * 60))
+    return
+  fi
+  local days=0 rest="${value}"
+  if [[ "${rest}" == *-* ]]; then
+    days="${rest%%-*}"
+    rest="${rest#*-}"
+  fi
+  IFS=: read -r a b c <<< "${rest}"
+  if [ -n "${c:-}" ]; then
+    echo $((days * 86400 + 10#${a} * 3600 + 10#${b} * 60 + 10#${c}))
+  else
+    echo $((days * 86400 + 10#${a} * 60 + 10#${b}))
+  fi
+}
 
 case "${METHOD}" in
   epo|gradhv|cosmos|pcgrad|all) ;;
@@ -80,15 +108,27 @@ echo "Slurm: gpus=${SLURM_JOB_GPUS:-gpu:a100:1}"
 echo "Slurm: node list=${SLURM_JOB_NODELIST:-unknown}"
 echo "Repo: ${REPO_DIR}"
 echo "Method: ${METHOD}"
+echo "Tuning stage: ${TUNING_STAGE}"
 echo "Spaces: ${SPACES}"
 echo "Git commit: ${MOO_GIT_COMMIT}"
 echo "Git branch: ${MOO_GIT_BRANCH}"
 echo "Prepare validation-only data: ${PREPARE_VALIDATION}"
 echo "Validation-only summary: ${VALIDATION_SUMMARY}"
 
+if [ -z "${MAX_WORKER_RUNTIME_SEC}" ]; then
+  MAX_WORKER_RUNTIME_SEC="$(timelimit_to_seconds "${SLURM_TIMELIMIT:-}")"
+fi
+echo "Worker max runtime sec: ${MAX_WORKER_RUNTIME_SEC:-unknown}"
+echo "Min runtime buffer sec: ${MIN_RUNTIME_BUFFER_SEC}"
+echo "Estimated trial runtime sec: ${ESTIMATED_TRIAL_RUNTIME_SEC:-auto}"
+
+if [ "${STATUS_ONLY}" = "1" ]; then
+  PREPARE_VALIDATION=0
+fi
+
 if [ "${PREPARE_VALIDATION}" = "1" ]; then
   "${PREP_PYTHON}" experiments/multitask_tim4rec_optuna/prepare_validation_only.py
-else
+elif [ "${STATUS_ONLY}" != "1" ] && [ "${SUMMARY_ONLY}" != "1" ]; then
   if [ ! -s "${VALIDATION_SUMMARY}" ]; then
     echo "Missing validation-only dataset summary; run prepare_validation_only.py once before submitting tuning jobs." >&2
     exit 2
@@ -111,6 +151,7 @@ cmd=(
   "${PYTHON}" -m experiments.moo_8families.tune
   --spaces "${SPACES}"
   --method "${METHOD}"
+  --tuning-stage "${TUNING_STAGE}"
 )
 
 if [ -n "${TARGET_COMPLETE}" ]; then
@@ -123,6 +164,22 @@ fi
 
 if [ "${SUMMARY_ONLY}" = "1" ]; then
   cmd+=(--summary-only)
+fi
+
+if [ "${STATUS_ONLY}" = "1" ]; then
+  cmd+=(--status)
+fi
+
+if [ -n "${MAX_WORKER_RUNTIME_SEC}" ]; then
+  cmd+=(--max-worker-runtime-sec "${MAX_WORKER_RUNTIME_SEC}")
+fi
+
+if [ -n "${MIN_RUNTIME_BUFFER_SEC}" ]; then
+  cmd+=(--min-runtime-buffer-sec "${MIN_RUNTIME_BUFFER_SEC}")
+fi
+
+if [ -n "${ESTIMATED_TRIAL_RUNTIME_SEC}" ]; then
+  cmd+=(--estimated-trial-runtime-sec "${ESTIMATED_TRIAL_RUNTIME_SEC}")
 fi
 
 printf 'Command:'

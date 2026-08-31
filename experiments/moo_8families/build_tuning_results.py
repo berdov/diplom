@@ -14,7 +14,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SPACES = ROOT / "configs" / "moo_tuning_spaces.yaml"
-REPORTS_DIR = ROOT / "reports" / "benchmarks"
+REPORTS_DIR = ROOT / "reports"
 BEST_CONFIG_DIR = ROOT / "configs" / "best_tuned"
 METHOD_ORDER = ("epo", "gradhv", "cosmos", "pcgrad")
 CONTROL_NDCG10 = 0.0589
@@ -264,7 +264,7 @@ def main() -> None:
     rows = main_rows(spaces, summaries)
     reports_dir = project_path(args.reports_dir)
     write_csv(reports_dir / "tuning_results.csv", rows)
-    write_markdown(reports_dir / "tuning_results.md", rows, summaries)
+    write_markdown(reports_dir / "TUNING_RESULTS.md", rows, summaries)
     if args.write_best_configs:
         write_best_configs(spaces, summaries, project_path(args.best_config_dir))
     print(json.dumps({"rows": len(rows), "reports_dir": str(reports_dir)}, ensure_ascii=False, indent=2), flush=True)
