@@ -35,7 +35,9 @@ Machine-readable source of truth: [experiments/results.csv](experiments/results.
 
 Human-readable project summary: [reports/RESULTS.md](reports/RESULTS.md).
 
-Published TiM4Rec KuaiRand comparison table: [reports/PAPER_RESULTS.md](reports/PAPER_RESULTS.md).
+Published benchmark: [reports/PAPER_RESULTS.md](reports/PAPER_RESULTS.md).
+
+8-family MOO benchmark: [reports/MOO_FAMILIES.md](reports/MOO_FAMILIES.md).
 
 ## Repository Structure
 
