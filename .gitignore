@@ -94,7 +94,6 @@ experiments/moo_8families/tuning_artifacts/
 experiments/moo_8families/tuning_storage/
 experiments/moo_8families/*.db*
 experiments/moo_8families/runs/*
-!experiments/moo_8families/runs/summary.csv
 !experiments/moo_8families/runs/*.json
 log_tensorboard/
 

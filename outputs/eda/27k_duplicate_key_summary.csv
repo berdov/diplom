@@ -1,5 +1,0 @@
-key,policy,distinct_keys,duplicate_keys,extra_rows_over_unique_keys,max_rows_per_key
-user_id+time_ms,random,1186049,10,10,2
-user_id+time_ms,standard,55717007,51570391,266561378,70
-user_id+video_id+time_ms,random,1186049,10,10,2
-user_id+video_id+time_ms,standard,319382274,2878498,2896111,6
