@@ -3,8 +3,8 @@
 #SBATCH --partition=gpu-ef-quick
 #SBATCH --constraint=type_e
 #SBATCH --gres=gpu:1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=96G
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=0
 #SBATCH --time=03:00:00
 #SBATCH --output=/home/daryumin/iberdov/diplom/logs/slurm/%x-%j.out
 #SBATCH --error=/home/daryumin/iberdov/diplom/logs/slurm/%x-%j.err
@@ -15,7 +15,8 @@ REPO_DIR="${STAGE3_REPO_DIR:-/home/daryumin/iberdov/diplom}"
 MODE="${STAGE3_MODE:-ablation}"
 RUN_KEY="${STAGE3_RUN_KEY:-sanity_click}"
 CONFIG="${STAGE3_CONFIG:-experiments/stage3_auxiliary_analysis/config.yaml}"
-PYTHON="${STAGE3_PYTHON:-/home/daryumin/iberdov/diplom/.conda/bin/python}"
+ENV_DIR="${STAGE3_ENV_DIR:-/home/daryumin/iberdov/diplom/envs/tim4rec}"
+PYTHON="${STAGE3_PYTHON:-${ENV_DIR}/bin/python}"
 PREP_PYTHON="${STAGE3_PREP_PYTHON:-/home/daryumin/iberdov/diplom/.conda/bin/python}"
 
 cd "${REPO_DIR}"
@@ -24,7 +25,18 @@ mkdir -p logs/slurm experiments/stage3_auxiliary_analysis/runs experiments/stage
 module load Python/miniconda || true
 export PYTHONNOUSERSITE=1
 export PYTHONPATH="${REPO_DIR}:${PYTHONPATH:-}"
+export PATH="${ENV_DIR}/bin:${PATH}"
 export TOKENIZERS_PARALLELISM=false
+
+if [ ! -x "${PYTHON}" ]; then
+  echo "Missing TiM4Rec env: ${PYTHON}" >&2
+  exit 2
+fi
+
+if [ ! -x "${PREP_PYTHON}" ]; then
+  echo "Missing prep Python: ${PREP_PYTHON}" >&2
+  exit 2
+fi
 
 if [[ "${MODE}" == "target-audit" ]]; then
   exec "${PREP_PYTHON}" -m experiments.stage3_auxiliary_analysis.run \
