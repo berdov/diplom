@@ -11,6 +11,7 @@ Internal `Stage A` in the tuning scripts corresponds to scientific `Stage 2` her
 | Stage 0 - Multitask Control | Tuned/fixed-weight `MultitaskTiM4Rec` control for context. | `multitask_tim4rec_tuned_001` in [RESULTS.md](RESULTS.md) |
 | Stage 1 - 8-Family MOO Screening | Broad screening of eight MOO families before tuning. | `experiments/moo_8families/runs/*_convergence_001.json` |
 | Stage 2 - Top-4 Hyperparameter Tuning | EPO, GradHV, COSMOS and PCGrad under a limited compute/time budget. | cHARISMa Optuna DB/logs and [moo_stage_history_summary.json](../experiments/moo_8families/runs/moo_stage_history_summary.json) |
+| Stage 3 - Auxiliary-Task Analysis | Target audit, single-auxiliary ablations, and gradient interaction diagnostics for the current multitask heads. | [STAGE3_AUXILIARY_ANALYSIS.md](STAGE3_AUXILIARY_ANALYSIS.md) |
 
 ## Stage 1 - 8-Family MOO Screening
 
@@ -57,6 +58,12 @@ COSMOS stopped because trial `0009` failed the scientific `preference_sensitivit
 
 This snapshot supports statements about the best observed validation-only configurations under the available budget. It does not prove absolute superiority of one MOO algorithm over another, because the methods had different completed-trial counts and different stopping modes. It also does not support TEST, Stage B, multiseed, or novel-method claims.
 
+## Stage 3 - Auxiliary-Task Analysis
+
+Stage 3 is a validation-only diagnostic stage, not a leaderboard stage. It audits available behavior targets, measures marginal single-auxiliary effects, and records gradient interactions against the primary next-item ranking objective. Full details are in [STAGE3_AUXILIARY_ANALYSIS.md](STAGE3_AUXILIARY_ANALYSIS.md).
+
+Primary-only reached validation NDCG@10 `.0586`. The single-auxiliary deltas were: `is_click` `+.0007`, `long_view` `+.0000`, `is_like` `+.0001`, and `is_profile_enter` `+.0004`. The evidence is weak/mixed for a primary-aware method: it supports protecting ranking from uneven auxiliary gradients, but it does not show an actively harmful current auxiliary by NDCG@10.
+
 ## Test Hygiene
 
-Stage 1 committed run artifacts and 41 Stage 2 tuning `result.json`/`result.partial.json` artifacts were checked. All had `test_evaluation_count = 0`.
+Stage 1 committed run artifacts, 41 Stage 2 tuning `result.json`/`result.partial.json` artifacts, and Stage 3 artifacts were checked. All had `test_evaluation_count = 0`.

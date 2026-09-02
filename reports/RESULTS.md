@@ -48,3 +48,7 @@ The top-4 tuning stage is recorded as a time/compute-budgeted validation-only sn
 | GradHV | 12 | 12 | 0 | 0 | 1 | 90 | 0.0877 | 0.1370 | 0.2460 | 0.0488 | 0.0612 | 0.0827 | completed budget |
 | COSMOS | 12 | 9 | 1 | 0 | 0 | 40 | 0.0819 | 0.1274 | 0.2289 | 0.0455 | 0.0569 | 0.0769 | preference guard stopped |
 | PCGrad | 12 | 12 | 0 | 0 | 9 | 75 | 0.0828 | 0.1298 | 0.2317 | 0.0464 | 0.0581 | 0.0783 | completed budget |
+
+## Stage 3 Auxiliary-Task Analysis
+
+The validation-only auxiliary-task and gradient-interaction audit is in [STAGE3_AUXILIARY_ANALYSIS.md](STAGE3_AUXILIARY_ANALYSIS.md). In the single-seed ablation, primary-only reached NDCG@10 `0.0586`; the best single auxiliary was `is_click` at `0.0593` (`+0.0007`). TEST evaluations for Stage 3: `0`.

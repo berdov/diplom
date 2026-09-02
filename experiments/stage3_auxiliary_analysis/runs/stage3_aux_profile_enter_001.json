@@ -1,0 +1,927 @@
+{
+  "best_epoch": 11,
+  "best_validation_auxiliary_metrics": {
+    "is_profile_enter_accuracy": 0.9759508997536638,
+    "is_profile_enter_bce": 0.18143390119075775,
+    "is_profile_enter_positive_rate_pred": 0.00045927101746201515,
+    "is_profile_enter_positive_rate_true": 0.02367333322763443
+  },
+  "best_validation_metrics": {
+    "HR@10": 0.1088,
+    "HR@20": 0.1737,
+    "HR@5": 0.0656,
+    "HR@50": 0.3141,
+    "NDCG@10": 0.059,
+    "NDCG@20": 0.0752,
+    "NDCG@5": 0.0452,
+    "NDCG@50": 0.103,
+    "Recall@10": 0.1088,
+    "Recall@20": 0.1737,
+    "Recall@5": 0.0656,
+    "Recall@50": 0.3141
+  },
+  "created_at_utc": "2026-09-02T19:08:38Z",
+  "data": {
+    "benchmark_filename": [
+      "train",
+      "valid"
+    ],
+    "dataset": "kuairand_multitask_validonly",
+    "loader_inspection": {
+      "max_positive_item_id": 7111,
+      "min_positive_item_id": 1,
+      "one_positive_per_row": true,
+      "positive_targets": 23951,
+      "positive_targets_within_item_universe": true,
+      "rows": 23951,
+      "source_row_id_check": {
+        "expected_source_ids": 23951,
+        "extra_count": 0,
+        "matches_expected_validation_source_ids": true,
+        "missing_count": 0,
+        "observed_source_ids": 23951
+      }
+    },
+    "target_stats_source": "experiments/multitask_tim4rec/target_statistics.csv",
+    "train_interactions": 1062567,
+    "validation_interactions": 23951
+  },
+  "git": {
+    "branch": "exp/moo-8families-benchmark",
+    "commit": "2177bc4e0d082ad6ccb8532f04b9e015fa80e9a0",
+    "remote_head": ""
+  },
+  "gradient_diagnostics": {
+    "policy": {
+      "batches_per_epoch": 1,
+      "enabled": true,
+      "every_n_epochs": 5,
+      "first_epoch": true,
+      "parameter_scope": "shared_backbone",
+      "restore_rng_before_training_step": true
+    },
+    "raw_records": [
+      {
+        "batch_index": 0,
+        "diagnostic": {
+          "pairwise_auxiliary": {},
+          "tasks": {
+            "is_profile_enter": {
+              "conflict_with_primary": false,
+              "cosine_to_primary": 0.016312772408127785,
+              "norm": 0.30263644456863403,
+              "norm_ratio_to_primary": 1.1393933233001854
+            },
+            "primary": {
+              "norm": 0.2656119167804718
+            }
+          }
+        },
+        "epoch": 1
+      },
+      {
+        "batch_index": 0,
+        "diagnostic": {
+          "pairwise_auxiliary": {},
+          "tasks": {
+            "is_profile_enter": {
+              "conflict_with_primary": false,
+              "cosine_to_primary": 0.0001798233133740723,
+              "norm": 0.13965187966823578,
+              "norm_ratio_to_primary": 0.2852964204760968
+            },
+            "primary": {
+              "norm": 0.48949748277664185
+            }
+          }
+        },
+        "epoch": 5
+      },
+      {
+        "batch_index": 0,
+        "diagnostic": {
+          "pairwise_auxiliary": {},
+          "tasks": {
+            "is_profile_enter": {
+              "conflict_with_primary": true,
+              "cosine_to_primary": -0.0504080094397068,
+              "norm": 0.1595662236213684,
+              "norm_ratio_to_primary": 0.35932491809721384
+            },
+            "primary": {
+              "norm": 0.44407224655151367
+            }
+          }
+        },
+        "epoch": 10
+      },
+      {
+        "batch_index": 0,
+        "diagnostic": {
+          "pairwise_auxiliary": {},
+          "tasks": {
+            "is_profile_enter": {
+              "conflict_with_primary": false,
+              "cosine_to_primary": 0.0011444168630987406,
+              "norm": 0.12072844058275223,
+              "norm_ratio_to_primary": 0.2915686847628015
+            },
+            "primary": {
+              "norm": 0.4140651822090149
+            }
+          }
+        },
+        "epoch": 15
+      }
+    ],
+    "rng_restored_before_training_step": true,
+    "summary": {
+      "auxiliary_pairwise": {},
+      "per_auxiliary_vs_primary": {
+        "is_profile_enter": {
+          "aux_norm": {
+            "count": 4,
+            "max": 0.30263644456863403,
+            "mean": 0.1806457471102476,
+            "median": 0.1496090516448021,
+            "min": 0.12072844058275223,
+            "q25": 0.1349210198968649,
+            "q75": 0.19533377885818481
+          },
+          "conflict_fraction_with_primary": 0.25,
+          "cosine_to_primary": {
+            "count": 4,
+            "max": 0.016312772408127785,
+            "mean": -0.008192749213776551,
+            "median": 0.0006621200882364064,
+            "min": -0.0504080094397068,
+            "q25": -0.012467134874896146,
+            "q75": 0.004936505749356002
+          },
+          "diagnostic_batches": 4,
+          "norm_ratio_to_primary": {
+            "count": 4,
+            "max": 1.1393933233001854,
+            "mean": 0.5188958366590743,
+            "median": 0.3254468014300077,
+            "min": 0.2852964204760968,
+            "q25": 0.29000061869112537,
+            "q75": 0.5543420193979567
+          }
+        }
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": true,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.5135949633025021,
+        "loss": 7.266227193880173,
+        "primary_loss": 7.1985212961832685
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.9763266669450127,
+        "is_profile_enter_bce": 0.16846118867397308,
+        "is_profile_enter_positive_rate_pred": 0.0,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.0869,
+        "HR@20": 0.1388,
+        "HR@5": 0.0554,
+        "HR@50": 0.2496,
+        "NDCG@10": 0.0485,
+        "NDCG@20": 0.0615,
+        "NDCG@5": 0.0384,
+        "NDCG@50": 0.0834,
+        "Recall@10": 0.0869,
+        "Recall@20": 0.1388,
+        "Recall@5": 0.0554,
+        "Recall@50": 0.2496
+      }
+    },
+    {
+      "epoch": 2,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": true,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.494262149568238,
+        "loss": 6.613750217966951,
+        "primary_loss": 6.548592915654412
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.9763266669450127,
+        "is_profile_enter_bce": 0.17069539427757263,
+        "is_profile_enter_positive_rate_pred": 8.350382267963141e-05,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.0986,
+        "HR@20": 0.1562,
+        "HR@5": 0.0613,
+        "HR@50": 0.2758,
+        "NDCG@10": 0.0547,
+        "NDCG@20": 0.0691,
+        "NDCG@5": 0.0428,
+        "NDCG@50": 0.0927,
+        "Recall@10": 0.0986,
+        "Recall@20": 0.1562,
+        "Recall@5": 0.0613,
+        "Recall@50": 0.2758
+      }
+    },
+    {
+      "epoch": 3,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": true,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.49070777042063674,
+        "loss": 6.453911242916864,
+        "primary_loss": 6.389222508910074
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.9759508997536638,
+        "is_profile_enter_bce": 0.18871471285820007,
+        "is_profile_enter_positive_rate_pred": 0.0003757671802304685,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1008,
+        "HR@20": 0.1639,
+        "HR@5": 0.0631,
+        "HR@50": 0.2903,
+        "NDCG@10": 0.0563,
+        "NDCG@20": 0.0721,
+        "NDCG@5": 0.0442,
+        "NDCG@50": 0.097,
+        "Recall@10": 0.1008,
+        "Recall@20": 0.1639,
+        "Recall@5": 0.0631,
+        "Recall@50": 0.2903
+      }
+    },
+    {
+      "epoch": 4,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": false,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.48993983847557465,
+        "loss": 6.369080945935552,
+        "primary_loss": 6.30449343922051
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.9760761554841134,
+        "is_profile_enter_bce": 0.17371012270450592,
+        "is_profile_enter_positive_rate_pred": 0.000250511453486979,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1015,
+        "HR@20": 0.1653,
+        "HR@5": 0.0635,
+        "HR@50": 0.2966,
+        "NDCG@10": 0.0558,
+        "NDCG@20": 0.0718,
+        "NDCG@5": 0.0437,
+        "NDCG@50": 0.0977,
+        "Recall@10": 0.1015,
+        "Recall@20": 0.1653,
+        "Recall@5": 0.0635,
+        "Recall@50": 0.2966
+      }
+    },
+    {
+      "epoch": 5,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": true,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.4888251031639489,
+        "loss": 6.313925675114685,
+        "primary_loss": 6.2494851215267
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.976201411214563,
+        "is_profile_enter_bce": 0.1681530922651291,
+        "is_profile_enter_positive_rate_pred": 0.0001252557267434895,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1048,
+        "HR@20": 0.1673,
+        "HR@5": 0.0632,
+        "HR@50": 0.3008,
+        "NDCG@10": 0.0571,
+        "NDCG@20": 0.0728,
+        "NDCG@5": 0.0438,
+        "NDCG@50": 0.0991,
+        "Recall@10": 0.1048,
+        "Recall@20": 0.1673,
+        "Recall@5": 0.0632,
+        "Recall@50": 0.3008
+      }
+    },
+    {
+      "epoch": 6,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": true,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.4882101295426172,
+        "loss": 6.274231573520138,
+        "primary_loss": 6.209872104299321
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.9761596593044132,
+        "is_profile_enter_bce": 0.18856605887413025,
+        "is_profile_enter_positive_rate_pred": 0.000250511453486979,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1049,
+        "HR@20": 0.1717,
+        "HR@5": 0.0647,
+        "HR@50": 0.3075,
+        "NDCG@10": 0.0572,
+        "NDCG@20": 0.0739,
+        "NDCG@5": 0.0443,
+        "NDCG@50": 0.1007,
+        "Recall@10": 0.1049,
+        "Recall@20": 0.1717,
+        "Recall@5": 0.0647,
+        "Recall@50": 0.3075
+      }
+    },
+    {
+      "epoch": 7,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": false,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.48750306473531707,
+        "loss": 6.245240473333811,
+        "primary_loss": 6.180974207861575
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.976201411214563,
+        "is_profile_enter_bce": 0.17973275482654572,
+        "is_profile_enter_positive_rate_pred": 0.0001252557267434895,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1044,
+        "HR@20": 0.173,
+        "HR@5": 0.0639,
+        "HR@50": 0.3069,
+        "NDCG@10": 0.0568,
+        "NDCG@20": 0.074,
+        "NDCG@5": 0.0438,
+        "NDCG@50": 0.1005,
+        "Recall@10": 0.1044,
+        "Recall@20": 0.173,
+        "Recall@5": 0.0639,
+        "Recall@50": 0.3069
+      }
+    },
+    {
+      "epoch": 8,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": false,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.48739849763109505,
+        "loss": 6.222480170299552,
+        "primary_loss": 6.158227691760642
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.9760344035739635,
+        "is_profile_enter_bce": 0.17900025844573975,
+        "is_profile_enter_positive_rate_pred": 0.00029226337210275233,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.105,
+        "HR@20": 0.1713,
+        "HR@5": 0.0643,
+        "HR@50": 0.3089,
+        "NDCG@10": 0.0572,
+        "NDCG@20": 0.0738,
+        "NDCG@5": 0.0442,
+        "NDCG@50": 0.1009,
+        "Recall@10": 0.105,
+        "Recall@20": 0.1713,
+        "Recall@5": 0.0643,
+        "Recall@50": 0.3089
+      }
+    },
+    {
+      "epoch": 9,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": true,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.48704934654208276,
+        "loss": 6.203249312090277,
+        "primary_loss": 6.1390428680905025
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.976201411214563,
+        "is_profile_enter_bce": 0.18461066484451294,
+        "is_profile_enter_positive_rate_pred": 0.0001252557267434895,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1077,
+        "HR@20": 0.1745,
+        "HR@5": 0.0652,
+        "HR@50": 0.3113,
+        "NDCG@10": 0.0581,
+        "NDCG@20": 0.0749,
+        "NDCG@5": 0.0446,
+        "NDCG@50": 0.1019,
+        "Recall@10": 0.1077,
+        "Recall@20": 0.1745,
+        "Recall@5": 0.0652,
+        "Recall@50": 0.3113
+      }
+    },
+    {
+      "epoch": 10,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": false,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.48654999789245323,
+        "loss": 6.188698642745413,
+        "primary_loss": 6.124558009623563
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.9761596593044132,
+        "is_profile_enter_bce": 0.18144430220127106,
+        "is_profile_enter_positive_rate_pred": 0.00016700764535926282,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1053,
+        "HR@20": 0.1733,
+        "HR@5": 0.0635,
+        "HR@50": 0.3106,
+        "NDCG@10": 0.0571,
+        "NDCG@20": 0.0742,
+        "NDCG@5": 0.0437,
+        "NDCG@50": 0.1013,
+        "Recall@10": 0.1053,
+        "Recall@20": 0.1733,
+        "Recall@5": 0.0635,
+        "Recall@50": 0.3106
+      }
+    },
+    {
+      "epoch": 11,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": true,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.48608679762235724,
+        "loss": 6.17606032009529,
+        "primary_loss": 6.111980761636429
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.9759508997536638,
+        "is_profile_enter_bce": 0.18143390119075775,
+        "is_profile_enter_positive_rate_pred": 0.00045927101746201515,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1088,
+        "HR@20": 0.1737,
+        "HR@5": 0.0656,
+        "HR@50": 0.3141,
+        "NDCG@10": 0.059,
+        "NDCG@20": 0.0752,
+        "NDCG@5": 0.0452,
+        "NDCG@50": 0.103,
+        "Recall@10": 0.1088,
+        "Recall@20": 0.1737,
+        "Recall@5": 0.0656,
+        "Recall@50": 0.3141
+      }
+    },
+    {
+      "epoch": 12,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": false,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.48609428110609626,
+        "loss": 6.1641234846243735,
+        "primary_loss": 6.100042923796843
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.976201411214563,
+        "is_profile_enter_bce": 0.18568553030490875,
+        "is_profile_enter_positive_rate_pred": 0.00029226337210275233,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1077,
+        "HR@20": 0.1759,
+        "HR@5": 0.0654,
+        "HR@50": 0.3148,
+        "NDCG@10": 0.0585,
+        "NDCG@20": 0.0756,
+        "NDCG@5": 0.045,
+        "NDCG@50": 0.103,
+        "Recall@10": 0.1077,
+        "Recall@20": 0.1759,
+        "Recall@5": 0.0654,
+        "Recall@50": 0.3148
+      }
+    },
+    {
+      "epoch": 13,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": false,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.48591816810054816,
+        "loss": 6.155147772074205,
+        "primary_loss": 6.091090424671798
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.976201411214563,
+        "is_profile_enter_bce": 0.16652241349220276,
+        "is_profile_enter_positive_rate_pred": 0.0001252557267434895,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1078,
+        "HR@20": 0.1762,
+        "HR@5": 0.0649,
+        "HR@50": 0.3164,
+        "NDCG@10": 0.0589,
+        "NDCG@20": 0.076,
+        "NDCG@5": 0.0451,
+        "NDCG@50": 0.1037,
+        "Recall@10": 0.1078,
+        "Recall@20": 0.1762,
+        "Recall@5": 0.0649,
+        "Recall@50": 0.3164
+      }
+    },
+    {
+      "epoch": 14,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": false,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.4854582890954321,
+        "loss": 6.14646099803535,
+        "primary_loss": 6.082464283371706
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.976201411214563,
+        "is_profile_enter_bce": 0.16561785340309143,
+        "is_profile_enter_positive_rate_pred": 0.0001252557267434895,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1063,
+        "HR@20": 0.1738,
+        "HR@5": 0.0656,
+        "HR@50": 0.3172,
+        "NDCG@10": 0.0578,
+        "NDCG@20": 0.0747,
+        "NDCG@5": 0.0448,
+        "NDCG@50": 0.1029,
+        "Recall@10": 0.1063,
+        "Recall@20": 0.1738,
+        "Recall@5": 0.0656,
+        "Recall@50": 0.3172
+      }
+    },
+    {
+      "epoch": 15,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": false,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.4850668821031648,
+        "loss": 6.138539438302806,
+        "primary_loss": 6.074594340572467
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.9757838921130642,
+        "is_profile_enter_bce": 0.19271889328956604,
+        "is_profile_enter_positive_rate_pred": 0.0007932863081805408,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1055,
+        "HR@20": 0.1729,
+        "HR@5": 0.0635,
+        "HR@50": 0.3172,
+        "NDCG@10": 0.0574,
+        "NDCG@20": 0.0743,
+        "NDCG@5": 0.044,
+        "NDCG@50": 0.1027,
+        "Recall@10": 0.1055,
+        "Recall@20": 0.1729,
+        "Recall@5": 0.0635,
+        "Recall@50": 0.3172
+      }
+    },
+    {
+      "epoch": 16,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": false,
+      "train": {
+        "batches": 519.0,
+        "is_profile_enter_bce": 0.48533697452159286,
+        "loss": 6.130923945550055,
+        "primary_loss": 6.066943232034673
+      },
+      "validation_auxiliary": {
+        "is_profile_enter_accuracy": 0.9757003882927644,
+        "is_profile_enter_bce": 0.19274234771728516,
+        "is_profile_enter_positive_rate_pred": 0.0007932863081805408,
+        "is_profile_enter_positive_rate_true": 0.02367333322763443
+      },
+      "validation_ranking": {
+        "HR@10": 0.1076,
+        "HR@20": 0.174,
+        "HR@5": 0.065,
+        "HR@50": 0.3132,
+        "NDCG@10": 0.0584,
+        "NDCG@20": 0.0749,
+        "NDCG@5": 0.0447,
+        "NDCG@50": 0.1025,
+        "Recall@10": 0.1076,
+        "Recall@20": 0.174,
+        "Recall@5": 0.065,
+        "Recall@50": 0.3132
+      }
+    }
+  ],
+  "objective": {
+    "active_auxiliary_targets": [
+      "is_profile_enter"
+    ],
+    "auxiliary_loss_weights": {
+      "is_profile_enter": 1.0
+    },
+    "effective_pos_weights": {
+      "is_profile_enter": 7.598613882204391
+    },
+    "lambda_aux": 0.13182740780834337,
+    "loss_weight_mode": "uniform_single_aux",
+    "primary": "ranking cross-entropy"
+  },
+  "optimization": {
+    "actual_epochs": 16,
+    "dropout_prob": 0.08565706719893162,
+    "early_stopping_patience": 5,
+    "head_learning_rate": 0.0008746259318071252,
+    "learning_rate": 0.0019075370668084298,
+    "max_epochs": 80,
+    "max_train_batches": null,
+    "seed": 2026,
+    "weight_decay": 1.925502656735127e-06
+  },
+  "protocol": {
+    "dataset": "KuaiRand",
+    "evaluation_split": "validation",
+    "expected_fingerprint": {
+      "interactions": 1134420,
+      "items": 7111,
+      "test": 23951,
+      "train": 1086518,
+      "users": 23951,
+      "validation": 23951
+    },
+    "expected_identity_hash": "954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7",
+    "split": "Protocol B",
+    "test_dataset_loaded": false,
+    "test_evaluation_count": 0,
+    "test_metrics_present": false
+  },
+  "run_id": "stage3_aux_profile_enter_001",
+  "run_key": "profile_enter",
+  "status": "COMPLETE",
+  "test_evaluation_count": 0
+}
