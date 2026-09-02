@@ -11,6 +11,7 @@ import csv
 import hashlib
 import json
 import math
+import os
 import subprocess
 import time
 from collections import defaultdict
@@ -141,15 +142,26 @@ def sha256_file(path: str | Path) -> str:
 
 
 def git_value(*args: str) -> str:
-    try:
-        return subprocess.check_output(
-            ["git", *args],
-            cwd=PROJECT_ROOT,
-            text=True,
-            stderr=subprocess.DEVNULL,
-        ).strip()
-    except subprocess.CalledProcessError:
-        return ""
+    env_map = {
+        ("rev-parse", "HEAD"): "STAGE3_GIT_COMMIT",
+        ("branch", "--show-current"): "STAGE3_GIT_BRANCH",
+    }
+    env_key = env_map.get(tuple(args))
+    if env_key and os.environ.get(env_key):
+        return str(os.environ[env_key])
+    for git_bin in (os.environ.get("STAGE3_GIT_BIN"), "/usr/bin/git", "git"):
+        if not git_bin:
+            continue
+        try:
+            return subprocess.check_output(
+                [git_bin, *args],
+                cwd=PROJECT_ROOT,
+                text=True,
+                stderr=subprocess.DEVNULL,
+            ).strip()
+        except (FileNotFoundError, subprocess.CalledProcessError):
+            continue
+    return ""
 
 
 def now_utc() -> str:

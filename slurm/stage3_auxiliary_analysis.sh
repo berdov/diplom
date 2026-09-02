@@ -18,6 +18,7 @@ CONFIG="${STAGE3_CONFIG:-experiments/stage3_auxiliary_analysis/config.yaml}"
 ENV_DIR="${STAGE3_ENV_DIR:-/home/daryumin/iberdov/diplom/envs/tim4rec}"
 PYTHON="${STAGE3_PYTHON:-${ENV_DIR}/bin/python}"
 PREP_PYTHON="${STAGE3_PREP_PYTHON:-/home/daryumin/iberdov/diplom/.conda/bin/python}"
+GIT_BIN="${STAGE3_GIT_BIN:-/usr/bin/git}"
 
 cd "${REPO_DIR}"
 mkdir -p logs/slurm experiments/stage3_auxiliary_analysis/runs experiments/stage3_auxiliary_analysis/artifacts
@@ -27,6 +28,11 @@ export PYTHONNOUSERSITE=1
 export PYTHONPATH="${REPO_DIR}:${PYTHONPATH:-}"
 export PATH="${ENV_DIR}/bin:${PATH}"
 export TOKENIZERS_PARALLELISM=false
+export STAGE3_GIT_BIN="${GIT_BIN}"
+if [ -x "${GIT_BIN}" ]; then
+  export STAGE3_GIT_COMMIT="${STAGE3_GIT_COMMIT:-$("${GIT_BIN}" rev-parse HEAD 2>/dev/null || echo unknown)}"
+  export STAGE3_GIT_BRANCH="${STAGE3_GIT_BRANCH:-$("${GIT_BIN}" rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)}"
+fi
 
 if [ ! -x "${PYTHON}" ]; then
   echo "Missing TiM4Rec env: ${PYTHON}" >&2
