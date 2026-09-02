@@ -318,6 +318,7 @@ def gradient_diagnostic(
 
     try:
         for task in ("primary", *active_targets):
+            restore_rng(rng)
             model.zero_grad(set_to_none=True)
             if task == "primary":
                 loss = rank_loss(model, interaction)
