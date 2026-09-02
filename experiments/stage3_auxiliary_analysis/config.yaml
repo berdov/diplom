@@ -1,0 +1,194 @@
+stage3:
+  run_group: stage3_auxiliary_analysis_001
+  description: >
+    Validation-only auxiliary-task ablations and gradient interaction diagnostics
+    for KuaiRand Protocol B. TEST is never loaded or evaluated by this stage.
+
+source:
+  validation_only_config: experiments/multitask_tim4rec_optuna/config.yaml
+  best_params: experiments/multitask_tim4rec_optuna/best_params.yaml
+  target_statistics: experiments/multitask_tim4rec/target_statistics.csv
+  protocol_b_multitask_dir: data/processed/protocol_b_multitask
+  validation_only_recbole_dir: experiments/multitask_tim4rec_optuna/validation_only_recbole
+
+outputs:
+  runs_dir: experiments/stage3_auxiliary_analysis/runs
+  artifact_dir: experiments/stage3_auxiliary_analysis/artifacts
+  target_audit_run_id: stage3_target_audit_001
+
+protocol:
+  dataset: KuaiRand
+  split: Protocol B
+  evaluation_split: validation
+  test_usage: forbidden
+  test_evaluation_count: 0
+  primary_objective: ranking cross-entropy
+  primary_metric: NDCG@10
+  ranking_metrics:
+    - Hit@10
+    - Hit@20
+    - Hit@50
+    - NDCG@10
+    - NDCG@20
+    - NDCG@50
+
+training:
+  seed: 2026
+  max_epochs: 80
+  early_stopping_patience: 5
+  train_batch_size: 2048
+  eval_batch_size: 4096
+  validation_interval: 1
+  gradient_diagnostics:
+    enabled: true
+    first_epoch: true
+    every_n_epochs: 5
+    batches_per_epoch: 1
+    parameter_scope: shared_backbone
+    restore_rng_before_training_step: true
+
+optimization:
+  source: experiments/multitask_tim4rec_optuna/best_params.yaml
+  lambda_aux: 0.13182740780834337
+  learning_rate: 0.0019075370668084298
+  head_learning_rate: 0.0008746259318071252
+  weight_decay: 0.000001925502656735127
+  dropout_prob: 0.08565706719893162
+  single_auxiliary_loss_weight: 1.0
+  effective_pos_weights:
+    is_click: 1.0573239205700589
+    long_view: 1.286659439842131
+    is_like: 9.092198541195886
+    is_profile_enter: 7.598613882204391
+  tuned_task_weights:
+    is_click: 0.2555691799732421
+    long_view: 0.23643110685667904
+    is_like: 3.246987612489936
+    is_profile_enter: 0.2610121006801428
+
+candidate_targets:
+  is_click:
+    display_name: click
+    type: binary
+    currently_used: true
+    ablation_enabled: true
+    construction: Direct binary interaction label from KuaiRand Protocol B preprocessing.
+    leakage_note: Target-only same-interaction label; never used as an input feature.
+  long_view:
+    display_name: long_view
+    type: binary
+    currently_used: true
+    ablation_enabled: true
+    construction: Derived binary long-view label from Protocol B preprocessing.
+    leakage_note: Target-only same-interaction label; never used as an input feature.
+  is_like:
+    display_name: like
+    type: binary
+    currently_used: true
+    ablation_enabled: true
+    construction: Direct binary interaction label from KuaiRand Protocol B preprocessing.
+    leakage_note: Target-only same-interaction label; never used as an input feature.
+  is_profile_enter:
+    display_name: profile_enter
+    type: binary
+    currently_used: true
+    ablation_enabled: true
+    construction: Direct binary interaction label from KuaiRand Protocol B preprocessing.
+    leakage_note: Target-only same-interaction label; never used as an input feature.
+  is_follow:
+    display_name: follow
+    type: binary
+    currently_used: false
+    ablation_enabled: false
+    construction: Direct binary interaction label in the Protocol B multitask audit data.
+    leakage_note: Target-only same-interaction label; omitted from first ablation pass due to rarity and model-scope change.
+  is_comment:
+    display_name: comment
+    type: binary
+    currently_used: false
+    ablation_enabled: false
+    construction: Direct binary interaction label in the Protocol B multitask audit data.
+    leakage_note: Target-only same-interaction label; omitted from first ablation pass due to rarity and model-scope change.
+  is_forward:
+    display_name: forward
+    type: binary
+    currently_used: false
+    ablation_enabled: false
+    construction: Direct binary interaction label in the Protocol B multitask audit data.
+    leakage_note: Target-only same-interaction label; omitted from first ablation pass due to rarity and model-scope change.
+  is_hate:
+    display_name: hate
+    type: binary
+    currently_used: false
+    ablation_enabled: false
+    construction: Direct binary interaction label in the Protocol B multitask audit data.
+    leakage_note: Target-only same-interaction label; omitted from first ablation pass due to extreme rarity and negative-feedback semantics.
+  play_time_ms:
+    display_name: play_time
+    type: continuous
+    currently_used: false
+    ablation_enabled: false
+    construction: Watch-time field retained in the Protocol B multitask audit data.
+    leakage_note: Continuous post-exposure signal; requires a separate regression/survival objective before fair ablation.
+  play_ratio:
+    display_name: play_ratio
+    type: continuous
+    currently_used: false
+    ablation_enabled: false
+    construction: Watch-time ratio retained or derived in the Protocol B multitask audit data.
+    leakage_note: Continuous post-exposure signal; requires a separate regression/survival objective before fair ablation.
+
+runs:
+  primary_only:
+    run_id: stage3_primary_only_001
+    active_targets: []
+    lambda_aux: 0.0
+    loss_weight_mode: none
+    purpose: Primary ranking objective only.
+  click:
+    run_id: stage3_aux_click_001
+    active_targets:
+      - is_click
+    lambda_aux: 0.13182740780834337
+    loss_weight_mode: uniform_single_aux
+    purpose: Primary ranking plus click auxiliary target.
+  long_view:
+    run_id: stage3_aux_long_view_001
+    active_targets:
+      - long_view
+    lambda_aux: 0.13182740780834337
+    loss_weight_mode: uniform_single_aux
+    purpose: Primary ranking plus long-view auxiliary target.
+  like:
+    run_id: stage3_aux_like_001
+    active_targets:
+      - is_like
+    lambda_aux: 0.13182740780834337
+    loss_weight_mode: uniform_single_aux
+    purpose: Primary ranking plus like auxiliary target.
+  profile_enter:
+    run_id: stage3_aux_profile_enter_001
+    active_targets:
+      - is_profile_enter
+    lambda_aux: 0.13182740780834337
+    loss_weight_mode: uniform_single_aux
+    purpose: Primary ranking plus profile-enter auxiliary target.
+  all_current_aux_diagnostic:
+    run_id: stage3_all_current_aux_diagnostic_001
+    active_targets:
+      - is_click
+      - long_view
+      - is_like
+      - is_profile_enter
+    lambda_aux: 0.13182740780834337
+    loss_weight_mode: tuned_task_weights
+    purpose: Diagnostic-only current four-auxiliary control for auxiliary-to-auxiliary gradient matrix.
+  sanity_click:
+    run_id: stage3_sanity_click_001
+    active_targets:
+      - is_click
+    lambda_aux: 0.13182740780834337
+    loss_weight_mode: uniform_single_aux
+    max_epochs: 1
+    max_train_batches: 2
+    purpose: Small instrumentation sanity run; not used in scientific comparisons.
