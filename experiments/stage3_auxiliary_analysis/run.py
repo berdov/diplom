@@ -172,7 +172,10 @@ def normalize_metric_keys(metrics: Mapping[str, Any]) -> dict[str, float]:
 
 
 def rank_loss(model: MultitaskTiM4Rec, interaction: Any) -> torch.Tensor:
-    return model.base_loss(interaction)
+    representation = model.shared_representation(interaction)
+    pos_items = interaction[model.POS_ITEM_ID]
+    rank_logits = model.ranking_logits_from_representation(representation)
+    return model.loss_fct(rank_logits, pos_items)
 
 
 def active_auxiliary_losses(
