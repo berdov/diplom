@@ -39,6 +39,8 @@ Published benchmark: [reports/PAPER_RESULTS.md](reports/PAPER_RESULTS.md).
 
 8-family MOO benchmark: [reports/MOO_FAMILIES.md](reports/MOO_FAMILIES.md).
 
+MOO experiment history and budgeted top-4 tuning snapshot: [reports/MOO_EXPERIMENT_HISTORY.md](reports/MOO_EXPERIMENT_HISTORY.md).
+
 ## Repository Structure
 
 - [src](src) - preprocessing and EDA code;

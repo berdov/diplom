@@ -38,6 +38,13 @@ These rows are validation-only. They are not TEST results.
 
 Historical `pcgrad_001` is kept only as a validation reference for the current PCGrad implementation. The current MOO PCGrad row uses a different runner/objective geometry, so it is not treated as the same operating point.
 
-## Partial Tuning Status
+## Budgeted Top-4 MOO Tuning Snapshot
 
-Controlled tuning for EPO, GradHV, COSMOS and PCGrad is not finalized in the committed results. The active resume path remains `configs/moo_tuning_spaces.yaml`, `experiments/moo_8families/tune.py`, `experiments/moo_8families/train.py` and `slurm/moo_tuning.sh`; persistent Optuna storage and raw artifacts stay outside Git. TEST evaluations for this tuning stage: `0`.
+The top-4 tuning stage is recorded as a time/compute-budgeted validation-only snapshot, not as an equal-trial-count benchmark. Internal tuning `Stage A` corresponds to scientific Stage 2 in [MOO_EXPERIMENT_HISTORY.md](MOO_EXPERIMENT_HISTORY.md). Persistent Optuna storage and raw artifacts stay outside Git; compact results are in [../experiments/moo_8families/runs/moo_stage_history_summary.json](../experiments/moo_8families/runs/moo_stage_history_summary.json). TEST evaluations for this tuning stage: `0`.
+
+| Method | Planned complete | Actual complete | Failed | Stale | Best trial | Best epoch | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 | Status |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| EPO | 10 | 5 | 1 | 1 | 0 | 20 | 0.1080 | 0.1778 | 0.3198 | 0.0588 | 0.0763 | 0.1043 | 36-hour walltime exhausted |
+| GradHV | 12 | 12 | 0 | 0 | 1 | 90 | 0.0877 | 0.1370 | 0.2460 | 0.0488 | 0.0612 | 0.0827 | completed budget |
+| COSMOS | 12 | 9 | 1 | 0 | 0 | 40 | 0.0819 | 0.1274 | 0.2289 | 0.0455 | 0.0569 | 0.0769 | preference guard stopped |
+| PCGrad | 12 | 12 | 0 | 0 | 9 | 75 | 0.0828 | 0.1298 | 0.2317 | 0.0464 | 0.0581 | 0.0783 | completed budget |
