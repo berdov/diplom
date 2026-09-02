@@ -39,9 +39,8 @@ if [ ! -x "${PREP_PYTHON}" ]; then
 fi
 
 if [[ "${MODE}" == "target-audit" ]]; then
-  exec "${PREP_PYTHON}" -m experiments.stage3_auxiliary_analysis.run \
-    --config "${CONFIG}" \
-    --mode target-audit
+  exec "${PREP_PYTHON}" -m experiments.stage3_auxiliary_analysis.target_audit \
+    --config "${CONFIG}"
 fi
 
 "${PREP_PYTHON}" experiments/multitask_tim4rec_optuna/prepare_validation_only.py

@@ -26,7 +26,11 @@ def project_path(path: str | Path) -> Path:
 
 
 def rel_path(path: str | Path) -> str:
-    return str(project_path(path).resolve().relative_to(PROJECT_ROOT))
+    resolved = project_path(path).resolve()
+    try:
+        return str(resolved.relative_to(PROJECT_ROOT))
+    except ValueError:
+        return str(resolved)
 
 
 def load_yaml(path: str | Path) -> dict[str, Any]:
