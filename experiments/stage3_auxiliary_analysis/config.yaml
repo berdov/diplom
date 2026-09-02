@@ -8,8 +8,8 @@ source:
   validation_only_config: experiments/multitask_tim4rec_optuna/config.yaml
   best_params: experiments/multitask_tim4rec_optuna/best_params.yaml
   target_statistics: experiments/multitask_tim4rec/target_statistics.csv
-  protocol_b_multitask_dir: data/processed/protocol_b_multitask
-  validation_only_recbole_dir: experiments/multitask_tim4rec_optuna/validation_only_recbole
+  protocol_b_multitask_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask
+  validation_only_recbole_dir: /home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole
 
 outputs:
   runs_dir: experiments/stage3_auxiliary_analysis/runs

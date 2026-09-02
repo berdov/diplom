@@ -15,12 +15,14 @@ REPO_DIR="${STAGE3_REPO_DIR:-/home/daryumin/iberdov/diplom}"
 MODE="${STAGE3_MODE:-ablation}"
 RUN_KEY="${STAGE3_RUN_KEY:-sanity_click}"
 CONFIG="${STAGE3_CONFIG:-experiments/stage3_auxiliary_analysis/config.yaml}"
-PYTHON="${STAGE3_PYTHON:-/home/daryumin/iberdov/diplom/.venv/bin/python}"
-PREP_PYTHON="${STAGE3_PREP_PYTHON:-/home/daryumin/.conda/envs/py310/bin/python}"
+PYTHON="${STAGE3_PYTHON:-/home/daryumin/iberdov/diplom/.conda/bin/python}"
+PREP_PYTHON="${STAGE3_PREP_PYTHON:-/home/daryumin/iberdov/diplom/.conda/bin/python}"
 
 cd "${REPO_DIR}"
 mkdir -p logs/slurm experiments/stage3_auxiliary_analysis/runs experiments/stage3_auxiliary_analysis/artifacts
 
+module load Python/miniconda || true
+export PYTHONNOUSERSITE=1
 export PYTHONPATH="${REPO_DIR}:${PYTHONPATH:-}"
 export TOKENIZERS_PARALLELISM=false
 
