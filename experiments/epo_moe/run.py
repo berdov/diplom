@@ -1771,6 +1771,8 @@ def main() -> None:
     args = parse_args()
     config = load_yaml(Path(args.config))
     run_cfg = run_config(config, args.run_key)
+    if args.run_id:
+        run_cfg = {**run_cfg, "run_id": args.run_id}
     if args.stage in {"sanity", "validation"}:
         result = validation_stage(args, config, run_cfg)
     else:
