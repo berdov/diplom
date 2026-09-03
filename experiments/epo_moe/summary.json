@@ -4,37 +4,37 @@
   "runs": {
     "m0": {
       "status": "missing",
-      "source_json": "experiments/epo_moe/runs/epo_moe_m0_baseline_001.json"
+      "source_json": "experiments/epo_moe/runs/epo_moe_m0_validation_001.json"
     },
     "m2": {
       "status": "missing",
-      "source_json": "experiments/epo_moe/runs/epo_moe_m2_001.json"
+      "source_json": "experiments/epo_moe/runs/epo_moe_m2_validation_001.json"
     },
     "m4": {
       "status": "missing",
-      "source_json": "experiments/epo_moe/runs/epo_moe_m4_001.json"
+      "source_json": "experiments/epo_moe/runs/epo_moe_m4_validation_001.json"
     },
     "m8": {
       "status": "missing",
-      "source_json": "experiments/epo_moe/runs/epo_moe_m8_001.json"
+      "source_json": "experiments/epo_moe/runs/epo_moe_m8_validation_001.json"
     }
   },
   "final_tests": {
     "m0": {
       "status": "missing",
-      "source_json": "experiments/epo_moe/runs/epo_moe_m0_baseline_001_final_test.json"
+      "source_json": "experiments/epo_moe/runs/epo_moe_m0_validation_001_final_test.json"
     },
     "m2": {
       "status": "missing",
-      "source_json": "experiments/epo_moe/runs/epo_moe_m2_001_final_test.json"
+      "source_json": "experiments/epo_moe/runs/epo_moe_m2_validation_001_final_test.json"
     },
     "m4": {
       "status": "missing",
-      "source_json": "experiments/epo_moe/runs/epo_moe_m4_001_final_test.json"
+      "source_json": "experiments/epo_moe/runs/epo_moe_m4_validation_001_final_test.json"
     },
     "m8": {
       "status": "missing",
-      "source_json": "experiments/epo_moe/runs/epo_moe_m8_001_final_test.json"
+      "source_json": "experiments/epo_moe/runs/epo_moe_m8_validation_001_final_test.json"
     }
   },
   "best_validation_run_key": null,

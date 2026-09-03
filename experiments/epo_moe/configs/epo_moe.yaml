@@ -148,22 +148,22 @@ moe_defaults:
 
 runs:
   m0:
-    run_id: epo_moe_m0_baseline_001
+    run_id: epo_moe_m0_validation_001
     label: M0 TiM4Rec + multitask + EPO, no MoE
     num_experts: 0
     validation_stage: validation
   m2:
-    run_id: epo_moe_m2_001
+    run_id: epo_moe_m2_validation_001
     label: M2 TiM4Rec + multitask + EPO + MoE
     num_experts: 2
     validation_stage: validation
   m4:
-    run_id: epo_moe_m4_001
+    run_id: epo_moe_m4_validation_001
     label: M4 TiM4Rec + multitask + EPO + MoE
     num_experts: 4
     validation_stage: validation
   m8:
-    run_id: epo_moe_m8_001
+    run_id: epo_moe_m8_validation_001
     label: M8 TiM4Rec + multitask + EPO + MoE
     num_experts: 8
     validation_stage: validation
