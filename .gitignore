@@ -95,6 +95,20 @@ experiments/moo_8families/tuning_storage/
 experiments/moo_8families/*.db*
 experiments/moo_8families/runs/*
 !experiments/moo_8families/runs/*.json
+experiments/epo_moe/slurm_logs/*
+experiments/epo_moe/epo_moe_*/
+experiments/epo_moe/*_final_test/
+experiments/epo_moe/runs/*
+!experiments/epo_moe/runs/.gitkeep
+!experiments/epo_moe/runs/*.json
+experiments/epo_moe/routing/*
+!experiments/epo_moe/routing/.gitkeep
+!experiments/epo_moe/routing/*.json
+!experiments/epo_moe/routing/*.csv
+experiments/epo_moe/plots/*
+!experiments/epo_moe/plots/.gitkeep
+!experiments/epo_moe/plots/*.png
+!experiments/epo_moe/plots/*.svg
 log_tensorboard/
 
 # Generated research outputs: ignore by default, keep compact summaries.

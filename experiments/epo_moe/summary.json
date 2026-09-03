@@ -1,0 +1,97 @@
+{
+  "record_type": "epo_moe_summary",
+  "config": "/Users/berdov/diplom/experiments/epo_moe/configs/epo_moe.yaml",
+  "runs": {
+    "m0": {
+      "status": "missing",
+      "source_json": "experiments/epo_moe/runs/epo_moe_m0_baseline_001.json"
+    },
+    "m2": {
+      "status": "missing",
+      "source_json": "experiments/epo_moe/runs/epo_moe_m2_001.json"
+    },
+    "m4": {
+      "status": "missing",
+      "source_json": "experiments/epo_moe/runs/epo_moe_m4_001.json"
+    },
+    "m8": {
+      "status": "missing",
+      "source_json": "experiments/epo_moe/runs/epo_moe_m8_001.json"
+    }
+  },
+  "final_tests": {
+    "m0": {
+      "status": "missing",
+      "source_json": "experiments/epo_moe/runs/epo_moe_m0_baseline_001_final_test.json"
+    },
+    "m2": {
+      "status": "missing",
+      "source_json": "experiments/epo_moe/runs/epo_moe_m2_001_final_test.json"
+    },
+    "m4": {
+      "status": "missing",
+      "source_json": "experiments/epo_moe/runs/epo_moe_m4_001_final_test.json"
+    },
+    "m8": {
+      "status": "missing",
+      "source_json": "experiments/epo_moe/runs/epo_moe_m8_001_final_test.json"
+    }
+  },
+  "best_validation_run_key": null,
+  "best_validation_run_id": null,
+  "best_validation_NDCG@10": null,
+  "main_table": [
+    {
+      "Model": "TiM4Rec paper",
+      "MoE": "no",
+      "Experts": "",
+      "Params": "",
+      "Validation HR@10": "",
+      "Validation NDCG@10": "",
+      "Test HR@10": 0.1109,
+      "Test NDCG@10": 0.0611,
+      "Delta vs paper": 0.0,
+      "Status": "published benchmark"
+    },
+    {
+      "Model": "Our TiM4Rec reproduction",
+      "MoE": "no",
+      "Experts": "",
+      "Params": "",
+      "Validation HR@10": "",
+      "Validation NDCG@10": "",
+      "Test HR@10": 0.1053,
+      "Test NDCG@10": 0.0598,
+      "Delta vs paper": -0.0013000000000000025,
+      "Status": "existing TEST reproduction"
+    },
+    {
+      "Model": "Our TiM4Rec + multitask + EPO",
+      "MoE": "no",
+      "Experts": 0,
+      "Params": 593758,
+      "Validation HR@10": 0.108,
+      "Validation NDCG@10": 0.0588,
+      "Test HR@10": "",
+      "Test NDCG@10": "",
+      "Delta vs paper": "",
+      "Status": "validation-only baseline unless separately tested"
+    },
+    {
+      "Model": "Our TiM4Rec + multitask + EPO + MoE",
+      "MoE": "",
+      "Experts": "",
+      "Params": null,
+      "Validation HR@10": null,
+      "Validation NDCG@10": null,
+      "Test HR@10": null,
+      "Test NDCG@10": null,
+      "Delta vs paper": null,
+      "Status": "validation selection"
+    }
+  ],
+  "validation_table": [],
+  "routing_table": [],
+  "test_evaluation_count": 0,
+  "registry_rows": []
+}
