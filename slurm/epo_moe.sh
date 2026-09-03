@@ -28,6 +28,68 @@ VALIDATION_ONLY_ROOT="${EPO_MOE_VALIDATION_ONLY_ROOT:-/home/daryumin/iberdov/dip
 VALIDATION_ONLY_DATASET="${EPO_MOE_VALIDATION_ONLY_DATASET:-kuairand_multitask_validonly}"
 VALIDATION_SUMMARY="${EPO_MOE_VALIDATION_ONLY_SUMMARY:-${VALIDATION_ONLY_ROOT}/validation_only_dataset.json}"
 
+git_dir_fallback() {
+  if [ -f .git ]; then
+    sed -n 's/^gitdir: //p' .git
+  else
+    printf '.git\n'
+  fi
+}
+
+git_head_commit_fallback() {
+  local git_dir
+  local head
+  local ref
+  git_dir="$(git_dir_fallback)"
+  if [ ! -f "${git_dir}/HEAD" ]; then
+    printf 'unknown\n'
+    return
+  fi
+  head="$(sed -n '1p' "${git_dir}/HEAD")"
+  case "${head}" in
+    ref:\ *)
+      ref="${head#ref: }"
+      if [ -f "${git_dir}/${ref}" ]; then
+        sed -n '1p' "${git_dir}/${ref}"
+      else
+        awk -v ref="${ref}" '$2 == ref {print $1; exit}' "${git_dir}/packed-refs" 2>/dev/null || printf 'unknown\n'
+      fi
+      ;;
+    *)
+      printf '%s\n' "${head:-unknown}"
+      ;;
+  esac
+}
+
+git_branch_fallback() {
+  local git_dir
+  local head
+  git_dir="$(git_dir_fallback)"
+  if [ ! -f "${git_dir}/HEAD" ]; then
+    printf 'unknown\n'
+    return
+  fi
+  head="$(sed -n '1p' "${git_dir}/HEAD")"
+  case "${head}" in
+    ref:\ refs/heads/*)
+      printf '%s\n' "${head#ref: refs/heads/}"
+      ;;
+    *)
+      printf 'HEAD\n'
+      ;;
+  esac
+}
+
+git_remote_fallback() {
+  local git_dir
+  git_dir="$(git_dir_fallback)"
+  awk '
+    $0 == "[remote \"origin\"]" {in_origin=1; next}
+    /^\[/ {in_origin=0}
+    in_origin && $1 == "url" && $2 == "=" {print $3; exit}
+  ' "${git_dir}/config" 2>/dev/null || printf 'unknown\n'
+}
+
 cd "${REPO_DIR}"
 mkdir -p "${REPO_DIR}/experiments/epo_moe/slurm_logs"
 
@@ -39,18 +101,22 @@ if [ ! -x "${GIT_BIN}" ]; then
   GIT_BIN="$(command -v git || true)"
 fi
 if [ -n "${GIT_BIN}" ]; then
-  export EPO_MOE_GIT_COMMIT="${EPO_MOE_GIT_COMMIT:-$("${GIT_BIN}" rev-parse HEAD 2>/dev/null || echo unknown)}"
-  export EPO_MOE_GIT_BRANCH="${EPO_MOE_GIT_BRANCH:-$("${GIT_BIN}" rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)}"
-  export EPO_MOE_GIT_REMOTE="${EPO_MOE_GIT_REMOTE:-$("${GIT_BIN}" config --get remote.origin.url 2>/dev/null || echo unknown)}"
+  export EPO_MOE_GIT_COMMIT="${EPO_MOE_GIT_COMMIT:-$("${GIT_BIN}" rev-parse HEAD 2>/dev/null || git_head_commit_fallback)}"
+  export EPO_MOE_GIT_BRANCH="${EPO_MOE_GIT_BRANCH:-$("${GIT_BIN}" rev-parse --abbrev-ref HEAD 2>/dev/null || git_branch_fallback)}"
+  export EPO_MOE_GIT_REMOTE="${EPO_MOE_GIT_REMOTE:-$("${GIT_BIN}" config --get remote.origin.url 2>/dev/null || git_remote_fallback)}"
 else
-  export EPO_MOE_GIT_COMMIT="${EPO_MOE_GIT_COMMIT:-unknown}"
-  export EPO_MOE_GIT_BRANCH="${EPO_MOE_GIT_BRANCH:-unknown}"
-  export EPO_MOE_GIT_REMOTE="${EPO_MOE_GIT_REMOTE:-unknown}"
+  export EPO_MOE_GIT_COMMIT="${EPO_MOE_GIT_COMMIT:-$(git_head_commit_fallback)}"
+  export EPO_MOE_GIT_BRANCH="${EPO_MOE_GIT_BRANCH:-$(git_branch_fallback)}"
+  export EPO_MOE_GIT_REMOTE="${EPO_MOE_GIT_REMOTE:-$(git_remote_fallback)}"
 fi
 
 if [ ! -x "${PYTHON}" ]; then
   echo "Missing TiM4Rec env: ${PYTHON}" >&2
   exit 2
+fi
+
+if [ "${STAGE}" = "sanity" ] && [ -z "${RUN_ID}" ]; then
+  RUN_ID="epo_moe_${RUN_KEY}_sanity_${SLURM_JOB_ID:-manual}"
 fi
 
 echo "Slurm: partition=${SLURM_JOB_PARTITION:-rocky}"
@@ -63,6 +129,7 @@ echo "Run key: ${RUN_KEY}"
 echo "Config: ${CONFIG}"
 echo "Git commit: ${EPO_MOE_GIT_COMMIT}"
 echo "Git branch: ${EPO_MOE_GIT_BRANCH}"
+echo "Run ID: ${RUN_ID:-default}"
 
 if [ "${STAGE}" != "final_test" ]; then
   if [ ! -s "${VALIDATION_SUMMARY}" ]; then

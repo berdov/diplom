@@ -175,6 +175,61 @@ def deep_merge(base: Mapping[str, Any], extra: Mapping[str, Any]) -> dict[str, A
     return result
 
 
+def git_dir() -> Path:
+    path = ROOT / ".git"
+    if path.is_file():
+        text = path.read_text(encoding="utf-8", errors="ignore").strip()
+        if text.startswith("gitdir:"):
+            target = Path(text.split(":", 1)[1].strip())
+            return target if target.is_absolute() else (ROOT / target).resolve()
+    return path
+
+
+def read_git_ref(ref: str) -> str | None:
+    directory = git_dir()
+    ref_path = directory / ref
+    if ref_path.exists():
+        value = ref_path.read_text(encoding="utf-8", errors="ignore").strip()
+        return value or None
+    packed_refs = directory / "packed-refs"
+    if packed_refs.exists():
+        for line in packed_refs.read_text(encoding="utf-8", errors="ignore").splitlines():
+            if line.startswith("#") or line.startswith("^"):
+                continue
+            parts = line.split()
+            if len(parts) == 2 and parts[1] == ref:
+                return parts[0]
+    return None
+
+
+def git_metadata_fallback(args: list[str], default: str = "unknown") -> str:
+    directory = git_dir()
+    head_path = directory / "HEAD"
+    if args == ["rev-parse", "HEAD"] and head_path.exists():
+        head = head_path.read_text(encoding="utf-8", errors="ignore").strip()
+        if head.startswith("ref:"):
+            return read_git_ref(head.split(":", 1)[1].strip()) or default
+        return head or default
+    if args == ["rev-parse", "--abbrev-ref", "HEAD"] and head_path.exists():
+        head = head_path.read_text(encoding="utf-8", errors="ignore").strip()
+        if head.startswith("ref: refs/heads/"):
+            return head.removeprefix("ref: refs/heads/")
+        return "HEAD"
+    if args == ["config", "--get", "remote.origin.url"]:
+        config_path = directory / "config"
+        if not config_path.exists():
+            return default
+        in_origin = False
+        for raw_line in config_path.read_text(encoding="utf-8", errors="ignore").splitlines():
+            line = raw_line.strip()
+            if line.startswith("["):
+                in_origin = line == '[remote "origin"]'
+            elif in_origin and line.startswith("url"):
+                _key, _sep, value = line.partition("=")
+                return value.strip() or default
+    return default
+
+
 def git_value(args: list[str], default: str = "unknown") -> str:
     env_map = {
         ("rev-parse", "HEAD"): "EPO_MOE_GIT_COMMIT",
@@ -182,7 +237,7 @@ def git_value(args: list[str], default: str = "unknown") -> str:
         ("config", "--get", "remote.origin.url"): "EPO_MOE_GIT_REMOTE",
     }
     env_key = env_map.get(tuple(args))
-    if env_key and os.environ.get(env_key):
+    if env_key and os.environ.get(env_key) and os.environ[env_key] != "unknown":
         return str(os.environ[env_key])
     for git_bin in (os.environ.get("EPO_MOE_GIT_BIN"), "/usr/bin/git", "git"):
         if not git_bin:
@@ -194,10 +249,11 @@ def git_value(args: list[str], default: str = "unknown") -> str:
                 text=True,
                 stderr=subprocess.DEVNULL,
             ).strip()
-            return value or default
+            if value and value != "unknown":
+                return value
         except Exception:
             continue
-    return default
+    return git_metadata_fallback(args, default)
 
 
 def version(package: str) -> str:
