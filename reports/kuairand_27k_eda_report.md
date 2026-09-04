@@ -1,6 +1,6 @@
 # Исследовательский анализ KuaiRand-27K
 
-Отчёт построен по фактическим результатам полного KuaiRand-27K EDA, выполненного на cHARISMa. Compact fingerprint сохранён в `outputs/eda/27k_summary.json`; подробные aggregate CSV можно повторно сгенерировать через `src/eda_27k.py`. Raw interaction logs и per-user CSV не коммитятся.
+Отчёт построен по фактическим результатам полного EDA KuaiRand-27K, выполненного на cHARISMa. Компактный fingerprint сохранён в `outputs/eda/27k_summary.json`; подробные aggregate CSV можно повторно сгенерировать через `src/eda_27k.py`. Raw interaction logs и per-user CSV не коммитятся.
 
 ## 1. Обзор датасета
 
@@ -9,7 +9,7 @@
 - Узел: `cn-012`; runtime `00:09:45`; MaxRSS `46537000K`.
 - Сгенерировано UTC: `2026-08-16T16:01:15.653041+00:00`.
 - Размер директории KuaiRand-27K по inventory: `45.6 GiB`.
-- Перед финальным запуском была проверена `normal/type_c/gpu:v100:1`, но job 4253860 упал за 3 секунды из-за несовместимости GLIBC старой ОС normal с текущим `.conda`. Финальный успешный запуск выполнен на Rocky-compatible `test` partition.
+- Перед финальным запуском была проверена `normal/type_c/gpu:v100:1`, но job 4253860 упал за 3 секунды из-за несовместимости GLIBC старой ОС normal с текущим `.conda`. Финальный успешный запуск выполнен на Rocky-compatible partition `test`.
 
 ## 2. Структура файлов
 
@@ -85,7 +85,7 @@ Standard содержит 322,278,385 взаимодействий, random со�
 | item_popularity_interactions_p99 | 168.0000 | 194.0000 | -26.0000 | 0.8660 |
 | item_popularity_interactions_max | 15,380.0000 | 214.0000 | 15,166.0000 | 71.8692 |
 
-Это наблюдаемое различие распределений, а не causal interpretation. Standard-policy traffic радикально отличается от random exposure по candidate distribution: standard видит около 32.0M items, random только 7,583 items.
+Это наблюдаемое различие распределений, а не причинная интерпретация. Standard-policy traffic радикально отличается от random exposure по candidate distribution: standard видит около 32.0M items, random только 7,583 items.
 
 ## 6. Сигналы обратной связи
 
@@ -171,7 +171,7 @@ Random exposure ближе к равномерному показу, но не p
 | random | 20220422-20220508 | 24,849 | 20220422 | 114,925 | 20220508 | 16.112%-18.466% | 7.761%-9.102% |
 | standard | 20220408-20220508 | 8,994,629 | 20220419 | 12,573,232 | 20220430 | 36.668%-40.163% | 25.127%-27.903% |
 
-Между standard-периодами 08.04-21.04 и 22.04-08.05 есть небольшой наблюдаемый сдвиг: click rate снижается с 38.077% до 37.721%, long_view rate с 26.285% до 25.869%, like rate растёт с 1.631% до 1.690%. Это наблюдаемое изменение распределений, а не утверждение о statistical significance.
+Между standard-периодами 08.04-21.04 и 22.04-08.05 есть небольшой наблюдаемый сдвиг: click rate снижается с 38.077% до 37.721%, long_view rate с 26.285% до 25.869%, like rate растёт с 1.631% до 1.690%. Это наблюдаемое изменение распределений, а не утверждение о статистической значимости.
 
 ## 12. Анализ tab/scenario
 
@@ -210,7 +210,7 @@ Random exposure ближе к равномерному показу, но не p
 | video_statistic | random | 1,186,059 | 1,186,059 | 100.000% | 7,583 | 7,583 | 100.000% |
 | video_statistic | standard | 322,278,385 | 322,278,385 | 100.000% | 32,038,693 | 32,038,693 | 100.000% |
 
-Все пользователи из interaction logs покрыты `user_features_27k.csv`; все наблюдаемые видео из interaction logs покрыты `video_features_basic_27k.csv` и `video_features_statistic_27k_part*.csv`. Это coverage, а не разрешение использовать statistic features без leakage-проверки.
+Все пользователи из interaction logs покрыты `user_features_27k.csv`; все наблюдаемые видео из interaction logs покрыты `video_features_basic_27k.csv` и `video_features_statistic_27k_part*.csv`. Это покрытие признаков, а не разрешение использовать statistic features без leakage-проверки.
 
 ## 14. Проверки качества данных
 
@@ -258,7 +258,7 @@ Random exposure ближе к равномерному показу, но не p
 
 ## 17. Выводы для рекомендательного моделирования
 
-- Для full-scale sequential/top-K baseline использовать standard logs 27K после выбора published protocol.
+- Для full-scale sequential/top-K baseline использовать standard logs 27K после выбора опубликованного протокола.
 - Для разработки и sanity/debugging использовать 1K/Pure; полный 27K запускать batch/lazy scripts.
 - `duration_ms=0` не удалять автоматически: это массовый паттерн, особенно в standard `tab=0/1`; для watch-time targets нужно явное правило обработки.
 - `play_ratio > 1` сохранить как raw signal; для plots можно clip, но в training targets нужна осознанная нормализация или отдельный capped feature.
@@ -270,4 +270,4 @@ Random exposure ближе к равномерному показу, но не p
 2. Зафиксировать eligibility, negative sampling, repeated-item policy и truncation для длинных histories.
 3. Решить, используется ли random exposure как отдельный evaluation component или только как источник bias diagnostics.
 4. Не использовать `video_features_statistic_27k_part*.csv` в baseline до доказанной time-aware безопасности.
-5. После baseline reproduction переходить к новому методу и ablations.
+5. После воспроизведения базовой модели переходить к новому методу и ablations.
