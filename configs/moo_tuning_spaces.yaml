@@ -1,0 +1,236 @@
+study_group: moo_four_candidate_tuning_001
+status: stage_a_ready
+branch: exp/moo-8families-benchmark
+source_config: experiments/moo_8families/config.yaml
+
+protocol:
+  dataset: KuaiRand
+  protocol: B
+  identity_hash: 954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7
+  split: validation
+  test_policy:
+    load_test_dataset: false
+    create_test_dataloader: false
+    evaluate_test: false
+    test_evaluation_count: 0
+
+hardware:
+  primary_gpu_class: A100-SXM4-80GB
+  primary_slurm_constraint: type_e
+  allowed_search_gpu_constraints: [type_e]
+  rationale: Keep Stage A on one GPU class when possible; do not mix hardware inside the same study unless cluster inventory proves a compatible GPU class is necessary. Runtime is not compared across GPU types.
+
+training_protocol:
+  max_epochs: 100
+  validation_interval: 5
+  minimum_training_epochs: 20
+  patience_validation_checks: 3
+  min_delta: 0.0
+  primary_checkpoint: best validation operating-point NDCG@10
+  tuning_seed: 2026
+  optuna_pruning: disabled_initially
+  baseline_trial_0: current frozen long-convergence configuration
+  baseline_reproduction_tolerance_ndcg10: 0.001
+  stage_a: coarse exploration
+  stage_b: focused refinement after Stage A summaries/importance/objective distributions
+
+storage:
+  artifact_root: experiments/moo_8families/tuning_artifacts
+  storage_root: experiments/moo_8families/tuning_storage
+  summary_root: experiments/moo_8families/tuning_summaries
+  raw_artifacts_git_policy: ignored
+  backend: sqlite
+  concurrency_policy: one Slurm worker per method/study; do not run multiple writers for the same SQLite study
+  sqlite_timeout_sec: 120
+  heartbeat_interval_sec: 60
+  grace_period_sec: 1800
+
+stage_plan:
+  stage_a:
+    purpose: broad coarse exploration with TPE and frozen validation-only objective
+    target_complete_trials:
+      epo: 10
+      gradhv: 12
+      cosmos: 12
+      pcgrad: 12
+    after_completion:
+      - build top trials
+      - compute parameter importance
+      - inspect objective distributions
+      - check family-specific diagnostics before Stage B
+  stage_b:
+    purpose: focused refinement from Stage A top 20-30 percent trials, importance and failure regions
+    narrowing_rule: do not use a blind plus/minus band around best; preserve scientifically meaningful ranges and avoid validation leakage
+    final_target_complete_trials:
+      epo: 16
+      gradhv: 24
+      cosmos: 24
+      pcgrad: 24
+
+frozen_parameters:
+  objective_definitions: unchanged from experiments/moo_8families/config.yaml
+  normalization: unchanged from experiments/moo_8families/config.yaml
+  evaluation_reference:
+    values: [1.0, 2.0, 2.0, 2.0, 2.0]
+    invalid_reference_policy: raise
+  ranking_operating_point: unchanged
+  finite_solution_count:
+    epo: 6
+    gradhv: 3
+  lambda_aux_and_task_weights:
+    status: frozen
+    rationale: Current MOO methods optimize normalized task objectives, not the historical scalar multitask total. Tuning lambda_aux or arbitrary task weights here would change the protocol/objective interpretation rather than tune the current family implementation.
+
+current_frozen_params:
+  learning_rate: 0.0019075370668084298
+  weight_decay: 0.000001925502656735127
+  dropout_prob: 0.08565706719893162
+  head_lr_multiplier: 0.45851058258621097
+
+common_parameters:
+  learning_rate:
+    type: float
+    min: 0.0001
+    max: 0.005
+    scale: log
+    current: 0.0019075370668084298
+    rationale: Stage A coarse log range around the tuned MultitaskTiM4Rec learning rate; keeps optimizer family fixed while allowing method geometry to find a stable regime.
+  weight_decay:
+    type: float
+    min: 0.00000001
+    max: 0.001
+    scale: log
+    current: 0.000001925502656735127
+    rationale: Log-scale regularization search; parameter is consumed by the existing Adam optimizer.
+  dropout_prob:
+    type: float
+    min: 0.0
+    max: 0.4
+    scale: linear
+    current: 0.08565706719893162
+    rationale: Regularization knob already present in TiM4Rec/MultitaskTiM4Rec config.
+  head_lr_multiplier:
+    type: float
+    min: 0.25
+    max: 2.0
+    scale: log
+    current: 0.45851058258621097
+    rationale: Existing optimizer uses a separate auxiliary-head learning-rate group; range is compact and shared across candidates.
+
+methods:
+  epo:
+    study_name: epo_tuning_001
+    target_complete_trials: 16
+    stage_a:
+      target_complete_trials: 10
+    stage_b:
+      target_complete_trials: 16
+    baseline_run_id: epo_convergence_001
+    current_ndcg10: 0.0584
+    current_hr10: 0.1078
+    runtime:
+      observed_convergence_sec: 18209.92715792358
+      observed_convergence_epochs: 30
+      estimated_trial_sec: 28800
+      recommended_walltime: "36:00:00"
+    parameters:
+      - learning_rate
+      - weight_decay
+      - dropout_prob
+      - head_lr_multiplier
+    frozen_method_params:
+      preference_set: finite_preference_set
+      alpha_multiplier: task_count
+      objective_count: 5
+    selection_rule: Ranking-first; among trials within 0.001 absolute NDCG@10 of best, prefer better HV, better auxiliary trade-off, fewer dominated points and lower compute.
+  gradhv:
+    study_name: gradhv_tuning_001
+    target_complete_trials: 24
+    stage_a:
+      target_complete_trials: 12
+    stage_b:
+      target_complete_trials: 24
+    baseline_run_id: gradhv_convergence_001
+    current_ndcg10: 0.0486
+    current_hr10: 0.0874
+    runtime:
+      observed_convergence_sec: 5264.387939297594
+      observed_convergence_epochs: 65
+      estimated_trial_sec: 9000
+      recommended_walltime: "24:00:00"
+    parameters:
+      - learning_rate
+      - weight_decay
+      - dropout_prob
+      - head_lr_multiplier
+    frozen_method_params:
+      train_hv_reference: train_diagnostic_loss_scale
+      solution_count: 3
+    diagnostic_question: Whether generic hyperparameters improve validation HV/ranking or GradHV remains structurally weak.
+  cosmos:
+    study_name: cosmos_tuning_001
+    target_complete_trials: 24
+    stage_a:
+      target_complete_trials: 12
+    stage_b:
+      target_complete_trials: 24
+    baseline_run_id: cosmos_convergence_001
+    current_ndcg10: 0.0453
+    current_hr10: 0.0810
+    runtime:
+      observed_convergence_sec: 1449.898832436651
+      observed_convergence_epochs: 40
+      estimated_trial_sec: 3600
+      recommended_walltime: "12:00:00"
+    parameters:
+      - learning_rate
+      - weight_decay
+      - dropout_prob
+      - head_lr_multiplier
+      - dirichlet_alpha
+      - lambda_cosine
+    method_parameters:
+      dirichlet_alpha:
+        type: float
+        min: 0.2
+        max: 3.0
+        scale: log
+        current: 1.2
+        target_path: preference_sampling.alpha
+        rationale: Controls preference-space sampling coverage for the conditional model without changing objectives.
+      lambda_cosine:
+        type: float
+        min: 0.5
+        max: 4.0
+        scale: log
+        current: 2.0
+        target_path: lambda_cosine
+        rationale: Existing COSMOS-style conditioning coefficient; directly tests preference controllability.
+    success_guard: Tuning is not considered successful if ranking improves but preference outputs collapse.
+  pcgrad:
+    study_name: pcgrad_tuning_001
+    target_complete_trials: 24
+    stage_a:
+      target_complete_trials: 12
+    stage_b:
+      target_complete_trials: 24
+    baseline_run_id: pcgrad_convergence_001
+    current_ndcg10: 0.0444
+    current_hr10: 0.0790
+    runtime:
+      observed_convergence_sec: 4295.71169145219
+      observed_convergence_epochs: 40
+      estimated_trial_sec: 9000
+      recommended_walltime: "24:00:00"
+    parameters:
+      - learning_rate
+      - weight_decay
+      - dropout_prob
+      - head_lr_multiplier
+    frozen_method_params:
+      projection_algorithm: ranking_anchored
+      shared_selector: all_backbone
+      task_order: [rank, is_click, long_view, is_like, is_profile_enter]
+    prerequisite_audit: reports/RESULTS.md
+    prerequisite_conclusion: EXPECTED_PROTOCOL_DIFFERENCE
+    no_retroactive_cheating: Historical pcgrad_001 is not the current default; trial 0 must reproduce pcgrad_convergence_001.

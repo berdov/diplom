@@ -1,0 +1,213 @@
+{
+  "best_epoch": 1,
+  "best_validation_auxiliary_metrics": {
+    "is_click_accuracy": 0.5035280364076656,
+    "is_click_bce": 0.6951512694358826,
+    "is_click_positive_rate_pred": 0.4914199709892273,
+    "is_click_positive_rate_true": 0.4826103150844574
+  },
+  "best_validation_metrics": {
+    "HR@10": 0.0245,
+    "HR@20": 0.0258,
+    "HR@5": 0.023,
+    "HR@50": 0.0313,
+    "NDCG@10": 0.023,
+    "NDCG@20": 0.0234,
+    "NDCG@5": 0.0226,
+    "NDCG@50": 0.0244,
+    "Recall@10": 0.0245,
+    "Recall@20": 0.0258,
+    "Recall@5": 0.023,
+    "Recall@50": 0.0313
+  },
+  "created_at_utc": "2026-09-02T16:39:01Z",
+  "data": {
+    "benchmark_filename": [
+      "train",
+      "valid"
+    ],
+    "dataset": "kuairand_multitask_validonly",
+    "loader_inspection": {
+      "max_positive_item_id": 7111,
+      "min_positive_item_id": 1,
+      "one_positive_per_row": true,
+      "positive_targets": 23951,
+      "positive_targets_within_item_universe": true,
+      "rows": 23951,
+      "source_row_id_check": {
+        "expected_source_ids": 23951,
+        "extra_count": 0,
+        "matches_expected_validation_source_ids": true,
+        "missing_count": 0,
+        "observed_source_ids": 23951
+      }
+    },
+    "target_stats_source": "experiments/multitask_tim4rec/target_statistics.csv",
+    "train_interactions": 1062567,
+    "validation_interactions": 23951
+  },
+  "git": {
+    "branch": "exp/moo-8families-benchmark",
+    "commit": "2177bc4e0d082ad6ccb8532f04b9e015fa80e9a0",
+    "remote_head": ""
+  },
+  "gradient_diagnostics": {
+    "policy": {
+      "batches_per_epoch": 1,
+      "enabled": true,
+      "every_n_epochs": 5,
+      "first_epoch": true,
+      "parameter_scope": "shared_backbone",
+      "restore_rng_before_training_step": true
+    },
+    "raw_records": [
+      {
+        "batch_index": 0,
+        "diagnostic": {
+          "pairwise_auxiliary": {},
+          "tasks": {
+            "is_click": {
+              "conflict_with_primary": true,
+              "cosine_to_primary": -0.0006595460581593215,
+              "norm": 0.10097919404506683,
+              "norm_ratio_to_primary": 0.3801756911702351
+            },
+            "primary": {
+              "norm": 0.2656119167804718
+            }
+          }
+        },
+        "epoch": 1
+      }
+    ],
+    "rng_restored_before_training_step": true,
+    "summary": {
+      "auxiliary_pairwise": {},
+      "per_auxiliary_vs_primary": {
+        "is_click": {
+          "aux_norm": {
+            "count": 1,
+            "max": 0.10097919404506683,
+            "mean": 0.10097919404506683,
+            "median": 0.10097919404506683,
+            "min": 0.10097919404506683,
+            "q25": 0.10097919404506683,
+            "q75": 0.10097919404506683
+          },
+          "conflict_fraction_with_primary": 1.0,
+          "cosine_to_primary": {
+            "count": 1,
+            "max": -0.0006595460581593215,
+            "mean": -0.0006595460581593215,
+            "median": -0.0006595460581593215,
+            "min": -0.0006595460581593215,
+            "q25": -0.0006595460581593215,
+            "q75": -0.0006595460581593215
+          },
+          "diagnostic_batches": 1,
+          "norm_ratio_to_primary": {
+            "count": 1,
+            "max": 0.3801756911702351,
+            "mean": 0.3801756911702351,
+            "median": 0.3801756911702351,
+            "min": 0.3801756911702351,
+            "q25": 0.3801756911702351,
+            "q75": 0.3801756911702351
+          }
+        }
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "full_ranking_checks": {
+        "candidate_universe_size": 7111,
+        "evaluation": "validation_full_7111_items",
+        "item_num_with_padding": 7112,
+        "loader_type": "FullSortEvalDataLoader",
+        "mode": "full",
+        "positive_score_nonfinite": 0,
+        "positive_scores_all_finite": true,
+        "positive_targets": 23951,
+        "raw_inf_scores": 0,
+        "raw_nan_scores": 0,
+        "raw_scores_all_finite": true,
+        "rows": 23951
+      },
+      "is_best": true,
+      "train": {
+        "batches": 2.0,
+        "is_click_bce": 0.7160849869251251,
+        "loss": 8.95019006729126,
+        "primary_loss": 8.855790615081787
+      },
+      "validation_auxiliary": {
+        "is_click_accuracy": 0.5035280364076656,
+        "is_click_bce": 0.6951512694358826,
+        "is_click_positive_rate_pred": 0.4914199709892273,
+        "is_click_positive_rate_true": 0.4826103150844574
+      },
+      "validation_ranking": {
+        "HR@10": 0.0245,
+        "HR@20": 0.0258,
+        "HR@5": 0.023,
+        "HR@50": 0.0313,
+        "NDCG@10": 0.023,
+        "NDCG@20": 0.0234,
+        "NDCG@5": 0.0226,
+        "NDCG@50": 0.0244,
+        "Recall@10": 0.0245,
+        "Recall@20": 0.0258,
+        "Recall@5": 0.023,
+        "Recall@50": 0.0313
+      }
+    }
+  ],
+  "objective": {
+    "active_auxiliary_targets": [
+      "is_click"
+    ],
+    "auxiliary_loss_weights": {
+      "is_click": 1.0
+    },
+    "effective_pos_weights": {
+      "is_click": 1.0573239205700589
+    },
+    "lambda_aux": 0.13182740780834337,
+    "loss_weight_mode": "uniform_single_aux",
+    "primary": "ranking cross-entropy"
+  },
+  "optimization": {
+    "actual_epochs": 1,
+    "dropout_prob": 0.08565706719893162,
+    "early_stopping_patience": 5,
+    "head_learning_rate": 0.0008746259318071252,
+    "learning_rate": 0.0019075370668084298,
+    "max_epochs": 1,
+    "max_train_batches": 2,
+    "seed": 2026,
+    "weight_decay": 1.925502656735127e-06
+  },
+  "protocol": {
+    "dataset": "KuaiRand",
+    "evaluation_split": "validation",
+    "expected_fingerprint": {
+      "interactions": 1134420,
+      "items": 7111,
+      "test": 23951,
+      "train": 1086518,
+      "users": 23951,
+      "validation": 23951
+    },
+    "expected_identity_hash": "954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7",
+    "split": "Protocol B",
+    "test_dataset_loaded": false,
+    "test_evaluation_count": 0,
+    "test_metrics_present": false
+  },
+  "run_id": "stage3_sanity_click_001",
+  "run_key": "sanity_click",
+  "status": "COMPLETE",
+  "test_evaluation_count": 0
+}

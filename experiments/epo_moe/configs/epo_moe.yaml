@@ -1,0 +1,198 @@
+experiment: epo_moe_benchmark
+branch: exp/moo-8families-benchmark
+starting_commit: ab2e6a27f5dac6924ab701772b275103f688e812
+
+protocol:
+  dataset: KuaiRand
+  protocol: B
+  split: validation
+  users: 23951
+  items: 7111
+  interactions: 1134420
+  train: 1086518
+  validation: 23951
+  test: 23951
+  identity_hash: 954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7
+  primary_objective: next_item
+  task_order:
+    - rank
+    - is_click
+    - long_view
+    - is_like
+    - is_profile_enter
+
+source:
+  optuna_config: experiments/multitask_tim4rec_optuna/config.yaml
+  best_params: experiments/multitask_tim4rec_optuna/best_params.yaml
+  preferences: experiments/moo_8families/preferences.yaml
+  stage2_summary: experiments/moo_8families/runs/moo_stage_history_summary.json
+  stage2_best_result_json_remote: cHARISMa:/home/daryumin/iberdov/diplom_moo_tuning_24b7d14/experiments/moo_8families/tuning_artifacts/epo_tuning_001/trial_0000/result.json
+  paper_results: reports/PAPER_RESULTS.md
+  tim4rec_reproduction: experiments/tim4rec_baseline/runs/tim4rec_001.json
+  multitask_tuned_test: experiments/multitask_tim4rec_optuna/runs/multitask_tim4rec_tuned_001.json
+
+exact_epo_baseline:
+  run_id: epo_tuning_001_trial_0000
+  study_name: epo_tuning_001
+  trial_number: 0
+  validation_only: true
+  best_epoch: 20
+  actual_epochs: 35
+  stop_reason: early_stopping_patience
+  validation_metrics:
+    HR@5: 0.0648
+    HR@10: 0.1080
+    HR@20: 0.1778
+    HR@50: 0.3198
+    NDCG@5: 0.0449
+    NDCG@10: 0.0588
+    NDCG@20: 0.0763
+    NDCG@50: 0.1043
+  trainable_params_total_for_six_solutions: 3562548
+  trainable_params_per_solution: 593758
+  checkpoint_remote: /home/daryumin/iberdov/diplom_moo_tuning_24b7d14/experiments/moo_8families/tuning_artifacts/epo_tuning_001/trial_0000/artifacts/checkpoints/best_validation.pth
+  checkpoint_sha256: 47b455b8133ca97cead69b3d48fd0ade65e2570ae2a2de63d7b64904ac13a0b3
+
+test_policy:
+  validation_stage:
+    load_test_dataset: false
+    create_test_dataloader: false
+    evaluate_test: false
+    test_evaluation_count: 0
+  final_test_after_freeze:
+    allowed: true
+    tune_after_test: false
+
+epo:
+  preference_set: finite_preference_set
+  ranking_operating_point_id: rank_heavy
+  solution_count: 6
+  alpha_multiplier: task_count
+  eps: 0.0001
+  objective_order:
+    - rank
+    - is_click
+    - long_view
+    - is_like
+    - is_profile_enter
+
+evaluation:
+  model_selection_metric: ranking_operating_point.NDCG@10
+  topk: [5, 10, 20, 50]
+  pareto_reference:
+    objective_order:
+      - 1_minus_NDCG@10
+      - click_BCE
+      - long_view_BCE
+      - like_BCE
+      - profile_BCE
+    values: [1.0, 2.0, 2.0, 2.0, 2.0]
+    invalid_reference_policy: raise
+
+training:
+  seed: 2026
+  max_epochs: 100
+  validation_interval: 5
+  minimum_training_epochs: 20
+  patience_validation_checks: 3
+  min_delta: 0.0
+  sanity_epochs: 1
+  sanity_max_batches: 2
+  train_batch_size: 2048
+  eval_batch_size: 4096
+  checkpoint: best_validation_operating_point_NDCG@10
+  resume_policy: checkpoint_then_resume_if_walltime_insufficient
+
+tuned_fixed_params:
+  source: experiments/multitask_tim4rec_optuna/best_params.yaml
+  source_trial: 110
+  lambda_aux: 0.13182740780834337
+  learning_rate: 0.0019075370668084298
+  weight_decay: 0.000001925502656735127
+  dropout_prob: 0.08565706719893162
+  head_lr_multiplier: 0.45851058258621097
+  head_learning_rate: 0.0008746259318071252
+  normalized_task_weights:
+    is_click: 0.2555691799732421
+    long_view: 0.23643110685667904
+    is_like: 3.246987612489936
+    is_profile_enter: 0.2610121006801428
+  effective_pos_weights:
+    is_click: 1.0573239205700589
+    long_view: 1.286659439842131
+    is_like: 9.092198541195886
+    is_profile_enter: 7.598613882204391
+
+normalization:
+  source: train_diagnostic_mean
+  diagnostic_batches: 8
+  gradient_selector: all_backbone
+
+routing_diagnostics:
+  split: validation
+  max_batches: null
+  collapse:
+    dead_expert_threshold: 0.01
+    dominant_expert_threshold: 0.90
+    uniform_l1_threshold: 0.05
+    task_invariant_l1_threshold: 0.05
+
+moe_defaults:
+  expert_hidden_size: 64
+  dropout: 0.0
+  activation: gelu
+  residual: true
+  residual_scale: 1.0
+  gate_temperature: 1.0
+  load_balance_coeff: 0.0
+
+runs:
+  m0:
+    run_id: epo_moe_m0_validation_001
+    label: M0 TiM4Rec + multitask + EPO, no MoE
+    num_experts: 0
+    validation_stage: validation
+  m2:
+    run_id: epo_moe_m2_validation_001
+    label: M2 TiM4Rec + multitask + EPO + MoE
+    num_experts: 2
+    validation_stage: validation
+  m4:
+    run_id: epo_moe_m4_validation_001
+    label: M4 TiM4Rec + multitask + EPO + MoE
+    num_experts: 4
+    validation_stage: validation
+  m8:
+    run_id: epo_moe_m8_validation_001
+    label: M8 TiM4Rec + multitask + EPO + MoE
+    num_experts: 8
+    validation_stage: validation
+
+focused_tuning_candidates:
+  - key: best_width_32
+    expert_hidden_size: 32
+  - key: best_width_128
+    expert_hidden_size: 128
+  - key: best_dropout_005
+    dropout: 0.05
+  - key: best_dropout_010
+    dropout: 0.10
+  - key: best_gate_temp_050
+    gate_temperature: 0.50
+  - key: best_gate_temp_200
+    gate_temperature: 2.00
+  - key: best_no_residual
+    residual: false
+  - key: best_lr_half
+    learning_rate_multiplier: 0.5
+  - key: best_lr_150
+    learning_rate_multiplier: 1.5
+  - key: best_weight_decay_1e-5
+    weight_decay: 0.00001
+
+outputs:
+  runs_dir: experiments/epo_moe/runs
+  routing_dir: experiments/epo_moe/routing
+  plots_dir: experiments/epo_moe/plots
+  local_summary: experiments/epo_moe/summary.json
+  artifact_root: /home/daryumin/iberdov/diplom/experiments/epo_moe

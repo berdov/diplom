@@ -1,0 +1,361 @@
+{
+  "ablation_rows": [
+    {
+      "HR@10": 0.108,
+      "HR@20": 0.1755,
+      "HR@50": 0.3124,
+      "NDCG@10": 0.0586,
+      "NDCG@20": 0.0755,
+      "NDCG@50": 0.1025,
+      "actual_epochs": 16,
+      "auxiliary": "none",
+      "best_epoch": 11,
+      "delta_NDCG@10_vs_primary": 0.0,
+      "run_id": "stage3_primary_only_001",
+      "run_key": "primary_only",
+      "test_evaluation_count": 0
+    },
+    {
+      "HR@10": 0.1086,
+      "HR@20": 0.1779,
+      "HR@50": 0.3183,
+      "NDCG@10": 0.0593,
+      "NDCG@20": 0.0767,
+      "NDCG@50": 0.1043,
+      "actual_epochs": 22,
+      "auxiliary": "is_click",
+      "best_epoch": 17,
+      "delta_NDCG@10_vs_primary": 0.0006999999999999992,
+      "run_id": "stage3_aux_click_001",
+      "run_key": "click",
+      "test_evaluation_count": 0
+    },
+    {
+      "HR@10": 0.1083,
+      "HR@20": 0.1736,
+      "HR@50": 0.3117,
+      "NDCG@10": 0.0586,
+      "NDCG@20": 0.075,
+      "NDCG@50": 0.1022,
+      "actual_epochs": 14,
+      "auxiliary": "long_view",
+      "best_epoch": 9,
+      "delta_NDCG@10_vs_primary": 0.0,
+      "run_id": "stage3_aux_long_view_001",
+      "run_key": "long_view",
+      "test_evaluation_count": 0
+    },
+    {
+      "HR@10": 0.108,
+      "HR@20": 0.1777,
+      "HR@50": 0.315,
+      "NDCG@10": 0.0587,
+      "NDCG@20": 0.0762,
+      "NDCG@50": 0.1033,
+      "actual_epochs": 16,
+      "auxiliary": "is_like",
+      "best_epoch": 11,
+      "delta_NDCG@10_vs_primary": 0.00010000000000000286,
+      "run_id": "stage3_aux_like_001",
+      "run_key": "like",
+      "test_evaluation_count": 0
+    },
+    {
+      "HR@10": 0.1088,
+      "HR@20": 0.1737,
+      "HR@50": 0.3141,
+      "NDCG@10": 0.059,
+      "NDCG@20": 0.0752,
+      "NDCG@50": 0.103,
+      "actual_epochs": 16,
+      "auxiliary": "is_profile_enter",
+      "best_epoch": 11,
+      "delta_NDCG@10_vs_primary": 0.0003999999999999976,
+      "run_id": "stage3_aux_profile_enter_001",
+      "run_key": "profile_enter",
+      "test_evaluation_count": 0
+    }
+  ],
+  "auxiliary_pairwise_rows": [
+    {
+      "conflict_fraction": 0.2,
+      "diagnostic_batches": 5,
+      "left": "is_click",
+      "mean_cosine": 0.07951422370970249,
+      "median_cosine": 0.07234564423561096,
+      "right": "is_like"
+    },
+    {
+      "conflict_fraction": 0.4,
+      "diagnostic_batches": 5,
+      "left": "is_click",
+      "mean_cosine": 0.013918250054121017,
+      "median_cosine": 0.021206120029091835,
+      "right": "is_profile_enter"
+    },
+    {
+      "conflict_fraction": 0.2,
+      "diagnostic_batches": 5,
+      "left": "is_click",
+      "mean_cosine": 0.5975586615502835,
+      "median_cosine": 0.7391908168792725,
+      "right": "long_view"
+    },
+    {
+      "conflict_fraction": 0.2,
+      "diagnostic_batches": 5,
+      "left": "is_like",
+      "mean_cosine": 0.026991212368011476,
+      "median_cosine": 0.05170334503054619,
+      "right": "is_profile_enter"
+    },
+    {
+      "conflict_fraction": 0.6,
+      "diagnostic_batches": 5,
+      "left": "long_view",
+      "mean_cosine": 0.0287578746676445,
+      "median_cosine": -0.00579265458509326,
+      "right": "is_like"
+    },
+    {
+      "conflict_fraction": 0.6,
+      "diagnostic_batches": 5,
+      "left": "long_view",
+      "mean_cosine": -0.00743680443847552,
+      "median_cosine": -0.0005530769121833146,
+      "right": "is_profile_enter"
+    }
+  ],
+  "gradient_rows": [
+    {
+      "auxiliary": "is_click",
+      "conflict_fraction": 0.2,
+      "diagnostic_batches": 5,
+      "median_cosine": 0.042757000774145126,
+      "median_norm_ratio": 0.14128976476321622,
+      "q25_cosine": 0.027536597102880478,
+      "q75_cosine": 0.05652281269431114
+    },
+    {
+      "auxiliary": "long_view",
+      "conflict_fraction": 0.0,
+      "diagnostic_batches": 3,
+      "median_cosine": 0.021946493536233902,
+      "median_norm_ratio": 0.1563636402778971,
+      "q25_cosine": 0.014323642710223794,
+      "q75_cosine": 0.030098535120487213
+    },
+    {
+      "auxiliary": "is_like",
+      "conflict_fraction": 0.5,
+      "diagnostic_batches": 4,
+      "median_cosine": 0.030797325889579952,
+      "median_norm_ratio": 0.4343426385203295,
+      "q25_cosine": -0.007522348023485392,
+      "q75_cosine": 0.06485113874077797
+    },
+    {
+      "auxiliary": "is_profile_enter",
+      "conflict_fraction": 0.25,
+      "diagnostic_batches": 4,
+      "median_cosine": 0.0006621200882364064,
+      "median_norm_ratio": 0.3254468014300077,
+      "q25_cosine": -0.012467134874896146,
+      "q75_cosine": 0.004936505749356002
+    }
+  ],
+  "primary_aware_assessment": {
+    "harmful_auxiliary_targets": [],
+    "helpful_auxiliary_targets": [
+      "is_click",
+      "is_like",
+      "is_profile_enter"
+    ],
+    "median_cosine_delta_pearson": 0.2625792416988971,
+    "primary_aware_hypothesis_support": "weak_or_mixed"
+  },
+  "primary_ndcg10": 0.0586,
+  "run_group": "stage3_auxiliary_analysis_001",
+  "source_artifacts": {
+    "all_current_aux_diagnostic": "experiments/stage3_auxiliary_analysis/runs/stage3_all_current_aux_diagnostic_001.json",
+    "click": "experiments/stage3_auxiliary_analysis/runs/stage3_aux_click_001.json",
+    "like": "experiments/stage3_auxiliary_analysis/runs/stage3_aux_like_001.json",
+    "long_view": "experiments/stage3_auxiliary_analysis/runs/stage3_aux_long_view_001.json",
+    "primary_only": "experiments/stage3_auxiliary_analysis/runs/stage3_primary_only_001.json",
+    "profile_enter": "experiments/stage3_auxiliary_analysis/runs/stage3_aux_profile_enter_001.json"
+  },
+  "slurm_provenance": [
+    {
+      "job_id": 4299312,
+      "notes": "CPU-only target audit, TEST=0.",
+      "partition": "cpu-e-quick",
+      "role": "target_audit",
+      "status": "COMPLETED"
+    },
+    {
+      "job_id": 4299311,
+      "notes": "One-epoch sanity run with two training batches, finite diagnostics, TEST=0.",
+      "partition": "test",
+      "role": "sanity_click",
+      "status": "COMPLETED"
+    },
+    {
+      "job_id": 4299376,
+      "notes": "Produced stage3_primary_only_001.json.",
+      "partition": "gpu-ef-quick",
+      "role": "primary_only",
+      "status": "COMPLETED"
+    },
+    {
+      "job_id": 4299449,
+      "notes": "Final JSON was written as COMPLETE; partial file removed; TEST=0.",
+      "partition": "test",
+      "role": "click",
+      "status": "TIMEOUT"
+    },
+    {
+      "job_id": 4299450,
+      "notes": "Produced stage3_aux_long_view_001.json.",
+      "partition": "test",
+      "role": "long_view",
+      "status": "COMPLETED"
+    },
+    {
+      "job_id": 4299451,
+      "notes": "Produced stage3_aux_like_001.json.",
+      "partition": "test",
+      "role": "like",
+      "status": "COMPLETED"
+    },
+    {
+      "job_id": 4299452,
+      "notes": "Produced stage3_aux_profile_enter_001.json.",
+      "partition": "test",
+      "role": "profile_enter",
+      "status": "COMPLETED"
+    },
+    {
+      "job_id": 4299453,
+      "notes": "Produced stage3_all_current_aux_diagnostic_001.json.",
+      "partition": "test",
+      "role": "all_current_aux_diagnostic",
+      "status": "COMPLETED"
+    }
+  ],
+  "status": "COMPLETE",
+  "target_audit_rows": [
+    {
+      "ablated": "yes",
+      "current": "yes",
+      "field": "is_click",
+      "leakage_note": "Target-only same-interaction label; never used as an input feature.",
+      "missing_rate": 0.0,
+      "signal": "click",
+      "train_distribution": "pos=502248, rate=0.4623",
+      "train_observations": 1086518,
+      "type": "binary"
+    },
+    {
+      "ablated": "yes",
+      "current": "yes",
+      "field": "long_view",
+      "leakage_note": "Target-only same-interaction label; never used as an input feature.",
+      "missing_rate": 0.0,
+      "signal": "long_view",
+      "train_distribution": "pos=364383, rate=0.3354",
+      "train_observations": 1086518,
+      "type": "binary"
+    },
+    {
+      "ablated": "yes",
+      "current": "yes",
+      "field": "is_like",
+      "leakage_note": "Target-only same-interaction label; never used as an input feature.",
+      "missing_rate": 0.0,
+      "signal": "like",
+      "train_distribution": "pos=20232, rate=0.0186",
+      "train_observations": 1086518,
+      "type": "binary"
+    },
+    {
+      "ablated": "yes",
+      "current": "yes",
+      "field": "is_profile_enter",
+      "leakage_note": "Target-only same-interaction label; never used as an input feature.",
+      "missing_rate": 0.0,
+      "signal": "profile_enter",
+      "train_distribution": "pos=27730, rate=0.0255",
+      "train_observations": 1086518,
+      "type": "binary"
+    },
+    {
+      "ablated": "no",
+      "current": "no",
+      "field": "is_follow",
+      "leakage_note": "Target-only same-interaction label; omitted from first ablation pass due to rarity and model-scope change.",
+      "missing_rate": 0.0,
+      "signal": "follow",
+      "train_distribution": "pos=1046, rate=0.0010",
+      "train_observations": 1086518,
+      "type": "binary"
+    },
+    {
+      "ablated": "no",
+      "current": "no",
+      "field": "is_comment",
+      "leakage_note": "Target-only same-interaction label; omitted from first ablation pass due to rarity and model-scope change.",
+      "missing_rate": 0.0,
+      "signal": "comment",
+      "train_distribution": "pos=2818, rate=0.0026",
+      "train_observations": 1086518,
+      "type": "binary"
+    },
+    {
+      "ablated": "no",
+      "current": "no",
+      "field": "is_forward",
+      "leakage_note": "Target-only same-interaction label; omitted from first ablation pass due to rarity and model-scope change.",
+      "missing_rate": 0.0,
+      "signal": "forward",
+      "train_distribution": "pos=1065, rate=0.0010",
+      "train_observations": 1086518,
+      "type": "binary"
+    },
+    {
+      "ablated": "no",
+      "current": "no",
+      "field": "is_hate",
+      "leakage_note": "Target-only same-interaction label; omitted from first ablation pass due to extreme rarity and negative-feedback semantics.",
+      "missing_rate": 0.0,
+      "signal": "hate",
+      "train_distribution": "pos=458, rate=0.0004",
+      "train_observations": 1086518,
+      "type": "binary"
+    },
+    {
+      "ablated": "no",
+      "current": "no",
+      "field": "play_time_ms",
+      "leakage_note": "Continuous post-exposure signal; requires a separate regression/survival objective before fair ablation.",
+      "missing_rate": 0.0,
+      "signal": "play_time",
+      "train_distribution": "mean=23109.0289, median=4938.0000, p90=69410.3000",
+      "train_observations": 1086518,
+      "type": "continuous"
+    },
+    {
+      "ablated": "no",
+      "current": "no",
+      "field": "play_ratio",
+      "leakage_note": "Continuous post-exposure signal; requires a separate regression/survival objective before fair ablation.",
+      "missing_rate": 0.02093016406539054,
+      "signal": "play_ratio",
+      "train_distribution": "mean=0.3696, median=0.1021, p90=1.0377",
+      "train_observations": 1086518,
+      "type": "continuous"
+    }
+  ],
+  "target_audit_source": "experiments/stage3_auxiliary_analysis/runs/stage3_target_audit_001.json",
+  "test_evaluation_count": 0,
+  "test_used": false
+}
