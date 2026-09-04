@@ -1,6 +1,8 @@
-# TiM4Rec Table 3 KuaiRand
+# Опубликованные результаты TiM4Rec из таблицы 3 для KuaiRand
 
-| Method | Year | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 |
+Эта таблица фиксирует опубликованный бенчмарк из статьи TiM4Rec и связанных работ. Она нужна как внешний ориентир: строки ниже не являются результатами наших запусков и не должны смешиваться с метриками воспроизведения из [../experiments/results.csv](../experiments/results.csv).
+
+| Метод | Год | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | [Caser](https://dl.acm.org/doi/10.1145/3159652.3159656) | 2018 | 0.0801 | 0.1344 | 0.2561 | 0.0395 | 0.0531 | 0.0770 |
 | [GRU4Rec](https://openreview.net/forum?id=yoffK5KZSgQ) | 2016 | 0.1020 | 0.1659 | 0.3017 | 0.0564 | 0.0724 | 0.0911 |
@@ -12,7 +14,9 @@
 | [SSD4Rec*](https://dl.acm.org/doi/10.1145/3773038) | 2024 | 0.1055 | 0.1717 | 0.3088 | 0.0588 | 0.0754 | 0.1024 |
 | [TiM4Rec](https://www.sciencedirect.com/science/article/abs/pii/S0925231225019423) | 2025 | 0.1109 | 0.1774 | 0.3202 | 0.0611 | 0.0779 | 0.1060 |
 
-## Related 2026 work
+## Связанные работы 2026 года
 
-- [Multi-Task Multi-Behavior Sequential Recommendation](https://dl.acm.org/doi/10.1145/3774904.3792187) (WWW 2026) is thematically relevant, but its results are not added to the benchmark table because its experimental setting/protocol is not confirmed as directly comparable with the TiM4Rec KuaiRand benchmark protocol.
-- [Automated Information Flow Selection for Multi-scenario Multi-task Recommendation (AutoIFS)](https://dl.acm.org/doi/10.1145/3773966.3777992) (WSDM 2026) is thematically relevant, but its results are not added to the benchmark table because its experimental setting/protocol is not confirmed as directly comparable with the TiM4Rec KuaiRand benchmark protocol.
+- [Multi-Task Multi-Behavior Sequential Recommendation](https://dl.acm.org/doi/10.1145/3774904.3792187) (WWW 2026) тематически близка к проекту, но её результаты не добавлены в таблицу: текущий экспериментальный протокол не подтверждён как прямо сопоставимый с KuaiRand benchmark из TiM4Rec.
+- [Automated Information Flow Selection for Multi-scenario Multi-task Recommendation (AutoIFS)](https://dl.acm.org/doi/10.1145/3773966.3777992) (WSDM 2026) также релевантна тематически, но не используется как численная строка сравнения без отдельной проверки совместимости протокола.
+
+Не следует делать заявления о новизне только из этой таблицы. Она показывает внешний контекст, а не доказывает преимущество текущего метода проекта.

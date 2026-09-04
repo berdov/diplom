@@ -1,52 +1,199 @@
-# KuaiRand multi-objective sequential recommendation
+# Дипломный проект
 
-Дипломный проект по последовательным рекомендательным системам на KuaiRand. Основная цель - воспроизводимый Protocol B benchmark и сравнение baseline/SSD/TiM4Rec с multitask-подходом и текущим multi-objective benchmark.
+Репозиторий посвящён последовательным рекомендательным системам на KuaiRand: базовая архитектура — TiM4Rec, основная задача — предсказание следующего объекта, дальнейшее развитие идёт через многозадачное обучение (MTL) и многокритериальную оптимизацию (MOO).
 
-## Dataset / Protocol B
+## 1. Научная постановка
 
-Используется KuaiRand с 5-core фильтрацией, chronological ordering внутри пользователя и leave-one-out split.
+TiM4Rec исходно решает одну задачу: рекомендацию следующего объекта. В этом проекте проверяется, можно ли улучшить основную задачу ранжирования за счёт нескольких вспомогательных поведенческих сигналов: клика, долгого просмотра, лайка и перехода в профиль.
 
-| Split | Rows |
+После воспроизведения базовых моделей исследуются методы MOO, которые согласуют функцию потерь основной задачи с функциями потерь вспомогательных поведенческих задач. Основная задача остаётся приоритетной. Улучшение вспомогательных задач без улучшения ранжирования следующего объекта не считается самостоятельной целью проекта.
+
+## 2. Данные
+
+Рабочий протокол построен на KuaiRand-Pure / KuaiRand-27K и использует стандартный журнал взаимодействий KuaiRand-Pure. После итеративной 5-core фильтрации контрольный отпечаток (fingerprint) из [outputs/data/protocol_b_manifest.json](outputs/data/protocol_b_manifest.json) совпадает с ожидаемым бенчмарком:
+
+| Показатель | Значение |
 | --- | ---: |
-| Users | 23,951 |
-| Items | 7,111 |
-| Interactions | 1,134,420 |
-| Train | 1,086,518 |
-| Validation | 23,951 |
-| Test | 23,951 |
+| Пользователи | 23 951 |
+| Объекты | 7 111 |
+| Взаимодействия | 1 134 420 |
+| Взаимодействия в train | 1 086 518 |
+| Взаимодействия в validation | 23 951 |
+| Взаимодействия в test | 23 951 |
+| Максимальная длина последовательности | 50 |
 
-Код подготовки: [src/prepare_kuairand_protocol_b.py](src/prepare_kuairand_protocol_b.py). Manifest и compact fingerprints лежат в [outputs/data](outputs/data). Отчёт по протоколу: [reports/kuairand_protocol_b_data_report.md](reports/kuairand_protocol_b_data_report.md).
+Разбиение — хронологический leave-one-out: для каждого пользователя последняя запись уходит в тестовую выборку, предпоследняя — в валидационную выборку, более ранняя история — в обучающую выборку.
 
-## Baselines
+Подробный отчёт по данным: [reports/kuairand_protocol_b_data_report.md](reports/kuairand_protocol_b_data_report.md). Расширенный EDA полного KuaiRand-27K: [reports/kuairand_27k_eda_report.md](reports/kuairand_27k_eda_report.md).
 
-В репозитории сохранены воспроизводимые реализации и compact results для:
+## 3. Протокол B
 
-- SSD4Rec reproduction: [experiments/ssd4rec_baseline](experiments/ssd4rec_baseline);
-- TiM4Rec reproduction: [experiments/tim4rec_baseline](experiments/tim4rec_baseline);
-- XGBoost/Random/MostPopular full-ranking baselines: [experiments/ltr_xgb_baseline](experiments/ltr_xgb_baseline).
+Протокол B фиксирует воспроизводимую схему подготовки и оценки, совместимую с опубликованным KuaiRand benchmark для SSD4Rec и TiM4Rec:
 
-## Current Method
+- порядок взаимодействий задаётся временем, при равных timestamp используется `source_row_id`;
+- история для валидационной выборки содержит только обучающую часть истории пользователя;
+- история для тестовой выборки содержит обучающую и валидационную части;
+- целевой объект исключается из контекста и остаётся только целью предсказания;
+- повторяющиеся целевые объекты остаются оцениваемыми, если они возникают в хронологической истории;
+- метрики в основных таблицах считаются как ранжирование по полному набору из 7 111 объектов.
 
-Текущий исследовательский фокус: `MultitaskTiM4Rec` и benchmark восьми MOO families: STCH, FAMO, PCGrad, EPO, GradHV, PHN, COSMOS и PaLoRA. Активная tuning-инфраструктура для EPO/GradHV/COSMOS/PCGrad хранится в [experiments/moo_8families](experiments/moo_8families), [configs/moo_tuning_spaces.yaml](configs/moo_tuning_spaces.yaml) и [slurm/moo_tuning.sh](slurm/moo_tuning.sh).
+В отдельных строках артефактов может встречаться `sampled-100`: это относится к построению кандидатов или обучению некоторых базовых моделей. Его нельзя смешивать с оценкой ранжирования по полному набору объектов; итоговые бенчмарк-метрики в [experiments/results.csv](experiments/results.csv) помечены `full_7111_items`.
 
-## Results
+## 4. Базовые модели
 
-Machine-readable source of truth: [experiments/results.csv](experiments/results.csv).
+В репозитории зафиксированы следующие базовые модели:
 
-Human-readable project summary: [reports/RESULTS.md](reports/RESULTS.md).
+| Run | Модель | Роль | TEST NDCG@10 |
+| --- | --- | --- | ---: |
+| `random_002` | Random | нижняя граница качества | 0.0006 |
+| `mostpop_002` | MostPopular | базовая модель по популярности | 0.0167 |
+| `ltr_xgb_002` | XGBoost LambdaMART | базовая модель ранжирования | 0.0150 |
+| `ltr_xgb_optuna_001` | XGBoost LambdaMART | базовая модель после настройки Optuna | 0.0177 |
+| `ssd4rec_001` | SSD4Rec | воспроизведение | 0.0576 |
+| `tim4rec_001` | TiM4Rec | воспроизведение | 0.0598 |
 
-Published benchmark: [reports/PAPER_RESULTS.md](reports/PAPER_RESULTS.md).
+Полные метрики HR@K и NDCG@K находятся в [experiments/results.csv](experiments/results.csv) и сводном отчёте [reports/RESULTS.md](reports/RESULTS.md).
 
-8-family MOO benchmark: [reports/MOO_FAMILIES.md](reports/MOO_FAMILIES.md).
+## 5. Воспроизведение TiM4Rec
 
-MOO experiment history and budgeted top-4 tuning snapshot: [reports/MOO_EXPERIMENT_HISTORY.md](reports/MOO_EXPERIMENT_HISTORY.md).
+Важно различать опубликованный результат и наше воспроизведение:
 
-## Repository Structure
+| Источник | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| TiM4Rec paper | 0.1109 | 0.1774 | 0.3202 | 0.0611 | 0.0779 | 0.1060 |
+| `tim4rec_001`, наше воспроизведение | 0.1053 | 0.1696 | 0.3031 | 0.0598 | 0.0759 | 0.1022 |
 
-- [src](src) - preprocessing and EDA code;
-- [configs](configs) - dataset and tuning configs;
-- [experiments](experiments) - experiment code plus compact canonical results;
-- [outputs](outputs) - dataset manifests and compact fingerprints;
-- [reports](reports) - final human-readable reports;
-- [slurm](slurm) - cluster entrypoints for Protocol B, canonical reproductions and current MOO work;
-- [notebooks](notebooks) - EDA notebook.
+Опубликованная таблица сохранена отдельно: [reports/PAPER_RESULTS.md](reports/PAPER_RESULTS.md). Наше воспроизведение хранится как строка `tim4rec_001` в [experiments/results.csv](experiments/results.csv).
+
+## 6. Многозадачное обучение
+
+Текущий набор задач:
+
+| Роль | Задача |
+| --- | --- |
+| Основная задача | `next_item` |
+| Вспомогательная задача | `is_click` |
+| Вспомогательная задача | `long_view` |
+| Вспомогательная задача | `is_like` |
+| Вспомогательная задача | `is_profile_enter` |
+
+Вспомогательные выходные головы используют общее представление TiM4Rec. Это позволяет поведенческим сигналам влиять на общую часть модели, но требует аккуратной балансировки функций потерь: сильная вспомогательная задача не должна ухудшать основное ранжирование.
+
+## 7. Этап 0 — контрольная MTL-модель
+
+Этап 0 используется как контрольная многозадачная модель с фиксированными и настроенными весами функций потерь. Зафиксированный результат после настройки fixed-weight схемы:
+
+| Run | Split | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `multitask_tim4rec_tuned_001` | TEST | 0.1071 | 0.1746 | 0.3138 | 0.0598 | 0.0767 | 0.1042 |
+| `multitask_optuna_search_001` | validation | 0.1093 | 0.1722 | 0.3136 | 0.0599 | 0.0757 | 0.1036 |
+
+Валидационный Optuna-поиск `multitask_optuna_search_001` не использовал TEST.
+
+## 8. Этап 1 — первичный отбор 8 семейств MOO
+
+Этап 1 — первичный отбор представителей и адаптаций восьми семейств MOO только по валидационной выборке. Это не восемь гарантированно точных воспроизведений опубликованных реализаций и не таблица результатов по TEST.
+
+| Метод | Run | NDCG@10 на валидационной выборке |
+| --- | --- | ---: |
+| EPO | `epo_convergence_001` | 0.0584 |
+| GradHV-style | `gradhv_convergence_001` | 0.0486 |
+| COSMOS-style | `cosmos_convergence_001` | 0.0453 |
+| PCGrad | `pcgrad_convergence_001` | 0.0444 |
+| STCH | `stch_convergence_001` | 0.0424 |
+| PHN-adapter | `phn_convergence_001` | 0.0423 |
+| PaLoRA | `palora_convergence_001` | 0.0422 |
+| FAMO | `famo_convergence_001` | 0.0412 |
+
+Подробная таксономия: [reports/MOO_FAMILIES.md](reports/MOO_FAMILIES.md). Полная история запусков: [reports/MOO_EXPERIMENT_HISTORY.md](reports/MOO_EXPERIMENT_HISTORY.md).
+
+## 9. Этап 2 — настройка четырёх лучших MOO-подходов
+
+После этапа 1 в настройку гиперпараметров были взяты EPO, GradHV, COSMOS и PCGrad. Этап 2 — ограниченный по времени срез только по валидационной выборке, а не бенчмарк с равным числом запусков.
+
+| Метод | NDCG@10 после первичного отбора | NDCG@10 после настройки | Изменение |
+| --- | ---: | ---: | ---: |
+| EPO | 0.0584 | 0.0588 | +0.0004 |
+| GradHV | 0.0486 | 0.0488 | +0.0002 |
+| COSMOS | 0.0453 | 0.0455 | +0.0002 |
+| PCGrad | 0.0444 | 0.0464 | +0.0020 |
+
+EPO дал лучший наблюдавшийся результат среди исследованных MOO-подходов в рамках текущего экспериментального бюджета: NDCG@10 на валидационной выборке `0.0588`. Это не утверждение, что EPO является лучшим MOO-методом вообще.
+
+Незавершённый устаревший запуск EPO `0006` не считается финальным. Неуспешный запуск COSMOS `0009`, остановленный защитным условием `preference_sensitivity`, не считается успешным результатом.
+
+## 10. Этап 3 — анализ вспомогательных задач
+
+Этап 3 проверяет вклад отдельных вспомогательных задач в основное ранжирование на валидационной выборке.
+
+| Run | Вспомогательная задача | NDCG@10 на валидационной выборке | Изменение относительно модели без вспомогательных задач |
+| --- | --- | ---: | ---: |
+| `stage3_primary_only_001` | нет | 0.0586 | 0.0000 |
+| `stage3_aux_click_001` | `is_click` | 0.0593 | +0.0007 |
+| `stage3_aux_long_view_001` | `long_view` | 0.0586 | +0.0000 |
+| `stage3_aux_like_001` | `is_like` | 0.0587 | +0.0001 |
+| `stage3_aux_profile_enter_001` | `is_profile_enter` | 0.0590 | +0.0004 |
+
+В этом диагностическом запуске `is_click` дал лучший результат среди вариантов с одной вспомогательной задачей. Полный отчёт: [reports/STAGE3_AUXILIARY_ANALYSIS.md](reports/STAGE3_AUXILIARY_ANALYSIS.md).
+
+## 11. Этап 3 — диагностика градиентных взаимодействий
+
+Градиенты измерялись на общей части базовой архитектуры TiM4Rec без выходных голов отдельных задач.
+
+| Вспомогательная задача | Batches | Median norm ratio | Median cosine | Conflict rate |
+| --- | ---: | ---: | ---: | ---: |
+| `is_click` | 5 | 0.1413 | 0.0428 | 0.2000 |
+| `long_view` | 3 | 0.1564 | 0.0219 | 0.0000 |
+| `is_like` | 4 | 0.4343 | 0.0308 | 0.5000 |
+| `is_profile_enter` | 4 | 0.3254 | 0.0007 | 0.2500 |
+
+Связь между конфликтом градиентов и полезностью вспомогательной задачи в текущем диагностическом эксперименте оказалась слабой или неоднозначной. Ограничения: один seed, малое число измеренных batches, разведочный характер диагностики, отсутствие причинного доказательства.
+
+## 12. Текущий этап — EPO + MoE
+
+Текущий эксперимент исследует смесь экспертов (Mixture of Experts, MoE) поверх TiM4Rec + MTL + EPO:
+
+| Вариант | Смысл |
+| --- | --- |
+| M0 | EPO без MoE |
+| M2 | EPO + MoE с 2 экспертами |
+| M4 | EPO + MoE с 4 экспертами |
+| M8 | EPO + MoE с 8 экспертами |
+
+Во всех вариантах сохраняются одна базовая архитектура, один набор задач, одна настройка EPO и выбор только по валидационной выборке. Меняется только наличие и число экспертов. Текущая реализация MoE является плотной (dense): вычисляются все эксперты, а отдельный механизм маршрутизации для каждой задачи смешивает их выходы. Это не разреженная top-k MoE.
+
+Зафиксированные в репозитории артефакты пока не содержат результатов M0/M2/M4/M8: в [experiments/epo_moe/summary.json](experiments/epo_moe/summary.json) все валидационные запуски имеют status `missing`. Slurm jobs `4300861`, `4300862`, `4300863`, `4300864` были запущены отдельно; их результаты не добавлены в этот documentation PR.
+
+## 13. Правила использования TEST
+
+Этапы 1, 2, 3 и текущий выбор архитектуры EPO + MoE не используют TEST для выбора модели, настройки гиперпараметров или выбора архитектуры. TEST предназначен для финальной frozen evaluation после фиксации метода и протокола выбора.
+
+Это не означает, что тестовая выборка вообще никогда не открывалась в проекте: исторические строки базовых моделей и воспроизведений в [experiments/results.csv](experiments/results.csv) содержат TEST evaluations.
+
+## 14. Где смотреть результаты
+
+- [experiments/results.csv](experiments/results.csv) — машиночитаемый источник фактов для базовых моделей, TiM4Rec, MTL и этапов 1/2/3.
+- [reports/RESULTS.md](reports/RESULTS.md) — краткая русскоязычная сводка результатов.
+- [reports/MOO_EXPERIMENT_HISTORY.md](reports/MOO_EXPERIMENT_HISTORY.md) — подробная история MOO-запусков.
+- [reports/STAGE3_AUXILIARY_ANALYSIS.md](reports/STAGE3_AUXILIARY_ANALYSIS.md) — анализ вспомогательных задач и градиентов.
+- [reports/EPO_MOE_BENCHMARK.md](reports/EPO_MOE_BENCHMARK.md) — текущий эксперимент EPO + MoE только по валидационной выборке.
+
+## 15. Структура репозитория
+
+- [configs](configs) — конфигурации данных и настройки MOO.
+- [src](src) — preprocessing и EDA-код.
+- [experiments](experiments) — код экспериментов и компактные canonical artifacts.
+- [reports](reports) — человекочитаемые отчёты.
+- [slurm](slurm) — entrypoints для кластерных запусков.
+- [outputs](outputs) — manifests и compact fingerprints.
+
+## 16. Текущая точка проекта
+
+- протокол B готов;
+- воспроизведение TiM4Rec готово;
+- MTL-базовая модель готова;
+- benchmark восьми семейств MOO готов;
+- этап 2 завершён как ограниченный по бюджету срез настройки только по валидационной выборке;
+- этап 3 завершён как диагностический анализ вспомогательных задач;
+- EPO + MoE — текущий эксперимент;
+- собственный финальный метод ещё не зафиксирован.

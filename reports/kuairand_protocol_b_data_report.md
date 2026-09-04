@@ -1,13 +1,13 @@
-# Отчёт по данным KuaiRand Protocol B
+# Отчёт по данным KuaiRand протокола B
 
-Отчёт построен по фактическому полному препроцессингу на cHARISMa. Большие обработанные датасеты сохранены во внешнем каталоге, в Git попадают только код, конфигурация, manifest, checksums и компактные stats.
+Отчёт построен по фактическому полному preprocessing на cHARISMa. Большие обработанные датасеты сохранены во внешнем каталоге, в Git попадают только код, конфигурация, manifest, checksums и компактная статистика.
 
 ## 1. Протокол из источников
 
 - Статья SSD4Rec: https://arxiv.org/html/2409.01192v1.
 - Статья TiM4Rec: https://arxiv.org/html/2409.16182v1.
 - Официальный репозиторий TiM4Rec: https://github.com/AlwaysFHao/TiM4Rec.
-- SSD4Rec: бенчмарк KuaiRand имеет контрольный fingerprint `23,951 users / 7,111 items / 1,134,420 interactions`, использует leave-one-out разбиение по SASRec и `MAX_ITEM_LIST_LENGTH=50` для KuaiRand.
+- SSD4Rec: бенчмарк KuaiRand имеет контрольный отпечаток (fingerprint) `23,951 users / 7,111 items / 1,134,420 interactions`, использует leave-one-out разбиение по SASRec и `MAX_ITEM_LIST_LENGTH=50` для KuaiRand.
 - TiM4Rec: сортировка по timestamp, минимум 5 interactions для users/items, тот же fingerprint `23,951 / 7,111 / 1,134,420`.
 - Официальный config TiM4Rec `config/config4kuai_64d.yaml` задаёт `MAX_ITEM_LIST_LENGTH=50`, `load_col=[user_id,item_id,timestamp]`, `user_inter_num_interval=[5,inf)`, `item_inter_num_interval=[5,inf)`, `train_neg_sample_args=~`, но не задаёт явный `eval_args`.
 - Поэтому для TiM4Rec применяется стандартная sequential-настройка RecBole 1.2.0: `{'split': {'LS': 'valid_and_test'}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}`.
