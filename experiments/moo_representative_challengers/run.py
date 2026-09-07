@@ -87,10 +87,12 @@ def execute(args,config,input_config,artifact,payload,guard):
     from experiments.multitask_tim4rec_optuna import optuna_search as data_helpers
     from recbole.data import utils as data_utils
     from .methods.most import MosT
+    from .data_integrity import validation_source_ids
     from .training import train_epoch, evaluate, parameter_hash, parameter_snapshot, update_deltas
     factory = guard.loader_factory(data_utils.get_dataloader)
     data_utils.get_dataloader = factory
     data_helpers.get_dataloader = factory
+    data_helpers.validation_source_ids = validation_source_ids
     # The imported historical module supplies pure helpers only. Disable accidental study creation.
     def no_study(*a,**kw): raise RuntimeError('Optuna execution forbidden for challengers')
     data_helpers.optuna.create_study = no_study
@@ -133,6 +135,10 @@ def execute(args,config,input_config,artifact,payload,guard):
         batches=config['normalization']['diagnostic_batches'],selector=config['normalization']['gradient_selector'])
     payload['normalization']=normalization
     payload['loader_inspection']=data.loader_inspection
+    payload['validation_id_integrity']={'source':'existing VALID inter, read-only in-memory extraction',
+        'valid_file_sha256':data.validation_only_summary['files']['valid_inter_sha256'],
+        'original_sidecar_sha256':data.validation_only_summary['files']['validation_source_row_ids_sha256'],
+        'both_checksums_verified':True,'shared_files_written':False}
     payload['sampled_locked_parameters']=sampled
     payload['training']={'epochs':[],'best_epoch':None,'early_stopping':old.early_stopping_config_for_stage(config,args.stage),
                          'learning_rate':sampled['learning_rate'],'optimizer_learning_rates':old.optimizer_learning_rates(optimizers),

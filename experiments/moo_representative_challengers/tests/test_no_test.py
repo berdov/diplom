@@ -60,3 +60,17 @@ def test_cli_rejects_test_and_tuning_before_importing_dataset():
         result=subprocess.run([sys.executable,'-m','experiments.moo_representative_challengers.run',
             '--method','ferero','--stage',stage],cwd=ROOT,capture_output=True,text=True)
         assert result.returncode==2 and 'invalid choice' in result.stderr
+
+
+def test_validation_ids_require_both_original_checksums(tmp_path):
+    import hashlib
+    from experiments.moo_representative_challengers.data_integrity import validation_source_ids
+    p=tmp_path/'valid.inter'; p.write_text('source_row_id:float\titem_id:token\n19\t2\n7\t3\n')
+    summary={'valid_inter_path':str(p),'protocol_fingerprint':{'validation':2},'files':{
+        'valid_inter_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),
+        'validation_source_row_ids_sha256':hashlib.sha256(b'7\n19\n').hexdigest()}}
+    assert validation_source_ids(summary)=={7,19}
+    broken=deepcopy(summary); broken['files']['validation_source_row_ids_sha256']='0'*64
+    with pytest.raises(RuntimeError): validation_source_ids(broken)
+    p.write_text('source_row_id:float\titem_id:token\n19\t9\n7\t3\n')
+    with pytest.raises(RuntimeError): validation_source_ids(summary)

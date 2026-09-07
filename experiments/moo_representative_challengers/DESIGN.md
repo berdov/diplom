@@ -153,6 +153,15 @@ processed/validation-only data и создание любого loader кром�
 Ограничение механизма: это Python audit hook и guarded factory, не OS sandbox для
 произвольного нативного кода. Используемые loaders читают через Python API.
 
+На 2026-09-07 Lustre OST 0 недоступен, включая redundant sidecar
+`validation_source_row_ids.txt`. Новый helper получает те же IDs в памяти из
+существующего VALID inter и требует совпадения двух исходных SHA256: всего VALID
+файла и сериализованных IDs с original preparation manifest. На shared данных
+проверены 23 951 уникальных IDs; SHA256 sidecar совпал:
+`77eda119907aead31cb717f8cdf1bd2988729c07e48a30c4122db75b34e297f9`.
+Данные и sidecar не пересоздаются/не копируются. Старый helper-файл не меняется;
+подстановка действует только в процессе нового runner. Несовпадение checksum — fail.
+
 Slurm использует отдельный checkout, опубликованный SHA, rocky/type_e/A100,
 4 CPU и 24h. Requeue отключён: неполный run сохраняется и не перезаписывается.
 Автоматического resume нет; после preemption потребуется отдельное решение.
