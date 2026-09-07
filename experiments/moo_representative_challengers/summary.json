@@ -1,0 +1,20 @@
+{
+  "test_evaluation_count": 0,
+  "canonical": false,
+  "references": {
+    "epo": {
+      "stage1_ndcg10": 0.0584,
+      "stage2_ndcg10": 0.0588
+    },
+    "gradhv": {
+      "stage1_ndcg10": 0.0486,
+      "stage2_ndcg10": 0.0488,
+      "selection_caveat": "Historical GradHV used best validation NDCG across solutions; MosT uses frozen scalarized rank_heavy score."
+    },
+    "phn_adapter": {
+      "stage1_ndcg10": 0.0423
+    }
+  },
+  "runs": [],
+  "interpretation": "Compare screening with Stage 1; Stage 2 tuning is supplementary context. No representative changes before human review."
+}

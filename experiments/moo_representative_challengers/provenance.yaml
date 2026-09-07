@@ -1,0 +1,126 @@
+test_evaluation_count: 0
+checked_at: '2026-09-07'
+reference_code_vendored: false
+methods:
+  ferero:
+    family: finite preference-guided
+    paper_reference_name: 'FERERO: A Flexible Framework for Preference-Guided Multi-Objective
+      Learning'
+    venue: NeurIPS 2024
+    paper_url: https://arxiv.org/abs/2412.01773
+    implementation_name: FERERO-adapter
+    representative_fidelity: method-level adaptation
+    exact_method_reproduction: false
+    upstream:
+      repository: lisha-chen/FERERO
+      commit: e350248c4e558173b740bc2ca1e02feb5e448253
+      license: No repository license found at pinned commit; source not vendored
+      files_sha256:
+        ASR/Modules/train.py: d2e56225579aa5a70aca978eb09753bf797aca22eb5138597c4b055785c0e409
+        README.md: fa5e98500eb8e18a37f74fc55285bf3f292e937fe3b50b4c14efaf549ad5a636
+        multiMNIST/ferero_solvers.py: cb147c8ecba719b6d422d1fb3c671428dd36fe99fbad34f84a97f1e35a4b039a
+        multiMNIST/ferero_train.py: c943f1b8b8ba05b89a1246c28dde80af59452bc518297f271657fade4adf3db8
+        requirements.txt: 9f5358718326bdf0e3a4aa45ca9a969788fdf76b4a705898726b5072fb7e0ead
+        toy_experiments/solvers/ferero.py: 5ed098fac5c657c7601747cae641700a77da3c9807d7582e78eda78632b62c86
+        toy_experiments/solvers/min_norm_solvers_numpy.py: 7ba1699ed0133985126549f1a6bd9cecf8ec8c34767570ecf63828dbbc28aa6c
+      deviations:
+      - Official simplex-dual PGD equality subproblem, generalized from two to five
+        tasks with the same normalized inverse-preference loss ray. Zero residual
+        fixes relative loss ratios; no task-performance threshold is introduced. The
+        paper classifies homogeneous ray equalities under its absolute-preference
+        formalism, not a cone-only relative order.
+      - Spectral step cap min(0.1,0.9/L) for numerical stability; agrees with official
+        toy solver when cap is inactive. No fallback to weighted sum.
+      - Shared-backbone Gram (as EPO benchmark); coefficients backpropagate through
+        all task heads. Frozen Adam replaces toy outer SGD.
+  most:
+    family: finite set without explicit preferences
+    paper_reference_name: Many-Objective Multi-Solution Transport
+    venue: ICLR 2025
+    paper_url: https://arxiv.org/abs/2403.04099
+    implementation_name: MosT-style adaptation
+    representative_fidelity: method-level adaptation
+    exact_method_reproduction: false
+    upstream:
+      repository: tianyi-lab/MosT
+      commit: 726f20179a9cefd3a0f0d82e7b2bf915d50914a1
+      license: No repository license found at pinned commit; source not vendored
+      files_sha256:
+        README.md: 7533b9770cf18ef28a4b2c046d454b175589949b9075bd14a66e7c0468eaaa8d
+        commondescentvector/common_descent_vector.py: c522de44a3a68b398ced52d16bdf212383bb000f53f8ecde2e09a7a410dd9448
+        commondescentvector/multi_objective_cdv.py: a2d440f032dbc0e5b5cb0b814f705279d440ae0cab6a8b88d5479f43a5fbe6f9
+        copsolver/copsolver.py: 4069ee9f4c4729dfc14c361fe0ba4d5646e864b3aaeead672d37225116d3e90e
+        copsolver/frank_wolfe_solver.py: 590db3cd80a51fb901bb2bc9c8c30b2cefa1ce0e18525309fda74c63da190aeb
+        federated_moo.py: 23de523af06db0863df905ebe8df8ff34b83b4c1123d557f878899037ad6671b
+        ipot.py: fcb6acc6c6f9a5df172121be2dc8eae588df4f10d3b13c06e54df8581462cf91
+        options.py: daab23dd846dd69b4efabb66a7573fb23f5863865c2c793aa45f149c4eccd187
+        update.py: 18812b4c3802ee266c818f76f832d936cbbf15f9f5ccabd75b137f9f54ac361d
+        zdt_moo.py: a6b5e0ed8592e5813fd9ea9041b0e6a3b7b980f090461aef941a9a3e09e6ff13
+      deviations:
+      - Five existing normalized objectives replace federated clients; minibatch gradients
+        replace local client parameter deltas; frozen Adam outer optimizer; three
+        independent TiM4Rec models.
+      - No warmup in centralized minibatch training; fixed set_obj_stepsize=1, no
+        decay, no gradient rescaling beyond train diagnostic losses.
+      - Official IPOT, adjusted marginals, conditional MGDA, masking, linearized cost
+        and EMA are retained. The pinned Frank-Wolfe solver returns after its first
+        iteration; this behavior is deliberately preserved, not silently repaired.
+      - In the MGDA branch official coefficients combine raw gradients after solving
+        on transport-weighted gradients; this convention is preserved. CPU-safe one-active-objective
+        case avoids upstream unconditional .cuda().
+  phn_hvi:
+    family: hypernetwork / Pareto-front learning
+    paper_reference_name: Improving Pareto Front Learning via Multi-Sample Hypernetworks
+    venue: AAAI 2023
+    paper_url: https://arxiv.org/abs/2212.01130
+    implementation_name: PHN-HVI-adapter
+    representative_fidelity: family-level adaptation
+    exact_method_reproduction: false
+    upstream:
+      repository: longhp1618/MultiSample-Hypernetworks
+      commit: 63e818a8bc780ceb5deeae28d56360d884b8c923
+      license: MIT
+      files_sha256:
+        Jura/functions_evaluation.py: 4662252f081809d2a4fc3e6136825e973872480a49622429512129cfd0d128f1
+        Jura/functions_hv_grad_3d.py: 1aa76ec8c9df86406a4e567b52b7af541b21fabcd81f61c250be8267552efdfb
+        Jura/functions_hv_python3.py: 19c9abc5ebb0f0e2df22883c1d01e8b099c5c8797b049b2bb9eca576380ab075
+        Jura/hv_maximization.py: 93cb36dda341ba98395cf173c2cc4ce76ba258758453665f3de070758e5b7d8f
+        Jura/phn/solvers.py: eb1f19fdaad35033a2a81c0071f046e22e33610f94fdc0ce2ca7019fbad581fd
+        Jura/trainer.py: acff4079056f7bf5bfc47a15b6b4d51cde79313a8cd78ed55be3c4d4261ce2db
+        LICENSE: b91714bce7e397cfbadbe6730e16a7e51cb45bad2469aefd218462838b49948f
+        Multi_MNIST/modules/functions_evaluation.py: 912443e7325567938c79557baa112f24a89066a824dea3a86fe8ca4a6b9ea61a
+        Multi_MNIST/modules/functions_hv_grad_3d.py: 310843d95ea7e12073b8544e0dd0cfead50210f5686ee0afe024a18020798bf5
+        Multi_MNIST/modules/functions_hv_python3.py: 19c9abc5ebb0f0e2df22883c1d01e8b099c5c8797b049b2bb9eca576380ab075
+        Multi_MNIST/modules/hv_maximization.py: 4dea0931abc953fe2201277be24d445a92b79d78b6e9232c29e960c36660fa08
+        Multi_MNIST/settings.py: 02955fb67c3fbd8d54824ab718fabd923fcc7218d77128e068e400b0fedee2bd
+        Multi_MNIST/trainer.py: 95092a0f0a9bf25090a5c6e31ee953e4a65d86125390966c48dd3ca8ddb45c0c
+        README.md: 7e33f94f2f4d483e11e87e01d315d0b315924ee291566b58d1a7943f465af537
+        SARCOS/phn/solvers.py: eb1f19fdaad35033a2a81c0071f046e22e33610f94fdc0ce2ca7019fbad581fd
+        SARCOS/trainer.py: 5bcf62c3c36fdfa7fdfc55441b3f40b9cc78670ad50b7fe3f00bac00abcdeb5f
+      deviations:
+      - Same 5→64→128 zero-initialized FiLM hypernetwork as historical PHN-adapter,
+        rather than generating all TiM4Rec parameters; full-network version is technically
+        feasible but adds about 65x generator parameter overhead. See DESIGN.md.
+      - HVI acts on minibatch-mean normalized task losses, matching the official Jura
+        trainer aggregation (Multi_MNIST additionally provides per-example HVI). Frozen
+        Adam/learning rate replaces Jura optimizer schedule.
+      - Eight preferences and cosine coefficient 0.001 frozen from official Jura defaults;
+        independent Dirichlet alpha=0.2 for five objectives. Existing six-point evaluation
+        grid.
+      - Independent inclusion-exclusion geometry matches official multifront normalized
+        HV gradients, duplicate handling and adaptive reference. Use official negative
+        cosine sign (paper equation 8 / code; printed equation 5 has conflicting sign).
+      - Two-pass RNG replay reduces peak activation memory; same gradient as joint
+        multi-sample backward. Preference input cloned to avoid mutable-buffer autograd
+        aliasing.
+      - No extra 30-epoch cosine-only Jura warmup; joint HVI+cosine begins at batch
+        one inside the shared screening budget. This is an explicit method adaptation.
+      - Existing preference vectors denote objective importance. The hypernetwork
+        receives these same vectors; cosine alignment uses the normalized inverse-priority
+        loss ray, as in EPO/FERERO loss-ray semantics. The official Jura trainer uses
+        its sampled vector directly as a loss ray. This reparameterization and induced
+        ray distribution are declared adaptations, frozen before data training.
+original_phn:
+  repository: AvivNavon/pareto-hypernetworks
+  commit: 6355fd28a05560806ba88ec898db4e6b46ba5ed9
+  license: MIT
