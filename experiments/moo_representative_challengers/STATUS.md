@@ -1,3 +1,9 @@
+> Повторная отправка: FERERO **4313101**, MosT **4313102**, PHN-HVI **4313103**.
+> Код jobs: `1a98ef966a2923a8f234b71602291b1c71ab82c3`, committed/pushed до sbatch.
+> Submission records: submissions/*_smoke_002.json; снимок очереди:
+> deployment/smoke_002_snapshot.json. Старые попытки сохранены; shared data/env
+> и научные параметры не менялись. Sanity/convergence ещё не отправлены.
+
 > Обновление 8 сентября, после 23:00 МСК: все smoke_001 завершились FAILED до
 > запуска Python: на compute node отсутствовал Git в PATH. Подтверждения сохранены
 > в deployment/smoke_001_failures.json. Исправлена загрузка shared Git module до
