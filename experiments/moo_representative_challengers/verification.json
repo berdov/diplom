@@ -1,7 +1,7 @@
 {
   "status": "passed",
-  "source_digest": "34372afb00b652bc5aa1e6fc347717345270ee34e6801de73522f1ad4a711bba",
-  "git_commit_at_verification": "eb33ef08e0283b66f761efe87e09c4a8f89051bc",
+  "source_digest": "7e0c116ce74aa40983b33704d9104da11452c6c501778cb60817e4f44171f95d",
+  "git_commit_at_verification": "f36746dcc6617177d91fdd2458164b90144f5435",
   "git_branch": "exp/moo-representative-challengers",
   "test_evaluation_count": 0,
   "dataset_loaded": false,
@@ -13,25 +13,25 @@
     {
       "name": "test_hvi_rng_replay_matches_joint_adapter_gradients[False]",
       "class": "experiments.moo_representative_challengers.tests.test_integration",
-      "seconds": 0.633,
+      "seconds": 0.611,
       "passed": true
     },
     {
       "name": "test_hvi_rng_replay_matches_joint_adapter_gradients[True]",
       "class": "experiments.moo_representative_challengers.tests.test_integration",
-      "seconds": 0.018,
+      "seconds": 0.017,
       "passed": true
     },
     {
       "name": "test_actual_training_loop_five_heads_and_shared_updates[ferero]",
       "class": "experiments.moo_representative_challengers.tests.test_integration",
-      "seconds": 0.083,
+      "seconds": 0.078,
       "passed": true
     },
     {
       "name": "test_actual_training_loop_five_heads_and_shared_updates[most]",
       "class": "experiments.moo_representative_challengers.tests.test_integration",
-      "seconds": 0.027,
+      "seconds": 0.026,
       "passed": true
     },
     {
@@ -49,7 +49,7 @@
     {
       "name": "test_historical_input_regression",
       "class": "experiments.moo_representative_challengers.tests.test_integration",
-      "seconds": 0.011,
+      "seconds": 0.01,
       "passed": true
     },
     {
@@ -67,13 +67,13 @@
     {
       "name": "test_runtime_audit_blocks_real_open_and_symlink_and_data_write",
       "class": "experiments.moo_representative_challengers.tests.test_no_test",
-      "seconds": 0.041,
+      "seconds": 0.037,
       "passed": true
     },
     {
       "name": "test_cli_rejects_test_and_tuning_before_importing_dataset",
       "class": "experiments.moo_representative_challengers.tests.test_no_test",
-      "seconds": 0.235,
+      "seconds": 0.22,
       "passed": true
     },
     {
@@ -91,7 +91,7 @@
     {
       "name": "test_ferero_official_coefficients_direction_constraints[2026-5]",
       "class": "experiments.moo_representative_challengers.tests.test_parity",
-      "seconds": 0.011,
+      "seconds": 0.012,
       "passed": true
     },
     {
@@ -109,7 +109,7 @@
     {
       "name": "test_ferero_official_coefficients_direction_constraints[88-2]",
       "class": "experiments.moo_representative_challengers.tests.test_parity",
-      "seconds": 0.01,
+      "seconds": 0.011,
       "passed": true
     },
     {
@@ -127,25 +127,25 @@
     {
       "name": "test_most_official_complete_update[False]",
       "class": "experiments.moo_representative_challengers.tests.test_parity",
-      "seconds": 0.095,
+      "seconds": 0.092,
       "passed": true
     },
     {
       "name": "test_most_official_complete_update[True]",
       "class": "experiments.moo_representative_challengers.tests.test_parity",
-      "seconds": 0.118,
+      "seconds": 0.12,
       "passed": true
     },
     {
       "name": "test_hvi_five_dimensions_official_weights_objective_backward[random]",
       "class": "experiments.moo_representative_challengers.tests.test_parity",
-      "seconds": 0.956,
+      "seconds": 1.61,
       "passed": true
     },
     {
       "name": "test_hvi_five_dimensions_official_weights_objective_backward[duplicates]",
       "class": "experiments.moo_representative_challengers.tests.test_parity",
-      "seconds": 0.036,
+      "seconds": 0.033,
       "passed": true
     },
     {
@@ -168,7 +168,7 @@
     }
   ],
   "test_count": 26,
-  "runtime_seconds": 4.224366875001579,
+  "runtime_seconds": 4.840509458999975,
   "python": "3.11.12",
   "packages": {
     "pytest": "8.3.5",
