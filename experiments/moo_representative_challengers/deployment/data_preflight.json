@@ -1,0 +1,24 @@
+{
+  "test_evaluation_count": 0,
+  "status": "passed",
+  "file_checks": {
+    "train_inter_sha256": {
+      "expected": "ed6292a9cdfc4ca2880f10cf65a110018bf978075c4b798d8aa7a007c304203d",
+      "observed": "ed6292a9cdfc4ca2880f10cf65a110018bf978075c4b798d8aa7a007c304203d",
+      "passed": true
+    },
+    "valid_inter_sha256": {
+      "expected": "4bcd6bf6b061effdac6815adb631f5a95252a712e9160f0aa7c0bf3164ec8d42",
+      "observed": "4bcd6bf6b061effdac6815adb631f5a95252a712e9160f0aa7c0bf3164ec8d42",
+      "passed": true
+    },
+    "item_sha256": {
+      "expected": "3dfadad37f80449841b561ffef845a1efc86eb61675363b06b04644652a29b9f",
+      "observed": "3dfadad37f80449841b561ffef845a1efc86eb61675363b06b04644652a29b9f",
+      "passed": true
+    }
+  },
+  "validation_ids": 23951,
+  "sidecar_sha256": "77eda119907aead31cb717f8cdf1bd2988729c07e48a30c4122db75b34e297f9",
+  "shared_data_written": false
+}

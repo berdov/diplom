@@ -1,0 +1,17 @@
+{
+  "test_evaluation_count": 0,
+  "wheels": [
+    {
+      "url": "https://github.com/state-spaces/mamba/releases/download/v2.2.2/mamba_ssm-2.2.2%2Bcu118torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl",
+      "filename": "mamba_ssm-2.2.2+cu118torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl",
+      "size": 343619262,
+      "sha256": "e746cbceb01bee548e93bf46a78e3c3333520ec1c369f3f2c95a1e51cf821264"
+    },
+    {
+      "url": "https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.2.2.post1/causal_conv1d-1.2.2.post1%2Bcu118torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl",
+      "filename": "causal_conv1d-1.2.2.post1+cu118torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl",
+      "size": 102799129,
+      "sha256": "bf184dd0c8dbb6dfd9d515b4951c7ff4a6bf136f74480001cc4c43cdd90ca16d"
+    }
+  ]
+}

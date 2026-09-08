@@ -1,0 +1,457 @@
+{
+  "test_evaluation_count": 0,
+  "status": "passed",
+  "version_comparison": "PEP 440 exact specifiers, canonical equivalent labels and compatible local build tags",
+  "packages": {
+    "PyYAML": {
+      "expected": "6.0.1",
+      "observed": "6.0.1",
+      "passed": true
+    },
+    "absl_py": {
+      "expected": "2.5.0",
+      "observed": "2.5.0",
+      "passed": true
+    },
+    "alembic": {
+      "expected": "1.19.1",
+      "observed": "1.19.1",
+      "passed": true
+    },
+    "annotated_doc": {
+      "expected": "0.0.5",
+      "observed": "0.0.5",
+      "passed": true
+    },
+    "anyio": {
+      "expected": "4.14.2",
+      "observed": "4.14.2",
+      "passed": true
+    },
+    "causal_conv1d": {
+      "expected": "1.2.2.post1",
+      "observed": "1.2.2.post1",
+      "passed": true
+    },
+    "certifi": {
+      "expected": "2026.7.22",
+      "observed": "2026.7.22",
+      "passed": true
+    },
+    "charset_normalizer": {
+      "expected": "3.5.1",
+      "observed": "3.5.1",
+      "passed": true
+    },
+    "click": {
+      "expected": "8.4.2",
+      "observed": "8.4.2",
+      "passed": true
+    },
+    "colorama": {
+      "expected": "0.4.4",
+      "observed": "0.4.4",
+      "passed": true
+    },
+    "colorlog": {
+      "expected": "4.7.2",
+      "observed": "4.7.2",
+      "passed": true
+    },
+    "einops": {
+      "expected": "0.8.0",
+      "observed": "0.8.0",
+      "passed": true
+    },
+    "exceptiongroup": {
+      "expected": "1.3.1",
+      "observed": "1.3.1",
+      "passed": true
+    },
+    "filelock": {
+      "expected": "3.32.3",
+      "observed": "3.32.3",
+      "passed": true
+    },
+    "fsspec": {
+      "expected": "2026.7.0",
+      "observed": "2026.7.0",
+      "passed": true
+    },
+    "greenlet": {
+      "expected": "3.5.5",
+      "observed": "3.5.5",
+      "passed": true
+    },
+    "grpcio": {
+      "expected": "1.83.0",
+      "observed": "1.83.0",
+      "passed": true
+    },
+    "h11": {
+      "expected": "0.16.0",
+      "observed": "0.16.0",
+      "passed": true
+    },
+    "hf_xet": {
+      "expected": "1.6.0",
+      "observed": "1.6.0",
+      "passed": true
+    },
+    "httpcore": {
+      "expected": "1.0.9",
+      "observed": "1.0.9",
+      "passed": true
+    },
+    "httpx": {
+      "expected": "0.28.1",
+      "observed": "0.28.1",
+      "passed": true
+    },
+    "huggingface_hub": {
+      "expected": "0.23.0",
+      "observed": "0.23.0",
+      "passed": true
+    },
+    "idna": {
+      "expected": "3.19",
+      "observed": "3.19",
+      "passed": true
+    },
+    "jinja2": {
+      "expected": "3.1.6",
+      "observed": "3.1.6",
+      "passed": true
+    },
+    "joblib": {
+      "expected": "1.5.3",
+      "observed": "1.5.3",
+      "passed": true
+    },
+    "mako": {
+      "expected": "1.4.1",
+      "observed": "1.4.1",
+      "passed": true
+    },
+    "mamba_ssm": {
+      "expected": "2.2.2",
+      "observed": "2.2.2",
+      "passed": true
+    },
+    "markdown": {
+      "expected": "3.10.3",
+      "observed": "3.10.3",
+      "passed": true
+    },
+    "markdown_it_py": {
+      "expected": "4.2.0",
+      "observed": "4.2.0",
+      "passed": true
+    },
+    "markupsafe": {
+      "expected": "3.0.3",
+      "observed": "3.0.3",
+      "passed": true
+    },
+    "mdurl": {
+      "expected": "0.1.2",
+      "observed": "0.1.2",
+      "passed": true
+    },
+    "mpmath": {
+      "expected": "1.3.0",
+      "observed": "1.3.0",
+      "passed": true
+    },
+    "narwhals": {
+      "expected": "2.24.0",
+      "observed": "2.24.0",
+      "passed": true
+    },
+    "networkx": {
+      "expected": "3.4.2",
+      "observed": "3.4.2",
+      "passed": true
+    },
+    "ninja": {
+      "expected": "1.13.0",
+      "observed": "1.13.0",
+      "passed": true
+    },
+    "numpy": {
+      "expected": "1.26.4",
+      "observed": "1.26.4",
+      "passed": true
+    },
+    "nvidia_cublas_cu11": {
+      "expected": "11.11.3.6",
+      "observed": "11.11.3.6",
+      "passed": true
+    },
+    "nvidia_cuda_cupti_cu11": {
+      "expected": "11.8.87",
+      "observed": "11.8.87",
+      "passed": true
+    },
+    "nvidia_cuda_nvrtc_cu11": {
+      "expected": "11.8.89",
+      "observed": "11.8.89",
+      "passed": true
+    },
+    "nvidia_cuda_runtime_cu11": {
+      "expected": "11.8.89",
+      "observed": "11.8.89",
+      "passed": true
+    },
+    "nvidia_cudnn_cu11": {
+      "expected": "8.7.0.84",
+      "observed": "8.7.0.84",
+      "passed": true
+    },
+    "nvidia_cufft_cu11": {
+      "expected": "10.9.0.58",
+      "observed": "10.9.0.58",
+      "passed": true
+    },
+    "nvidia_curand_cu11": {
+      "expected": "10.3.0.86",
+      "observed": "10.3.0.86",
+      "passed": true
+    },
+    "nvidia_cusolver_cu11": {
+      "expected": "11.4.1.48",
+      "observed": "11.4.1.48",
+      "passed": true
+    },
+    "nvidia_cusparse_cu11": {
+      "expected": "11.7.5.86",
+      "observed": "11.7.5.86",
+      "passed": true
+    },
+    "nvidia_nccl_cu11": {
+      "expected": "2.20.5",
+      "observed": "2.20.5",
+      "passed": true
+    },
+    "nvidia_nvtx_cu11": {
+      "expected": "11.8.86",
+      "observed": "11.8.86",
+      "passed": true
+    },
+    "optuna": {
+      "expected": "4.9.0",
+      "observed": "4.9.0",
+      "passed": true
+    },
+    "packaging": {
+      "expected": "26.2",
+      "observed": "26.2",
+      "passed": true
+    },
+    "pandas": {
+      "expected": "2.2.2",
+      "observed": "2.2.2",
+      "passed": true
+    },
+    "pillow": {
+      "expected": "12.3.0",
+      "observed": "12.3.0",
+      "passed": true
+    },
+    "pip": {
+      "expected": "26.2.1",
+      "observed": "26.2.1",
+      "passed": true
+    },
+    "plotly": {
+      "expected": "6.9.0",
+      "observed": "6.9.0",
+      "passed": true
+    },
+    "protobuf": {
+      "expected": "7.35.1",
+      "observed": "7.35.1",
+      "passed": true
+    },
+    "psutil": {
+      "expected": "6.1.0",
+      "observed": "6.1.0",
+      "passed": true
+    },
+    "pygments": {
+      "expected": "2.21.0",
+      "observed": "2.21.0",
+      "passed": true
+    },
+    "python_dateutil": {
+      "expected": "2.9.0.post0",
+      "observed": "2.9.0.post0",
+      "passed": true
+    },
+    "pytz": {
+      "expected": "2026.3.post1",
+      "observed": "2026.3.post1",
+      "passed": true
+    },
+    "recbole": {
+      "expected": "1.2.0",
+      "observed": "1.2.0",
+      "passed": true
+    },
+    "regex": {
+      "expected": "2026.7.19",
+      "observed": "2026.7.19",
+      "passed": true
+    },
+    "requests": {
+      "expected": "2.34.2",
+      "observed": "2.34.2",
+      "passed": true
+    },
+    "rich": {
+      "expected": "15.0.0",
+      "observed": "15.0.0",
+      "passed": true
+    },
+    "safetensors": {
+      "expected": "0.4.3",
+      "observed": "0.4.3",
+      "passed": true
+    },
+    "scikit_learn": {
+      "expected": "1.5.0",
+      "observed": "1.5.0",
+      "passed": true
+    },
+    "scipy": {
+      "expected": "1.13.1",
+      "observed": "1.13.1",
+      "passed": true
+    },
+    "shellingham": {
+      "expected": "1.5.4",
+      "observed": "1.5.4",
+      "passed": true
+    },
+    "six": {
+      "expected": "1.17.0",
+      "observed": "1.17.0",
+      "passed": true
+    },
+    "sqlalchemy": {
+      "expected": "2.0.52",
+      "observed": "2.0.52",
+      "passed": true
+    },
+    "sympy": {
+      "expected": "1.14.0",
+      "observed": "1.14.0",
+      "passed": true
+    },
+    "tabulate": {
+      "expected": "0.10.0",
+      "observed": "0.10.0",
+      "passed": true
+    },
+    "tensorboard": {
+      "expected": "2.16.2",
+      "observed": "2.16.2",
+      "passed": true
+    },
+    "tensorboardX": {
+      "expected": "2.2",
+      "observed": "2.2",
+      "passed": true
+    },
+    "tensorboard_data_server": {
+      "expected": "0.7.2",
+      "observed": "0.7.2",
+      "passed": true
+    },
+    "texttable": {
+      "expected": "1.7.0",
+      "observed": "1.7.0",
+      "passed": true
+    },
+    "thop": {
+      "expected": "0.1.1.post2209072238",
+      "observed": "0.1.1-2209072238",
+      "passed": true
+    },
+    "threadpoolctl": {
+      "expected": "3.6.0",
+      "observed": "3.6.0",
+      "passed": true
+    },
+    "tokenizers": {
+      "expected": "0.19.1",
+      "observed": "0.19.1",
+      "passed": true
+    },
+    "tomli": {
+      "expected": "2.4.1",
+      "observed": "2.4.1",
+      "passed": true
+    },
+    "torch": {
+      "expected": "2.3.0+cu118",
+      "observed": "2.3.0+cu118",
+      "passed": true
+    },
+    "torchaudio": {
+      "expected": "2.3.0+cu118",
+      "observed": "2.3.0+cu118",
+      "passed": true
+    },
+    "torchvision": {
+      "expected": "0.18.0+cu118",
+      "observed": "0.18.0+cu118",
+      "passed": true
+    },
+    "tqdm": {
+      "expected": "4.66.4",
+      "observed": "4.66.4",
+      "passed": true
+    },
+    "transformers": {
+      "expected": "4.40.2",
+      "observed": "4.40.2",
+      "passed": true
+    },
+    "triton": {
+      "expected": "2.3.0",
+      "observed": "2.3.0",
+      "passed": true
+    },
+    "typer": {
+      "expected": "0.27.1",
+      "observed": "0.27.1",
+      "passed": true
+    },
+    "typing_extensions": {
+      "expected": "4.16.0",
+      "observed": "4.16.0",
+      "passed": true
+    },
+    "tzdata": {
+      "expected": "2026.3",
+      "observed": "2026.3",
+      "passed": true
+    },
+    "urllib3": {
+      "expected": "2.7.0",
+      "observed": "2.7.0",
+      "passed": true
+    },
+    "werkzeug": {
+      "expected": "3.1.8",
+      "observed": "3.1.8",
+      "passed": true
+    },
+    "wheel": {
+      "expected": "0.47.0",
+      "observed": "0.47.0",
+      "passed": true
+    }
+  }
+}
