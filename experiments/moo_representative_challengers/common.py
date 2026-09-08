@@ -22,7 +22,10 @@ def git(*args):
 
 
 def source_digest():
-    paths = sorted([p for p in HERE.rglob('*.py') if '__pycache__' not in p.parts] +
+    # Runtime/env and package caches live below HERE on the cluster. Never hash
+    # installed third-party code or generated artifacts as challenger source.
+    paths = sorted(list(HERE.glob('*.py')) + list((HERE/'methods').glob('*.py')) +
+                   list((HERE/'tests').glob('*.py')) +
                    list(HERE.glob('*.yaml')) + list(HERE.glob('requirements*.txt')) +
                    [ROOT / 'slurm/moo_representative_challengers.sh'])
     text = '\n'.join(f'{p.relative_to(ROOT)} {digest(p)}' for p in paths if p.is_file())

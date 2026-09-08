@@ -104,3 +104,14 @@ def test_selection_is_scalarized_not_ndcg_oracle():
 
 def test_historical_input_regression():
     assert verify_historical_inputs()['files_verified']>20
+
+
+def test_source_certificate_excludes_isolated_runtime_packages():
+    import tempfile
+    from pathlib import Path
+    from experiments.moo_representative_challengers.common import HERE,source_digest
+    runtime=HERE/'runtime'; runtime.mkdir(exist_ok=True)
+    before=source_digest()
+    with tempfile.TemporaryDirectory(dir=runtime) as directory:
+        (Path(directory)/'third_party.py').write_text('# Installed dependency, not experiment source\n')
+        assert source_digest()==before
