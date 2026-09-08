@@ -20,10 +20,15 @@ case "${MOO_METHOD}" in ferero|most|phn_hvi) ;; *) exit 2 ;; esac
 case "${MOO_STAGE}" in smoke|sanity|convergence_screening) ;; *) exit 2 ;; esac
 [[ "${REPO_DIR}" != /home/daryumin/iberdov/diplom ]]
 cd "${REPO_DIR}"
+# Compute nodes do not provide system Git. Load the shared Rocky build before
+# both shell provenance checks and Python subprocess calls to Git.
+module load Python/miniconda
+module load EasyBuild/modules_rocky
+module load git/2.50.1-GCCcore-14.3.0
+git --version
 [[ "$(git rev-parse HEAD)" == "${MOO_GIT_COMMIT}" ]]
 [[ "$(git branch --show-current)" == exp/moo-representative-challengers ]]
 [[ -z "$(git status --porcelain --untracked-files=no)" ]]
-module load Python/miniconda || true
 export PYTHONNOUSERSITE=1 PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH="${REPO_DIR}"
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-4}"

@@ -1,3 +1,10 @@
+> Обновление 8 сентября, после 23:00 МСК: все smoke_001 завершились FAILED до
+> запуска Python: на compute node отсутствовал Git в PATH. Подтверждения сохранены
+> в deployment/smoke_001_failures.json. Исправлена загрузка shared Git module до
+> provenance checks; повторные smoke используют frozen attempt 002. Gate sanity
+> проверяет smoke_002. Локально 28/28 checks passed. Ниже сохранён исходный снимок
+> до первых запусков; его PENDING и 27 checks относятся к прежнему состоянию.
+
 # Статус representative challengers — 8 сентября 2026
 
 Снимок очереди: 08:20 UTC / 11:20 МСК. Реализация и локальные проверки завершены;

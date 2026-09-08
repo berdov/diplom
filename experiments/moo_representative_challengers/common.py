@@ -66,6 +66,14 @@ def select_operating_point(records, method, config):
     return points[0]
 
 
+def canonical_run_id(method, stage):
+    attempt = load_config()['run']['attempts'][stage]
+    if not isinstance(attempt, int) or isinstance(attempt, bool) or attempt < 1:
+        raise ValueError('Invalid frozen run attempt')
+    label = 'convergence' if stage == 'convergence_screening' else stage
+    return f'{method}_{label}_{attempt:03d}'
+
+
 def require_gate(method, stage):
     report = json.loads((HERE / 'verification.json').read_text())
     current = source_digest()
@@ -73,7 +81,7 @@ def require_gate(method, stage):
         raise RuntimeError('Unit/parity gate missing, failed, or stale')
     previous = {'sanity':'smoke','convergence_screening':'sanity'}.get(stage)
     if previous:
-        path = HERE / 'runs' / f'{method}_{previous}_001.json'
+        path = HERE / 'runs' / f'{canonical_run_id(method, previous)}.json'
         result = json.loads(path.read_text())
         if (result['status'] != 'completed' or not result['gates']['passed'] or
             result['test_evaluation_count'] != 0 or result['source_digest'] != current):

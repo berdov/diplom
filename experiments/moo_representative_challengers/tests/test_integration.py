@@ -115,3 +115,25 @@ def test_source_certificate_excludes_isolated_runtime_packages():
     with tempfile.TemporaryDirectory(dir=runtime) as directory:
         (Path(directory)/'third_party.py').write_text('# Installed dependency, not experiment source\n')
         assert source_digest()==before
+
+
+def test_retry_gate_uses_frozen_attempt_not_failed_original(tmp_path, monkeypatch):
+    import json
+    from experiments.moo_representative_challengers import common
+    config = load_config()
+    monkeypatch.setattr(common, 'HERE', tmp_path)
+    monkeypatch.setattr(common, 'load_config', lambda: config)
+    monkeypatch.setattr(common, 'source_digest', lambda: 'verified')
+    (tmp_path/'verification.json').write_text(json.dumps(
+        {'status':'passed','source_digest':'verified','test_evaluation_count':0}))
+    (tmp_path/'runs').mkdir()
+    original = tmp_path/'runs/ferero_smoke_001.json'
+    original.write_text(json.dumps({'status':'failed'}))
+    assert common.canonical_run_id('ferero','smoke') == 'ferero_smoke_002'
+    with pytest.raises(FileNotFoundError):
+        common.require_gate('ferero','sanity')
+    retry = tmp_path/'runs/ferero_smoke_002.json'
+    retry.write_text(json.dumps({'status':'completed','gates':{'passed':True},
+        'test_evaluation_count':0,'source_digest':'verified'}))
+    assert common.require_gate('ferero','sanity')['previous_stage'] == 'smoke'
+    assert json.loads(original.read_text()) == {'status':'failed'}

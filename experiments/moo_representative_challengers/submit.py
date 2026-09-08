@@ -3,7 +3,7 @@ import argparse
 import os
 from pathlib import Path
 import subprocess
-from .common import HERE, ROOT, git, write_json
+from .common import HERE, ROOT, canonical_run_id, git, write_json
 
 
 def main():
@@ -21,7 +21,7 @@ def main():
     subprocess.run([args.python,'-m','experiments.moo_representative_challengers.run',
                     '--method',args.method,'--stage',args.stage,'--preflight-only'],cwd=ROOT,env=env,check=True)
     stage='convergence' if args.stage=='convergence_screening' else args.stage
-    run_id=f'{args.method}_{stage}_001'
+    run_id=canonical_run_id(args.method, args.stage)
     folder=HERE/'submissions'; folder.mkdir(exist_ok=True)
     lock=folder/(run_id+'.lock'); lock.mkdir()  # atomic duplicate prevention
     output=folder/(run_id+'.json')

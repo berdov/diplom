@@ -112,6 +112,10 @@ base_commit: 7bc8f5acbf513de5dc71a8dcc0eef0635f56f802
 frozen_before_dataset_training: true
 run:
   seed: 2026
+  attempts:
+    smoke: 2
+    sanity: 1
+    convergence_screening: 1
   smoke_batches: 3
   sanity_epochs: 5
   convergence_max_epochs: 100

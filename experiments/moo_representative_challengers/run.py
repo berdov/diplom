@@ -10,7 +10,7 @@ import time
 import traceback
 from datetime import datetime, timezone
 import yaml
-from .common import HERE, ROOT, digest, git, load_config, require_gate, source_digest, verify_historical_inputs, write_json
+from .common import HERE, ROOT, canonical_run_id, digest, git, load_config, require_gate, source_digest, verify_historical_inputs, write_json
 from .safety import DataAccessGuard, validate_config
 
 
@@ -38,7 +38,7 @@ def main():
     # Cluster job must run the SHA already published on this branch.
     if git('rev-parse','origin/'+branch) != sha:
         raise RuntimeError('Challenger HEAD is not the fetched published branch SHA')
-    run_id = f"{args.method}_{'convergence' if args.stage=='convergence_screening' else args.stage}_001"
+    run_id = canonical_run_id(args.method, args.stage)
     artifact = HERE/'artifacts'/run_id
     output = HERE/'runs'/f'{run_id}.json'
     if output.exists() or artifact.exists():

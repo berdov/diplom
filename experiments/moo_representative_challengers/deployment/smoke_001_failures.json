@@ -1,0 +1,38 @@
+[
+  {
+    "run_id": "ferero_smoke_001",
+    "job_id": 4311825,
+    "state": "FAILED",
+    "exit_code": "1:0",
+    "elapsed_seconds": 2,
+    "stderr": "/var/spool/slurm/d/job4311825/slurm_script: line 23: git: command not found\n",
+    "failure_phase": "slurm_provenance_check_before_python",
+    "training_started": false,
+    "test_evaluation_count": 0,
+    "replacement_run_id": "ferero_smoke_002"
+  },
+  {
+    "run_id": "most_smoke_001",
+    "job_id": 4311826,
+    "state": "FAILED",
+    "exit_code": "1:0",
+    "elapsed_seconds": 2,
+    "stderr": "/var/spool/slurm/d/job4311826/slurm_script: line 23: git: command not found\n",
+    "failure_phase": "slurm_provenance_check_before_python",
+    "training_started": false,
+    "test_evaluation_count": 0,
+    "replacement_run_id": "most_smoke_002"
+  },
+  {
+    "run_id": "phn_hvi_smoke_001",
+    "job_id": 4311827,
+    "state": "FAILED",
+    "exit_code": "1:0",
+    "elapsed_seconds": 2,
+    "stderr": "/var/spool/slurm/d/job4311827/slurm_script: line 23: git: command not found\n",
+    "failure_phase": "slurm_provenance_check_before_python",
+    "training_started": false,
+    "test_evaluation_count": 0,
+    "replacement_run_id": "phn_hvi_smoke_002"
+  }
+]
