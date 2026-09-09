@@ -56,7 +56,7 @@ def execute(payload,cfg,artifact,smoke,guard):
     stage=deepcopy(cfg);stage['outputs']['artifact_dir']=str(artifact)
     opt=old.load_yaml(stage['source']['validation_only_config'])
     old.assert_protocol_config(opt)
-    summary=old.load_json(opt['validation_only_data']['summary_json'])
+    summary=read(opt['validation_only_data']['summary_json'])
     old.assert_validation_only_summary(summary);summary_checks(summary)
     data=old.load_data_bundle(stage)
     run_cfg={'run_id':payload['run_id'],'active_targets':payload['active_targets']}

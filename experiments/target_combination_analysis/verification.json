@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "source_digest": "ce64c5615e5f7d919cb5c654544db5df1d8aac573a6a7e49b55d84d1de9b56d2",
+  "source_digest": "226e72ac18abc9c3be44371dfd4a529e24a987c449333f475f8d3381e86ed89a",
   "cases": [
     {
       "name": "test_manifest_and_frozen_sources",
