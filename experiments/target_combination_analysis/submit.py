@@ -28,7 +28,7 @@ def main():
     gpu=['--partition=gpu-ef-quick','--constraint=type_e','--gres=gpu:a100:1','--cpus-per-task=4','--mem=0','--time=03:00:00']
     smoke=submit('smoke',gpu+['--job-name=target-combo-smoke',f'--output={log}/target-combo-smoke-%j.out',f'--error={log}/target-combo-smoke-%j.err'])
     array=submit('full',gpu+['--array=0-15%4','--job-name=target-combo',f'--dependency=afterok:{smoke}','--kill-on-invalid-dep=yes',f'--output={log}/target-combo-%A_%a.out',f'--error={log}/target-combo-%A_%a.err'])
-    submit('summary',['--partition=cpu-e-quick','--cpus-per-task=1','--mem=2G','--time=00:15:00','--job-name=target-combo-summary',f'--dependency=afterany:{array}',f'--output={log}/target-combo-summary-%j.out',f'--error={log}/target-combo-summary-%j.err'])
+    submit('summary',['--partition=cpu-e-quick','--cpus-per-task=1','--mem=0','--time=00:15:00','--job-name=target-combo-summary',f'--dependency=afterany:{array}',f'--output={log}/target-combo-summary-%j.out',f'--error={log}/target-combo-summary-%j.err'])
     payload['status']='submitted';write(path,payload);print(path.read_text())
 
 if __name__=='__main__':main()

@@ -1,0 +1,23 @@
+{
+  "synthetic_input": {
+    "is_like": 0,
+    "is_follow": 0,
+    "is_comment": 0,
+    "is_forward": 0,
+    "is_profile_enter": 1,
+    "long_view": 0
+  },
+  "stage3_composites": {
+    "strong_positive": 1,
+    "explicit_positive": 0,
+    "deep_engagement": 0
+  },
+  "manifest_composites_expected": {
+    "strong_positive": 0,
+    "explicit_positive": 1,
+    "deep_engagement": 1
+  },
+  "four_screening_targets_affected": false,
+  "reproduction": "Stage3 target_audit.derive_binary_columns on a one-row Polars DataFrame; executed with existing cluster data-preparation Python",
+  "impact": "Only unused composite-signal descriptive audit rows differ; four raw target losses and their historical ablations unaffected. Composite-specific historical interpretations require separate review. No historical code or results changed."
+}

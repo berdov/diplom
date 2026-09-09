@@ -78,7 +78,8 @@ GPU specification одинаков для smoke и всех cells: gpu-ef-quick,
 A100×1, CPU×4, mem=0, 3h, no-requeue. Исторические jobs: 8m55s–20m15s;
 3h даёт существенный запас и сохраняет Stage3 resource class. Concurrency 4
 ограничивает нагрузку; очередь не является основанием для изменения hyperparameters.
-CPU summary: cpu-e-quick, 1 CPU, 2 GiB, 15m. Кэши отдельные для каждой job.
+CPU summary: cpu-e-quick, 1 CPU, mem=0, 15m. Slurm объявляет RealMemory=1 MB
+для этих узлов, поэтому запрос 2 GiB отклоняется; mem=0 соответствует partition default. Кэши отдельные для каждой job.
 Другие MOO/MoE jobs и их checkouts не изменяются.
 
 ## Summary и интерпретация

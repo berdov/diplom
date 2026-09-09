@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "python_executable": "/home/daryumin/iberdov/diplom_exp_moo_challengers/experiments/moo_representative_challengers/runtime/env/bin/python3.10",
+  "python_version": "3.10.14",
+  "packages": {
+    "torch": "2.3.0+cu118",
+    "recbole": "1.2.0",
+    "numpy": "1.26.4",
+    "mamba_ssm": "2.2.2",
+    "causal_conv1d": "1.2.2.post1"
+  },
+  "cuda": "11.8",
+  "git": "git version 2.50.1",
+  "test_evaluation_count": 0,
+  "source_digest": "226e72ac18abc9c3be44371dfd4a529e24a987c449333f475f8d3381e86ed89a",
+  "checks": [
+    "native imports",
+    "Stage3 runner import",
+    "protocol config",
+    "validation-only summary",
+    "model input fields",
+    "local certificate"
+  ],
+  "shared_environment_modified": false,
+  "original_environment_issue": "Historical env import delayed in Lustre cl_sync_io_wait; use already working same-version challenger env read-only"
+}
