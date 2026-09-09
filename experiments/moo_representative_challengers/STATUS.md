@@ -1,3 +1,11 @@
+> 9 сентября: sanity отправлены — FERERO **4313930**, MosT **4313931**,
+> PHN-HVI **4313933**. Первые два smoke completed, scientific gates passed.
+> PHN-HVI sanity поставлен заранее по явному запросу пользователя с
+> `afterok:4313103` и `kill-on-invalid-dep=yes`; scientific gate smoke остаётся
+> обязательным внутри runner. Код не изменён: `1a98ef966a2923a8f234b71602291b1c71ab82c3`.
+> Все sanity: 5 полных epochs, validation каждый epoch. TEST/Optuna не запускались.
+> Снимок: deployment/sanity_submission_snapshot.json. Ниже — история статусов.
+
 > Повторная отправка: FERERO **4313101**, MosT **4313102**, PHN-HVI **4313103**.
 > Код jobs: `1a98ef966a2923a8f234b71602291b1c71ab82c3`, committed/pushed до sbatch.
 > Submission records: submissions/*_smoke_002.json; снимок очереди:

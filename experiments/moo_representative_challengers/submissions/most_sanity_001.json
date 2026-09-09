@@ -1,0 +1,14 @@
+{
+  "run_id": "most_sanity_001",
+  "method": "most",
+  "stage": "sanity",
+  "git_commit": "1a98ef966a2923a8f234b71602291b1c71ab82c3",
+  "git_branch": "exp/moo-representative-challengers",
+  "test_evaluation_count": 0,
+  "status": "submitted",
+  "python": "/home/daryumin/iberdov/diplom_exp_moo_challengers/experiments/moo_representative_challengers/runtime/env/bin/python3.10",
+  "stdout": "4313931\n",
+  "stderr": "sbatch: \u001b[1mThe job is starting as part of project: \u001b[0m\u001b[38;5;87mСоздание цифровых аватаров, адаптирующихся к эмоциональным состояниям пользователей и обеспечивающих естественное взаимодействие\u001b[0m (\u001b[38;5;82mproj_1833\u001b[0m)\n",
+  "returncode": 0,
+  "job_id": "4313931"
+}
