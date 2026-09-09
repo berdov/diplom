@@ -109,7 +109,7 @@ test_usage: forbidden
 test_evaluation_count: 0
 loss_weight_mode: uniform_normalized_aux
 loss_formula: 'L_rank + lambda_aux * mean(active auxiliary BCE); empty subset: L_rank'
-smoke_run_id: target_combo_smoke_all_four_001
+smoke_run_id: target_combo_smoke_all_four_002
 smoke_batches: 2
 optimization:
   lambda_aux: 0.13182740780834337

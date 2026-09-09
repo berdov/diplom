@@ -1,0 +1,12 @@
+{
+  "previous_attempt": "001",
+  "status": "superseded_due_to_preemption",
+  "scientific_cells_started": 0,
+  "smoke_job_id": "4314482",
+  "array_job_id": "4314483",
+  "summary_job_id": "4314485",
+  "preserved_checkout": "/home/daryumin/iberdov/diplom_exp_target_combinations",
+  "replacement_attempt": "002",
+  "command": "scontrol show partition rocky; scontrol show partition gpu-ef-quick; sacct -j 4314482,4314483,4314485 -X --format=JobID,State,ExitCode,Start,End,Elapsed -P",
+  "output": "PartitionName=rocky\n   AllowGroups=ALL AllowAccounts=ALL AllowQos=ALL\n   AllocNodes=ALL Default=YES QoS=N/A\n   DefaultTime=1-00:00:00 DisableRootJobs=NO ExclusiveUser=NO ExclusiveTopo=NO GraceTime=0 Hidden=NO\n   MaxNodes=UNLIMITED MaxTime=30-00:00:00 MinNodes=0 LLN=NO MaxCPUsPerNode=128 MaxCPUsPerSocket=UNLIMITED\n   Nodes=cn-[001-041,043-051]\n   PriorityJobFactor=1 PriorityTier=10 RootOnly=NO ReqResv=NO OverSubscribe=NO\n   OverTimeLimit=NONE PreemptMode=OFF\n   State=UP TotalCPUs=2776 TotalNodes=50 SelectTypeParameters=NONE\n   JobDefaults=(null)\n   DefMemPerNode=UNLIMITED MaxMemPerNode=UNLIMITED\n   TRES=cpu=2776,mem=50M,node=50,billing=2776,gres/gpu=179,gres/gpu:a100=40,gres/gpu:h100=4,gres/gpu:h200=20,gres/gpu:v100=115\n\nPartitionName=gpu-ef-quick\n   AllowGroups=ALL AllowAccounts=ALL AllowQos=ALL\n   AllocNodes=ALL Default=NO QoS=N/A\n   DefaultTime=01:00:00 DisableRootJobs=NO ExclusiveUser=NO ExclusiveTopo=NO GraceTime=0 Hidden=NO\n   MaxNodes=1 MaxTime=03:00:00 MinNodes=0 LLN=NO MaxCPUsPerNode=128 MaxCPUsPerSocket=UNLIMITED\n   Nodes=cn-[041,043-051]\n   PriorityJobFactor=1 PriorityTier=5 RootOnly=NO ReqResv=NO OverSubscribe=NO\n   OverTimeLimit=NONE PreemptMode=REQUEUE\n   State=UP TotalCPUs=960 TotalNodes=10 SelectTypeParameters=NONE\n   JobDefaults=(null)\n   DefMemPerNode=UNLIMITED MaxMemPerNode=UNLIMITED\n   TRES=cpu=960,mem=10M,node=10,billing=960,gres/gpu=64,gres/gpu:a100=40,gres/gpu:h100=4,gres/gpu:h200=20\n\nJobID|State|ExitCode|Start|End|Elapsed\n4314482|PREEMPTED|0:0|2026-09-09T19:10:30|2026-09-09T19:14:02|00:03:32\n4314483_[0-15%4]|CANCELLED|0:0|None|2026-09-09T19:14:05|00:00:00\n4314485|COMPLETED|0:0|2026-09-09T19:14:32|2026-09-09T19:14:36|00:00:04\n"
+}

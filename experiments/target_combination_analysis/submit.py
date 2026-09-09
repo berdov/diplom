@@ -6,7 +6,7 @@ from .common import HERE,ROOT,config,read,write,provenance,source_digest,combina
 
 def main():
     sha=provenance();cfg=config()
-    assert str(ROOT)=='/home/daryumin/iberdov/diplom_exp_target_combinations'
+    assert str(ROOT)=='/home/daryumin/iberdov/diplom_exp_target_combinations_002'
     audit=read(HERE/'artifacts/data_audit.json');assert audit['status']=='passed' and audit['source_digest']==source_digest()
     env_check=read(HERE/'artifacts/environment.json');assert env_check['status']=='passed'
     assert os.environ['TC_REPO']==str(ROOT) and Path(os.environ['TC_PYTHON']).is_file()
@@ -25,10 +25,10 @@ def main():
         if result.returncode or not job.isdigit():raise RuntimeError('Ambiguous/failed submit: inspect ledger, do not repeat pipeline')
         payload[{'smoke':'smoke_job_id','full':'array_job_id','summary':'summary_job_id'}[mode]]=job;write(path,payload)
         return job
-    gpu=['--partition=gpu-ef-quick','--constraint=type_e','--gres=gpu:a100:1','--cpus-per-task=4','--mem=0','--time=03:00:00']
+    gpu=['--partition=rocky','--constraint=type_e','--gres=gpu:a100:1','--cpus-per-task=4','--mem=0','--time=03:00:00']
     smoke=submit('smoke',gpu+['--job-name=target-combo-smoke',f'--output={log}/target-combo-smoke-%j.out',f'--error={log}/target-combo-smoke-%j.err'])
     array=submit('full',gpu+['--array=0-15%4','--job-name=target-combo',f'--dependency=afterok:{smoke}','--kill-on-invalid-dep=yes',f'--output={log}/target-combo-%A_%a.out',f'--error={log}/target-combo-%A_%a.err'])
-    submit('summary',['--partition=cpu-e-quick','--cpus-per-task=1','--mem=0','--time=00:15:00','--job-name=target-combo-summary',f'--dependency=afterany:{array}',f'--output={log}/target-combo-summary-%j.out',f'--error={log}/target-combo-summary-%j.err'])
+    submit('summary',['--partition=rocky','--cpus-per-task=1','--mem=0','--time=00:15:00','--job-name=target-combo-summary',f'--dependency=afterany:{array}',f'--output={log}/target-combo-summary-%j.out',f'--error={log}/target-combo-summary-%j.err'])
     payload['status']='submitted';write(path,payload);print(path.read_text())
 
 if __name__=='__main__':main()

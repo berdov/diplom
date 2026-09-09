@@ -1,3 +1,12 @@
+> Retry 002: первая smoke-попытка была PREEMPTED, array отменён до запуска.
+> Все новые IDs заканчиваются на _002; новый изолированный checkout:
+> `/home/daryumin/iberdov/diplom_exp_target_combinations_002`.
+> Smoke, array и CPU-summary переведены в rocky (PreemptMode=OFF,
+> PriorityTier=10 против quick Tier=5/REQUEUE). GPU A100, type_e, CPU×4,
+> 3h, concurrency 4 и все scientific hyperparameters сохранены.
+> Старый checkout и его результаты остаются неизменными.
+> Ниже — исходный дизайн с историей выбора quick partition.
+
 # Full 2^4 auxiliary-target screening
 
 База: `16ba99b69929a711137f616df28e18e7f92b76c1` (актуальный origin/main при старте).
