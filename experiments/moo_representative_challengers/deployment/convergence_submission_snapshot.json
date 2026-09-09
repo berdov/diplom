@@ -1,0 +1,238 @@
+{
+  "recorded_utc": "2026-09-09T21:26:05.321041+00:00",
+  "git_commit": "1a98ef966a2923a8f234b71602291b1c71ab82c3",
+  "submissions": {
+    "ferero": {
+      "run_id": "ferero_convergence_001",
+      "method": "ferero",
+      "stage": "convergence_screening",
+      "git_commit": "1a98ef966a2923a8f234b71602291b1c71ab82c3",
+      "git_branch": "exp/moo-representative-challengers",
+      "test_evaluation_count": 0,
+      "status": "submitted",
+      "python": "/home/daryumin/iberdov/diplom_exp_moo_challengers/experiments/moo_representative_challengers/runtime/env/bin/python3.10",
+      "stdout": "4315313\n",
+      "stderr": "sbatch: \u001b[1mThe job is starting as part of project: \u001b[0m\u001b[38;5;87mСоздание цифровых аватаров, адаптирующихся к эмоциональным состояниям пользователей и обеспечивающих естественное взаимодействие\u001b[0m (\u001b[38;5;82mproj_1833\u001b[0m)\n",
+      "returncode": 0,
+      "job_id": "4315313"
+    },
+    "most": {
+      "run_id": "most_convergence_001",
+      "method": "most",
+      "stage": "convergence_screening",
+      "git_commit": "1a98ef966a2923a8f234b71602291b1c71ab82c3",
+      "git_branch": "exp/moo-representative-challengers",
+      "test_evaluation_count": 0,
+      "status": "submitted",
+      "python": "/home/daryumin/iberdov/diplom_exp_moo_challengers/experiments/moo_representative_challengers/runtime/env/bin/python3.10",
+      "stdout": "4315314\n",
+      "stderr": "sbatch: \u001b[1mThe job is starting as part of project: \u001b[0m\u001b[38;5;87mСоздание цифровых аватаров, адаптирующихся к эмоциональным состояниям пользователей и обеспечивающих естественное взаимодействие\u001b[0m (\u001b[38;5;82mproj_1833\u001b[0m)\n",
+      "returncode": 0,
+      "job_id": "4315314"
+    },
+    "phn_hvi": {
+      "run_id": "phn_hvi_convergence_001",
+      "method": "phn_hvi",
+      "stage": "convergence_screening",
+      "git_commit": "1a98ef966a2923a8f234b71602291b1c71ab82c3",
+      "git_branch": "exp/moo-representative-challengers",
+      "test_evaluation_count": 0,
+      "status": "submitted",
+      "python": "/home/daryumin/iberdov/diplom_exp_moo_challengers/experiments/moo_representative_challengers/runtime/env/bin/python3.10",
+      "stdout": "4315315\n",
+      "stderr": "sbatch: \u001b[1mThe job is starting as part of project: \u001b[0m\u001b[38;5;87mСоздание цифровых аватаров, адаптирующихся к эмоциональным состояниям пользователей и обеспечивающих естественное взаимодействие\u001b[0m (\u001b[38;5;82mproj_1833\u001b[0m)\n",
+      "returncode": 0,
+      "job_id": "4315315"
+    }
+  },
+  "sanity": {
+    "ferero": {
+      "run_id": "ferero_sanity_001",
+      "status": "completed",
+      "git_commit": "1a98ef966a2923a8f234b71602291b1c71ab82c3",
+      "source_digest": "2ebe3b6f015d0f1b8175f70b1f48fe4851d1688e8d21e6c7f1f423f9bf1246ad",
+      "config_sha256": "123609ca8ba6ff6f912a2e354a584649ad0be87d75dabc55c469262b8a874f95",
+      "gates": {
+        "passed": true,
+        "initial_parameter_hashes": [
+          "da84234e1645a6c737c9a1572a4f0067412a436cf0c75ed22356071cda5642c4",
+          "15744e13b7636c24982871c3496f489043371fe40343332325b9cdd8306c7024",
+          "ab98b25be0ac259db4321c7a53754148a2841d4f478cbc353bb8f6e672ffbe18",
+          "532e58ebfbfd9a5de43ae616e3b323a97c93604d0bf61290d1d15cd6735f2fa8",
+          "4d1146f26796adce1a31a0a162c0e7ce91e0908cd7b5d7602372e210d64a9e46",
+          "be85417cbeacb8dae1f1651a93b66b44e16f7291fe7d3d5809eb5d2f14b051c8"
+        ],
+        "final_parameter_hashes": [
+          "93e404c481fc59c0f6495bdcff7c89defd02be182ad1eb325fcac4d784dcb468",
+          "69b6a31fd353d30063631c1b553eaf0b5bc2c9805584ac508f6209b0310b49bf",
+          "1904256c413209764feb53cddae163684d554af7814194bb40b8c645ea09f4e3",
+          "d1c2bf7b3d4966d4d9715b8e7a8b618262be3a70d51701616928ee31239516d5",
+          "cb816cbc7b6861aa16e7fa96091e6843bc95c79a6c73d4ce7a1b1a29f163fe1b",
+          "82cb8694d4aeff2b695beffeb780ecdf6482ea3095d94f95eb01e04370f61cb8"
+        ],
+        "parameter_update_l2": [
+          {
+            "backbone": 75.7383529412221,
+            "click_head": 0.30174409969267096,
+            "long_view_head": 0.3320706266108381,
+            "like_head": 0.3311553450521848,
+            "profile_enter_head": 0.22154943765452464
+          },
+          {
+            "backbone": 68.3399267216694,
+            "click_head": 0.805169457171978,
+            "long_view_head": 0.7208134609865731,
+            "like_head": 0.5350382608736483,
+            "profile_enter_head": 0.5141294242561926
+          },
+          {
+            "backbone": 74.78830632079163,
+            "click_head": 0.3565394224188056,
+            "long_view_head": 0.28584294999151716,
+            "like_head": 0.41683776795085953,
+            "profile_enter_head": 0.2661698741792963
+          },
+          {
+            "backbone": 72.47571707686949,
+            "click_head": 0.2805796394584756,
+            "long_view_head": 0.3399593089568126,
+            "like_head": 0.4871540226695533,
+            "profile_enter_head": 0.3397150170391553
+          },
+          {
+            "backbone": 69.69204164627428,
+            "click_head": 0.2473524250445441,
+            "long_view_head": 0.24786975941487058,
+            "like_head": 0.6615410957566644,
+            "profile_enter_head": 0.23088830217943757
+          },
+          {
+            "backbone": 70.01573499073264,
+            "click_head": 0.24767234709082184,
+            "long_view_head": 0.2749788275232106,
+            "like_head": 0.27121528745905527,
+            "profile_enter_head": 0.587370147212927
+          }
+        ],
+        "preference_sensitivity": null,
+        "finite_losses_gradients_parameters": true,
+        "test_evaluation_count": 0
+      },
+      "test_evaluation_count": 0
+    },
+    "most": {
+      "run_id": "most_sanity_001",
+      "status": "completed",
+      "git_commit": "1a98ef966a2923a8f234b71602291b1c71ab82c3",
+      "source_digest": "2ebe3b6f015d0f1b8175f70b1f48fe4851d1688e8d21e6c7f1f423f9bf1246ad",
+      "config_sha256": "123609ca8ba6ff6f912a2e354a584649ad0be87d75dabc55c469262b8a874f95",
+      "gates": {
+        "passed": true,
+        "initial_parameter_hashes": [
+          "da84234e1645a6c737c9a1572a4f0067412a436cf0c75ed22356071cda5642c4",
+          "15744e13b7636c24982871c3496f489043371fe40343332325b9cdd8306c7024",
+          "ab98b25be0ac259db4321c7a53754148a2841d4f478cbc353bb8f6e672ffbe18"
+        ],
+        "final_parameter_hashes": [
+          "7d98fa51d274160b362f2dbf524245f8a0af89a5aca4c4b66c02706a7fd2f265",
+          "a4d551f898bb64d3805a3fdce7d4b6072f328d8c7140c68dc838a3e6bbc91613",
+          "3be72d26668b96a495664cf06b120a0d5fd26a3fd0e6f7b02cb5bfc7f9f527c6"
+        ],
+        "parameter_update_l2": [
+          {
+            "backbone": 74.15060349696004,
+            "click_head": 0.19967597337733184,
+            "long_view_head": 0.294445416729115,
+            "like_head": 0.16316974902102965,
+            "profile_enter_head": 0.40773395495000847
+          },
+          {
+            "backbone": 74.08444074808486,
+            "click_head": 0.263229227673211,
+            "long_view_head": 0.3360688986378205,
+            "like_head": 0.41949214989626765,
+            "profile_enter_head": 0.16484318322106037
+          },
+          {
+            "backbone": 66.65324350487548,
+            "click_head": 0.21759287524480952,
+            "long_view_head": 0.25070334803068384,
+            "like_head": 0.48514442731379664,
+            "profile_enter_head": 0.13851699231804113
+          }
+        ],
+        "preference_sensitivity": null,
+        "finite_losses_gradients_parameters": true,
+        "test_evaluation_count": 0
+      },
+      "test_evaluation_count": 0
+    },
+    "phn_hvi": {
+      "run_id": "phn_hvi_sanity_001",
+      "status": "completed",
+      "git_commit": "1a98ef966a2923a8f234b71602291b1c71ab82c3",
+      "source_digest": "2ebe3b6f015d0f1b8175f70b1f48fe4851d1688e8d21e6c7f1f423f9bf1246ad",
+      "config_sha256": "123609ca8ba6ff6f912a2e354a584649ad0be87d75dabc55c469262b8a874f95",
+      "gates": {
+        "passed": true,
+        "initial_parameter_hashes": [
+          "f04f8cd4b7a10b82a6b22cb741da3d3f51ea7b6c953f604dcab223cec79c818b"
+        ],
+        "final_parameter_hashes": [
+          "168ddbbc973b5a557a30b1c0c2b8b6bb1678f626dcdb17d12d4232fd832be3f1"
+        ],
+        "parameter_update_l2": [
+          {
+            "backbone": 81.54219331587328,
+            "click_head": 0.29481668589691473,
+            "long_view_head": 0.28339873200342813,
+            "like_head": 0.6612430298132018,
+            "profile_enter_head": 0.5370990318672165,
+            "hypernetwork": 9.077367235372973
+          }
+        ],
+        "preference_sensitivity": {
+          "split": "train",
+          "batch_source": "first_train_batch_after_smoke_training",
+          "batch_examples": 2048,
+          "p1_id": "rank_heavy",
+          "p1": [
+            0.6,
+            0.1,
+            0.1,
+            0.1,
+            0.1
+          ],
+          "p2_id": "like_heavy",
+          "p2": [
+            0.2,
+            0.1,
+            0.1,
+            0.5,
+            0.1
+          ],
+          "representation_l2": 1.5094794034957886,
+          "representation_mean_abs": 0.0032307864166796207,
+          "ranking_score_l2": 0.33133813738822937,
+          "ranking_score_mean_abs": 0.006152415182441473,
+          "output_metric_name": "ranking_score_mean_abs_or_l2",
+          "ranking_score_mode": "positive_item_logits",
+          "tolerance": 1e-08,
+          "output_metric_passed": true
+        },
+        "finite_losses_gradients_parameters": true,
+        "test_evaluation_count": 0
+      },
+      "test_evaluation_count": 0
+    }
+  },
+  "scheduler": "                   JOBID                           NAME        STATE               NODELIST(REASON)\n                 4315315       mooc-phn_hvi-convergence      PENDING                     (Priority)\n                 4315314          mooc-most-convergence      PENDING                     (Priority)\n                 4315313        mooc-ferero-convergence      PENDING                     (Priority)\n",
+  "preflight": {
+    "all_three_passed": true,
+    "sanity_frozen_config_equals_current": true,
+    "stage1_protocol_equality_passed": true,
+    "code_changed_since_sanity": false,
+    "test_evaluation_count": 0,
+    "new_tuning": false
+  }
+}

@@ -1,3 +1,18 @@
+> 10 сентября: convergence отправлены после успешного preflight для всех трёх методов.
+> FERERO **4315313**, MosT **4315314**, PHN-HVI **4315315** — PENDING (Priority).
+> Exact code SHA: `1a98ef966a2923a8f234b71602291b1c71ab82c3`, тот же, что у sanity.
+> Все три sanity completed, scientific gates passed, TEST evaluations = 0.
+> Проверено полное совпадение frozen_config каждого sanity с текущим config.
+> Protocol/data split, objectives, normalization, fixed params и convergence settings
+> совпадают со Stage 1 moo_8families: seed 2026, max 100 epochs, validation каждые 5,
+> min 20 epochs, patience 3 validation checks, min_delta 0.0.
+> Настройки методов, preference/selection, код и runtime после sanity не менялись.
+> TEST и новый tuning не запускались. Merge не выполнялся.
+> Подтверждения: submissions/*_convergence_001.json и
+> [deployment/convergence_submission_snapshot.json](deployment/convergence_submission_snapshot.json).
+> Кластерный checkout остаётся на exact code SHA до завершения jobs.
+> Ниже — история; прежние утверждения «convergence не отправлены» устарели.
+
 > 9 сентября: sanity отправлены — FERERO **4313930**, MosT **4313931**,
 > PHN-HVI **4313933**. Первые два smoke completed, scientific gates passed.
 > PHN-HVI sanity поставлен заранее по явному запросу пользователя с
