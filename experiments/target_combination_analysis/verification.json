@@ -1,0 +1,102 @@
+{
+  "status": "passed",
+  "source_digest": "ce64c5615e5f7d919cb5c654544db5df1d8aac573a6a7e49b55d84d1de9b56d2",
+  "cases": [
+    {
+      "name": "test_manifest_and_frozen_sources",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[0000]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[1000]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[0100]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[0010]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[0001]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[1100]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[1010]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[1001]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[0110]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[0101]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[0011]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[1110]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[1101]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[1011]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[0111]",
+      "passed": true
+    },
+    {
+      "name": "test_loss_and_active_optimizer[1111]",
+      "passed": true
+    },
+    {
+      "name": "test_diagnostic_restores_rng_and_grads",
+      "passed": true
+    },
+    {
+      "name": "test_known_factorial_fixture",
+      "passed": true
+    },
+    {
+      "name": "test_summary_16_partial_and_mixed_sha",
+      "passed": true
+    },
+    {
+      "name": "test_overwrite",
+      "passed": true
+    },
+    {
+      "name": "test_test_and_shared_write_guard",
+      "passed": true
+    },
+    {
+      "name": "test_no_label_input_and_sequence_prefix",
+      "passed": true
+    }
+  ],
+  "test_count": 23,
+  "dataset_loaded": false,
+  "historical_files_checked": 82,
+  "test_evaluation_count": 0
+}
