@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "python_executable": "/home/daryumin/iberdov/diplom_exp_moo_challengers/experiments/moo_representative_challengers/runtime/env/bin/python3.10",
+  "python_version": "3.10.14",
+  "packages": {
+    "torch": "2.3.0+cu118",
+    "recbole": "1.2.0",
+    "numpy": "1.26.4",
+    "mamba_ssm": "2.2.2",
+    "causal_conv1d": "1.2.2.post1"
+  },
+  "cuda": "11.8",
+  "source_digest": "7efe560a7477f7d40c5945ef4f5dacc03139b0eb6a6ca86b5c9cc9cb67760b61",
+  "test_evaluation_count": 0,
+  "shared_environment_modified": false,
+  "git": "git version 2.50.1"
+}

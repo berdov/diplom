@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "source_digest": "7efe560a7477f7d40c5945ef4f5dacc03139b0eb6a6ca86b5c9cc9cb67760b61",
+  "fingerprint": "954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7",
+  "file_checks": {
+    "train_inter_path": "ed6292a9cdfc4ca2880f10cf65a110018bf978075c4b798d8aa7a007c304203d",
+    "valid_inter_path": "4bcd6bf6b061effdac6815adb631f5a95252a712e9160f0aa7c0bf3164ec8d42",
+    "item_path": "3dfadad37f80449841b561ffef845a1efc86eb61675363b06b04644652a29b9f",
+    "validation_source_row_ids_path": "77eda119907aead31cb717f8cdf1bd2988729c07e48a30c4122db75b34e297f9"
+  },
+  "train_examples_verified": 1062567,
+  "validation_examples_verified": 23951,
+  "users_verified": 23951,
+  "label_join_verified_against_source_parquets": true,
+  "history_exact_train_prefix": true,
+  "current_source_row_excluded": true,
+  "target_labels_absent_from_history_fields": true,
+  "existing_target_audit_path": "/home/daryumin/iberdov/diplom_exp_target_combinations_002/experiments/target_combination_analysis/artifacts/audit/target_combo_target_audit_001.json",
+  "existing_target_audit_sha256": "0201288fe1c9956247aae32ec9bcff730c02c7f924db0edef323fafa9fff7aad",
+  "test_evaluation_count": 0,
+  "data_access": {
+    "test_evaluation_count": 0,
+    "blocked_test_accesses": 0,
+    "loader_requests": [],
+    "opened_shared_data_paths": [
+      "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/train.parquet",
+      "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask/validation.parquet",
+      "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/kuairand_multitask_validonly.item",
+      "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/kuairand_multitask_validonly.train.inter",
+      "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/kuairand_multitask_validonly.valid.inter",
+      "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/validation_source_row_ids.txt",
+      "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/validation_only_dataset.json"
+    ],
+    "mechanism": "Python audit hook plus guarded RecBole loader factory; installed before dataset construction"
+  }
+}

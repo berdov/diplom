@@ -1,3 +1,13 @@
+> Retry 002 отправлен: smoke **4315279**, array **4315280** (0–15%4,
+> afterok:4315279), summary **4315281** (afterany:4315280).
+> Все jobs в rocky, PreemptMode=OFF; GPU спецификация A100/type_e, CPU×4,
+> 3h и все scientific parameters сохранены. Code SHA:
+> `599bcdb6e50dceea73233169b8834eaceef083a8`, published до submit.
+> Новый checkout `/home/daryumin/iberdov/diplom_exp_target_combinations_002`.
+> 23/23 tests, полный повторный TRAIN/VALID audit и environment checks passed.
+> Старый checkout и attempt 001 не изменены. Evidence: deployment/retry_002/.
+> Ниже сохранён исторический audit первой попытки.
+
 # Audit и submission — 9 сентября 2026
 
 Scientific target-combination screening has been submitted.
