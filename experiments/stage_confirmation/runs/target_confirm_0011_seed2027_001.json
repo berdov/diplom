@@ -1,0 +1,255 @@
+{
+  "array_index": 10,
+  "combination_id": "0011",
+  "display_name": "like + profile_enter",
+  "active_targets": [
+    "is_like",
+    "is_profile_enter"
+  ],
+  "n_aux_targets": 2,
+  "run_id": "target_confirm_0011_seed2027_001",
+  "screening_run_id": "target_combo_0011_like_profile_enter_002",
+  "experiment_name": "target_multiseed_confirmation",
+  "scientific_run": true,
+  "status": "failed",
+  "git_commit": "8cca489f8112a425f3c03956183fd785e7fdda5c",
+  "git_branch": "codex/close-experimental-stage",
+  "base_main_commit": "93053d86eb3b7516ecf748fe060baa179d4e678b",
+  "dataset": "KuaiRand-Pure",
+  "protocol": "B",
+  "fingerprint": "954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7",
+  "evaluation_split": "validation",
+  "test_usage": "forbidden",
+  "test_evaluation_count": 0,
+  "loss_formula": "L_rank + lambda_aux * mean(active auxiliary BCE); empty subset: L_rank",
+  "loss_weight_mode": "uniform_normalized_aux",
+  "lambda_aux": 0.13182740780834337,
+  "individual_aux_weights": {
+    "is_like": 0.5,
+    "is_profile_enter": 0.5
+  },
+  "auxiliary_loss_weights": {
+    "is_like": 0.5,
+    "is_profile_enter": 0.5
+  },
+  "effective_pos_weights": {
+    "is_like": 9.092198541195886,
+    "is_profile_enter": 7.598613882204391
+  },
+  "seed": 2027,
+  "train_batch_size": 2048,
+  "eval_batch_size": 4096,
+  "optimization": {
+    "lambda_aux": 0.13182740780834337,
+    "learning_rate": 0.0019075370668084298,
+    "head_learning_rate": 0.0008746259318071252,
+    "weight_decay": 1.925502656735127e-06,
+    "dropout_prob": 0.08565706719893162,
+    "effective_pos_weights": {
+      "is_click": 1.0573239205700589,
+      "long_view": 1.286659439842131,
+      "is_like": 9.092198541195886,
+      "is_profile_enter": 7.598613882204391
+    }
+  },
+  "max_epochs": 80,
+  "early_stopping_patience": 5,
+  "frozen_screening_code": "599bcdb6e50dceea73233169b8834eaceef083a8",
+  "config_sha256": "35a7e4c8bc68ff71e3e4537d2ad5e42d9752761b31d050b05afb85420dc0f1f1",
+  "source_manifest_sha256": "bbbd14e03bc498ec3c67a207486dce7096ca41d2e1b9a2704380a44860373f52",
+  "effective_config": {
+    "source": {
+      "validation_only_config": "experiments/multitask_tim4rec_optuna/config.yaml",
+      "best_params": "experiments/multitask_tim4rec_optuna/best_params.yaml",
+      "target_statistics": "experiments/multitask_tim4rec/target_statistics.csv",
+      "protocol_b_multitask_dir": "/home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask",
+      "validation_only_recbole_dir": "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole"
+    },
+    "training": {
+      "seed": 2027,
+      "max_epochs": 80,
+      "early_stopping_patience": 5,
+      "train_batch_size": 2048,
+      "eval_batch_size": 4096,
+      "validation_interval": 1,
+      "gradient_diagnostics": {
+        "enabled": true,
+        "first_epoch": true,
+        "every_n_epochs": 5,
+        "batches_per_epoch": 1,
+        "parameter_scope": "shared_backbone",
+        "restore_rng_before_training_step": true
+      }
+    },
+    "candidate_targets": {
+      "is_click": {
+        "display_name": "click",
+        "type": "binary",
+        "currently_used": true,
+        "ablation_enabled": true,
+        "construction": "Direct binary interaction label from KuaiRand Protocol B preprocessing.",
+        "leakage_note": "Target-only same-interaction label; never used as an input feature."
+      },
+      "long_view": {
+        "display_name": "long_view",
+        "type": "binary",
+        "currently_used": true,
+        "ablation_enabled": true,
+        "construction": "Derived binary long-view label from Protocol B preprocessing.",
+        "leakage_note": "Target-only same-interaction label; never used as an input feature."
+      },
+      "is_like": {
+        "display_name": "like",
+        "type": "binary",
+        "currently_used": true,
+        "ablation_enabled": true,
+        "construction": "Direct binary interaction label from KuaiRand Protocol B preprocessing.",
+        "leakage_note": "Target-only same-interaction label; never used as an input feature."
+      },
+      "is_profile_enter": {
+        "display_name": "profile_enter",
+        "type": "binary",
+        "currently_used": true,
+        "ablation_enabled": true,
+        "construction": "Direct binary interaction label from KuaiRand Protocol B preprocessing.",
+        "leakage_note": "Target-only same-interaction label; never used as an input feature."
+      },
+      "is_follow": {
+        "display_name": "follow",
+        "type": "binary",
+        "currently_used": false,
+        "ablation_enabled": false,
+        "construction": "Direct binary interaction label in the Protocol B multitask audit data.",
+        "leakage_note": "Target-only same-interaction label; omitted from first ablation pass due to rarity and model-scope change."
+      },
+      "is_comment": {
+        "display_name": "comment",
+        "type": "binary",
+        "currently_used": false,
+        "ablation_enabled": false,
+        "construction": "Direct binary interaction label in the Protocol B multitask audit data.",
+        "leakage_note": "Target-only same-interaction label; omitted from first ablation pass due to rarity and model-scope change."
+      },
+      "is_forward": {
+        "display_name": "forward",
+        "type": "binary",
+        "currently_used": false,
+        "ablation_enabled": false,
+        "construction": "Direct binary interaction label in the Protocol B multitask audit data.",
+        "leakage_note": "Target-only same-interaction label; omitted from first ablation pass due to rarity and model-scope change."
+      },
+      "is_hate": {
+        "display_name": "hate",
+        "type": "binary",
+        "currently_used": false,
+        "ablation_enabled": false,
+        "construction": "Direct binary interaction label in the Protocol B multitask audit data.",
+        "leakage_note": "Target-only same-interaction label; omitted from first ablation pass due to extreme rarity and negative-feedback semantics."
+      },
+      "play_time_ms": {
+        "display_name": "play_time",
+        "type": "continuous",
+        "currently_used": false,
+        "ablation_enabled": false,
+        "construction": "Watch-time field retained in the Protocol B multitask audit data.",
+        "leakage_note": "Continuous post-exposure signal; requires a separate regression/survival objective before fair ablation."
+      },
+      "play_ratio": {
+        "display_name": "play_ratio",
+        "type": "continuous",
+        "currently_used": false,
+        "ablation_enabled": false,
+        "construction": "Watch-time ratio retained or derived in the Protocol B multitask audit data.",
+        "leakage_note": "Continuous post-exposure signal; requires a separate regression/survival objective before fair ablation."
+      }
+    },
+    "experiment_name": "target_combination_analysis",
+    "base_main_commit": "16ba99b69929a711137f616df28e18e7f92b76c1",
+    "branch": "exp/target-combination-screening",
+    "fingerprint": "954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7",
+    "evaluation_split": "validation",
+    "test_usage": "forbidden",
+    "test_evaluation_count": 0,
+    "loss_weight_mode": "uniform_normalized_aux",
+    "loss_formula": "L_rank + lambda_aux * mean(active auxiliary BCE); empty subset: L_rank",
+    "smoke_run_id": "target_combo_smoke_all_four_002",
+    "smoke_batches": 2,
+    "optimization": {
+      "lambda_aux": 0.13182740780834337,
+      "learning_rate": 0.0019075370668084298,
+      "head_learning_rate": 0.0008746259318071252,
+      "weight_decay": 1.925502656735127e-06,
+      "dropout_prob": 0.08565706719893162,
+      "effective_pos_weights": {
+        "is_click": 1.0573239205700589,
+        "long_view": 1.286659439842131,
+        "is_like": 9.092198541195886,
+        "is_profile_enter": 7.598613882204391
+      }
+    },
+    "near_tie_ndcg10": 0.0001,
+    "historical_discrepancy_ndcg10": 0.001,
+    "outputs": {
+      "runs_dir": "experiments/target_combination_analysis/runs",
+      "artifact_dir": "experiments/target_combination_analysis/artifacts",
+      "target_audit_run_id": "target_combo_target_audit_001"
+    },
+    "protocol": {
+      "dataset": "KuaiRand",
+      "split": "Protocol B",
+      "evaluation_split": "validation",
+      "test_usage": "forbidden",
+      "test_evaluation_count": 0,
+      "primary_objective": "ranking cross-entropy",
+      "primary_metric": "NDCG@10",
+      "ranking_metrics": [
+        "HR@5",
+        "HR@10",
+        "HR@20",
+        "HR@50",
+        "NDCG@5",
+        "NDCG@10",
+        "NDCG@20",
+        "NDCG@50",
+        "Recall@5",
+        "Recall@10",
+        "Recall@20",
+        "Recall@50"
+      ]
+    }
+  },
+  "start_time": "2026-09-10T18:08:03.853182+00:00",
+  "hostname": "cn-046",
+  "slurm_job_id": "4317973",
+  "history": [],
+  "environment": {
+    "python": "3.10.14",
+    "torch": "2.3.0+cu118",
+    "recbole": "1.2.0",
+    "mamba_ssm": "2.2.2",
+    "numpy": "1.26.4",
+    "cuda": "11.8"
+  },
+  "cuda_device": "0",
+  "gpu_name": "NVIDIA A100-SXM4-80GB",
+  "failure": {
+    "type": "FileExistsError",
+    "message": "[Errno 17] File exists: './log'",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/daryumin/iberdov/diplom_stage_confirmation_002/experiments/stage_confirmation/run.py\", line 67, in main\n    frozen.execute(payload,cfg,artifact,False,guard)\n  File \"/home/daryumin/iberdov/diplom_stage_confirmation_002/experiments/target_combination_analysis/run.py\", line 61, in execute\n    data=old.load_data_bundle(stage)\n  File \"/home/daryumin/iberdov/diplom_stage_confirmation_002/experiments/stage3_auxiliary_analysis/run.py\", line 606, in load_data_bundle\n    init_logger(config)\n  File \"/home/daryumin/iberdov/diplom_exp_moo_challengers/experiments/moo_representative_challengers/runtime/env/lib/python3.10/site-packages/recbole/utils/logger.py\", line 77, in init_logger\n    ensure_dir(dir_name)\n  File \"/home/daryumin/iberdov/diplom_exp_moo_challengers/experiments/moo_representative_challengers/runtime/env/lib/python3.10/site-packages/recbole/utils/utils.py\", line 52, in ensure_dir\n    os.makedirs(dir_path)\n  File \"/home/daryumin/iberdov/diplom_exp_moo_challengers/experiments/moo_representative_challengers/runtime/env/lib/python3.10/os.py\", line 225, in makedirs\n    mkdir(name, mode)\nFileExistsError: [Errno 17] File exists: './log'\n"
+  },
+  "end_time": "2026-09-10T18:09:24.189139+00:00",
+  "runtime_sec": 80.33576727099717,
+  "data_access": {
+    "test_evaluation_count": 0,
+    "blocked_test_accesses": 0,
+    "loader_requests": [],
+    "opened_shared_data_paths": [
+      "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/kuairand_multitask_validonly.item",
+      "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/kuairand_multitask_validonly.train.inter",
+      "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/kuairand_multitask_validonly.valid.inter",
+      "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/kuairand_multitask_validonly/validation_source_row_ids.txt",
+      "/home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole/validation_only_dataset.json"
+    ],
+    "mechanism": "Python audit hook plus guarded RecBole loader factory; installed before dataset construction"
+  }
+}
