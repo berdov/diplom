@@ -2,6 +2,8 @@
 
 Репозиторий посвящён последовательным рекомендательным системам на KuaiRand: базовая архитектура — TiM4Rec, основная задача — предсказание следующего объекта, дальнейшее развитие идёт через многозадачное обучение (MTL) и многокритериальную оптимизацию (MOO).
 
+Состояние подтверждённых результатов на **10 сентября 2026**: Stage 1 convergence — 8 представителей; Stage 2 tuned MOO — 4 итога поиска с ограниченным и неодинаковым бюджетом; challenger convergence — 3 завершённых запуска; target-combination validation screening — **16/16**. [Canonical summary](reports/RESULTS.md) разделяет эти этапы и historical TEST; [аудит обновления](reports/CANONICAL_RESULTS_AUDIT.md) фиксирует источники. Fairness MosT/GradHV и multi-seed подтверждение лучших target subsets остаются открытыми.
+
 ## 1. Научная постановка
 
 TiM4Rec исходно решает одну задачу: рекомендацию следующего объекта. В этом проекте проверяется, можно ли улучшить основную задачу ранжирования за счёт нескольких вспомогательных поведенческих сигналов: клика, долгого просмотра, лайка и перехода в профиль.
@@ -90,9 +92,9 @@ TiM4Rec исходно решает одну задачу: рекомендац�
 
 Валидационный Optuna-поиск `multitask_optuna_search_001` не использовал TEST.
 
-## 8. Этап 1 — первичный отбор 8 семейств MOO
+## 8. Этап 1 — convergence-сравнение 8 семейств MOO
 
-Этап 1 — первичный отбор представителей и адаптаций восьми семейств MOO только по валидационной выборке. Это не восемь гарантированно точных воспроизведений опубликованных реализаций и не таблица результатов по TEST.
+Этап 1 — завершённые convergence-запуски представителей и адаптаций восьми семейств MOO только по валидационной выборке. Smoke и sanity в таблицу не включены. Ограничения переноса опубликованных методов сохраняются; TEST для этого этапа не использовался.
 
 | Метод | Run | NDCG@10 на валидационной выборке |
 | --- | --- | ---: |
@@ -105,7 +107,19 @@ TiM4Rec исходно решает одну задачу: рекомендац�
 | PaLoRA | `palora_convergence_001` | 0.0422 |
 | FAMO | `famo_convergence_001` | 0.0412 |
 
-Подробная таксономия: [reports/MOO_FAMILIES.md](reports/MOO_FAMILIES.md). Полная история запусков: [reports/MOO_EXPERIMENT_HISTORY.md](reports/MOO_EXPERIMENT_HISTORY.md).
+**Исследовательское обоснование выбора восьми семейств и представителей** находится в [reports/MOO_FAMILIES.md](reports/MOO_FAMILIES.md): классификация, литературные кандидаты, критерии включения, адаптации и текущие решения. Исходное обоснование включено через [PR #3](https://github.com/berdov/diplom/pull/3). Полная история Stage 1/2: [reports/MOO_EXPERIMENT_HISTORY.md](reports/MOO_EXPERIMENT_HISTORY.md).
+
+### Отдельный этап: challenger convergence
+
+Три challenger convergence завершены после технических smoke/sanity; только VALID, seed 2026, без нового tuning и TEST. Historical Stage 1 выше сохранён. Сравнение использует Stage 1, а не настроенные значения Stage 2.
+
+| Семейство | Stage 1 NDCG@10 | Challenger NDCG@10 | Решение |
+| --- | --- | --- | --- |
+| Конечный набор с preferences | EPO 0.0584 | FERERO-adapter 0.0579 | Оставить EPO |
+| Конечный набор без preferences в оптимизаторе | GradHV-style 0.0486 | MosT-style 0.0522 | Выбор открыт; MosT — предварительный кандидат |
+| Гиперсетевое представление | PHN-adapter 0.0423 | PHN-HVI-adapter 0.0443 | Выбрать PHN-HVI-adapter для следующего этапа |
+
+**MosT не зафиксирован как окончательная замена GradHV.** GradHV выбирал max VALID NDCG@10 из набора решений, MosT — min фиксированной многокритериальной оценки; различается также выбор epoch/early stopping. Auxiliary BCE FERERO **2.75–3.95** отмечен как отдельное ограничение и не меняет его primary NDCG@10 **0.0579**. Выводы относятся к конкретным адаптациям на одном seed и не доказывают превосходство семейства. [Подробный challenger report](reports/MOO_REPRESENTATIVE_CHALLENGERS.md).
 
 ## 9. Этап 2 — настройка четырёх лучших MOO-подходов
 
@@ -118,7 +132,7 @@ TiM4Rec исходно решает одну задачу: рекомендац�
 | COSMOS | 0.0453 | 0.0455 | +0.0002 |
 | PCGrad | 0.0444 | 0.0464 | +0.0020 |
 
-EPO дал лучший наблюдавшийся результат среди исследованных MOO-подходов в рамках текущего экспериментального бюджета: NDCG@10 на валидационной выборке `0.0588`. Это не утверждение, что EPO является лучшим MOO-методом вообще.
+EPO дал лучший наблюдавшийся результат среди четырёх методов Stage 2 в рамках его экспериментального бюджета: NDCG@10 на валидационной выборке `0.0588`. Это не утверждение, что EPO является лучшим MOO-методом вообще. Завершено успешных trials: EPO **5/10**, GradHV **12/12**, COSMOS **9/12**, PCGrad **12/12**; [статусы и ограничения](reports/RESULTS.md#stage2-tuned-moo).
 
 Незавершённый устаревший запуск EPO `0006` не считается финальным. Неуспешный запуск COSMOS `0009`, остановленный защитным условием `preference_sensitivity`, не считается успешным результатом.
 
@@ -136,6 +150,22 @@ EPO дал лучший наблюдавшийся результат среди
 
 В этом диагностическом запуске `is_click` дал лучший результат среди вариантов с одной вспомогательной задачей. Полный отчёт: [reports/STAGE3_AUXILIARY_ANALYSIS.md](reports/STAGE3_AUXILIARY_ANALYSIS.md).
 
+Отдельный historical all-four diagnostic `stage3_all_current_aux_diagnostic_001` — NDCG@10 **0.0597**, схема `tuned_task_weights`. Эта строка остаётся в canonical CSV и не заменяется результатом нового all-four screening с усреднёнными auxiliary losses.
+
+### Отдельный этап: target-combination validation screening
+
+Завершены **16/16** subsets, все gates passed; отдельный smoke не входит в число комбинаций. Primary `next_item` присутствует во всех вариантах. Только VALID, seed 2026, fixed hyperparameters: `L_rank + 0.13182740780834337 * mean(active auxiliary BCE)`, пустой subset — `L_rank`; максимум 80 эпох, validation каждую эпоху, patience 5.
+
+| Категория | Auxiliary subset | VALID NDCG@10 | Δ к primary-only этого screening |
+| --- | --- | ---: | ---: |
+| Primary-only | — | 0.0588 | 0.0000 |
+| Best single | click | 0.0592 | +0.0004 |
+| Best pair | like + profile_enter | 0.0595 | +0.0007 |
+| Best triple | click + like + profile_enter | 0.0595 | +0.0007 |
+| All-four | click + long_view + like + profile_enter | 0.0589 | +0.0001 |
+
+Пара и тройка делят первое место при сохранённой точности (4 знака). Это **one-seed descriptive screening**, без оценки статистической значимости и без TEST. Primary-only **0.0588** относится к этой попытке; historical Stage 3 **0.0586** сохранён отдельно. Подтверждение лучших subsets несколькими seed ещё не выполнено. [Все 16 комбинаций и эффекты](reports/TARGET_COMBINATION_ANALYSIS.md); [canonical summary](reports/RESULTS.md#target-combination-screening).
+
 ## 11. Этап 3 — диагностика градиентных взаимодействий
 
 Градиенты измерялись на общей части базовой архитектуры TiM4Rec без выходных голов отдельных задач.
@@ -149,9 +179,9 @@ EPO дал лучший наблюдавшийся результат среди
 
 Связь между конфликтом градиентов и полезностью вспомогательной задачи в текущем диагностическом эксперименте оказалась слабой или неоднозначной. Ограничения: один seed, малое число измеренных batches, разведочный характер диагностики, отсутствие причинного доказательства.
 
-## 12. Текущий этап — EPO + MoE
+## 12. EPO + MoE — статус сохранённых артефактов
 
-Текущий эксперимент исследует смесь экспертов (Mixture of Experts, MoE) поверх TiM4Rec + MTL + EPO:
+Отдельная линия экспериментов исследует смесь экспертов (Mixture of Experts, MoE) поверх TiM4Rec + MTL + EPO:
 
 | Вариант | Смысл |
 | --- | --- |
@@ -162,21 +192,27 @@ EPO дал лучший наблюдавшийся результат среди
 
 Во всех вариантах сохраняются одна базовая архитектура, один набор задач, одна настройка EPO и выбор только по валидационной выборке. Меняется только наличие и число экспертов. Текущая реализация MoE является плотной (dense): вычисляются все эксперты, а отдельный механизм маршрутизации для каждой задачи смешивает их выходы. Это не разреженная top-k MoE.
 
-Зафиксированные в репозитории артефакты пока не содержат результатов M0/M2/M4/M8: в [experiments/epo_moe/summary.json](experiments/epo_moe/summary.json) все валидационные запуски имеют status `missing`. Slurm jobs `4300861`, `4300862`, `4300863`, `4300864` были запущены отдельно; их результаты не добавлены в этот documentation PR.
+Зафиксированные в репозитории артефакты пока не содержат результатов M0/M2/M4/M8: в [experiments/epo_moe/summary.json](experiments/epo_moe/summary.json) все валидационные запуски имеют status `missing`. Исторически отмечены Slurm jobs `4300861`, `4300862`, `4300863`, `4300864`; их текущий cluster status этим обновлением не проверялся. Без подтверждённых результатов архитектура не выбирается.
 
 ## 13. Правила использования TEST
 
-Этапы 1, 2, 3 и текущий выбор архитектуры EPO + MoE не используют TEST для выбора модели, настройки гиперпараметров или выбора архитектуры. TEST предназначен для финальной frozen evaluation после фиксации метода и протокола выбора.
+Этапы 1, 2, 3, challenger convergence, target-combination screening и выбор архитектуры EPO + MoE не используют TEST для выбора модели, настройки гиперпараметров или выбора архитектуры. TEST предназначен для финальной frozen evaluation после фиксации метода и протокола выбора. Обновление canonical результатов выполнено по сохранённым артефактам без новых оценок TEST.
 
 Это не означает, что тестовая выборка вообще никогда не открывалась в проекте: исторические строки базовых моделей и воспроизведений в [experiments/results.csv](experiments/results.csv) содержат TEST evaluations.
 
 ## 14. Где смотреть результаты
 
-- [experiments/results.csv](experiments/results.csv) — машиночитаемый источник фактов для базовых моделей, TiM4Rec, MTL и этапов 1/2/3.
+- [experiments/results.csv](experiments/results.csv) — canonical реестр: 28 исторических строк и 19 новых validation-only строк; этапы различаются по `record_type`.
 - [reports/RESULTS.md](reports/RESULTS.md) — краткая русскоязычная сводка результатов.
+- [reports/MOO_FAMILIES.md](reports/MOO_FAMILIES.md) — обоснование выбора восьми семейств, исходных и текущих представителей.
+- [reports/MOO_REPRESENTATIVE_CHALLENGERS.md](reports/MOO_REPRESENTATIVE_CHALLENGERS.md) — завершённое convergence-сравнение и открытая fairness MosT/GradHV.
+- [reports/TARGET_COMBINATION_ANALYSIS.md](reports/TARGET_COMBINATION_ANALYSIS.md) — screening 16/16, marginal effects и pairwise interactions.
+- [reports/CANONICAL_RESULTS_AUDIT.md](reports/CANONICAL_RESULTS_AUDIT.md) — аудит файлов, границы переноса результатов и проверки.
+- [reports/evidence/README.md](reports/evidence/README.md) — неизменённые исходные результаты и контрольные суммы.
+- [reports/PAPER_RESULTS.md](reports/PAPER_RESULTS.md) — опубликованные внешние результаты, отдельно от наших VALID/TEST.
 - [reports/MOO_EXPERIMENT_HISTORY.md](reports/MOO_EXPERIMENT_HISTORY.md) — подробная история MOO-запусков.
 - [reports/STAGE3_AUXILIARY_ANALYSIS.md](reports/STAGE3_AUXILIARY_ANALYSIS.md) — анализ вспомогательных задач и градиентов.
-- [reports/EPO_MOE_BENCHMARK.md](reports/EPO_MOE_BENCHMARK.md) — текущий эксперимент EPO + MoE только по валидационной выборке.
+- [reports/EPO_MOE_BENCHMARK.md](reports/EPO_MOE_BENCHMARK.md) — протокол EPO + MoE и статус сохранённых результатов.
 
 ## 15. Структура репозитория
 
@@ -192,8 +228,11 @@ EPO дал лучший наблюдавшийся результат среди
 - протокол B готов;
 - воспроизведение TiM4Rec готово;
 - MTL-базовая модель готова;
-- benchmark восьми семейств MOO готов;
+- Stage 1 convergence восьми исходных представителей MOO завершён; обоснование выбора семейств зафиксировано;
 - этап 2 завершён как ограниченный по бюджету срез настройки только по валидационной выборке;
 - этап 3 завершён как диагностический анализ вспомогательных задач;
-- EPO + MoE — текущий эксперимент;
+- challenger convergence завершён: EPO оставлен, PHN-HVI-adapter выбран; окончательный выбор GradHV/MosT открыт до общего operating-point rule;
+- target-combination screening завершён 16/16; лучшие пара и тройка требуют multi-seed подтверждения вместе с primary-only контролем;
+- отдельный разбор auxiliary BCE FERERO остаётся открытым;
+- EPO + MoE — нет подтверждённых метрик в сохранённом summary;
 - собственный финальный метод ещё не зафиксирован.

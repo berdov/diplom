@@ -2,6 +2,8 @@
 
 Эта таблица фиксирует опубликованный бенчмарк из статьи TiM4Rec и связанных работ. Она нужна как внешний ориентир: строки ниже не являются результатами наших запусков и не должны смешиваться с метриками воспроизведения из [../experiments/results.csv](../experiments/results.csv).
 
+Наши завершённые MOO/MTL этапы приведены отдельно в [canonical summary](RESULTS.md): Stage 1 convergence, Stage 2 tuned MOO, [challenger convergence](MOO_REPRESENTATIVE_CHALLENGERS.md) и [target-combination validation screening 16/16](TARGET_COMBINATION_ANALYSIS.md). Их VALID-метрики не добавляются в опубликованную таблицу и не используются для вывода о преимуществе над paper-строками. Обоснование выбора восьми MOO-семейств — [MOO_FAMILIES.md](MOO_FAMILIES.md). При обновлении 10 сентября 2026 опубликованные числа ниже сохранены без изменений; новые оценки TEST не проводились.
+
 | Метод | Год | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | [Caser](https://dl.acm.org/doi/10.1145/3159652.3159656) | 2018 | 0.0801 | 0.1344 | 0.2561 | 0.0395 | 0.0531 | 0.0770 |
