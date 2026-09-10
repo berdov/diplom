@@ -1,3 +1,5 @@
+> **Appendix / historical evidence.** Canonical narrative и итог завершённого MTL/MOO study находятся в [MTL_MOO_STUDY.md](MTL_MOO_STUDY.md). Ниже сохранён исторический отчёт; его этапные решения и TODO не задают текущую proposed architecture.
+
 # Завершённое сравнение представителей MOO
 
 10 сентября 2026. Это отдельное challenger comparison после Stage 1; исторические строки Stage 1 сохранены без замены. Только VALID KuaiRand-Pure / Protocol B, seed 2026, full-sort 7111 items. TEST не загружался и не оценивался; нового tuning не было.

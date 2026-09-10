@@ -1,3 +1,5 @@
+> **Appendix / historical evidence.** Canonical narrative и итог завершённого MTL/MOO study находятся в [MTL_MOO_STUDY.md](MTL_MOO_STUDY.md). Ниже сохранён исторический отчёт; его этапные решения и TODO не задают текущую proposed architecture.
+
 # Этап 3 — анализ вспомогательных задач
 
 Этап 3 выполнен на KuaiRand в рамках протокола B только по валидационной выборке. TEST не использовался.

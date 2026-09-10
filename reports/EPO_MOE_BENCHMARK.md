@@ -1,3 +1,5 @@
+> **Historical technical experiment; jobs failed; no scientific result; abandoned as current direction.** M0/M2/M4/M8 (jobs 4300861–4300864) не дали научного результата. Ниже без удаления сохранены историческая постановка и evidence; их планы не являются текущим направлением. Canonical narrative — [MTL_MOO_STUDY.md](MTL_MOO_STUDY.md).
+
 # Эксперимент EPO + MoE
 
 Этот отчёт описывает текущий этап проекта: сравнение EPO без MoE и EPO со смесью экспертов (Mixture of Experts, MoE) только по валидационной выборке поверх той же базовой архитектуры `MultitaskTiM4Rec`. TEST должен использоваться только после фиксации EPO+MoE конфигурации.

@@ -1,3 +1,5 @@
+> **Appendix / historical evidence.** Canonical narrative и итог завершённого MTL/MOO study находятся в [MTL_MOO_STUDY.md](MTL_MOO_STUDY.md). Ниже сохранён исторический отчёт; его этапные решения и TODO не задают текущую proposed architecture.
+
 # Итоги 16 комбинаций вспомогательных задач
 
 Проверено 10 сентября 2026: **completeness = 16/16**. Все 16 уникальных subsets завершены, gates passed; таблица сверена с каждым run JSON. Marginal effects и pairwise interactions независимо пересчитаны и совпали с summary.
