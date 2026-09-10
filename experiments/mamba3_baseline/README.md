@@ -10,7 +10,7 @@ This experiment starts the **new architecture stage** after the completed MTL/MO
 
 It does **not** contain TiM4Rec time-aware mechanisms, auxiliary tasks, EPO/MOO, prototypes, routing, MoE, flow matching, or any proposed novelty. Its purpose is to establish a clean Mamba-3 reference point before modifying the architecture.
 
-The outer recommender scale stays close to the TiM4Rec reproduction (`hidden_size=64`, two sequence layers, residual FFN, same Protocol B, same initial learning rate and batch size). The Mamba-3 mixer itself uses the official SISO implementation with `d_state=128`, `headdim=64`, `chunk_size=64`, and bf16 mixer weights/activations.
+The outer recommender scale stays close to the TiM4Rec reproduction (`hidden_size=64`, two sequence layers, residual FFN, same Protocol B, same initial learning rate and batch size). The Mamba-3 mixer itself uses the official SISO implementation with `d_state=128`, `headdim=64`, `chunk_size=64`, and bf16 mixer weights/activations. SISO is the default Mamba-3 formulation in the paper/code; MIMO is a later optional comparison, not part of this first reference run.
 
 ## Upstream
 
@@ -42,6 +42,14 @@ Dataset and split are unchanged KuaiRand Protocol B:
 `run.py` checks the Protocol B manifest and, by default, sha256 of the RecBole `.inter` file.
 
 **TEST is not evaluated by this experiment runner.** Every result JSON records `test_evaluation_count: 0`.
+
+## Cluster isolation
+
+Use an isolated checkout/worktree at:
+
+`/home/daryumin/iberdov/diplom_exp_mamba3_baseline`
+
+The immutable Protocol B data remain under `/home/daryumin/iberdov/diplom/data/processed/protocol_b`; Mamba-3 checkpoints/logs stay in the isolated experiment checkout. The Mamba-3 Python environment is separate as well: `/home/daryumin/iberdov/diplom/envs/mamba3`.
 
 ## Files
 

@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=0
 #SBATCH --time=08:00:00
-#SBATCH --output=/home/daryumin/iberdov/diplom/experiments/mamba3_baseline/slurm_logs/%x-%j.out
-#SBATCH --error=/home/daryumin/iberdov/diplom/experiments/mamba3_baseline/slurm_logs/%x-%j.err
+#SBATCH --output=/home/daryumin/iberdov/diplom_exp_mamba3_baseline/experiments/mamba3_baseline/slurm_logs/%x-%j.out
+#SBATCH --error=/home/daryumin/iberdov/diplom_exp_mamba3_baseline/experiments/mamba3_baseline/slurm_logs/%x-%j.err
 
 set -euo pipefail
 
