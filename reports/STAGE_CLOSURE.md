@@ -74,3 +74,9 @@ Completeness **3/9**. Seeds 2026/2027/2028 общие для трёх вариа
 Пока нет: confirmation не завершён. Нельзя выдавать screening winner за multi-seed подтверждение.
 
 [Машиночитаемая сводка](../experiments/stage_confirmation/summary.json). Исходные screening/challenger результаты не изменялись.
+
+## Отправленные confirmation jobs
+
+Массив **4317564_0–5**, CPU-сводка **4317565**; code SHA `8cca489f8112a425f3c03956183fd785e7fdda5c`. На 10 сентября 18:09 МСК — PENDING (Priority), оценка старта недоступна. Все шесть preflight прошли. [Job ledger](../experiments/stage_confirmation/submissions/pipeline.json).
+
+Первоначальные 4316786/4316787 отменены до начала выполнения из-за ошибки ordinal mapping; выбор исправлен на точные наборы таргетов и покрыт проверкой. Новые результаты ещё не получены; full confirmation и окончательное закрытие MTL остаются незавершёнными.

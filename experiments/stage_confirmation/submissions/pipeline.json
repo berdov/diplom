@@ -1,0 +1,50 @@
+{
+  "status": "submitted",
+  "git_commit": "8cca489f8112a425f3c03956183fd785e7fdda5c",
+  "seeds": [
+    2026,
+    2027,
+    2028
+  ],
+  "reused_seed": 2026,
+  "new_scientific_runs": 6,
+  "test_evaluation_count": 0,
+  "submissions": [
+    {
+      "mode": "full",
+      "returncode": 0,
+      "stdout": "4317564\n",
+      "stderr": "sbatch: \u001b[1mThe job is starting as part of project: \u001b[0m\u001b[38;5;87mСоздание цифровых аватаров, адаптирующихся к эмоциональным состояниям пользователей и обеспечивающих естественное взаимодействие\u001b[0m (\u001b[38;5;82mproj_1833\u001b[0m)\n",
+      "options": [
+        "--array=0-5%3",
+        "--partition=rocky",
+        "--constraint=type_e",
+        "--gres=gpu:a100:1",
+        "--cpus-per-task=4",
+        "--mem=0",
+        "--time=03:00:00",
+        "--job-name=target-confirm",
+        "--output=/home/daryumin/iberdov/diplom_stage_confirmation_002/experiments/stage_confirmation/slurm_logs/target-confirm-%A_%a.out",
+        "--error=/home/daryumin/iberdov/diplom_stage_confirmation_002/experiments/stage_confirmation/slurm_logs/target-confirm-%A_%a.err"
+      ]
+    },
+    {
+      "mode": "summary",
+      "returncode": 0,
+      "stdout": "4317565\n",
+      "stderr": "sbatch: \u001b[1mThe job is starting as part of project: \u001b[0m\u001b[38;5;87mСоздание цифровых аватаров, адаптирующихся к эмоциональным состояниям пользователей и обеспечивающих естественное взаимодействие\u001b[0m (\u001b[38;5;82mproj_1833\u001b[0m)\n",
+      "options": [
+        "--partition=rocky",
+        "--cpus-per-task=1",
+        "--mem=0",
+        "--time=00:15:00",
+        "--job-name=stage-close-summary",
+        "--dependency=afterany:4317564",
+        "--output=/home/daryumin/iberdov/diplom_stage_confirmation_002/experiments/stage_confirmation/slurm_logs/summary-%j.out",
+        "--error=/home/daryumin/iberdov/diplom_stage_confirmation_002/experiments/stage_confirmation/slurm_logs/summary-%j.err"
+      ]
+    }
+  ],
+  "full_job_id": "4317564",
+  "summary_job_id": "4317565"
+}
