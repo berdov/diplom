@@ -1,0 +1,17 @@
+{
+  "target_combinations": {
+    "complete": "16/16",
+    "all_individual_runs_checked": true,
+    "all_gates_passed": true,
+    "marginal_checks": 4,
+    "pair_interaction_checks": 6,
+    "effects_recomputed_match_summary": true,
+    "test_evaluation_count": 0
+  },
+  "challengers": {
+    "all_three_completed_and_gates_passed": true,
+    "code_sha": "1a98ef966a2923a8f234b71602291b1c71ab82c3",
+    "test_evaluation_count": 0
+  },
+  "fairness_most_vs_gradhv": "open: different operating-point selection rules"
+}
