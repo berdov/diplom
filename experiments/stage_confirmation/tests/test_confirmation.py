@@ -12,6 +12,8 @@ class ConfirmationTests(unittest.TestCase):
             restored=deepcopy(cfg);restored['training']['seed']=2026
             self.assertEqual(restored,config())
         self.assertEqual(len(seen),6)
+        self.assertEqual({t for t,_ in seen},{(),('is_like','is_profile_enter'),('is_click','is_like','is_profile_enter')})
+        self.assertEqual([case(i)[0]['combination_id'] for i in range(6)],['0000','0011','1011']*2)
         self.assertEqual({s for _,s in seen},{2027,2028})
         for i in [-1,6,16]:
             with self.assertRaises(ValueError):case(i)

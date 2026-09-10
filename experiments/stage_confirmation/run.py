@@ -15,7 +15,9 @@ from experiments.target_combination_analysis.safety import DataAccessGuard
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 SEEDS = (2026, 2027, 2028)
-CELLS = (0, 3, 11)
+TARGET_SETS = ((), ('is_like', 'is_profile_enter'), ('is_click', 'is_like', 'is_profile_enter'))
+CELLS = tuple(next(i for i, c in enumerate(combinations()) if tuple(c['active_targets']) == targets) for targets in TARGET_SETS)
+assert tuple(combinations()[i]['combination_id'] for i in CELLS) == ('0000', '0011', '1011')
 
 def case(index):
     if index not in range(6): raise ValueError('Only the six frozen confirmations are authorized')

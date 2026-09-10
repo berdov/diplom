@@ -17,8 +17,8 @@ Completeness **3/9**. Seeds 2026/2027/2028 общие для трёх вариа
 | Combination | Seeds | NDCG@10 mean ± std |
 | --- | ---: | ---: |
 | primary_only | 1/3 | 0.058800 ± — |
-| like | 1/3 | 0.059000 ± — |
-| click + long_view + like | 1/3 | 0.058900 ± — |
+| like + profile_enter | 1/3 | 0.059500 ± — |
+| click + like + profile_enter | 1/3 | 0.059500 ± — |
 
 ## Все canonical metrics
 
@@ -36,38 +36,38 @@ Completeness **3/9**. Seeds 2026/2027/2028 общие для трёх вариа
 | primary_only | Recall@10 | 0.107600 | — |
 | primary_only | Recall@20 | 0.175600 | — |
 | primary_only | Recall@50 | 0.315300 | — |
-| like | HR@5 | 0.066900 | — |
-| like | HR@10 | 0.107500 | — |
-| like | HR@20 | 0.176900 | — |
-| like | HR@50 | 0.315100 | — |
-| like | NDCG@5 | 0.046000 | — |
-| like | NDCG@10 | 0.059000 | — |
-| like | NDCG@20 | 0.076400 | — |
-| like | NDCG@50 | 0.103700 | — |
-| like | Recall@5 | 0.066900 | — |
-| like | Recall@10 | 0.107500 | — |
-| like | Recall@20 | 0.176900 | — |
-| like | Recall@50 | 0.315100 | — |
-| click + long_view + like | HR@5 | 0.065500 | — |
-| click + long_view + like | HR@10 | 0.107800 | — |
-| click + long_view + like | HR@20 | 0.175100 | — |
-| click + long_view + like | HR@50 | 0.316600 | — |
-| click + long_view + like | NDCG@5 | 0.045400 | — |
-| click + long_view + like | NDCG@10 | 0.058900 | — |
-| click + long_view + like | NDCG@20 | 0.075800 | — |
-| click + long_view + like | NDCG@50 | 0.103600 | — |
-| click + long_view + like | Recall@5 | 0.065500 | — |
-| click + long_view + like | Recall@10 | 0.107800 | — |
-| click + long_view + like | Recall@20 | 0.175100 | — |
-| click + long_view + like | Recall@50 | 0.316600 | — |
+| like + profile_enter | HR@5 | 0.065800 | — |
+| like + profile_enter | HR@10 | 0.109300 | — |
+| like + profile_enter | HR@20 | 0.178400 | — |
+| like + profile_enter | HR@50 | 0.318700 | — |
+| like + profile_enter | NDCG@5 | 0.045600 | — |
+| like + profile_enter | NDCG@10 | 0.059500 | — |
+| like + profile_enter | NDCG@20 | 0.076800 | — |
+| like + profile_enter | NDCG@50 | 0.104400 | — |
+| like + profile_enter | Recall@5 | 0.065800 | — |
+| like + profile_enter | Recall@10 | 0.109300 | — |
+| like + profile_enter | Recall@20 | 0.178400 | — |
+| like + profile_enter | Recall@50 | 0.318700 | — |
+| click + like + profile_enter | HR@5 | 0.066500 | — |
+| click + like + profile_enter | HR@10 | 0.109200 | — |
+| click + like + profile_enter | HR@20 | 0.178000 | — |
+| click + like + profile_enter | HR@50 | 0.320200 | — |
+| click + like + profile_enter | NDCG@5 | 0.045800 | — |
+| click + like + profile_enter | NDCG@10 | 0.059500 | — |
+| click + like + profile_enter | NDCG@20 | 0.076800 | — |
+| click + like + profile_enter | NDCG@50 | 0.104800 | — |
+| click + like + profile_enter | Recall@5 | 0.066500 | — |
+| click + like + profile_enter | Recall@10 | 0.109200 | — |
+| click + like + profile_enter | Recall@20 | 0.178000 | — |
+| click + like + profile_enter | Recall@50 | 0.320200 | — |
 
 ## Paired NDCG@10 differences
 
 | Comparison | Seed deltas | Mean |
 | --- | --- | ---: |
-| like minus primary_only | 2026: +0.0002 | +0.000200 |
-| click + long_view + like minus primary_only | 2026: +0.0001 | +0.000100 |
-| click + long_view + like minus like | 2026: -0.0001 | -0.000100 |
+| like + profile_enter minus primary_only | 2026: +0.0007 | +0.000700 |
+| click + like + profile_enter minus primary_only | 2026: +0.0007 | +0.000700 |
+| click + like + profile_enter minus like + profile_enter | 2026: +0.0000 | +0.000000 |
 
 ## Можно ли заморозить MTL target set?
 
