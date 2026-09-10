@@ -1,0 +1,150 @@
+{
+  "status": "passed",
+  "fairness_operating_point_selection_closed": true,
+  "scope": "operating-point / checkpoint / early-stopping selection only; not all method differences",
+  "method": "most",
+  "derivation": "posthoc replay of every stored validation checkpoint; no new evaluation or training",
+  "source_run": "experiments/moo_representative_challengers/runs/most_convergence_001.json",
+  "source_sha256": "8ce47695e099781732d69fea0a50362ceebe08f2332c0189cf59e0ce4540d3ab",
+  "source_code_sha": "1a98ef966a2923a8f234b71602291b1c71ab82c3",
+  "new_selection": "max VALID NDCG@10 among three solutions; stable first tie, same as historical GradHV",
+  "selection_is_validation_oracle": true,
+  "validation_trajectory": [
+    {
+      "epoch": 5,
+      "solution_index": 1,
+      "NDCG@10": 0.0495,
+      "old_selected_solution": 1,
+      "improved": true,
+      "checks_without_improvement": 0
+    },
+    {
+      "epoch": 10,
+      "solution_index": 1,
+      "NDCG@10": 0.0522,
+      "old_selected_solution": 1,
+      "improved": true,
+      "checks_without_improvement": 0
+    },
+    {
+      "epoch": 15,
+      "solution_index": 1,
+      "NDCG@10": 0.0515,
+      "old_selected_solution": 1,
+      "improved": false,
+      "checks_without_improvement": 1
+    },
+    {
+      "epoch": 20,
+      "solution_index": 1,
+      "NDCG@10": 0.0499,
+      "old_selected_solution": 1,
+      "improved": false,
+      "checks_without_improvement": 2
+    },
+    {
+      "epoch": 25,
+      "solution_index": 1,
+      "NDCG@10": 0.0513,
+      "old_selected_solution": 1,
+      "improved": false,
+      "checks_without_improvement": 3
+    }
+  ],
+  "best_epoch": 10,
+  "stop_epoch": 25,
+  "ranking_operating_point": {
+    "solution_index": 1,
+    "preference_id": null,
+    "preference": null,
+    "metrics": {
+      "HR@5": 0.0589,
+      "Recall@5": 0.0589,
+      "NDCG@5": 0.0408,
+      "HR@10": 0.0947,
+      "Recall@10": 0.0947,
+      "NDCG@10": 0.0522,
+      "HR@20": 0.1554,
+      "Recall@20": 0.1554,
+      "NDCG@20": 0.0674,
+      "HR@50": 0.2741,
+      "Recall@50": 0.2741,
+      "NDCG@50": 0.0908
+    },
+    "checks": {
+      "loader_type": "FullSortEvalDataLoader",
+      "mode": "full",
+      "evaluation": "validation_full_7111_items",
+      "item_num_with_padding": 7112,
+      "candidate_universe_size": 7111,
+      "rows": 23951,
+      "positive_targets": 23951,
+      "raw_nan_scores": 0,
+      "raw_inf_scores": 0,
+      "positive_score_nonfinite": 0,
+      "raw_scores_all_finite": true,
+      "positive_scores_all_finite": true
+    },
+    "auxiliary_validation": {
+      "is_click": {
+        "rows": 23951,
+        "positives": 11559,
+        "positive_rate": 0.4826103294225711,
+        "bce_loss": 0.6617303969073577,
+        "roc_auc": 0.6821718643805204,
+        "pr_auc": 0.643839541429561,
+        "random_pr_auc_baseline": 0.4826103294225711
+      },
+      "long_view": {
+        "rows": 23951,
+        "positives": 8561,
+        "positive_rate": 0.3574381027932028,
+        "bce_loss": 0.6346461081185285,
+        "roc_auc": 0.6785983462031718,
+        "pr_auc": 0.5156362759993127,
+        "random_pr_auc_baseline": 0.3574381027932028
+      },
+      "is_like": {
+        "rows": 23951,
+        "positives": 469,
+        "positive_rate": 0.01958164586029811,
+        "bce_loss": 0.17012117768194046,
+        "roc_auc": 0.7507153780539428,
+        "pr_auc": 0.07333681047779703,
+        "random_pr_auc_baseline": 0.01958164586029811
+      },
+      "is_profile_enter": {
+        "rows": 23951,
+        "positives": 567,
+        "positive_rate": 0.023673333054987266,
+        "bce_loss": 0.6931471802945336,
+        "roc_auc": 0.4906328872573598,
+        "pr_auc": 0.023178986928488646,
+        "random_pr_auc_baseline": 0.023673333054987266
+      }
+    },
+    "objective_vector": [
+      0.9478,
+      0.6617303969073577,
+      0.6346461081185285,
+      0.17012117768194046,
+      0.6931471802945336
+    ],
+    "normalized_objective_vector": [
+      0.9478,
+      0.33086519845367884,
+      0.31732305405926425,
+      0.08506058884097023,
+      0.3465735901472668
+    ],
+    "selection_score": 0.676662243150118
+  },
+  "best_checkpoint": {
+    "path": "/home/daryumin/iberdov/diplom_exp_moo_challengers/experiments/moo_representative_challengers/artifacts/most_convergence_001/checkpoints/best_validation.pth",
+    "size_bytes": 21598938,
+    "sha256": "9b8228afd85333521ceee821bf4a91f2972874fd8a09359a91f052ac43279f9a"
+  },
+  "test_evaluation_count": 0,
+  "rerun_required": false,
+  "original_result_modified": false
+}

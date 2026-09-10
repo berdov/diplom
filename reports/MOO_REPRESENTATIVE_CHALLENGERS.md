@@ -7,7 +7,7 @@
 | family | old representative | old NDCG@10 | challenger | challenger NDCG@10 | decision | caveat |
 | --- | --- | ---: | --- | ---: | --- | --- |
 | Конечный набор с preferences | EPO (Stage 1) | 0.0584 | FERERO-adapter | 0.0579 | Оставить EPO | Δ −0.0005; один seed, адаптация FERERO; отдельное ограничение auxiliary BCE 2.75–3.95 |
-| Конечный набор без preferences в оптимизаторе | GradHV-style (Stage 1) | 0.0486 | MosT-style | 0.0522 | MosT — предварительный кандидат; окончательную замену GradHV отложить | Δ +0.0036; operating-point selection различается, fairness не закрыта |
+| Конечный набор без preferences в оптимизаторе | GradHV-style (Stage 1) | 0.0486 | MosT-style | 0.0522 | Выбрать MosT-style | Δ +0.0036; max-NDCG replay подтвердил тот же результат и stopping; один seed |
 | Гиперсетевое представление | PHN-adapter (Stage 1) | 0.0423 | PHN-HVI-adapter | 0.0443 | Выбрать PHN-HVI-adapter для следующего этапа | Δ +0.0020; один seed, адаптеры, отличия objective/sampling; не full-weight hypernetwork |
 
 Выбор относится к конкретным реализациям в данном validation-only протоколе. Он не доказывает превосходство семейства или статистическую значимость различий.
@@ -24,14 +24,21 @@ Exact code SHA всех трёх: `1a98ef966a2923a8f234b71602291b1c71ab82c3`, т
 
 Сравнение использует старые [EPO](../experiments/moo_8families/runs/epo_convergence_001.json), [GradHV](../experiments/moo_8families/runs/gradhv_convergence_001.json), [PHN](../experiments/moo_8families/runs/phn_convergence_001.json) из Stage 1, а не tuned результаты Stage 2. Общие протокол, fixed parameters и расписание совпадают; вычислительная стоимость и механизмы оптимизации различаются. Fidelity и отличия: [DESIGN на зафиксированном code SHA](https://github.com/berdov/diplom/blob/1a98ef966a2923a8f234b71602291b1c71ab82c3/experiments/moo_representative_challengers/DESIGN.md).
 
-## Fairness: MosT vs historical GradHV
+## Fairness: MosT vs historical GradHV — закрыта для operating-point selection
 
-Проблема **не закрыта**. Проверены код и сохранённые результаты:
+10 сентября выполнен [полный post-hoc replay](evidence/most_gradhv_selection_replay.json) сохранённых метрик **всех трёх решений на каждой validation-проверке**. Применён исторический алгоритм GradHV: max VALID NDCG@10, ties — первый в исходном порядке; то же правило выбора best checkpoint и early stopping (min 20, patience 3, interval 5, delta 0).
 
-- Historical GradHV: `validation.ranking_operating_point_selection = best_validation_NDCG@10_among_preference_free_finite_solutions`, `selection_is_validation_oracle = true`. Из трёх решений выбирается максимальный VALID NDCG@10; по этой величине выбирается epoch и работает early stopping. Реализация: [select_validation_points](../experiments/moo_8families/evaluation/pareto.py). Лучшая эпоха 50, остановка 65.
-- MosT: из трёх решений выбирается `argmin_i Σ_j r_j z_ij`, где `r=(0.6,0.1,0.1,0.1,0.1)`, `z=(1−NDCG@10, click BCE, long_view BCE, like BCE, profile BCE)/(1,2,2,2,2)`; ties — по solution index. По NDCG@10 выбранного таким способом решения выбирается epoch и работает early stopping. Правило зафиксировано до sanity, `selection_is_validation_oracle = false`; [select_operating_point на code SHA запуска](https://github.com/berdov/diplom/blob/1a98ef966a2923a8f234b71602291b1c71ab82c3/experiments/moo_representative_challengers/common.py). Лучшая эпоха 10, остановка 25.
+| Epoch | Max NDCG@10 | Selected solution | Checks without improvement |
+| ---: | ---: | ---: | ---: |
+| 5 | 0.0495 | 1 | 0 |
+| 10 | 0.0522 | 1 | 0 |
+| 15 | 0.0515 | 1 | 1 |
+| 20 | 0.0499 | 1 | 2 |
+| 25 | 0.0513 | 1 | 3 |
 
-Поэтому 0.0522 > 0.0486 поддерживает предварительный выбор MosT для дальнейшей работы, но не закрывает сравнение алгоритмов при одинаковом правиле выбора. Historical GradHV использует более благоприятный для ranking oracle внутри набора; тем не менее одинаковыми процедуры отбора и остановки не становятся. Пересчёт только финальных трёх решений не выравнивает выбор epoch/early stopping. Нужен отдельно согласованный контроль с общим заранее заданным правилом; в этой задаче такой запуск не проводился, сохранённые результаты и selection не переписывались. До контроля GradHV остаётся historical reference, MosT — предварительным кандидатом на замену.
+На всех проверках выбор совпадает с исходным MosT. Best epoch=10, stop epoch=25 и выбранный checkpoint полностью совпадают; недостающих epochs не требуется. Выбор решения не участвует в шагах оптимизатора MosT, а влияет только на checkpoint/остановку, поэтому сохранённая траектория достаточна. **Сопоставимый MosT NDCG@10 остаётся 0.0522** против GradHV 0.0486. Можно выбрать MosT-style как рабочего представителя.
+
+Это отдельная производная оценка с `selection_is_validation_oracle=true`; исходный JSON и его frozen scalar selection не переписаны. [Воспроизводимый replay](../experiments/stage_confirmation/fairness.py). Новый rerun и TEST не запускались. Закрыта конкретная fairness-проблема operating-point/checkpoint/stopping, а не различия самих методов, стоимости и единственного seed.
 
 ## Отдельное наблюдение FERERO auxiliary
 

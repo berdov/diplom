@@ -1,0 +1,134 @@
+targets:
+- is_click
+- long_view
+- is_like
+- is_profile_enter
+combinations:
+- array_index: 0
+  combination_id: '0000'
+  display_name: primary_only
+  active_targets: []
+  n_aux_targets: 0
+  run_id: target_combo_0000_primary_only_002
+- array_index: 1
+  combination_id: '1000'
+  display_name: click
+  active_targets:
+  - is_click
+  n_aux_targets: 1
+  run_id: target_combo_1000_click_002
+- array_index: 2
+  combination_id: '0100'
+  display_name: long_view
+  active_targets:
+  - long_view
+  n_aux_targets: 1
+  run_id: target_combo_0100_long_view_002
+- array_index: 3
+  combination_id: '0010'
+  display_name: like
+  active_targets:
+  - is_like
+  n_aux_targets: 1
+  run_id: target_combo_0010_like_002
+- array_index: 4
+  combination_id: '0001'
+  display_name: profile_enter
+  active_targets:
+  - is_profile_enter
+  n_aux_targets: 1
+  run_id: target_combo_0001_profile_enter_002
+- array_index: 5
+  combination_id: '1100'
+  display_name: click + long_view
+  active_targets:
+  - is_click
+  - long_view
+  n_aux_targets: 2
+  run_id: target_combo_1100_click_long_view_002
+- array_index: 6
+  combination_id: '1010'
+  display_name: click + like
+  active_targets:
+  - is_click
+  - is_like
+  n_aux_targets: 2
+  run_id: target_combo_1010_click_like_002
+- array_index: 7
+  combination_id: '1001'
+  display_name: click + profile_enter
+  active_targets:
+  - is_click
+  - is_profile_enter
+  n_aux_targets: 2
+  run_id: target_combo_1001_click_profile_enter_002
+- array_index: 8
+  combination_id: '0110'
+  display_name: long_view + like
+  active_targets:
+  - long_view
+  - is_like
+  n_aux_targets: 2
+  run_id: target_combo_0110_long_view_like_002
+- array_index: 9
+  combination_id: '0101'
+  display_name: long_view + profile_enter
+  active_targets:
+  - long_view
+  - is_profile_enter
+  n_aux_targets: 2
+  run_id: target_combo_0101_long_view_profile_enter_002
+- array_index: 10
+  combination_id: '0011'
+  display_name: like + profile_enter
+  active_targets:
+  - is_like
+  - is_profile_enter
+  n_aux_targets: 2
+  run_id: target_combo_0011_like_profile_enter_002
+- array_index: 11
+  combination_id: '1110'
+  display_name: click + long_view + like
+  active_targets:
+  - is_click
+  - long_view
+  - is_like
+  n_aux_targets: 3
+  run_id: target_combo_1110_click_long_view_like_002
+- array_index: 12
+  combination_id: '1101'
+  display_name: click + long_view + profile_enter
+  active_targets:
+  - is_click
+  - long_view
+  - is_profile_enter
+  n_aux_targets: 3
+  run_id: target_combo_1101_click_long_view_profile_enter_002
+- array_index: 13
+  combination_id: '1011'
+  display_name: click + like + profile_enter
+  active_targets:
+  - is_click
+  - is_like
+  - is_profile_enter
+  n_aux_targets: 3
+  run_id: target_combo_1011_click_like_profile_enter_002
+- array_index: 14
+  combination_id: '0111'
+  display_name: long_view + like + profile_enter
+  active_targets:
+  - long_view
+  - is_like
+  - is_profile_enter
+  n_aux_targets: 3
+  run_id: target_combo_0111_long_view_like_profile_enter_002
+- array_index: 15
+  combination_id: '1111'
+  display_name: click + long_view + like + profile_enter
+  active_targets:
+  - is_click
+  - long_view
+  - is_like
+  - is_profile_enter
+  n_aux_targets: 4
+  run_id: target_combo_1111_click_long_view_like_profile_enter_002

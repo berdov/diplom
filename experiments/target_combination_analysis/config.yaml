@@ -1,0 +1,151 @@
+source:
+  validation_only_config: experiments/multitask_tim4rec_optuna/config.yaml
+  best_params: experiments/multitask_tim4rec_optuna/best_params.yaml
+  target_statistics: experiments/multitask_tim4rec/target_statistics.csv
+  protocol_b_multitask_dir: /home/daryumin/iberdov/diplom/data/processed/protocol_b_multitask
+  validation_only_recbole_dir: /home/daryumin/iberdov/diplom/experiments/multitask_tim4rec_optuna/validation_only_recbole
+training:
+  seed: 2026
+  max_epochs: 80
+  early_stopping_patience: 5
+  train_batch_size: 2048
+  eval_batch_size: 4096
+  validation_interval: 1
+  gradient_diagnostics:
+    enabled: true
+    first_epoch: true
+    every_n_epochs: 5
+    batches_per_epoch: 1
+    parameter_scope: shared_backbone
+    restore_rng_before_training_step: true
+candidate_targets:
+  is_click:
+    display_name: click
+    type: binary
+    currently_used: true
+    ablation_enabled: true
+    construction: Direct binary interaction label from KuaiRand Protocol B preprocessing.
+    leakage_note: Target-only same-interaction label; never used as an input feature.
+  long_view:
+    display_name: long_view
+    type: binary
+    currently_used: true
+    ablation_enabled: true
+    construction: Derived binary long-view label from Protocol B preprocessing.
+    leakage_note: Target-only same-interaction label; never used as an input feature.
+  is_like:
+    display_name: like
+    type: binary
+    currently_used: true
+    ablation_enabled: true
+    construction: Direct binary interaction label from KuaiRand Protocol B preprocessing.
+    leakage_note: Target-only same-interaction label; never used as an input feature.
+  is_profile_enter:
+    display_name: profile_enter
+    type: binary
+    currently_used: true
+    ablation_enabled: true
+    construction: Direct binary interaction label from KuaiRand Protocol B preprocessing.
+    leakage_note: Target-only same-interaction label; never used as an input feature.
+  is_follow:
+    display_name: follow
+    type: binary
+    currently_used: false
+    ablation_enabled: false
+    construction: Direct binary interaction label in the Protocol B multitask audit
+      data.
+    leakage_note: Target-only same-interaction label; omitted from first ablation
+      pass due to rarity and model-scope change.
+  is_comment:
+    display_name: comment
+    type: binary
+    currently_used: false
+    ablation_enabled: false
+    construction: Direct binary interaction label in the Protocol B multitask audit
+      data.
+    leakage_note: Target-only same-interaction label; omitted from first ablation
+      pass due to rarity and model-scope change.
+  is_forward:
+    display_name: forward
+    type: binary
+    currently_used: false
+    ablation_enabled: false
+    construction: Direct binary interaction label in the Protocol B multitask audit
+      data.
+    leakage_note: Target-only same-interaction label; omitted from first ablation
+      pass due to rarity and model-scope change.
+  is_hate:
+    display_name: hate
+    type: binary
+    currently_used: false
+    ablation_enabled: false
+    construction: Direct binary interaction label in the Protocol B multitask audit
+      data.
+    leakage_note: Target-only same-interaction label; omitted from first ablation
+      pass due to extreme rarity and negative-feedback semantics.
+  play_time_ms:
+    display_name: play_time
+    type: continuous
+    currently_used: false
+    ablation_enabled: false
+    construction: Watch-time field retained in the Protocol B multitask audit data.
+    leakage_note: Continuous post-exposure signal; requires a separate regression/survival
+      objective before fair ablation.
+  play_ratio:
+    display_name: play_ratio
+    type: continuous
+    currently_used: false
+    ablation_enabled: false
+    construction: Watch-time ratio retained or derived in the Protocol B multitask
+      audit data.
+    leakage_note: Continuous post-exposure signal; requires a separate regression/survival
+      objective before fair ablation.
+experiment_name: target_combination_analysis
+base_main_commit: 16ba99b69929a711137f616df28e18e7f92b76c1
+branch: exp/target-combination-screening
+fingerprint: 954d8abff424b5a57daa74f361ab0f8309cf93121fcc12ef10569d2df11144c7
+evaluation_split: validation
+test_usage: forbidden
+test_evaluation_count: 0
+loss_weight_mode: uniform_normalized_aux
+loss_formula: 'L_rank + lambda_aux * mean(active auxiliary BCE); empty subset: L_rank'
+smoke_run_id: target_combo_smoke_all_four_002
+smoke_batches: 2
+optimization:
+  lambda_aux: 0.13182740780834337
+  learning_rate: 0.0019075370668084298
+  head_learning_rate: 0.0008746259318071252
+  weight_decay: 1.925502656735127e-06
+  dropout_prob: 0.08565706719893162
+  effective_pos_weights:
+    is_click: 1.0573239205700589
+    long_view: 1.286659439842131
+    is_like: 9.092198541195886
+    is_profile_enter: 7.598613882204391
+near_tie_ndcg10: 0.0001
+historical_discrepancy_ndcg10: 0.001
+outputs:
+  runs_dir: experiments/target_combination_analysis/runs
+  artifact_dir: experiments/target_combination_analysis/artifacts
+  target_audit_run_id: target_combo_target_audit_001
+protocol:
+  dataset: KuaiRand
+  split: Protocol B
+  evaluation_split: validation
+  test_usage: forbidden
+  test_evaluation_count: 0
+  primary_objective: ranking cross-entropy
+  primary_metric: NDCG@10
+  ranking_metrics:
+  - HR@5
+  - HR@10
+  - HR@20
+  - HR@50
+  - NDCG@5
+  - NDCG@10
+  - NDCG@20
+  - NDCG@50
+  - Recall@5
+  - Recall@10
+  - Recall@20
+  - Recall@50
