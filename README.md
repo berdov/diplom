@@ -27,7 +27,7 @@ KuaiRand-Pure / KuaiRand-27K после 5-core фильтрации: **23 951 п
 
 Исследование вспомогательных поведенческих задач и восьми MOO-семейств завершено как диагностический этап и **не выбрано основой proposed method**. EPO был лучшим observed MOO representative. Screening 16 auxiliary subsets дал максимум **+0.0007 VALID NDCG@10 на одном seed**; tuned MTL и TiM4Rec имеют одинаковый зафиксированный **historical TEST NDCG@10 = 0.0598**. VALID EPO и TEST TiM4Rec не сравниваются как одна метрика.
 
-В зафиксированном завершённом study multi-seed confirmation не проводился, поскольку MTL/MOO линия не была выбрана для proposed method. Разные operating-point rules MosT/GradHV сохранены как historical limitation; дальнейшие эксперименты по этой линии не планируются. Это ограничения завершённого исследования, а не текущие TODO.
+Screening остаётся one-seed экспериментом; подтверждённого multi-seed результата нет. Разные operating-point rules MosT/GradHV сохранены как historical limitation; дальнейшие эксперименты по этой линии не планируются. Это ограничения завершённого исследования, а не текущие TODO.
 
 Главный отчёт — **[reports/MTL_MOO_STUDY.md](reports/MTL_MOO_STUDY.md)**. [RESULTS.md](reports/RESULTS.md) содержит компактный индекс; подробные MOO/MTL appendix reports и raw evidence сохранены.
 

@@ -107,7 +107,7 @@ Auxiliary BCE FERERO **2.75–3.95** — отдельное ограничени
 
 Пара и тройка делят максимум при сохранённой точности метрик. **Максимальный прирост +0.0007 относится к VALID и одному seed**, не является multi-seed или статистическим подтверждением. Контроль — собственный primary-only 0.0588, а не исторический Stage 3 или EPO. Полная таблица 16 строк и уже рассчитанные эффекты сохранены в [TARGET_COMBINATION_ANALYSIS.md](TARGET_COMBINATION_ANALYSIS.md).
 
-Multi-seed confirmation в зафиксированном завершённом MTL/MOO study не проводился, поскольку линия не была выбрана для proposed method. Это historical limitation screening на одном seed, а не текущий TODO.
+Screening остаётся one-seed экспериментом; подтверждённого multi-seed результата нет. Это historical limitation screening на одном seed, а не текущий TODO.
 
 ## Final decision
 

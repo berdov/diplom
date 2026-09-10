@@ -26,7 +26,7 @@ EPO — лучший observed MOO representative: Stage 1 **0.0584**, Stage 2 **
 <a id="challenger-convergence"></a>
 <a id="target-combination-screening"></a>
 
-Multi-seed confirmation в зафиксированном завершённом MTL/MOO study не проводился, поскольку эта линия не выбрана для proposed method. Различия operating-point rules MosT/GradHV — historical limitation; дальнейшие эксперименты по линии не планируются. Эти ограничения не являются текущими TODO.
+Screening остаётся one-seed экспериментом; подтверждённого multi-seed результата нет. Различия operating-point rules MosT/GradHV — historical limitation; дальнейшие эксперименты по линии не планируются. Эти ограничения не являются текущими TODO.
 
 ## Индекс appendix/evidence
 
