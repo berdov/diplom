@@ -1,0 +1,72 @@
+# Vanilla Mamba-3 sequential baseline on the frozen KuaiRand Protocol B.
+# Primary-only next-item recommendation. VALID is used for model selection.
+# TEST is intentionally not evaluated by experiments/mamba3_baseline/run.py.
+
+gpu_id: '0'
+use_gpu: True
+log_wandb: False
+reproducibility: True
+seed: 2026
+state: INFO
+show_progress: False
+
+data_path: /home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole
+checkpoint_dir: /home/daryumin/iberdov/diplom/experiments/mamba3_baseline/checkpoints
+
+# Recommender wrapper. Keep outer scale close to TiM4Rec.
+hidden_size: 64
+num_layers: 2
+dropout_prob: 0.2
+norm_eps: 1.0e-5
+use_ffn: True
+ffn_inner_size: 256
+
+# Official Mamba-3 SISO mixer.
+# Defaults follow the state-spaces/mamba Mamba-3 guidance where practical.
+mamba3_d_state: 128
+mamba3_expand: 2
+mamba3_headdim: 64
+mamba3_ngroups: 1
+mamba3_rope_fraction: 0.5
+mamba3_chunk_size: 64
+mamba3_is_mimo: False
+mamba3_mimo_rank: 4
+mamba3_is_outproj_norm: False
+mamba3_dtype: bfloat16
+
+# Frozen Protocol B.
+dataset: kuairand
+MAX_ITEM_LIST_LENGTH: 50
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+TIME_FIELD: timestamp
+load_col:
+  inter: [user_id, item_id, timestamp]
+
+user_inter_num_interval: "[5,inf)"
+item_inter_num_interval: "[5,inf)"
+rm_dup_inter: ~
+
+eval_args:
+  split: {'LS': 'valid_and_test'}
+  order: TO
+  group_by: user
+  mode: full
+
+# Initial baseline training budget: no tuning.
+epochs: 300
+train_batch_size: 2048
+learner: adam
+learning_rate: 0.001
+eval_step: 1
+stopping_step: 10
+train_neg_sample_args: ~
+weight_decay: 0.0
+
+# Canonical diploma metrics. In leave-one-out, Recall@K and Hit@K are
+# numerically equivalent, but both are recorded for table compatibility.
+metrics: ['Hit', 'NDCG', 'Recall']
+valid_metric: NDCG@10
+eval_batch_size: 4096
+topk: [5, 10, 20, 50]
+metric_decimal_place: 4
