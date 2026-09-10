@@ -89,7 +89,7 @@ EPO сохранил лучший observed VALID-результат этого �
 | GradHV-style | 0.0486 | MosT-style | 0.0522 |
 | PHN-adapter | 0.0423 | PHN-HVI-adapter | 0.0443 |
 
-EPO сохранён; PHN-HVI-adapter улучшил наблюдаемый результат PHN-adapter. Исторические правила выбора operating point GradHV и MosT различались; соответствующая оговорка сохранена в [appendix challengers](MOO_REPRESENTATIVE_CHALLENGERS.md). Здесь новый пересчёт и переопределение исторических результатов не выполнялись.
+EPO сохранён; PHN-HVI-adapter улучшил наблюдаемый результат PHN-adapter. Исторические правила выбора operating point GradHV и MosT различались; соответствующая оговорка сохранена в [appendix challengers](MOO_REPRESENTATIVE_CHALLENGERS.md). Разные operating-point rules MosT/GradHV остаются historical limitation завершённого study; дальнейшие эксперименты по этой линии не планируются. Это не текущий fairness TODO. Здесь новый пересчёт и переопределение исторических результатов не выполнялись.
 
 Auxiliary BCE FERERO **2.75–3.95** — отдельное ограничение вспомогательных предсказаний выбранной точки; primary VALID NDCG@10 **0.0579** не переинтерпретируется. Эти результаты не доказывают превосходство семейства.
 
@@ -107,13 +107,13 @@ Auxiliary BCE FERERO **2.75–3.95** — отдельное ограничени
 
 Пара и тройка делят максимум при сохранённой точности метрик. **Максимальный прирост +0.0007 относится к VALID и одному seed**, не является multi-seed или статистическим подтверждением. Контроль — собственный primary-only 0.0588, а не исторический Stage 3 или EPO. Полная таблица 16 строк и уже рассчитанные эффекты сохранены в [TARGET_COMBINATION_ANALYSIS.md](TARGET_COMBINATION_ANALYSIS.md).
 
+Multi-seed confirmation в зафиксированном завершённом MTL/MOO study не проводился, поскольку линия не была выбрана для proposed method. Это historical limitation screening на одном seed, а не текущий TODO.
+
 ## Final decision
 
 В проведённой постановке MTL с auxiliary behavioral targets и исследованные MOO-подходы не продемонстрировали убедительного улучшения primary next-item recommendation относительно сильного TiM4Rec baseline. EPO был лучшим observed MOO representative. Полный screening 16 auxiliary subsets дал максимум +0.0007 VALID NDCG@10 на одном seed; tuned MTL и TiM4Rec имеют одинаковый зафиксированный TEST NDCG@10=0.0598. Поэтому MTL/MOO сохраняется как завершённое диагностическое исследование, но не выбирается основой proposed method.
 
 Этот вывод не получен прямым сравнением VALID EPO и TEST TiM4Rec как одной метрики: MOO/screening выводы относятся к VALID, равенство TiM4Rec и tuned MTL — к уже зафиксированному historical TEST. Завершение диагностического исследования не означает доказательства бесполезности всех MTL/MOO-методов.
-
-EPO+MoE M0/M2/M4/M8 — **historical technical experiment; jobs failed; no scientific result; abandoned as current direction**. Отсутствующие научные результаты не заменяются нулями и не трактуются как отрицательное качество архитектуры. [Историческая постановка](EPO_MOE_BENCHMARK.md) сохранена.
 
 Текущий следующий этап — **design of the new end-to-end architecture/pipeline**. Новая proposed architecture этим документом не реализуется и не оценивается.
 

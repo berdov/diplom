@@ -26,6 +26,8 @@ EPO — лучший observed MOO representative: Stage 1 **0.0584**, Stage 2 **
 <a id="challenger-convergence"></a>
 <a id="target-combination-screening"></a>
 
+Multi-seed confirmation в зафиксированном завершённом MTL/MOO study не проводился, поскольку эта линия не выбрана для proposed method. Различия operating-point rules MosT/GradHV — historical limitation; дальнейшие эксперименты по линии не планируются. Эти ограничения не являются текущими TODO.
+
 ## Индекс appendix/evidence
 
 | Материал | Содержание |
@@ -36,7 +38,6 @@ EPO — лучший observed MOO representative: Stage 1 **0.0584**, Stage 2 **
 | [MOO_REPRESENTATIVE_CHALLENGERS.md](MOO_REPRESENTATIVE_CHALLENGERS.md) | Завершённые FERERO, MosT, PHN-HVI и caveats |
 | [STAGE3_AUXILIARY_ANALYSIS.md](STAGE3_AUXILIARY_ANALYSIS.md) | Вспомогательные задачи и градиентная диагностика |
 | [TARGET_COMBINATION_ANALYSIS.md](TARGET_COMBINATION_ANALYSIS.md) | Все 16 subsets и существующие эффекты |
-| [EPO_MOE_BENCHMARK.md](EPO_MOE_BENCHMARK.md) | Historical technical experiment; jobs failed; no scientific result; abandoned as current direction |
 | [CANONICAL_RESULTS_AUDIT.md](CANONICAL_RESULTS_AUDIT.md) | Исторический аудит реестра и источников |
 | [evidence/README.md](evidence/README.md) | Raw результаты, summary и контрольные суммы |
 

@@ -1,227 +1,36 @@
 # Дипломный проект
 
-Репозиторий посвящён последовательным рекомендательным системам на KuaiRand. Сильный baseline — TiM4Rec, primary задача — next-item recommendation.
+Последовательные рекомендательные системы на KuaiRand: основная задача — предсказание следующего объекта (next-item recommendation), сильный baseline — TiM4Rec.
 
-**MTL/MOO study = completed, not selected for proposed architecture.** Исследование сохранено как завершённый диагностический этап. **Current next stage = design of the new end-to-end architecture/pipeline.**
+## Protocol B
 
-Главный отчёт: [reports/MTL_MOO_STUDY.md](reports/MTL_MOO_STUDY.md). [RESULTS.md](reports/RESULTS.md) — компактный индекс; подробные отчёты ниже — historical appendix/evidence. Их этапные решения и открытые на тот момент вопросы не означают продолжения MTL/MOO как proposed method.
+KuaiRand-Pure / KuaiRand-27K после 5-core фильтрации: **23 951 пользователей, 7 111 объектов, 1 134 420 взаимодействий**. Хронологическое разбиение: TRAIN 1 086 518, VALID 23 951, TEST 23 951; максимальная длина истории — 50.
 
-## 1. Научная постановка
+Последнее взаимодействие пользователя относится к TEST, предпоследнее — к VALID, предшествующая история — к TRAIN. Целевой объект исключён из контекста. Основные метрики получены ранжированием по полному каталогу 7 111 объектов; sampled-кандидаты не смешиваются с full-ranking оценкой.
 
-TiM4Rec исходно решает одну задачу: рекомендацию следующего объекта. В завершённом MTL/MOO study проверялось, можно ли улучшить основную задачу ранжирования за счёт нескольких вспомогательных поведенческих сигналов: клика, долгого просмотра, лайка и перехода в профиль.
+[Manifest протокола](outputs/data/protocol_b_manifest.json) · [Отчёт по данным](reports/kuairand_protocol_b_data_report.md).
 
-После воспроизведения базовых моделей исследовались методы MOO, которые согласуют функцию потерь основной задачи с функциями потерь вспомогательных поведенческих задач. Основная задача остаётся приоритетной. Улучшение вспомогательных задач без улучшения ранжирования следующего объекта не считается самостоятельной целью проекта.
+## Основные baseline
 
-## 2. Данные
-
-Рабочий протокол построен на KuaiRand-Pure / KuaiRand-27K и использует стандартный журнал взаимодействий KuaiRand-Pure. После итеративной 5-core фильтрации контрольный отпечаток (fingerprint) из [outputs/data/protocol_b_manifest.json](outputs/data/protocol_b_manifest.json) совпадает с ожидаемым бенчмарком:
-
-| Показатель | Значение |
-| --- | ---: |
-| Пользователи | 23 951 |
-| Объекты | 7 111 |
-| Взаимодействия | 1 134 420 |
-| Взаимодействия в train | 1 086 518 |
-| Взаимодействия в validation | 23 951 |
-| Взаимодействия в test | 23 951 |
-| Максимальная длина последовательности | 50 |
-
-Разбиение — хронологический leave-one-out: для каждого пользователя последняя запись уходит в тестовую выборку, предпоследняя — в валидационную выборку, более ранняя история — в обучающую выборку.
-
-Подробный отчёт по данным: [reports/kuairand_protocol_b_data_report.md](reports/kuairand_protocol_b_data_report.md). Расширенный EDA полного KuaiRand-27K: [reports/kuairand_27k_eda_report.md](reports/kuairand_27k_eda_report.md).
-
-## 3. Протокол B
-
-Протокол B фиксирует воспроизводимую схему подготовки и оценки, совместимую с опубликованным KuaiRand benchmark для SSD4Rec и TiM4Rec:
-
-- порядок взаимодействий задаётся временем, при равных timestamp используется `source_row_id`;
-- история для валидационной выборки содержит только обучающую часть истории пользователя;
-- история для тестовой выборки содержит обучающую и валидационную части;
-- целевой объект исключается из контекста и остаётся только целью предсказания;
-- повторяющиеся целевые объекты остаются оцениваемыми, если они возникают в хронологической истории;
-- метрики в основных таблицах считаются как ранжирование по полному набору из 7 111 объектов.
-
-В отдельных строках артефактов может встречаться `sampled-100`: это относится к построению кандидатов или обучению некоторых базовых моделей. Его нельзя смешивать с оценкой ранжирования по полному набору объектов; итоговые бенчмарк-метрики в [experiments/results.csv](experiments/results.csv) помечены `full_7111_items`.
-
-## 4. Базовые модели
-
-В репозитории зафиксированы следующие базовые модели:
-
-| Run | Модель | Роль | TEST NDCG@10 |
-| --- | --- | --- | ---: |
-| `random_002` | Random | нижняя граница качества | 0.0006 |
-| `mostpop_002` | MostPopular | базовая модель по популярности | 0.0167 |
-| `ltr_xgb_002` | XGBoost LambdaMART | базовая модель ранжирования | 0.0150 |
-| `ltr_xgb_optuna_001` | XGBoost LambdaMART | базовая модель после настройки Optuna | 0.0177 |
-| `ssd4rec_001` | SSD4Rec | воспроизведение | 0.0576 |
-| `tim4rec_001` | TiM4Rec | воспроизведение | 0.0598 |
-
-Полные метрики HR@K и NDCG@K находятся в [experiments/results.csv](experiments/results.csv) и сводном отчёте [reports/RESULTS.md](reports/RESULTS.md).
-
-## 5. Воспроизведение TiM4Rec
-
-Важно различать опубликованный результат и наше воспроизведение:
-
-| Источник | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| TiM4Rec paper | 0.1109 | 0.1774 | 0.3202 | 0.0611 | 0.0779 | 0.1060 |
-| `tim4rec_001`, наше воспроизведение | 0.1053 | 0.1696 | 0.3031 | 0.0598 | 0.0759 | 0.1022 |
-
-Опубликованная таблица сохранена отдельно: [reports/PAPER_RESULTS.md](reports/PAPER_RESULTS.md). Наше воспроизведение хранится как строка `tim4rec_001` в [experiments/results.csv](experiments/results.csv).
-
-## 6. Многозадачное обучение
-
-Набор задач завершённого MTL/MOO study:
-
-| Роль | Задача |
-| --- | --- |
-| Основная задача | `next_item` |
-| Вспомогательная задача | `is_click` |
-| Вспомогательная задача | `long_view` |
-| Вспомогательная задача | `is_like` |
-| Вспомогательная задача | `is_profile_enter` |
-
-Вспомогательные выходные головы используют общее представление TiM4Rec. Это позволяет поведенческим сигналам влиять на общую часть модели, но требует аккуратной балансировки функций потерь: сильная вспомогательная задача не должна ухудшать основное ранжирование.
-
-## 7. Этап 0 — контрольная MTL-модель
-
-Этап 0 использовался как контрольная многозадачная модель с фиксированными и настроенными весами функций потерь. Зафиксированный результат после настройки fixed-weight схемы:
-
-| Run | Split | HR@10 | HR@20 | HR@50 | NDCG@10 | NDCG@20 | NDCG@50 |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| `multitask_tim4rec_tuned_001` | TEST | 0.1071 | 0.1746 | 0.3138 | 0.0598 | 0.0767 | 0.1042 |
-| `multitask_optuna_search_001` | validation | 0.1093 | 0.1722 | 0.3136 | 0.0599 | 0.0757 | 0.1036 |
-
-Валидационный Optuna-поиск `multitask_optuna_search_001` не использовал TEST.
-
-## 8. Этап 1 — convergence-сравнение 8 семейств MOO
-
-Этап 1 — завершённые convergence-запуски представителей и адаптаций восьми семейств MOO только по валидационной выборке. Smoke и sanity в таблицу не включены. Ограничения переноса опубликованных методов сохраняются; TEST для этого этапа не использовался.
-
-| Метод | Run | NDCG@10 на валидационной выборке |
+| Run | Модель | Historical TEST NDCG@10 |
 | --- | --- | ---: |
-| EPO | `epo_convergence_001` | 0.0584 |
-| GradHV-style | `gradhv_convergence_001` | 0.0486 |
-| COSMOS-style | `cosmos_convergence_001` | 0.0453 |
-| PCGrad | `pcgrad_convergence_001` | 0.0444 |
-| STCH | `stch_convergence_001` | 0.0424 |
-| PHN-adapter | `phn_convergence_001` | 0.0423 |
-| PaLoRA | `palora_convergence_001` | 0.0422 |
-| FAMO | `famo_convergence_001` | 0.0412 |
+| random_002 | Random | 0.0006 |
+| mostpop_002 | MostPopular | 0.0167 |
+| ltr_xgb_002 | XGBoost LambdaMART | 0.0150 |
+| ltr_xgb_optuna_001 | Tuned XGBoost LambdaMART | 0.0177 |
+| ssd4rec_001 | SSD4Rec | 0.0576 |
+| tim4rec_001 | TiM4Rec | 0.0598 |
 
-**Исследовательское обоснование выбора восьми семейств и представителей** находится в [reports/MOO_FAMILIES.md](reports/MOO_FAMILIES.md): классификация, литературные кандидаты, критерии включения, адаптации и текущие решения. Исходное обоснование включено через [PR #3](https://github.com/berdov/diplom/pull/3). Полная история Stage 1/2: [reports/MOO_EXPERIMENT_HISTORY.md](reports/MOO_EXPERIMENT_HISTORY.md).
+Это зафиксированные исторические результаты, а не новые оценки TEST. Полные метрики — в [experiments/results.csv](experiments/results.csv); опубликованные внешние результаты сохранены отдельно в [PAPER_RESULTS.md](reports/PAPER_RESULTS.md).
 
-### Отдельный этап: challenger convergence
+## Completed MTL/MOO study
 
-Три challenger convergence завершены после технических smoke/sanity; только VALID, seed 2026, без нового tuning и TEST. Historical Stage 1 выше сохранён. Сравнение использует Stage 1, а не настроенные значения Stage 2.
+Исследование вспомогательных поведенческих задач и восьми MOO-семейств завершено как диагностический этап и **не выбрано основой proposed method**. EPO был лучшим observed MOO representative. Screening 16 auxiliary subsets дал максимум **+0.0007 VALID NDCG@10 на одном seed**; tuned MTL и TiM4Rec имеют одинаковый зафиксированный **historical TEST NDCG@10 = 0.0598**. VALID EPO и TEST TiM4Rec не сравниваются как одна метрика.
 
-| Семейство | Stage 1 NDCG@10 | Challenger NDCG@10 | Решение |
-| --- | --- | --- | --- |
-| Конечный набор с preferences | EPO 0.0584 | FERERO-adapter 0.0579 | Оставить EPO |
-| Конечный набор без preferences в оптимизаторе | GradHV-style 0.0486 | MosT-style 0.0522 | Выбор открыт; MosT — предварительный кандидат |
-| Гиперсетевое представление | PHN-adapter 0.0423 | PHN-HVI-adapter 0.0443 | Этапное решение: PHN-HVI-adapter |
+В зафиксированном завершённом study multi-seed confirmation не проводился, поскольку MTL/MOO линия не была выбрана для proposed method. Разные operating-point rules MosT/GradHV сохранены как historical limitation; дальнейшие эксперименты по этой линии не планируются. Это ограничения завершённого исследования, а не текущие TODO.
 
-**MosT не зафиксирован как окончательная замена GradHV.** GradHV выбирал max VALID NDCG@10 из набора решений, MosT — min фиксированной многокритериальной оценки; различается также выбор epoch/early stopping. Auxiliary BCE FERERO **2.75–3.95** отмечен как отдельное ограничение и не меняет его primary NDCG@10 **0.0579**. Выводы относятся к конкретным адаптациям на одном seed и не доказывают превосходство семейства. [Подробный challenger report](reports/MOO_REPRESENTATIVE_CHALLENGERS.md).
+Главный отчёт — **[reports/MTL_MOO_STUDY.md](reports/MTL_MOO_STUDY.md)**. [RESULTS.md](reports/RESULTS.md) содержит компактный индекс; подробные MOO/MTL appendix reports и raw evidence сохранены.
 
-## 9. Этап 2 — настройка четырёх лучших MOO-подходов
+## Current stage
 
-После этапа 1 в настройку гиперпараметров были взяты EPO, GradHV, COSMOS и PCGrad. Этап 2 — ограниченный по времени срез только по валидационной выборке, а не бенчмарк с равным числом запусков.
-
-| Метод | NDCG@10 после первичного отбора | NDCG@10 после настройки | Изменение |
-| --- | ---: | ---: | ---: |
-| EPO | 0.0584 | 0.0588 | +0.0004 |
-| GradHV | 0.0486 | 0.0488 | +0.0002 |
-| COSMOS | 0.0453 | 0.0455 | +0.0002 |
-| PCGrad | 0.0444 | 0.0464 | +0.0020 |
-
-EPO дал лучший наблюдавшийся результат среди четырёх методов Stage 2 в рамках его экспериментального бюджета: NDCG@10 на валидационной выборке `0.0588`. Это не утверждение, что EPO является лучшим MOO-методом вообще. Завершено успешных trials: EPO **5/10**, GradHV **12/12**, COSMOS **9/12**, PCGrad **12/12**; [статусы и ограничения](reports/RESULTS.md#stage2-tuned-moo).
-
-Незавершённый устаревший запуск EPO `0006` не считается финальным. Неуспешный запуск COSMOS `0009`, остановленный защитным условием `preference_sensitivity`, не считается успешным результатом.
-
-## 10. Этап 3 — анализ вспомогательных задач
-
-Этап 3 проверяет вклад отдельных вспомогательных задач в основное ранжирование на валидационной выборке.
-
-| Run | Вспомогательная задача | NDCG@10 на валидационной выборке | Изменение относительно модели без вспомогательных задач |
-| --- | --- | ---: | ---: |
-| `stage3_primary_only_001` | нет | 0.0586 | 0.0000 |
-| `stage3_aux_click_001` | `is_click` | 0.0593 | +0.0007 |
-| `stage3_aux_long_view_001` | `long_view` | 0.0586 | +0.0000 |
-| `stage3_aux_like_001` | `is_like` | 0.0587 | +0.0001 |
-| `stage3_aux_profile_enter_001` | `is_profile_enter` | 0.0590 | +0.0004 |
-
-В этом диагностическом запуске `is_click` дал лучший результат среди вариантов с одной вспомогательной задачей. Полный отчёт: [reports/STAGE3_AUXILIARY_ANALYSIS.md](reports/STAGE3_AUXILIARY_ANALYSIS.md).
-
-Отдельный historical all-four diagnostic `stage3_all_current_aux_diagnostic_001` — NDCG@10 **0.0597**, схема `tuned_task_weights`. Эта строка остаётся в canonical CSV и не заменяется результатом нового all-four screening с усреднёнными auxiliary losses.
-
-### Отдельный этап: target-combination validation screening
-
-Завершены **16/16** subsets, все gates passed; отдельный smoke не входит в число комбинаций. Primary `next_item` присутствует во всех вариантах. Только VALID, seed 2026, fixed hyperparameters: `L_rank + 0.13182740780834337 * mean(active auxiliary BCE)`, пустой subset — `L_rank`; максимум 80 эпох, validation каждую эпоху, patience 5.
-
-| Категория | Auxiliary subset | VALID NDCG@10 | Δ к primary-only этого screening |
-| --- | --- | ---: | ---: |
-| Primary-only | — | 0.0588 | 0.0000 |
-| Best single | click | 0.0592 | +0.0004 |
-| Best pair | like + profile_enter | 0.0595 | +0.0007 |
-| Best triple | click + like + profile_enter | 0.0595 | +0.0007 |
-| All-four | click + long_view + like + profile_enter | 0.0589 | +0.0001 |
-
-Пара и тройка делят первое место при сохранённой точности (4 знака). Это **one-seed descriptive screening**, без оценки статистической значимости и без TEST. Primary-only **0.0588** относится к этой попытке; historical Stage 3 **0.0586** сохранён отдельно. Подтверждение лучших subsets несколькими seed ещё не выполнено. [Все 16 комбинаций и эффекты](reports/TARGET_COMBINATION_ANALYSIS.md); [canonical summary](reports/RESULTS.md#target-combination-screening).
-
-## 11. Этап 3 — диагностика градиентных взаимодействий
-
-Градиенты измерялись на общей части базовой архитектуры TiM4Rec без выходных голов отдельных задач.
-
-| Вспомогательная задача | Batches | Median norm ratio | Median cosine | Conflict rate |
-| --- | ---: | ---: | ---: | ---: |
-| `is_click` | 5 | 0.1413 | 0.0428 | 0.2000 |
-| `long_view` | 3 | 0.1564 | 0.0219 | 0.0000 |
-| `is_like` | 4 | 0.4343 | 0.0308 | 0.5000 |
-| `is_profile_enter` | 4 | 0.3254 | 0.0007 | 0.2500 |
-
-Связь между конфликтом градиентов и полезностью вспомогательной задачи в текущем диагностическом эксперименте оказалась слабой или неоднозначной. Ограничения: один seed, малое число измеренных batches, разведочный характер диагностики, отсутствие причинного доказательства.
-
-## 12. EPO + MoE — historical technical experiment
-
-**Jobs failed; no scientific result; abandoned as current direction.** Исторические M0/M2/M4/M8 (jobs 4300861–4300864) не дали научных результатов. Постановка и сохранённые артефакты остаются в [reports/EPO_MOE_BENCHMARK.md](reports/EPO_MOE_BENCHMARK.md); направление не выбрано для proposed method.
-
-## 13. Правила использования TEST
-
-Этапы 1, 2, 3, challenger convergence, target-combination screening и выбор архитектуры EPO + MoE не используют TEST для выбора модели, настройки гиперпараметров или выбора архитектуры. TEST предназначен для финальной frozen evaluation после фиксации метода и протокола выбора. Обновление canonical результатов выполнено по сохранённым артефактам без новых оценок TEST.
-
-Это не означает, что тестовая выборка вообще никогда не открывалась в проекте: исторические строки базовых моделей и воспроизведений в [experiments/results.csv](experiments/results.csv) содержат TEST evaluations.
-
-## 14. Где смотреть результаты
-
-- [reports/MTL_MOO_STUDY.md](reports/MTL_MOO_STUDY.md) — главный canonical narrative и final decision завершённого исследования.
-
-- [experiments/results.csv](experiments/results.csv) — canonical реестр: 28 исторических строк и 19 новых validation-only строк; этапы различаются по `record_type`.
-- [reports/RESULTS.md](reports/RESULTS.md) — краткая русскоязычная сводка результатов.
-- [reports/MOO_FAMILIES.md](reports/MOO_FAMILIES.md) — обоснование выбора восьми семейств, исходных и текущих представителей.
-- [reports/MOO_REPRESENTATIVE_CHALLENGERS.md](reports/MOO_REPRESENTATIVE_CHALLENGERS.md) — завершённое convergence-сравнение и открытая fairness MosT/GradHV.
-- [reports/TARGET_COMBINATION_ANALYSIS.md](reports/TARGET_COMBINATION_ANALYSIS.md) — screening 16/16, marginal effects и pairwise interactions.
-- [reports/CANONICAL_RESULTS_AUDIT.md](reports/CANONICAL_RESULTS_AUDIT.md) — аудит файлов, границы переноса результатов и проверки.
-- [reports/evidence/README.md](reports/evidence/README.md) — неизменённые исходные результаты и контрольные суммы.
-- [reports/PAPER_RESULTS.md](reports/PAPER_RESULTS.md) — опубликованные внешние результаты, отдельно от наших VALID/TEST.
-- [reports/MOO_EXPERIMENT_HISTORY.md](reports/MOO_EXPERIMENT_HISTORY.md) — подробная история MOO-запусков.
-- [reports/STAGE3_AUXILIARY_ANALYSIS.md](reports/STAGE3_AUXILIARY_ANALYSIS.md) — анализ вспомогательных задач и градиентов.
-- [reports/EPO_MOE_BENCHMARK.md](reports/EPO_MOE_BENCHMARK.md) — протокол EPO + MoE и статус сохранённых результатов.
-
-## 15. Структура репозитория
-
-- [configs](configs) — конфигурации данных и настройки MOO.
-- [src](src) — preprocessing и EDA-код.
-- [experiments](experiments) — код экспериментов и компактные canonical artifacts.
-- [reports](reports) — человекочитаемые отчёты.
-- [slurm](slurm) — entrypoints для кластерных запусков.
-- [outputs](outputs) — manifests и compact fingerprints.
-
-## 16. Текущая точка проекта
-
-- Протокол B и воспроизведение TiM4Rec готовы.
-- MTL/MOO study завершён как диагностическое исследование и **не выбран основой proposed architecture**.
-- Stage 1, Stage 2, Stage 3, challenger convergence и screening 16 subsets сохранены как historical results/evidence.
-- EPO был лучшим observed MOO representative; это не сравнение VALID EPO с TEST TiM4Rec.
-- Tuned MTL и TiM4Rec имеют одинаковый зафиксированный historical TEST NDCG@10=0.0598; максимум screening — +0.0007 VALID NDCG@10 на одном seed.
-- EPO+MoE закрыт как historical technical experiment без научного результата.
-- Текущий следующий этап — **design of the new end-to-end architecture/pipeline**; новая proposed architecture ещё не зафиксирована.
+**Design of the new end-to-end architecture/pipeline.** Следующий этап — проектирование новой сквозной архитектуры и пайплайна для primary next-item recommendation. Новая proposed architecture ещё не зафиксирована.
