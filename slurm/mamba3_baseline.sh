@@ -11,8 +11,12 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_DIR="${REPO_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
+DEFAULT_REPO_DIR="/home/daryumin/iberdov/diplom_exp_mamba3_baseline"
+REPO_DIR="${REPO_DIR:-${SLURM_SUBMIT_DIR:-${DEFAULT_REPO_DIR}}}"
+if [ ! -f "${REPO_DIR}/experiments/mamba3_baseline/run.py" ]; then
+  REPO_DIR="${DEFAULT_REPO_DIR}"
+fi
+
 ENV_DIR="${MAMBA3_ENV_DIR:-/home/daryumin/iberdov/diplom/envs/mamba3}"
 PYTHON="${ENV_DIR}/bin/python"
 CONFIG="${MAMBA3_CONFIG:-${REPO_DIR}/experiments/mamba3_baseline/config_kuairand.yaml}"
@@ -48,8 +52,14 @@ if [ ! -x "${PYTHON}" ]; then
   exit 2
 fi
 
-echo "repo=$(git rev-parse HEAD)"
-echo "branch=$(git rev-parse --abbrev-ref HEAD)"
+if command -v git >/dev/null 2>&1; then
+  echo "repo=$(git rev-parse HEAD)"
+  echo "branch=$(git rev-parse --abbrev-ref HEAD)"
+else
+  echo "repo=unknown"
+  echo "branch=unknown"
+fi
+
 echo "stage=${STAGE}"
 echo "run_id=${RUN_ID}"
 echo "node=${SLURM_JOB_NODELIST:-unknown}"
