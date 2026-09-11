@@ -54,6 +54,7 @@ eval_args:
   mode: full
 
 # Initial baseline training budget: no tuning.
+loss_type: CE
 epochs: 300
 train_batch_size: 2048
 learner: adam
