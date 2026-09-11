@@ -92,6 +92,18 @@ def _package_version(name: str) -> str:
         return "not-installed"
 
 
+def _recbole_inter_candidates(config: Config) -> list[Path]:
+    """Return plausible .inter locations for both raw and normalized RecBole data_path semantics."""
+    dataset = str(config["dataset"])
+    data_path = Path(str(config["data_path"]))
+    candidates = [
+        data_path / f"{dataset}.inter",
+        data_path / dataset / f"{dataset}.inter",
+    ]
+    # Preserve order while removing duplicates.
+    return list(dict.fromkeys(candidates))
+
+
 def verify_protocol(config: Config, *, check_sha: bool) -> dict[str, Any]:
     manifest_path = ROOT / "outputs" / "data" / "protocol_b_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -110,11 +122,13 @@ def verify_protocol(config: Config, *, check_sha: bool) -> dict[str, Any]:
                 f"Protocol B mismatch for {key}: expected {EXPECTED_PROTOCOL[key]}, got {actual[key]}"
             )
 
-    inter_path = Path(str(config["data_path"])) / str(config["dataset"]) / f"{config['dataset']}.inter"
+    candidates = _recbole_inter_candidates(config)
+    inter_path = next((path for path in candidates if path.exists()), candidates[0])
     actual_sha = None
     if check_sha:
         if not inter_path.exists():
-            raise FileNotFoundError(f"Protocol B RecBole file not found: {inter_path}")
+            checked = ", ".join(str(path) for path in candidates)
+            raise FileNotFoundError(f"Protocol B RecBole file not found; checked: {checked}")
         actual_sha = _sha256(inter_path)
         if actual_sha != EXPECTED_PROTOCOL["recbole_inter_sha256"]:
             raise RuntimeError(
@@ -148,6 +162,8 @@ def runtime_info() -> dict[str, Any]:
         "mamba_ssm": _package_version("mamba-ssm"),
         "triton": _package_version("triton"),
         "tilelang": _package_version("tilelang"),
+        "apache_tvm_ffi": _package_version("apache-tvm-ffi"),
+        "numpy": _package_version("numpy"),
     }
 
 
