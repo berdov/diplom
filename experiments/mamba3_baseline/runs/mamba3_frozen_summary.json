@@ -1,0 +1,26 @@
+{
+  "description": "Post-run provenance summary; original VALID and TEST JSON unchanged. Not a pre-test selection artifact.",
+  "validation_run": "mamba3_validation_001",
+  "validation_job": "4322324",
+  "validation_ndcg10": 0.0584,
+  "selected_epoch": 15,
+  "epoch_indexing": "zero-based",
+  "selection_evidence": "mamba3-base-4322324.err: Finished training, best eval result in epoch 15",
+  "test_run": "mamba3_final_test_001",
+  "test_job": "4324609",
+  "test_job_state": "COMPLETED",
+  "exit_code": "0:0",
+  "test_evaluation_count": 1,
+  "failed_pre_evaluation_job": "4323168",
+  "checkpoint": {
+    "path": "/home/daryumin/iberdov/diplom_exp_mamba3_baseline/experiments/mamba3_baseline/checkpoints/Mamba3Rec-Sep-12-2026_17-55-38.pth",
+    "sha256": "d0bc3bb504daf5df068b6fd5bd635d6454aa223da01c006c63c78da193bb9dbe",
+    "epoch": 15
+  },
+  "artifacts_sha256": {
+    "experiments/mamba3_baseline/runs/mamba3_validation_001.json": "22678554b5c915a4827c4805ac7bd204d5320cba468785c028715e0549767ea6",
+    "experiments/mamba3_baseline/runs/mamba3_final_test_001.json": "3f33180181d80d40435e9b30dd76c8e6dee12831bb32e82ad13303803d911517",
+    "experiments/mamba3_baseline/mamba3_final_test.py": "d075248f41cadfbd0510518d36016020362629834961ea8df3c7e54a4d0566e3",
+    "slurm/mamba3_final_test.sh": "7e169d21682313d24563d31b5ba04d05a7086bf3687eeb7b219ec4a64169e94c"
+  }
+}

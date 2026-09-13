@@ -1,71 +1,44 @@
-# Mamba-3 sequential baseline
+# Frozen vanilla Mamba3 baseline
 
-This experiment starts the **new architecture stage** after the completed MTL/MOO study.
+`Mamba3Rec` — зафиксированный baseline для primary-only next-item prediction на KuaiRand Protocol B. Архитектура не time-aware: порядок событий хронологический, но timestamps, delta-time и time embeddings в модель не подаются. Здесь нет механизмов TiM4Rec, auxiliary tasks, MTL/MOO/EPO, MoE или flow matching.
 
-## Scientific role
+## Модель и воспроизводимость
 
-`Mamba3Rec` is a deliberately simple **primary-only next-item baseline**:
+Item embeddings → два Mamba-3 SISO блока → последнее валидное состояние → tied item scoring. Hidden size 64, dropout 0.2, FFN 256, d_state 128, expand 2, headdim 64, chunk_size 64, bfloat16; 610440 параметров. Конфигурация обучения не изменена после просмотра TEST.
 
-`item sequence -> item embeddings -> stacked Mamba-3 blocks -> last valid state -> tied item scoring`
+Исходный Mamba: `state-spaces/mamba`, commit `e9594ce1c732d97440f0332fdc43170a2294dbfa`. Стек и установка описаны в [ENVIRONMENT.md](ENVIRONMENT.md); параметры — в [config_kuairand.yaml](config_kuairand.yaml).
 
-It does **not** contain TiM4Rec time-aware mechanisms, auxiliary tasks, EPO/MOO, prototypes, routing, MoE, flow matching, or any proposed novelty. Its purpose is to establish a clean Mamba-3 reference point before modifying the architecture.
+Protocol B: 23951 пользователей, 7111 items, 1134420 взаимодействий; train 1086518, VALID 23951, TEST 23951. Chronological leave-one-out, максимальная длина последовательности 50, full-ranking. SHA256 входного `.inter`: `e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc`.
 
-The outer recommender scale stays close to the TiM4Rec reproduction (`hidden_size=64`, two sequence layers, residual FFN, same Protocol B, same initial learning rate and batch size). The Mamba-3 mixer itself uses the official SISO implementation with `d_state=128`, `headdim=64`, `chunk_size=64`, and bf16 mixer weights/activations. SISO is the default Mamba-3 formulation in the paper/code; MIMO is a later optional comparison, not part of this first reference run.
+## Выбор и заморозка
 
-## Upstream
+Выбор модели выполнен только по VALID NDCG@10: **0.0584**. Лог обучения фиксирует лучшую epoch **15** (нумерация RecBole с нуля); обучение остановилось после epoch 26. [VALID JSON](runs/mamba3_validation_001.json) сохранён без редактирования. [Freeze summary](runs/mamba3_frozen_summary.json) связывает исходные артефакты и Slurm jobs; это сводка существующих свидетельств, составленная после запуска, а не новый selection-run.
 
-Official repository: `state-spaces/mamba`
+Frozen checkpoint, не хранящийся в Git:
 
-Pinned source commit for this experiment:
+`/home/daryumin/iberdov/diplom_exp_mamba3_baseline/experiments/mamba3_baseline/checkpoints/Mamba3Rec-Sep-12-2026_17-55-38.pth`
 
-`e9594ce1c732d97440f0332fdc43170a2294dbfa`
+SHA256: `d0bc3bb504daf5df068b6fd5bd635d6454aa223da01c006c63c78da193bb9dbe`.
 
-Mamba-3 paper: *Mamba-3: Improved Sequence Modeling using State Space Principles* (2026), arXiv:2603.15569.
+## Единственный финальный TEST
 
-The runner uses only full-sequence `Mamba3.forward(...)`. It does not use incremental `step()` / generation cache code.
+После выбора checkpoint по VALID выполнена ровно одна успешная TEST evaluation: job **4324609**, COMPLETED, exit 0:0, `FullSortEvalDataLoader`, `test_evaluation_count=1`. Предыдущий job 4323168 завершился при загрузке checkpoint до обработки TEST-батчей и не вычислил TEST-метрики.
 
-## Evaluation protocol
+| TEST | @5 | @10 | @20 | @50 |
+|---|---:|---:|---:|---:|
+| HR | 0.0660 | 0.1062 | 0.1708 | 0.3053 |
+| NDCG | 0.0461 | 0.0590 | 0.0752 | 0.1017 |
+| Recall | 0.0660 | 0.1062 | 0.1708 | 0.3053 |
 
-Dataset and split are unchanged KuaiRand Protocol B:
+Primary metric: **TEST NDCG@10 = 0.0590**. [Финальный JSON](runs/mamba3_final_test_001.json) сохранён без редактирования. Это не утверждение о превосходстве над TiM4Rec.
 
-- 23,951 users
-- 7,111 items
-- 1,134,420 interactions
-- TRAIN 1,086,518
-- VALID 23,951
-- TEST 23,951
-- chronological leave-one-out
-- max sequence length 50
-- full-catalog evaluation
-- model selection by VALID NDCG@10
+Повторная TEST evaluation запрещена без отдельного научного решения. Нельзя менять параметры baseline или выбирать другой checkpoint по увиденному TEST. Следующая архитектурная модификация Mamba3 выполняется отдельной задачей и веткой; этот baseline остаётся frozen.
 
-`run.py` checks the Protocol B manifest and, by default, sha256 of the RecBole `.inter` file.
+## Файлы и запуск
 
-**TEST is not evaluated by this experiment runner.** Every result JSON records `test_evaluation_count: 0`.
+- [model.py](model.py) — неизменённая архитектура.
+- [run.py](run.py) и [training launcher](../../slurm/mamba3_baseline.sh) — исторический smoke/VALID training; они не вычисляют TEST.
+- [mamba3_final_test.py](mamba3_final_test.py) и [TEST launcher](../../slurm/mamba3_final_test.sh) — код выполненной финальной оценки, сохранён для provenance, не для повторного запуска. Для собственного доверенного checkpoint использован `weights_only=False`, без глобального изменения RecBole.
+- Данные доступны через `/home/daryumin/iberdov/diplom/data`, окружение — через `/home/daryumin/iberdov/diplom/envs/mamba3`. Checkpoint остаётся в отдельном Mamba-каталоге.
 
-## Cluster isolation
-
-Use an isolated checkout/worktree at:
-
-`/home/daryumin/iberdov/diplom_exp_mamba3_baseline`
-
-The immutable Protocol B data remain under `/home/daryumin/iberdov/diplom/data/processed/protocol_b`; Mamba-3 checkpoints/logs stay in the isolated experiment checkout. The Mamba-3 Python environment is separate as well: `/home/daryumin/iberdov/diplom/envs/mamba3`.
-
-## Files
-
-- `model.py` — RecBole `Mamba3Rec` model.
-- `config_kuairand.yaml` — fixed initial baseline config; no hyperparameter tuning.
-- `run.py` — smoke or full validation-only training.
-- `ENVIRONMENT.md` — isolated environment requirements.
-- `slurm/mamba3_baseline.sh` — cHARISMa A100 launcher.
-- `runs/` — compact JSON summaries; checkpoints/logs remain untracked.
-
-## Run sequence
-
-1. Create/verify the isolated `envs/mamba3` environment.
-2. Run `MAMBA3_STAGE=smoke sbatch slurm/mamba3_baseline.sh`.
-3. Only if smoke has finite loss and gradients, run `MAMBA3_STAGE=train sbatch slurm/mamba3_baseline.sh`.
-4. Compare VALID metrics with the appropriate validation controls. Do not use historical TEST TiM4Rec as if it were a same-split comparison.
-5. Freeze the baseline before any Mamba-3 architectural modification.
-
-No tuning should be started from the first result. The next research step is a literature-guided modification of Mamba-3 inside the full proposed pipeline.
+Большие логи, checkpoint, кэши, datasets и environment binaries в Git не включаются.
