@@ -1,0 +1,89 @@
+{
+  "run_id": "mamba3_validation_001",
+  "status": "ok",
+  "created_at_utc": "2026-09-12T14:55:38.350575+00:00",
+  "mode": "train",
+  "selection_split": "VALID",
+  "primary_task": "next_item",
+  "valid_metric": "NDCG@10",
+  "test_evaluation_count": 0,
+  "test_result": null,
+  "protocol": {
+    "users": 23951,
+    "items": 7111,
+    "interactions": 1134420,
+    "train": 1086518,
+    "validation": 23951,
+    "test": 23951,
+    "manifest_path": "/home/daryumin/iberdov/diplom_exp_mamba3_baseline/outputs/data/protocol_b_manifest.json",
+    "recbole_inter_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand/kuairand.inter",
+    "recbole_inter_sha256": "e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc",
+    "sha_checked": true
+  },
+  "model": {
+    "name": "Mamba3Rec",
+    "role": "vanilla Mamba-3 sequential baseline",
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout_prob": 0.2,
+    "use_ffn": true,
+    "ffn_inner_size": 256,
+    "mamba3_d_state": 128,
+    "mamba3_expand": 2,
+    "mamba3_headdim": 64,
+    "mamba3_ngroups": 1,
+    "mamba3_rope_fraction": 0.5,
+    "mamba3_chunk_size": 64,
+    "mamba3_is_mimo": false,
+    "mamba3_mimo_rank": 4,
+    "mamba3_is_outproj_norm": false,
+    "mamba3_dtype": "bfloat16",
+    "trainable_parameters": 610440,
+    "total_parameters": 610440
+  },
+  "upstream": {
+    "repo": "https://github.com/state-spaces/mamba",
+    "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa"
+  },
+  "runtime": {
+    "python": "3.10.21 | packaged by conda-forge | (main, Aug 21 2026, 22:42:31) [GCC 14.4.0]",
+    "torch": "2.9.1+cu128",
+    "torch_cuda": "12.8",
+    "cuda_available": true,
+    "gpu": {
+      "name": "NVIDIA A100-SXM4-80GB",
+      "capability": [
+        8,
+        0
+      ]
+    },
+    "recbole": "1.2.0",
+    "mamba_ssm": "2.3.2.post1",
+    "triton": "3.5.1",
+    "tilelang": "0.1.8",
+    "apache_tvm_ffi": "0.1.9",
+    "numpy": "1.26.4"
+  },
+  "git": {
+    "commit": "unknown",
+    "branch": "unknown",
+    "remote": "unknown"
+  },
+  "best_valid_score": 0.0584,
+  "best_valid_result": {
+    "hit@5": 0.0648,
+    "hit@10": 0.1078,
+    "hit@20": 0.1738,
+    "hit@50": 0.3114,
+    "ndcg@5": 0.0446,
+    "ndcg@10": 0.0584,
+    "ndcg@20": 0.0749,
+    "ndcg@50": 0.1021,
+    "recall@5": 0.0648,
+    "recall@10": 0.1078,
+    "recall@20": 0.1738,
+    "recall@50": 0.3114
+  },
+  "checkpoint_dir": "/home/daryumin/iberdov/diplom_exp_mamba3_baseline/experiments/mamba3_baseline/checkpoints",
+  "finished_at_utc": "2026-09-12T15:02:05.314692+00:00"
+}
