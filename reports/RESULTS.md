@@ -2,7 +2,7 @@
 
 Главный canonical narrative: **[MTL_MOO_STUDY.md](MTL_MOO_STUDY.md)**. MTL/MOO study завершён как диагностическое исследование и не выбран основой proposed method. Следующий этап — design of the new end-to-end architecture/pipeline.
 
-## Historical TEST: baseline и MTL
+## Зафиксированные TEST: baseline и MTL
 
 | Модель / run | Зафиксированный TEST NDCG@10 |
 | --- | ---: |
@@ -14,8 +14,9 @@
 | TiM4Rec / tim4rec_001 | 0.0598 |
 | Fixed-loss MTL / multitask_tim4rec_001 | 0.0581 |
 | Tuned MTL / multitask_tim4rec_tuned_001 | 0.0598 |
+| Frozen vanilla Mamba3Rec / mamba3_final_test_001 | 0.0590 |
 
-Это существующие historical TEST-результаты; нового TEST не было. Полные метрики — в неизменённом [experiments/results.csv](../experiments/results.csv). Опубликованные внешние результаты — отдельно в [PAPER_RESULTS.md](PAPER_RESULTS.md).
+Исторические TEST-результаты дополнены 13.09.2026 frozen vanilla [Mamba3Rec](../experiments/mamba3_baseline/README.md): primary-only, non-time-aware baseline на Protocol B, full-ranking. Checkpoint выбран по VALID; финальный TEST выполнен ровно один раз (`test_evaluation_count=1`). Полные метрики — в [experiments/results.csv](../experiments/results.csv). Опубликованные внешние результаты — отдельно в [PAPER_RESULTS.md](PAPER_RESULTS.md).
 
 ## VALID: завершённый MTL/MOO study
 

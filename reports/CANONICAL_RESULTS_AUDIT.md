@@ -1,5 +1,7 @@
 # Аудит canonical результатов MOO/MTL
 
+> Этот аудит — исторический snapshot на 10.09.2026. После него, 13.09.2026, добавлен frozen vanilla Mamba3 baseline (`mamba3_final_test_001`); текущий `experiments/results.csv` содержит 48 записей вместо 47. Текст исторического аудита ниже сохранён без изменений.
+
 10 сентября 2026. Обновление подготовлено в отдельной ветке `docs/canonical-moo-mtl-results` от актуального после `git fetch` main: `16ba99b69929a711137f616df28e18e7f92b76c1`. Источник завершённых отчётов и evidence — экспериментальная ветка на commit `47953484490964febf47c05733545bdc29308702`. Merge в main не выполнялся. Scientific settings, код обучения, исходные результаты и кластерные checkouts не изменялись.
 
 [Canonical summary](RESULTS.md) · [Canonical CSV](../experiments/results.csv) · [README](../README.md) · [Происхождение и SHA-256 evidence](evidence/README.md).

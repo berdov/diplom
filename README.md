@@ -12,7 +12,7 @@ KuaiRand-Pure / KuaiRand-27K после 5-core фильтрации: **23 951 п
 
 ## Основные baseline
 
-| Run | Модель | Historical TEST NDCG@10 |
+| Run | Модель | Зафиксированный TEST NDCG@10 |
 | --- | --- | ---: |
 | random_002 | Random | 0.0006 |
 | mostpop_002 | MostPopular | 0.0167 |
@@ -20,8 +20,9 @@ KuaiRand-Pure / KuaiRand-27K после 5-core фильтрации: **23 951 п
 | ltr_xgb_optuna_001 | Tuned XGBoost LambdaMART | 0.0177 |
 | ssd4rec_001 | SSD4Rec | 0.0576 |
 | tim4rec_001 | TiM4Rec | 0.0598 |
+| mamba3_final_test_001 | Frozen vanilla Mamba3Rec | 0.0590 |
 
-Это зафиксированные исторические результаты, а не новые оценки TEST. Полные метрики — в [experiments/results.csv](experiments/results.csv); опубликованные внешние результаты сохранены отдельно в [PAPER_RESULTS.md](reports/PAPER_RESULTS.md).
+Исторические результаты дополнены frozen vanilla [Mamba3Rec](experiments/mamba3_baseline/README.md): primary-only, non-time-aware baseline. После выбора checkpoint по VALID его TEST оценён ровно один раз; TEST NDCG@10 = **0.0590**. Полные метрики — в [experiments/results.csv](experiments/results.csv); опубликованные внешние результаты сохранены отдельно в [PAPER_RESULTS.md](reports/PAPER_RESULTS.md).
 
 ## Completed MTL/MOO study
 
