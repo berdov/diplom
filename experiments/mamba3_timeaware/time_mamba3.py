@@ -12,11 +12,15 @@ from torch.nn import functional as F
 from .time_inputs import condition_dt
 
 
+def require_siso(mixer):
+    if mixer.is_mimo:
+        raise ValueError("Only SISO full-sequence forward is supported")
+
+
 def time_mamba3_forward(mixer, u, time_scale):
+    require_siso(mixer)
     from mamba_ssm.modules.mamba3 import heavy_tail_activation, mamba3_siso_combined
 
-    if mixer.is_mimo or mixer.mimo_rank != 1:
-        raise ValueError("Only SISO full-sequence forward is supported")
     if u.ndim != 3 or time_scale.shape != (*u.shape[:2], mixer.nheads):
         raise ValueError("Expected u [B,L,D] and time_scale [B,L,nheads]")
     projected = mixer.in_proj(u)

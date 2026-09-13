@@ -18,6 +18,8 @@ def main():
     direct = json.loads(importlib.metadata.distribution('mamba-ssm').read_text('direct_url.json') or '{}')
     if direct.get('vcs_info', {}).get('commit_id') != PIN:
         raise SystemExit('FAIL: installed mamba-ssm does not confirm pinned commit')
+    print(json.dumps(dict(pinned_commit=PIN, torch_version=torch.__version__,
+                          gpu=torch.cuda.get_device_name(0))), flush=True)
     from mamba_ssm import Mamba3
 
     torch.manual_seed(2026)
@@ -27,7 +29,7 @@ def main():
         for length in (50, 64):
             vanilla = Mamba3(d_model=64, d_state=128, expand=2, headdim=64,
                              ngroups=1, rope_fraction=0.5, chunk_size=64,
-                             is_mimo=False, is_outproj_norm=False,
+                             is_mimo=False, mimo_rank=4, is_outproj_norm=False,
                              device='cuda', dtype=torch.bfloat16).train(training)
             temporal = copy.deepcopy(vanilla)
             x = torch.randn(2, length, 64, device='cuda', dtype=torch.bfloat16, requires_grad=True)
