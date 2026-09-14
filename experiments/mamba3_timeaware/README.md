@@ -1,7 +1,8 @@
 # RT-Mamba3: time-aware эксперимент
 
-Реализация подготовлена, эксперимент ещё не запускался. GPU numerical equivalence
-пока **NOT RUN**; CPU-тесты не заменяют сравнение официальных kernels.
+GPU numerical equivalence PASSED: job 4326256, A100, output и input gradients
+имеют exact zero error во всех четырёх случаях. [Evidence](runs/gpu_equivalence_001.json).
+Научное обучение RT-Mamba3 ещё не запускалось.
 
 ## Frozen reference
 
