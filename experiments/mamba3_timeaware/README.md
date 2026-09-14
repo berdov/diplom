@@ -2,14 +2,37 @@
 
 GPU numerical equivalence PASSED: job 4326256, A100, output и input gradients
 имеют exact zero error во всех четырёх случаях. [Evidence](runs/gpu_equivalence_001.json).
-Научное обучение RT-Mamba3 ещё не запускалось.
+Первый TRAIN->VALID run завершён; TEST NOT RUN, `test_evaluation_count=0`.
 
 ## Frozen reference
 
 [Vanilla Mamba3](../mamba3_baseline/README.md): VALID NDCG@10 = **0.0584**,
 TEST NDCG@10 = **0.0590**. TEST здесь только historical reference, не основание
 для выбора новой модели. Все будущие решения и выбор модели исключительно по VALID.
-Результатов RT-Mamba3 нет; доказанная novelty или превосходство не заявляются.
+Единичный VALID результат не доказывает статистически значимое превосходство
+или novelty; никаких решений по TEST не принималось.
+
+## Первый VALID результат
+
+- [Smoke JSON](runs/mamba3_timeaware_smoke_001.json): job 4326761,
+  cn-044/A100, COMPLETED 0:0, 00:02:18; два optimizer steps, finite gradients,
+  calibrator update и checkpoint roundtrip PASS. Smoke-метрики не канонические.
+- [Scientific JSON](runs/mamba3_timeaware_validation_001.json): job 4326765,
+  cn-045/A100, COMPLETED 0:0, 00:07:22. 27 эпох (0..26), best epoch 15 (с нуля).
+- Selection: full-ranking VALID NDCG@10; best **0.0605** против vanilla **0.0584**,
+  абсолютная разница **+0.0021**, относительная **+3.60%** по округлённым метрикам.
+- Код обоих запусков: `e81129a66c818a570ab589b4e255da08aac22422`,
+  610506 параметров. TRAIN reference заранее frozen: 838393 мс, max_log_scale=log(2).
+
+| VALID | @5 | @10 | @20 | @50 |
+|---|---:|---:|---:|---:|
+| HR | 0.0682 | 0.1111 | 0.1800 | 0.3204 |
+| Recall | 0.0682 | 0.1111 | 0.1800 | 0.3204 |
+| NDCG | 0.0468 | 0.0605 | 0.0778 | 0.1055 |
+
+Best checkpoint остаётся на кластере по `checkpoint_path` из JSON; в Git не включён.
+Финальные JSON скопированы без изменения и сверены по SHA256.
+Повторные runs, TEST и prototypes не запускались. `experiments/results.csv` не изменён.
 
 ## Единственное архитектурное изменение
 
@@ -74,7 +97,7 @@ scale точно 1. Первый valid event и padding принудительн
 последний Linear получает ненулевой градиент, после изменения его весов градиент
 достигает первого. Это проверено отдельно.
 
-## Конфигурация и будущий запуск
+## Конфигурация и запуск
 
 [config.py](config.py) загружает frozen YAML и маленький
 [overlay](config_kuairand.yaml), сохраняя Protocol B split/full-ranking и
@@ -105,7 +128,8 @@ checkpoint save/load; его метрики не являются scientific res
 
 ## Проверки
 
-Из корня repo, в CPU-окружении с PyTorch, pytest, PyYAML, einops:
+Из корня repo, в CPU-окружении с PyTorch, pytest, PyYAML, einops, NumPy
+(для расчёта статистики дополнительно PyArrow):
 
 ```bash
 python -m compileall -q experiments/mamba3_timeaware
@@ -133,4 +157,5 @@ output и input gradients, печатает max/mean absolute error, tolerance �
 `atol=1e-6`, `rtol=1e-5`: при identity ожидается одинаковый порядок операций,
 поэтому большой bf16 tolerance не используется. При расхождении нужно остановиться
 и диагностировать, а не расширять tolerance. Нет CPU/fake kernel fallback.
-GPU gate пройден; следующий обязательный gate перед scientific run: smoke PASS.
+GPU gate и smoke пройдены; первый scientific TRAIN->VALID завершён.
+На этом этапе работа остановлена, TEST не разрешён.
