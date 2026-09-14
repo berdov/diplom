@@ -15,7 +15,7 @@ def test_config_inherits_protocol():
     config = load_config()
     assert config['eval_args']['mode'] == 'full'
     assert config['eval_args']['split'] == {'LS': 'valid_and_test'}
-    assert config['time_scale_reference'] is None
+    assert config['time_scale_reference'] == 838393.0
     assert config['time_scale_reference_source'] == 'TRAIN'
     assert config['hidden_size'] * config['mamba3_expand'] // config['mamba3_headdim'] == 2
     assert config['num_layers'] == 2
@@ -45,7 +45,6 @@ def test_model_static_contract():
     embedding = [n for n in ast.walk(forward) if isinstance(n, ast.Call)
                  and isinstance(n.func, ast.Attribute) and n.func.attr == 'item_embedding']
     assert len(embedding) == 1 and ast.unparse(embedding[0].args[0]) == 'item_seq'
-    assert not (ROOT / 'run.py').exists()
 
 
 def test_no_evaluation_runner_calls():
@@ -53,4 +52,8 @@ def test_no_evaluation_runner_calls():
         for node in ast.walk(ast.parse(path.read_text())):
             if isinstance(node, ast.Call):
                 name = node.func.attr if isinstance(node.func, ast.Attribute) else getattr(node.func, 'id', '')
-                assert name not in {'evaluate', 'fit', 'data_preparation', 'create_dataset'}
+                assert name not in {'data_preparation', 'create_dataset'}
+    runner = (ROOT / 'run.py').read_text()
+    assert "test_evaluation_count=0" in runner
+    assert "choices=('smoke', 'train')" in runner
+    assert 'trainer.evaluate(valid_data, load_best_model=False)' in runner

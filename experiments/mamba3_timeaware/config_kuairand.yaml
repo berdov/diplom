@@ -1,5 +1,5 @@
 # Overlay on frozen vanilla config; load with config.load_config().
-time_scale_reference: null
+time_scale_reference: 838393.0
 time_scale_reference_source: TRAIN
 # log(2): bounded scale [0.5, 2.0], not selected by tuning.
 max_log_scale: 0.6931471805599453

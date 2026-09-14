@@ -79,15 +79,29 @@ scale точно 1. Первый valid event и padding принудительн
 [config.py](config.py) загружает frozen YAML и маленький
 [overlay](config_kuairand.yaml), сохраняя Protocol B split/full-ranking и
 baseline hyperparameters. Не передавайте overlay отдельно как полный RecBole config.
-`time_scale_reference: null` намеренно блокирует создание calibrator до передачи
-положительного значения; источник должен быть `TRAIN`, единицы те же, что timestamps.
-Статистика по dataset здесь не вычислялась. Позже потребуется TRAIN-only statistic
-с provenance; строка `TRAIN` сама по себе не доказывает происхождение числа.
+`time_scale_reference: 838393.0` мс зафиксирован как median строго положительных
+gaps в TRAIN histories. [Статистика](runs/train_time_stats_001.json) получена
+[отдельным скриптом](compute_train_time_stats.py) только из SHA-проверенного train.parquet.
+Каждый gap учитывается столько раз, сколько встречается в TRAIN-префиксах длиной
+до 50; интервал до target не учитывается. VALID/TEST для статистики не читались.
 
-Runner намеренно отсутствует: никакие loaders, preprocessing, VALID/TEST evaluation
-или Slurm launchers не добавлены. Для будущего runner нужно сохранить проверку
-Protocol B из frozen `run.py`, не вызывая его main и не используя TEST loader.
-Новый checkpoint_dir отделён от frozen baseline.
+[Runner](run.py) переиспользует frozen verifier и RecBole Trainer: 300 epochs,
+early stopping 10, Adam/lr/batch/seed без изменений, full-ranking VALID NDCG@10.
+TEST dataset резервируется стандартным split, но удаляется без создания TEST loader.
+`test_evaluation_count=0`; JSON и lock запрещают автоматический retry того же run ID.
+Checkpoint сохраняется отдельно в игнорируемом slurm_logs, не в frozen baseline.
+
+[Dataset adapter](dataset.py) сохраняет точные миллисекунды в `timestamp_list`:
+обычный RecBole FloatTensor теряет младшие биты Unix ms. Исходное float32 поле
+сортировки остаётся неизменным; дополнительное точное target поле удаляется после
+построения histories. [CPU probe](precision_probe.py) проверяет совпадение item
+histories, targets и split с обычным RecBole. Runner дополнительно проверяет
+распределение gaps фактических TRAIN histories против frozen stats JSON.
+
+[Launcher](../../slurm/mamba3_timeaware_validation.sh) принимает `smoke` или `train`.
+Smoke: два TRAIN optimizer steps, первые 64 VALID histories с full-ranking,
+checkpoint save/load; его метрики не являются scientific result.
+Полный run разрешён только после smoke PASS. TEST запрещён, results.csv не меняется.
 
 ## Проверки
 
@@ -112,11 +126,11 @@ padding, первый event, prefix causality, DT/ADT consistency, head shapes,
 python -m experiments.mamba3_timeaware.gpu_equivalence
 ```
 
-**На Mac не запускался.** Скрипт проверяет pinned package metadata, создаёт
+**На Mac не запускался; на A100 PASS (job 4326256).** Скрипт проверяет pinned package metadata, создаёт
 official vanilla mixer и его независимую копию для time-aware forward, использует
 одинаковые веса и входы, scale=1, bf16, train/eval, длины 50 и 64. Сравнивает
 output и input gradients, печатает max/mean absolute error, tolerance и PASS/FAIL.
 `atol=1e-6`, `rtol=1e-5`: при identity ожидается одинаковый порядок операций,
 поэтому большой bf16 tolerance не используется. При расхождении нужно остановиться
 и диагностировать, а не расширять tolerance. Нет CPU/fake kernel fallback.
-До успешного GPU gate переход к экспериментам не подтверждён.
+GPU gate пройден; следующий обязательный gate перед scientific run: smoke PASS.
