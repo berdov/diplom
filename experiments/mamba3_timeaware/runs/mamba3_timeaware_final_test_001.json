@@ -1,0 +1,73 @@
+{
+  "run_id": "mamba3_timeaware_final_test_001",
+  "status": "PASS",
+  "mode": "final_test",
+  "split": "TEST",
+  "selection_checkpoint": "/home/daryumin/iberdov/diplom/experiments/mamba3_timeaware/slurm_logs/mamba3_timeaware_validation_001/checkpoints/TimeAwareMamba3Rec-Sep-14-2026_11-38-41.pth",
+  "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_timeaware/slurm_logs/mamba3_timeaware_validation_001/checkpoints/TimeAwareMamba3Rec-Sep-14-2026_11-38-41.pth",
+  "checkpoint_sha256": "d8960963f8c94baa1229f803eec50fb194e645ef8d209c5fd88b4f6148f9a93d",
+  "selection_json_sha256": "eec574c17527e1bb690705172618a2ff40a90d435a7a5cbec39fabd5c2056539",
+  "selected_epoch": 15,
+  "selection_metric": "VALID NDCG@10",
+  "selection_value": 0.0605,
+  "checkpoint_selected_only_by_valid": true,
+  "test_evaluation_count": 1,
+  "protocol": {
+    "users": 23951,
+    "items": 7111,
+    "interactions": 1134420,
+    "train": 1086518,
+    "validation": 23951,
+    "test": 23951,
+    "manifest_path": "/home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json",
+    "recbole_inter_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand/kuairand.inter",
+    "recbole_inter_sha256": "e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc",
+    "sha_checked": true
+  },
+  "catalog_size": 7111,
+  "evaluation_mode": "full-ranking",
+  "loader_class": "FullSortEvalDataLoader",
+  "git_commit": "8065763be0f9bfceef6f0bbbd8e2ee53b7264b25",
+  "pinned_mamba_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "runtime": {
+    "python": "3.10.21 | packaged by conda-forge | (main, Aug 21 2026, 22:42:31) [GCC 14.4.0]",
+    "torch": "2.9.1+cu128",
+    "torch_cuda": "12.8",
+    "cuda_available": true,
+    "gpu": {
+      "name": "NVIDIA A100-SXM4-80GB",
+      "capability": [
+        8,
+        0
+      ]
+    },
+    "recbole": "1.2.0",
+    "mamba_ssm": "2.3.2.post1",
+    "triton": "3.5.1",
+    "tilelang": "0.1.8",
+    "apache_tvm_ffi": "0.1.9",
+    "numpy": "1.26.4"
+  },
+  "job_id": "4327348",
+  "node": "cn-046",
+  "test_result": {
+    "hit@5": 0.0683,
+    "hit@10": 0.1116,
+    "hit@20": 0.1764,
+    "hit@50": 0.3136,
+    "ndcg@5": 0.0475,
+    "ndcg@10": 0.0613,
+    "ndcg@20": 0.0776,
+    "ndcg@50": 0.1046,
+    "recall@5": 0.0683,
+    "recall@10": 0.1116,
+    "recall@20": 0.1764,
+    "recall@50": 0.3136
+  },
+  "started_at": "2026-09-14T17:26:22.230054+00:00",
+  "finished_at": "2026-09-14T17:28:25.623790+00:00",
+  "no_post_test_tuning": true,
+  "no_training_during_final_test": true,
+  "training_count": 0,
+  "valid_evaluation_count": 0
+}

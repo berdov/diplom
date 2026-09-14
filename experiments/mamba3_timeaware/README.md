@@ -2,7 +2,8 @@
 
 GPU numerical equivalence PASSED: job 4326256, A100, output и input gradients
 имеют exact zero error во всех четырёх случаях. [Evidence](runs/gpu_equivalence_001.json).
-Первый TRAIN->VALID run завершён; TEST NOT RUN, `test_evaluation_count=0`.
+Первый TRAIN->VALID run и единственный финальный TEST завершены;
+`test_evaluation_count=1`. Повторный TEST и post-test tuning запрещены.
 
 ## Frozen reference
 
@@ -32,7 +33,43 @@ TEST NDCG@10 = **0.0590**. TEST здесь только historical reference, н
 
 Best checkpoint остаётся на кластере по `checkpoint_path` из JSON; в Git не включён.
 Финальные JSON скопированы без изменения и сверены по SHA256.
-Повторные runs, TEST и prototypes не запускались. `experiments/results.csv` не изменён.
+После этого checkpoint был зафиксирован для единственного TEST ниже.
+Повторные runs и prototypes не запускались. `experiments/results.csv` не изменён.
+
+## Единственный финальный TEST
+
+[Финальный JSON](runs/mamba3_timeaware_final_test_001.json): job **4327348**,
+rocky, cn-046, A100-SXM4-80GB, **COMPLETED 0:0**, elapsed **00:04:12**.
+Full-ranking Protocol B, каталог 7111 items. Выбран только по VALID checkpoint
+epoch 15, VALID NDCG@10 0.0605; нового обучения или повторного VALID не было.
+
+| TEST | @5 | @10 | @20 | @50 |
+|---|---:|---:|---:|---:|
+| HR | 0.0683 | 0.1116 | 0.1764 | 0.3136 |
+| Recall | 0.0683 | 0.1116 | 0.1764 | 0.3136 |
+| NDCG | 0.0475 | 0.0613 | 0.0776 | 0.1046 |
+
+| Reference | NDCG@10 | RT absolute delta | RT relative delta | HR@10 | RT absolute delta | RT relative delta |
+|---|---:|---:|---:|---:|---:|---:|
+| Vanilla Mamba3 | 0.0590 | +0.0023 | +3.90% | 0.1062 | +0.0054 | +5.08% |
+| TiM4Rec | 0.0598 | +0.0015 | +2.51% | 0.1053 | +0.0063 | +5.98% |
+
+Сравнение по округлённым full-ranking TEST метрикам; статистическая значимость
+по одному run не заявляется. Архитектура, конфигурация и checkpoint не менялись.
+Checkpoint SHA256 до и после TEST:
+`d8960963f8c94baa1229f803eec50fb194e645ef8d209c5fd88b4f6148f9a93d`.
+Runner/launcher commit: `8065763be0f9bfceef6f0bbbd8e2ee53b7264b25`.
+Pinned Mamba commit подтверждён runtime:
+`e9594ce1c732d97440f0332fdc43170a2294dbfa`.
+
+[TEST runner](mamba3_timeaware_final_test.py) загружает state_dict строго,
+не создаёт optimizer и вызывает только TEST evaluation один раз.
+[Launcher](../../slurm/mamba3_timeaware_final_test.sh) использует frozen environment.
+Exclusive lock сохраняется после завершения; JSON публикуется через temporary
+file, fsync и rename. Существующий результат блокирует повторный запуск.
+Исторические VALID/smoke JSON сохраняют count=0 на момент тех запусков;
+финальный TEST JSON фиксирует count=1. Raw logs и checkpoint не включены в Git.
+В stderr только pandas FutureWarning из RecBole, без traceback.
 
 ## Единственное архитектурное изменение
 
@@ -124,7 +161,8 @@ histories, targets и split с обычным RecBole. Runner дополните
 [Launcher](../../slurm/mamba3_timeaware_validation.sh) принимает `smoke` или `train`.
 Smoke: два TRAIN optimizer steps, первые 64 VALID histories с full-ranking,
 checkpoint save/load; его метрики не являются scientific result.
-Полный run разрешён только после smoke PASS. TEST запрещён, results.csv не меняется.
+Полный run был выполнен после smoke PASS. Training runner не выполняет TEST;
+единственный финальный TEST выполнен отдельным runner после заморозки checkpoint.
 
 ## Проверки
 
@@ -158,4 +196,5 @@ output и input gradients, печатает max/mean absolute error, tolerance �
 поэтому большой bf16 tolerance не используется. При расхождении нужно остановиться
 и диагностировать, а не расширять tolerance. Нет CPU/fake kernel fallback.
 GPU gate и smoke пройдены; первый scientific TRAIN->VALID завершён.
-На этом этапе работа остановлена, TEST не разрешён.
+Единственный frozen TEST также завершён. Работа остановлена: никаких повторов,
+новых seeds, ablations, prototypes или post-test tuning.
