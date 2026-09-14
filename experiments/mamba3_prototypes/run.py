@@ -20,7 +20,6 @@ from recbole.utils import init_logger, init_seed
 from .config import load_config
 from .diagnostics import PrototypeDiagnostics
 from .model import ProtoMamba3Rec
-from .prototype_init import initialize_from_train
 from experiments.mamba3_baseline.model import Mamba3Rec
 
 HERE = Path(__file__).resolve().parent
@@ -56,7 +55,17 @@ def save_json(path, payload):
     temporary.replace(path)
 
 
-def preflight():
+def preflight(mode='kmeans'):
+    if mode == 'random':
+        settings = load_config(mode)
+        config = Config(model=ProtoMamba3Rec, config_dict=settings)
+        direct = json.loads(importlib.metadata.distribution('mamba-ssm').read_text('direct_url.json'))
+        if direct['vcs_info']['commit_id'] != PIN:
+            raise ValueError('Pinned Mamba mismatch')
+        protocol = verify_protocol(config, check_sha=True)
+        if protocol['recbole_inter_sha256'] != 'e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc':
+            raise ValueError('Protocol B mismatch')
+        return config, protocol, None
     from sklearn.cluster import MiniBatchKMeans
     del MiniBatchKMeans
     source = ROOT / 'experiments/mamba3_baseline/runs/mamba3_validation_001.json'
@@ -130,7 +139,8 @@ def smoke(config, train_dataset, valid_dataset, centroids):
         if not torch.equal(h, actual):
             raise ValueError('Exact identity gate failed before smoke')
     trainer = DiagnosticTrainer(config, model)
-    trainer.saved_model_file = str(HERE / 'slurm_logs/smoke_checkpoint.pth')
+    smoke_name = 'random_smoke_checkpoint.pth' if config['prototype_initialization'] == 'random' else 'smoke_checkpoint.pth'
+    trainer.saved_model_file = str(HERE / 'slurm_logs' / smoke_name)
     original = model.prototypes.P.detach().clone()
     losses = []
     model.train()
@@ -164,30 +174,37 @@ def smoke(config, train_dataset, valid_dataset, centroids):
                 validation_scope='64 VALID histories, full-ranking', test_evaluation_count=0)
 
 
-def main():
+def main(mode='kmeans'):
     parser = argparse.ArgumentParser()
     parser.add_argument('--preflight-only', action='store_true')
     args = parser.parse_args()
-    config, protocol, saved = preflight()
-    print(json.dumps(dict(preflight='PASS', checkpoint_sha256=CHECKPOINT_SHA, pinned_mamba_commit=PIN)), flush=True)
+    config, protocol, saved = preflight(mode)
+    print(json.dumps(dict(preflight='PASS', initialization=mode, pinned_mamba_commit=PIN)), flush=True)
     if args.preflight_only:
         return
     if not torch.cuda.is_available():
         raise RuntimeError('CUDA required')
-    result_path = HERE / 'runs' / (RUN_ID + '.json')
-    if result_path.exists() or INIT.exists():
+    run_id = 'mamba3_prototypes_random_validation_001' if mode == 'random' else RUN_ID
+    init_path = HERE / 'runs/prototype_random_init_001.json' if mode == 'random' else INIT
+    result_path = HERE / 'runs' / (run_id + '.json')
+    if result_path.exists() or init_path.exists():
         raise FileExistsError('Existing scientific/init artifact; no automatic retry')
     logdir = HERE / 'slurm_logs'
     logdir.mkdir(parents=True, exist_ok=True)
-    with (logdir / (RUN_ID + '.lock')).open('x') as handle:
+    with (logdir / (run_id + '.lock')).open('x') as handle:
         handle.write(os.environ.get('SLURM_JOB_ID', 'local'))
     commit = os.environ['RUN_COMMIT']
-    result = dict(run_id=RUN_ID, status='running', stage='prototype_initialization', git_commit=commit,
+    result = dict(run_id=run_id, status='running', stage='prototype_initialization', git_commit=commit,
                   job_id=os.environ.get('SLURM_JOB_ID'), test_evaluation_count=0, TEST='NOT_RUN',
-                  protocol=protocol, vanilla_checkpoint_path=str(CHECKPOINT), vanilla_checkpoint_sha256=CHECKPOINT_SHA,
-                  K=8, temperature=1.0, initialization='TRAIN-only MiniBatchKMeans',
+                  protocol=protocol, K=8, temperature=1.0,
                   backbone_initialization='scratch', started_at=datetime.now(timezone.utc).isoformat(),
                   pinned_mamba_commit=PIN)
+    if mode == 'random':
+        from .random_init import metadata
+        result.update(metadata())
+    else:
+        result.update(prototype_initialization='kmeans', initialization='TRAIN-only MiniBatchKMeans',
+                      vanilla_checkpoint_path=str(CHECKPOINT), vanilla_checkpoint_sha256=CHECKPOINT_SHA)
     save_json(result_path, result)
     try:
         init_seed(config['seed'] + config['local_rank'], config['reproducibility'])
@@ -197,28 +214,39 @@ def main():
         del reserved  # Never create a TEST loader.
         if (len(train_dataset), len(valid_dataset), train_dataset.item_num - 1) != (1062567, 23951, 7111):
             raise ValueError('Protocol B sequential split mismatch')
-        vanilla = Mamba3Rec(config, train_dataset).to(config['device'])
-        vanilla.load_state_dict(saved['state_dict'], strict=True)
-        vanilla.load_other_parameter(saved.get('other_parameter'))
-        centroids, counts = initialize_from_train(vanilla, train_dataset, config)
-        if counts['train_histories'] != len(train_dataset):
-            raise ValueError('Incomplete TRAIN-only initialization')
-        del vanilla, saved
-        init_artifact = dict(split='TRAIN_ONLY', valid_examples_used=False, test_examples_used=False,
-                             target_inputs_used=False, normalized_hidden_states=True,
-                             K=8, temperature=1.0, random_state=2026, n_init=3,
-                             batch_size=2048, reassignment_ratio=.01, passes=1,
-                             source_checkpoint=str(CHECKPOINT), source_checkpoint_sha256=CHECKPOINT_SHA,
-                             protocol=protocol, git_commit=commit, centroids=centroids.tolist(),
-                             sklearn_version=importlib.metadata.version('scikit-learn'), **counts)
-        save_json(INIT, init_artifact)
-        result.update(prototype_init_artifact=str(INIT), prototype_init_sha256=sha256(INIT), stage='smoke')
+        if mode == 'random':
+            from .random_init import random_prototypes, metadata
+            centroids = random_prototypes(config['prototype_random_state'], config['prototype_random_init_std'])
+            init_artifact = dict(**metadata(), prototypes=centroids.tolist(), git_commit=commit)
+        else:
+            from .prototype_init import initialize_from_train
+            vanilla = Mamba3Rec(config, train_dataset).to(config['device'])
+            vanilla.load_state_dict(saved['state_dict'], strict=True)
+            vanilla.load_other_parameter(saved.get('other_parameter'))
+            centroids, counts = initialize_from_train(vanilla, train_dataset, config)
+            if counts['train_histories'] != len(train_dataset):
+                raise ValueError('Incomplete TRAIN-only initialization')
+            del vanilla, saved
+            init_artifact = dict(split='TRAIN_ONLY', valid_examples_used=False, test_examples_used=False,
+                                 target_inputs_used=False, normalized_hidden_states=True,
+                                 K=8, temperature=1.0, random_state=2026, n_init=3,
+                                 batch_size=2048, reassignment_ratio=.01, passes=1,
+                                 source_checkpoint=str(CHECKPOINT), source_checkpoint_sha256=CHECKPOINT_SHA,
+                                 protocol=protocol, git_commit=commit, centroids=centroids.tolist(),
+                                 sklearn_version=importlib.metadata.version('scikit-learn'), **counts)
+        save_json(init_path, init_artifact)
+        result.update(prototype_init_artifact=str(init_path), prototype_init_sha256=sha256(init_path), stage='smoke')
         save_json(result_path, result)
         smoke_result = smoke(config, train_dataset, valid_dataset, centroids)
-        save_json(HERE / 'runs/prototype_smoke_001.json', smoke_result)
+        smoke_name = 'prototype_random_smoke_001.json' if mode == 'random' else 'prototype_smoke_001.json'
+        save_json(HERE / 'runs' / smoke_name, smoke_result)
         result.update(smoke=smoke_result, stage='TRAIN_VALID')
         # Discard all smoke updates. Reset both model RNG and loader generators.
         model = fresh_model(config, train_dataset, centroids)
+        parameter_count = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        if parameter_count != 610440 + 8769:
+            raise ValueError(f'Parameter parity failed: {parameter_count}')
+        result.update(parameter_parity=True, expected_trainable_parameters=619209)
         train_data = TrainDataLoader(config, train_dataset, None, shuffle=config['shuffle'])
         valid_data = FullSortEvalDataLoader(config, valid_dataset, None, shuffle=False)
         trainer = DiagnosticTrainer(config, model)
@@ -237,7 +265,7 @@ def main():
         result.update(status='PASS', stage='finished', best_epoch=int(best['epoch']), epoch_indexing='zero-based',
                       actual_epochs=len(trainer.train_loss_dict), best_valid_score=float(score),
                       best_valid_metrics=dict(metrics), finished_at=datetime.now(timezone.utc).isoformat())
-        if sha256(CHECKPOINT) != CHECKPOINT_SHA:
+        if mode == 'kmeans' and sha256(CHECKPOINT) != CHECKPOINT_SHA:
             raise ValueError('Frozen vanilla checkpoint changed')
         save_json(result_path, result)
         print(json.dumps(result, indent=2))

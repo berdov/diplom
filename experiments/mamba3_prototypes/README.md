@@ -106,3 +106,50 @@ git diff --check
 После единственного submit агент останавливается сразу после Job ID:
 никаких squeue/sacct/log reads/polling. Получение результатов отдельным запросом.
 `experiments/results.csv` на этом этапе не меняется.
+## Random-init control (подготовлен, не запущен)
+
+Ветка `exp/mamba3-prototypes-controls` основана на exact commit
+`bbb9cd954e929df0e4ebc737be41b8440ecdb0bc`. Исходная ветка и её scientific job
+не изменяются. `run_random.py` выбирает explicit mode `random`, а обычный
+`run.py` по умолчанию выбирает `kmeans`. Модель, smoke, TRAIN→VALID,
+diagnostics, tied scorer и CE переиспользуются без второй реализации модели.
+
+Random control задаёт `P ~ Normal(0, 0.02)` отдельным CPU generator с seed 2026.
+Он не использует frozen checkpoint, hidden-state extraction, KMeans или
+статистики TRAIN для инициализации. Общий runner импортирует KMeans initializer
+только внутри KMeans-ветки. K=8, temperature=1.0, scratch backbone,
+нулевой residual strength и все training settings сохранены.
+
+`assert_control_parity` разрешает только различия initialization mode/std и
+пути checkpoints. Размер prototype module одинаков: 8769 trainable parameters;
+с неизменным vanilla backbone 610440 ожидается 619209. Runner проверяет этот
+размер до полного обучения. Smoke отбрасывается, seed/model/loaders создаются
+заново; подстановка P не сдвигает RNG обучения. Форма и масштаб начального P
+являются частью сравниваемого способа инициализации, не дополнительным tuning.
+
+Будущий run: `mamba3_prototypes_random_validation_001`; отдельные init/smoke/result
+JSON и lock исключают перезапись KMeans-run. Метаданные включают
+`prototype_initialization=random_normal`, std=.02, seed=2026, K=8,
+temperature=1.0, `test_evaluation_count=0`, `TEST=NOT_RUN` и reference commit.
+Scientific JSON появится только при отдельно разрешённом запуске, не сейчас.
+Launcher `slurm/mamba3_prototypes_random_validation.sh` только подготовлен:
+rocky, proj_1833, type_e, 1 A100, mem=0, прежнее Mamba3 environment.
+
+## Coordinate-space caveat
+
+KMeans uses TRAIN examples only, encoded by a validation-selected frozen vanilla checkpoint.
+
+Checkpoint encoder был выбран по VALID, а scientific backbone стартует с нуля.
+Поэтому centroids первоначально находятся в пространстве другого, уже обученного
+encoder. Это не TEST leakage и не использование VALID examples в KMeans.
+Random-init control проверяет пользу такой инициализации сверх самой архитектуры.
+
+## Capacity control: только дизайн
+
+Возможный следующий контроль без prototypes: residual bottleneck
+`h + tanh(s) * (W2 * GELU(W1*h + b1) + b2)`, где `s=0`,
+`W1: 64→68`, `W2: 68→64`. Это 8837 дополнительных параметров против 8769
+(разница 68, около 0.78% от добавленного блока), без assignment и прототипов.
+Такой почти capacity-matched контроль сохраняет identity initialization;
+он не является exact parameter match. Его размер и постановку надо отдельно
+утвердить. Здесь он не реализован и не запускается.
