@@ -100,6 +100,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', choices=('smoke', 'train'), required=True)
     args = parser.parse_args()
+    if args.mode == 'train':
+        gate = json.loads((HERE / 'runs/mamba3_timeaware_smoke_001.json').read_text())
+        if gate['status'] != 'PASS' or gate['test_evaluation_count'] != 0:
+            raise RuntimeError('Full run requires smoke PASS without TEST')
+        if gate['train_time_stats_sha256'] != sha256(STATS):
+            raise RuntimeError('TRAIN statistics changed since smoke')
     run_id = 'mamba3_timeaware_smoke_001' if args.mode == 'smoke' else 'mamba3_timeaware_validation_001'
     path = HERE / 'runs' / (run_id + '.json')
     if path.exists():
