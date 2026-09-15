@@ -3,7 +3,33 @@
 Изолированный prototype baseline поверх vanilla Mamba3, без RT/time conditioning,
 MTL/MOO, experts, routing, auxiliary losses или prototype supervision.
 Reference: [vanilla Mamba3](../mamba3_baseline/README.md), VALID NDCG@10 **0.0584**.
-Результатов этого эксперимента пока нет. TEST запрещён.
+Завершённый KMeans run: VALID NDCG@10 **0.0583**, vanilla **0.0584**,
+delta **-0.0001**. Улучшения в этом запуске нет. **TEST NOT RUN**, count=0.
+
+## Результат job 4328153
+
+[Scientific JSON](runs/mamba3_prototypes_validation_001.json): PASS, commit
+`bbb9cd954e929df0e4ebc737be41b8440ecdb0bc`, Protocol B full-ranking,
+27 эпох, best epoch=15 (zero-based). [Smoke](runs/prototype_smoke_001.json): PASS.
+
+| VALID | @5 | @10 | @20 | @50 |
+|---|---:|---:|---:|---:|
+| HR / Recall | 0.0653 | 0.1077 | 0.1726 | 0.3094 |
+| NDCG | 0.0447 | 0.0583 | 0.0746 | 0.1015 |
+
+8 learnable prototypes инициализированы MiniBatchKMeans K=8 по TRAIN histories,
+закодированным frozen vanilla Mamba3; далее soft cosine assignment и gated residual
+обучались end-to-end. На best epoch mean off-diagonal cosine=0.996003,
+max=0.998437; средние assignment probabilities 0.124060–0.126336,
+entropy mean=2.079327 (почти ln(8)). Прототипы почти коллинеарны,
+soft assignments близки к равномерным: наблюдаемая специализация слабая.
+
+This KMeans-initialized soft-prototype formulation did not improve vanilla Mamba3
+in the observed run and exhibited prototype collapse / weak specialization.
+
+KMeans uses TRAIN examples only, encoded by a validation-selected frozen vanilla checkpoint.
+Scientific backbone обучается с нуля: centroids изначально принадлежат пространству
+другого encoder. Это не TEST leakage. Вывод ограничен одним наблюдаемым run.
 
 ## Архитектура
 
@@ -56,8 +82,8 @@ L2-normalized h передаётся batch-by-batch в `MiniBatchKMeans.partial_
 K=8, random_state=2026, batch_size=2048, n_init=3, reassignment_ratio=0.01,
 один проход по 1062567 TRAIN histories. Это фиксированные initial settings,
 не подбор по VALID. Хранятся только текущий batch и 8 centroids, без hidden dump.
-Будущий `runs/prototype_init_001.json` включает centroids 8x64, provenance,
-число histories, source SHA и параметры KMeans. Он появится внутри job, не заранее.
+[Init JSON](runs/prototype_init_001.json) включает centroids 8x64, provenance,
+число histories, source SHA и параметры KMeans; сохранён без hidden-state dump.
 
 ## Один allocation
 
@@ -105,4 +131,4 @@ git diff --check
 Ресурсы: rocky/proj_1833/type_e/A100 x1/mem=0, environment `diplom/envs/mamba3`.
 После единственного submit агент останавливается сразу после Job ID:
 никаких squeue/sacct/log reads/polling. Получение результатов отдельным запросом.
-`experiments/results.csv` на этом этапе не меняется.
+Завершённый результат вносится в canonical `experiments/results.csv` отдельно от run.
