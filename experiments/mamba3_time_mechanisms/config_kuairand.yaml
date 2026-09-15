@@ -1,0 +1,4 @@
+time_mechanism_mode: separate
+time_scale_reference: 838393.0
+time_scale_reference_source: TRAIN
+max_log_scale: 0.6931471805599453
