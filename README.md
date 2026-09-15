@@ -34,4 +34,6 @@ Screening остаётся one-seed экспериментом; подтверж
 
 ## Current stage
 
-**Design of the new end-to-end architecture/pipeline.** Следующий этап — проектирование новой сквозной архитектуры и пайплайна для primary next-item recommendation. Новая proposed architecture ещё не зафиксирована.
+Завершён Mamba3 architecture stage: [RT-Mamba3](experiments/mamba3_timeaware/README.md)
+и [Proto-Mamba3 KMeans](experiments/mamba3_prototypes/README.md).
+Результаты и ограничения — в [краткой сводке](reports/RESULTS.md#mamba3-architecture-stage).
