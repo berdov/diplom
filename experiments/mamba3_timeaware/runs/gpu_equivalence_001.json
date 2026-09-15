@@ -1,0 +1,23 @@
+{
+  "job_id": 4326256,
+  "state": "COMPLETED",
+  "exit_code": "0:0",
+  "elapsed": "00:07:22",
+  "node": "cn-045",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "partition": "rocky",
+  "implementation_commit": "66f28370b31d26dd1aa191f037182cfd916eda8b",
+  "implementation_commit_provenance": "Submit-side git HEAD; compute-node git unavailable",
+  "pinned_mamba_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "torch_version": "2.9.1+cu128",
+  "atol": 0.000001,
+  "rtol": 0.00001,
+  "cases": [
+    {"mode": "eval", "length": 50, "output_max_abs_error": 0.0, "output_mean_abs_error": 0.0, "input_gradient_max_abs_error": 0.0, "input_gradient_mean_abs_error": 0.0, "status": "PASS"},
+    {"mode": "eval", "length": 64, "output_max_abs_error": 0.0, "output_mean_abs_error": 0.0, "input_gradient_max_abs_error": 0.0, "input_gradient_mean_abs_error": 0.0, "status": "PASS"},
+    {"mode": "train", "length": 50, "output_max_abs_error": 0.0, "output_mean_abs_error": 0.0, "input_gradient_max_abs_error": 0.0, "input_gradient_mean_abs_error": 0.0, "status": "PASS"},
+    {"mode": "train", "length": 64, "output_max_abs_error": 0.0, "output_mean_abs_error": 0.0, "input_gradient_max_abs_error": 0.0, "input_gradient_mean_abs_error": 0.0, "status": "PASS"}
+  ],
+  "overall": "PASS",
+  "test_evaluation_count": 0
+}
