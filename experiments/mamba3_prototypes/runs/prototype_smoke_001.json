@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "train_batches": 2,
+  "losses": [
+    8.872756958007812,
+    8.868067741394043
+  ],
+  "exact_identity": true,
+  "prototype_update": true,
+  "finite_gradients": true,
+  "checkpoint_roundtrip": "PASS",
+  "validation_scope": "64 VALID histories, full-ranking",
+  "test_evaluation_count": 0
+}

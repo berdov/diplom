@@ -1,0 +1,8 @@
+# Overlay on frozen vanilla settings. No temporal conditioning.
+prototype_k: 8
+prototype_temperature: 1.0
+prototype_random_state: 2026
+prototype_normalize_init: true
+prototype_kmeans_batch_size: 2048
+backbone_initialization: scratch
+checkpoint_dir: experiments/mamba3_prototypes/slurm_logs/checkpoints
