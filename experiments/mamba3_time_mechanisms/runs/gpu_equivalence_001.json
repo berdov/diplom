@@ -1,0 +1,1094 @@
+{
+  "status": "PASS",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "source_fingerprint": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "atol": 1e-06,
+  "rtol": 1e-05,
+  "cases": [
+    {
+      "suite": "A",
+      "training": false,
+      "length": 50,
+      "metrics": {
+        "output": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "input_gradient": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      },
+      "passed": true
+    },
+    {
+      "suite": "A",
+      "training": false,
+      "length": 64,
+      "metrics": {
+        "output": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "input_gradient": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      },
+      "passed": true
+    },
+    {
+      "suite": "A",
+      "training": true,
+      "length": 50,
+      "metrics": {
+        "output": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "input_gradient": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      },
+      "passed": true
+    },
+    {
+      "suite": "A",
+      "training": true,
+      "length": 64,
+      "metrics": {
+        "output": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "input_gradient": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      },
+      "passed": true
+    },
+    {
+      "suite": "B",
+      "training": false,
+      "length": 50,
+      "metrics": {
+        "output": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "loss": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "input_gradient": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:item_embedding.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:input_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:input_norm.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.dt_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.B_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.C_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.D": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.in_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.B_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.C_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.out_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.dt_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.B_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.C_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.D": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.in_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.B_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.C_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.out_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:output_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:output_norm.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.first.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.first.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.last.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.last.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:vanilla": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:decay_only": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:scan_only": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:shared": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:separate": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      },
+      "passed": true
+    },
+    {
+      "suite": "B",
+      "training": false,
+      "length": 64,
+      "metrics": {
+        "output": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "loss": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "input_gradient": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:item_embedding.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:input_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:input_norm.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.dt_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.B_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.C_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.D": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.in_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.B_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.C_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.out_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.dt_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.B_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.C_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.D": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.in_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.B_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.C_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.out_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:output_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:output_norm.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.first.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.first.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.last.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.last.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:vanilla": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:decay_only": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:scan_only": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:shared": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:separate": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      },
+      "passed": true
+    },
+    {
+      "suite": "B",
+      "training": true,
+      "length": 50,
+      "metrics": {
+        "output": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "loss": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "input_gradient": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:item_embedding.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:input_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:input_norm.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.dt_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.B_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.C_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.D": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.in_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.B_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.C_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.out_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.dt_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.B_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.C_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.D": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.in_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.B_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.C_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.out_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:output_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:output_norm.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.first.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.first.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.last.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.last.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:vanilla": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:decay_only": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:scan_only": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:shared": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:separate": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      },
+      "passed": true
+    },
+    {
+      "suite": "B",
+      "training": true,
+      "length": 64,
+      "metrics": {
+        "output": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "loss": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "input_gradient": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:item_embedding.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:input_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:input_norm.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.dt_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.B_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.C_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.D": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.in_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.B_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.C_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.mixer.out_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.norm2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.0.ffn.fc2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.dt_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.B_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.C_bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.D": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.in_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.B_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.C_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.mixer.out_proj.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.norm2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc1.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc1.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc2.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:layers.1.ffn.fc2.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:output_norm.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:output_norm.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.first.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.first.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.last.weight": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "gradient:time_calibrator.last.bias": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:vanilla": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:decay_only": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:scan_only": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:shared": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "zero_init:separate": {
+          "passed": true,
+          "max_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      },
+      "passed": true
+    }
+  ]
+}

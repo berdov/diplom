@@ -6,6 +6,23 @@
 затуханием памяти и остальными native DT dynamics? Это ablation существующей
 [RT-Mamba3](../mamba3_timeaware/README.md), не отдельный новый backbone.
 
+## Сохранённая GPU equivalence
+
+[Evidence JSON](runs/gpu_equivalence_001.json) сохранён побайтно из job **4332447**:
+COMPLETED, 0:0, NVIDIA A100-SXM4-80GB. Проверенный implementation commit:
+`976eccc82d830929d82df8bbd91d783dda3b0f1a`.
+Source fingerprint: `460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f`.
+Evidence SHA256: `6484b49cf6d69e2066cc8db6c9c7dbc12bf33a682136682fbf83798e70c9de37`.
+Suite A/B: **8/8 PASS**, все numerical max/mean errors=0 при atol=1e-6,
+rtol=1e-5. Zero-init identity: **20/20 PASS**. Происхождение JSON не изменено.
+
+VALID-launcher больше не требует git на compute-node: `RUN_COMMIT` проверяется
+и экспортируется при submit на login-node. Перед обучением Python проверяет
+текущие исходники по `EXPECTED_SOURCE_FINGERPRINT`, фиксированному проверенному
+fingerprint и `require_equivalence()`. Triton caches разделены по mode.
+Ресурсы, model/config и training protocol не изменены. Результаты будущих
+decay_only/scan_only/separate TRAIN→VALID пока неизвестны; TEST запрещён.
+
 ## Pinned upstream audit
 
 Проверен `state-spaces/mamba` commit `e9594ce1c732d97440f0332fdc43170a2294dbfa`.
@@ -32,8 +49,8 @@
 Знак A сохранён, но effective coefficient уже иной; дополнительный clamp к A_eff
 не вводится. Роли путей пересекаются в одном state/output, поэтому их нельзя
 называть независимыми физическими подсистемами. Новые kernels не создаются.
-GPU forward/backward equivalence ещё **NOT RUN**, математическая допустимость
-не заменяет численной проверки pinned реализации.
+GPU forward/backward equivalence подтверждена сохранённым evidence выше;
+математическая допустимость сама по себе не заменяет численной проверки.
 
 ## Формулы и режимы
 
@@ -83,7 +100,7 @@ causal gaps, parameter counts temporal modules и неизменность froze
 Wrapper identity проверяется на CPU с явно обозначенным algebraic scan double;
 это **не** замена реальной GPU equivalence.
 
-[GPU script](gpu_equivalence.py), только подготовлен:
+[GPU script](gpu_equivalence.py), выполнен в job 4332447:
 - Suite A: official mixer против нового vanilla path; eval/train, L=50/64,
   output и input-gradient max/mean errors.
 - Suite B: полные existing RT и new shared с идентичным state, включая
@@ -120,7 +137,8 @@ patience10, every-epoch VALID NDCG@10, full-ranking. Frozen TRAIN stats/manifest
 и [generic VALID launcher](../../slurm/mamba3_time_mechanisms_validation.sh)
 с жёстким mode allowlist: rocky/proj_1833/type_e/1 A100/mem0, существующее envs/mamba3.
 Перед отдельно разрешённым submit нужен существующий `slurm_logs` для Slurm output.
-**В этом этапе ничего не submit и не запускать.**
+Разрешены только три отдельных TRAIN→VALID режима после проверок и записи
+submission record. Shared/vanilla не перезапускаются; повтор equivalence не нужен.
 
 ## Заранее заданная интерпретация
 
