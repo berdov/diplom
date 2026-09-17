@@ -4,6 +4,10 @@
 
 KuaiRand, хронологический leave-one-out, полный каталог. [Условия оценки и входы](EVALUATION_SETUP.md).
 
+**Подтверждение shared/separate, seeds 2026–2030:** VALID NDCG@10 составляет **0.061700 ± 0.000875** и **0.062880 ± 0.000512** соответственно (mean ± sample std, ddof=1). Separate выше в 5/5 пар, прирост по средним **+1,91%**; на четырёх новых seeds **+1,25%**, 4/4 пары. При ограничении первыми 27 эпохами прирост **+1,74%**; constant-gap уступил real-gap на seed 2026. [Парные результаты, график и ограничения](MAMBA3_TIME_MECHANISMS_RESULTS.md#confirmation).
+
+### Первоначальное сравнение, seed 2026
+
 | Модель | VALID NDCG@10 | Источник |
 |---|---:|---|
 | Vanilla Mamba3 | 0.0584 | [JSON](../experiments/mamba3_baseline/runs/mamba3_validation_001.json) |
@@ -12,7 +16,7 @@ KuaiRand, хронологический leave-one-out, полный катал�
 | scan_only | 0.0611 | [JSON](../experiments/mamba3_time_mechanisms/runs/mamba3_scan_only_validation_001.json) |
 | separate | 0.0633 | [JSON](../experiments/mamba3_time_mechanisms/runs/mamba3_separate_time_validation_001.json) |
 
-Это отдельные запуски с seed 2026, не средние по seeds. У separate лучшая эпоха 51 (с нуля) из 63; в первых 27 эпохах максимум 0.0614. Поэтому 0.0633 пока не доказывает устойчивого превосходства при одинаковом бюджете. Подтверждающая серия отправлена отдельно; её состояние в этой сводке не проверялось. [Полные метрики, диагностика и графики](MAMBA3_TIME_MECHANISMS_RESULTS.md).
+В этой таблице отдельные исходные запуски, не средние по seeds. У separate лучшая эпоха 51 (с нуля) из 63; в первых 27 эпохах максимум 0.0614. Decay_only/scan_only пока не проверены на нескольких seeds. [Полные метрики и диагностика исходного сравнения](MAMBA3_TIME_MECHANISMS_RESULTS.md#initial-study).
 
 ## Mamba3: TEST
 

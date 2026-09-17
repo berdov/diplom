@@ -52,7 +52,7 @@ Shared RT выше reported TiM4Rec по NDCG@10 на +0.0002 (+0.3273%), но �
 
 Это внешний ориентир с оговорками, **не доказанная идентичность протоколов и не заявление SOTA**. [Подробные условия наших экспериментов](EVALUATION_SETUP.md).
 
-У separate, decay_only, scan_only и Proto-Mamba3 нет TEST: их [VALID-результаты](MAMBA3_TIME_MECHANISMS_RESULTS.md) не сравниваются с paper TEST.
+У separate, decay_only, scan_only и Proto-Mamba3 нет TEST: [подтверждение shared/separate по VALID](MAMBA3_TIME_MECHANISMS_RESULTS.md#confirmation) не добавляется в сравнение с paper TEST.
 
 ## Связанные работы 2026 года
 

@@ -1,5 +1,7 @@
 # Подтверждение shared/separate Mamba3
 
+Серия завершена: сохранены 9/9 новых VALID JSON и две исторические ссылки seed 2026. [Итоговые таблицы, график и ограничения](../../reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#confirmation).
+
 KuaiRand: хронологический leave-one-out, оценка по полному каталогу.
 **Только TRAIN → VALID. Новый TEST запрещён.**
 
@@ -12,7 +14,7 @@ KuaiRand: хронологический leave-one-out, оценка по пол
 Научных различий конфигурации нет; shared использует свой frozen RT class,
 separate — frozen mechanism class. Original JSON не переписываются.
 
-## План
+## Зафиксированный план
 
 | Task | Mode | Seed | Run ID |
 |---:|---|---:|---|
@@ -69,7 +71,7 @@ Best within first27 показывается отдельно только пр�
 при n<5 явно остаётся incomplete study. Control не смешивается с matched seeds.
 Ни aggregator, ни jobs не пишут общий results.csv или Git.
 
-## Запуск
+## Кластерные entrypoints завершённой серии
 
 [Launcher](../../slurm/mamba3_time_confirmation.sh): rocky/proj_1833/type_e,
 1 A100, mem0, array `0-8%1`, no-requeue; существующий envs/mamba3.

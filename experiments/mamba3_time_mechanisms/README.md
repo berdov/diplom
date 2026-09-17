@@ -38,4 +38,4 @@ Pinned upstream и роли аргументов:
 
 Общий TRAIN/VALID protocol описан в [условиях экспериментов](../../reports/EVALUATION_SETUP.md). Backbone обучается с нуля; TEST loader не оценивается. [Equivalence launcher](../../slurm/mamba3_time_mechanisms_equivalence.sh) сохранён для воспроизводимости, не для автоматического повторного запуска.
 
-[Первоначальный план](../../reports/MAMBA3_TIME_MECHANISMS_PLAN.md) исторический. Сравнения одного seed не устанавливают причинность, статистическую значимость или формальную эквивалентность; подтверждающая серия рассматривается отдельно.
+[Первоначальный план](../../reports/MAMBA3_TIME_MECHANISMS_PLAN.md) исторический. [Подтверждение shared/separate на пяти seeds](../../reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#confirmation) завершено; decay_only/scan_only остаются односидовыми абляциями. Причинность, статистическая значимость и формальная эквивалентность не установлены.
