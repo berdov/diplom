@@ -1,0 +1,35 @@
+{
+  "checked_at": "2026-09-17T21:29:08.615291+00:00",
+  "python": "/Users/berdov/.cache/diplom-moo-unit-env/bin/python",
+  "base_main": "bfac35ac1cff1aa80103df709f11ad5c69b61391",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "study_hash": "7b8aebe6400a822ba5b65441a2a30dbf52cd9f8aee64dd11efc71f1558f2c33a",
+  "focused_pytest": {
+    "tests": 33,
+    "passed": 32,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0
+  },
+  "skipped": "Actual pinned CUDA gate; no local GPU evidence",
+  "real_temporal_parameters": {
+    "dense11": 774,
+    "dense12": 844,
+    "uniform": 528,
+    "routed": 792,
+    "separate_replay": 132
+  },
+  "full_model_counts": "Pending cluster login constructor check and mandatory CUDA gate",
+  "compileall": "PASS",
+  "bash_n": "PASS",
+  "diff_check": "PASS",
+  "synthetic_report_svg": "PASS",
+  "historical_test": {
+    "name": "test_frozen_files_byte_stable",
+    "status": "FAIL_PREEXISTING",
+    "reason": "Stale de0a137 comparison: baseline/timeaware/prototypes README, results.csv and reports/RESULTS.md already differ in origin/main"
+  },
+  "frozen_paths_unchanged": true,
+  "scientific_fits": 0,
+  "TEST": 0
+}
