@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "files": {
+    "experiments/mamba3_time_confirmation/aggregate.py": "c060ef04f185d8b7cd608ef12331a6c9877da811673b73b29aea06ad880d2e57",
+    "experiments/mamba3_time_confirmation/config.py": "7d895f7383f73d198725a7d2fc19dacb8f9000592c154041fdff09c0c6805f8c",
+    "experiments/mamba3_time_confirmation/inputs.py": "398d87c7137bf47659c56867e269ff795f6961270e6ca984f1d35f09b227cfad",
+    "experiments/mamba3_time_confirmation/model.py": "28d0182225dcecfa703527f41944d9719378ae16233155f9f73d42c743196ccd",
+    "experiments/mamba3_time_confirmation/preflight.py": "7b0aebb1d7d1ff7729f0d75c05c4d12b38d7af1f7b7e12d5b148323c2ae18d7f",
+    "experiments/mamba3_time_confirmation/provenance.py": "a69d567f51c67e47b07be64266be23c806e566d4579f8f40f4de4b03dd222cc4",
+    "experiments/mamba3_time_confirmation/run.py": "d49de69dc61b9bb5bc819e36e750e4225cb35b152bb4bc9784a809fd022b2f69",
+    "experiments/mamba3_time_confirmation/study_plan.json": "6244c0da36486d898ef12a3cc0432296e0bce027ed4557e008b942997faa40d0",
+    "experiments/mamba3_time_confirmation/submit.py": "848735f7755771b8a5bcbc33ed1874f3cab57e508542f7996eb0b2a8df3300c2",
+    "experiments/mamba3_time_confirmation/tests/test_study.py": "d0d6c4c46060cb2b02b6bbfd69ed891796b3a7e04a7f51f71a7a7dc4f30afa18",
+    "slurm/mamba3_time_confirmation.sh": "e23433a1f571a6ae458d3bba88a641b6e049882448b18b83a83f3071ca7bb8c8"
+  },
+  "source_hash": "c88a9e04b01a6563c0801e294a61664edc4908f9f4d310b10554d4238b959c77"
+}
