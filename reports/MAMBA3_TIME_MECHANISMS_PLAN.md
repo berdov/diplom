@@ -1,6 +1,7 @@
-# Mamba3 temporal mechanisms: Methods / Ablation plan
+# Mamba3 temporal mechanisms: исторический план
 
-Статус: реализация и проверки подготовлены, новые TRAIN/VALID/TEST не выполнялись.
+Ниже сохранён план до запусков; его будущие формулировки не описывают текущий статус.
+Завершённые VALID и ограничения: [результаты](MAMBA3_TIME_MECHANISMS_RESULTS.md).
 Полные equations, pinned upstream audit и numerical contracts:
 [experiment README](../experiments/mamba3_time_mechanisms/README.md).
 
