@@ -1,6 +1,6 @@
 # Frozen vanilla Mamba3 baseline
 
-`Mamba3Rec` — зафиксированный baseline для primary-only next-item prediction на KuaiRand Protocol B. Архитектура не time-aware: порядок событий хронологический, но timestamps, delta-time и time embeddings в модель не подаются. Здесь нет механизмов TiM4Rec, auxiliary tasks, MTL/MOO/EPO, MoE или flow matching.
+`Mamba3Rec` — зафиксированный baseline для primary-only next-item prediction на KuaiRand: chronological leave-one-out, full-catalog evaluation. Архитектура не time-aware: порядок событий хронологический, но timestamps, delta-time и time embeddings в модель не подаются. Здесь нет механизмов TiM4Rec, auxiliary tasks, MTL/MOO/EPO, MoE или flow matching.
 
 ## Модель и воспроизводимость
 
@@ -8,7 +8,7 @@ Item embeddings → два Mamba-3 SISO блока → последнее вал
 
 Исходный Mamba: `state-spaces/mamba`, commit `e9594ce1c732d97440f0332fdc43170a2294dbfa`. Стек и установка описаны в [ENVIRONMENT.md](ENVIRONMENT.md); параметры — в [config_kuairand.yaml](config_kuairand.yaml).
 
-Protocol B: 23951 пользователей, 7111 items, 1134420 взаимодействий; train 1086518, VALID 23951, TEST 23951. Chronological leave-one-out, максимальная длина последовательности 50, full-ranking. SHA256 входного `.inter`: `e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc`.
+chronological leave-one-out / full-catalog: 23951 пользователей, 7111 items, 1134420 взаимодействий; train 1086518, VALID 23951, TEST 23951. Chronological leave-one-out, максимальная длина последовательности 50, full-ranking. SHA256 входного `.inter`: `e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc`.
 
 ## Выбор и заморозка
 

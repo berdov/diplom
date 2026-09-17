@@ -15,27 +15,35 @@ Canonical narrative завершённого MTL/MOO study: **[MTL_MOO_STUDY.md]
 | Fixed-loss MTL / multitask_tim4rec_001 | 0.0581 |
 | Tuned MTL / multitask_tim4rec_tuned_001 | 0.0598 |
 | Frozen vanilla Mamba3Rec / mamba3_final_test_001 | 0.0590 |
+| Shared RT-Mamba3 / mamba3_timeaware_final_test_001 | 0.0613 |
 
-Исторические TEST-результаты дополнены 13.09.2026 frozen vanilla [Mamba3Rec](../experiments/mamba3_baseline/README.md): primary-only, non-time-aware baseline на Protocol B, full-ranking. Checkpoint выбран по VALID; финальный TEST выполнен ровно один раз (`test_evaluation_count=1`). Полные метрики — в [experiments/results.csv](../experiments/results.csv). Опубликованные внешние результаты — отдельно в [PAPER_RESULTS.md](PAPER_RESULTS.md).
+Исторические TEST-результаты дополнены frozen vanilla [Mamba3Rec](../experiments/mamba3_baseline/README.md) и shared RT-Mamba3. Каждый checkpoint выбран по VALID; каждый финальный TEST выполнен один раз. KuaiRand: хронологический leave-one-out, оценка по полному каталогу. Полные метрики — в [реестре](../experiments/results.csv); [внешнее сравнение с опубликованными числами](PAPER_RESULTS.md) отделено от собственной репродукции TiM4Rec.
 
 ## Mamba3 architecture stage
 
-KuaiRand Protocol B, full-ranking по 7111 items; VALID и TEST не смешиваются.
+KuaiRand: хронологический leave-one-out, оценка по полному каталогу 7111 items; VALID и TEST не смешиваются. [Experimental setup](EVALUATION_SETUP.md).
 
 | Model | VALID NDCG@10 | TEST NDCG@10 | Status |
 |---|---:|---:|---|
 | Vanilla Mamba3 | 0.0584 | 0.0590 | frozen baseline |
 | RT-Mamba3 | 0.0605 | 0.0613 | completed |
 | Proto-Mamba3 KMeans | 0.0583 | — | VALID only |
+| decay_only | 0.0612 | — | VALID only, seed 2026 |
+| scan_only | 0.0611 | — | VALID only, seed 2026 |
+| separate | 0.0633 | — | best observed single-seed VALID; confirmation pending |
 
-Для контекста: TiM4Rec TEST NDCG@10 = **0.0598** при том же full-ranking Protocol B.
+Для внутреннего контекста: **наша репродукция** TiM4Rec TEST NDCG@10 = **0.0598**.
+Опубликованный TiM4Rec = **0.0611**. Это разные источники.
+[Разбор временных механизмов](MAMBA3_TIME_MECHANISMS_RESULTS.md): separate best epoch 51
+из 63; в первых 27 эпохах максимум 0.0614. Это не подтверждённый multi-seed победитель.
 
 ### RT-Mamba3
 
 Реальные inter-event gaps модифицируют native Mamba3 internal DT.
 [VALID](../experiments/mamba3_timeaware/runs/mamba3_timeaware_validation_001.json)
 даёт **+3.60%** относительно vanilla; [final TEST](../experiments/mamba3_timeaware/runs/mamba3_timeaware_final_test_001.json)
-даёт **+3.90%** к vanilla и **+2.51%** к TiM4Rec. Это один наблюдаемый run,
+даёт **+3.90%** к vanilla и **+2.51%** к нашей репродукции TiM4Rec, но лишь
+**+0.3273%** к опубликованному TiM4Rec. Это один наблюдаемый run,
 статистическая значимость не заявляется. Checkpoint выбран только по VALID;
 TEST count=1, обучение и VALID reruns во время final TEST=0, повторного TEST
 и post-test tuning не было. [Описание RT-Mamba3](../experiments/mamba3_timeaware/README.md).
@@ -83,4 +91,6 @@ Screening остаётся one-seed экспериментом; подтверж
 | [CANONICAL_RESULTS_AUDIT.md](CANONICAL_RESULTS_AUDIT.md) | Исторический аудит реестра и источников |
 | [evidence/README.md](evidence/README.md) | Raw результаты, summary и контрольные суммы |
 
-Scientific results, raw JSON/evidence, canonical CSV и PAPER_RESULTS сохранены. Эта редакция консолидирует документацию без новых экспериментов, анализа или расчётов.
+Scientific results, raw JSON/evidence и исторические строки реестра сохранены.
+Добавлены три завершённых VALID-only временных run; в реестре теперь 54 строки.
+Новых TEST при канонизации нет; графики получены из существующих logs/checkpoints на CPU.

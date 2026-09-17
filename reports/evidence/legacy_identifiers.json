@@ -1,0 +1,353 @@
+{
+  "scope": "tracked text files at documentation migration, case-insensitive; excludes this inventory itself",
+  "files": [
+    {
+      "path": ".gitignore",
+      "reason": "legacy reproduction path/link or technical migration note"
+    },
+    {
+      "path": "README.md",
+      "reason": "legacy reproduction path/link or technical migration note"
+    },
+    {
+      "path": "configs/kuairand_protocol_b_recbole.yaml",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/adaptive_multitask_tim4rec/runs/pcgrad_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/ltr_xgb_baseline/config.yaml",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/ltr_xgb_baseline/run_experiment.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/ltr_xgb_baseline/runs/ltr_xgb_002.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/ltr_xgb_baseline/runs/mostpop_002.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/ltr_xgb_baseline/runs/random_002.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_baseline/config_kuairand.yaml",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/mamba3_baseline/mamba3_final_test.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/mamba3_baseline/model.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/mamba3_baseline/run.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/mamba3_baseline/runs/mamba3_final_test_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_baseline/runs/mamba3_validation_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_prototypes/run.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/mamba3_prototypes/runs/mamba3_prototypes_validation_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_prototypes/runs/prototype_init_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_time_mechanisms/run.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/mamba3_time_mechanisms/runs/mamba3_decay_only_validation_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_time_mechanisms/runs/mamba3_scan_only_validation_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_time_mechanisms/runs/mamba3_separate_time_validation_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_timeaware/compute_train_time_stats.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/mamba3_timeaware/config.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/mamba3_timeaware/mamba3_timeaware_final_test.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/mamba3_timeaware/run.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/mamba3_timeaware/runs/mamba3_timeaware_final_test_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_timeaware/runs/mamba3_timeaware_smoke_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_timeaware/runs/mamba3_timeaware_validation_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/mamba3_timeaware/runs/train_time_stats_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_8families/config.yaml",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/moo_8families/runs/cosmos_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_8families/runs/epo_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_8families/runs/famo_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_8families/runs/gradhv_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_8families/runs/palora_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_8families/runs/pcgrad_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_8families/runs/phn_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_8families/runs/stch_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_8families/train.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/moo_representative_challengers/runs/ferero_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_representative_challengers/runs/most_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/moo_representative_challengers/runs/phn_hvi_convergence_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/multitask_tim4rec/audit_targets.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/multitask_tim4rec/config.yaml",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/multitask_tim4rec/runs/multitask_tim4rec_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/multitask_tim4rec/train.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/multitask_tim4rec/train_full.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/multitask_tim4rec_optuna/config.yaml",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/multitask_tim4rec_optuna/prepare_locked_test_benchmark.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/multitask_tim4rec_optuna/prepare_validation_only.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/multitask_tim4rec_optuna/runs/multitask_optuna_search_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/multitask_tim4rec_optuna/runs/multitask_tim4rec_tuned_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/ssd4rec_baseline/config_kuairand.yaml",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/ssd4rec_baseline/full_train.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/ssd4rec_baseline/runs/ssd4rec_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/config.yaml",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/run.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/runs/stage3_all_current_aux_diagnostic_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/runs/stage3_aux_click_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/runs/stage3_aux_like_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/runs/stage3_aux_long_view_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/runs/stage3_aux_profile_enter_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/runs/stage3_primary_only_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/runs/stage3_sanity_click_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/runs/stage3_target_audit_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/summarize.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/stage3_auxiliary_analysis/target_audit.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/tim4rec_baseline/config_kuairand.yaml",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/tim4rec_baseline/reproduce.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "experiments/tim4rec_baseline/runs/tim4rec_001.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "notebooks/01_kuairand_eda.ipynb",
+      "reason": "legacy reproduction path/link or technical migration note"
+    },
+    {
+      "path": "outputs/data/protocol_b_manifest.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "outputs/data/protocol_b_multitask_manifest.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "outputs/data/protocol_b_stats.json",
+      "reason": "immutable historical result/manifest/registry; provenance identifiers preserved"
+    },
+    {
+      "path": "reports/MAMBA3_TIME_MECHANISMS_PLAN.md",
+      "reason": "archived report/plan or historical evidence; not current public experiment name"
+    },
+    {
+      "path": "reports/MOO_EXPERIMENT_HISTORY.md",
+      "reason": "archived report/plan or historical evidence; not current public experiment name"
+    },
+    {
+      "path": "reports/MOO_FAMILIES.md",
+      "reason": "archived report/plan or historical evidence; not current public experiment name"
+    },
+    {
+      "path": "reports/MOO_REPRESENTATIVE_CHALLENGERS.md",
+      "reason": "archived report/plan or historical evidence; not current public experiment name"
+    },
+    {
+      "path": "reports/MTL_MOO_STUDY.md",
+      "reason": "archived report/plan or historical evidence; not current public experiment name"
+    },
+    {
+      "path": "reports/STAGE3_AUXILIARY_ANALYSIS.md",
+      "reason": "archived report/plan or historical evidence; not current public experiment name"
+    },
+    {
+      "path": "reports/TARGET_COMBINATION_ANALYSIS.md",
+      "reason": "archived report/plan or historical evidence; not current public experiment name"
+    },
+    {
+      "path": "reports/evidence/target_combinations/config.yaml",
+      "reason": "archived report/plan or historical evidence; not current public experiment name"
+    },
+    {
+      "path": "reports/kuairand_protocol_b_data_report.md",
+      "reason": "archived report/plan or historical evidence; not current public experiment name"
+    },
+    {
+      "path": "slurm/prepare_protocol_b.sh",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "slurm/ssd4rec_baseline.sh",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    },
+    {
+      "path": "src/prepare_kuairand_protocol_b.py",
+      "reason": "frozen implementation/config or legacy path; hashes/behavior preserved"
+    }
+  ]
+}

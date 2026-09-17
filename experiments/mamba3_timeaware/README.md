@@ -40,7 +40,7 @@ Best checkpoint остаётся на кластере по `checkpoint_path` и
 
 [Финальный JSON](runs/mamba3_timeaware_final_test_001.json): job **4327348**,
 rocky, cn-046, A100-SXM4-80GB, **COMPLETED 0:0**, elapsed **00:04:12**.
-Full-ranking Protocol B, каталог 7111 items. Выбран только по VALID checkpoint
+Full-ranking chronological leave-one-out / full-catalog, каталог 7111 items. Выбран только по VALID checkpoint
 epoch 15, VALID NDCG@10 0.0605; нового обучения или повторного VALID не было.
 
 | TEST | @5 | @10 | @20 | @50 |
@@ -137,7 +137,7 @@ scale точно 1. Первый valid event и padding принудительн
 ## Конфигурация и запуск
 
 [config.py](config.py) загружает frozen YAML и маленький
-[overlay](config_kuairand.yaml), сохраняя Protocol B split/full-ranking и
+[overlay](config_kuairand.yaml), сохраняя chronological leave-one-out / full-catalog split/full-ranking и
 baseline hyperparameters. Не передавайте overlay отдельно как полный RecBole config.
 `time_scale_reference: 838393.0` мс зафиксирован как median строго положительных
 gaps в TRAIN histories. [Статистика](runs/train_time_stats_001.json) получена
