@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "study_id": "mamba3_time_confirmation_001",
+  "base_main": "61c6fafe0e1a030db484cee5e6b4d112bb4a2f4d",
+  "selection_split": "VALID",
+  "test_evaluation_count": 0,
+  "seed_set": [
+    2026,
+    2027,
+    2028,
+    2029,
+    2030
+  ],
+  "n_expected_pairs": 5,
+  "reuse": [
+    {
+      "mode": "shared",
+      "seed": 2026,
+      "run_id": "mamba3_timeaware_validation_001",
+      "source_json": "experiments/mamba3_timeaware/runs/mamba3_timeaware_validation_001.json",
+      "sha256": "eec574c17527e1bb690705172618a2ff40a90d435a7a5cbec39fabd5c2056539",
+      "execution_commit": "e81129a66c818a570ab589b4e255da08aac22422",
+      "reuse_without_training_or_evaluation": true
+    },
+    {
+      "mode": "separate",
+      "seed": 2026,
+      "run_id": "mamba3_separate_time_validation_001",
+      "source_json": "experiments/mamba3_time_mechanisms/runs/mamba3_separate_time_validation_001.json",
+      "sha256": "cd4be649ef2f6846cade7d4901878384b54e2ba02a4740bf408129dde4ddb4dc",
+      "execution_commit": "9334bd93c8fa30fbacabaeb220cef17e336c261b",
+      "reuse_without_training_or_evaluation": true
+    }
+  ],
+  "tasks": [
+    {
+      "task_index": 0,
+      "mode": "shared",
+      "seed": 2027,
+      "run_id": "mamba3_confirm_shared_seed2027_001"
+    },
+    {
+      "task_index": 1,
+      "mode": "separate",
+      "seed": 2027,
+      "run_id": "mamba3_confirm_separate_seed2027_001"
+    },
+    {
+      "task_index": 2,
+      "mode": "shared",
+      "seed": 2028,
+      "run_id": "mamba3_confirm_shared_seed2028_001"
+    },
+    {
+      "task_index": 3,
+      "mode": "separate",
+      "seed": 2028,
+      "run_id": "mamba3_confirm_separate_seed2028_001"
+    },
+    {
+      "task_index": 4,
+      "mode": "shared",
+      "seed": 2029,
+      "run_id": "mamba3_confirm_shared_seed2029_001"
+    },
+    {
+      "task_index": 5,
+      "mode": "separate",
+      "seed": 2029,
+      "run_id": "mamba3_confirm_separate_seed2029_001"
+    },
+    {
+      "task_index": 6,
+      "mode": "shared",
+      "seed": 2030,
+      "run_id": "mamba3_confirm_shared_seed2030_001"
+    },
+    {
+      "task_index": 7,
+      "mode": "separate",
+      "seed": 2030,
+      "run_id": "mamba3_confirm_separate_seed2030_001"
+    },
+    {
+      "task_index": 8,
+      "mode": "separate_constant_gap",
+      "seed": 2026,
+      "run_id": "mamba3_confirm_separate_constant_gap_seed2026_001"
+    }
+  ],
+  "constant_control": {
+    "reference_ms": 838393,
+    "active_tau": "log(2)",
+    "seeds": [
+      2026
+    ],
+    "role": "exploratory; never pooled with real-gap matched seeds"
+  },
+  "training": {
+    "initialization": "scratch",
+    "optimizer": "adam",
+    "lr": 0.001,
+    "max_epochs": 300,
+    "stopping_step": 10,
+    "eval_step": 1,
+    "train_batch_size": 2048,
+    "eval_batch_size": 4096,
+    "loss": "CE",
+    "max_history": 50,
+    "evaluation": "full-ranking",
+    "test_loader_constructed": false
+  },
+  "rng_order": [
+    "synthetic smoke and paired init checks (discard all objects)",
+    "init_seed(seed + local_rank)",
+    "init_logger",
+    "verify protocol",
+    "PreciseHistoryDataset and split; discard reserved test",
+    "verify frozen TRAIN stats",
+    "TrainDataLoader",
+    "FullSortEvalDataLoader(VALID)",
+    "fresh model",
+    "Trainer"
+  ],
+  "reuse_parity": {
+    "config": "all non-output/non-seed/non-mode settings identical",
+    "dataset": "identical .inter and frozen TRAIN stats SHA",
+    "procedure": "same seed-before-dataset/loaders-before-model/RecBole fit; diagnostics use isolated RNG",
+    "historical_shared_commit": "e81129a66c818a570ab589b4e255da08aac22422",
+    "historical_separate_commit": "9334bd93c8fa30fbacabaeb220cef17e336c261b"
+  },
+  "aggregation": {
+    "scope": "complete matched successful VALID pairs; do not drop bad successful runs",
+    "metric": "ndcg@10",
+    "std": "sample ddof=1",
+    "first27": "max of epochs 0..26; only if histories available for all matched pairs",
+    "paper_significance": false
+  },
+  "array": "0-8%1",
+  "automatic_retry": false
+}
