@@ -1,60 +1,48 @@
-# Experimental setup
+# Условия экспериментов
 
-**KuaiRand — хронологический leave-one-out, оценка по полному каталогу.**
-Это уточнение публичного названия, а не изменение данных или оценки.
+## Данные, разбиение и оценка
 
-## Данные и разбиение
+KuaiRand-Pure, `log_standard_4_08_to_4_21_pure.csv` (standard, `is_rand=0`), iterative 5-core: **23 951 пользователей, 7 111 видео, 1 134 420 взаимодействий**. Дубликаты сохранены (16 508 лишних точных повторов). [Manifest](../outputs/data/protocol_b_manifest.json).
 
-- Источник: KuaiRand-Pure, `log_standard_4_08_to_4_21_pure.csv`,
-  `is_rand=0`. Использован standard log, не randomized log.
-- Итеративная фильтрация users/items с минимумом 5 взаимодействий:
-  23 951 пользователей, 7 111 items, 1 134 420 взаимодействий.
-- Дубликаты не удалены: 16 508 лишних exact-duplicate строк после фильтрации.
-  Сортировка: `user_id, timestamp, source_row_id`; последний ключ означает
-  исходную нулевую позицию строки CSV и разрешает равные timestamps.
-- Для каждого пользователя последнее событие — TEST, предпоследнее — VALID,
-  предыдущие — TRAIN. Это user-wise chronological split, не global-time holdout.
-  TRAIN/VALID/TEST: 1 086 518 / 23 951 / 23 951 событий.
-- Последовательный TRAIN содержит 1 062 567 примеров: первое событие каждого
-  пользователя не имеет предшествующего контекста. Максимальная история — 50.
-  У каждой VALID/TEST query ровно один relevant target. Повторный target допустим.
+[Подготовка](../src/prepare_kuairand_protocol_b.py) сортирует по `user_id, timestamp, source_row_id`; последний ключ является позицией строки CSV, не дополнительным физическим временем. Последнее событие пользователя отложено в TEST, предпоследнее в VALID: 1 086 518 / 23 951 / 23 951 событий TRAIN/VALID/TEST. В последовательном TRAIN 1 062 567 примеров: первое событие не имеет истории. Истории обрезаются слева до 50 событий и дополняются справа padding.
 
-## Оценка Mamba3
+Full-ranking включает 7 111 реальных кандидатов. Scorer возвращает также padding, которому RecBole присваивает `-inf`; **seen items не исключаются**, повторный target допустим. Один relevant target на query даёт HR=Recall. Это проверено по установленному RecBole 1.2.0, без новой оценки.
 
-Full-catalog scores включают все 7 111 реальных items. Padding ID 0 получает
-`-inf`. В установленном RecBole 1.2.0 `FullSortEvalDataLoader.collate_fn` для
-sequential model возвращает `history_index=None`: **seen items не исключаются**.
-`Trainer._full_sort_batch_eval` маскирует history только при ненулевом индексе.
-Это проверено чтением установленного кода; новой оценки для проверки не было.
-HR и Recall совпадают здесь из-за одного relevant target, но во внешней таблице
-сохранено обозначение Recall из источника. Sampled результаты с ними не смешиваются.
+Checkpoint выбирается по VALID NDCG@10: CE, Adam 0.001, TRAIN batch 2048, настроенный eval batch 4096, максимум 300 эпох, `stopping_step=10`, VALID каждую эпоху. **B ниже означает фактический размер батча**, а не гарантированные 4096: последний батч может быть меньше; реальные батчи в этом аудите не запускались. Первоначальные запуски имеют seed 2026 и округление метрик до четырёх знаков; подтверждающая серия shared/separate охватывает seeds 2026–2030.
 
-Истории right-padded. Целевые item/timestamp исключены из входного контекста;
-временные модели используют только adjacent gaps внутри наблюдаемой истории,
-float64 timestamps. Первое событие и padding нейтральны. Настоящий нулевой gap
-между двумя valid событиями остаётся активным наблюдением.
-TRAIN-only reference — 838 393 ms; bounds scale — [0.5, 2].
+## Входные данные и временная привязка
 
-Checkpoint выбирается по VALID NDCG@10. Adam 0.001, batch 2048, eval batch 4096,
-CE, максимум 300 эпох, `stopping_step=10`, VALID каждую эпоху.
-Наблюдаемые ранние результаты имеют один seed 2026, метрики округлены RecBole
-до четырёх знаков. Это не multi-seed mean и не оценка статистической значимости.
+Цепочка: raw CSV → 5-core и сортировка → `.inter` со всеми отфильтрованными событиями → `load_col.inter=[user_id,item_id,timestamp]` → префиксы RecBole и leave-one-out → encoder → tied item scorer / CE. Отдельные parquet splits не являются входом RecBole.
 
-## Воспроизводимость
+| Поле / источник | Dtype и форма у модели | Преобразование и роль | Время / доступность |
+|---|---|---|---|
+| raw `user_id` → `user_id` | int64 [B] | Remap token; группировка/split, **не** embedding encoder | Идентификатор пользователя истории |
+| raw `video_id` → `item_id_list` | int64 [B,L] | Remap в 1..7111, 0=padding; вход всех encoder | Только предшествующие события; не сырые числовые ID |
+| RecBole `item_length` | int64 [B] | Число valid позиций, маска и выбор последнего state | Длина доступного префикса |
+| raw `time_ms` → `timestamp_list` | float64 [B,L] у временных моделей | Точные ms через auxiliary field; вход RT/механизмов; vanilla не читает | Timestamp исторического взаимодействия, не время запроса |
+| target `item_id`, `timestamp` | int64 [B], float32 [B] | Отдельные поля interaction: item для CE/метрики, timestamp для порядка/split; encoder их не читает | Следующее отложенное событие; точный auxiliary target удалён |
+| raw `date,is_rand,source_row_id` | Не входят в encoder | Проверки/статистика источника; row index разрешает ties | `date/is_rand` не являются признаками модели |
+| duration, play_time, is_click, likes, popularity; user/video features | Не загружаются | Нет joins, нет фильтра по `is_click`, нет auxiliary loss | Доступность feedback зависит от завершения события; здесь не используется |
+| `t_score`, idle gap | Отсутствуют | Нет аргумента момента запроса или `t_score-last_event_time` | Контекст запроса пока не реализован |
 
-- [Неизменённый manifest](../outputs/data/protocol_b_manifest.json), SHA256
-  `9f39aa12ec16f697a8bedb91eeb21c46dce514e6f414b7e47fc4064c1fcffd2c`.
-- `.inter` SHA256:
-  `e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc`.
-- [Frozen TRAIN statistics](../experiments/mamba3_timeaware/runs/train_time_stats_001.json),
-  SHA256 `fa5df0e5ec97d84e5dffd157373318ebfa2cb94fe2853c2aec4898ecd5f89943`.
-- [Подготовка данных](../src/prepare_kuairand_protocol_b.py) и
-  [точные исторические timestamps](../experiments/mamba3_timeaware/dataset.py).
+Embedding lookup даёт float32 **[B,L,64]**: это 64 **обучаемые координаты item**, не 64 исходных атрибута видео. Два mixer используют bf16 внутри; итоговый state float32 **[B,64]**, `scores = state @ embedding.T` имеет **[B,7112]**. User embedding, календарь, контентные признаки и снимки popularity отсутствуют.
 
-Старые `B` / `protocol_b` сохранены только как legacy identifiers для
-воспроизводимости: в путях, immutable JSON/CSV, frozen code/config и архивных
-отчётах. Они не обозначают отдельный публичный метод. Данные, маски, SHA,
-исторические JSON и строки CSV не переписаны. [Инвентарь](evidence/legacy_identifiers.json).
+Для valid истории: `gap[0]=0`, `gap[i]=max(t[i]-t[i-1],0)`, float64 [B,L]. Первый элемент и padding неактивны; настоящий нулевой интервал между двумя событиями активен. `tau=log1p(gap/838393)` → MLP 1→16→2 → `exp(log(2)*tanh(raw))`: float32 scales **[B,L,2]**, bounds [0.5,2], неактивные позиции равны 1. [Reference](../experiments/mamba3_timeaware/runs/train_time_stats_001.json) рассчитан только по положительным TRAIN history gaps с учётом повторений в префиксах.
 
-Внешняя сопоставимость с TiM4Rec не подтверждена по всем этим деталям:
-см. [PAPER_RESULTS.md](PAPER_RESULTS.md). Совпадение counts недостаточно.
+RT использует один scale, separate два отображения одного gap: `ADT=A*(DT_base*s_decay)`, `DT=DT_base*s_scan`; [режимы](../experiments/mamba3_time_mechanisms/README.md). В confirmation-ветке constant-gap wrapper заменяет реальное время на `position*838393`, сохраняя items/lengths; он проверен чтением по ref, не запуском. При фиксированных весах и eval-режиме изменение только внешнего `t_score` не меняет предсказание: такого входа нет.
+
+**Реальный маленький TRAIN-пример**, первые три события первого пользователя в отсортированном 5-core `.inter`, ID замаскированы: история `[A,A,PAD,…]`, length=2, время относительно первого события `[0,7432,PAD,…]` ms; отдельный target `B` через 100224 ms от начала. В encoder приходит gap 7432, **не** интервал 92792 до target. Это лишь иллюстрация входа, не прогон модели.
+
+### Точность времени и ограничения
+
+RecBole читает `timestamp:float` в pandas float64, затем переводит в torch float32. Около дат этой выборки шаг float32 равен **131072 ms**: первые два времени примера сливаются. `PreciseHistoryDataset` сохраняет float64 до конвертации и восстанавливает только history timestamps **после** исходной сортировки. Установленный `Interaction.sort` стабилен: округление монотонно, поэтому уже отсортированная `.inter` сохраняет внутренний порядок пользователя даже при новых ties. При точном равенстве остаётся порядок исходных строк, не доказанный порядок реальных событий. Расхождение точности подтверждено; расхождения item-порядка в малом примере нет. Полная повторная проверка всех histories/splits не выполнялась.
+
+[Официальное описание KuaiRand](https://kuairand.com/) определяет `time_ms` как время взаимодействия в ms, но не уточняет момент выдачи, начала/завершения просмотра и задержку доступности. Строки нельзя называть только кликами или завершёнными просмотрами: семантика `is_click` зависит от интерфейса. Pure содержит неполные истории. `video_features_statistic` усредняет статистики за месяц; в проверенных CSV нет датированных user/video snapshots, а `upload_dt` не является датой снимка.
+
+Нужно различать **состояние на момент события**, **контекст запроса** и **информацию, доступную позже прогноза**. Значение признака на `t_score` не автоматически утечка для исторического видео: важны семантика и момент доступности. Месячный агрегат нельзя считать готовым as-of признаком; восстановимость прошлых snapshots не доказана.
+
+**User-wise leave-one-out не равен global chronological replay.** Отсутствие target event во входе не доказывает, что параметры обучались только на информации до каждого запроса. 5-core и каталог строятся по всему выбранному файлу; TRAIN разных пользователей пересекается по времени, TEST-истории могут включать предшествующее VALID-событие. Point-in-time обучение/feature joins и idle gap потребовали бы отдельного протокола, они пока не реализованы.
+
+## Проверяемые источники
+
+[Точные file:line, схемы, пример и CPU checks](evidence/input_contract.json), [тест контракта](evidence/test_input_contract.py). CPU doubles проверяют соединение полей и маски, не GPU-эквивалентность или качество. Сопоставимость с TiM4Rec: [ограничения](PAPER_RESULTS.md). Старое `protocol_b` остаётся техническим идентификатором путей и immutable artifacts: [инвентарь](evidence/legacy_identifiers.json).

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<title>Парные результаты shared/separate: лучший VALID NDCG@10</title>
+<rect width="100%" height="100%" fill="white"/>
+<g font-family="Arial, sans-serif">
+<text x="60" y="37" font-size="25" text-anchor="start" fill="#222222">Shared и separate: лучший VALID NDCG@10</text>
+<text x="60" y="66" font-size="16" text-anchor="start" fill="#222222">KuaiRand, полный каталог; каждый отрезок соединяет одинаковый seed</text>
+<circle cx="67" cy="97" r="5" fill="#0072B2" />
+<text x="81" y="103" font-size="16" text-anchor="start" fill="#222222">shared</text>
+<rect x="182" y="92" width="10" height="10" fill="#B33B30" />
+<text x="201" y="103" font-size="16" text-anchor="start" fill="#222222">separate</text>
+<line x1="105" y1="413.0" x2="905" y2="413.0" stroke="#E1E4E8" stroke-width="1"/>
+<text x="95" y="418.0" font-size="14" text-anchor="end" fill="#555555">0.0600</text>
+<line x1="105" y1="378.0" x2="905" y2="378.0" stroke="#E1E4E8" stroke-width="1"/>
+<text x="95" y="383.0" font-size="14" text-anchor="end" fill="#555555">0.0605</text>
+<line x1="105" y1="342.99999999999994" x2="905" y2="342.99999999999994" stroke="#E1E4E8" stroke-width="1"/>
+<text x="95" y="347.99999999999994" font-size="14" text-anchor="end" fill="#555555">0.0610</text>
+<line x1="105" y1="307.9999999999999" x2="905" y2="307.9999999999999" stroke="#E1E4E8" stroke-width="1"/>
+<text x="95" y="312.9999999999999" font-size="14" text-anchor="end" fill="#555555">0.0615</text>
+<line x1="105" y1="272.9999999999999" x2="905" y2="272.9999999999999" stroke="#E1E4E8" stroke-width="1"/>
+<text x="95" y="277.9999999999999" font-size="14" text-anchor="end" fill="#555555">0.0620</text>
+<line x1="105" y1="237.99999999999986" x2="905" y2="237.99999999999986" stroke="#E1E4E8" stroke-width="1"/>
+<text x="95" y="242.99999999999986" font-size="14" text-anchor="end" fill="#555555">0.0625</text>
+<line x1="105" y1="202.9999999999998" x2="905" y2="202.9999999999998" stroke="#E1E4E8" stroke-width="1"/>
+<text x="95" y="207.9999999999998" font-size="14" text-anchor="end" fill="#555555">0.0630</text>
+<line x1="105" y1="167.99999999999977" x2="905" y2="167.99999999999977" stroke="#E1E4E8" stroke-width="1"/>
+<text x="95" y="172.99999999999977" font-size="14" text-anchor="end" fill="#555555">0.0635</text>
+<line x1="105" y1="132.99999999999977" x2="905" y2="132.99999999999977" stroke="#E1E4E8" stroke-width="1"/>
+<text x="95" y="137.99999999999977" font-size="14" text-anchor="end" fill="#555555">0.0640</text>
+<line x1="164" y1="378.0" x2="196" y2="182.0000000000002" stroke="#818891" stroke-width="2"/>
+<circle cx="164" cy="378.0" r="5" fill="#0072B2" data-seed="2026" data-mode="shared" data-value="0.0605"/>
+<text x="164" y="400.0" font-size="14" text-anchor="middle" fill="#0072B2">0.0605</text>
+<rect x="191" y="177.0000000000002" width="10" height="10" fill="#B33B30" data-seed="2026" data-mode="separate" data-value="0.0633"/>
+<text x="196" y="170.0000000000002" font-size="14" text-anchor="middle" fill="#B33B30">0.0633</text>
+<text x="180" y="449" font-size="18" text-anchor="middle" fill="#222222">2026</text>
+<text x="180" y="473" font-size="14" text-anchor="middle" fill="#555555">исходный</text>
+<line x1="324" y1="272.9999999999999" x2="356" y2="217.00000000000023" stroke="#818891" stroke-width="2"/>
+<circle cx="324" cy="272.9999999999999" r="5" fill="#0072B2" data-seed="2027" data-mode="shared" data-value="0.062"/>
+<text x="324" y="294.9999999999999" font-size="14" text-anchor="middle" fill="#0072B2">0.0620</text>
+<rect x="351" y="212.00000000000023" width="10" height="10" fill="#B33B30" data-seed="2027" data-mode="separate" data-value="0.0628"/>
+<text x="356" y="205.00000000000023" font-size="14" text-anchor="middle" fill="#B33B30">0.0628</text>
+<text x="340" y="449" font-size="18" text-anchor="middle" fill="#222222">2027</text>
+<text x="340" y="473" font-size="14" text-anchor="middle" fill="#555555">новый</text>
+<line x1="484" y1="210.0" x2="516" y2="167.99999999999977" stroke="#818891" stroke-width="2"/>
+<circle cx="484" cy="210.0" r="5" fill="#0072B2" data-seed="2028" data-mode="shared" data-value="0.0629"/>
+<text x="484" y="232.0" font-size="14" text-anchor="middle" fill="#0072B2">0.0629</text>
+<rect x="511" y="162.99999999999977" width="10" height="10" fill="#B33B30" data-seed="2028" data-mode="separate" data-value="0.0635"/>
+<text x="516" y="155.99999999999977" font-size="14" text-anchor="middle" fill="#B33B30">0.0635</text>
+<text x="500" y="449" font-size="18" text-anchor="middle" fill="#222222">2028</text>
+<text x="500" y="473" font-size="14" text-anchor="middle" fill="#555555">новый</text>
+<line x1="644" y1="294.0" x2="676" y2="251.99999999999977" stroke="#818891" stroke-width="2"/>
+<circle cx="644" cy="294.0" r="5" fill="#0072B2" data-seed="2029" data-mode="shared" data-value="0.0617"/>
+<text x="644" y="316.0" font-size="14" text-anchor="middle" fill="#0072B2">0.0617</text>
+<rect x="671" y="246.99999999999977" width="10" height="10" fill="#B33B30" data-seed="2029" data-mode="separate" data-value="0.0623"/>
+<text x="676" y="239.99999999999977" font-size="14" text-anchor="middle" fill="#B33B30">0.0623</text>
+<text x="660" y="449" font-size="18" text-anchor="middle" fill="#222222">2029</text>
+<text x="660" y="473" font-size="14" text-anchor="middle" fill="#555555">новый</text>
+<line x1="804" y1="314.9999999999996" x2="836" y2="237.99999999999986" stroke="#818891" stroke-width="2"/>
+<circle cx="804" cy="314.9999999999996" r="5" fill="#0072B2" data-seed="2030" data-mode="shared" data-value="0.0614"/>
+<text x="804" y="336.9999999999996" font-size="14" text-anchor="middle" fill="#0072B2">0.0614</text>
+<rect x="831" y="232.99999999999986" width="10" height="10" fill="#B33B30" data-seed="2030" data-mode="separate" data-value="0.0625"/>
+<text x="836" y="225.99999999999986" font-size="14" text-anchor="middle" fill="#B33B30">0.0625</text>
+<text x="820" y="449" font-size="18" text-anchor="middle" fill="#222222">2030</text>
+<text x="820" y="473" font-size="14" text-anchor="middle" fill="#555555">новый</text>
+<text x="60" y="514" font-size="16" text-anchor="start" fill="#222222">2026: сохранённые исходные запуски; 2027–2030: подтверждающая серия.</text>
+<text x="60" y="542" font-size="16" text-anchor="start" fill="#222222">Показаны реальные точки, не доверительные интервалы. Новых TEST нет.</text>
+</g></svg>

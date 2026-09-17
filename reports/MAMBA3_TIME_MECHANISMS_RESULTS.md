@@ -1,8 +1,65 @@
 # Mamba3: результаты временных механизмов
 
-KuaiRand — хронологический leave-one-out, оценка по полному каталогу.
-[Experimental setup](EVALUATION_SETUP.md). Один seed 2026; новые результаты
-только VALID, `test_evaluation_count=0`.
+<a id="confirmation"></a>
+
+## Подтверждение shared/separate
+
+Сравнили одну общую и две раздельные функции исторического интервала для decay и scan/input-weight dynamics. На KuaiRand с оценкой по полному каталогу separate превысил shared по лучшему **VALID NDCG@10 во всех пяти парных seeds**; constant-gap control на одном seed уступил реальным интервалам. [Входы и условия оценки](EVALUATION_SETUP.md).
+
+| Вариант | Seeds | VALID NDCG@10 mean ± sample std |
+|---|---|---:|
+| shared | 2026–2030 | 0.061700 ± 0.000875 |
+| separate | 2026–2030 | 0.062880 ± 0.000512 |
+
+**+1.91% по средним**, парная разница в среднем **+0.001180**, положительных пар **5/5**. Seed 2026 переиспользован из исходного эксперимента, не является новой репликацией. На четырёх новых seeds 2027–2030: shared **0.062000**, separate **0.062775**, разница **+0.000775**, **+1.25%**, **4/4** положительных пары.
+
+| Seed | Shared | Separate | Separate−shared |
+|---|---:|---:|---:|
+| 2026 | 0.0605 | 0.0633 | +0.0028 |
+| 2027 | 0.0620 | 0.0628 | +0.0008 |
+| 2028 | 0.0629 | 0.0635 | +0.0006 |
+| 2029 | 0.0617 | 0.0623 | +0.0006 |
+| 2030 | 0.0614 | 0.0625 | +0.0011 |
+
+**Первые 27 эпох (индексы 0–26), пять seeds:** shared **0.061000 ± 0.000339**, separate **0.062060 ± 0.000416**. Средняя парная разница **+0.001060**, **+1.74%**, **5/5** положительных пар. Везде sample std рассчитан с **ddof=1**, это не доверительный интервал; сравниваются лучшие VALID внутри указанного горизонта.
+
+### Constant-gap, seed 2026
+
+| Режим | Seed | Best VALID за первые 27 эпох | Best VALID за весь запуск |
+|---|---:|---:|---:|
+| separate, real-gap | 2026 | 0.0614 | 0.0633 |
+| separate, constant-gap | 2026 | 0.0586 | 0.0586 |
+
+Constant-gap сохраняет items, порядок и длины, но заменяет каждый активный временной интервал на TRAIN reference 838393 ms. В этом запуске информация о реальных интервалах оказалась полезнее такого контроля; это не доказательство периодичности интересов.
+
+![Парные shared/separate VALID NDCG@10 по пяти seeds](assets/time_confirmation/paired_ndcg10.svg)
+
+[PNG](assets/time_confirmation/paired_ndcg10.png) · [JSON агрегации](assets/time_confirmation/summary.json) · [Источники и SHA256](assets/time_confirmation/sources.json). На графике реальные точки; 2026 обозначает исходные запуски, остальные seeds новые.
+
+### Ограничения
+
+Один датасет и один VALID split; пять seeds для shared/separate, но constant-gap и decay_only/scan_only пока имеют по одному seed. Первые 27 эпох уравнивают число эпох, а не GPU-время; полные запуски остановились в разные моменты. Статистическая значимость автоматически не заявляется, многосидовое превосходство separate над decay_only/scan_only не проверено. Shared TEST был известен до этой серии; **новых TEST нет**. VALID не добавляется в [сравнение с опубликованными TEST](PAPER_RESULTS.md).
+
+## Подробные результаты и воспроизводимость
+
+Девять новых JSON содержат все HR/Recall/NDCG @5/10/20/50, непрерывные histories и диагностику лучшей эпохи. В [индексе](assets/time_confirmation/sources.json) указаны исходные пути, SHA256, mode, seed, execution commit и фактический job ID. Исторические shared/separate seed 2026 переиспользуются по ссылкам; их JSON не копировались как новые запуски. Все девять checkpoint существуют, SHA256 проверены потоковым чтением без десериализации.
+
+`best_diagnostics` относятся к `best_epoch` (нумерация с нуля), а не к последней эпохе. **Head H0/H1** обозначают головы; коэффициенты общие для двух Mamba layers, это не «слой 1/2». Новые распределения и корреляции сохранены в raw JSON, исходная диагностика ниже относится только к seed 2026.
+
+[Зафиксированный план](../experiments/mamba3_time_confirmation/study_plan.json) и [read-only aggregator](../experiments/mamba3_time_confirmation/aggregate.py) сохранены без изменений. Дополнительная сводка и строки реестра воспроизводятся [report.py](assets/time_confirmation/report.py); [render.py](assets/time_confirmation/render.py) строит SVG и PNG из тех же JSON (нужен Pillow и шрифт с кириллицей).
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python -m experiments.mamba3_time_confirmation.aggregate
+PYTHONDONTWRITEBYTECODE=1 python reports/assets/time_confirmation/report.py
+PYTHONDONTWRITEBYTECODE=1 python reports/assets/time_confirmation/render.py
+```
+
+Команды читают сохранённые результаты; только renderer записывает производные изображения. Summary JSON сохраняет stdout существующего aggregator; научных запусков эти команды не выполняют. Исторический тест сравнения целых каталогов со старым main не изменялся: для публикации проверены реальные core/study fingerprints и SHA256 исходных результатов.
+
+<a id="initial-study"></a>
+
+<details>
+<summary>Исходное исследование seed 2026: все cutoff, бюджеты и диагностика</summary>
 
 ## Гипотеза
 
@@ -32,8 +89,8 @@ rotary dynamics (`DT`)? `decay_only` и `scan_only` включают один п
 | scan_only | +.0027 | +4.6233% | +.0006 | +0.9917% |
 | separate | +.0049 | +8.3904% | +.0028 | +4.6281% |
 
-**Separate: best observed single-seed VALID; confirmation pending.** Не объявляем
-статистическую значимость или устойчивое превосходство. Все три новых TEST не оценены.
+Это первоначальное сравнение seed 2026. Подтверждение shared/separate приведено выше;
+TEST этих новых вариантов не выполнялся.
 
 ## Обучение и бюджет
 
@@ -62,7 +119,7 @@ Per-epoch training/VALID timings сохранены в [данных графи�
 
 ![Scale против physical gap](assets/time_mechanisms/calibrator_curves.svg)
 
-На CPU загружены только наши доверенные best checkpoints; извлечены параметры
+В первоначальном этапе на CPU были загружены доверенные best checkpoints; извлечены параметры
 calibrator. Сетка: 121 log-spaced положительных gaps между frozen TRAIN min/max,
 плюс reference и отдельный active zero. Ни Mamba forward, ни ranking evaluation
 не выполнялись. Все пять checkpoint доступны; пути, SHA256, source/log SHA,
@@ -81,16 +138,16 @@ reservoir 8192 с собственным RNG. Повторяющиеся gaps в
 
 | Mode/path | Head | Mean | Std | p10 | p50 | p90 |
 |---|---:|---:|---:|---:|---:|---:|
-| decay_only/decay | 0 | 1.999910 | .000102 | 1.999745 | 1.999971 | 2.000000 |
-| decay_only/decay | 1 | .836214 | .439993 | .502807 | .612231 | 1.642123 |
-| scan_only/scan | 0 | .765376 | .405650 | .505826 | .543320 | 1.513760 |
-| scan_only/scan | 1 | .787525 | .126271 | .593296 | .823963 | .933462 |
-| separate/decay | 0 | 1.138654 | .450420 | .519576 | 1.300120 | 1.628739 |
-| separate/decay | 1 | .908804 | .495633 | .504781 | .637370 | 1.794623 |
-| separate/scan | 0 | .632056 | .303651 | .501674 | .502632 | 1.014333 |
-| separate/scan | 1 | .800682 | .052129 | .766373 | .786225 | .878568 |
+| decay_only/decay | H0 | 1.999910 | .000102 | 1.999745 | 1.999971 | 2.000000 |
+| decay_only/decay | H1 | .836214 | .439993 | .502807 | .612231 | 1.642123 |
+| scan_only/scan | H0 | .765376 | .405650 | .505826 | .543320 | 1.513760 |
+| scan_only/scan | H1 | .787525 | .126271 | .593296 | .823963 | .933462 |
+| separate/decay | H0 | 1.138654 | .450420 | .519576 | 1.300120 | 1.628739 |
+| separate/decay | H1 | .908804 | .495633 | .504781 | .637370 | 1.794623 |
+| separate/scan | H0 | .632056 | .303651 | .501674 | .502632 | 1.014333 |
+| separate/scan | H1 | .800682 | .052129 | .766373 | .786225 | .878568 |
 
-Decay-only head 0 почти насыщен у upper bound 2; separate scan head 0 часто
+Decay-only Head H0 почти насыщен у upper bound 2; separate scan Head H0 часто
 близок к lower bound. Это описательная диагностика, не повод менять bounds
 после наблюдения результата. Для shared сохранились checkpoint functions,
 но отдельное VALID scale distribution в исходном run отсутствует.
@@ -100,17 +157,6 @@ Separate: pooled log-correlation **−0.536664**, mean absolute log-difference
 per-head correlation на VALID не сохранена и не восстанавливается по grid.
 Эта корреляция не доказывает независимые физические механизмы или периодичность.
 
-## Источники и ограничения
+Источники исходного сравнения: [decay_only](../experiments/mamba3_time_mechanisms/runs/mamba3_decay_only_validation_001.json), [scan_only](../experiments/mamba3_time_mechanisms/runs/mamba3_scan_only_validation_001.json), [separate](../experiments/mamba3_time_mechanisms/runs/mamba3_separate_time_validation_001.json), [shared](../experiments/mamba3_timeaware/runs/mamba3_timeaware_validation_001.json), [vanilla](../experiments/mamba3_baseline/runs/mamba3_validation_001.json). [GPU evidence](../experiments/mamba3_time_mechanisms/runs/gpu_equivalence_001.json) и старые графики сохранены без изменений.
 
-- [Decay JSON](../experiments/mamba3_time_mechanisms/runs/mamba3_decay_only_validation_001.json), job 4332918.
-- [Scan JSON](../experiments/mamba3_time_mechanisms/runs/mamba3_scan_only_validation_001.json), job 4332919.
-- [Separate JSON](../experiments/mamba3_time_mechanisms/runs/mamba3_separate_time_validation_001.json), job 4332920.
-- Submission commit `9334bd93c8fa30fbacabaeb220cef17e336c261b`.
-- Core fingerprint `460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f`.
-- [Неизменённый GPU evidence](../experiments/mamba3_time_mechanisms/runs/gpu_equivalence_001.json).
-
-Один seed, разные early-stopping горизонты и наблюдавшийся ранее shared TEST
-ограничивают выводы. Следующий этап — заранее фиксированное matched-seed
-подтверждение shared/separate и отдельный exploratory constant-gap control.
-Новых TEST нет. Внешние paper TEST сравниваются только с завершёнными нашими
-TEST в [PAPER_RESULTS.md](PAPER_RESULTS.md), не с .0633 VALID.
+</details>

@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-17",
+  "base_commit": "61c6fafe0e1a030db484cee5e6b4d112bb4a2f4d",
+  "scope": "Локальный аудит входов и редактура; на кластере только чтение кода, CSV headers и 3 TRAIN-событий. Состояние array не запрашивалось.",
+  "confirmation": {
+    "ref": "091f407bfbfc3f3c60021d4f14d809b05d2fc78a",
+    "array": 4334855,
+    "status": "NOT_QUERIED",
+    "read_only_refs": [
+      "experiments/mamba3_time_confirmation/model.py:7-16",
+      "experiments/mamba3_time_confirmation/inputs.py:5-11"
+    ],
+    "contract": "constant wrapper ignores real timestamps; position * 838393, same items/lengths; no merge"
+  },
+  "source_refs": {
+    "raw_parse": "src/prepare_kuairand_protocol_b.py:157-210",
+    "kcore": "src/prepare_kuairand_protocol_b.py:280-318",
+    "exact_split": "src/prepare_kuairand_protocol_b.py:321-337",
+    "inter_write": "src/prepare_kuairand_protocol_b.py:429-435",
+    "full_filtered_to_inter": "src/prepare_kuairand_protocol_b.py:720-771",
+    "config": "experiments/mamba3_baseline/config_kuairand.yaml:13-72",
+    "overlay": "experiments/mamba3_timeaware/config.py:7-11",
+    "embedding": "experiments/mamba3_baseline/model.py:149-181",
+    "vanilla_encoder_scorer": "experiments/mamba3_baseline/model.py:199-232",
+    "precise_time": "experiments/mamba3_timeaware/dataset.py:11-27",
+    "gaps_calibrator": "experiments/mamba3_timeaware/time_inputs.py:9-67",
+    "rt_encoder_scorer": "experiments/mamba3_timeaware/model.py:25-52",
+    "mechanism_encoder": "experiments/mamba3_time_mechanisms/model.py:27-42",
+    "scales": "experiments/mamba3_time_mechanisms/time_mechanisms.py:16-50"
+  },
+  "installed_recbole": {
+    "version": "1.2.0",
+    "files": [
+      {
+        "path": "/home/daryumin/iberdov/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py",
+        "sha256": "d200daea4c07d9949f562379f7d2d17cd7d20e2352401a892ec4fd45cf8891dc",
+        "functions": [
+          "_load_feat:427-523",
+          "sort:1736-1744",
+          "_dataframe_to_interaction:2122-2161",
+          "_get_load_and_unload_col:388",
+          "build:1746"
+        ]
+      },
+      {
+        "path": "/home/daryumin/iberdov/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/sequential_dataset.py",
+        "sha256": "f722fd31942484195f8321a4f2d0b081caf48e4b38de2d0d4b7c060f12cc6050",
+        "functions": [
+          "_aug_presets:51-75",
+          "data_augmentation:77-152"
+        ]
+      },
+      {
+        "path": "/home/daryumin/iberdov/envs/mamba3/lib/python3.10/site-packages/recbole/data/interaction.py",
+        "sha256": "5e4dda0ef4888c6660f854bf5db2fff49bfa5b278b51331c19486ea89e0ea4cf",
+        "functions": [
+          "sort:306-350"
+        ]
+      },
+      {
+        "path": "/home/daryumin/iberdov/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataloader/general_dataloader.py",
+        "sha256": "446df4c0305ef4009fe399709d975f0a050e5382fb225a5024d03aa38c3d4de7",
+        "functions": [
+          "_init_batch_size_and_step:47-56",
+          "collate_fn:67-71",
+          "_init_batch_size_and_step:120-138",
+          "collate_fn:150-181",
+          "_init_batch_size_and_step:244-253",
+          "collate_fn:258-288"
+        ]
+      },
+      {
+        "path": "/home/daryumin/iberdov/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py",
+        "sha256": "beaebd025df67975c260078519e91f27687cca5a72f25a335f175ebc466d5604",
+        "functions": [
+          "_full_sort_batch_eval:521-540"
+        ]
+      }
+    ]
+  },
+  "fields": [
+    [
+      "user_id",
+      "raw user_id -> remapped token",
+      "int64 [B]",
+      "grouping/split; no user embedding"
+    ],
+    [
+      "item_id_list",
+      "raw video_id -> item_id -> history",
+      "int64 [B,L]",
+      "encoder; IDs 1..7111, padding 0; only prior events"
+    ],
+    [
+      "item_length",
+      "RecBole prefix length",
+      "int64 [B]",
+      "mask / final gather; 1..50"
+    ],
+    [
+      "timestamp_list",
+      "raw time_ms -> timestamp -> history",
+      "float64 [B,L] in time-aware adapters",
+      "encoder gaps; vanilla ignores timestamps"
+    ],
+    [
+      "item_id",
+      "next event video_id",
+      "int64 [B]",
+      "CE target / metric label, NOT encoder; may repeat a historical item"
+    ],
+    [
+      "timestamp",
+      "next event time_ms",
+      "float32 [B]",
+      "sort/split; NOT encoder; auxiliary exact target deleted"
+    ],
+    [
+      "date/is_rand/source_row_id",
+      "CSV plus enumerated row position",
+      "preparation only",
+      "source stats / tie-breaking, not model features"
+    ],
+    [
+      "duration/play_time/is_click/likes/popularity",
+      "raw feedback / side feature files",
+      "not loaded",
+      "no joins or click filtering"
+    ],
+    [
+      "t_score / idle_gap",
+      "external request context",
+      "absent",
+      "same fixed weights/history gives same eval prediction"
+    ]
+  ],
+  "shapes": {
+    "embedding": "float32 [B,L,64], learned coordinates not video attributes",
+    "gap": "float64 [B,L]",
+    "active": "bool [B,L], first/pad=false, genuine zero gap=true",
+    "tau": "float32 [B,L,1] after float64 log1p",
+    "scales": "float32 [B,L,2]; separate has two tensors; bounds [0.5,2]",
+    "state": "float32 [B,64]",
+    "scores": "float32 [B,7112], tied embeddings; pad -> -inf by evaluator",
+    "batch": "B variable; configured eval_batch_size=4096, real batches NOT executed"
+  },
+  "time_semantics": {
+    "reference_ms": 838393,
+    "encoder_uses_query_time": false,
+    "event_vs_request_vs_availability": "Значение на t_score не автоматически leakage: нужны семантика и момент доступности. Месячный агрегат не готовый as-of признак.",
+    "unknown": [
+      "exact time_ms event boundary and availability latency",
+      "timestamped user/video snapshots not established",
+      "global point-in-time training / candidate availability not verified",
+      "complete dataset-wide recheck not performed"
+    ],
+    "limitation": "User-wise LOO is not global replay. All-file 5-core/catalog and cross-user training do not establish as-of parameter availability; TEST prefixes can contain prior VALID event.",
+    "official_sources": [
+      {
+        "url": "https://kuairand.com/",
+        "sections": [
+          "Three Versions and Suggestions",
+          "Description of the fields in log_xxx.csv",
+          "user_features.csv",
+          "video_features_basic.csv",
+          "video_features_statistic.csv"
+        ],
+        "findings": "time_ms: interaction timestamp in ms; is_click is UI-dependent; Pure histories incomplete; statistics averaged over month, not timestamped daily snapshots"
+      },
+      {
+        "url": "https://github.com/chongminggao/KuaiRand",
+        "role": "официальный репозиторий данных"
+      }
+    ],
+    "schema_check": {
+      "root": "/home/daryumin/iberdov/Corpora/KuaiRand-Pure/KuaiRand-Pure/data",
+      "headers_read": [
+        "log_standard_4_08_to_4_21_pure.csv",
+        "user_features_pure.csv",
+        "video_features_basic_pure.csv",
+        "video_features_statistic_pure.csv"
+      ],
+      "snapshot_time_fields_found": false,
+      "upload_dt": "video upload date, not feature snapshot time",
+      "recbole_files": [
+        "kuairand.inter"
+      ],
+      "inter_header": "user_id:token\\titem_id:token\\ttimestamp:float",
+      "parquet_probe": "pyarrow unavailable in frozen environment; nothing installed, train.parquet not read"
+    }
+  },
+  "observed_train_sample": {
+    "source": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand/kuairand.inter",
+    "scope": "First 3 events of first user; same user checked, all TRAIN under 5-core with last two held out. IDs pseudonymized, not actual remapped IDs.",
+    "items": [
+      "A",
+      "A",
+      "B"
+    ],
+    "timestamps_ms": [
+      1649673604040,
+      1649673611472,
+      1649673704264
+    ],
+    "history_items": [
+      "A",
+      "A"
+    ],
+    "target": "B",
+    "history_gap_ms": 7432,
+    "target_gap_ms": 92792,
+    "float32_timestamps": [
+      1649673633792,
+      1649673633792,
+      1649673764864
+    ],
+    "float32_spacing_ms": 131072,
+    "sort_check": "PASS: executed installed Interaction.sort locally on small tensor receiver, preserved item/time ordering",
+    "argument": "Float64 read -> float32 stable sort. Monotonic rounding preserves already exact-sorted per-user order; exact ties retain CSV row order. Exact auxiliary history restored after augmentation.",
+    "not_claimed": "Full RecBole reconstruction, all-dataset equality or real GPU forward"
+  },
+  "preserved_hashes": {
+    "manifest": "9f39aa12ec16f697a8bedb91eeb21c46dce514e6f414b7e47fc4064c1fcffd2c",
+    "inter_from_existing_manifest": "e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc",
+    "train_stats": "fa5df0e5ec97d84e5dffd157373318ebfa2cb94fe2853c2aec4898ecd5f89943"
+  },
+  "historical_gpu_provenance": {
+    "path": "experiments/mamba3_time_mechanisms/runs/gpu_equivalence_001.json",
+    "job_id": 4332447,
+    "implementation_commit": "976eccc82d830929d82df8bbd91d783dda3b0f1a",
+    "pinned_mamba": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+    "source_fingerprint": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+    "sha256": "6484b49cf6d69e2066cc8db6c9c7dbc12bf33a682136682fbf83798e70c9de37",
+    "saved_json_checks": "8 cases, 204 checks including 20 zero-init; all passed, max/mean errors=0; no rerun"
+  },
+  "checks": {
+    "input_contract": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python -m pytest reports/evidence/test_input_contract.py -q -p no:cacheprovider",
+      "result": "8 passed",
+      "scope": "CPU wiring doubles with actual wrapper methods and zero mixer layers; real gaps/calibrators. Shapes, masks, target/query-field independence, CE target dependence, adapter alignment. NOT GPU evidence."
+    },
+    "extended_cpu_suite": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python -m pytest reports/evidence/test_input_contract.py experiments/mamba3_timeaware/tests experiments/mamba3_time_mechanisms/tests -q -p no:cacheprovider --import-mode=importlib",
+      "passed": 80,
+      "skipped": 2,
+      "failed": 1,
+      "failure": "test_frozen_files_byte_stable compares whole dirs/docs/results.csv against historical de0a137; already differs at base 61c6faf; retained unchanged",
+      "collection_note": "Default import mode collides on two existing test_contracts.py; importlib collection used without file changes"
+    },
+    "numeric_tables": {
+      "result": "PASS",
+      "cells_verified": 131,
+      "against": "original run JSONs, results.csv (54 records), tim4rec_table3_kuairand.json; all 12 deltas recomputed"
+    },
+    "relative_links": {"checked": 86, "broken": 0},
+    "source_line_ranges_and_artifact_sha256": "PASS",
+    "separate_first_27_epochs": "PASS: max NDCG@10=0.0614 in existing extracted.json; final best_epoch=51, actual_epochs=63",
+    "diff_check": "PASS",
+    "protected_files": {
+      "result": "PASS",
+      "command": "git diff --exit-code --no-ext-diff 61c6fafe0e1a030db484cee5e6b4d112bb4a2f4d -- . ':(exclude)*.md' ':(exclude)reports/evidence/input_contract.json' ':(exclude)reports/evidence/test_input_contract.py'",
+      "scope": "All pre-existing tracked non-Markdown files byte-stable. New audit/test explicitly excluded. Remote data/checkpoints not written or recopied."
+    },
+    "external_links": {
+      "checked": 20,
+      "head_200": 10,
+      "head_202": 1,
+      "head_403": 8,
+      "head_406": 1,
+      "note": "ACM and ScienceDirect 403, arXiv HTML 406; access not confirmed, not treated as broken. IEEE DOI 202 only acknowledges request. Existing publication URLs preserved; KuaiRand documentation read through web."
+    },
+    "orphan_launcher": {
+      "path": "slurm/epo_moe.sh",
+      "missing": [
+        "experiments/epo_moe/model.py",
+        "experiments/epo_moe/run.py",
+        "experiments/epo_moe/summarize.py",
+        "experiments/epo_moe/configs/epo_moe.yaml"
+      ],
+      "action": "Documented only; archive/removal requires separate decision"
+    }
+  },
+  "documentation_bytes_before_after": {
+    "README.md": [2185, 2310],
+    "reports/RESULTS.md": [7488, 5323],
+    "reports/PAPER_RESULTS.md": [8744, 6236],
+    "reports/EVALUATION_SETUP.md": [4837, 10971],
+    "experiments/mamba3_timeaware/README.md": [14196, 4509],
+    "experiments/mamba3_time_mechanisms/README.md": [12979, 6008],
+    "reports/MAMBA3_TIME_MECHANISMS_PLAN.md": [1497, 1642],
+    "total": [51926, 36999]
+  },
+  "execution_counts": {
+    "TRAIN": 0,
+    "VALID": 0,
+    "TEST": 0,
+    "new_jobs": 0,
+    "gpu_forward": 0,
+    "cluster_writes": 0,
+    "cluster_git_changes": 0
+  }
+}

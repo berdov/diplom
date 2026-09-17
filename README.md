@@ -1,30 +1,23 @@
 # Дипломный проект
 
-Последовательная рекомендация на **KuaiRand: хронологический leave-one-out,
-оценка по полному каталогу**. Primary-only Mamba3 и временные механизмы:
-vanilla, shared RT, decay_only, scan_only, separate.
+Исследуем последовательную рекомендацию видео на KuaiRand: предсказываем следующее взаимодействие по истории пользователя. Сравниваем vanilla Mamba3 с вариантами, использующими интервалы между историческими событиями.
 
-## Результаты и воспроизводимость
+## Реализация
 
-- **[Опубликованные benchmarks и наши TEST](reports/PAPER_RESULTS.md)**:
-  shared RT TEST NDCG@10 0.0613 против paper TiM4Rec 0.0611
-  (+0.0002; +0.3273%). Сопоставимость всех деталей не подтверждена;
-  таблица показывает также проигрыши @20/@50 и ограничения одного seed.
-- **[Наши эксперименты и абляции](reports/RESULTS.md)**: TEST отдельно от VALID.
-- **[Полный реестр](experiments/results.csv)**: исходные run IDs, commits и JSON.
-- **[Experimental setup](reports/EVALUATION_SETUP.md)**: данные, split, masks, timestamps.
-- **[Временные механизмы: таблицы и графики](reports/MAMBA3_TIME_MECHANISMS_RESULTS.md)**:
-  separate 0.0633: best observed single-seed VALID; confirmation pending.
+- [Vanilla Mamba3Rec](experiments/mamba3_baseline/README.md): primary-only, без временных признаков.
+- [RT-Mamba3](experiments/mamba3_timeaware/README.md): общий временной множитель.
+- [Раздельные временные механизмы](experiments/mamba3_time_mechanisms/README.md): `decay_only`, `scan_only`, `separate`.
+- [Входы, разбиение и оценка](reports/EVALUATION_SETUP.md): до 50 событий, полный каталог, точные ограничения временной корректности.
 
-23 951 пользователей, 7 111 items, 1 134 420 взаимодействий; история до 50.
-Данные и [manifest](outputs/data/protocol_b_manifest.json) не менялись.
-[Frozen vanilla Mamba3Rec](experiments/mamba3_baseline/README.md):
-primary-only, non-time-aware baseline, TEST NDCG@10 **0.0590**.
+Текущая [модель](experiments/mamba3_time_mechanisms/model.py), [конфигурация](experiments/mamba3_time_mechanisms/config.py) и [кластерный launcher](slurm/mamba3_time_mechanisms_validation.sh) описаны в README эксперимента. Launcher привязан к HSE, существующему окружению и проверенному GPU evidence; это не универсальная команда запуска.
 
-## Завершённые диагностические этапы
+## Результаты
 
-[MTL/MOO study](reports/MTL_MOO_STUDY.md) не выбран основой proposed method.
-EPO: лучший observed MOO representative; screening 16 subsets дал до
-+0.0007 VALID NDCG@10 на одном seed. Исторические/отрицательные результаты
-сохранены в сводке и реестре. Proto-Mamba3 KMeans: VALID 0.0583 против vanilla
-0.0584, TEST не запускался. Random-prototype controls не включены в main.
+- [Наши VALID и TEST](reports/RESULTS.md), включая vanilla TEST NDCG@10 **0.0590**.
+- [Опубликованные ориентиры и наши TEST](reports/PAPER_RESULTS.md): все cutoff и ограничения сопоставимости.
+- [Подтверждение временных механизмов: таблицы и график](reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#confirmation).
+- [Реестр запусков](experiments/results.csv) с источниками метрик.
+
+Separate превысил shared по VALID NDCG@10 во всех пяти парных seeds: +1,91% по средним, на четырёх новых seeds +1,25%. Constant-gap control выполнен на одном seed; новых TEST нет.
+
+Завершённые исследования: [MTL/MOO](reports/MTL_MOO_STUDY.md) и [Proto-Mamba3](experiments/mamba3_prototypes/README.md). Их результаты и ограничения сохранены, но они не выбраны основной линией модели.
