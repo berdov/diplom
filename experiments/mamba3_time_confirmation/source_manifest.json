@@ -11,7 +11,7 @@
     "experiments/mamba3_time_confirmation/study_plan.json": "6244c0da36486d898ef12a3cc0432296e0bce027ed4557e008b942997faa40d0",
     "experiments/mamba3_time_confirmation/submit.py": "848735f7755771b8a5bcbc33ed1874f3cab57e508542f7996eb0b2a8df3300c2",
     "experiments/mamba3_time_confirmation/tests/test_study.py": "d0d6c4c46060cb2b02b6bbfd69ed891796b3a7e04a7f51f71a7a7dc4f30afa18",
-    "slurm/mamba3_time_confirmation.sh": "e23433a1f571a6ae458d3bba88a641b6e049882448b18b83a83f3071ca7bb8c8"
+    "slurm/mamba3_time_confirmation.sh": "5ea40ac39b161a468d3776c4a93ad3a685b31e2142eab486db3b5d3433208a14"
   },
-  "source_hash": "c88a9e04b01a6563c0801e294a61664edc4908f9f4d310b10554d4238b959c77"
+  "source_hash": "307d6cf2c80a90fa8c89aa5768d9da3aafbc9cfa9f4beaea89393c201d7c0346"
 }

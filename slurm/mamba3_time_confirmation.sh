@@ -21,4 +21,7 @@ export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4
 RUN_ID=$(envs/mamba3/bin/python -c 'import os; from experiments.mamba3_time_confirmation.config import plan; print(plan()["tasks"][int(os.environ["SLURM_ARRAY_TASK_ID"])]["run_id"])')
 export TRITON_CACHE_DIR="$PWD/experiments/mamba3_time_confirmation/slurm_logs/$RUN_ID/cache/triton"
 export TORCHINDUCTOR_CACHE_DIR="$PWD/experiments/mamba3_time_confirmation/slurm_logs/$RUN_ID/cache/inductor"
+export XDG_CACHE_HOME="$PWD/experiments/mamba3_time_confirmation/slurm_logs/$RUN_ID/cache/xdg"
+export TORCH_EXTENSIONS_DIR="$PWD/experiments/mamba3_time_confirmation/slurm_logs/$RUN_ID/cache/torch_extensions"
+export CUDA_CACHE_PATH="$PWD/experiments/mamba3_time_confirmation/slurm_logs/$RUN_ID/cache/cuda"
 exec envs/mamba3/bin/python -m experiments.mamba3_time_confirmation.run
