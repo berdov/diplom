@@ -9,7 +9,7 @@ delta **-0.0001**. Улучшения в этом запуске нет. **TEST 
 ## Результат job 4328153
 
 [Scientific JSON](runs/mamba3_prototypes_validation_001.json): PASS, commit
-`bbb9cd954e929df0e4ebc737be41b8440ecdb0bc`, Protocol B full-ranking,
+`bbb9cd954e929df0e4ebc737be41b8440ecdb0bc`, chronological leave-one-out / full-catalog full-ranking,
 27 эпох, best epoch=15 (zero-based). [Smoke](runs/prototype_smoke_001.json): PASS.
 
 | VALID | @5 | @10 | @20 | @50 |
@@ -70,11 +70,11 @@ Exact source checkpoint (при отсутствии запуск заверша
 SHA256: `d0bc3bb504daf5df068b6fd5bd635d6454aa223da01c006c63c78da193bb9dbe`.
 Проверяются frozen VALID JSON, score 0.0584, checkpoint epoch 15, архитектура,
 training settings, pinned Mamba `e9594ce1c732d97440f0332fdc43170a2294dbfa` и
-Protocol B `.inter` SHA `e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc`.
+chronological leave-one-out / full-catalog `.inter` SHA `e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc`.
 
 [Инициализатор](prototype_init.py) передаёт encoder только `item_id_list` и
 `item_length` из TRAIN dataset. Encoder работает в eval/no_grad; timestamps и target
-items не подаются в forward. Порядок/split остаются штатными chronological Protocol B;
+items не подаются в forward. Порядок/split остаются штатными chronological chronological leave-one-out / full-catalog;
 timestamp нужен dataset только для порядка, не является входом Proto-Mamba3.
 VALID/TEST examples не передаются в KMeans, TEST loader вообще не создаётся.
 

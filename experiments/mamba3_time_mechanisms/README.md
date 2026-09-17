@@ -1,6 +1,6 @@
 # Mamba3: раздельные temporal mechanisms
 
-Подготовка реализации и проверок, **без scientific запусков**. Ветка
+Завершены три TRAIN→VALID запуска (seed 2026), новых TEST нет. Ветка
 `exp/mamba3-time-mechanisms` от `de0a137a6f46b5b214ccdc03a5ff1ede93454704`.
 Мотивация научрука: нужно ли одному physical inter-event gap одинаково управлять
 затуханием памяти и остальными native DT dynamics? Это ablation существующей
@@ -20,8 +20,8 @@ VALID-launcher больше не требует git на compute-node: `RUN_COMM
 и экспортируется при submit на login-node. Перед обучением Python проверяет
 текущие исходники по `EXPECTED_SOURCE_FINGERPRINT`, фиксированному проверенному
 fingerprint и `require_equivalence()`. Triton caches разделены по mode.
-Ресурсы, model/config и training protocol не изменены. Результаты будущих
-decay_only/scan_only/separate TRAIN→VALID пока неизвестны; TEST запрещён.
+Ресурсы, model/config и training protocol не изменены. Результаты decay_only/scan_only/separate: VALID NDCG@10 .0612/.0611/.0633.
+[Таблица, графики и ограничения](../../reports/MAMBA3_TIME_MECHANISMS_RESULTS.md). TEST запрещён.
 
 ## Pinned upstream audit
 
@@ -90,7 +90,7 @@ Copyright и лицензия upstream: [Apache-2.0](../mamba3_timeaware/LICENSE
 differences clamp_min(0), padding и первый элемент имеют neutral scale=1.
 Оба separate calibrators получают один и тот же history gap. Target timestamp
 не является аргументом forward; precise float64 history dataset переиспользован.
-Scientific config сохраняет Protocol B и max sequence length=50.
+Scientific config сохраняет chronological leave-one-out / full-catalog и max sequence length=50.
 Длина 64 используется только в synthetic equivalence.
 
 ## Проверки и диагностика
@@ -131,7 +131,7 @@ Scratch backbone, seed2026, Adam .001, CE, batch2048/eval4096, max300,
 patience10, every-epoch VALID NDCG@10, full-ranking. Frozen TRAIN stats/manifest
 и split проверяются; TEST dataset reservation отбрасывается без loader evaluation.
 `TEST=NOT_RUN`, `test_evaluation_count=0`. Checkpoints/logs только в ignored
-`slurm_logs/<run_id>`. Сейчас нет ни одного нового scientific JSON.
+`slurm_logs/<run_id>`. Три завершённых scientific JSON сохранены побайтно в `runs/`.
 
 Подготовлены [equivalence launcher](../../slurm/mamba3_time_mechanisms_equivalence.sh)
 и [generic VALID launcher](../../slurm/mamba3_time_mechanisms_validation.sh)
@@ -142,8 +142,7 @@ submission record. Shared/vanilla не перезапускаются; повт�
 
 ## Заранее заданная интерпретация
 
-Canonical references: Vanilla VALID=0.0584, Shared VALID=0.0605. Все новые VALID
-неизвестны. Исторический shared TEST=0.0613 уже наблюдался; новые решения
+Canonical references: Vanilla VALID=0.0584, Shared VALID=0.0605. Завершённые VALID приведены в отчёте; separate требует matched-seed подтверждения. Исторический shared TEST=0.0613 уже наблюдался; новые решения
 принимаются только по VALID, новый TEST запрещён до отдельного freeze decision.
 
 | Наблюдение на VALID | Ограниченная интерпретация |
