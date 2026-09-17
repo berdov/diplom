@@ -1,11 +1,32 @@
-# Результаты проекта: краткая сводка и индекс
+# Результаты проекта
 
-Canonical narrative завершённого MTL/MOO study: **[MTL_MOO_STUDY.md](MTL_MOO_STUDY.md)**. Этот диагностический этап не выбран основой proposed method. Завершённый Mamba3 architecture stage приведён отдельно ниже.
+## Mamba3: VALID
 
-## Зафиксированные TEST: baseline и MTL
+KuaiRand, хронологический leave-one-out, полный каталог. [Условия оценки и входы](EVALUATION_SETUP.md).
 
-| Модель / run | Зафиксированный TEST NDCG@10 |
-| --- | ---: |
+| Модель | VALID NDCG@10 | Источник |
+|---|---:|---|
+| Vanilla Mamba3 | 0.0584 | [JSON](../experiments/mamba3_baseline/runs/mamba3_validation_001.json) |
+| Shared RT-Mamba3 | 0.0605 | [JSON](../experiments/mamba3_timeaware/runs/mamba3_timeaware_validation_001.json) |
+| decay_only | 0.0612 | [JSON](../experiments/mamba3_time_mechanisms/runs/mamba3_decay_only_validation_001.json) |
+| scan_only | 0.0611 | [JSON](../experiments/mamba3_time_mechanisms/runs/mamba3_scan_only_validation_001.json) |
+| separate | 0.0633 | [JSON](../experiments/mamba3_time_mechanisms/runs/mamba3_separate_time_validation_001.json) |
+
+Это отдельные запуски с seed 2026, не средние по seeds. У separate лучшая эпоха 51 (с нуля) из 63; в первых 27 эпохах максимум 0.0614. Поэтому 0.0633 пока не доказывает устойчивого превосходства при одинаковом бюджете. Подтверждающая серия отправлена отдельно; её состояние в этой сводке не проверялось. [Полные метрики, диагностика и графики](MAMBA3_TIME_MECHANISMS_RESULTS.md).
+
+## Mamba3: TEST
+
+| Модель | HR=Recall@10 | HR=Recall@20 | HR=Recall@50 | NDCG@10 | NDCG@20 | NDCG@50 |
+|---|---:|---:|---:|---:|---:|---:|
+| [Vanilla Mamba3](../experiments/mamba3_baseline/runs/mamba3_final_test_001.json) | 0.1062 | 0.1708 | 0.3053 | 0.0590 | 0.0752 | 0.1017 |
+| [Shared RT-Mamba3](../experiments/mamba3_timeaware/runs/mamba3_timeaware_final_test_001.json) | 0.1116 | 0.1764 | 0.3136 | 0.0613 | 0.0776 | 0.1046 |
+
+Для каждого выбранного по VALID checkpoint выполнен один финальный TEST. У decay_only, scan_only и separate TEST нет. Сравнение с опубликованным TiM4Rec вынесено в [отдельную таблицу](PAPER_RESULTS.md); наша репродукция TiM4Rec ниже является другим источником.
+
+## Базовые модели: TEST
+
+| Модель / run | NDCG@10 |
+|---|---:|
 | Random / random_002 | 0.0006 |
 | MostPopular / mostpop_002 | 0.0167 |
 | XGBoost / ltr_xgb_002 | 0.0150 |
@@ -14,83 +35,25 @@ Canonical narrative завершённого MTL/MOO study: **[MTL_MOO_STUDY.md]
 | TiM4Rec / tim4rec_001 | 0.0598 |
 | Fixed-loss MTL / multitask_tim4rec_001 | 0.0581 |
 | Tuned MTL / multitask_tim4rec_tuned_001 | 0.0598 |
-| Frozen vanilla Mamba3Rec / mamba3_final_test_001 | 0.0590 |
-| Shared RT-Mamba3 / mamba3_timeaware_final_test_001 | 0.0613 |
 
-Исторические TEST-результаты дополнены frozen vanilla [Mamba3Rec](../experiments/mamba3_baseline/README.md) и shared RT-Mamba3. Каждый checkpoint выбран по VALID; каждый финальный TEST выполнен один раз. KuaiRand: хронологический leave-one-out, оценка по полному каталогу. Полные метрики — в [реестре](../experiments/results.csv); [внешнее сравнение с опубликованными числами](PAPER_RESULTS.md) отделено от собственной репродукции TiM4Rec.
+Полные метрики и ссылки на исходные JSON: [реестр](../experiments/results.csv).
 
-## Mamba3 architecture stage
+## Завершённые исследования
 
-KuaiRand: хронологический leave-one-out, оценка по полному каталогу 7111 items; VALID и TEST не смешиваются. [Experimental setup](EVALUATION_SETUP.md).
-
-| Model | VALID NDCG@10 | TEST NDCG@10 | Status |
-|---|---:|---:|---|
-| Vanilla Mamba3 | 0.0584 | 0.0590 | frozen baseline |
-| RT-Mamba3 | 0.0605 | 0.0613 | completed |
-| Proto-Mamba3 KMeans | 0.0583 | — | VALID only |
-| decay_only | 0.0612 | — | VALID only, seed 2026 |
-| scan_only | 0.0611 | — | VALID only, seed 2026 |
-| separate | 0.0633 | — | best observed single-seed VALID; confirmation pending |
-
-Для внутреннего контекста: **наша репродукция** TiM4Rec TEST NDCG@10 = **0.0598**.
-Опубликованный TiM4Rec = **0.0611**. Это разные источники.
-[Разбор временных механизмов](MAMBA3_TIME_MECHANISMS_RESULTS.md): separate best epoch 51
-из 63; в первых 27 эпохах максимум 0.0614. Это не подтверждённый multi-seed победитель.
-
-### RT-Mamba3
-
-Реальные inter-event gaps модифицируют native Mamba3 internal DT.
-[VALID](../experiments/mamba3_timeaware/runs/mamba3_timeaware_validation_001.json)
-даёт **+3.60%** относительно vanilla; [final TEST](../experiments/mamba3_timeaware/runs/mamba3_timeaware_final_test_001.json)
-даёт **+3.90%** к vanilla и **+2.51%** к нашей репродукции TiM4Rec, но лишь
-**+0.3273%** к опубликованному TiM4Rec. Это один наблюдаемый run,
-статистическая значимость не заявляется. Checkpoint выбран только по VALID;
-TEST count=1, обучение и VALID reruns во время final TEST=0, повторного TEST
-и post-test tuning не было. [Описание RT-Mamba3](../experiments/mamba3_timeaware/README.md).
-
-### Proto-Mamba3
-
-K=8 soft learnable prototypes: MiniBatchKMeans по TRAIN histories frozen vanilla
-encoder, затем soft cosine assignment и gated residual, end-to-end обучение.
-[VALID JSON](../experiments/mamba3_prototypes/runs/mamba3_prototypes_validation_001.json):
-**0.0583** против vanilla **0.0584**, delta **-0.0001**; улучшения в этом run нет.
-На best checkpoint mean off-diagonal cosine **0.996003**, assignments почти
-равномерны (средние probabilities 0.124060–0.126336): prototype collapse / weak
-specialization. Это ограничение наблюдаемой formulation, не доказательство
-бесполезности прототипов вообще. **TEST NOT RUN**, count=0.
-[Описание Proto-Mamba3](../experiments/mamba3_prototypes/README.md).
-
-KMeans examples are TRAIN-only, but they are encoded using a validation-selected
-frozen vanilla checkpoint, while the scientific Proto-Mamba3 backbone is trained
-from scratch. Это coordinate-space caveat, не TEST leakage.
-
-Random-init control подготовлен только в `exp/mamba3-prototypes-controls`:
-не запускался, не является завершённым результатом и не включён в main.
-
-## VALID: завершённый MTL/MOO study
-
-EPO — лучший observed MOO representative: Stage 1 **0.0584**, Stage 2 **0.0588** VALID NDCG@10. Screening **16/16** auxiliary subsets дал максимум **0.0595** против собственного primary-only **0.0588**, то есть сохранённый прирост **+0.0007** на одном seed. Эти VALID-оценки не объединяются в рейтинг с historical TEST из таблицы выше.
+**Proto-Mamba3:** VALID 0.0583 против vanilla 0.0584; улучшения нет, TEST не выполнялся. Наблюдались слабая специализация и сближение прототипов. KMeans строился на TRAIN-историях encoder выбранного по VALID vanilla checkpoint, тогда как backbone нового запуска обучался с нуля: пространства инициализации не гарантированно согласованы. [Результат и диагностика](../experiments/mamba3_prototypes/README.md). Random-init control остался в отдельной ветке и не является завершённым результатом main.
 
 <a id="stage1-convergence"></a>
 <a id="stage2-tuned-moo"></a>
 <a id="challenger-convergence"></a>
 <a id="target-combination-screening"></a>
 
-Screening остаётся one-seed экспериментом; подтверждённого multi-seed результата нет. Различия operating-point rules MosT/GradHV — historical limitation; дальнейшие эксперименты по линии не планируются. Эти ограничения не являются текущими TODO.
+**MTL/MOO:** EPO дал лучший наблюдаемый результат среди представителей; screening вспомогательных задач показал небольшой прирост на одном seed. Эта линия не выбрана основой модели; ограничения бюджетов и выбора рабочей точки остаются частью исторического результата, а не текущим планом доработок.
 
-## Индекс appendix/evidence
+| Исторические материалы | Содержание |
+|---|---|
+| [MTL/MOO study](MTL_MOO_STUDY.md) | Итоги и решение по линии |
+| [Восемь семейств](MOO_FAMILIES.md), [история](MOO_EXPERIMENT_HISTORY.md), [challengers](MOO_REPRESENTATIVE_CHALLENGERS.md) | Представители, tuning и ограничения |
+| [Auxiliary analysis](STAGE3_AUXILIARY_ANALYSIS.md), [target combinations](TARGET_COMBINATION_ANALYSIS.md) | Диагностика и все subsets |
+| [Аудит реестра](CANONICAL_RESULTS_AUDIT.md), [evidence](evidence/README.md) | Источники и контрольные суммы |
 
-| Материал | Содержание |
-| --- | --- |
-| [MTL_MOO_STUDY.md](MTL_MOO_STUDY.md) | Research question, этапы исследования, final decision, provenance |
-| [MOO_FAMILIES.md](MOO_FAMILIES.md) | Восемь семейств и исходные представители |
-| [MOO_EXPERIMENT_HISTORY.md](MOO_EXPERIMENT_HISTORY.md) | Подробная история Stage 1/2 и ограничения бюджетов |
-| [MOO_REPRESENTATIVE_CHALLENGERS.md](MOO_REPRESENTATIVE_CHALLENGERS.md) | Завершённые FERERO, MosT, PHN-HVI и caveats |
-| [STAGE3_AUXILIARY_ANALYSIS.md](STAGE3_AUXILIARY_ANALYSIS.md) | Вспомогательные задачи и градиентная диагностика |
-| [TARGET_COMBINATION_ANALYSIS.md](TARGET_COMBINATION_ANALYSIS.md) | Все 16 subsets и существующие эффекты |
-| [CANONICAL_RESULTS_AUDIT.md](CANONICAL_RESULTS_AUDIT.md) | Исторический аудит реестра и источников |
-| [evidence/README.md](evidence/README.md) | Raw результаты, summary и контрольные суммы |
-
-Scientific results, raw JSON/evidence и исторические строки реестра сохранены.
-Добавлены три завершённых VALID-only временных run; в реестре теперь 54 строки.
-Новых TEST при канонизации нет; графики получены из существующих logs/checkpoints на CPU.
+Исторический [`slurm/epo_moe.sh`](../slurm/epo_moe.sh) сейчас неработоспособен: отсутствуют `experiments/epo_moe/{model.py,run.py,summarize.py,configs/epo_moe.yaml}`. Его удаление или архивирование требует отдельного решения.
