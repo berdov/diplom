@@ -1,0 +1,22 @@
+{
+  "status": "PLAN_ONLY_NOT_AUTHORIZED_TO_TRAIN",
+  "first_seed": 2026,
+  "modes": [
+    {"architecture":"SISO","mode":"base","chunk_size":64},
+    {"architecture":"SISO","mode":"dual","chunk_size":64},
+    {"architecture":"SISO","mode":"triple","chunk_size":64},
+    {"architecture":"MIMO","mode":"base","mimo_rank":4,"chunk_size":16},
+    {"architecture":"MIMO","mode":"dual","mimo_rank":4,"chunk_size":16},
+    {"architecture":"MIMO","mode":"triple","mimo_rank":4,"chunk_size":16}
+  ],
+  "protocol": "Frozen KuaiRand Protocol B, chronological per-user leave-one-out, full catalog including previously seen items",
+  "history_length":50, "loss":"CE", "learner":"Adam", "learning_rate":0.001,
+  "train_batch_size":2048, "eval_batch_size_setting":4096,
+  "max_epochs":300, "stopping_step":10, "selection":"VALID NDCG@10",
+  "time_reference_ms":838393, "time_reference_source":"frozen TRAIN statistic",
+  "scale_bounds":[0.5,2.0], "time_functions":"shared across the two layers",
+  "historical_references": {"SISO_vanilla_VALID_NDCG@10":0.0584,"SISO_shared_VALID_NDCG@10":0.0605,"SISO_separate_seed2026_VALID_NDCG@10":0.0633,"role":"historical, not new independent seeds"},
+  "comparison":"dual vs triple within SISO and within MIMO; native chunk/rank difference explicit, not tuned",
+  "later_hypotheses_not_implemented":["learned temporal head scales","gap-dependent Trap","layer-specific time functions","explicit memory of past states"],
+  "prerequisite":"All mandatory correctness suites PASS and separate user authorization before any scientific fit"
+}
