@@ -65,7 +65,7 @@ def initialization_suite(architecture, device, save):
         save(evidence)
         del model
     expected = SISO_COUNTS if architecture == "SISO" else {
-        "base": counts["base"], "dual": counts["base"]+132, "triple": counts["base"]+198}
+        "base": 714888, "dual": 715020, "triple": 715086}
     mismatches = {mode: tensor_difference(states["base"][0], states[mode][0]) for mode in ("dual", "triple")}
     rng_differences = {mode: [key for key in rngs["base"] if rngs["base"][key] != rngs[mode][key]] for mode in ("dual", "triple")}
     common = {}

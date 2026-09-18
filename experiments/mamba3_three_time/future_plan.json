@@ -5,9 +5,9 @@
     {"architecture":"SISO","mode":"base","chunk_size":64},
     {"architecture":"SISO","mode":"dual","chunk_size":64},
     {"architecture":"SISO","mode":"triple","chunk_size":64},
-    {"architecture":"MIMO","mode":"base","mimo_rank":4,"chunk_size":16},
-    {"architecture":"MIMO","mode":"dual","mimo_rank":4,"chunk_size":16},
-    {"architecture":"MIMO","mode":"triple","mimo_rank":4,"chunk_size":16}
+    {"architecture":"MIMO","mode":"base","mimo_rank":4,"chunk_size":8},
+    {"architecture":"MIMO","mode":"dual","mimo_rank":4,"chunk_size":8},
+    {"architecture":"MIMO","mode":"triple","mimo_rank":4,"chunk_size":8}
   ],
   "protocol": "Frozen KuaiRand Protocol B, chronological per-user leave-one-out, full catalog including previously seen items",
   "history_length":50, "loss":"CE", "learner":"Adam", "learning_rate":0.001,
@@ -18,5 +18,5 @@
   "historical_references": {"SISO_vanilla_VALID_NDCG@10":0.0584,"SISO_shared_VALID_NDCG@10":0.0605,"SISO_separate_seed2026_VALID_NDCG@10":0.0633,"role":"historical, not new independent seeds"},
   "comparison":"dual vs triple within SISO and within MIMO; native chunk/rank difference explicit, not tuned",
   "later_hypotheses_not_implemented":["learned temporal head scales","gap-dependent Trap","layer-specific time functions","explicit memory of past states"],
-  "prerequisite":"All mandatory correctness suites PASS and separate user authorization before any scientific fit"
+  "prerequisite":"Attempt002 correctness and backend review required, then separate user authorization before any scientific fit. Default upstream arithmetic remains unchanged until review."
 }

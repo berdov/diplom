@@ -85,7 +85,7 @@ def kernel_output(values, architecture, *, official=False, reference=False):
             from mamba_ssm.ops.triton.mamba3.mamba3_siso_combined import mamba3_siso_combined
             return mamba3_siso_combined(q, k, v, adt, dt, trap, qb, kb, angles, d, z, chunk_size=64)
         from mamba_ssm.ops.tilelang.mamba3.mamba3_mimo import mamba3_mimo
-        return mamba3_mimo(q,k,v,adt,dt,trap,qb,kb,x["mv"],x["mz"],x["mo"],angles,d,z,16,4,v.dtype)
+        return mamba3_mimo(q,k,v,adt,dt,trap,qb,kb,x["mv"],x["mz"],x["mo"],angles,d,z,8,4,v.dtype)
     from .kernels import siso, mimo
     return (siso if architecture == "SISO" else mimo)(**values)
 

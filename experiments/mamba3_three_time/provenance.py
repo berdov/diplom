@@ -26,9 +26,10 @@ def sha(path):
 
 def source_manifest():
     files = [*HERE.glob("*.py"),*(HERE/"tests").glob("*.py"),
-             *(HERE/name for name in ("future_plan.json","test_plan.json","upstream_manifest.json",
+             *(HERE/name for name in ("future_plan.json","test_plan.json","test_plan_002.json","upstream_manifest.json",
                                      "frozen_snapshot.json","README.md","LICENSE.upstream")),
-             HERE/"evidence/upstream_audit.md",ROOT/"slurm/mamba3_three_time_correctness.sh"]
+             HERE/"evidence/upstream_audit.md",HERE/"evidence/stable_scan_algebra.md",
+             ROOT/"slurm/mamba3_three_time_correctness.sh",ROOT/"slurm/mamba3_three_time_correctness_002.sh"]
     hashes = {str(path.relative_to(ROOT)):sha(path) for path in sorted(files)}
     digest = hashlib.sha256(json.dumps(hashes,sort_keys=True,separators=(",",":")).encode()).hexdigest()
     return dict(schema_version=1,source_hash=digest,core_hash=CORE,files=hashes)

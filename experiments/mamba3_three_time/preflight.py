@@ -3,6 +3,7 @@
 import argparse
 import importlib.metadata
 import json
+import ast
 import torch
 from .config import ARCHITECTURES
 from .initialization import initialization_suite
@@ -15,6 +16,18 @@ def inspect(save=lambda value:None):
         versions={name:importlib.metadata.version(name) for name in
                   ("torch","mamba-ssm","triton","tilelang","recbole","numpy")},
         initialization={}, scientific_fits=0,TRAIN=0,VALID=0,TEST=0)
+    save(result)
+    from .scan_validation import validate_installed
+    from .provenance import HERE
+    import triton.language as tl
+    cumsum_source = tl.cumsum.src
+    cumsum_node = ast.parse(cumsum_source).body[0]
+    result["reverse_cumsum_available"] = "reverse" in [arg.arg for arg in cumsum_node.args.args]
+    if not result["reverse_cumsum_available"]:
+        raise RuntimeError("Pinned Triton cumsum lacks reverse")
+    result["candidate_copies"] = validate_installed(result["upstream"]["installed_path"], HERE)
+    from . import stable_angle, stable_adt
+    result["candidate_imports"] = [stable_angle.__name__, stable_adt.__name__]
     save(result)
     if torch.cuda.is_initialized():
         raise RuntimeError("Login preflight must not initialize CUDA")

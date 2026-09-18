@@ -16,7 +16,7 @@ def settings(architecture, mode):
         raise ValueError("Unknown architecture/mode")
     result = load_config()
     result.update(three_time_mode=mode, mamba3_is_mimo=architecture == "MIMO",
-                  mamba3_mimo_rank=4, mamba3_chunk_size=16 if architecture == "MIMO" else 64)
+                  mamba3_mimo_rank=4, mamba3_chunk_size=8 if architecture == "MIMO" else 64)
     return result
 
 

@@ -21,7 +21,7 @@ def test_config_and_no_scientific_calls():
         for mode in ("base","dual","triple"):
             config = settings(arch,mode)
             assert config["time_scale_reference"] == 838393
-            assert config["mamba3_chunk_size"] == (64 if arch == "SISO" else 16)
+            assert config["mamba3_chunk_size"] == (64 if arch == "SISO" else 8)
             assert config["mamba3_mimo_rank"] == 4
             assert config["train_batch_size"] == 2048 and config["eval_batch_size"] == 4096
     for path in HERE.glob("*.py"):

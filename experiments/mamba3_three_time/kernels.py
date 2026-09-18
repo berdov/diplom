@@ -3,10 +3,12 @@
 Copyright (c) 2025-2026, Dao AI Lab, Goombalab. Apache-2.0; LICENSE.upstream.
 Pin e9594ce1c732d97440f0332fdc43170a2294dbfa. Changes: DT_write and
 DT_phase are distinct inputs/gradient returns; state/varlen/norm paths omitted
-and rejected, low-level kernels unchanged. No site-packages modifications.
+and rejected. Default upstream arithmetic unchanged; explicit local stable
+backward candidates are selected only by the diagnostic context. No global patch.
 """
 
 import torch
+from .backends import current, trace_sink, record_trace
 
 
 def dense_only(cu_seqlens=None, input_states=None, return_final_states=False):
@@ -25,6 +27,7 @@ class SISO(torch.autograd.Function):
             chunk_size=chunk, store_states_adt_outv=any(ctx.needs_input_grad),
             return_final_states=False, cu_seqlens=None)
         ctx.chunk = chunk
+        ctx.variant, ctx.trace = current(), trace_sink()
         ctx.save_for_backward(q, k, v, dw, dp, trap, qb, kb, angles, theta,
                               d, z, ov, states, cs, total, qr, ks, qk, scale, gamma)
         return out
@@ -34,6 +37,11 @@ class SISO(torch.autograd.Function):
         from mamba_ssm.ops.triton.mamba3.angle_dt import angle_dt_bwd
         from mamba_ssm.ops.triton.mamba3.mamba3_siso_bwd import (
             compute_dzdo, compute_dqkv, compute_dqktheta, compute_ddt_dtrap_dinput_states)
+        variant = getattr(ctx, "variant", "upstream")
+        if variant in ("stable_angle", "stable_scan"):
+            from .stable_angle import angle_dt_bwd
+        if variant in ("stable_adt", "stable_scan"):
+            from .stable_adt import compute_dqkv
         q, k, v, dw, dp, trap, qb, kb, angles, theta, d, z, ov, states, cs, total, qr, ks, qk, scale, gamma = ctx.saved_tensors
         dz, go = compute_dzdo(grad, z, ov, chunk_size=ctx.chunk) if z is not None else (None, grad)
         dq0, dk0, dv, da, dqk, dd, _ = compute_dqkv(
@@ -49,6 +57,10 @@ class SISO(torch.autograd.Function):
             input_k_state=None, input_v_state=None, Cu_Seqlens=None)
         dang, ddp, _ = angle_dt_bwd(grad_out=dt, angle=angles, dt=dp,
             has_init_state=False, chunk_size=ctx.chunk, grad_output_state=None, cu_seqlens=None)
+        record_trace(getattr(ctx, "trace", None), ctx.chunk, variant,
+                     grad_output=grad, grad_after_z=go, dADT=da, dTheta=dt,
+                     dScale=ds, dGamma=dg, dDT_write=ddw, dDT_phase=ddp,
+                     dAngles=dang, dTrap=dtrap, dQ=dq, dK=dk, dV=dv)
         return dq, dk, dv, da, ddw, ddp, dtrap, dqb, dkb, dang, dd, dz, None
 
 
@@ -77,6 +89,7 @@ class MIMO(torch.autograd.Function):
             dtype=v.dtype, return_state=False, fuse_pregate_headwise_rms_norm=False,
             outproj_norm_weight=None, outproj_norm_eps=1e-5)
         ctx.chunk = chunk
+        ctx.variant = current()
         ctx.save_for_backward(q, k, v, adt, dw, dp, trap, qb, kb, angles, d, z, mv, mz, mo, theta)
         return out
 
@@ -85,6 +98,8 @@ class MIMO(torch.autograd.Function):
         from mamba_ssm.ops.triton.mamba3.angle_dt import angle_dt_bwd
         from mamba_ssm.ops.triton.mamba3.mamba3_mimo_utils import compute_dacs_segsum_triton
         from mamba_ssm.ops.tilelang.mamba3.mamba3_mimo_bwd import mamba_mimo_bwd_combined
+        if getattr(ctx, "variant", "upstream") in ("stable_angle", "stable_scan"):
+            from .stable_angle import angle_dt_bwd
         q, k, v, adt, dw, dp, trap, qb, kb, angles, d, z, mv, mz, mo, theta = ctx.saved_tensors
         cs, rev, seg = compute_dacs_segsum_triton(adt, ctx.chunk)
         dq, dk, dv, da, ddw, dt, dqb, dkb, dmv, dmz, dmo, dtheta, dd, dz, _ = mamba_mimo_bwd_combined(
@@ -96,9 +111,9 @@ class MIMO(torch.autograd.Function):
         return dq, dk, dv, da, ddw, ddp, dt, dqb, dkb, dang, dd, dz, dmv, dmz, dmo, None
 
 
-def mimo(q, k, v, adt, dw, dp, trap, qb, kb, angles, d, z, mv, mz, mo, *, chunk=16,
+def mimo(q, k, v, adt, dw, dp, trap, qb, kb, angles, d, z, mv, mz, mo, *, chunk=8,
          cu_seqlens=None, input_states=None, return_final_states=False):
     dense_only(cu_seqlens, input_states, return_final_states)
-    if q.shape[2] != 4 or chunk != 16 or angles.shape[-1] != q.shape[-1] // 4:
-        raise NotImplementedError("Frozen rank4/chunk16/half-rotary scope only")
+    if q.shape[2] != 4 or chunk != 8 or angles.shape[-1] != q.shape[-1] // 4:
+        raise NotImplementedError("Attempt002 rank4/chunk8/half-rotary scope only")
     return MIMO.apply(q, k, v, adt, dw, dp, trap, qb, kb, angles, d, z, mv, mz, mo, chunk)
