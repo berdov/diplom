@@ -1,6 +1,8 @@
 # Контекстная калибровка времени Mamba3
 
-Exploratory implementation, **results pending** до фактического выполнения. Один seed=2026, только TRAIN → full-ranking VALID на frozen KuaiRand chronological split. TEST loader не создаётся. Это адаптация/контроль известного класса механизмов, не заявление новизны или SOTA.
+**Эксперимент завершён:** GPU gates и все пять запусков прошли проверки. На seed2026 routed и uniform получили VALID NDCG@10 **0.0628** против **0.0633** у separate replay; dense12 получил **0.0635**, без многосидового подтверждения. Экспертный вариант пока не выбран основной моделью. [Таблица, график и диагностика](../../reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#context-time-pilot).
+
+Один seed=2026, только TRAIN → full-ranking VALID на frozen KuaiRand chronological split. TEST loader не создаётся. Это адаптация/контроль известного класса механизмов, не заявление новизны или SOTA.
 
 ## Вопрос и формулы
 
