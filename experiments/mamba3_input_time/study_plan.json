@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "study_id": "mamba3_input_time_001",
+  "base_main": "ccc4849e6e1ea460a316ab9648f36c54bd832fd4",
+  "question": "Does causal input time representation help beyond frozen separate Mamba3?",
+  "tasks": [
+    {"mode": "separate_replay", "seed": 2026, "run_id": "mamba3_input_separate_replay_seed2026_001"},
+    {"mode": "time_add", "seed": 2026, "run_id": "mamba3_input_time_add_seed2026_001"},
+    {"mode": "attention_content", "seed": 2026, "run_id": "mamba3_input_attention_content_seed2026_001"},
+    {"mode": "attention_time", "seed": 2026, "run_id": "mamba3_input_attention_time_seed2026_001"}
+  ],
+  "architecture": {"input_dim": 64, "attention_dim": 32, "attention_heads": 4, "head_dim": 8, "reference_ms": 838393, "time_add_hidden": 16, "time_bias_hidden": 8, "attention_dropout": 0, "output_zero_init": true, "time_bias_zero_init": true, "event_preserving": true, "separate_backbone": true, "extra_losses": false},
+  "parameter_counts": {"separate_replay": 610572, "time_add": 611692, "attention_content": 618764, "attention_time": 618812},
+  "training": {"scratch": true, "optimizer": "adam", "lr": 0.001, "weight_decay": 0, "loss": "CE", "train_batch_size": 2048, "eval_batch_size": 4096, "max_history": 50, "max_epochs": 300, "eval_step": 1, "stopping_step": 10, "valid_metric": "NDCG@10", "topk": [5,10,20,50], "metric_decimal_place": 4, "tie": "last equal maximum", "evaluation": "full-ranking", "test_loader": false},
+  "rng": {"order": ["seed", "dataset", "loaders", "frozen separate model", "isolated input adapter", "trainer", "fit"], "common_attention_initialization": true, "first_batch": "hash while consumed by actual training loop"},
+  "gpu_gate": {"atol": 0.000001, "rtol": 0.00001, "independent_reference_atol": 0.00001, "independent_reference_rtol": 0.0001, "lengths": [50,64], "training_modes": [false,true], "memory_batch": 2048, "memory_length": 50, "real_cuda_required": true},
+  "historical_reference": {"source_json": "experiments/mamba3_context_time/runs/mamba3_context_separate_replay_seed2026_001.json", "sha256": "481acff6f71194bf006b094892ac04ccb9b8ea3601de3d4fe50815abc77d41b1", "role": "published same-seed separate replay; not an independent replicate", "ndcg10": 0.0633},
+  "frozen_context_source_hash": "6f6f20403582e66457a463c11bc2bdd839e3783571d33b27d2255a7f895f5473",
+  "budget": {"jobs": 1, "gpu": "A100", "gpus": 1, "partition": "rocky", "account": "proj_1833", "constraint": "type_e", "cpus": 4, "mem": 0, "slurm_seconds": 28800, "pipeline_seconds": 27600, "minimum_start_remaining_seconds": 5400, "maximum_fits": 4},
+  "failure_policy": "Technical failure stops remaining tasks, partial report, nonzero exit; no retries. Low VALID is not a technical failure.",
+  "primary_comparison": "attention_time minus attention_content",
+  "other_comparisons": ["attention_time minus time_add", "all candidates minus same-pilot separate_replay"],
+  "selection_split": "VALID",
+  "test_evaluation_count": 0,
+  "automatic_retry": false,
+  "publish_results": false
+}

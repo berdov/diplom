@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "files": {
+    "experiments/mamba3_input_time/adapter.py": "b67dd51464f8edf654d5fdb20a9a36042f3ad2271a48949e2f09d62162769a3e",
+    "experiments/mamba3_input_time/checks.py": "05c3e9578d4c49cfcf13bd6f31bb21fd5b5ff09704df53f0f2d469b648c875a4",
+    "experiments/mamba3_input_time/config.py": "9b0eb4b6116933faeb2359b9cb506e8568a81c0b95b771940a270d4f7abcee8e",
+    "experiments/mamba3_input_time/diagnostics.py": "1ccb14754c38e5390b58f137d8d3f613337f1f27322de35a85efcec5f97cf9cc",
+    "experiments/mamba3_input_time/gpu_checks.py": "b3142ad2178e8a7bcd7eeaad976b03007816d2ccade5658ec40b9fed92043605",
+    "experiments/mamba3_input_time/model.py": "c660abafd91f292dd2199b6c627de35bc8b073350c616b53906b9b980a9b3055",
+    "experiments/mamba3_input_time/pipeline.py": "d91cede5532844ccc641fe9cd9571560532f193f81d90d65e86e78c73076e551",
+    "experiments/mamba3_input_time/preflight.py": "30150a2e60d2fa4cf21d1a0f78dc1231e73af18a8cdfffc650a7fccfd0f5d2b8",
+    "experiments/mamba3_input_time/provenance.py": "24e002fa0634bb6feee2e9f128d2d54c566c31b7715be9e18d646d0c642bdcf5",
+    "experiments/mamba3_input_time/report.py": "23caee6fcea79db10e0bef4f0652ed35fb8cfeb7f42f798969ad8522719e4b1c",
+    "experiments/mamba3_input_time/run.py": "eb7177827398cd908e263e1a945b31a5026acb33ce75f65004c18f4166a67545",
+    "experiments/mamba3_input_time/study_plan.json": "caf4c7c3b09c3c04ace462f05f73d718edcf35d179781a0c4da53eb48cc5138d",
+    "experiments/mamba3_input_time/submit.py": "299e32cd4c99b47ef26bb6da7cc516f701b999c937a7fb39b3c0a03ee3284a9a",
+    "experiments/mamba3_input_time/tests/test_adapter.py": "df9457b4758eac28c380ae0584ce120f6951aca921de52c79b0d43f0877fc982",
+    "experiments/mamba3_input_time/tests/test_safety.py": "3527c0ac2058ca2eae617c328c7d8a47077bc1650f5002a7ca81aa2f1a87406c",
+    "experiments/mamba3_input_time/trainer.py": "d903ebabd98286b87c5a23b7647e7a65921d3bd25f167ff0064f46d3cb58e32c",
+    "slurm/mamba3_input_time.sh": "27889451d48f600ef32b6322ac2f05f03d08219113c40442e1e15bca667e8c14"
+  },
+  "source_hash": "1dbd23efc3a72b7e1cc73f65d70763d969874561956d0022f267a552f7dae61c"
+}
