@@ -1,0 +1,153 @@
+{
+  "study_id": "mamba3_context_time_001",
+  "status": "COMPLETE",
+  "source_hash": "6f6f20403582e66457a463c11bc2bdd839e3783571d33b27d2255a7f895f5473",
+  "selection_split": "VALID",
+  "test_evaluation_count": 0,
+  "rows": [
+    {
+      "mode": "separate_replay",
+      "seed": 2026,
+      "run_id": "mamba3_context_separate_replay_seed2026_001",
+      "status": "PASS",
+      "parameters": 610572,
+      "ndcg10": 0.0633,
+      "hr10": 0.1176,
+      "best_epoch": 51,
+      "actual_epochs": 63,
+      "first27": 0.0614,
+      "train_seconds": 1091.4389915647916,
+      "valid_seconds": 19.652143484679982,
+      "delta_replay": 0.0
+    },
+    {
+      "mode": "dense11",
+      "seed": 2026,
+      "run_id": "mamba3_context_dense11_seed2026_001",
+      "status": "PASS",
+      "parameters": 611214,
+      "ndcg10": 0.0614,
+      "hr10": 0.1124,
+      "best_epoch": 15,
+      "actual_epochs": 27,
+      "first27": 0.0614,
+      "train_seconds": 621.5227878938895,
+      "valid_seconds": 8.113614887231961,
+      "delta_replay": -0.001899999999999992
+    },
+    {
+      "mode": "dense12",
+      "seed": 2026,
+      "run_id": "mamba3_context_dense12_seed2026_001",
+      "status": "PASS",
+      "parameters": 611284,
+      "ndcg10": 0.0635,
+      "hr10": 0.1177,
+      "best_epoch": 67,
+      "actual_epochs": 79,
+      "first27": 0.0619,
+      "train_seconds": 1283.6919537666254,
+      "valid_seconds": 23.59454162348993,
+      "delta_replay": 0.00020000000000000573
+    },
+    {
+      "mode": "uniform",
+      "seed": 2026,
+      "run_id": "mamba3_context_uniform_seed2026_001",
+      "status": "PASS",
+      "parameters": 610968,
+      "ndcg10": 0.0628,
+      "hr10": 0.1163,
+      "best_epoch": 54,
+      "actual_epochs": 66,
+      "first27": 0.0613,
+      "train_seconds": 1182.466598913772,
+      "valid_seconds": 20.243136283941567,
+      "delta_replay": -0.0005000000000000004
+    },
+    {
+      "mode": "routed",
+      "seed": 2026,
+      "run_id": "mamba3_context_routed_seed2026_001",
+      "status": "PASS",
+      "parameters": 611232,
+      "ndcg10": 0.0628,
+      "hr10": 0.1164,
+      "best_epoch": 35,
+      "actual_epochs": 47,
+      "first27": 0.062,
+      "train_seconds": 924.1582770613022,
+      "valid_seconds": 16.218538207001984,
+      "delta_replay": -0.0005000000000000004
+    }
+  ],
+  "comparisons": {
+    "routed_minus_separate_replay": -0.0005000000000000004,
+    "routed_minus_dense11": 0.0013999999999999915,
+    "routed_minus_dense12": -0.0007000000000000062,
+    "routed_minus_uniform": 0.0,
+    "dense11_minus_separate_replay": -0.001899999999999992,
+    "dense12_minus_separate_replay": 0.00020000000000000573
+  },
+  "interpretation": [
+    "\u041f\u043e\u043b\u044c\u0437\u0430 MoE \u043e\u0442\u043d\u043e\u0441\u0438\u0442\u0435\u043b\u044c\u043d\u043e dense controls \u043d\u0435 \u043f\u043e\u043a\u0430\u0437\u0430\u043d\u0430.",
+    "\u041f\u043e\u043b\u044c\u0437\u0430 \u0430\u0434\u0430\u043f\u0442\u0438\u0432\u043d\u043e\u0433\u043e \u0432\u044b\u0431\u043e\u0440\u0430 \u044d\u043a\u0441\u043f\u0435\u0440\u0442\u043e\u0432 \u043d\u0435 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0430."
+  ],
+  "limitations": "\u041e\u0434\u0438\u043d seed, exploratory. Replay \u043d\u0435 \u043d\u0435\u0437\u0430\u0432\u0438\u0441\u0438\u043c\u044b\u0439 seed; \u0431\u0435\u0437 significance/CI \u0438 \u0441\u0440\u0430\u0432\u043d\u0435\u043d\u0438\u044f \u0441 \u0432\u043d\u0435\u0448\u043d\u0438\u043c\u0438 paper TEST.",
+  "sources": {
+    "mamba3_context_separate_replay_seed2026_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/mamba3_context_separate_replay_seed2026_001.json",
+      "sha256": "481acff6f71194bf006b094892ac04ccb9b8ea3601de3d4fe50815abc77d41b1"
+    },
+    "mamba3_context_dense11_seed2026_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/mamba3_context_dense11_seed2026_001.json",
+      "sha256": "2febb220c6965cac8e5461e69370ddce79b69368d1904b74f9988c2ee69c1454"
+    },
+    "mamba3_context_dense12_seed2026_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/mamba3_context_dense12_seed2026_001.json",
+      "sha256": "df1cc25cc1cb7664a3e6c8696ae0594db23a190cbd2176f9f0cd48aa4db6b38d"
+    },
+    "mamba3_context_uniform_seed2026_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/mamba3_context_uniform_seed2026_001.json",
+      "sha256": "033d68f28a4ac842d8287182eaa538eeb2a95fd4781f40e04c5cad345eb89d19"
+    },
+    "mamba3_context_routed_seed2026_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/mamba3_context_routed_seed2026_001.json",
+      "sha256": "c0b554b75ad0e65f93793bae1942daded067a14cf3294771f3596932a5a4ed57"
+    }
+  },
+  "source_files": {
+    "experiments/mamba3_context_time/config.py": "0351368b5d881e3b4357b684f1d19f0fa4e6e8ada6a115dbdfe5f8a5f35cc7e2",
+    "experiments/mamba3_context_time/diagnostics.py": "28324d5c0baa55004e5fcfaf083e0658a284a9f8fc7fdacf9471aaa2fc3f5eb9",
+    "experiments/mamba3_context_time/gpu_checks.py": "a23551986a17090f0ca906f74722a9eee754f9846662341df39ede1418f1fe75",
+    "experiments/mamba3_context_time/model.py": "4b66b2dcdbc4ecf12b99a24be1f9dbcb3ad8acff79851bf5a9bc9a73abf6d190",
+    "experiments/mamba3_context_time/pipeline.py": "ae131030228bdbbab20e921cbc4c9f8d57b148f36bd3b16b8136112fcf82dfc6",
+    "experiments/mamba3_context_time/preflight.py": "3e9d51c29f5bc3ed9ce855a11b29b2c49538e586213f05edc52094c9fedcbd57",
+    "experiments/mamba3_context_time/provenance.py": "4f9554af123b17bfb19f75163adbf372aff65974cbc8f80babf0d17b1a3bcef8",
+    "experiments/mamba3_context_time/report.py": "0593fce03c2efd814451ff31816d46d275ff80198493fc89c90f3db17937aadd",
+    "experiments/mamba3_context_time/run.py": "2147d76b8cbe4b975f56c85c50f21d4df3624acd7b35b835de37f7f36600f397",
+    "experiments/mamba3_context_time/study_plan.json": "bd944e6a57d6e10c5db05d39bd69cba9b03ece1230c810fdf29cc1fc2fe2c13a",
+    "experiments/mamba3_context_time/submit.py": "f998f2f97724572814efeeaa1de8175a67deac633ed1c993349f9afb841bdd3f",
+    "experiments/mamba3_context_time/temporal.py": "456a54b9888a77084b0f8a4b59e7f3dd1361cd5f00ca660a80882d6e7529d5b9",
+    "experiments/mamba3_context_time/tests/test_guards.py": "f8816054ce91ad1ff64f2b8f58dc97692c44d7a6f5588de7c0b8f873008d405d",
+    "experiments/mamba3_context_time/tests/test_report.py": "20241f562a366960c96351ae39c28460c46dab6c8127cda22abb2212fa5ddb8a",
+    "experiments/mamba3_context_time/tests/test_temporal.py": "4277601a7d68615ce7f6f26e458be66b21219923d8b932110107db54a9e44902",
+    "experiments/mamba3_context_time/trainer.py": "0f798455df4b550dcaa90fd8800ec0b077545a32fbce1aef92c444a008b01500",
+    "slurm/mamba3_context_time.sh": "786494f0907c6d1d101bf2ae2f1abe6c37f7c94f969d853f1ca4efb330b2e0bd"
+  },
+  "historical": {
+    "source": {
+      "source_json": "experiments/mamba3_time_mechanisms/runs/mamba3_separate_time_validation_001.json",
+      "sha256": "cd4be649ef2f6846cade7d4901878384b54e2ba02a4740bf408129dde4ddb4dc",
+      "history_json": "reports/assets/time_mechanisms/extracted.json",
+      "history_sha256": "fa02a085e687a274904b2d2958ab6fec8cdd84ede50a3442f7320f9dbcb3f8da",
+      "role": "historical seed2026, not an independent sixth seed"
+    },
+    "ndcg10": 0.0633,
+    "first27": 0.0614,
+    "best_epoch": 51,
+    "actual_epochs": 63,
+    "role": "same seed2026, historical only"
+  },
+  "plot_status": "PASS"
+}

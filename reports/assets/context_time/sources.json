@@ -1,0 +1,193 @@
+{
+  "artifacts": [
+    {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/gpu_checks_001.json",
+      "destination_path": "experiments/mamba3_context_time/runs/gpu_checks_001.json",
+      "size": 332544,
+      "sha256": "d28ac7922c1b949356a97f73a1fb82def4be1c43ceaf0934d54ff20b605cd49b"
+    },
+    {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/mamba3_context_separate_replay_seed2026_001.json",
+      "destination_path": "experiments/mamba3_context_time/runs/mamba3_context_separate_replay_seed2026_001.json",
+      "size": 212647,
+      "sha256": "481acff6f71194bf006b094892ac04ccb9b8ea3601de3d4fe50815abc77d41b1"
+    },
+    {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/mamba3_context_dense11_seed2026_001.json",
+      "destination_path": "experiments/mamba3_context_time/runs/mamba3_context_dense11_seed2026_001.json",
+      "size": 98629,
+      "sha256": "2febb220c6965cac8e5461e69370ddce79b69368d1904b74f9988c2ee69c1454"
+    },
+    {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/mamba3_context_dense12_seed2026_001.json",
+      "destination_path": "experiments/mamba3_context_time/runs/mamba3_context_dense12_seed2026_001.json",
+      "size": 263768,
+      "sha256": "df1cc25cc1cb7664a3e6c8696ae0594db23a190cbd2176f9f0cd48aa4db6b38d"
+    },
+    {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/mamba3_context_uniform_seed2026_001.json",
+      "destination_path": "experiments/mamba3_context_time/runs/mamba3_context_uniform_seed2026_001.json",
+      "size": 251361,
+      "sha256": "033d68f28a4ac842d8287182eaa538eeb2a95fd4781f40e04c5cad345eb89d19"
+    },
+    {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/mamba3_context_routed_seed2026_001.json",
+      "destination_path": "experiments/mamba3_context_time/runs/mamba3_context_routed_seed2026_001.json",
+      "size": 215351,
+      "sha256": "c0b554b75ad0e65f93793bae1942daded067a14cf3294771f3596932a5a4ed57"
+    },
+    {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/pilot_summary.json",
+      "destination_path": "experiments/mamba3_context_time/runs/pilot_summary.json",
+      "size": 7502,
+      "sha256": "8bc548c6d76aaa98add1c2709165f8b96bcef6da1044aa1bc52fd55b86b5e58f"
+    },
+    {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/pilot_summary.md",
+      "destination_path": "experiments/mamba3_context_time/runs/pilot_summary.md",
+      "size": 2277,
+      "sha256": "10b414f55b904ac410a6536ba141737fb49c760d338ca6e9b72b7dd2930ed470"
+    },
+    {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/runs/pilot_summary.svg",
+      "destination_path": "experiments/mamba3_context_time/runs/pilot_summary.svg",
+      "size": 5127,
+      "sha256": "85011206591e89c36e9791e8fc9867ba8be3d7a26ae6b89d32adfaae5c215603"
+    }
+  ],
+  "checkpoints": [
+    {
+      "mode": "separate_replay",
+      "seed": 2026,
+      "run_id": "mamba3_context_separate_replay_seed2026_001",
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/slurm_logs/mamba3_context_separate_replay_seed2026_001/checkpoints/best_state_dict.pth",
+      "size": 2284374,
+      "sha256": "4f1762775b463c5583dcb3e128e1e6d1d3e951f4bfd7deac4fe4fcc0f209fe66",
+      "verification": "streamed SHA256 matches run JSON; not deserialized; not copied"
+    },
+    {
+      "mode": "dense11",
+      "seed": 2026,
+      "run_id": "mamba3_context_dense11_seed2026_001",
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/slurm_logs/mamba3_context_dense11_seed2026_001/checkpoints/best_state_dict.pth",
+      "size": 2284520,
+      "sha256": "794a3bcd8c394bb88917a98d2d963f8559a280df3899ecb1fd8499d72fa46c3c",
+      "verification": "streamed SHA256 matches run JSON; not deserialized; not copied"
+    },
+    {
+      "mode": "dense12",
+      "seed": 2026,
+      "run_id": "mamba3_context_dense12_seed2026_001",
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/slurm_logs/mamba3_context_dense12_seed2026_001/checkpoints/best_state_dict.pth",
+      "size": 2284840,
+      "sha256": "a873827dc925b437c487d431b888672b5b83a22543fd155c398a921d15773e0c",
+      "verification": "streamed SHA256 matches run JSON; not deserialized; not copied"
+    },
+    {
+      "mode": "uniform",
+      "seed": 2026,
+      "run_id": "mamba3_context_uniform_seed2026_001",
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/slurm_logs/mamba3_context_uniform_seed2026_001/checkpoints/best_state_dict.pth",
+      "size": 2296380,
+      "sha256": "6b7a126c0a71f41ef7387c203d0533619f863723a535f6b6eeec1889264607cd",
+      "verification": "streamed SHA256 matches run JSON; not deserialized; not copied"
+    },
+    {
+      "mode": "routed",
+      "seed": 2026,
+      "run_id": "mamba3_context_routed_seed2026_001",
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/slurm_logs/mamba3_context_routed_seed2026_001/checkpoints/best_state_dict.pth",
+      "size": 2298102,
+      "sha256": "d0b37cdea26cbcb419332a292e51c717a2443561b62368f24f7d0de44fa8164d",
+      "verification": "streamed SHA256 matches run JSON; not deserialized; not copied"
+    }
+  ],
+  "provenance": {
+    "pipeline_status.json": {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/slurm_logs/pipeline_status.json",
+      "sha256": "ec60956bca0d56e9469e6bec8a588600f89044131ca02252946030739b895ab3",
+      "fields": {
+        "status": "PASS",
+        "job_id": "4337124",
+        "execution_commit": "6feb8329334fe94d894c9d79f5a412a1241d5b3f",
+        "source_hash": "6f6f20403582e66457a463c11bc2bdd839e3783571d33b27d2255a7f895f5473",
+        "started_at": "2026-09-18T06:19:04.041814+00:00",
+        "finished_at": "2026-09-18T07:55:47.857036+00:00",
+        "stages": [
+          {
+            "stage": "preflight",
+            "status": "PASS"
+          },
+          {
+            "stage": "gpu_checks",
+            "status": "PASS"
+          },
+          {
+            "stage": "separate_replay",
+            "status": "PASS"
+          },
+          {
+            "stage": "dense11",
+            "status": "PASS"
+          },
+          {
+            "stage": "dense12",
+            "status": "PASS"
+          },
+          {
+            "stage": "uniform",
+            "status": "PASS"
+          },
+          {
+            "stage": "routed",
+            "status": "PASS"
+          },
+          {
+            "stage": "report",
+            "status": "PASS"
+          }
+        ],
+        "test_evaluation_count": 0
+      }
+    },
+    "submission_001.json": {
+      "source_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/slurm_logs/submission_001.json",
+      "sha256": "ebb3c5e3060aaa06b971d8c284603abdc5022a8ebd981009ceff985f54f54b75",
+      "fields": {
+        "status": "SUBMITTED",
+        "job_id": "4337124",
+        "commit": "6feb8329334fe94d894c9d79f5a412a1241d5b3f",
+        "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+        "source_hash": "6f6f20403582e66457a463c11bc2bdd839e3783571d33b27d2255a7f895f5473",
+        "prepared_at": "2026-09-18T05:42:49.320753+00:00",
+        "returncode": 0,
+        "command": [
+          "sbatch",
+          "--parsable",
+          "slurm/mamba3_context_time.sh"
+        ],
+        "automatic_retry": false
+      }
+    }
+  },
+  "schema_version": 1,
+  "study_id": "mamba3_context_time_001",
+  "execution_commit": "6feb8329334fe94d894c9d79f5a412a1241d5b3f",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "study_hash": "6f6f20403582e66457a463c11bc2bdd839e3783571d33b27d2255a7f895f5473",
+  "checked_at": "2026-09-18T10:16:06.865922+00:00",
+  "test_status": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "slurm": {
+    "job_id": "4337124",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "01:36:46",
+    "node": "cn-045",
+    "start": "2026-09-18T09:19:01",
+    "end": "2026-09-18T10:55:47",
+    "timestamp_zone": "cluster sacct local time",
+    "source": "read-only sacct during publication"
+  },
+  "notes": "Исходные артефакты сохранены побайтно. Checkpoint проверены на кластере без загрузки моделей. Separate replay: повтор seed2026 для проверки runner, не независимая реплика."
+}
