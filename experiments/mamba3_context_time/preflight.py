@@ -1,6 +1,5 @@
 """Login checks are imports/config/source hashes/CPU construction, not dataset passes."""
 import importlib.metadata
-import importlib.util
 import json
 
 from .config import ROOT, plan, settings
@@ -68,8 +67,6 @@ def full_counts():
 def main():
     sources = verify()
     runtime = runtime_check()
-    if importlib.util.find_spec('matplotlib') is None:
-        raise ImportError('Existing matplotlib required for the predeclared plot; no installation permitted')
     rows = full_counts()
     # Stat only; full data SHA and reference-stat checks belong on the compute node.
     path = ROOT / 'data/processed/protocol_b/recbole/kuairand/kuairand.inter'

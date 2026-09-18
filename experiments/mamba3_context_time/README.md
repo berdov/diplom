@@ -81,6 +81,8 @@ envs/mamba3/bin/python -m experiments.mamba3_context_time.submit
 - `slurm_logs/submission_001.json`, `slurm_logs/pipeline_status.json`: отправка и stages.
 - `runs/pilot_summary.json`, `.md`, `.svg`: сводка, raw links/hashes и воспроизводимый график.
 
+SVG строится стандартной библиотекой Python, без matplotlib и внешних ресурсов. JSON/Markdown обязательны и сохраняются до рисования. Ошибка только renderer отмечается `plot_status=FAILED`/`plot_error` без ссылки на изображение и без изменения научного статуса; ошибки научной валидации или записи обязательных файлов по-прежнему останавливают pipeline. FAIL/NOT_RUN показаны статусами, не нулевыми метриками.
+
 Сводка заранее определена: full horizon и первые 27 эпох, deltas относительно replay, historical separate отдельно, runtime/epochs/counts. При неполных/ошибочных runs победитель не выбирается. Dense не хуже routed: преимущество MoE не показано; uniform не хуже routed: адаптивный выбор не подтверждён. Даже выигрыш routed на одном seed не означает statistical significance, временную семантику или превосходство над внешними paper numbers.
 
 Утром одна read-only команда, без обучения:

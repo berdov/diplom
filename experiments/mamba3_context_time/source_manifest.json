@@ -6,17 +6,18 @@
     "experiments/mamba3_context_time/gpu_checks.py": "a23551986a17090f0ca906f74722a9eee754f9846662341df39ede1418f1fe75",
     "experiments/mamba3_context_time/model.py": "4b66b2dcdbc4ecf12b99a24be1f9dbcb3ad8acff79851bf5a9bc9a73abf6d190",
     "experiments/mamba3_context_time/pipeline.py": "ae131030228bdbbab20e921cbc4c9f8d57b148f36bd3b16b8136112fcf82dfc6",
-    "experiments/mamba3_context_time/preflight.py": "972690a808f7cffeebddb9153612b2a83354a61136cf874304c3aa4f8ce50da5",
+    "experiments/mamba3_context_time/preflight.py": "3e9d51c29f5bc3ed9ce855a11b29b2c49538e586213f05edc52094c9fedcbd57",
     "experiments/mamba3_context_time/provenance.py": "4f9554af123b17bfb19f75163adbf372aff65974cbc8f80babf0d17b1a3bcef8",
-    "experiments/mamba3_context_time/report.py": "5aba90a80869b7c8491e03a965aee690c6462fdd3e5357975c0e150f792ef268",
+    "experiments/mamba3_context_time/report.py": "0593fce03c2efd814451ff31816d46d275ff80198493fc89c90f3db17937aadd",
     "experiments/mamba3_context_time/run.py": "2147d76b8cbe4b975f56c85c50f21d4df3624acd7b35b835de37f7f36600f397",
     "experiments/mamba3_context_time/study_plan.json": "bd944e6a57d6e10c5db05d39bd69cba9b03ece1230c810fdf29cc1fc2fe2c13a",
     "experiments/mamba3_context_time/submit.py": "f998f2f97724572814efeeaa1de8175a67deac633ed1c993349f9afb841bdd3f",
     "experiments/mamba3_context_time/temporal.py": "456a54b9888a77084b0f8a4b59e7f3dd1361cd5f00ca660a80882d6e7529d5b9",
     "experiments/mamba3_context_time/tests/test_guards.py": "f8816054ce91ad1ff64f2b8f58dc97692c44d7a6f5588de7c0b8f873008d405d",
+    "experiments/mamba3_context_time/tests/test_report.py": "20241f562a366960c96351ae39c28460c46dab6c8127cda22abb2212fa5ddb8a",
     "experiments/mamba3_context_time/tests/test_temporal.py": "4277601a7d68615ce7f6f26e458be66b21219923d8b932110107db54a9e44902",
     "experiments/mamba3_context_time/trainer.py": "0f798455df4b550dcaa90fd8800ec0b077545a32fbce1aef92c444a008b01500",
     "slurm/mamba3_context_time.sh": "786494f0907c6d1d101bf2ae2f1abe6c37f7c94f969d853f1ca4efb330b2e0bd"
   },
-  "source_hash": "7b8aebe6400a822ba5b65441a2a30dbf52cd9f8aee64dd11efc71f1558f2c33a"
+  "source_hash": "6f6f20403582e66457a463c11bc2bdd839e3783571d33b27d2255a7f895f5473"
 }

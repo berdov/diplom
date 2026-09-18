@@ -1,6 +1,8 @@
 """Read-only validation and aggregation; no fit/evaluate/model imports."""
 import json
 import math
+import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from .config import CORE, HERE, ROOT, STUDY_ID, SUMMARY, paths, plan, scientific_settings, settings
@@ -82,26 +84,65 @@ def summarize(records, source_hash):
 
 
 def render(result, output):
-    import matplotlib
-    matplotlib.use('Agg')
-    import matplotlib.pyplot as plt
-    rows = result['rows']
-    fig, ax = plt.subplots(figsize=(8, 3.6))
-    for i, row in enumerate(rows):
-        if row['status'] == 'PASS':
-            ax.scatter(i, row['ndcg10'], color='#167f6c', marker='o', label='Full horizon' if i==0 else None)
-            ax.scatter(i, row['first27'], color='#b34f58', marker='x', label='First 27 epochs' if i==0 else None)
-        else:
-            ax.text(i, .5, row['status'], transform=ax.get_xaxis_transform(), ha='center', fontsize=8, rotation=90)
-    ax.axhline(result['historical']['ndcg10'], color='#555555', linestyle=':', label='Historical separate')
-    ax.set_xticks(range(len(rows)), [r['mode'] for r in rows], rotation=15)
-    ax.set_ylabel('VALID NDCG@10')
-    ax.set_title('Context-time pilot: seed 2026')
-    ax.grid(axis='y', alpha=.25)
-    ax.legend(fontsize=8)
-    fig.tight_layout()
-    fig.savefig(output, metadata={'Date': None})
-    plt.close(fig)
+    rows = {r['mode']: r for r in result['rows']}
+    modes = [t['mode'] for t in plan()['tasks']]
+    historical = result['historical']['ndcg10']
+    values = [historical] + [r[key] for r in rows.values() if r['status'] == 'PASS'
+                              for key in ('ndcg10', 'first27')]
+    padding = max((max(values) - min(values)) * .15, .001)
+    low, high = min(values) - padding, max(values) + padding
+    left, right, top, bottom = 100, 1040, 80, 360
+
+    def y(value):
+        return bottom - (value - low) / (high - low) * (bottom - top)
+
+    svg = ET.Element('svg', xmlns='http://www.w3.org/2000/svg', width='1080', height='480',
+                     viewBox='0 0 1080 480', role='img', attrib={'aria-labelledby': 'title description'})
+
+    def element(tag, text=None, **attrs):
+        node = ET.SubElement(svg, tag, {k.replace('_', '-'): str(v) for k, v in attrs.items()})
+        node.text = text
+        return node
+
+    def label(text, x, y_pos, **attrs):
+        return element('text', text, x=x, y=y_pos, font_family='sans-serif', font_size=14,
+                       fill='#202020', **attrs)
+
+    element('title', 'VALID NDCG@10: context-time pilot, seed2026', id='title')
+    element('desc', 'Круг: полный запуск; крест: первые 27 эпох; пунктир: historical separate. '
+            'Незавершённые запуски показаны статусами, без выдуманных метрик.', id='description')
+    element('rect', x=0, y=0, width=1080, height=480, fill='white')
+    label('Context-time pilot: seed2026', 540, 30, text_anchor='middle')
+    label('VALID NDCG@10', left, 60)
+    for i in range(5):
+        value = low + i * (high - low) / 4
+        element('line', x1=left, x2=right, y1=y(value), y2=y(value), stroke='#dedede')
+        label(f'{value:.4f}', left - 12, y(value) + 5, text_anchor='end')
+    element('path', d=f'M {left} {top} V {bottom} H {right}', fill='none', stroke='#444444')
+    element('line', x1=left, x2=right, y1=y(historical), y2=y(historical), stroke='#555555',
+            stroke_dasharray='4 4', data_series='historical', data_value=historical)
+    for i, mode in enumerate(modes):
+        x = left + (i + .5) * (right - left) / len(modes)
+        row = rows.get(mode, {'status': 'NOT_RUN'})
+        label(mode, x, bottom + 28, text_anchor='middle')
+        if row['status'] != 'PASS':
+            label(row['status'], x, (top + bottom) / 2, text_anchor='middle', data_mode=mode)
+            continue
+        value = row['ndcg10']
+        element('circle', cx=x, cy=y(value), r=6, fill='none', stroke='#167f6c', stroke_width=2,
+                data_mode=mode, data_series='full', data_value=value)
+        value = row['first27']
+        element('path', d=f'M {x-5} {y(value)-5} l 10 10 M {x-5} {y(value)+5} l 10 -10',
+                fill='none', stroke='#b34f58', stroke_width=2, data_mode=mode,
+                data_series='first27', data_value=value, data_cx=x, data_cy=y(value))
+    element('circle', cx=112, cy=430, r=6, fill='none', stroke='#167f6c', stroke_width=2)
+    label('Полный запуск', 130, 435)
+    element('path', d='M 335 425 l 10 10 M 335 435 l 10 -10', stroke='#b34f58', stroke_width=2)
+    label('Первые 27 эпох', 358, 435)
+    element('line', x1=580, x2=615, y1=430, y2=430, stroke='#555555', stroke_dasharray='4 4')
+    label(f'Historical separate ({historical:.4f})', 630, 435)
+    with Path(output).open('xb') as stream:
+        ET.ElementTree(svg).write(stream, encoding='utf-8', xml_declaration=True)
 
 
 def main():
@@ -130,9 +171,9 @@ def main():
     result.update(sources=sources, source_files=manifest['files'], historical=dict(
         source=ref, ndcg10=old['best_valid_score'], first27=max(h['valid_ndcg10'] for h in history[:27]),
         best_epoch=old['best_epoch'], actual_epochs=old['actual_epochs'], role='same seed2026, historical only'))
-    if SUMMARY.exists():
+    md = HERE / 'runs/pilot_summary.md'
+    if SUMMARY.exists() or md.exists():
         raise FileExistsError('Summary already exists; no overwrite')
-    atomic_json(SUMMARY, result)
     def fmt(value):
         return '-' if value is None else f'{value:.4f}'
     lines = ['# Контекстная временная калибровка Mamba3', '', result['limitations'], '',
@@ -144,10 +185,30 @@ def main():
     lines += [f"| {r['mode']} | {fmt(r.get('first27'))} | {fmt(r.get('ndcg10'))} |" for r in result['rows']]
     lines += [f"| historical separate2026 | {fmt(result['historical']['first27'])} | {fmt(old['best_valid_score'])} |", '',
         *result['interpretation'], '', 'TEST=0. Численные различия не доказывают семантические режимы или новизну.', '',
-        '![VALID NDCG@10](pilot_summary.svg)', '', '[JSON и hashes](pilot_summary.json)', '']
+        '[JSON и hashes](pilot_summary.json)', '']
     lines += [f"- [{run_id}]({Path(v['path']).name}), SHA256 `{v['sha256']}`" for run_id,v in sources.items()]
-    (HERE / 'runs/pilot_summary.md').write_text('\n'.join(lines) + '\n')
-    render(result, HERE / 'runs/pilot_summary.svg')
+
+    def save_summary():
+        if result['plot_status'] == 'PASS':
+            plot_text = '![VALID NDCG@10](pilot_summary.svg)'
+        elif result['plot_status'] == 'FAILED':
+            plot_text = 'Изображение не создано: plot_status=FAILED. Причина записана в JSON (plot_error).'
+        else:
+            plot_text = 'Изображение ещё не создано: plot_status=NOT_RUN.'
+        atomic_json(SUMMARY, result)
+        md.write_text('\n'.join(lines + ['', plot_text, '']), encoding='utf-8')
+
+    # Mandatory numeric reports are durable before the optional rendering step.
+    result['plot_status'] = 'NOT_RUN'
+    save_summary()
+    try:
+        render(result, HERE / 'runs/pilot_summary.svg')
+    except Exception as exc:
+        result.update(plot_status='FAILED', plot_error=repr(exc))
+        print(f'Предупреждение: изображение не создано: {exc!r}', file=sys.stderr)
+    else:
+        result['plot_status'] = 'PASS'
+    save_summary()
 
 
 if __name__ == '__main__':
