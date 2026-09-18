@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "study_id": "mamba3_context_time_001",
+  "base_main": "bfac35ac1cff1aa80103df709f11ad5c69b61391",
+  "review_commit": "9dee7fe4eeeae51e79c08ccc1bc25d6a30c387c5",
+  "question": "Полезна ли item-local контекстная калибровка исторического времени и нужна ли экспертная факторизация?",
+  "novelty": "Exploratory adaptation/control; novelty not established; TriSSR/TMTRec Methods remain unavailable",
+  "tasks": [
+    {"mode": "separate_replay", "seed": 2026, "run_id": "mamba3_context_separate_replay_seed2026_001"},
+    {"mode": "dense11", "seed": 2026, "run_id": "mamba3_context_dense11_seed2026_001"},
+    {"mode": "dense12", "seed": 2026, "run_id": "mamba3_context_dense12_seed2026_001"},
+    {"mode": "uniform", "seed": 2026, "run_id": "mamba3_context_uniform_seed2026_001"},
+    {"mode": "routed", "seed": 2026, "run_id": "mamba3_context_routed_seed2026_001"}
+  ],
+  "architecture": {"experts": 4, "heads": 2, "paths": 2, "calibrator_hidden": 16, "dense_widths": [11,12], "router_std": 0.01, "router_temperature": 1, "reference_ms": 838393, "bounds": [0.5,2], "mixture": "bounded log-scales", "router_input": "raw current historical item embedding plus tau", "extra_losses": false},
+  "training": {"scratch": true, "optimizer": "adam", "lr": 0.001, "weight_decay": 0, "loss": "CE", "train_batch_size": 2048, "eval_batch_size": 4096, "max_history": 50, "max_epochs": 300, "eval_step": 1, "stopping_step": 10, "valid_metric": "NDCG@10", "topk": [5,10,20,50], "metric_decimal_place": 4, "evaluation": "full-ranking", "test_loader": false},
+  "rng": {"order": ["seed", "dataset", "loaders", "frozen separate model", "RNG-isolated temporal replacement", "trainer", "fit"], "paired_expert_bank": true, "first_batch": "hash inside actual loss call; never peek/discard"},
+  "gpu_gate": {"atol": 0.000001, "rtol": 0.00001, "lengths": [50,64], "training_modes": [false,true], "real_cuda_required": true},
+  "historical_reference": {"source_json": "experiments/mamba3_time_mechanisms/runs/mamba3_separate_time_validation_001.json", "sha256": "cd4be649ef2f6846cade7d4901878384b54e2ba02a4740bf408129dde4ddb4dc", "history_json": "reports/assets/time_mechanisms/extracted.json", "history_sha256": "fa02a085e687a274904b2d2958ab6fec8cdd84ede50a3442f7320f9dbcb3f8da", "role": "historical seed2026, not an independent sixth seed"},
+  "budget": {"jobs": 1, "gpu": "A100", "gpus": 1, "partition": "rocky", "account": "proj_1833", "constraint": "type_e", "cpus": 4, "mem": 0, "slurm_seconds": 28800, "pipeline_seconds": 27600, "minimum_start_remaining_seconds": 5400, "maximum_fits": 5},
+  "failure_policy": "Stop on technical failure; mark remaining NOT_RUN; aggregate partial; no retry. Poor VALID alone does not stop the plan.",
+  "selection_split": "VALID",
+  "test_evaluation_count": 0,
+  "automatic_retry": false,
+  "publish_results": false
+}

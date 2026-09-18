@@ -16,6 +16,7 @@
 - [Наши VALID и TEST](reports/RESULTS.md), включая vanilla TEST NDCG@10 **0.0590**.
 - [Опубликованные ориентиры и наши TEST](reports/PAPER_RESULTS.md): все cutoff и ограничения сопоставимости.
 - [Подтверждение временных механизмов: таблицы и график](reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#confirmation).
+- [Контекстная калибровка и временные эксперты: первый эксперимент](reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#context-time-pilot).
 - [Реестр запусков](experiments/results.csv) с источниками метрик.
 
 Separate превысил shared по VALID NDCG@10 во всех пяти парных seeds: +1,91% по средним, на четырёх новых seeds +1,25%. Constant-gap control выполнен на одном seed; новых TEST нет.
