@@ -1,0 +1,15 @@
+{
+  "mode": "attention_time",
+  "seed": 2026,
+  "run_id": "mamba3_input_attention_time_seed2026_001",
+  "study_id": "mamba3_input_time_001",
+  "status": "NOT_RUN",
+  "stage": "NOT_RUN",
+  "execution_commit": "cd77ecc14edf1eb13d03ef9d4ee7f0f30aa497e3",
+  "job_id": "4337685",
+  "source_hash": "1dbd23efc3a72b7e1cc73f65d70763d969874561956d0022f267a552f7dae61c",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "test_status": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "error": "Previous mandatory stage failed or budget exhausted"
+}

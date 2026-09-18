@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "source_hash": "1dbd23efc3a72b7e1cc73f65d70763d969874561956d0022f267a552f7dae61c",
+  "runtime": {
+    "torch": "2.9.1+cu128",
+    "recbole": "1.2.0",
+    "mamba_ssm": "2.3.2.post1",
+    "triton": "3.5.1",
+    "numpy": "1.26.4",
+    "tilelang": "0.1.8",
+    "apache_tvm_ffi": "0.1.9",
+    "pinned_mamba": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+    "cuda": "12.8",
+    "gpu": null
+  },
+  "parameters": [
+    {
+      "mode": "separate_replay",
+      "total": 610572,
+      "adapter": 0,
+      "backbone": "f9cd44a3dd64493f52964350a9398ee384535dcdcfa0e22a8e50853fa6c07813",
+      "rng": "f0ef83cd7cbd93e427a84d85cd300aa92cd5dec15c0c693ef8410f99eaf1ae8b",
+      "attention_common": null
+    },
+    {
+      "mode": "time_add",
+      "total": 611692,
+      "adapter": 1120,
+      "backbone": "f9cd44a3dd64493f52964350a9398ee384535dcdcfa0e22a8e50853fa6c07813",
+      "rng": "f0ef83cd7cbd93e427a84d85cd300aa92cd5dec15c0c693ef8410f99eaf1ae8b",
+      "attention_common": null
+    },
+    {
+      "mode": "attention_content",
+      "total": 618764,
+      "adapter": 8192,
+      "backbone": "f9cd44a3dd64493f52964350a9398ee384535dcdcfa0e22a8e50853fa6c07813",
+      "rng": "f0ef83cd7cbd93e427a84d85cd300aa92cd5dec15c0c693ef8410f99eaf1ae8b",
+      "attention_common": "41b72a2b18dac89a297a06f986da4d6b33cf99eb1311f6b88f3317d843d4a75e"
+    },
+    {
+      "mode": "attention_time",
+      "total": 618812,
+      "adapter": 8240,
+      "backbone": "f9cd44a3dd64493f52964350a9398ee384535dcdcfa0e22a8e50853fa6c07813",
+      "rng": "f0ef83cd7cbd93e427a84d85cd300aa92cd5dec15c0c693ef8410f99eaf1ae8b",
+      "attention_common": "41b72a2b18dac89a297a06f986da4d6b33cf99eb1311f6b88f3317d843d4a75e"
+    }
+  ],
+  "dataset_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand/kuairand.inter",
+  "dataset_size": 27740872
+}

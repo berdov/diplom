@@ -1,0 +1,39 @@
+{
+  "status": "SUBMITTED",
+  "commit": "cd77ecc14edf1eb13d03ef9d4ee7f0f30aa497e3",
+  "source_hash": "1dbd23efc3a72b7e1cc73f65d70763d969874561956d0022f267a552f7dae61c",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "tasks": [
+    {
+      "mode": "separate_replay",
+      "seed": 2026,
+      "run_id": "mamba3_input_separate_replay_seed2026_001"
+    },
+    {
+      "mode": "time_add",
+      "seed": 2026,
+      "run_id": "mamba3_input_time_add_seed2026_001"
+    },
+    {
+      "mode": "attention_content",
+      "seed": 2026,
+      "run_id": "mamba3_input_attention_content_seed2026_001"
+    },
+    {
+      "mode": "attention_time",
+      "seed": 2026,
+      "run_id": "mamba3_input_attention_time_seed2026_001"
+    }
+  ],
+  "prepared_at": "2026-09-18T12:21:27.795675+00:00",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "slurm/mamba3_input_time.sh"
+  ],
+  "automatic_retry": false,
+  "returncode": 0,
+  "stdout": "4337685\n",
+  "stderr": "sbatch: \u001b[1mThe job is starting as part of project: \u001b[0m\u001b[38;5;87m\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u0446\u0438\u0444\u0440\u043e\u0432\u044b\u0445 \u0430\u0432\u0430\u0442\u0430\u0440\u043e\u0432, \u0430\u0434\u0430\u043f\u0442\u0438\u0440\u0443\u044e\u0449\u0438\u0445\u0441\u044f \u043a \u044d\u043c\u043e\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u043c \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f\u043c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u0438 \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0432\u0430\u044e\u0449\u0438\u0445 \u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0435 \u0432\u0437\u0430\u0438\u043c\u043e\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435\u001b[0m (\u001b[38;5;82mproj_1833\u001b[0m)\n",
+  "job_id": "4337685"
+}

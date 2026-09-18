@@ -1,0 +1,23 @@
+{
+  "study_id": "mamba3_input_time_001",
+  "job_id": "4337685",
+  "execution_commit": "cd77ecc14edf1eb13d03ef9d4ee7f0f30aa497e3",
+  "source_hash": "1dbd23efc3a72b7e1cc73f65d70763d969874561956d0022f267a552f7dae61c",
+  "status": "FAIL",
+  "started_at": "2026-09-18T15:08:44.304225+00:00",
+  "stages": [
+    {
+      "stage": "preflight",
+      "status": "PASS"
+    },
+    {
+      "stage": "report",
+      "status": "PASS"
+    }
+  ],
+  "stage": "gpu_checks",
+  "error": "RuntimeError('experiments.mamba3_input_time.gpu_checks exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_input_time/slurm_logs/gpu_checks/stderr.log')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/pipeline.py\", line 71, in main\n    run_child('experiments.mamba3_input_time.' + stage, [], RUNTIME / stage, deadline)\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/pipeline.py\", line 35, in run_child\n    raise RuntimeError(f'{module} exited {code}; see {stage_dir}/stderr.log')\nRuntimeError: experiments.mamba3_input_time.gpu_checks exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_input_time/slurm_logs/gpu_checks/stderr.log\n",
+  "finished_at": "2026-09-18T15:12:25.213174+00:00",
+  "test_evaluation_count": 0
+}

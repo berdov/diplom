@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/gpu_checks.py", line 216, in <module>
+    main()
+  File "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/gpu_checks.py", line 187, in main
+    result['initialization'] = initialization_gate()
+  File "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/gpu_checks.py", line 103, in initialization_gate
+    raise ValueError('GPU full-model initialization parity failed')
+ValueError: GPU full-model initialization parity failed

@@ -1,0 +1,79 @@
+{
+  "job_id": "4337685",
+  "execution_commit": "cd77ecc14edf1eb13d03ef9d4ee7f0f30aa497e3",
+  "verification": "source SHA256 equals byte-preserved local copy",
+  "files": [
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/runs/gpu_checks_001.json",
+      "destination": "experiments/mamba3_input_time/runs/gpu_checks_001.json",
+      "size": 1403,
+      "sha256": "8a035bb00fe70bce99fb185a1dff7d295ced73e281407eeb63334dd5651cdecb"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/runs/mamba3_input_separate_replay_seed2026_001.json",
+      "destination": "experiments/mamba3_input_time/runs/mamba3_input_separate_replay_seed2026_001.json",
+      "size": 570,
+      "sha256": "aa27df93a7558f28d68a7443c88875544eafce412192dc0df6b93ec7f35cf9f3"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/runs/mamba3_input_time_add_seed2026_001.json",
+      "destination": "experiments/mamba3_input_time/runs/mamba3_input_time_add_seed2026_001.json",
+      "size": 556,
+      "sha256": "aeed0c8ea3a2af2b063ae297f4a43ed6e2f17a62331e05255c53603e015cc6f7"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/runs/mamba3_input_attention_content_seed2026_001.json",
+      "destination": "experiments/mamba3_input_time/runs/mamba3_input_attention_content_seed2026_001.json",
+      "size": 574,
+      "sha256": "8143a705d16133b83820026e5f4170d5decfec745aa0f97c1a9190314acc1341"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/runs/mamba3_input_attention_time_seed2026_001.json",
+      "destination": "experiments/mamba3_input_time/runs/mamba3_input_attention_time_seed2026_001.json",
+      "size": 568,
+      "sha256": "144dd28fd0c86673190771315fd13783b7029579904ddbf990bdccf2b850294d"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/runs/pilot_summary.json",
+      "destination": "experiments/mamba3_input_time/runs/pilot_summary.json",
+      "size": 5337,
+      "sha256": "b624c07c1d56dfbc1d4175da7578930606b2b7f7cd54731531ad46271f01d14c"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/runs/pilot_summary.md",
+      "destination": "experiments/mamba3_input_time/runs/pilot_summary.md",
+      "size": 1854,
+      "sha256": "7b1a8f85d1a3d5427424c3316fecacbf6e13f378af3cdac91798ec7d1308f38b"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/runs/pilot_summary.svg",
+      "destination": "experiments/mamba3_input_time/runs/pilot_summary.svg",
+      "size": 3492,
+      "sha256": "855bf0d965cb96cb35e25ab9d106988a67340817be9720435b9f18486a701953"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/slurm_logs/pipeline_status.json",
+      "destination": "experiments/mamba3_input_time/evidence/failed_4337685/pipeline_status.json",
+      "size": 1311,
+      "sha256": "7230ffd8ed776b1d90586629c094ad8585bab31d021e2af03570315369a97170"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/slurm_logs/submission_001.json",
+      "destination": "experiments/mamba3_input_time/evidence/failed_4337685/submission_001.json",
+      "size": 1846,
+      "sha256": "a03506d1fa7ae749185f4b3155ec326f58c9b9cc0d22841f8a8761290df857e5"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/slurm_logs/gpu_checks/stderr.log",
+      "destination": "experiments/mamba3_input_time/evidence/failed_4337685/gpu_checks_stderr.log",
+      "size": 830,
+      "sha256": "931f5a282674f5676f49663143c04c28f77ce5db3995fe7a0746523a7d177953"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/slurm_logs/preflight/stdout.log",
+      "destination": "experiments/mamba3_input_time/evidence/failed_4337685/preflight_stdout.log",
+      "size": 1848,
+      "sha256": "e61a841101ee930ac4771888ddeb47d1fac35dfa80cea2c99dc41329a7c1b813"
+    }
+  ]
+}

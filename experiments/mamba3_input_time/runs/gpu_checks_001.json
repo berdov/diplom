@@ -1,0 +1,31 @@
+{
+  "status": "GPU_GATE_FAIL",
+  "stage": "GPU_GATE",
+  "source_hash": "1dbd23efc3a72b7e1cc73f65d70763d969874561956d0022f267a552f7dae61c",
+  "pinned_mamba": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "atol": 1e-06,
+  "rtol": 1e-05,
+  "synthetic_only": true,
+  "identity_cases": [],
+  "checks": {},
+  "test_evaluation_count": 0,
+  "execution_commit": "cd77ecc14edf1eb13d03ef9d4ee7f0f30aa497e3",
+  "job_id": "4337685",
+  "node": "cn-046",
+  "started_at": "2026-09-18T15:12:12.288402+00:00",
+  "runtime": {
+    "torch": "2.9.1+cu128",
+    "recbole": "1.2.0",
+    "mamba_ssm": "2.3.2.post1",
+    "triton": "3.5.1",
+    "numpy": "1.26.4",
+    "tilelang": "0.1.8",
+    "apache_tvm_ffi": "0.1.9",
+    "pinned_mamba": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+    "cuda": "12.8",
+    "gpu": "NVIDIA A100-SXM4-80GB"
+  },
+  "error": "ValueError('GPU full-model initialization parity failed')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/gpu_checks.py\", line 187, in main\n    result['initialization'] = initialization_gate()\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_input_time/gpu_checks.py\", line 103, in initialization_gate\n    raise ValueError('GPU full-model initialization parity failed')\nValueError: GPU full-model initialization parity failed\n",
+  "finished_at": "2026-09-18T15:12:21.295451+00:00"
+}

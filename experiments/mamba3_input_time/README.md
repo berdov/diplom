@@ -1,5 +1,35 @@
 # Причинный входной attention/time адаптер Mamba3
 
+## Статус: технический FAIL, направление отложено
+
+**Техническая остановка на проверке инициализации GPU.
+Обучение не началось; качество входного адаптера не оценено.
+Направление отложено по новому плану исследования.**
+
+Job `4337685`, execution `cd77ecc14edf1eb13d03ef9d4ee7f0f30aa497e3`:
+FAILED `1:0`, A100-SXM4-80GB, 00:03:49. Четыре run JSON имеют NOT_RUN,
+метрик/checkpoints нет. Историческое `.0633` не является результатом этого replay.
+[Original evidence](runs/gpu_checks_001.json), [неполная сводка](runs/pilot_summary.md),
+[SHA256 и происхождение сохранённых файлов](evidence/failed_4337685/manifest.json).
+JSON, execution source manifest и исходные guards сохранены без исправлений;
+locks на кластере не удалялись, повторного submit нет, results.csv не менялся.
+
+Сработал `initialization_gate()` в `gpu_checks.py:103`. Guard объединяет четыре условия:
+совпадение backbone hashes; совпадение RNG hashes; одинаковые common attention weights
+content/time; соответствие фактических parameter counts таблице COUNTS.
+`rows` возвращаются только после проверки, поэтому перед исключением не попали в evidence.
+**Точное нарушенное условие: UNKNOWN.**
+
+Статически подтверждён разный порядок: CPU `preflight.full_counts()` создаёт
+`Config -> init_seed -> model`; GPU `initialization_gate()` вызывает
+`init_seed -> make_model`, а внутри `make_model`: `Config -> model.cuda()`.
+Это гипотеза о различии процедуры, не установленная причина FAIL.
+[Traceback](evidence/failed_4337685/gpu_checks_stderr.log) и
+[CPU preflight](evidence/failed_4337685/preflight_stdout.log) сохранены.
+GPU cases A-F и scientific TRAIN/VALID/TEST не выполнялись.
+
+Ниже сохранён первоначальный план, не разрешение на его повторный запуск.
+
 Ограниченный пилот: помогает ли дополнительное представление исторического времени
 на входе уже проверенной Mamba3 `separate`? Код и план фиксируются до метрик;
 полезность и новизна не предполагаются. [План](study_plan.json),
