@@ -117,3 +117,10 @@ Evidence: `runs/siso_correctness_002.json`, `runs/mimo_correctness_002.json`;
 пункты 2-5 перечислены как гипотезы, без кода. После correctness PASS научное
 обучение требует отдельного запроса. Сейчас scientific fits=0, TRAIN=0, VALID=0,
 TEST=0; разрешены только synthetic forward/backward/optimizer-step tests.
+## Attempt003
+
+Ограниченная техническая попытка: SISO ADT-only и MIMO kernel-length adapter.
+План: [test_plan_003.json](test_plan_003.json); [контракт и ограничения](evidence/attempt003_contract.md).
+Evidence: `runs/{siso,mimo}_correctness_003.json`, `runs/technical_summary_003.json`;
+logs/guards: `slurm_logs/attempt_003/`. Default backend не переключается.
+Attempt002 сохранена [без исправления прежних FAIL](evidence/attempt_002/README.md).

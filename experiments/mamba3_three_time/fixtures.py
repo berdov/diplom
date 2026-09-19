@@ -70,7 +70,7 @@ def scalar_loss(output):
     return (output.float()*weights).mean() + .03*output.float().square().mean()
 
 
-def kernel_output(values, architecture, *, official=False, reference=False):
+def kernel_output(values, architecture, *, official=False, reference=False, native=False, extra_chunks=0):
     if reference:
         from .reference import recurrence
         return recurrence(**values)
@@ -84,10 +84,10 @@ def kernel_output(values, architecture, *, official=False, reference=False):
         if architecture == "SISO":
             from mamba_ssm.ops.triton.mamba3.mamba3_siso_combined import mamba3_siso_combined
             return mamba3_siso_combined(q, k, v, adt, dt, trap, qb, kb, angles, d, z, chunk_size=64)
-        from mamba_ssm.ops.tilelang.mamba3.mamba3_mimo import mamba3_mimo
-        return mamba3_mimo(q,k,v,adt,dt,trap,qb,kb,x["mv"],x["mz"],x["mo"],angles,d,z,8,4,v.dtype)
+        from .length_adapter import official as wrapped_official
+        return wrapped_official(values, native=native, extra_chunks=extra_chunks)
     from .kernels import siso, mimo
-    return (siso if architecture == "SISO" else mimo)(**values)
+    return siso(**values) if architecture == "SISO" else mimo(**values, extra_chunks=extra_chunks)
 
 
 def kernel_measure(values, architecture, **kwargs):

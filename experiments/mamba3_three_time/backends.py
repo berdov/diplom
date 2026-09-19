@@ -18,7 +18,7 @@ def trace_sink():
 
 @contextmanager
 def selected(name, trace=None):
-    if name not in VARIANTS:
+    if name not in (*VARIANTS, "diagnostic_hybrid"):
         raise ValueError("Unknown arithmetic variant: " + name)
     token, sink = _variant.set(name), _trace.set(trace)
     try:

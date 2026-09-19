@@ -28,6 +28,19 @@ def inspect(save=lambda value:None):
     result["candidate_copies"] = validate_installed(result["upstream"]["installed_path"], HERE)
     from . import stable_angle, stable_adt
     result["candidate_imports"] = [stable_angle.__name__, stable_adt.__name__]
+    from mamba_ssm.ops.triton.mamba3 import mamba3_siso_bwd
+    from .drift_capture import FIXED_LAUNCH
+    from . import attempt_003
+    attempt_003.require_unused()
+    result["attempt_id"] = "003"
+    result["matched_launch"] = FIXED_LAUNCH
+    result["matched_config_supported"] = {}
+    for name, module in (("official",mamba3_siso_bwd),("stable_adt",stable_adt)):
+        tuner = module.mamba3_siso_bwd_kernel_dqkv
+        supported = any(all(getattr(c,k,None)==v for k,v in FIXED_LAUNCH.items()) for c in tuner.configs)
+        result["matched_config_supported"][name] = supported
+        if not supported or not hasattr(tuner.fn,"src"):
+            raise RuntimeError("Unsupported pre-frozen diagnostic launch/JIT interface: "+name)
     save(result)
     if torch.cuda.is_initialized():
         raise RuntimeError("Login preflight must not initialize CUDA")

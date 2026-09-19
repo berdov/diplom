@@ -30,10 +30,10 @@ def three_time_forward(mixer, u, decay, write, phase, *, official_tied=False):
         raise ValueError("Official two-path oracle requires the same scan tensor")
     if mixer.is_mimo:
         if official_tied:
-            from mamba_ssm.ops.tilelang.mamba3.mamba3_mimo import mamba3_mimo
-            y = mamba3_mimo(C, B, x, adt, dw, trap, mixer.C_bias, mixer.B_bias,
-                mixer.mimo_x, mixer.mimo_z, mixer.mimo_o, angles, mixer.D, z,
-                mixer.chunk_size, 4, x.dtype)
+            from .length_adapter import official
+            y = official(dict(q=C,k=B,v=x,adt=adt,dw=dw,dp=dp,trap=trap,
+                qb=mixer.C_bias,kb=mixer.B_bias,mv=mixer.mimo_x,mz=mixer.mimo_z,
+                mo=mixer.mimo_o,angles=angles,d=mixer.D,z=z))
         else:
             y = kernels.mimo(C, B, x, adt, dw, dp, trap, mixer.C_bias, mixer.B_bias,
                 angles, mixer.D, z, mixer.mimo_x, mixer.mimo_z, mixer.mimo_o, chunk=mixer.chunk_size)

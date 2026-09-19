@@ -26,16 +26,18 @@ def sha(path):
 
 def source_manifest():
     files = [*HERE.glob("*.py"),*(HERE/"tests").glob("*.py"),
-             *(HERE/name for name in ("future_plan.json","test_plan.json","test_plan_002.json","upstream_manifest.json",
+             *(HERE/name for name in ("future_plan.json","test_plan.json","test_plan_002.json","test_plan_003.json","upstream_manifest.json",
                                      "frozen_snapshot.json","README.md","LICENSE.upstream")),
              HERE/"evidence/upstream_audit.md",HERE/"evidence/stable_scan_algebra.md",
-             ROOT/"slurm/mamba3_three_time_correctness.sh",ROOT/"slurm/mamba3_three_time_correctness_002.sh"]
+             HERE/"evidence/attempt003_contract.md",
+             ROOT/"slurm/mamba3_three_time_correctness.sh",ROOT/"slurm/mamba3_three_time_correctness_002.sh",
+             ROOT/"slurm/mamba3_three_time_correctness_003.sh"]
     hashes = {str(path.relative_to(ROOT)):sha(path) for path in sorted(files)}
     digest = hashlib.sha256(json.dumps(hashes,sort_keys=True,separators=(",",":")).encode()).hexdigest()
     return dict(schema_version=1,source_hash=digest,core_hash=CORE,files=hashes)
 
 
-def verify():
+def verify(attempt_id="003"):
     if fingerprint() != CORE:
         raise ValueError("Frozen temporal core changed")
     frozen = json.loads((HERE/"frozen_snapshot.json").read_text())
@@ -43,7 +45,8 @@ def verify():
     if bad:
         raise ValueError("Frozen sources/results changed: "+repr(bad))
     actual = source_manifest()
-    if actual != json.loads((HERE/"source_manifest.json").read_text()):
+    manifest_path = HERE / ("source_manifest_003.json" if attempt_id == "003" else "source_manifest.json")
+    if actual != json.loads(manifest_path.read_text()):
         raise ValueError("Three-time source manifest mismatch")
     return actual
 
@@ -66,8 +69,8 @@ def upstream():
                 installed_path=str(package_parent),files=actual)
 
 
-def require_submission():
-    manifest = verify()
+def require_submission(attempt_id="003"):
+    manifest = verify(attempt_id)
     commit = os.environ.get("RUN_COMMIT","")
     if len(commit) != 40 or any(c not in "0123456789abcdef" for c in commit):
         raise ValueError("Login-verified exact execution commit required")
@@ -89,8 +92,9 @@ def freeze():
         if sha(ROOT/name) != hashlib.sha256(expected).hexdigest():
             raise ValueError("Base snapshot differs: "+name)
         hashes[name] = sha(ROOT/name)
-    (HERE/"frozen_snapshot.json").write_text(json.dumps(dict(base_commit=BASE,files=hashes),indent=2)+"\n")
-    (HERE/"source_manifest.json").write_text(json.dumps(source_manifest(),indent=2)+"\n")
+    if json.loads((HERE/"frozen_snapshot.json").read_text()) != dict(base_commit=BASE,files=hashes):
+        raise ValueError("Do not rewrite the frozen snapshot")
+    (HERE/"source_manifest_003.json").write_text(json.dumps(source_manifest(),indent=2)+"\n")
 
 
 if __name__ == "__main__":

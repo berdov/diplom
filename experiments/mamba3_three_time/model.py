@@ -29,7 +29,11 @@ class ThreeTimeMamba3Rec(TimeAwareMamba3Rec):
             if oracle == "official_base":
                 if self.times.mode != "base":
                     raise ValueError("Base oracle only")
-                mixed = layer.mixer(u)
+                if layer.mixer.is_mimo:
+                    from .length_adapter import official_mixer
+                    mixed = official_mixer(layer.mixer, u)
+                else:
+                    mixed = layer.mixer(u)
             else:
                 mixed = three_time_forward(layer.mixer, u, decay, write, phase,
                                            official_tied=oracle == "official_dual")

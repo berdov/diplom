@@ -44,7 +44,8 @@ class SISO(torch.autograd.Function):
             from .stable_adt import compute_dqkv
         q, k, v, dw, dp, trap, qb, kb, angles, theta, d, z, ov, states, cs, total, qr, ks, qk, scale, gamma = ctx.saved_tensors
         dz, go = compute_dzdo(grad, z, ov, chunk_size=ctx.chunk) if z is not None else (None, grad)
-        dq0, dk0, dv, da, dqk, dd, _ = compute_dqkv(
+        from .drift_capture import dqkv_call, capture_stages
+        dq0, dk0, dv, da, dqk, dd, _ = dqkv_call(compute_dqkv, variant,
             q=qr, k=ks, v=v, da_cs=cs, da_cs_sum=total, qk_dot=qk,
             SSM_States=states, do=go, d_ossm_state=None, d_ov_state=None, D=d,
             chunk_size=ctx.chunk, has_input_state=False, Cu_Seqlens=None)
@@ -57,6 +58,8 @@ class SISO(torch.autograd.Function):
             input_k_state=None, input_v_state=None, Cu_Seqlens=None)
         dang, ddp, _ = angle_dt_bwd(grad_out=dt, angle=angles, dt=dp,
             has_init_state=False, chunk_size=ctx.chunk, grad_output_state=None, cu_seqlens=None)
+        capture_stages(dQ=dq, dK=dk, dV=dv, dTheta=dt, dScale=ds, dGamma=dg,
+                       dDT_write=ddw, dDT_phase=ddp, dAngles=dang, dTrap=dtrap)
         record_trace(getattr(ctx, "trace", None), ctx.chunk, variant,
                      grad_output=grad, grad_after_z=go, dADT=da, dTheta=dt,
                      dScale=ds, dGamma=dg, dDT_write=ddw, dDT_phase=ddp,
@@ -98,8 +101,6 @@ class MIMO(torch.autograd.Function):
         from mamba_ssm.ops.triton.mamba3.angle_dt import angle_dt_bwd
         from mamba_ssm.ops.triton.mamba3.mamba3_mimo_utils import compute_dacs_segsum_triton
         from mamba_ssm.ops.tilelang.mamba3.mamba3_mimo_bwd import mamba_mimo_bwd_combined
-        if getattr(ctx, "variant", "upstream") in ("stable_angle", "stable_scan"):
-            from .stable_angle import angle_dt_bwd
         q, k, v, adt, dw, dp, trap, qb, kb, angles, d, z, mv, mz, mo, theta = ctx.saved_tensors
         cs, rev, seg = compute_dacs_segsum_triton(adt, ctx.chunk)
         dq, dk, dv, da, ddw, dt, dqb, dkb, dmv, dmz, dmo, dtheta, dd, dz, _ = mamba_mimo_bwd_combined(
@@ -112,8 +113,13 @@ class MIMO(torch.autograd.Function):
 
 
 def mimo(q, k, v, adt, dw, dp, trap, qb, kb, angles, d, z, mv, mz, mo, *, chunk=8,
-         cu_seqlens=None, input_states=None, return_final_states=False):
+         cu_seqlens=None, input_states=None, return_final_states=False, extra_chunks=0):
     dense_only(cu_seqlens, input_states, return_final_states)
     if q.shape[2] != 4 or chunk != 8 or angles.shape[-1] != q.shape[-1] // 4:
-        raise NotImplementedError("Attempt002 rank4/chunk8/half-rotary scope only")
-    return MIMO.apply(q, k, v, adt, dw, dp, trap, qb, kb, angles, d, z, mv, mz, mo, chunk)
+        raise NotImplementedError("Rank4/chunk8/half-rotary scope only")
+    from .length_adapter import prepare
+    names = ("q", "k", "v", "adt", "dw", "dp", "trap", "qb", "kb", "angles", "d", "z", "mv", "mz", "mo")
+    values, record = prepare(dict(zip(names, (q,k,v,adt,dw,dp,trap,qb,kb,angles,d,z,mv,mz,mo))),
+                             chunk=chunk, extra_chunks=extra_chunks)
+    y = MIMO.apply(*(values[name] for name in names), chunk)
+    return y[:, :record["input_length"]]
