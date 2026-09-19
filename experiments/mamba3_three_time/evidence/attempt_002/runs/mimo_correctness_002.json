@@ -1,0 +1,302 @@
+{
+  "attempt_id": "002",
+  "status": "HARDWARE_OR_KERNEL_BLOCKED",
+  "architecture": "MIMO",
+  "execution_commit": "d0c8a2356b235981436715e2d340803e1a0951a0",
+  "parent_execution_commit": "1bff0863e13c90161b6828c1905b2f5a0ab62a14",
+  "job_id": "4338153",
+  "source_hash": "c6470fb5ce3505b7209c4617b82d47cec351d965b592fb92c5afb56fa71ff07e",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "plan": {
+    "seed": 2026,
+    "scientific_fits": 0,
+    "TRAIN": 0,
+    "VALID": 0,
+    "TEST": 0,
+    "structural": {
+      "atol": 1e-06,
+      "rtol": 1e-05
+    },
+    "cpu_gradcheck": {
+      "dtype": "float64",
+      "eps": 1e-06,
+      "atol": 1e-05,
+      "rtol": 0.001
+    },
+    "reference": {
+      "atol": 0.003,
+      "rtol": 0.08,
+      "relative_norm_limit": 0.08,
+      "gradient_atol": 0.006,
+      "gradient_rtol": 0.12,
+      "gradient_relative_norm_limit": 0.12,
+      "rationale": "Fixed before any GPU result: several bf16 roundings, approximate elementary functions and bf16 saved states. Elementwise tolerance AND relative L2 cap required. Must first pass official tied-baseline calibration on the same fixture/dtype for each architecture; triple is INCONCLUSIVE if baseline calibration fails. These caps are never fitted to triple errors or relaxed after failure.",
+      "kernel_dtype": "bf16 inputs and internal intermediates; ADT/DT fp32; SISO raw/cumulative angles bf16, MIMO angles fp32",
+      "reference_dtype": "fp32 on exactly quantized kernel input values; no claim of fp32 kernel execution"
+    },
+    "lengths": {
+      "SISO": [
+        1,
+        50,
+        63,
+        64,
+        65,
+        97
+      ],
+      "MIMO": [
+        1,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        50,
+        65
+      ]
+    },
+    "suites": [
+      "I",
+      "initialization",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H"
+    ],
+    "scope": "Dense full sequences, no final-state loss/cache/varlen. Attempt001 rank4/chunk16 remains FAIL. Attempt002 rank4/chunk8 only; no hardware/config search. Default backend unchanged. CPU algebra is not GPU evidence.",
+    "attempt_id": "002",
+    "parent_execution_commit": "1bff0863e13c90161b6828c1905b2f5a0ab62a14",
+    "prefix_fixtures": [
+      [
+        17,
+        7
+      ],
+      [
+        65,
+        31
+      ],
+      [
+        97,
+        65
+      ]
+    ],
+    "loss_multipliers": [
+      1,
+      16
+    ],
+    "backends": [
+      "upstream",
+      "stable_angle",
+      "stable_adt",
+      "stable_scan"
+    ],
+    "default_backend": "upstream",
+    "candidate_backend": "stable_scan",
+    "promotion": "NOT automatic; localization, exact-zero, all regressions and reference must pass first",
+    "expected_counts": {
+      "SISO": {
+        "base": 610440,
+        "dual": 610572,
+        "triple": 610638
+      },
+      "MIMO": {
+        "base": 714888,
+        "dual": 715020,
+        "triple": 715086
+      }
+    },
+    "profile": {
+      "SISO": {
+        "chunk_size": 64
+      },
+      "MIMO": {
+        "chunk_size": 8,
+        "rank": 4,
+        "d_state": 128,
+        "headdim": 64,
+        "d_model": 64,
+        "expand": 2,
+        "ngroups": 1,
+        "rope_fraction": 0.5,
+        "layers": 2,
+        "is_outproj_norm": false
+      }
+    }
+  },
+  "plan_sha256": "d72caf7525ea925a2be0659f450ef6e3ccba34ee83b6bb1a8bd2ac86ce8f1a94",
+  "backend_variant": "stable_scan_candidate",
+  "chunk_size": 8,
+  "cases": [],
+  "diagnostics": [],
+  "diagnostic_progress": {},
+  "initialization": null,
+  "original_exact_zero_check": "NOT_RUN",
+  "localization": {
+    "status": "NOT_RUN"
+  },
+  "stable_replacement_checks": "NOT_RUN",
+  "full_local_correctness": "NOT_RUN",
+  "scientific_fits": 0,
+  "TRAIN": 0,
+  "VALID": 0,
+  "TEST": 0,
+  "upstream": {
+    "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+    "manifest_sha256": "5c9097700345808fcfc2846dd4ccc8adc6b087ea681f2c0d22366c090f21f844",
+    "installed_path": "/home/daryumin/iberdov/envs/mamba3/lib/python3.10/site-packages",
+    "files": {
+      "LICENSE": "760939b000194d04548ede6a857bbe735d1695d8422ec85955c8e2bd7f4b95c5",
+      "mamba_ssm/modules/mamba3.py": "930c3dfa04dea8444b1c9ee8b6ac9cbbc7ef492dc5ae1f4c83051ef953eca33c",
+      "mamba_ssm/ops/tilelang/mamba3/mamba3_mimo.py": "ac691200e3d22ac9820931d83cc2843213ebcc4db156e44a45b2db90c3a0766a",
+      "mamba_ssm/ops/tilelang/mamba3/mamba3_mimo_bwd.py": "f35e610f6c5c6fdf8dc72dae51df26b95605deb38625f13ae6d8cad9c32c229f",
+      "mamba_ssm/ops/tilelang/mamba3/mamba3_mimo_fwd.py": "1db4bc1e2f55be807c59954a82c3a9066913a13e43368c92a767f47c819d2047",
+      "mamba_ssm/ops/triton/layernorm_gated.py": "eb6252e247b90f1c8a75946efbc1a221e0c4da701b6757ddae49f3495cf7a42f",
+      "mamba_ssm/ops/triton/mamba3/angle_dt.py": "7d99f8cff37371cfbfe9d4dd36f17a16135fb07f2c6e14add3ad4dd5c0034e2e",
+      "mamba_ssm/ops/triton/mamba3/grouped_head_reduction.py": "d461ec57ef42e2f04ceb611daba02705a06347793a44cd40f68b5dc45d3a2d2d",
+      "mamba_ssm/ops/triton/mamba3/mamba3_mimo_utils.py": "efbdd750f53c67fd882ffe7a3af3d51ac4aaa341e764e0efa92ce8ea51c27b7c",
+      "mamba_ssm/ops/triton/mamba3/mamba3_siso_bwd.py": "270639817bf8070c6b3f1fac229826c89344e38e8375e73e95249bf3087355de",
+      "mamba_ssm/ops/triton/mamba3/mamba3_siso_combined.py": "410ad57555b5841fba7bd76fdafdc3ddf82741176489c3e3493f5c6f3c0c6012",
+      "mamba_ssm/ops/triton/mamba3/mamba3_siso_fwd.py": "bfcf75d9192e0f90ca543eb33a5b5f2b50d92ad2a60f2d5bfab1dc7081b4da33",
+      "mamba_ssm/ops/triton/mamba3/utils.py": "9d93fd772c7f256f517e75445261773e469cfeddb8bb76c1f8f16e9feabb3c13"
+    }
+  },
+  "runtime": {
+    "torch": "2.9.1+cu128",
+    "mamba-ssm": "2.3.2.post1",
+    "triton": "3.5.1",
+    "tilelang": "0.1.8",
+    "recbole": "1.2.0"
+  },
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "capability": [
+    8,
+    0
+  ],
+  "shared_memory_per_block": 49152,
+  "shared_memory_per_block_optin": 166912,
+  "native_support": {
+    "status": "HARDWARE_OR_KERNEL_BLOCKED",
+    "forward": "PASS",
+    "backward": "FAIL",
+    "backend": "official_upstream",
+    "chunk_size": 8,
+    "rank": 4,
+    "batch": 1,
+    "length": 17,
+    "heads": 2,
+    "d_state": 128,
+    "headdim": 64,
+    "rotary_dim_divisor": 4,
+    "dtype": "bfloat16",
+    "no_final_state_loss": true,
+    "kernel": "mamba_mimo_bwd_bwd_kernel",
+    "static_smem_bytes": null,
+    "dynamic_smem_bytes": null,
+    "smem_metadata_note": "Native wrapper does not expose compiled launch metadata; preserve compiler stderr.",
+    "input_shapes": {
+      "q": [
+        1,
+        17,
+        4,
+        1,
+        128
+      ],
+      "k": [
+        1,
+        17,
+        4,
+        1,
+        128
+      ],
+      "v": [
+        1,
+        17,
+        2,
+        64
+      ],
+      "adt": [
+        1,
+        2,
+        17
+      ],
+      "dw": [
+        1,
+        2,
+        17
+      ],
+      "dp": [
+        1,
+        2,
+        17
+      ],
+      "trap": [
+        1,
+        2,
+        17
+      ],
+      "qb": [
+        2,
+        4,
+        128
+      ],
+      "kb": [
+        2,
+        4,
+        128
+      ],
+      "angles": [
+        1,
+        17,
+        2,
+        32
+      ],
+      "d": [
+        2
+      ],
+      "z": [
+        1,
+        17,
+        2,
+        64
+      ],
+      "mv": [
+        2,
+        4,
+        64
+      ],
+      "mz": [
+        2,
+        4,
+        64
+      ],
+      "mo": [
+        2,
+        4,
+        64
+      ]
+    },
+    "launch_defaults": {
+      "bf_threads": "128",
+      "bf_num_stages": "0",
+      "bb_threads": "256",
+      "bb_num_stages": "0",
+      "states_dtype": "torch.bfloat16"
+    },
+    "launch_flags": {
+      "hasZ": true,
+      "hasD": true,
+      "reduceO": true,
+      "packed_dout": false,
+      "fuse_pregate_headwise_rms_norm": false,
+      "groups": 1
+    },
+    "traceback": "Traceback (most recent call last):\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/gpu_checks_002.py\", line 48, in native_gate\n    loss.backward()\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/torch/_tensor.py\", line 625, in backward\n    torch.autograd.backward(\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/torch/autograd/__init__.py\", line 354, in backward\n    _engine_run_backward(\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/torch/autograd/graph.py\", line 841, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/torch/autograd/function.py\", line 315, in apply\n    return user_fn(self, *args)\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo.py\", line 184, in backward\n    dD, dZ, dOut_Norm_Weight) = mamba_mimo_bwd_combined(\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo_bwd.py\", line 1563, in mamba_mimo_bwd_combined\n    ddA += bwd_dadt_fused_triton(\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/mamba_ssm/ops/triton/mamba3/mamba3_mimo_utils.py\", line 544, in bwd_dadt_fused_triton\n    assert S % chunk_size == 0, f\"Sequence length {S} must be divisible by chunk_size {chunk_size}\"\nAssertionError: Sequence length 17 must be divisible by chunk_size 8\n"
+  },
+  "failure_origin": "PINNED_NATIVE_UPSTREAM",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/gpu_checks_002.py\", line 151, in run\n    native = native_gate(arch,result,save)\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/gpu_checks_002.py\", line 48, in native_gate\n    loss.backward()\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/torch/_tensor.py\", line 625, in backward\n    torch.autograd.backward(\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/torch/autograd/__init__.py\", line 354, in backward\n    _engine_run_backward(\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/torch/autograd/graph.py\", line 841, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/torch/autograd/function.py\", line 315, in apply\n    return user_fn(self, *args)\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo.py\", line 184, in backward\n    dD, dZ, dOut_Norm_Weight) = mamba_mimo_bwd_combined(\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo_bwd.py\", line 1563, in mamba_mimo_bwd_combined\n    ddA += bwd_dadt_fused_triton(\n  File \"/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/mamba_ssm/ops/triton/mamba3/mamba3_mimo_utils.py\", line 544, in bwd_dadt_fused_triton\n    assert S % chunk_size == 0, f\"Sequence length {S} must be divisible by chunk_size {chunk_size}\"\nAssertionError: Sequence length 17 must be divisible by chunk_size 8\n"
+}
