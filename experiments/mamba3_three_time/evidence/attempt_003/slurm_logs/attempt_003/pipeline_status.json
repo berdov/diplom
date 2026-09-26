@@ -1,0 +1,169 @@
+{
+  "attempt_id": "003",
+  "job_id": "4338500",
+  "execution_commit": "3a9771f91bbdc8233eee83bb326a0731f3830373",
+  "parent_execution_commit": "d0c8a2356b235981436715e2d340803e1a0951a0",
+  "source_hash": "2b8164eb2381d9b7b2c15f2da932b0ae98dc22069d165e2e3fb62857dad9220a",
+  "plan_sha256": "d1175598d728d4a4690cb6f2de39792cfbcf01812f67ad741fac72ee430fb35e",
+  "status": "FAIL",
+  "architectures": {
+    "SISO": {
+      "exit_code": 1,
+      "status": "FAIL",
+      "evidence": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/runs/siso_correctness_003.json",
+      "failed_cases": [
+        "drift_base_eval/SISO/stable_adt/L50/Pnone/x1",
+        "drift_base_eval/SISO/stable_adt/L64/Pnone/x1",
+        "drift_base_train/SISO/stable_adt/L50/Pnone/x1",
+        "drift_base_train/SISO/stable_adt/L64/Pnone/x1",
+        "drift_dual_eval/SISO/stable_adt/L50/Pnone/x1",
+        "drift_dual_eval/SISO/stable_adt/L64/Pnone/x1",
+        "drift_dual_train/SISO/stable_adt/L50/Pnone/x1",
+        "drift_dual_train/SISO/stable_adt/L64/Pnone/x1",
+        "drift_triple_eval/SISO/stable_adt/L50/Pnone/x1",
+        "drift_triple_eval/SISO/stable_adt/L64/Pnone/x1",
+        "drift_triple_train/SISO/stable_adt/L50/Pnone/x1",
+        "drift_triple_train/SISO/stable_adt/L64/Pnone/x1",
+        "A_eval_L50/SISO/stable_adt/L50/Pnone/x1",
+        "A_eval_L64/SISO/stable_adt/L64/Pnone/x1",
+        "A_train_L50/SISO/stable_adt/L50/Pnone/x1",
+        "A_train_L64/SISO/stable_adt/L64/Pnone/x1",
+        "B_eval_L50/SISO/stable_adt/L50/Pnone/x1",
+        "B_eval_L64/SISO/stable_adt/L64/Pnone/x1",
+        "B_train_L50/SISO/stable_adt/L50/Pnone/x1",
+        "B_train_L64/SISO/stable_adt/L64/Pnone/x1"
+      ],
+      "failed_diagnostics": [],
+      "original_exact_zero_check": "FAIL",
+      "localization": null,
+      "native_support": null,
+      "full_local_correctness": "FAIL",
+      "technical_sections": {
+        "native_support": {
+          "status": "PASS",
+          "expected": 1,
+          "measured": 1,
+          "failed": []
+        },
+        "wrapped_support": {
+          "status": "NOT_RUN",
+          "expected": 0,
+          "measured": 0,
+          "failed": []
+        },
+        "adapter_matrix": {
+          "status": "NOT_RUN",
+          "expected": 0,
+          "measured": 0,
+          "failed": []
+        },
+        "structural_drift": {
+          "status": "FAIL",
+          "expected": 12,
+          "measured": 12,
+          "failed": [
+            "drift_base_eval/SISO/stable_adt/L50/Pnone/x1",
+            "drift_base_eval/SISO/stable_adt/L64/Pnone/x1",
+            "drift_base_train/SISO/stable_adt/L50/Pnone/x1",
+            "drift_base_train/SISO/stable_adt/L64/Pnone/x1",
+            "drift_dual_eval/SISO/stable_adt/L50/Pnone/x1",
+            "drift_dual_eval/SISO/stable_adt/L64/Pnone/x1",
+            "drift_dual_train/SISO/stable_adt/L50/Pnone/x1",
+            "drift_dual_train/SISO/stable_adt/L64/Pnone/x1",
+            "drift_triple_eval/SISO/stable_adt/L50/Pnone/x1",
+            "drift_triple_eval/SISO/stable_adt/L64/Pnone/x1",
+            "drift_triple_train/SISO/stable_adt/L50/Pnone/x1",
+            "drift_triple_train/SISO/stable_adt/L64/Pnone/x1"
+          ]
+        },
+        "candidate_prefix": {
+          "status": "PASS",
+          "expected": 18,
+          "measured": 18,
+          "failed": []
+        },
+        "paired_reference": {
+          "status": "PASS",
+          "expected": 14,
+          "measured": 14,
+          "failed": []
+        },
+        "evidence_complete": true
+      },
+      "advisory_mismatches": [
+        "isolated_angle/SISO/upstream_vs_stable_angle/L65/P31/x1",
+        "isolated_angle/SISO/upstream_vs_stable_angle/L65/P31/x16",
+        "isolated_angle/SISO/upstream_vs_stable_angle/L97/P65/x1",
+        "isolated_angle/SISO/upstream_vs_stable_angle/L97/P65/x16"
+      ]
+    },
+    "MIMO": {
+      "exit_code": 1,
+      "status": "FAIL",
+      "evidence": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/runs/mimo_correctness_003.json",
+      "failed_cases": [
+        "paired_reference_triple/MIMO/upstream_with_adapter/L15/Pnone/x1",
+        "paired_reference_tied/MIMO/upstream_with_adapter/L50/Pnone/x1",
+        "paired_reference_triple/MIMO/upstream_with_adapter/L50/Pnone/x1",
+        "E_causality_padding/MIMO/upstream_with_adapter/Lmixed/Pnone/x1",
+        "F_D_three_path_L15/MIMO/upstream_with_adapter/L15/Pnone/x1",
+        "F_reference_calibration_official_tied_L50/MIMO/upstream_with_adapter/L50/Pnone/x1",
+        "F_D_three_path_L50/MIMO/upstream_with_adapter/L50/Pnone/x1"
+      ],
+      "failed_diagnostics": [],
+      "original_exact_zero_check": "NOT_RUN",
+      "localization": null,
+      "native_support": null,
+      "full_local_correctness": "FAIL",
+      "technical_sections": {
+        "native_support": {
+          "status": "PASS",
+          "expected": 1,
+          "measured": 1,
+          "failed": []
+        },
+        "wrapped_support": {
+          "status": "PASS",
+          "expected": 2,
+          "measured": 2,
+          "failed": []
+        },
+        "adapter_matrix": {
+          "status": "PASS",
+          "expected": 9,
+          "measured": 9,
+          "failed": []
+        },
+        "structural_drift": {
+          "status": "NOT_RUN",
+          "expected": 0,
+          "measured": 0,
+          "failed": []
+        },
+        "candidate_prefix": {
+          "status": "NOT_RUN",
+          "expected": 0,
+          "measured": 0,
+          "failed": []
+        },
+        "paired_reference": {
+          "status": "FAIL",
+          "expected": 18,
+          "measured": 18,
+          "failed": [
+            "paired_reference_triple/MIMO/upstream_with_adapter/L15/Pnone/x1",
+            "paired_reference_tied/MIMO/upstream_with_adapter/L50/Pnone/x1",
+            "paired_reference_triple/MIMO/upstream_with_adapter/L50/Pnone/x1"
+          ]
+        },
+        "evidence_complete": true
+      },
+      "advisory_mismatches": []
+    }
+  },
+  "scientific_fits": 0,
+  "TRAIN": 0,
+  "VALID": 0,
+  "TEST": 0,
+  "stage": "MIMO"
+}

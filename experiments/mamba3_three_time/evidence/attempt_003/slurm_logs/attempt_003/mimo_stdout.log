@@ -1,0 +1,146 @@
+2026-09-19 18:13:55  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:14:13  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:14:16  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:14:38  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:14:41  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:15:41  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+{"case_id": "native/MIMO/official/L16/Pnone/x1", "status": "PASS"}
+{"case_id": "initialization/MIMO/candidate/Lall/Pnone/x1", "status": "PASS"}
+2026-09-19 18:15:53  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:16:08  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:16:10  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:16:33  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:16:35  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:17:36  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+{"case_id": "wrapped_gate/MIMO/official/L17/Pnone/x1", "status": "PASS"}
+2026-09-19 18:17:40  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:17:55  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:17:57  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:18:20  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:18:23  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:19:23  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+{"case_id": "wrapped_gate/MIMO/official/L50/Pnone/x1", "status": "PASS"}
+2026-09-19 18:19:27  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:19:42  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:19:44  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:20:07  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:20:10  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:21:10  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+{"case_id": "local_gate_base/MIMO/upstream_with_adapter/L17/Pnone/x1", "status": "PASS"}
+{"case_id": "local_gate_dual/MIMO/upstream_with_adapter/L17/Pnone/x1", "status": "PASS"}
+{"case_id": "local_gate_triple/MIMO/upstream_with_adapter/L17/Pnone/x1", "status": "PASS"}
+2026-09-19 18:21:14  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:21:29  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:21:31  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:21:54  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:21:56  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:22:56  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+{"case_id": "local_gate_base/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "PASS"}
+{"case_id": "local_gate_dual/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "PASS"}
+{"case_id": "local_gate_triple/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "PASS"}
+2026-09-19 18:23:00  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:23:15  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:23:17  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:23:39  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:23:42  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:24:41  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+{"case_id": "padding/MIMO/upstream_with_adapter/L1/Pnone/x1", "status": "PASS"}
+{"case_id": "padding/MIMO/upstream_with_adapter/L7/Pnone/x1", "status": "PASS"}
+{"case_id": "padding/MIMO/upstream_with_adapter/L8/Pnone/x1", "status": "PASS"}
+{"case_id": "padding/MIMO/upstream_with_adapter/L9/Pnone/x1", "status": "PASS"}
+{"case_id": "padding/MIMO/upstream_with_adapter/L15/Pnone/x1", "status": "PASS"}
+{"case_id": "padding/MIMO/upstream_with_adapter/L16/Pnone/x1", "status": "PASS"}
+2026-09-19 18:24:46  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:25:01  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:25:02  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:25:25  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:25:28  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:26:29  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+{"case_id": "padding/MIMO/upstream_with_adapter/L17/Pnone/x1", "status": "PASS"}
+2026-09-19 18:26:33  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:26:47  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:26:49  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:27:12  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:27:15  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:28:15  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+{"case_id": "padding/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "PASS"}
+2026-09-19 18:28:19  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:28:34  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:28:36  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:28:58  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:29:01  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:30:02  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+2026-09-19 18:30:05  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:30:20  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:30:22  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:30:45  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:30:47  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:31:47  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+{"case_id": "padding/MIMO/upstream_with_adapter/L65/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_tied/MIMO/upstream_with_adapter/L1/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_triple/MIMO/upstream_with_adapter/L1/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_tied/MIMO/upstream_with_adapter/L7/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_triple/MIMO/upstream_with_adapter/L7/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_tied/MIMO/upstream_with_adapter/L8/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_triple/MIMO/upstream_with_adapter/L8/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_tied/MIMO/upstream_with_adapter/L9/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_triple/MIMO/upstream_with_adapter/L9/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_tied/MIMO/upstream_with_adapter/L15/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_triple/MIMO/upstream_with_adapter/L15/Pnone/x1", "status": "FAIL"}
+{"case_id": "paired_reference_tied/MIMO/upstream_with_adapter/L16/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_triple/MIMO/upstream_with_adapter/L16/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_tied/MIMO/upstream_with_adapter/L17/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_triple/MIMO/upstream_with_adapter/L17/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_tied/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "FAIL"}
+{"case_id": "paired_reference_triple/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "INCONCLUSIVE"}
+{"case_id": "paired_reference_tied/MIMO/upstream_with_adapter/L65/Pnone/x1", "status": "PASS"}
+{"case_id": "paired_reference_triple/MIMO/upstream_with_adapter/L65/Pnone/x1", "status": "PASS"}
+{"case_id": "A_eval_L50/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "PASS"}
+2026-09-19 18:31:56  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:32:11  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 18:32:13  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 18:32:35  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 18:32:38  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 18:33:39  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+{"case_id": "A_eval_L64/MIMO/upstream_with_adapter/L64/Pnone/x1", "status": "PASS"}
+{"case_id": "A_train_L50/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "PASS"}
+{"case_id": "A_train_L64/MIMO/upstream_with_adapter/L64/Pnone/x1", "status": "PASS"}
+{"case_id": "B_eval_L50/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "PASS"}
+{"case_id": "B_eval_L64/MIMO/upstream_with_adapter/L64/Pnone/x1", "status": "PASS"}
+{"case_id": "B_train_L50/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "PASS"}
+{"case_id": "B_train_L64/MIMO/upstream_with_adapter/L64/Pnone/x1", "status": "PASS"}
+{"case_id": "C_leaf_gradient_sum/MIMO/upstream_with_adapter/Lmixed/Pnone/x1", "status": "PASS"}
+{"case_id": "C_tied_calibrator_recovery/MIMO/upstream_with_adapter/Lmixed/Pnone/x1", "status": "PASS"}
+{"case_id": "reference_calibration_official_tied_L7/MIMO/upstream_with_adapter/L7/Pnone/x1", "status": "PASS"}
+{"case_id": "D_three_path_L7/MIMO/upstream_with_adapter/L7/Pnone/x1", "status": "PASS"}
+{"case_id": "E_causality_padding/MIMO/upstream_with_adapter/Lmixed/Pnone/x1", "status": "FAIL"}
+{"case_id": "F_official_full_sequence_L1/MIMO/upstream_with_adapter/L1/Pnone/x1", "status": "PASS"}
+{"case_id": "F_reference_calibration_official_tied_L1/MIMO/upstream_with_adapter/L1/Pnone/x1", "status": "PASS"}
+{"case_id": "F_D_three_path_L1/MIMO/upstream_with_adapter/L1/Pnone/x1", "status": "PASS"}
+{"case_id": "F_official_full_sequence_L7/MIMO/upstream_with_adapter/L7/Pnone/x1", "status": "PASS"}
+{"case_id": "F_reference_calibration_official_tied_L7/MIMO/upstream_with_adapter/L7/Pnone/x1", "status": "PASS"}
+{"case_id": "F_D_three_path_L7/MIMO/upstream_with_adapter/L7/Pnone/x1", "status": "PASS"}
+{"case_id": "F_official_full_sequence_L8/MIMO/upstream_with_adapter/L8/Pnone/x1", "status": "PASS"}
+{"case_id": "F_reference_calibration_official_tied_L8/MIMO/upstream_with_adapter/L8/Pnone/x1", "status": "PASS"}
+{"case_id": "F_D_three_path_L8/MIMO/upstream_with_adapter/L8/Pnone/x1", "status": "PASS"}
+{"case_id": "F_official_full_sequence_L9/MIMO/upstream_with_adapter/L9/Pnone/x1", "status": "PASS"}
+{"case_id": "F_reference_calibration_official_tied_L9/MIMO/upstream_with_adapter/L9/Pnone/x1", "status": "PASS"}
+{"case_id": "F_D_three_path_L9/MIMO/upstream_with_adapter/L9/Pnone/x1", "status": "PASS"}
+{"case_id": "F_official_full_sequence_L15/MIMO/upstream_with_adapter/L15/Pnone/x1", "status": "PASS"}
+{"case_id": "F_reference_calibration_official_tied_L15/MIMO/upstream_with_adapter/L15/Pnone/x1", "status": "PASS"}
+{"case_id": "F_D_three_path_L15/MIMO/upstream_with_adapter/L15/Pnone/x1", "status": "FAIL"}
+{"case_id": "F_official_full_sequence_L16/MIMO/upstream_with_adapter/L16/Pnone/x1", "status": "PASS"}
+{"case_id": "F_reference_calibration_official_tied_L16/MIMO/upstream_with_adapter/L16/Pnone/x1", "status": "PASS"}
+{"case_id": "F_D_three_path_L16/MIMO/upstream_with_adapter/L16/Pnone/x1", "status": "PASS"}
+{"case_id": "F_official_full_sequence_L17/MIMO/upstream_with_adapter/L17/Pnone/x1", "status": "PASS"}
+{"case_id": "F_reference_calibration_official_tied_L17/MIMO/upstream_with_adapter/L17/Pnone/x1", "status": "PASS"}
+{"case_id": "F_D_three_path_L17/MIMO/upstream_with_adapter/L17/Pnone/x1", "status": "PASS"}
+{"case_id": "F_official_full_sequence_L50/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "PASS"}
+{"case_id": "F_reference_calibration_official_tied_L50/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "FAIL"}
+{"case_id": "F_D_three_path_L50/MIMO/upstream_with_adapter/L50/Pnone/x1", "status": "INCONCLUSIVE"}
+{"case_id": "F_official_full_sequence_L65/MIMO/upstream_with_adapter/L65/Pnone/x1", "status": "PASS"}
+{"case_id": "F_reference_calibration_official_tied_L65/MIMO/upstream_with_adapter/L65/Pnone/x1", "status": "PASS"}
+{"case_id": "F_D_three_path_L65/MIMO/upstream_with_adapter/L65/Pnone/x1", "status": "PASS"}
+{"case_id": "G_synthetic_optimizer_dual/MIMO/upstream_with_adapter/Lmixed/Pnone/x1", "status": "PASS"}
+{"case_id": "G_synthetic_optimizer_triple/MIMO/upstream_with_adapter/Lmixed/Pnone/x1", "status": "PASS"}
+{"case_id": "H_state_dict_roundtrip/MIMO/upstream_with_adapter/Lmixed/Pnone/x1", "status": "PASS"}
