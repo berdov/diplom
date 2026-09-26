@@ -1,0 +1,79 @@
+{
+  "study_id": "mamba3_three_time_siso_validation_001",
+  "scope": "Exploratory single-seed SISO dual versus triple; post-diagnostic numerical policy, before new recommendation metrics",
+  "execution_004": "176f72a206eb48ddc4de492b87bc3273b75e1cae",
+  "tasks": [
+    {
+      "mode": "dual",
+      "seed": 2026,
+      "run_id": "mamba3_three_time_siso_dual_seed2026_001"
+    },
+    {
+      "mode": "triple",
+      "seed": 2026,
+      "run_id": "mamba3_three_time_siso_triple_seed2026_001"
+    }
+  ],
+  "backend": "upstream",
+  "architecture": "SISO",
+  "test_evaluation_count": 0,
+  "TEST": "NOT_RUN",
+  "max_scientific_fits": 2,
+  "scientific": {
+    "epochs": 300,
+    "early_stopping": "unchanged RecBole fit; last equal maximum checkpoint tie semantics",
+    "seed": 2026,
+    "learner": "adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0,
+    "clip_grad_norm": "effective frozen RecBole config",
+    "train_batch_size": 2048,
+    "eval_batch_size_setting": 4096,
+    "MAX_ITEM_LIST_LENGTH": 50,
+    "eval_step": 1,
+    "stopping_step": 10,
+    "selection": "VALID NDCG@10",
+    "evaluation": "full-ranking"
+  },
+  "historical_reference": {
+    "source_json": "experiments/mamba3_time_mechanisms/runs/mamba3_separate_time_validation_001.json",
+    "ndcg10": 0.0633,
+    "role": "historical context only; not an independent additional seed; primary comparator is new dual"
+  },
+  "gate": {
+    "synthetic_seed": 314159,
+    "new_prefix_fixtures": [
+      [
+        50,
+        25
+      ],
+      [
+        65,
+        31
+      ]
+    ],
+    "loss_multipliers": [
+      1,
+      16
+    ],
+    "parity": "reuse A/B cases eval/train L50/L64 plus tied recovery",
+    "reference": "SISO L7/L50 official tied then independent triple; common signed/nonnegative cotangents; unchanged profile",
+    "edge_cases": [
+      "right padding",
+      "length1",
+      "zero observed gaps",
+      "cross-user",
+      "pure state_dict roundtrip"
+    ],
+    "initialization": "dual/triple scratch backbone/RNG parity"
+  },
+  "budget": {
+    "pipeline_seconds": 13800,
+    "minimum_start_remaining_seconds": 900,
+    "gate_seconds": 2400,
+    "smoke_seconds": 900
+  },
+  "admission_status": "ACCEPTED_FOR_SISO_PILOT_WITH_DOCUMENTED_NUMERICAL_RESIDUAL",
+  "no_retries": true,
+  "MIMO_training": false
+}
