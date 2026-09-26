@@ -1,0 +1,418 @@
+{
+  "execution_commit": "6b5618a769d8e3424df0b7232605426fac8c573a",
+  "source_hash": "105e09559cde506d0a6de46f8731213a5a6a8af0c56b20924d5c702c9ec87b58",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "model_source_hash": "795022880fe1459e3674e298638202bd10ddae2f04f3e737d0b4d90dbef035ca",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "job_id": "4353980",
+  "backend": "upstream",
+  "architecture": "SISO",
+  "policy_version": "siso_numeric_acceptance_v1",
+  "policy_sha256": "b40f72eae5895c379143e8ef590a66f7dab80b9b61e1f1349fcdf16efb509c50",
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "admission_sha256": "574826c7d8777058d5c87788b9adcd411c8f9ce88f872ae8dd31569f1cd885c7",
+  "status": "PASS",
+  "cases": [
+    {
+      "mode": "dual",
+      "batch_size": 2048,
+      "length": 50,
+      "loss": 8.883469581604004,
+      "seconds": 261.8964936970151,
+      "peak_gpu_allocated_bytes": 1899576320,
+      "peak_gpu_reserved_bytes": 2466250752,
+      "checks": {
+        "loss_finite": {
+          "passed": true
+        },
+        "gradient:item_embedding.weight": {
+          "passed": true
+        },
+        "gradient:input_norm.weight": {
+          "passed": true
+        },
+        "gradient:input_norm.bias": {
+          "passed": true
+        },
+        "gradient:layers.0.norm1.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.norm1.bias": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.dt_bias": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.B_bias": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.C_bias": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.D": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.in_proj.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.B_norm.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.C_norm.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.out_proj.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.norm2.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.norm2.bias": {
+          "passed": true
+        },
+        "gradient:layers.0.ffn.fc1.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.ffn.fc1.bias": {
+          "passed": true
+        },
+        "gradient:layers.0.ffn.fc2.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.ffn.fc2.bias": {
+          "passed": true
+        },
+        "gradient:layers.1.norm1.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.norm1.bias": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.dt_bias": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.B_bias": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.C_bias": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.D": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.in_proj.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.B_norm.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.C_norm.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.out_proj.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.norm2.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.norm2.bias": {
+          "passed": true
+        },
+        "gradient:layers.1.ffn.fc1.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.ffn.fc1.bias": {
+          "passed": true
+        },
+        "gradient:layers.1.ffn.fc2.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.ffn.fc2.bias": {
+          "passed": true
+        },
+        "gradient:output_norm.weight": {
+          "passed": true
+        },
+        "gradient:output_norm.bias": {
+          "passed": true
+        },
+        "gradient:times.calibrators.decay.first.weight": {
+          "passed": true
+        },
+        "gradient:times.calibrators.decay.first.bias": {
+          "passed": true
+        },
+        "gradient:times.calibrators.decay.last.weight": {
+          "passed": true
+        },
+        "gradient:times.calibrators.decay.last.bias": {
+          "passed": true
+        },
+        "gradient:times.calibrators.scan.first.weight": {
+          "passed": true
+        },
+        "gradient:times.calibrators.scan.first.bias": {
+          "passed": true
+        },
+        "gradient:times.calibrators.scan.last.weight": {
+          "passed": true
+        },
+        "gradient:times.calibrators.scan.last.bias": {
+          "passed": true
+        },
+        "calibrator_signal:decay": {
+          "passed": true
+        },
+        "calibrator_signal:scan": {
+          "passed": true
+        },
+        "optimizer_update": {
+          "passed": true
+        },
+        "calibrator_update:decay": {
+          "passed": true
+        },
+        "calibrator_update:scan": {
+          "passed": true
+        },
+        "state_dict_roundtrip": {
+          "passed": true
+        },
+        "roundtrip_output": {
+          "passed": true,
+          "finite": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "relative_norm": 0.0,
+          "atol": 0,
+          "rtol": 0,
+          "relative_norm_limit": null,
+          "elements": 128,
+          "left_dtype": "float64 diagnostic conversion"
+        }
+      },
+      "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/smoke/dual_state_dict.pth",
+      "checkpoint_sha256": "9e492e7e56ecbea7c633cb9cea81d59e6a77a8b0d7212ace5d7fa65657c4477c",
+      "passed": true
+    },
+    {
+      "mode": "triple",
+      "batch_size": 2048,
+      "length": 50,
+      "loss": 8.883469581604004,
+      "seconds": 0.03786489297635853,
+      "peak_gpu_allocated_bytes": 1885201920,
+      "peak_gpu_reserved_bytes": 2468347904,
+      "checks": {
+        "loss_finite": {
+          "passed": true
+        },
+        "gradient:item_embedding.weight": {
+          "passed": true
+        },
+        "gradient:input_norm.weight": {
+          "passed": true
+        },
+        "gradient:input_norm.bias": {
+          "passed": true
+        },
+        "gradient:layers.0.norm1.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.norm1.bias": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.dt_bias": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.B_bias": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.C_bias": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.D": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.in_proj.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.B_norm.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.C_norm.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.mixer.out_proj.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.norm2.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.norm2.bias": {
+          "passed": true
+        },
+        "gradient:layers.0.ffn.fc1.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.ffn.fc1.bias": {
+          "passed": true
+        },
+        "gradient:layers.0.ffn.fc2.weight": {
+          "passed": true
+        },
+        "gradient:layers.0.ffn.fc2.bias": {
+          "passed": true
+        },
+        "gradient:layers.1.norm1.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.norm1.bias": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.dt_bias": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.B_bias": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.C_bias": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.D": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.in_proj.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.B_norm.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.C_norm.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.mixer.out_proj.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.norm2.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.norm2.bias": {
+          "passed": true
+        },
+        "gradient:layers.1.ffn.fc1.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.ffn.fc1.bias": {
+          "passed": true
+        },
+        "gradient:layers.1.ffn.fc2.weight": {
+          "passed": true
+        },
+        "gradient:layers.1.ffn.fc2.bias": {
+          "passed": true
+        },
+        "gradient:output_norm.weight": {
+          "passed": true
+        },
+        "gradient:output_norm.bias": {
+          "passed": true
+        },
+        "gradient:times.calibrators.decay.first.weight": {
+          "passed": true
+        },
+        "gradient:times.calibrators.decay.first.bias": {
+          "passed": true
+        },
+        "gradient:times.calibrators.decay.last.weight": {
+          "passed": true
+        },
+        "gradient:times.calibrators.decay.last.bias": {
+          "passed": true
+        },
+        "gradient:times.calibrators.write.first.weight": {
+          "passed": true
+        },
+        "gradient:times.calibrators.write.first.bias": {
+          "passed": true
+        },
+        "gradient:times.calibrators.write.last.weight": {
+          "passed": true
+        },
+        "gradient:times.calibrators.write.last.bias": {
+          "passed": true
+        },
+        "gradient:times.calibrators.phase.first.weight": {
+          "passed": true
+        },
+        "gradient:times.calibrators.phase.first.bias": {
+          "passed": true
+        },
+        "gradient:times.calibrators.phase.last.weight": {
+          "passed": true
+        },
+        "gradient:times.calibrators.phase.last.bias": {
+          "passed": true
+        },
+        "calibrator_signal:decay": {
+          "passed": true
+        },
+        "calibrator_signal:write": {
+          "passed": true
+        },
+        "calibrator_signal:phase": {
+          "passed": true
+        },
+        "optimizer_update": {
+          "passed": true
+        },
+        "calibrator_update:decay": {
+          "passed": true
+        },
+        "calibrator_update:write": {
+          "passed": true
+        },
+        "calibrator_update:phase": {
+          "passed": true
+        },
+        "state_dict_roundtrip": {
+          "passed": true
+        },
+        "roundtrip_output": {
+          "passed": true,
+          "finite": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "relative_norm": 0.0,
+          "atol": 0,
+          "rtol": 0,
+          "relative_norm_limit": null,
+          "elements": 128,
+          "left_dtype": "float64 diagnostic conversion"
+        }
+      },
+      "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/smoke/triple_state_dict.pth",
+      "checkpoint_sha256": "45b549a399966ebc903bf3ef65c81d4fc6c44584c8eb5ebcfc114f144c2a9b70",
+      "passed": true
+    }
+  ],
+  "scientific_fits": 0,
+  "started_at": "2026-09-26T16:24:21.470258+00:00",
+  "runtime": {
+    "torch": "2.9.1+cu128",
+    "recbole": "1.2.0",
+    "mamba_ssm": "2.3.2.post1",
+    "triton": "3.5.1",
+    "numpy": "1.26.4",
+    "tilelang": "0.1.8",
+    "apache_tvm_ffi": "0.1.9",
+    "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+    "upstream_manifest_sha256": "5c9097700345808fcfc2846dd4ccc8adc6b087ea681f2c0d22366c090f21f844",
+    "cuda": "12.8",
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true
+  },
+  "finished_at": "2026-09-26T16:28:44.153934+00:00"
+}

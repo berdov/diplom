@@ -1,0 +1,41 @@
+{
+  "execution_commit": "6b5618a769d8e3424df0b7232605426fac8c573a",
+  "source_hash": "105e09559cde506d0a6de46f8731213a5a6a8af0c56b20924d5c702c9ec87b58",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "model_source_hash": "795022880fe1459e3674e298638202bd10ddae2f04f3e737d0b4d90dbef035ca",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "job_id": "4353980",
+  "backend": "upstream",
+  "architecture": "SISO",
+  "policy_version": "siso_numeric_acceptance_v1",
+  "policy_sha256": "b40f72eae5895c379143e8ef590a66f7dab80b9b61e1f1349fcdf16efb509c50",
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "status": "PASS",
+  "started_at": "2026-09-26T16:19:03.010506+00:00",
+  "stages": [
+    {
+      "stage": "gate",
+      "status": "PASS"
+    },
+    {
+      "stage": "smoke",
+      "status": "PASS"
+    },
+    {
+      "stage": "dual",
+      "status": "PASS"
+    },
+    {
+      "stage": "triple",
+      "status": "PASS"
+    },
+    {
+      "stage": "report",
+      "status": "PASS"
+    }
+  ],
+  "scientific_fits": 2,
+  "stage": "triple",
+  "finished_at": "2026-09-26T16:50:52.698659+00:00"
+}

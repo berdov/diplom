@@ -1,0 +1,20 @@
+{
+  "status": "SUBMITTED",
+  "reserved_at": "2026-09-26T16:18:18.859591+00:00",
+  "execution_commit": "6b5618a769d8e3424df0b7232605426fac8c573a",
+  "source_hash": "105e09559cde506d0a6de46f8731213a5a6a8af0c56b20924d5c702c9ec87b58",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "policy_sha256": "b40f72eae5895c379143e8ef590a66f7dab80b9b61e1f1349fcdf16efb509c50",
+  "plan_sha256": "170fa802de72e1b1b9de58dfb2a957615fda133c7833947a543cbff6fed7aace",
+  "source_manifest_sha256": "0263747089ec835faad4ca2ff03079ef54ae7b7ba3d347a5cc4bd0632917f373",
+  "jobs_submitted": 1,
+  "max_scientific_fits": 2,
+  "scientific_fits_before_submit": 0,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "git_status_before_submit": "?? experiments/mamba3_input_time/\n?? experiments/mamba3_three_time/runs/\n?? experiments/stage_confirmation/\n?? experiments/target_combination_analysis/\n?? slurm/stage_confirmation.sh",
+  "stdout": "4353980\n",
+  "stderr": "sbatch: \u001b[1mThe job is starting as part of project: \u001b[0m\u001b[38;5;87m\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u0446\u0438\u0444\u0440\u043e\u0432\u044b\u0445 \u0430\u0432\u0430\u0442\u0430\u0440\u043e\u0432, \u0430\u0434\u0430\u043f\u0442\u0438\u0440\u0443\u044e\u0449\u0438\u0445\u0441\u044f \u043a \u044d\u043c\u043e\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u043c \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f\u043c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u0438 \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0432\u0430\u044e\u0449\u0438\u0445 \u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0435 \u0432\u0437\u0430\u0438\u043c\u043e\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435\u001b[0m (\u001b[38;5;82mproj_1833\u001b[0m)\n",
+  "returncode": 0,
+  "job_id": "4353980"
+}
