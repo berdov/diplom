@@ -4,22 +4,65 @@ from contextlib import contextmanager
 from contextvars import ContextVar
 import hashlib
 import types
+import threading
+import copy
 
 _capture = ContextVar("three_time_drift_capture", default=None)
-_events = ContextVar("three_time_drift_events", default=None)
 OUTPUTS = ("dQ_mid", "dK_mid", "dV", "dADT", "dQK_dot", "dD", "d_input_state")
 FIXED_LAUNCH = dict(num_warps=4, num_stages=2, maxnreg=128)
 
 
 @contextmanager
 def capturing(rows, events=None):
-    token = _capture.set(rows)
-    event_token = _events.set(events)
+    token = _capture.set(Collector(rows, events))
     try:
         yield
     finally:
         _capture.reset(token)
-        _events.reset(event_token)
+
+
+class Collector:
+    def __init__(self, rows, events):
+        self.rows, self.events = rows, events
+        self.lock = threading.Lock()
+        self.forward_count = 0
+
+    def bind(self):
+        with self.lock:
+            index = self.forward_count
+            self.forward_count += 1
+        return dict(collector=self, invocation_id=f"forward_{index}",
+                    collector_identity=id(self), forward_thread=threading.get_ident(),
+                    forward_calls=1, backward_calls=0, record=None)
+
+
+def forward_handle():
+    """Called only from forward; the handle is explicitly carried by autograd ctx."""
+    collector = _capture.get()
+    return collector.bind() if collector is not None else None
+
+
+def snapshot_inputs(inputs):
+    import torch
+    snapshots, layouts = {}, {}
+    for key, value in inputs.items():
+        if not torch.is_tensor(value):
+            snapshots[key] = value
+            continue
+        original_stride = list(value.stride())
+        try:
+            copy = torch.empty_strided(value.shape, value.stride(), device=value.device, dtype=value.dtype)
+            copy.copy_(value.detach())
+        except RuntimeError:
+            copy = value.detach().clone(memory_format=torch.contiguous_format)
+        snapshots[key] = copy
+        layouts[key] = dict(shape=list(value.shape), original_stride=original_stride,
+            snapshot_stride=list(copy.stride()), original_storage_offset=value.storage_offset(),
+            snapshot_storage_offset=copy.storage_offset(),
+            storage_offset_preserved=copy.storage_offset() == value.storage_offset(),
+            layout_preserved=list(copy.stride()) == original_stride,
+            storage_independent=copy.untyped_storage().data_ptr() != value.untyped_storage().data_ptr())
+    return snapshots, layouts
 
 
 def scalar(value):
@@ -34,7 +77,10 @@ def scalar(value):
 
 class LaunchRecorder:
     def __init__(self, autotuner, *, matched=False):
-        self.autotuner, self.matched, self.records = autotuner, matched, []
+        self.autotuner = copy.copy(autotuner)
+        if hasattr(autotuner, "cache"):
+            self.autotuner.cache = dict(autotuner.cache)
+        self.matched, self.records = matched, []
 
     def __getitem__(self, grid):
         def run(*args, **kwargs):
@@ -74,30 +120,41 @@ def invoke(function, inputs, *, matched=False):
     return outputs, proxy.records
 
 
-def dqkv_call(function, variant, **inputs):
-    sink = _capture.get()
+def dqkv_call(function, variant, *, invocation=None, **inputs):
     hybrid = variant == "diagnostic_hybrid"
-    if sink is None and not hybrid:
+    if invocation is None and not hybrid:
         return function(**inputs)
+    saved, layouts = snapshot_inputs(inputs) if invocation is not None else ({}, {})
     outputs, launches = invoke(function, inputs)
     if hybrid:
         from .stable_adt import compute_dqkv
         stable, second = invoke(compute_dqkv, inputs)
         outputs = (*outputs[:3], stable[3], *outputs[4:])
         launches += second
-    if sink is not None:
-        # The wrappers do not mutate these inputs. Keep exact storage/strides for replay.
-        sink.append(dict(inputs={k:v.detach() if hasattr(v, "detach") else v for k,v in inputs.items()},
+    if invocation is not None:
+        collector = invocation["collector"]
+        invocation["backward_calls"] += 1
+        record = dict(inputs=saved, input_layouts=layouts,
             outputs={k:v.detach().clone() for k,v in zip(OUTPUTS, outputs) if v is not None},
-            launches=launches, backend=variant, hybrid_double_compute=hybrid, stages={}))
-        if _events.get() is not None:
-            _events.get().append((f"reverse_layer{len(sink)-1}/dqkv", sink[-1]["outputs"]))
+            launches=launches, backend=variant, hybrid_double_compute=hybrid, stages={},
+            invocation_id=invocation["invocation_id"], collector_identity=invocation["collector_identity"],
+            forward_thread=invocation["forward_thread"], backward_thread=threading.get_ident(),
+            forward_calls=invocation["forward_calls"], backward_calls=invocation["backward_calls"])
+        invocation["record"] = record
+        with collector.lock:
+            collector.rows.append(record)
+            if collector.events is not None:
+                collector.events.append((record["invocation_id"]+"/dqkv", record["outputs"]))
     return outputs
 
 
-def capture_stages(**values):
-    sink = _capture.get()
-    if sink is not None:
-        sink[-1]["stages"] = {k:v.detach().clone() for k,v in values.items() if v is not None}
-        if _events.get() is not None:
-            _events.get().append((f"reverse_layer{len(sink)-1}/rotary_write_phase",sink[-1]["stages"]))
+def capture_stages(*, invocation=None, **values):
+    if invocation is not None:
+        record = invocation["record"]
+        if record is None:
+            raise RuntimeError("Missing invocation-owned dqkv record")
+        record["stages"] = {k:v.detach().clone() for k,v in values.items() if v is not None}
+        collector = invocation["collector"]
+        with collector.lock:
+            if collector.events is not None:
+                collector.events.append((record["invocation_id"]+"/rotary_write_phase", record["stages"]))

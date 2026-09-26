@@ -19,6 +19,8 @@ def dense_only(cu_seqlens=None, input_states=None, return_final_states=False):
 class SISO(torch.autograd.Function):
     @staticmethod
     def forward(ctx, q, k, v, adt, dw, dp, trap, qb, kb, angles, d, z, chunk):
+        from .drift_capture import forward_handle
+        ctx.diagnostic_invocation = forward_handle()
         from mamba_ssm.ops.triton.mamba3.angle_dt import angle_dt_fwd
         from mamba_ssm.ops.triton.mamba3.mamba3_siso_fwd import mamba3_siso_fwd
         theta, _ = angle_dt_fwd(angles, dp, chunk_size=chunk, return_output_state=True)
@@ -46,6 +48,7 @@ class SISO(torch.autograd.Function):
         dz, go = compute_dzdo(grad, z, ov, chunk_size=ctx.chunk) if z is not None else (None, grad)
         from .drift_capture import dqkv_call, capture_stages
         dq0, dk0, dv, da, dqk, dd, _ = dqkv_call(compute_dqkv, variant,
+            invocation=ctx.diagnostic_invocation,
             q=qr, k=ks, v=v, da_cs=cs, da_cs_sum=total, qk_dot=qk,
             SSM_States=states, do=go, d_ossm_state=None, d_ov_state=None, D=d,
             chunk_size=ctx.chunk, has_input_state=False, Cu_Seqlens=None)
@@ -58,7 +61,8 @@ class SISO(torch.autograd.Function):
             input_k_state=None, input_v_state=None, Cu_Seqlens=None)
         dang, ddp, _ = angle_dt_bwd(grad_out=dt, angle=angles, dt=dp,
             has_init_state=False, chunk_size=ctx.chunk, grad_output_state=None, cu_seqlens=None)
-        capture_stages(dQ=dq, dK=dk, dV=dv, dTheta=dt, dScale=ds, dGamma=dg,
+        capture_stages(invocation=ctx.diagnostic_invocation,
+                       dQ=dq, dK=dk, dV=dv, dTheta=dt, dScale=ds, dGamma=dg,
                        dDT_write=ddw, dDT_phase=ddp, dAngles=dang, dTrap=dtrap)
         record_trace(getattr(ctx, "trace", None), ctx.chunk, variant,
                      grad_output=grad, grad_after_z=go, dADT=da, dTheta=dt,
