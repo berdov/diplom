@@ -1,0 +1,2632 @@
+{
+  "attempt_id": "004",
+  "job_id": "4353838",
+  "execution_commit": "176f72a206eb48ddc4de492b87bc3273b75e1cae",
+  "source_hash": "795022880fe1459e3674e298638202bd10ddae2f04f3e737d0b4d90dbef035ca",
+  "plan_sha256": "752e0311d1345ad6decc84f37f6dd476b4c203e176ec94babaf332d1f39f9e0c",
+  "status": "DIAGNOSTICS_COMPLETE",
+  "architectures": {
+    "SISO": {
+      "exit_code": 0,
+      "status": "DIAGNOSTICS_COMPLETE",
+      "evidence": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/runs/siso_diagnostics_004.json",
+      "coverage": {
+        "missing": [],
+        "unexpected": [],
+        "duplicates": false
+      },
+      "verdicts": {
+        "instrumentation": "PASS",
+        "implementation_parity": "PASS",
+        "independent_derivative_checks": "PASS",
+        "reference_accuracy": "PASS",
+        "forward_prefix_invariance": "PASS",
+        "backward_numerical_residual": {
+          "SISO/upstream/causal_base_L17_P7_x1": {
+            "local_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 4.930501493194406e-11,
+              "future_l2": 1.4602754128500576e-10,
+              "prefix_l2": 0.09466613822068695,
+              "safe_denominator": 0.09466613822068695,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 1.542553060996155e-09,
+              "nonzero_entries": 640,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "official_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 4.930501493194406e-11,
+              "future_l2": 1.4602754128500576e-10,
+              "prefix_l2": 0.09466613822068695,
+              "safe_denominator": 0.09466613822068695,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 1.542553060996155e-09,
+              "nonzero_entries": 640,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_base_L17_P7_x16": {
+            "local_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 7.888802389111049e-10,
+              "future_l2": 2.336440660560092e-09,
+              "prefix_l2": 1.5146582115309912,
+              "safe_denominator": 1.5146582115309912,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 1.542553060996155e-09,
+              "nonzero_entries": 640,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "official_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 7.888802389111049e-10,
+              "future_l2": 2.336440660560092e-09,
+              "prefix_l2": 1.5146582115309912,
+              "safe_denominator": 1.5146582115309912,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 1.542553060996155e-09,
+              "nonzero_entries": 640,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_base_L65_P31_x1": {
+            "local_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                65,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 4.082916296721528e-12,
+              "future_l2": 3.3527387383169e-11,
+              "prefix_l2": 0.011307237849110323,
+              "safe_denominator": 0.011307237849110323,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 2.9651262165504904e-09,
+              "nonzero_entries": 2112,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  31,
+                  0
+                ],
+                [
+                  0,
+                  31,
+                  1
+                ],
+                [
+                  0,
+                  31,
+                  2
+                ],
+                [
+                  0,
+                  31,
+                  3
+                ],
+                [
+                  0,
+                  31,
+                  4
+                ],
+                [
+                  0,
+                  31,
+                  5
+                ],
+                [
+                  0,
+                  31,
+                  6
+                ],
+                [
+                  0,
+                  31,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "official_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                65,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 4.082916296721528e-12,
+              "future_l2": 3.3527387383169e-11,
+              "prefix_l2": 0.011307237849110323,
+              "safe_denominator": 0.011307237849110323,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 2.9651262165504904e-09,
+              "nonzero_entries": 2112,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  31,
+                  0
+                ],
+                [
+                  0,
+                  31,
+                  1
+                ],
+                [
+                  0,
+                  31,
+                  2
+                ],
+                [
+                  0,
+                  31,
+                  3
+                ],
+                [
+                  0,
+                  31,
+                  4
+                ],
+                [
+                  0,
+                  31,
+                  5
+                ],
+                [
+                  0,
+                  31,
+                  6
+                ],
+                [
+                  0,
+                  31,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_base_L65_P31_x16": {
+            "local_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                65,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 6.532666074754445e-11,
+              "future_l2": 5.36438198130704e-10,
+              "prefix_l2": 0.18091580558576517,
+              "safe_denominator": 0.18091580558576517,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 2.9651262165504904e-09,
+              "nonzero_entries": 2112,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  31,
+                  0
+                ],
+                [
+                  0,
+                  31,
+                  1
+                ],
+                [
+                  0,
+                  31,
+                  2
+                ],
+                [
+                  0,
+                  31,
+                  3
+                ],
+                [
+                  0,
+                  31,
+                  4
+                ],
+                [
+                  0,
+                  31,
+                  5
+                ],
+                [
+                  0,
+                  31,
+                  6
+                ],
+                [
+                  0,
+                  31,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "official_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                65,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 6.532666074754445e-11,
+              "future_l2": 5.36438198130704e-10,
+              "prefix_l2": 0.18091580558576517,
+              "safe_denominator": 0.18091580558576517,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 2.9651262165504904e-09,
+              "nonzero_entries": 2112,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  31,
+                  0
+                ],
+                [
+                  0,
+                  31,
+                  1
+                ],
+                [
+                  0,
+                  31,
+                  2
+                ],
+                [
+                  0,
+                  31,
+                  3
+                ],
+                [
+                  0,
+                  31,
+                  4
+                ],
+                [
+                  0,
+                  31,
+                  5
+                ],
+                [
+                  0,
+                  31,
+                  6
+                ],
+                [
+                  0,
+                  31,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_base_L97_P65_x1": {
+            "local_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                97,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 0.0,
+              "future_l2": 0.0,
+              "prefix_l2": 0.004231187845291733,
+              "safe_denominator": 0.004231187845291733,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 0.0,
+              "nonzero_entries": 0,
+              "first_nonzero_indices": [],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": true
+            },
+            "official_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                97,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 0.0,
+              "future_l2": 0.0,
+              "prefix_l2": 0.004231187845291733,
+              "safe_denominator": 0.004231187845291733,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 0.0,
+              "nonzero_entries": 0,
+              "first_nonzero_indices": [],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": true
+            }
+          },
+          "SISO/upstream/causal_base_L97_P65_x16": {
+            "local_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                97,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 0.0,
+              "future_l2": 0.0,
+              "prefix_l2": 0.06769900552466773,
+              "safe_denominator": 0.06769900552466773,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 0.0,
+              "nonzero_entries": 0,
+              "first_nonzero_indices": [],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": true
+            },
+            "official_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                97,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 0.0,
+              "future_l2": 0.0,
+              "prefix_l2": 0.06769900552466773,
+              "safe_denominator": 0.06769900552466773,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 0.0,
+              "nonzero_entries": 0,
+              "first_nonzero_indices": [],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": true
+            }
+          },
+          "SISO/upstream/causal_dual_L17_P7_x1": {
+            "local_dual": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.3962549172408245e-10,
+              "future_l2": 4.361038945935653e-10,
+              "prefix_l2": 0.0982785089864198,
+              "safe_denominator": 0.0982785089864198,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 4.437428885432384e-09,
+              "nonzero_entries": 640,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "frozen_separate": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.3962549172408245e-10,
+              "future_l2": 4.361038945935653e-10,
+              "prefix_l2": 0.0982785089864198,
+              "safe_denominator": 0.0982785089864198,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 4.437428885432384e-09,
+              "nonzero_entries": 640,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_dual_L17_P7_x16": {
+            "local_dual": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 2.2340078675853192e-09,
+              "future_l2": 6.977662313497044e-09,
+              "prefix_l2": 1.5724561437827167,
+              "safe_denominator": 1.5724561437827167,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 4.437428885432384e-09,
+              "nonzero_entries": 640,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "frozen_separate": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 2.2340078675853192e-09,
+              "future_l2": 6.977662313497044e-09,
+              "prefix_l2": 1.5724561437827167,
+              "safe_denominator": 1.5724561437827167,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 4.437428885432384e-09,
+              "nonzero_entries": 640,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_dual_L65_P31_x1": {
+            "local_dual": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                65,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.006592378893778e-11,
+              "future_l2": 8.057859889641631e-11,
+              "prefix_l2": 0.0117174774330334,
+              "safe_denominator": 0.0117174774330334,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 6.876787205858204e-09,
+              "nonzero_entries": 2112,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  31,
+                  0
+                ],
+                [
+                  0,
+                  31,
+                  1
+                ],
+                [
+                  0,
+                  31,
+                  2
+                ],
+                [
+                  0,
+                  31,
+                  3
+                ],
+                [
+                  0,
+                  31,
+                  4
+                ],
+                [
+                  0,
+                  31,
+                  5
+                ],
+                [
+                  0,
+                  31,
+                  6
+                ],
+                [
+                  0,
+                  31,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "frozen_separate": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                65,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.006592378893778e-11,
+              "future_l2": 8.057859889641631e-11,
+              "prefix_l2": 0.0117174774330334,
+              "safe_denominator": 0.0117174774330334,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 6.876787205858204e-09,
+              "nonzero_entries": 2112,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  31,
+                  0
+                ],
+                [
+                  0,
+                  31,
+                  1
+                ],
+                [
+                  0,
+                  31,
+                  2
+                ],
+                [
+                  0,
+                  31,
+                  3
+                ],
+                [
+                  0,
+                  31,
+                  4
+                ],
+                [
+                  0,
+                  31,
+                  5
+                ],
+                [
+                  0,
+                  31,
+                  6
+                ],
+                [
+                  0,
+                  31,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_dual_L65_P31_x16": {
+            "local_dual": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                65,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.610547806230045e-10,
+              "future_l2": 1.289257582342661e-09,
+              "prefix_l2": 0.1874796389285344,
+              "safe_denominator": 0.1874796389285344,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 6.876787205858204e-09,
+              "nonzero_entries": 2112,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  31,
+                  0
+                ],
+                [
+                  0,
+                  31,
+                  1
+                ],
+                [
+                  0,
+                  31,
+                  2
+                ],
+                [
+                  0,
+                  31,
+                  3
+                ],
+                [
+                  0,
+                  31,
+                  4
+                ],
+                [
+                  0,
+                  31,
+                  5
+                ],
+                [
+                  0,
+                  31,
+                  6
+                ],
+                [
+                  0,
+                  31,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "frozen_separate": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                65,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.610547806230045e-10,
+              "future_l2": 1.289257582342661e-09,
+              "prefix_l2": 0.1874796389285344,
+              "safe_denominator": 0.1874796389285344,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 6.876787205858204e-09,
+              "nonzero_entries": 2112,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  31,
+                  0
+                ],
+                [
+                  0,
+                  31,
+                  1
+                ],
+                [
+                  0,
+                  31,
+                  2
+                ],
+                [
+                  0,
+                  31,
+                  3
+                ],
+                [
+                  0,
+                  31,
+                  4
+                ],
+                [
+                  0,
+                  31,
+                  5
+                ],
+                [
+                  0,
+                  31,
+                  6
+                ],
+                [
+                  0,
+                  31,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_dual_L97_P65_x1": {
+            "local_dual": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                97,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 0.0,
+              "future_l2": 0.0,
+              "prefix_l2": 0.004355378858116389,
+              "safe_denominator": 0.004355378858116389,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 0.0,
+              "nonzero_entries": 0,
+              "first_nonzero_indices": [],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": true
+            },
+            "frozen_separate": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                97,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 0.0,
+              "future_l2": 0.0,
+              "prefix_l2": 0.004355378858116389,
+              "safe_denominator": 0.004355378858116389,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 0.0,
+              "nonzero_entries": 0,
+              "first_nonzero_indices": [],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": true
+            }
+          },
+          "SISO/upstream/causal_dual_L97_P65_x16": {
+            "local_dual": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                97,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 0.0,
+              "future_l2": 0.0,
+              "prefix_l2": 0.06968606172986222,
+              "safe_denominator": 0.06968606172986222,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 0.0,
+              "nonzero_entries": 0,
+              "first_nonzero_indices": [],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": true
+            },
+            "frozen_separate": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                97,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 0.0,
+              "future_l2": 0.0,
+              "prefix_l2": 0.06968606172986222,
+              "safe_denominator": 0.06968606172986222,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 0.0,
+              "nonzero_entries": 0,
+              "first_nonzero_indices": [],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": true
+            }
+          },
+          "SISO/upstream/causal_triple_L17_P7_x1": {
+            "local_triple": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 8.477159252340272e-11,
+              "future_l2": 3.237979675423254e-10,
+              "prefix_l2": 0.09834106763801058,
+              "safe_denominator": 0.09834106763801058,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 3.2926017107543754e-09,
+              "nonzero_entries": 640,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_triple_L17_P7_x16": {
+            "local_triple": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.3563454803744435e-09,
+              "future_l2": 5.180767480677206e-09,
+              "prefix_l2": 1.5734570822081693,
+              "safe_denominator": 1.5734570822081693,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 3.2926017107543754e-09,
+              "nonzero_entries": 640,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_triple_L65_P31_x1": {
+            "local_triple": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                65,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.511280510457791e-11,
+              "future_l2": 1.2118733752858245e-10,
+              "prefix_l2": 0.01171770178039429,
+              "safe_denominator": 0.01171770178039429,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 1.0342244562952567e-08,
+              "nonzero_entries": 2112,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  31,
+                  0
+                ],
+                [
+                  0,
+                  31,
+                  1
+                ],
+                [
+                  0,
+                  31,
+                  2
+                ],
+                [
+                  0,
+                  31,
+                  3
+                ],
+                [
+                  0,
+                  31,
+                  4
+                ],
+                [
+                  0,
+                  31,
+                  5
+                ],
+                [
+                  0,
+                  31,
+                  6
+                ],
+                [
+                  0,
+                  31,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_triple_L65_P31_x16": {
+            "local_triple": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                65,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 2.4180488167324654e-10,
+              "future_l2": 1.9389974004573192e-09,
+              "prefix_l2": 0.18748322848630863,
+              "safe_denominator": 0.18748322848630863,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 1.0342244562952567e-08,
+              "nonzero_entries": 2112,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  31,
+                  0
+                ],
+                [
+                  0,
+                  31,
+                  1
+                ],
+                [
+                  0,
+                  31,
+                  2
+                ],
+                [
+                  0,
+                  31,
+                  3
+                ],
+                [
+                  0,
+                  31,
+                  4
+                ],
+                [
+                  0,
+                  31,
+                  5
+                ],
+                [
+                  0,
+                  31,
+                  6
+                ],
+                [
+                  0,
+                  31,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "SISO/upstream/causal_triple_L97_P65_x1": {
+            "local_triple": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                97,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 0.0,
+              "future_l2": 0.0,
+              "prefix_l2": 0.004357192054958579,
+              "safe_denominator": 0.004357192054958579,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 0.0,
+              "nonzero_entries": 0,
+              "first_nonzero_indices": [],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": true
+            }
+          },
+          "SISO/upstream/causal_triple_L97_P65_x16": {
+            "local_triple": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                97,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 0.0,
+              "future_l2": 0.0,
+              "prefix_l2": 0.06971507287933726,
+              "safe_denominator": 0.06971507287933726,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 0.0,
+              "nonzero_entries": 0,
+              "first_nonzero_indices": [],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": true
+            }
+          }
+        },
+        "legacy_exact_zero": {
+          "SISO/upstream/causal_base_L17_P7_x1": {
+            "local_base": "FAIL",
+            "official_base": "FAIL"
+          },
+          "SISO/upstream/causal_base_L17_P7_x16": {
+            "local_base": "FAIL",
+            "official_base": "FAIL"
+          },
+          "SISO/upstream/causal_base_L65_P31_x1": {
+            "local_base": "FAIL",
+            "official_base": "FAIL"
+          },
+          "SISO/upstream/causal_base_L65_P31_x16": {
+            "local_base": "FAIL",
+            "official_base": "FAIL"
+          },
+          "SISO/upstream/causal_base_L97_P65_x1": {
+            "local_base": "PASS",
+            "official_base": "PASS"
+          },
+          "SISO/upstream/causal_base_L97_P65_x16": {
+            "local_base": "PASS",
+            "official_base": "PASS"
+          },
+          "SISO/upstream/causal_dual_L17_P7_x1": {
+            "local_dual": "FAIL",
+            "frozen_separate": "FAIL"
+          },
+          "SISO/upstream/causal_dual_L17_P7_x16": {
+            "local_dual": "FAIL",
+            "frozen_separate": "FAIL"
+          },
+          "SISO/upstream/causal_dual_L65_P31_x1": {
+            "local_dual": "FAIL",
+            "frozen_separate": "FAIL"
+          },
+          "SISO/upstream/causal_dual_L65_P31_x16": {
+            "local_dual": "FAIL",
+            "frozen_separate": "FAIL"
+          },
+          "SISO/upstream/causal_dual_L97_P65_x1": {
+            "local_dual": "PASS",
+            "frozen_separate": "PASS"
+          },
+          "SISO/upstream/causal_dual_L97_P65_x16": {
+            "local_dual": "PASS",
+            "frozen_separate": "PASS"
+          },
+          "SISO/upstream/causal_triple_L17_P7_x1": {
+            "local_triple": "FAIL"
+          },
+          "SISO/upstream/causal_triple_L17_P7_x16": {
+            "local_triple": "FAIL"
+          },
+          "SISO/upstream/causal_triple_L65_P31_x1": {
+            "local_triple": "FAIL"
+          },
+          "SISO/upstream/causal_triple_L65_P31_x16": {
+            "local_triple": "FAIL"
+          },
+          "SISO/upstream/causal_triple_L97_P65_x1": {
+            "local_triple": "PASS"
+          },
+          "SISO/upstream/causal_triple_L97_P65_x16": {
+            "local_triple": "PASS"
+          }
+        },
+        "stable_adt_drift": [
+          {
+            "case_id": "SISO/upstream/drift_dual_train_L50",
+            "metadata_passed": true,
+            "variants": {
+              "stable_adt": {
+                "first_measured_divergence": "model/input_norm/output_gradient",
+                "failed_checks": [
+                  "gradient:input_norm.bias",
+                  "input_gradient"
+                ],
+                "unique_mathematical_cause": "UNKNOWN"
+              }
+            }
+          },
+          {
+            "case_id": "SISO/upstream/drift_base_eval_L64",
+            "metadata_passed": true,
+            "variants": {
+              "stable_adt": {
+                "first_measured_divergence": "model/input_norm/output_gradient",
+                "failed_checks": [
+                  "gradient:input_norm.bias",
+                  "input_gradient"
+                ],
+                "unique_mathematical_cause": "UNKNOWN"
+              }
+            }
+          }
+        ],
+        "mimo_forensics": [],
+        "training_authorized": false,
+        "acceptance_proposal": "Keep structural parity and forward causality unchanged. Keep old exact-zero and reference failures visible. Consider reporting near-zero loss using output-error propagation and component magnitudes rather than only net loss; no new acceptance threshold is authorized. Missing metadata/oracle and calibration failures remain UNKNOWN/INCONCLUSIVE."
+      },
+      "failed_checks": [
+        "SISO/upstream/E_causality_padding"
+      ]
+    },
+    "MIMO": {
+      "exit_code": 0,
+      "status": "DIAGNOSTICS_COMPLETE",
+      "evidence": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/runs/mimo_diagnostics_004.json",
+      "coverage": {
+        "missing": [],
+        "unexpected": [],
+        "duplicates": false
+      },
+      "verdicts": {
+        "instrumentation": "UNKNOWN",
+        "implementation_parity": "PASS",
+        "independent_derivative_checks": "PASS",
+        "reference_accuracy": "PASS",
+        "forward_prefix_invariance": "PASS",
+        "backward_numerical_residual": {
+          "MIMO/upstream/causal_base_L17_P7_x1": {
+            "local_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 9.417045268578228e-12,
+              "future_l2": 2.672452130296247e-11,
+              "prefix_l2": 0.12555860421201226,
+              "safe_denominator": 0.12555860421201226,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 2.128450015089107e-10,
+              "nonzero_entries": 64,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "official_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 9.417045268578228e-12,
+              "future_l2": 2.672452130296247e-11,
+              "prefix_l2": 0.12555860421201226,
+              "safe_denominator": 0.12555860421201226,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 2.128450015089107e-10,
+              "nonzero_entries": 64,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "MIMO/upstream/causal_base_L17_P7_x16": {
+            "local_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.5067272429725165e-10,
+              "future_l2": 4.2759234084739954e-10,
+              "prefix_l2": 2.008937667392196,
+              "safe_denominator": 2.008937667392196,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 2.128450015089107e-10,
+              "nonzero_entries": 64,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "official_base": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.5067272429725165e-10,
+              "future_l2": 4.2759234084739954e-10,
+              "prefix_l2": 2.008937667392196,
+              "safe_denominator": 2.008937667392196,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 2.128450015089107e-10,
+              "nonzero_entries": 64,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "MIMO/upstream/causal_dual_L17_P7_x1": {
+            "local_dual": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.6700862914831305e-11,
+              "future_l2": 4.243860625365169e-11,
+              "prefix_l2": 0.1261340730226996,
+              "safe_denominator": 0.1261340730226996,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 3.3645632172691566e-10,
+              "nonzero_entries": 64,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "official_dual": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.6700862914831305e-11,
+              "future_l2": 4.243860625365169e-11,
+              "prefix_l2": 0.1261340730226996,
+              "safe_denominator": 0.1261340730226996,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 3.3645632172691566e-10,
+              "nonzero_entries": 64,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "MIMO/upstream/causal_dual_L17_P7_x16": {
+            "local_dual": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 2.672138066373009e-10,
+              "future_l2": 6.790177000584271e-10,
+              "prefix_l2": 2.0181451683631937,
+              "safe_denominator": 2.0181451683631937,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 3.3645632172691566e-10,
+              "nonzero_entries": 64,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            },
+            "official_dual": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 2.672138066373009e-10,
+              "future_l2": 6.790177000584271e-10,
+              "prefix_l2": 2.0181451683631937,
+              "safe_denominator": 2.0181451683631937,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 3.3645632172691566e-10,
+              "nonzero_entries": 64,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "MIMO/upstream/causal_triple_L17_P7_x1": {
+            "local_triple": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.1274848242537328e-11,
+              "future_l2": 4.0093375728009416e-11,
+              "prefix_l2": 0.1261105735654279,
+              "safe_denominator": 0.1261105735654279,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 3.179223961518851e-10,
+              "nonzero_entries": 64,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          },
+          "MIMO/upstream/causal_triple_L17_P7_x16": {
+            "local_triple": {
+              "status": "MEASURED",
+              "dtype": "torch.float32",
+              "shape": [
+                1,
+                17,
+                64
+              ],
+              "time_axis": 1,
+              "max_abs": 1.8039757188059724e-10,
+              "future_l2": 6.414940116481507e-10,
+              "prefix_l2": 2.0177691770468464,
+              "safe_denominator": 2.0177691770468464,
+              "denominator_floor": 1e-30,
+              "future_prefix_ratio": 3.179223961518851e-10,
+              "nonzero_entries": 64,
+              "first_nonzero_indices": [
+                [
+                  0,
+                  7,
+                  0
+                ],
+                [
+                  0,
+                  7,
+                  1
+                ],
+                [
+                  0,
+                  7,
+                  2
+                ],
+                [
+                  0,
+                  7,
+                  3
+                ],
+                [
+                  0,
+                  7,
+                  4
+                ],
+                [
+                  0,
+                  7,
+                  5
+                ],
+                [
+                  0,
+                  7,
+                  6
+                ],
+                [
+                  0,
+                  7,
+                  7
+                ]
+              ],
+              "index_axes": [
+                "batch",
+                "position",
+                "channel"
+              ],
+              "exact_zero": false
+            }
+          }
+        },
+        "legacy_exact_zero": {
+          "MIMO/upstream/causal_base_L17_P7_x1": {
+            "local_base": "FAIL",
+            "official_base": "FAIL"
+          },
+          "MIMO/upstream/causal_base_L17_P7_x16": {
+            "local_base": "FAIL",
+            "official_base": "FAIL"
+          },
+          "MIMO/upstream/causal_dual_L17_P7_x1": {
+            "local_dual": "FAIL",
+            "official_dual": "FAIL"
+          },
+          "MIMO/upstream/causal_dual_L17_P7_x16": {
+            "local_dual": "FAIL",
+            "official_dual": "FAIL"
+          },
+          "MIMO/upstream/causal_triple_L17_P7_x1": {
+            "local_triple": "FAIL"
+          },
+          "MIMO/upstream/causal_triple_L17_P7_x16": {
+            "local_triple": "FAIL"
+          }
+        },
+        "stable_adt_drift": [],
+        "mimo_forensics": [
+          {
+            "case_id": "MIMO/upstream/forensics_L15_triple_original",
+            "D_oracle": {
+              "signed": {
+                "local": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                },
+                "reference": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                }
+              },
+              "nonnegative": {
+                "local": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                },
+                "reference": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                }
+              }
+            },
+            "common_VJP": {
+              "signed": {
+                "local": "PASS",
+                "reference": "PASS"
+              },
+              "nonnegative": {
+                "local": "PASS",
+                "reference": "PASS"
+              }
+            },
+            "output_accuracy": {
+              "signed": {
+                "local": true,
+                "reference": true
+              },
+              "nonnegative": {
+                "local": true,
+                "reference": true
+              }
+            },
+            "loss_error_explained": {
+              "local": true,
+              "reference": true
+            },
+            "legacy_reference": {
+              "local": "FAIL",
+              "reference": "PASS"
+            },
+            "new_split_error": "SEE_COMMON_VJP; triple has no direct official three-slot oracle"
+          },
+          {
+            "case_id": "MIMO/upstream/forensics_L50_tied_original",
+            "D_oracle": {
+              "signed": {
+                "local": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                },
+                "reference": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                },
+                "official": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                }
+              },
+              "nonnegative": {
+                "local": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                },
+                "reference": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                },
+                "official": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                }
+              }
+            },
+            "common_VJP": {
+              "signed": {
+                "local": "PASS",
+                "reference": "PASS",
+                "official": "PASS"
+              },
+              "nonnegative": {
+                "local": "PASS",
+                "reference": "PASS",
+                "official": "PASS"
+              }
+            },
+            "output_accuracy": {
+              "signed": {
+                "local": true,
+                "reference": true,
+                "official": true
+              },
+              "nonnegative": {
+                "local": true,
+                "reference": true,
+                "official": true
+              }
+            },
+            "loss_error_explained": {
+              "local": true,
+              "reference": true,
+              "official": true
+            },
+            "legacy_reference": {
+              "local": "FAIL",
+              "reference": "PASS",
+              "official": "FAIL"
+            },
+            "new_split_error": "SEE_COMMON_VJP; triple has no direct official three-slot oracle"
+          },
+          {
+            "case_id": "MIMO/upstream/forensics_L7_tied_D_only",
+            "D_oracle": {
+              "signed": {
+                "local": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                },
+                "reference": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                },
+                "official": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                }
+              },
+              "nonnegative": {
+                "local": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                },
+                "reference": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                },
+                "official": {
+                  "ideal_fp64": true,
+                  "rounded_forward_coefficient": true,
+                  "pinned_bwd_cast_diagnostic": true
+                }
+              }
+            },
+            "common_VJP": {
+              "signed": {
+                "local": "PASS",
+                "reference": "PASS",
+                "official": "PASS"
+              },
+              "nonnegative": {
+                "local": "PASS",
+                "reference": "PASS",
+                "official": "PASS"
+              }
+            },
+            "output_accuracy": {
+              "signed": {
+                "local": true,
+                "reference": true,
+                "official": true
+              },
+              "nonnegative": {
+                "local": true,
+                "reference": true,
+                "official": true
+              }
+            },
+            "loss_error_explained": {
+              "local": true,
+              "reference": true,
+              "official": true
+            },
+            "legacy_reference": {
+              "local": "PASS",
+              "reference": "PASS",
+              "official": "PASS"
+            },
+            "new_split_error": "SEE_COMMON_VJP; triple has no direct official three-slot oracle"
+          }
+        ],
+        "training_authorized": false,
+        "acceptance_proposal": "Keep structural parity and forward causality unchanged. Keep old exact-zero and reference failures visible. Consider reporting near-zero loss using output-error propagation and component magnitudes rather than only net loss; no new acceptance threshold is authorized. Missing metadata/oracle and calibration failures remain UNKNOWN/INCONCLUSIVE."
+      },
+      "failed_checks": []
+    }
+  },
+  "training_authorized": false,
+  "scientific_fits": 0,
+  "TRAIN": 0,
+  "VALID": 0,
+  "TEST": 0,
+  "stage": "MIMO"
+}
