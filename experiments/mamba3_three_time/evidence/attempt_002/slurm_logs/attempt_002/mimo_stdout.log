@@ -1,0 +1,6 @@
+2026-09-19 00:04:32  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-19 00:04:48  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-19 00:04:50  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-19 00:05:12  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-19 00:05:15  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-19 00:06:16  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`

@@ -1,0 +1,225 @@
+{
+  "active_jobs": [
+    {
+      "job_id": "4337444",
+      "state": "RUNNING",
+      "details": "JobId=4337444 JobName=pulse_stch UserId=daryumin(3677) GroupId=users(100) MCS_label=N/A Priority=297 Nice=0 Account=proj_1833 QOS=normal JobState=RUNNING Reason=None Dependency=(null) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=07:45:28 TimeLimit=16:00:00 TimeMin=N/A SubmitTime=2026-09-18T12:31:22 EligibleTime=2026-09-18T12:31:22 AccrueTime=2026-09-18T12:31:22 StartTime=2026-09-18T15:39:19 EndTime=2026-09-19T07:39:19 Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-09-18T15:39:19 Scheduler=Backfill Partition=rocky AllocNode:Sid=192.168.1.80:2766904 ReqNodeList=(null) ExcNodeList=cn-044 NodeList=cn-046 BatchHost=cn-046 NumNodes=1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=1M,node=1,billing=4,gres/gpu=1 AllocTRES=cpu=4,node=1,billing=4,gres/gpu=1,gres/gpu:a100=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=0 MinTmpDiskNode=0 Features=type_e|type_f DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/home/daryumin/tnabdulkadirov/CVPR_MULTITASK/pulse_batl3/run_stch4.sbatch WorkDir=/home/daryumin/tnabdulkadirov/CVPR_MULTITASK/pulse_batl3 StdErr=/home/daryumin/tnabdulkadirov/CVPR_MULTITASK/pulse_batl3/logs/stch_4337444.err StdIn=/dev/null StdOut=/home/daryumin/tnabdulkadirov/CVPR_MULTITASK/pulse_batl3/logs/stch_4337444.out TresPerJob=gres/gpu:1 TresPerTask=cpu=4"
+    }
+  ],
+  "canonical_in_use": false,
+  "HEAD": "1bff0863e13c90161b6828c1905b2f5a0ab62a14",
+  "main": "de0a137a6f46b5b214ccdc03a5ff1ede93454704",
+  "git_status": "?? experiments/mamba3_input_time/\n?? experiments/mamba3_three_time/runs/\n?? experiments/stage_confirmation/\n?? experiments/target_combination_analysis/\n?? slurm/stage_confirmation.sh",
+  "preserved_files": {
+    "experiments/mamba3_input_time/runs/gpu_checks_001.json": {
+      "kind": "file",
+      "size": 1403,
+      "sha256": "8a035bb00fe70bce99fb185a1dff7d295ced73e281407eeb63334dd5651cdecb"
+    },
+    "experiments/mamba3_input_time/runs/mamba3_input_attention_content_seed2026_001.json": {
+      "kind": "file",
+      "size": 574,
+      "sha256": "8143a705d16133b83820026e5f4170d5decfec745aa0f97c1a9190314acc1341"
+    },
+    "experiments/mamba3_input_time/runs/mamba3_input_attention_time_seed2026_001.json": {
+      "kind": "file",
+      "size": 568,
+      "sha256": "144dd28fd0c86673190771315fd13783b7029579904ddbf990bdccf2b850294d"
+    },
+    "experiments/mamba3_input_time/runs/mamba3_input_separate_replay_seed2026_001.json": {
+      "kind": "file",
+      "size": 570,
+      "sha256": "aa27df93a7558f28d68a7443c88875544eafce412192dc0df6b93ec7f35cf9f3"
+    },
+    "experiments/mamba3_input_time/runs/mamba3_input_time_add_seed2026_001.json": {
+      "kind": "file",
+      "size": 556,
+      "sha256": "aeed0c8ea3a2af2b063ae297f4a43ed6e2f17a62331e05255c53603e015cc6f7"
+    },
+    "experiments/mamba3_input_time/runs/pilot_summary.json": {
+      "kind": "file",
+      "size": 5337,
+      "sha256": "b624c07c1d56dfbc1d4175da7578930606b2b7f7cd54731531ad46271f01d14c"
+    },
+    "experiments/mamba3_input_time/runs/pilot_summary.md": {
+      "kind": "file",
+      "size": 1854,
+      "sha256": "7b1a8f85d1a3d5427424c3316fecacbf6e13f378af3cdac91798ec7d1308f38b"
+    },
+    "experiments/mamba3_input_time/runs/pilot_summary.svg": {
+      "kind": "file",
+      "size": 3492,
+      "sha256": "855bf0d965cb96cb35e25ab9d106988a67340817be9720435b9f18486a701953"
+    },
+    "experiments/mamba3_three_time/runs/mimo_correctness_001.json": {
+      "kind": "file",
+      "size": 4888,
+      "sha256": "fe066b43c013a2b2e64f11efdde683774a89645501cf624fd06c1069fee55a8a"
+    },
+    "experiments/mamba3_three_time/runs/siso_correctness_001.json": {
+      "kind": "file",
+      "size": 318399,
+      "sha256": "15125c795df8eea0454eaf804068c5b23a6836a79b51ebb98d6d67880bffe44a"
+    },
+    "experiments/mamba3_three_time/runs/technical_summary.json": {
+      "kind": "file",
+      "size": 831,
+      "sha256": "3036e1bc35b1635173395e316f34d9dbb455165503f70880bb5315a3701334ac"
+    },
+    "experiments/mamba3_three_time/slurm_logs/execution_001.lock": {
+      "kind": "file",
+      "size": 177,
+      "sha256": "7b00016dbd31d9acbe888889bb6db88781beb9c831a58b90ff47ac75fc9e8df1"
+    },
+    "experiments/mamba3_three_time/slurm_logs/login_preflight.json": {
+      "kind": "file",
+      "size": 89727,
+      "sha256": "ed0fb0124733baefe693b38a6da969534630ee0190b9afbc1642911f1dfe5787"
+    },
+    "experiments/mamba3_three_time/slurm_logs/m3-three-check-4337949.err": {
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "experiments/mamba3_three_time/slurm_logs/m3-three-check-4337949.out": {
+      "kind": "file",
+      "size": 831,
+      "sha256": "3036e1bc35b1635173395e316f34d9dbb455165503f70880bb5315a3701334ac"
+    },
+    "experiments/mamba3_three_time/slurm_logs/mimo_stderr.log": {
+      "kind": "file",
+      "size": 2348,
+      "sha256": "2dfcf2889480d1ddd1aa065d844f59bc586ad3fb06f6d9fb727ea5ceb567b2aa"
+    },
+    "experiments/mamba3_three_time/slurm_logs/mimo_stdout.log": {
+      "kind": "file",
+      "size": 775,
+      "sha256": "733f63ca937d272bd6dd86b13ca20201278621339acec61c7628a2e76f6a305b"
+    },
+    "experiments/mamba3_three_time/slurm_logs/pipeline_status.json": {
+      "kind": "file",
+      "size": 831,
+      "sha256": "3036e1bc35b1635173395e316f34d9dbb455165503f70880bb5315a3701334ac"
+    },
+    "experiments/mamba3_three_time/slurm_logs/siso_stderr.log": {
+      "kind": "file",
+      "size": 3696,
+      "sha256": "f00baa52c4ce9e5ba04c7bd0e15ac8b40a879b7c04862be8dde897a375d8b65b"
+    },
+    "experiments/mamba3_three_time/slurm_logs/siso_stdout.log": {
+      "kind": "file",
+      "size": 2669,
+      "sha256": "f0cef5e7420372cbde26942851e5bbea0f78607abf09bc855087bb2dcf5e2e78"
+    },
+    "experiments/mamba3_three_time/slurm_logs/submission_001.json": {
+      "kind": "file",
+      "size": 1486,
+      "sha256": "5ca243f580a9300d45edf36876a6d2c60e0b9d6ce0638eb22aa63fe1f44b6fec"
+    },
+    "experiments/stage_confirmation/DESIGN.md": {
+      "kind": "file",
+      "size": 2321,
+      "sha256": "9b4c2bce079fbdec0094e97336807b6c4ef5ea2051e3967726269e0eb849b7ec"
+    },
+    "experiments/stage_confirmation/__init__.py": {
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "experiments/stage_confirmation/fairness.py": {
+      "kind": "file",
+      "size": 2645,
+      "sha256": "4a398b528a2f6901f5c8fce244524157e422ec36b562695641aac1d50f2adaf5"
+    },
+    "experiments/stage_confirmation/frozen_source_hashes.json": {
+      "kind": "file",
+      "size": 7253,
+      "sha256": "bbbd14e03bc498ec3c67a207486dce7096ca41d2e1b9a2704380a44860373f52"
+    },
+    "experiments/stage_confirmation/preservation_summary.json": {
+      "kind": "file",
+      "size": 3694,
+      "sha256": "cf2b7fe791d3e2b70c838422a7f25d351277fcbe7834add6135fc64d1ffae6d3"
+    },
+    "experiments/stage_confirmation/run.py": {
+      "kind": "file",
+      "size": 5083,
+      "sha256": "0b375094c1eea5ce77eaf60d3fc12f92e996c8bdfb1cf44b7a66fbf945d8491b"
+    },
+    "experiments/stage_confirmation/runs/target_confirm_0000_seed2027_001.json": {
+      "kind": "file",
+      "size": 28377,
+      "sha256": "a957cce319de05308b644ac0a30959c12fd25d51b3b7a1f0594f23499e7458cb"
+    },
+    "experiments/stage_confirmation/runs/target_confirm_0000_seed2028_001.json": {
+      "kind": "file",
+      "size": 25236,
+      "sha256": "a5a425b97bee44baeb87b2e968faf33d6778c26ee8e35b750671f03b35ca860f"
+    },
+    "experiments/stage_confirmation/runs/target_confirm_0011_seed2028_001.json": {
+      "kind": "file",
+      "size": 31678,
+      "sha256": "32fde11c97da0801b7babf057e43f3f7615a0ea15cbc59dbbae022d14f341dfe"
+    },
+    "experiments/stage_confirmation/runs/target_confirm_1011_seed2027_001.json": {
+      "kind": "file",
+      "size": 40682,
+      "sha256": "bcbcdf57269e752e65ba7f1e4afe34260d3278e77bd68670af5fbc2fa9bac8df"
+    },
+    "experiments/stage_confirmation/submit.py": {
+      "kind": "file",
+      "size": 1996,
+      "sha256": "567ab5ba92f646fb4e6c7cca732b1273cf996767d83e7b8655ee407f24937b33"
+    },
+    "experiments/stage_confirmation/summarize.py": {
+      "kind": "file",
+      "size": 7181,
+      "sha256": "5c15abe5a922d2806ed4ccf39b2d168b2ef0ef7f1883cba911a4f94741be9f61"
+    },
+    "experiments/stage_confirmation/tests/test_confirmation.py": {
+      "kind": "file",
+      "size": 1494,
+      "sha256": "9cc9dee482008e97626f77b4be6434ba15614785e1b9830c661454023ece8971"
+    },
+    "experiments/target_combination_analysis/__init__.py": {
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "experiments/target_combination_analysis/combinations.yaml": {
+      "kind": "file",
+      "size": 3216,
+      "sha256": "bb18a33cc0efb07bff160ec86da1a41ea85f1c7d588db37683130172868d4e5d"
+    },
+    "experiments/target_combination_analysis/common.py": {
+      "kind": "file",
+      "size": 4196,
+      "sha256": "e54c614abab7d0faddb23a51aa4cbaf350208e2e63af826fedf9102afeccee69"
+    },
+    "experiments/target_combination_analysis/config.yaml": {
+      "kind": "file",
+      "size": 5432,
+      "sha256": "35a7e4c8bc68ff71e3e4537d2ad5e42d9752761b31d050b05afb85420dc0f1f1"
+    },
+    "experiments/target_combination_analysis/data_audit.py": {
+      "kind": "file",
+      "size": 6213,
+      "sha256": "53e7ec6ebc04a8c0a8a9f68906cce367b2d85b9cac840c098c01ed448c2911fe"
+    },
+    "experiments/target_combination_analysis/run.py": {
+      "kind": "file",
+      "size": 9167,
+      "sha256": "7fbc20e1cabcae09e528989d922e99459b05fbae548a4790ecb0211f2fbaea58"
+    },
+    "experiments/target_combination_analysis/safety.py": {
+      "kind": "file",
+      "size": 2676,
+      "sha256": "4b539fbc1684838258bd9a90ba59a01b1ac760f3d60246bd06701e33b9350d91"
+    },
+    "slurm/stage_confirmation.sh": {
+      "kind": "file",
+      "size": 1071,
+      "sha256": "a2debde011195df67378394a991cefa09107ae3b689f28936ef57f47bc9b2582"
+    }
+  }
+}

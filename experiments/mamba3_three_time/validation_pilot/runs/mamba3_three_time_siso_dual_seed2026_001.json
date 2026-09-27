@@ -1,0 +1,5803 @@
+{
+  "execution_commit": "6b5618a769d8e3424df0b7232605426fac8c573a",
+  "source_hash": "105e09559cde506d0a6de46f8731213a5a6a8af0c56b20924d5c702c9ec87b58",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "model_source_hash": "795022880fe1459e3674e298638202bd10ddae2f04f3e737d0b4d90dbef035ca",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "job_id": "4353980",
+  "backend": "upstream",
+  "architecture": "SISO",
+  "policy_version": "siso_numeric_acceptance_v1",
+  "policy_sha256": "b40f72eae5895c379143e8ef590a66f7dab80b9b61e1f1349fcdf16efb509c50",
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "mode": "dual",
+  "seed": 2026,
+  "run_id": "mamba3_three_time_siso_dual_seed2026_001",
+  "admission_sha256": "574826c7d8777058d5c87788b9adcd411c8f9ce88f872ae8dd31569f1cd885c7",
+  "smoke_sha256": "6ebfbb6642e6a6feaf3608a9535e97de49cf2b6634578b88b740ca2963914a9f",
+  "status": "PASS",
+  "stage": "COMPLETED",
+  "scientific_fit_started": true,
+  "started_at": "2026-09-26T16:29:04.407910+00:00",
+  "epoch_indexing": "zero-based",
+  "selection_split": "VALID",
+  "evaluation_mode": "full-ranking",
+  "runtime": {
+    "torch": "2.9.1+cu128",
+    "recbole": "1.2.0",
+    "mamba_ssm": "2.3.2.post1",
+    "triton": "3.5.1",
+    "numpy": "1.26.4",
+    "tilelang": "0.1.8",
+    "apache_tvm_ffi": "0.1.9",
+    "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+    "upstream_manifest_sha256": "5c9097700345808fcfc2846dd4ccc8adc6b087ea681f2c0d22366c090f21f844",
+    "cuda": "12.8",
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true
+  },
+  "effective_config_parity": {
+    "status": "PASS",
+    "weight_decay": 0.0,
+    "clip_grad_norm": null,
+    "enable_amp": false,
+    "enable_scaler": false
+  },
+  "config": {
+    "gpu_id": 0,
+    "use_gpu": true,
+    "log_wandb": false,
+    "reproducibility": true,
+    "seed": 2026,
+    "state": "INFO",
+    "show_progress": false,
+    "data_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole",
+    "checkpoint_dir": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/checkpoints",
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout_prob": 0.2,
+    "norm_eps": 1e-05,
+    "use_ffn": true,
+    "ffn_inner_size": 256,
+    "mamba3_d_state": 128,
+    "mamba3_expand": 2,
+    "mamba3_headdim": 64,
+    "mamba3_ngroups": 1,
+    "mamba3_rope_fraction": 0.5,
+    "mamba3_chunk_size": 64,
+    "mamba3_is_mimo": false,
+    "mamba3_mimo_rank": 4,
+    "mamba3_is_outproj_norm": false,
+    "mamba3_dtype": "bfloat16",
+    "dataset": "kuairand",
+    "MAX_ITEM_LIST_LENGTH": 50,
+    "USER_ID_FIELD": "user_id",
+    "ITEM_ID_FIELD": "item_id",
+    "TIME_FIELD": "timestamp",
+    "load_col": {
+      "inter": [
+        "user_id",
+        "item_id",
+        "timestamp"
+      ]
+    },
+    "user_inter_num_interval": "[5,inf)",
+    "item_inter_num_interval": "[5,inf)",
+    "rm_dup_inter": null,
+    "eval_args": {
+      "split": {
+        "LS": "valid_and_test"
+      },
+      "order": "TO",
+      "group_by": "user",
+      "mode": "full"
+    },
+    "loss_type": "CE",
+    "epochs": 300,
+    "train_batch_size": 2048,
+    "learner": "adam",
+    "learning_rate": 0.001,
+    "eval_step": 1,
+    "stopping_step": 10,
+    "train_neg_sample_args": null,
+    "weight_decay": 0.0,
+    "metrics": [
+      "Hit",
+      "NDCG",
+      "Recall"
+    ],
+    "valid_metric": "NDCG@10",
+    "eval_batch_size": 4096,
+    "topk": [
+      5,
+      10,
+      20,
+      50
+    ],
+    "metric_decimal_place": 4,
+    "time_scale_reference": 838393.0,
+    "time_scale_reference_source": "TRAIN",
+    "max_log_scale": 0.6931471805599453,
+    "three_time_mode": "dual"
+  },
+  "effective_config": {
+    "gpu_id": "0",
+    "worker": 0,
+    "use_gpu": true,
+    "seed": 2026,
+    "state": "INFO",
+    "reproducibility": true,
+    "data_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand",
+    "checkpoint_dir": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/checkpoints",
+    "show_progress": false,
+    "save_dataset": false,
+    "dataset_save_path": null,
+    "save_dataloaders": false,
+    "dataloaders_save_path": null,
+    "log_wandb": false,
+    "wandb_project": "recbole",
+    "shuffle": true,
+    "epochs": 300,
+    "train_batch_size": 2048,
+    "learner": "adam",
+    "learning_rate": 0.001,
+    "train_neg_sample_args": {
+      "distribution": "none",
+      "sample_num": "none",
+      "alpha": "none",
+      "dynamic": false,
+      "candidate_num": 0
+    },
+    "eval_step": 1,
+    "stopping_step": 10,
+    "clip_grad_norm": null,
+    "weight_decay": 0.0,
+    "loss_decimal_place": 4,
+    "require_pow": false,
+    "enable_amp": false,
+    "enable_scaler": false,
+    "transform": null,
+    "eval_args": {
+      "split": {
+        "LS": "valid_and_test"
+      },
+      "order": "TO",
+      "group_by": "user",
+      "mode": {
+        "valid": "full",
+        "test": "full"
+      }
+    },
+    "repeatable": true,
+    "metrics": [
+      "Hit",
+      "NDCG",
+      "Recall"
+    ],
+    "topk": [
+      5,
+      10,
+      20,
+      50
+    ],
+    "valid_metric": "NDCG@10",
+    "valid_metric_bigger": true,
+    "eval_batch_size": 4096,
+    "metric_decimal_place": 4,
+    "field_separator": "\t",
+    "seq_separator": " ",
+    "USER_ID_FIELD": "user_id",
+    "ITEM_ID_FIELD": "item_id",
+    "RATING_FIELD": "rating",
+    "TIME_FIELD": "timestamp",
+    "seq_len": null,
+    "LABEL_FIELD": "label",
+    "threshold": null,
+    "NEG_PREFIX": "neg_",
+    "numerical_features": [],
+    "load_col": {
+      "inter": [
+        "user_id",
+        "item_id",
+        "timestamp"
+      ]
+    },
+    "unload_col": null,
+    "unused_col": null,
+    "additional_feat_suffix": null,
+    "rm_dup_inter": null,
+    "val_interval": null,
+    "filter_inter_by_user_or_item": true,
+    "user_inter_num_interval": "[5,inf)",
+    "item_inter_num_interval": "[5,inf)",
+    "alias_of_user_id": null,
+    "alias_of_item_id": null,
+    "alias_of_entity_id": null,
+    "alias_of_relation_id": null,
+    "preload_weight": null,
+    "normalize_field": null,
+    "normalize_all": null,
+    "discretization": null,
+    "ITEM_LIST_LENGTH_FIELD": "item_length",
+    "LIST_SUFFIX": "_list",
+    "MAX_ITEM_LIST_LENGTH": 50,
+    "POSITION_FIELD": "position_id",
+    "HEAD_ENTITY_ID_FIELD": "head_id",
+    "TAIL_ENTITY_ID_FIELD": "tail_id",
+    "RELATION_ID_FIELD": "relation_id",
+    "ENTITY_ID_FIELD": "entity_id",
+    "kg_reverse_r": false,
+    "entity_kg_num_interval": "[0,inf)",
+    "relation_kg_num_interval": "[0,inf)",
+    "benchmark_filename": null,
+    "MODEL_TYPE": "ModelType.SEQUENTIAL",
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout_prob": 0.2,
+    "norm_eps": 1e-05,
+    "use_ffn": true,
+    "ffn_inner_size": 256,
+    "mamba3_d_state": 128,
+    "mamba3_expand": 2,
+    "mamba3_headdim": 64,
+    "mamba3_ngroups": 1,
+    "mamba3_rope_fraction": 0.5,
+    "mamba3_chunk_size": 64,
+    "mamba3_is_mimo": false,
+    "mamba3_mimo_rank": 4,
+    "mamba3_is_outproj_norm": false,
+    "mamba3_dtype": "bfloat16",
+    "dataset": "kuairand",
+    "loss_type": "CE",
+    "time_scale_reference": 838393.0,
+    "time_scale_reference_source": "TRAIN",
+    "max_log_scale": 0.6931471805599453,
+    "three_time_mode": "dual",
+    "model": "ThreeTimeMamba3Rec",
+    "MODEL_INPUT_TYPE": "InputType.POINTWISE",
+    "eval_type": "EvaluatorType.RANKING",
+    "single_spec": true,
+    "local_rank": 0,
+    "device": "cuda",
+    "valid_neg_sample_args": {
+      "distribution": "uniform",
+      "sample_num": "none"
+    },
+    "test_neg_sample_args": {
+      "distribution": "uniform",
+      "sample_num": "none"
+    }
+  },
+  "config_sha256": "a9f208a1212022e00dcb3d5113ed2e36bba69920d985c574303d815a27b56b6d",
+  "protocol": {
+    "users": 23951,
+    "items": 7111,
+    "interactions": 1134420,
+    "train": 1086518,
+    "validation": 23951,
+    "test": 23951,
+    "manifest_path": "/home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json",
+    "recbole_inter_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand/kuairand.inter",
+    "recbole_inter_sha256": "e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc",
+    "sha_checked": true
+  },
+  "manifest_sha256": "9f39aa12ec16f697a8bedb91eeb21c46dce514e6f414b7e47fc4064c1fcffd2c",
+  "train_time_stats_sha256": "fa5df0e5ec97d84e5dffd157373318ebfa2cb94fe2853c2aec4898ecd5f89943",
+  "verified_history_stats": {
+    "count_total_gaps": 30630130,
+    "count_positive_gaps": 27732919,
+    "zero_gap_share": 0.09458696388164203,
+    "min_positive": 5.0,
+    "max": 1003134338.0,
+    "mean_positive": 7783452.024896982,
+    "mean": 7047238.929343558,
+    "p25": 225838.0,
+    "median": 838393.0,
+    "p75": 4814909.0,
+    "p90": 23900672.0,
+    "p95": 41839129.0,
+    "p99": 85153740.0
+  },
+  "parameter_count": 610572,
+  "initial_backbone_sha256": "971a713918ae4f6309805e5a78ded9800c4137d171222dd87791388d2f919555",
+  "initial_calibrator_hashes": {
+    "decay": "452efbe042f14c980edd96e6ee0221591f7e3ddf373645d8c6b2c6ea90e70542",
+    "scan": "452efbe042f14c980edd96e6ee0221591f7e3ddf373645d8c6b2c6ea90e70542"
+  },
+  "history": [
+    {
+      "epoch": 0,
+      "valid_ndcg10": 0.0437,
+      "valid_metrics": {
+        "hit@5": 0.0496,
+        "hit@10": 0.0783,
+        "hit@20": 0.123,
+        "hit@50": 0.2199,
+        "ndcg@5": 0.0345,
+        "ndcg@10": 0.0437,
+        "ndcg@20": 0.0549,
+        "ndcg@50": 0.074,
+        "recall@5": 0.0496,
+        "recall@10": 0.0783,
+        "recall@20": 0.123,
+        "recall@50": 0.2199
+      },
+      "valid_seconds": 1.1758972450043075,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.8484351210901508,
+              1.6331966084610265
+            ],
+            "std": [
+              0.14158468718986247,
+              0.2967882101769328
+            ],
+            "min": [
+              1.6087437868118286,
+              1.202365756034851
+            ],
+            "max": [
+              1.9998382329940796,
+              1.9993081092834473
+            ],
+            "p10": [
+              1.6267622232437133,
+              1.222437858581543
+            ],
+            "p25": [
+              1.7065234780311584,
+              1.3216458559036255
+            ],
+            "p50": [
+              1.893698513507843,
+              1.661857783794403
+            ],
+            "p75": [
+              1.987858235836029,
+              1.9509506821632385
+            ],
+            "p90": [
+              1.9964344263076783,
+              1.985129177570343
+            ]
+          },
+          "write": {
+            "mean": [
+              1.0831974047769777,
+              0.7983127590436627
+            ],
+            "std": [
+              0.4041217299878457,
+              0.059573277087584024
+            ],
+            "min": [
+              0.7237381339073181,
+              0.7556062936782837
+            ],
+            "max": [
+              1.9844313859939575,
+              1.1105835437774658
+            ],
+            "p10": [
+              0.7267005264759063,
+              0.7563149034976959
+            ],
+            "p25": [
+              0.744172602891922,
+              0.7587705850601196
+            ],
+            "p50": [
+              0.867631196975708,
+              0.7642026543617249
+            ],
+            "p75": [
+              1.4484763145446777,
+              0.8276077210903168
+            ],
+            "p90": [
+              1.7607849359512329,
+              0.8947408854961395
+            ]
+          },
+          "phase": {
+            "mean": [
+              1.0831974047769777,
+              0.7983127590436627
+            ],
+            "std": [
+              0.4041217299878457,
+              0.059573277087584024
+            ],
+            "min": [
+              0.7237381339073181,
+              0.7556062936782837
+            ],
+            "max": [
+              1.9844313859939575,
+              1.1105835437774658
+            ],
+            "p10": [
+              0.7267005264759063,
+              0.7563149034976959
+            ],
+            "p25": [
+              0.744172602891922,
+              0.7587705850601196
+            ],
+            "p50": [
+              0.867631196975708,
+              0.7642026543617249
+            ],
+            "p75": [
+              1.4484763145446777,
+              0.8276077210903168
+            ],
+            "p90": [
+              1.7607849359512329,
+              0.8947408854961395
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              0.22524540965570175
+            ],
+            [
+              0.0,
+              0.05463962639477306
+            ]
+          ],
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3889.1561794281006,
+      "train_seconds": 271.35332582198316,
+      "train_peak_allocated_bytes": 1899601408,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 1,
+      "valid_ndcg10": 0.0493,
+      "valid_metrics": {
+        "hit@5": 0.0558,
+        "hit@10": 0.0898,
+        "hit@20": 0.1441,
+        "hit@50": 0.2586,
+        "ndcg@5": 0.0384,
+        "ndcg@10": 0.0493,
+        "ndcg@20": 0.0629,
+        "ndcg@50": 0.0855,
+        "recall@5": 0.0558,
+        "recall@10": 0.0898,
+        "recall@20": 0.1441,
+        "recall@50": 0.2586
+      },
+      "valid_seconds": 0.3848102380288765,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.96735643317298,
+              1.3000699807578524
+            ],
+            "std": [
+              0.036215275573257315,
+              0.5173320070731713
+            ],
+            "min": [
+              1.8976778984069824,
+              0.6914445161819458
+            ],
+            "max": [
+              1.9999977350234985,
+              1.9996436834335327
+            ],
+            "p10": [
+              1.905066192150116,
+              0.7028049826622009
+            ],
+            "p25": [
+              1.9347825050354004,
+              0.7681654393672943
+            ],
+            "p50": [
+              1.9854807257652283,
+              1.1873226165771484
+            ],
+            "p75": [
+              1.9992835223674774,
+              1.902794748544693
+            ],
+            "p90": [
+              1.9998626589775086,
+              1.979031777381897
+            ]
+          },
+          "write": {
+            "mean": [
+              0.8533388301585444,
+              0.615344664618994
+            ],
+            "std": [
+              0.42600830526201944,
+              0.06218818826597022
+            ],
+            "min": [
+              0.5553317070007324,
+              0.5070716738700867
+            ],
+            "max": [
+              1.9934219121932983,
+              0.6933634877204895
+            ],
+            "p10": [
+              0.555934464931488,
+              0.5287330865859985
+            ],
+            "p25": [
+              0.5600002706050873,
+              0.549955427646637
+            ],
+            "p50": [
+              0.6001452803611755,
+              0.6254848539829254
+            ],
+            "p75": [
+              1.0739485621452332,
+              0.6776898950338364
+            ],
+            "p90": [
+              1.6332637667655945,
+              0.6907885074615479
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.8533388301585444,
+              0.615344664618994
+            ],
+            "std": [
+              0.42600830526201944,
+              0.06218818826597022
+            ],
+            "min": [
+              0.5553317070007324,
+              0.5070716738700867
+            ],
+            "max": [
+              1.9934219121932983,
+              0.6933634877204895
+            ],
+            "p10": [
+              0.555934464931488,
+              0.5287330865859985
+            ],
+            "p25": [
+              0.5600002706050873,
+              0.549955427646637
+            ],
+            "p50": [
+              0.6001452803611755,
+              0.6254848539829254
+            ],
+            "p75": [
+              1.0739485621452332,
+              0.6776898950338364
+            ],
+            "p90": [
+              1.6332637667655945,
+              0.6907885074615479
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              0.4596307846068683
+            ],
+            [
+              0.0,
+              0.03844003528432457
+            ]
+          ],
+          [
+            [
+              0.0,
+              3.313082118881669e-05
+            ],
+            [
+              0.0006073983884616394,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.0,
+              3.313082118881669e-05
+            ],
+            [
+              0.0006073983884616394,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3493.626182079315,
+      "train_seconds": 12.414952272025403,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 2,
+      "valid_ndcg10": 0.0536,
+      "valid_metrics": {
+        "hit@5": 0.0615,
+        "hit@10": 0.0972,
+        "hit@20": 0.1531,
+        "hit@50": 0.2741,
+        "ndcg@5": 0.0423,
+        "ndcg@10": 0.0536,
+        "ndcg@20": 0.0677,
+        "ndcg@50": 0.0915,
+        "recall@5": 0.0615,
+        "recall@10": 0.0972,
+        "recall@20": 0.1531,
+        "recall@50": 0.2741
+      },
+      "valid_seconds": 0.3838932369835675,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.985225223444992,
+              1.106536404674265
+            ],
+            "std": [
+              0.016453751331333574,
+              0.5342885314810114
+            ],
+            "min": [
+              1.9533159732818604,
+              0.5894385576248169
+            ],
+            "max": [
+              1.9999985694885254,
+              1.9986664056777954
+            ],
+            "p10": [
+              1.9568020939826964,
+              0.5940977454185485
+            ],
+            "p25": [
+              1.9706084728240967,
+              0.621279239654541
+            ],
+            "p50": [
+              1.993489146232605,
+              0.8344045579433441
+            ],
+            "p75": [
+              1.999662071466446,
+              1.7157075703144073
+            ],
+            "p90": [
+              1.9999306917190551,
+              1.9287764430046082
+            ]
+          },
+          "write": {
+            "mean": [
+              0.7568578218763603,
+              0.5858285231059168
+            ],
+            "std": [
+              0.3803016214802573,
+              0.04049756119696315
+            ],
+            "min": [
+              0.5262221693992615,
+              0.508004367351532
+            ],
+            "max": [
+              1.9930737018585205,
+              0.6330018043518066
+            ],
+            "p10": [
+              0.526378583908081,
+              0.5269639372825623
+            ],
+            "p25": [
+              0.5276942104101181,
+              0.5438517779111862
+            ],
+            "p50": [
+              0.5443573594093323,
+              0.5961454212665558
+            ],
+            "p75": [
+              0.8310832679271698,
+              0.6255800873041153
+            ],
+            "p90": [
+              1.4406316161155701,
+              0.6318461835384369
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.7568578218763603,
+              0.5858285231059168
+            ],
+            "std": [
+              0.3803016214802573,
+              0.04049756119696315
+            ],
+            "min": [
+              0.5262221693992615,
+              0.508004367351532
+            ],
+            "max": [
+              1.9930737018585205,
+              0.6330018043518066
+            ],
+            "p10": [
+              0.526378583908081,
+              0.5269639372825623
+            ],
+            "p25": [
+              0.5276942104101181,
+              0.5438517779111862
+            ],
+            "p50": [
+              0.5443573594093323,
+              0.5961454212665558
+            ],
+            "p75": [
+              0.8310832679271698,
+              0.6255800873041153
+            ],
+            "p90": [
+              1.4406316161155701,
+              0.6318461835384369
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 0.9999999999999997,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              0.5480942185336575
+            ],
+            [
+              0.0,
+              0.0072432257824050494
+            ]
+          ],
+          [
+            [
+              0.0,
+              1.932631236014307e-05
+            ],
+            [
+              0.00013942553916960356,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.0,
+              1.932631236014307e-05
+            ],
+            [
+              0.00013942553916960356,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3402.831910610199,
+      "train_seconds": 12.38330990698887,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 3,
+      "valid_ndcg10": 0.0562,
+      "valid_metrics": {
+        "hit@5": 0.0632,
+        "hit@10": 0.1016,
+        "hit@20": 0.1631,
+        "hit@50": 0.2872,
+        "ndcg@5": 0.0438,
+        "ndcg@10": 0.0562,
+        "ndcg@20": 0.0716,
+        "ndcg@50": 0.096,
+        "recall@5": 0.0632,
+        "recall@10": 0.1016,
+        "recall@20": 0.1631,
+        "recall@50": 0.2872
+      },
+      "valid_seconds": 0.388061158999335,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9915608237775009,
+              1.0235709799488444
+            ],
+            "std": [
+              0.009301189870765399,
+              0.5097220437486345
+            ],
+            "min": [
+              1.9737285375595093,
+              0.5631061792373657
+            ],
+            "max": [
+              1.999998688697815,
+              1.9969384670257568
+            ],
+            "p10": [
+              1.9756061792373658,
+              0.5667761147022248
+            ],
+            "p25": [
+              1.9831598103046417,
+              0.5878622382879257
+            ],
+            "p50": [
+              1.996167004108429,
+              0.7429938614368439
+            ],
+            "p75": [
+              1.9997930526733398,
+              1.5436059832572937
+            ],
+            "p90": [
+              1.9999548554420472,
+              1.862979257106781
+            ]
+          },
+          "write": {
+            "mean": [
+              0.7225865565633081,
+              0.575268474549824
+            ],
+            "std": [
+              0.364800169107279,
+              0.030734863683247713
+            ],
+            "min": [
+              0.5164753794670105,
+              0.5119733810424805
+            ],
+            "max": [
+              1.9945791959762573,
+              0.6125410795211792
+            ],
+            "p10": [
+              0.5165349662303924,
+              0.5307142257690429
+            ],
+            "p25": [
+              0.5171947330236435,
+              0.5444187223911285
+            ],
+            "p50": [
+              0.5273447930812836,
+              0.5819714069366455
+            ],
+            "p75": [
+              0.7437850683927536,
+              0.6052374988794327
+            ],
+            "p90": [
+              1.3606314539909363,
+              0.6113170325756073
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.7225865565633081,
+              0.575268474549824
+            ],
+            "std": [
+              0.364800169107279,
+              0.030734863683247713
+            ],
+            "min": [
+              0.5164753794670105,
+              0.5119733810424805
+            ],
+            "max": [
+              1.9945791959762573,
+              0.6125410795211792
+            ],
+            "p10": [
+              0.5165349662303924,
+              0.5307142257690429
+            ],
+            "p25": [
+              0.5171947330236435,
+              0.5444187223911285
+            ],
+            "p50": [
+              0.5273447930812836,
+              0.5819714069366455
+            ],
+            "p75": [
+              0.7437850683927536,
+              0.6052374988794327
+            ],
+            "p90": [
+              1.3606314539909363,
+              0.6113170325756073
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              0.6326564982654634
+            ],
+            [
+              0.0,
+              0.0016151275329548138
+            ]
+          ],
+          [
+            [
+              0.0,
+              3.7272173837418776e-05
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.0,
+              3.7272173837418776e-05
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3347.904330253601,
+      "train_seconds": 12.386182179034222,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 4,
+      "valid_ndcg10": 0.0579,
+      "valid_metrics": {
+        "hit@5": 0.0676,
+        "hit@10": 0.1046,
+        "hit@20": 0.1669,
+        "hit@50": 0.2942,
+        "ndcg@5": 0.046,
+        "ndcg@10": 0.0579,
+        "ndcg@20": 0.0735,
+        "ndcg@50": 0.0986,
+        "recall@5": 0.0676,
+        "recall@10": 0.1046,
+        "recall@20": 0.1669,
+        "recall@50": 0.2942
+      },
+      "valid_seconds": 0.38248246000148356,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9946952643160047,
+              1.0133094799078364
+            ],
+            "std": [
+              0.005739105995496833,
+              0.5104409363263325
+            ],
+            "min": [
+              1.9839146137237549,
+              0.5529871582984924
+            ],
+            "max": [
+              1.999998688697815,
+              1.997351050376892
+            ],
+            "p10": [
+              1.9849769830703736,
+              0.5568146169185638
+            ],
+            "p25": [
+              1.9893687665462494,
+              0.5789285451173782
+            ],
+            "p50": [
+              1.9974589943885803,
+              0.7352308332920074
+            ],
+            "p75": [
+              1.9998520612716675,
+              1.524086058139801
+            ],
+            "p90": [
+              1.99996474981308,
+              1.8608217120170594
+            ]
+          },
+          "write": {
+            "mean": [
+              0.7037649756046298,
+              0.5638710605980035
+            ],
+            "std": [
+              0.356705132893505,
+              0.025196901731342838
+            ],
+            "min": [
+              0.5114059448242188,
+              0.5121574401855469
+            ],
+            "max": [
+              1.9957389831542969,
+              0.5960090160369873
+            ],
+            "p10": [
+              0.5114333748817443,
+              0.5281062066555023
+            ],
+            "p25": [
+              0.5118375569581985,
+              0.5387928187847137
+            ],
+            "p50": [
+              0.5189438760280609,
+              0.567918449640274
+            ],
+            "p75": [
+              0.6955617368221283,
+              0.5885781943798065
+            ],
+            "p90": [
+              1.3121647834777832,
+              0.5947181403636932
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.7037649756046298,
+              0.5638710605980035
+            ],
+            "std": [
+              0.356705132893505,
+              0.025196901731342838
+            ],
+            "min": [
+              0.5114059448242188,
+              0.5121574401855469
+            ],
+            "max": [
+              1.9957389831542969,
+              0.5960090160369873
+            ],
+            "p10": [
+              0.5114333748817443,
+              0.5281062066555023
+            ],
+            "p25": [
+              0.5118375569581985,
+              0.5387928187847137
+            ],
+            "p50": [
+              0.5189438760280609,
+              0.567918449640274
+            ],
+            "p75": [
+              0.6955617368221283,
+              0.5885781943798065
+            ],
+            "p90": [
+              1.3121647834777832,
+              0.5947181403636932
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              0.7404282986909184
+            ],
+            [
+              0.0,
+              0.002019599641634951
+            ]
+          ],
+          [
+            [
+              0.0,
+              6.21202897290313e-05
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.0,
+              6.21202897290313e-05
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3307.6922068595886,
+      "train_seconds": 12.382421107031405,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 5,
+      "valid_ndcg10": 0.0586,
+      "valid_metrics": {
+        "hit@5": 0.0673,
+        "hit@10": 0.1066,
+        "hit@20": 0.1709,
+        "hit@50": 0.3016,
+        "ndcg@5": 0.0461,
+        "ndcg@10": 0.0586,
+        "ndcg@20": 0.0748,
+        "ndcg@50": 0.1006,
+        "recall@5": 0.0673,
+        "recall@10": 0.1066,
+        "recall@20": 0.1709,
+        "recall@50": 0.3016
+      },
+      "valid_seconds": 0.3927424459834583,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9965127289419193,
+              0.9949808063468816
+            ],
+            "std": [
+              0.0037162392245049048,
+              0.5048201531143912
+            ],
+            "min": [
+              1.9896758794784546,
+              0.5446233749389648
+            ],
+            "max": [
+              1.999998688697815,
+              1.9972729682922363
+            ],
+            "p10": [
+              1.9903015851974488,
+              0.5484490752220154
+            ],
+            "p25": [
+              1.9929715692996979,
+              0.5707644522190094
+            ],
+            "p50": [
+              1.9982640147209167,
+              0.7216164171695709
+            ],
+            "p75": [
+              1.9998948574066162,
+              1.4792041182518005
+            ],
+            "p90": [
+              1.999973177909851,
+              1.8457980394363402
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6774446371439603,
+              0.5557250017844012
+            ],
+            "std": [
+              0.33285756933849303,
+              0.019502423761269684
+            ],
+            "min": [
+              0.5081213712692261,
+              0.5146384239196777
+            ],
+            "max": [
+              1.9954004287719727,
+              0.5813772678375244
+            ],
+            "p10": [
+              0.5081254124641419,
+              0.5284313678741455
+            ],
+            "p25": [
+              0.5083416551351547,
+              0.536557137966156
+            ],
+            "p50": [
+              0.5131199955940247,
+              0.5581271946430206
+            ],
+            "p75": [
+              0.6443488895893097,
+              0.574873685836792
+            ],
+            "p90": [
+              1.2061697602272032,
+              0.580226844549179
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6774446371439603,
+              0.5557250017844012
+            ],
+            "std": [
+              0.33285756933849303,
+              0.019502423761269684
+            ],
+            "min": [
+              0.5081213712692261,
+              0.5146384239196777
+            ],
+            "max": [
+              1.9954004287719727,
+              0.5813772678375244
+            ],
+            "p10": [
+              0.5081254124641419,
+              0.5284313678741455
+            ],
+            "p25": [
+              0.5083416551351547,
+              0.536557137966156
+            ],
+            "p50": [
+              0.5131199955940247,
+              0.5581271946430206
+            ],
+            "p75": [
+              0.6443488895893097,
+              0.574873685836792
+            ],
+            "p90": [
+              1.2061697602272032,
+              0.580226844549179
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              0.9163584810070665
+            ],
+            [
+              0.0,
+              0.0018125320092048465
+            ]
+          ],
+          [
+            [
+              0.41649169451726326,
+              4.969623178322504e-05
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.41649169451726326,
+              4.969623178322504e-05
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3281.0849208831787,
+      "train_seconds": 12.382231451978441,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 6,
+      "valid_ndcg10": 0.0587,
+      "valid_metrics": {
+        "hit@5": 0.0664,
+        "hit@10": 0.1075,
+        "hit@20": 0.1748,
+        "hit@50": 0.3092,
+        "ndcg@5": 0.0455,
+        "ndcg@10": 0.0587,
+        "ndcg@20": 0.0756,
+        "ndcg@50": 0.1021,
+        "recall@5": 0.0664,
+        "recall@10": 0.1075,
+        "recall@20": 0.1748,
+        "recall@50": 0.3092
+      },
+      "valid_seconds": 0.3800120269879699,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9975873070056986,
+              0.9945594526501697
+            ],
+            "std": [
+              0.0025123994846838905,
+              0.5119473802312936
+            ],
+            "min": [
+              1.9930888414382935,
+              0.5376034379005432
+            ],
+            "max": [
+              1.9999985694885254,
+              1.9979603290557861
+            ],
+            "p10": [
+              1.9934634804725646,
+              0.5413700699806213
+            ],
+            "p25": [
+              1.9951223134994507,
+              0.5638752579689026
+            ],
+            "p50": [
+              1.9987215995788574,
+              0.7184118926525116
+            ],
+            "p75": [
+              1.9999150037765503,
+              1.4885382950305939
+            ],
+            "p90": [
+              1.999976396560669,
+              1.8582400321960448
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6904568761057128,
+              0.5536157656787837
+            ],
+            "std": [
+              0.3575291799299122,
+              0.019839822338132154
+            ],
+            "min": [
+              0.5067082047462463,
+              0.5120572447776794
+            ],
+            "max": [
+              1.9975258111953735,
+              0.5796145796775818
+            ],
+            "p10": [
+              0.5067185699939728,
+              0.525742131471634
+            ],
+            "p25": [
+              0.5069441199302673,
+              0.5341190993785858
+            ],
+            "p50": [
+              0.5114620625972748,
+              0.5561866164207458
+            ],
+            "p75": [
+              0.6529574990272522,
+              0.5730611681938171
+            ],
+            "p90": [
+              1.2900351405143737,
+              0.5784540355205536
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6904568761057128,
+              0.5536157656787837
+            ],
+            "std": [
+              0.3575291799299122,
+              0.019839822338132154
+            ],
+            "min": [
+              0.5067082047462463,
+              0.5120572447776794
+            ],
+            "max": [
+              1.9975258111953735,
+              0.5796145796775818
+            ],
+            "p10": [
+              0.5067185699939728,
+              0.525742131471634
+            ],
+            "p25": [
+              0.5069441199302673,
+              0.5341190993785858
+            ],
+            "p50": [
+              0.5114620625972748,
+              0.5561866164207458
+            ],
+            "p75": [
+              0.6529574990272522,
+              0.5730611681938171
+            ],
+            "p90": [
+              1.2900351405143737,
+              0.5784540355205536
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.002562116838601824
+            ]
+          ],
+          [
+            [
+              0.47057223830447503,
+              0.0003147428012937586
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.47057223830447503,
+              0.0003147428012937586
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3262.028645515442,
+      "train_seconds": 12.380051932996139,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 7,
+      "valid_ndcg10": 0.0603,
+      "valid_metrics": {
+        "hit@5": 0.0689,
+        "hit@10": 0.1092,
+        "hit@20": 0.1752,
+        "hit@50": 0.3093,
+        "ndcg@5": 0.0473,
+        "ndcg@10": 0.0603,
+        "ndcg@20": 0.0768,
+        "ndcg@50": 0.1033,
+        "recall@5": 0.0689,
+        "recall@10": 0.1092,
+        "recall@20": 0.1752,
+        "recall@50": 0.3093
+      },
+      "valid_seconds": 0.3877566200098954,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9981993684350017,
+              0.983376260063376
+            ],
+            "std": [
+              0.001830107815125901,
+              0.5084972223379514
+            ],
+            "min": [
+              1.9950215816497803,
+              0.532419741153717
+            ],
+            "max": [
+              1.9999984502792358,
+              1.997930645942688
+            ],
+            "p10": [
+              1.9952574610710143,
+              0.5361022293567658
+            ],
+            "p25": [
+              1.9963505566120148,
+              0.5585588365793228
+            ],
+            "p50": [
+              1.998984932899475,
+              0.7112045288085938
+            ],
+            "p75": [
+              1.9999260902404785,
+              1.4599426090717316
+            ],
+            "p90": [
+              1.9999775886535645,
+              1.8490126729011536
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6746432770556651,
+              0.550771161376431
+            ],
+            "std": [
+              0.3411499626824203,
+              0.017369901749593564
+            ],
+            "min": [
+              0.5054928064346313,
+              0.5132418274879456
+            ],
+            "max": [
+              1.9972742795944214,
+              0.5736947059631348
+            ],
+            "p10": [
+              0.5054952561855316,
+              0.526397955417633
+            ],
+            "p25": [
+              0.5056495368480682,
+              0.5338916629552841
+            ],
+            "p50": [
+              0.5091995596885681,
+              0.552882194519043
+            ],
+            "p75": [
+              0.6254522353410721,
+              0.5677560120820999
+            ],
+            "p90": [
+              1.21692476272583,
+              0.5726361155509949
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6746432770556651,
+              0.550771161376431
+            ],
+            "std": [
+              0.3411499626824203,
+              0.017369901749593564
+            ],
+            "min": [
+              0.5054928064346313,
+              0.5132418274879456
+            ],
+            "max": [
+              1.9972742795944214,
+              0.5736947059631348
+            ],
+            "p10": [
+              0.5054952561855316,
+              0.526397955417633
+            ],
+            "p25": [
+              0.5056495368480682,
+              0.5338916629552841
+            ],
+            "p50": [
+              0.5091995596885681,
+              0.552882194519043
+            ],
+            "p75": [
+              0.6254522353410721,
+              0.5677560120820999
+            ],
+            "p90": [
+              1.21692476272583,
+              0.5726361155509949
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0024378762591437614
+            ]
+          ],
+          [
+            [
+              0.5191696311849376,
+              0.00022777439567311475
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.5191696311849376,
+              0.00022777439567311475
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3247.4743700027466,
+      "train_seconds": 12.375058793986682,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 8,
+      "valid_ndcg10": 0.0602,
+      "valid_metrics": {
+        "hit@5": 0.0676,
+        "hit@10": 0.11,
+        "hit@20": 0.1757,
+        "hit@50": 0.3161,
+        "ndcg@5": 0.0466,
+        "ndcg@10": 0.0602,
+        "ndcg@20": 0.0767,
+        "ndcg@50": 0.1043,
+        "recall@5": 0.0676,
+        "recall@10": 0.11,
+        "recall@20": 0.1757,
+        "recall@50": 0.3161
+      },
+      "valid_seconds": 0.3805432519875467,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9986903528210271,
+              0.9740689481082161
+            ],
+            "std": [
+              0.0012915541851772684,
+              0.5090052022504968
+            ],
+            "min": [
+              1.9965254068374634,
+              0.5272413492202759
+            ],
+            "max": [
+              1.999997854232788,
+              1.998113989830017
+            ],
+            "p10": [
+              1.9966657519340516,
+              0.5306432366371154
+            ],
+            "p25": [
+              1.9973497092723846,
+              0.5518889278173447
+            ],
+            "p50": [
+              1.9992039203643799,
+              0.700588583946228
+            ],
+            "p75": [
+              1.9999346733093262,
+              1.4423608779907227
+            ],
+            "p90": [
+              1.9999783039093018,
+              1.8466536283493042
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6807862608510651,
+              0.5522748633569415
+            ],
+            "std": [
+              0.3528240771885483,
+              0.016397638586227965
+            ],
+            "min": [
+              0.5049225687980652,
+              0.5148712396621704
+            ],
+            "max": [
+              1.9980093240737915,
+              0.57361900806427
+            ],
+            "p10": [
+              0.5049280405044556,
+              0.5289821684360504
+            ],
+            "p25": [
+              0.5050886422395706,
+              0.5366058647632599
+            ],
+            "p50": [
+              0.5085166692733765,
+              0.5545793175697327
+            ],
+            "p75": [
+              0.6285594552755356,
+              0.5681829452514648
+            ],
+            "p90": [
+              1.2577563166618346,
+              0.5726487278938294
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6807862608510651,
+              0.5522748633569415
+            ],
+            "std": [
+              0.3528240771885483,
+              0.016397638586227965
+            ],
+            "min": [
+              0.5049225687980652,
+              0.5148712396621704
+            ],
+            "max": [
+              1.9980093240737915,
+              0.57361900806427
+            ],
+            "p10": [
+              0.5049280405044556,
+              0.5289821684360504
+            ],
+            "p25": [
+              0.5050886422395706,
+              0.5366058647632599
+            ],
+            "p50": [
+              0.5085166692733765,
+              0.5545793175697327
+            ],
+            "p75": [
+              0.6285594552755356,
+              0.5681829452514648
+            ],
+            "p90": [
+              1.2577563166618346,
+              0.5726487278938294
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 0.9999999999999992,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.00265322659687107
+            ]
+          ],
+          [
+            [
+              0.531353490677125,
+              0.000610159290227374
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.531353490677125,
+              0.000610159290227374
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3235.4616446495056,
+      "train_seconds": 12.382487861963455,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 9,
+      "valid_ndcg10": 0.06,
+      "valid_metrics": {
+        "hit@5": 0.0689,
+        "hit@10": 0.1096,
+        "hit@20": 0.1771,
+        "hit@50": 0.3176,
+        "ndcg@5": 0.047,
+        "ndcg@10": 0.06,
+        "ndcg@20": 0.0769,
+        "ndcg@50": 0.1047,
+        "recall@5": 0.0689,
+        "recall@10": 0.1096,
+        "recall@20": 0.1771,
+        "recall@50": 0.3176
+      },
+      "valid_seconds": 0.38687996100634336,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9989757740431484,
+              0.9811022176664037
+            ],
+            "std": [
+              0.0009740721688791727,
+              0.5162493256372179
+            ],
+            "min": [
+              1.99740731716156,
+              0.5242626667022705
+            ],
+            "max": [
+              1.9999969005584717,
+              1.998496413230896
+            ],
+            "p10": [
+              1.9974937796592713,
+              0.5275866150856018
+            ],
+            "p25": [
+              1.9979397654533386,
+              0.5489446669816971
+            ],
+            "p50": [
+              1.999322772026062,
+              0.7060297727584839
+            ],
+            "p75": [
+              1.999935507774353,
+              1.4672648012638092
+            ],
+            "p90": [
+              1.9999760389328003,
+              1.86105215549469
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6697962684102713,
+              0.5530632640892992
+            ],
+            "std": [
+              0.33967035435014453,
+              0.01570181721290264
+            ],
+            "min": [
+              0.5044435858726501,
+              0.5156632661819458
+            ],
+            "max": [
+              1.9977024793624878,
+              0.5732617378234863
+            ],
+            "p10": [
+              0.5044456958770752,
+              0.5305288374423981
+            ],
+            "p25": [
+              0.5045753121376038,
+              0.5382949709892273
+            ],
+            "p50": [
+              0.5075640976428986,
+              0.5555176138877869
+            ],
+            "p75": [
+              0.6126981973648071,
+              0.5681838244199753
+            ],
+            "p90": [
+              1.2011090040206909,
+              0.5723537802696228
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6697962684102713,
+              0.5530632640892992
+            ],
+            "std": [
+              0.33967035435014453,
+              0.01570181721290264
+            ],
+            "min": [
+              0.5044435858726501,
+              0.5156632661819458
+            ],
+            "max": [
+              1.9977024793624878,
+              0.5732617378234863
+            ],
+            "p10": [
+              0.5044456958770752,
+              0.5305288374423981
+            ],
+            "p25": [
+              0.5045753121376038,
+              0.5382949709892273
+            ],
+            "p50": [
+              0.5075640976428986,
+              0.5555176138877869
+            ],
+            "p75": [
+              0.6126981973648071,
+              0.5681838244199753
+            ],
+            "p90": [
+              1.2011090040206909,
+              0.5723537802696228
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0036982279152016633
+            ]
+          ],
+          [
+            [
+              0.5497024438121979,
+              0.00032302550659096276
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.5497024438121979,
+              0.00032302550659096276
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3225.6309881210327,
+      "train_seconds": 12.373722271004226,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 10,
+      "valid_ndcg10": 0.0595,
+      "valid_metrics": {
+        "hit@5": 0.0673,
+        "hit@10": 0.1095,
+        "hit@20": 0.1762,
+        "hit@50": 0.3184,
+        "ndcg@5": 0.046,
+        "ndcg@10": 0.0595,
+        "ndcg@20": 0.0762,
+        "ndcg@50": 0.1043,
+        "recall@5": 0.0673,
+        "recall@10": 0.1095,
+        "recall@20": 0.1762,
+        "recall@50": 0.3184
+      },
+      "valid_seconds": 0.38716782501433045,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.999175977129525,
+              0.9817503833127937
+            ],
+            "std": [
+              0.0007492444112876107,
+              0.519710333131479
+            ],
+            "min": [
+              1.9980250597000122,
+              0.521367609500885
+            ],
+            "max": [
+              1.9999949932098389,
+              1.9986704587936401
+            ],
+            "p10": [
+              1.9980765223503112,
+              0.5245130717754364
+            ],
+            "p25": [
+              1.9983623623847961,
+              0.5452487468719482
+            ],
+            "p50": [
+              1.999402642250061,
+              0.7058325707912445
+            ],
+            "p75": [
+              1.9999325275421143,
+              1.4741811156272888
+            ],
+            "p90": [
+              1.9999719858169556,
+              1.8663333535194397
+            ]
+          },
+          "write": {
+            "mean": [
+              0.679219662964443,
+              0.5548055763722854
+            ],
+            "std": [
+              0.35511755847388343,
+              0.016468924053255302
+            ],
+            "min": [
+              0.5041159987449646,
+              0.5143671631813049
+            ],
+            "max": [
+              1.9983960390090942,
+              0.5752877593040466
+            ],
+            "p10": [
+              0.5041211128234864,
+              0.530661803483963
+            ],
+            "p25": [
+              0.504261776804924,
+              0.5395165681838989
+            ],
+            "p50": [
+              0.5072592794895172,
+              0.5580748915672302
+            ],
+            "p75": [
+              0.6202081888914108,
+              0.5704757273197174
+            ],
+            "p90": [
+              1.2592472195625304,
+              0.574431699514389
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.679219662964443,
+              0.5548055763722854
+            ],
+            "std": [
+              0.35511755847388343,
+              0.016468924053255302
+            ],
+            "min": [
+              0.5041159987449646,
+              0.5143671631813049
+            ],
+            "max": [
+              1.9983960390090942,
+              0.5752877593040466
+            ],
+            "p10": [
+              0.5041211128234864,
+              0.530661803483963
+            ],
+            "p25": [
+              0.504261776804924,
+              0.5395165681838989
+            ],
+            "p50": [
+              0.5072592794895172,
+              0.5580748915672302
+            ],
+            "p75": [
+              0.6202081888914108,
+              0.5704757273197174
+            ],
+            "p90": [
+              1.2592472195625304,
+              0.574431699514389
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0041482549030164234
+            ]
+          ],
+          [
+            [
+              0.5535345754630377,
+              0.0008448359403148256
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.5535345754630377,
+              0.0008448359403148256
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3217.212942123413,
+      "train_seconds": 12.3757258609985,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 11,
+      "valid_ndcg10": 0.0609,
+      "valid_metrics": {
+        "hit@5": 0.0681,
+        "hit@10": 0.1119,
+        "hit@20": 0.1785,
+        "hit@50": 0.3197,
+        "ndcg@5": 0.0469,
+        "ndcg@10": 0.0609,
+        "ndcg@20": 0.0776,
+        "ndcg@50": 0.1055,
+        "recall@5": 0.0681,
+        "recall@10": 0.1119,
+        "recall@20": 0.1785,
+        "recall@50": 0.3197
+      },
+      "valid_seconds": 0.38174867699854076,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9993231582249549,
+              0.9650392230489044
+            ],
+            "std": [
+              0.0005835970716096381,
+              0.5109572624464657
+            ],
+            "min": [
+              1.998476505279541,
+              0.518621563911438
+            ],
+            "max": [
+              1.9999914169311523,
+              1.9983686208724976
+            ],
+            "p10": [
+              1.9985039830207825,
+              0.5215304672718049
+            ],
+            "p25": [
+              1.9986771941184998,
+              0.5410702377557755
+            ],
+            "p50": [
+              1.9994629621505737,
+              0.6943880021572113
+            ],
+            "p75": [
+              1.9999268054962158,
+              1.4262128472328186
+            ],
+            "p90": [
+              1.9999656677246094,
+              1.8454509615898131
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6650471220053822,
+              0.5586841669410496
+            ],
+            "std": [
+              0.3372616995769293,
+              0.015428277464547351
+            ],
+            "min": [
+              0.503710925579071,
+              0.5176003575325012
+            ],
+            "max": [
+              1.997989535331726,
+              0.5774886608123779
+            ],
+            "p10": [
+              0.5037118792533875,
+              0.5357459008693695
+            ],
+            "p25": [
+              0.5038156360387802,
+              0.5448647141456604
+            ],
+            "p50": [
+              0.5063528418540955,
+              0.5620905160903931
+            ],
+            "p75": [
+              0.6015624105930328,
+              0.5731461644172668
+            ],
+            "p90": [
+              1.1826295375823974,
+              0.5767131984233856
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6650471220053822,
+              0.5586841669410496
+            ],
+            "std": [
+              0.3372616995769293,
+              0.015428277464547351
+            ],
+            "min": [
+              0.503710925579071,
+              0.5176003575325012
+            ],
+            "max": [
+              1.997989535331726,
+              0.5774886608123779
+            ],
+            "p10": [
+              0.5037118792533875,
+              0.5357459008693695
+            ],
+            "p25": [
+              0.5038156360387802,
+              0.5448647141456604
+            ],
+            "p50": [
+              0.5063528418540955,
+              0.5620905160903931
+            ],
+            "p75": [
+              0.6015624105930328,
+              0.5731461644172668
+            ],
+            "p90": [
+              1.1826295375823974,
+              0.5767131984233856
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.003205406950018015
+            ]
+          ],
+          [
+            [
+              0.571516328663268,
+              0.0005024841213637198
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.571516328663268,
+              0.0005024841213637198
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3210.617796897888,
+      "train_seconds": 12.374680412001908,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 12,
+      "valid_ndcg10": 0.0602,
+      "valid_metrics": {
+        "hit@5": 0.068,
+        "hit@10": 0.1104,
+        "hit@20": 0.1766,
+        "hit@50": 0.3199,
+        "ndcg@5": 0.0466,
+        "ndcg@10": 0.0602,
+        "ndcg@20": 0.0768,
+        "ndcg@50": 0.1051,
+        "recall@5": 0.068,
+        "recall@10": 0.1104,
+        "recall@20": 0.1766,
+        "recall@50": 0.3199
+      },
+      "valid_seconds": 0.3843024629750289,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9994191044840388,
+              0.9644213592540043
+            ],
+            "std": [
+              0.00046031622928529697,
+              0.5124810179380825
+            ],
+            "min": [
+              1.9988000392913818,
+              0.5166361927986145
+            ],
+            "max": [
+              1.999979853630066,
+              1.998477578163147
+            ],
+            "p10": [
+              1.998811137676239,
+              0.5193982064723969
+            ],
+            "p25": [
+              1.9989027976989746,
+              0.5384029000997543
+            ],
+            "p50": [
+              1.999487817287445,
+              0.6942316889762878
+            ],
+            "p75": [
+              1.9999085664749146,
+              1.4268593192100525
+            ],
+            "p90": [
+              1.9999488949775697,
+              1.8475818514823914
+            ]
+          },
+          "write": {
+            "mean": [
+              0.662847358731086,
+              0.5645728638479484
+            ],
+            "std": [
+              0.3351645555463155,
+              0.013426653334449212
+            ],
+            "min": [
+              0.5035223960876465,
+              0.5233582258224487
+            ],
+            "max": [
+              1.998007893562317,
+              0.5803083181381226
+            ],
+            "p10": [
+              0.5035233497619629,
+              0.5441767275333405
+            ],
+            "p25": [
+              0.5036217272281647,
+              0.5534375011920929
+            ],
+            "p50": [
+              0.5060436129570007,
+              0.5680351257324219
+            ],
+            "p75": [
+              0.5978910475969315,
+              0.5767766833305359
+            ],
+            "p90": [
+              1.1719389081001281,
+              0.579672884941101
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.662847358731086,
+              0.5645728638479484
+            ],
+            "std": [
+              0.3351645555463155,
+              0.013426653334449212
+            ],
+            "min": [
+              0.5035223960876465,
+              0.5233582258224487
+            ],
+            "max": [
+              1.998007893562317,
+              0.5803083181381226
+            ],
+            "p10": [
+              0.5035233497619629,
+              0.5441767275333405
+            ],
+            "p25": [
+              0.5036217272281647,
+              0.5534375011920929
+            ],
+            "p50": [
+              0.5060436129570007,
+              0.5680351257324219
+            ],
+            "p75": [
+              0.5978910475969315,
+              0.5767766833305359
+            ],
+            "p90": [
+              1.1719389081001281,
+              0.579672884941101
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0034400836001054667
+            ]
+          ],
+          [
+            [
+              0.5771996449480329,
+              0.0005024841213637198
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.5771996449480329,
+              0.0005024841213637198
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3204.1007804870605,
+      "train_seconds": 12.379999154014513,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 13,
+      "valid_ndcg10": 0.0606,
+      "valid_metrics": {
+        "hit@5": 0.0678,
+        "hit@10": 0.1122,
+        "hit@20": 0.1806,
+        "hit@50": 0.3256,
+        "ndcg@5": 0.0464,
+        "ndcg@10": 0.0606,
+        "ndcg@20": 0.0778,
+        "ndcg@50": 0.1063,
+        "recall@5": 0.0678,
+        "recall@10": 0.1122,
+        "recall@20": 0.1806,
+        "recall@50": 0.3256
+      },
+      "valid_seconds": 0.38377310399664566,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9994544397097032,
+              0.954674308688544
+            ],
+            "std": [
+              0.00035975609213354204,
+              0.5073976806374175
+            ],
+            "min": [
+              1.9990233182907104,
+              0.5150530338287354
+            ],
+            "max": [
+              1.9999139308929443,
+              1.99832284450531
+            ],
+            "p10": [
+              1.9990252256393433,
+              0.5176612734794617
+            ],
+            "p25": [
+              1.9990487694740295,
+              0.5358967185020447
+            ],
+            "p50": [
+              1.9994593262672424,
+              0.687867134809494
+            ],
+            "p75": [
+              1.9998512268066406,
+              1.3985122740268707
+            ],
+            "p90": [
+              1.9998910427093506,
+              1.835152018070221
+            ]
+          },
+          "write": {
+            "mean": [
+              0.659371710109651,
+              0.5663120632933549
+            ],
+            "std": [
+              0.33089650376991087,
+              0.013418598368476298
+            ],
+            "min": [
+              0.5033792853355408,
+              0.5229254364967346
+            ],
+            "max": [
+              1.9979263544082642,
+              0.5813817977905273
+            ],
+            "p10": [
+              0.503380537033081,
+              0.5455410599708557
+            ],
+            "p25": [
+              0.5034721791744232,
+              0.5556624978780746
+            ],
+            "p50": [
+              0.5057829320430756,
+              0.5703215897083282
+            ],
+            "p75": [
+              0.5934688448905945,
+              0.5782129913568497
+            ],
+            "p90": [
+              1.1531916737556458,
+              0.5808105945587159
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.659371710109651,
+              0.5663120632933549
+            ],
+            "std": [
+              0.33089650376991087,
+              0.013418598368476298
+            ],
+            "min": [
+              0.5033792853355408,
+              0.5229254364967346
+            ],
+            "max": [
+              1.9979263544082642,
+              0.5813817977905273
+            ],
+            "p10": [
+              0.503380537033081,
+              0.5455410599708557
+            ],
+            "p25": [
+              0.5034721791744232,
+              0.5556624978780746
+            ],
+            "p50": [
+              0.5057829320430756,
+              0.5703215897083282
+            ],
+            "p75": [
+              0.5934688448905945,
+              0.5782129913568497
+            ],
+            "p90": [
+              1.1531916737556458,
+              0.5808105945587159
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.002860294229301174
+            ]
+          ],
+          [
+            [
+              0.5823487267411281,
+              0.0004017112069144024
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.5823487267411281,
+              0.0004017112069144024
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3198.8465523719788,
+      "train_seconds": 12.37672704999568,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 14,
+      "valid_ndcg10": 0.06,
+      "valid_metrics": {
+        "hit@5": 0.0683,
+        "hit@10": 0.1105,
+        "hit@20": 0.1819,
+        "hit@50": 0.3242,
+        "ndcg@5": 0.0465,
+        "ndcg@10": 0.06,
+        "ndcg@20": 0.0779,
+        "ndcg@50": 0.106,
+        "recall@5": 0.0683,
+        "recall@10": 0.1105,
+        "recall@20": 0.1819,
+        "recall@50": 0.3242
+      },
+      "valid_seconds": 0.38515487604308873,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.9945207760768233,
+              0.9579102052974952
+            ],
+            "std": [
+              0.011664584177494892,
+              0.5117353951098976
+            ],
+            "min": [
+              1.6877787113189697,
+              0.5138847827911377
+            ],
+            "max": [
+              1.9990979433059692,
+              1.9985675811767578
+            ],
+            "p10": [
+              1.9862869143486024,
+              0.5163952231407165
+            ],
+            "p25": [
+              1.9954446256160736,
+              0.5342774838209152
+            ],
+            "p50": [
+              1.998447060585022,
+              0.6889269649982452
+            ],
+            "p75": [
+              1.998898684978485,
+              1.4111593067646027
+            ],
+            "p90": [
+              1.9990635752677917,
+              1.844482135772705
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6625395485469879,
+              0.5714762145285043
+            ],
+            "std": [
+              0.3361819035241955,
+              0.012355108537515577
+            ],
+            "min": [
+              0.5032767653465271,
+              0.5261824727058411
+            ],
+            "max": [
+              1.9981684684753418,
+              0.5843495726585388
+            ],
+            "p10": [
+              0.5032779216766358,
+              0.5518958985805511
+            ],
+            "p25": [
+              0.5033753365278244,
+              0.5627681612968445
+            ],
+            "p50": [
+              0.5056959092617035,
+              0.5758699774742126
+            ],
+            "p75": [
+              0.5956210643053055,
+              0.5818617194890976
+            ],
+            "p90": [
+              1.17280296087265,
+              0.5838960111141205
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6625395485469879,
+              0.5714762145285043
+            ],
+            "std": [
+              0.3361819035241955,
+              0.012355108537515577
+            ],
+            "min": [
+              0.5032767653465271,
+              0.5261824727058411
+            ],
+            "max": [
+              1.9981684684753418,
+              0.5843495726585388
+            ],
+            "p10": [
+              0.5032779216766358,
+              0.5518958985805511
+            ],
+            "p25": [
+              0.5033753365278244,
+              0.5627681612968445
+            ],
+            "p50": [
+              0.5056959092617035,
+              0.5758699774742126
+            ],
+            "p75": [
+              0.5956210643053055,
+              0.5818617194890976
+            ],
+            "p90": [
+              1.17280296087265,
+              0.5838960111141205
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 0.9999999999999992,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.0,
+              0.8572227260867945
+            ],
+            [
+              0.0,
+              0.003572606884860733
+            ]
+          ],
+          [
+            [
+              0.5829699296384185,
+              0.0006225833481731803
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.5829699296384185,
+              0.0006225833481731803
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3194.584874153137,
+      "train_seconds": 12.383340074971784,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 15,
+      "valid_ndcg10": 0.0615,
+      "valid_metrics": {
+        "hit@5": 0.0681,
+        "hit@10": 0.1142,
+        "hit@20": 0.1813,
+        "hit@50": 0.3235,
+        "ndcg@5": 0.0467,
+        "ndcg@10": 0.0615,
+        "ndcg@20": 0.0783,
+        "ndcg@50": 0.1064,
+        "recall@5": 0.0681,
+        "recall@10": 0.1142,
+        "recall@20": 0.1813,
+        "recall@50": 0.3235
+      },
+      "valid_seconds": 0.38340457098092884,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.68438494797752,
+              0.9484220751550619
+            ],
+            "std": [
+              0.5019608009718723,
+              0.4998658000916765
+            ],
+            "min": [
+              0.5001599788665771,
+              0.513296902179718
+            ],
+            "max": [
+              1.9978903532028198,
+              1.997855305671692
+            ],
+            "p10": [
+              0.690930324792862,
+              0.5158028960227966
+            ],
+            "p25": [
+              1.525527685880661,
+              0.5339560955762863
+            ],
+            "p50": [
+              1.9817278385162354,
+              0.6927393674850464
+            ],
+            "p75": [
+              1.9961731731891632,
+              1.3740524053573608
+            ],
+            "p90": [
+              1.9976577639579773,
+              1.8166666507720948
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6489652041548324,
+              0.5842814384356497
+            ],
+            "std": [
+              0.3181078725982513,
+              0.005767510732538973
+            ],
+            "min": [
+              0.5029506683349609,
+              0.5467866659164429
+            ],
+            "max": [
+              1.9976787567138672,
+              0.5885777473449707
+            ],
+            "p10": [
+              0.5029538869857788,
+              0.575601190328598
+            ],
+            "p25": [
+              0.5030199885368347,
+              0.5837732404470444
+            ],
+            "p50": [
+              0.504988044500351,
+              0.5866244435310364
+            ],
+            "p75": [
+              0.5806764364242554,
+              0.5874938666820526
+            ],
+            "p90": [
+              1.096921408176422,
+              0.5883558750152588
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6489652041548324,
+              0.5842814384356497
+            ],
+            "std": [
+              0.3181078725982513,
+              0.005767510732538973
+            ],
+            "min": [
+              0.5029506683349609,
+              0.5467866659164429
+            ],
+            "max": [
+              1.9976787567138672,
+              0.5885777473449707
+            ],
+            "p10": [
+              0.5029538869857788,
+              0.575601190328598
+            ],
+            "p25": [
+              0.5030199885368347,
+              0.5837732404470444
+            ],
+            "p50": [
+              0.504988044500351,
+              0.5866244435310364
+            ],
+            "p75": [
+              0.5806764364242554,
+              0.5874938666820526
+            ],
+            "p90": [
+              1.096921408176422,
+              0.5883558750152588
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.010622569543664351,
+              0.4242332630683834
+            ],
+            [
+              0.0,
+              0.0021245139087328704
+            ]
+          ],
+          [
+            [
+              0.598367478785921,
+              0.0002664270203934009
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.598367478785921,
+              0.0002664270203934009
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3189.867618560791,
+      "train_seconds": 12.373304737964645,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 16,
+      "valid_ndcg10": 0.0609,
+      "valid_metrics": {
+        "hit@5": 0.0684,
+        "hit@10": 0.1134,
+        "hit@20": 0.184,
+        "hit@50": 0.326,
+        "ndcg@5": 0.0465,
+        "ndcg@10": 0.0609,
+        "ndcg@20": 0.0786,
+        "ndcg@50": 0.1066,
+        "recall@5": 0.0684,
+        "recall@10": 0.1134,
+        "recall@20": 0.184,
+        "recall@50": 0.326
+      },
+      "valid_seconds": 0.3875584430061281,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.6251920025625566,
+              0.9549778708460107
+            ],
+            "std": [
+              0.5432243560924842,
+              0.4995268476734526
+            ],
+            "min": [
+              0.5000790357589722,
+              0.5129715800285339
+            ],
+            "max": [
+              1.997200846672058,
+              1.997583270072937
+            ],
+            "p10": [
+              0.5978747189044953,
+              0.5155148684978486
+            ],
+            "p25": [
+              1.2649381160736084,
+              0.5343168526887894
+            ],
+            "p50": [
+              1.9662983417510986,
+              0.7064721286296844
+            ],
+            "p75": [
+              1.9943022429943085,
+              1.3872687220573425
+            ],
+            "p90": [
+              1.9968262672424317,
+              1.815367341041565
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6385717517874595,
+              0.5921308286867527
+            ],
+            "std": [
+              0.3050679202613349,
+              0.0056447039264355065
+            ],
+            "min": [
+              0.5025743842124939,
+              0.5500526428222656
+            ],
+            "max": [
+              1.997406244277954,
+              0.5969458818435669
+            ],
+            "p10": [
+              0.5025806427001953,
+              0.5846600234508514
+            ],
+            "p25": [
+              0.5026199519634247,
+              0.5933007746934891
+            ],
+            "p50": [
+              0.5042588710784912,
+              0.5934132933616638
+            ],
+            "p75": [
+              0.5688439309597015,
+              0.5949670970439911
+            ],
+            "p90": [
+              1.0401627898216248,
+              0.5965664207935333
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6385717517874595,
+              0.5921308286867527
+            ],
+            "std": [
+              0.3050679202613349,
+              0.0056447039264355065
+            ],
+            "min": [
+              0.5025743842124939,
+              0.5500526428222656
+            ],
+            "max": [
+              1.997406244277954,
+              0.5969458818435669
+            ],
+            "p10": [
+              0.5025806427001953,
+              0.5846600234508514
+            ],
+            "p25": [
+              0.5026199519634247,
+              0.5933007746934891
+            ],
+            "p50": [
+              0.5042588710784912,
+              0.5934132933616638
+            ],
+            "p75": [
+              0.5688439309597015,
+              0.5949670970439911
+            ],
+            "p90": [
+              1.0401627898216248,
+              0.5965664207935333
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.021228573676734294,
+              0.34415606825501344
+            ],
+            [
+              0.0,
+              0.0018677500445195409
+            ]
+          ],
+          [
+            [
+              0.6142564684477244,
+              0.00018912177095282862
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.6142564684477244,
+              0.00018912177095282862
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3185.6405239105225,
+      "train_seconds": 12.379345869005192,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 17,
+      "valid_ndcg10": 0.0602,
+      "valid_metrics": {
+        "hit@5": 0.0672,
+        "hit@10": 0.1126,
+        "hit@20": 0.1824,
+        "hit@50": 0.3247,
+        "ndcg@5": 0.0456,
+        "ndcg@10": 0.0602,
+        "ndcg@20": 0.0777,
+        "ndcg@50": 0.1058,
+        "recall@5": 0.0672,
+        "recall@10": 0.1126,
+        "recall@20": 0.1824,
+        "recall@50": 0.3247
+      },
+      "valid_seconds": 0.3805184689699672,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.5569691279175593,
+              0.9361756189724073
+            ],
+            "std": [
+              0.5813391639327199,
+              0.48403429262274483
+            ],
+            "min": [
+              0.5000273585319519,
+              0.5118584632873535
+            ],
+            "max": [
+              1.996220588684082,
+              1.9964630603790283
+            ],
+            "p10": [
+              0.5409342765808105,
+              0.5142597675323486
+            ],
+            "p25": [
+              0.961321547627449,
+              0.5322705507278442
+            ],
+            "p50": [
+              1.9376198053359985,
+              0.6990800201892853
+            ],
+            "p75": [
+              1.9914371073246002,
+              1.3293692469596863
+            ],
+            "p90": [
+              1.9956310749053956,
+              1.776236653327942
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6380609203144504,
+              0.5999903539009277
+            ],
+            "std": [
+              0.30667289414811066,
+              0.008291450862724937
+            ],
+            "min": [
+              0.5023043155670166,
+              0.5453467965126038
+            ],
+            "max": [
+              1.9977341890335083,
+              0.6073729395866394
+            ],
+            "p10": [
+              0.5023094475269317,
+              0.5882229745388031
+            ],
+            "p25": [
+              0.502341091632843,
+              0.6010757684707642
+            ],
+            "p50": [
+              0.5038238763809204,
+              0.601861447095871
+            ],
+            "p75": [
+              0.5654922723770142,
+              0.6048189997673035
+            ],
+            "p90": [
+              1.0395745277404784,
+              0.606862211227417
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6380609203144504,
+              0.5999903539009277
+            ],
+            "std": [
+              0.30667289414811066,
+              0.008291450862724937
+            ],
+            "min": [
+              0.5023043155670166,
+              0.5453467965126038
+            ],
+            "max": [
+              1.9977341890335083,
+              0.6073729395866394
+            ],
+            "p10": [
+              0.5023094475269317,
+              0.5882229745388031
+            ],
+            "p25": [
+              0.502341091632843,
+              0.6010757684707642
+            ],
+            "p50": [
+              0.5038238763809204,
+              0.601861447095871
+            ],
+            "p75": [
+              0.5654922723770142,
+              0.6048189997673035
+            ],
+            "p90": [
+              1.0395745277404784,
+              0.606862211227417
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.03648117548153578,
+              0.2678820156239431
+            ],
+            [
+              0.0,
+              0.0005024841213637198
+            ]
+          ],
+          [
+            [
+              0.6226220007979006,
+              0.0002595247659790641
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.6226220007979006,
+              0.0002595247659790641
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3181.7829880714417,
+      "train_seconds": 12.372672616038471,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 18,
+      "valid_ndcg10": 0.0606,
+      "valid_metrics": {
+        "hit@5": 0.068,
+        "hit@10": 0.1127,
+        "hit@20": 0.1834,
+        "hit@50": 0.3262,
+        "ndcg@5": 0.0462,
+        "ndcg@10": 0.0606,
+        "ndcg@20": 0.0783,
+        "ndcg@50": 0.1064,
+        "recall@5": 0.068,
+        "recall@10": 0.1127,
+        "recall@20": 0.1834,
+        "recall@50": 0.3262
+      },
+      "valid_seconds": 0.3879439670126885,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.4920552012080455,
+              0.9217574524609672
+            ],
+            "std": [
+              0.6091459317772303,
+              0.4724961413311547
+            ],
+            "min": [
+              0.5000075697898865,
+              0.5111196637153625
+            ],
+            "max": [
+              1.9949709177017212,
+              1.9956258535385132
+            ],
+            "p10": [
+              0.5156920373439788,
+              0.5134498178958893
+            ],
+            "p25": [
+              0.7375926673412323,
+              0.5311489254236221
+            ],
+            "p50": [
+              1.8928687572479248,
+              0.693263441324234
+            ],
+            "p75": [
+              1.9875390529632568,
+              1.2851967513561249
+            ],
+            "p90": [
+              1.9940909385681151,
+              1.7469780921936036
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6466533374715845,
+              0.6079907135542384
+            ],
+            "std": [
+              0.3217579122561236,
+              0.00860948827158991
+            ],
+            "min": [
+              0.5021036267280579,
+              0.549664318561554
+            ],
+            "max": [
+              1.998426079750061,
+              0.6187118291854858
+            ],
+            "p10": [
+              0.5021089732646942,
+              0.5989760994911194
+            ],
+            "p25": [
+              0.5021428465843201,
+              0.6050062328577042
+            ],
+            "p50": [
+              0.5036046504974365,
+              0.6078461110591888
+            ],
+            "p75": [
+              0.569354921579361,
+              0.6141940057277679
+            ],
+            "p90": [
+              1.0927563428878784,
+              0.6179281771183014
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6466533374715845,
+              0.6079907135542384
+            ],
+            "std": [
+              0.3217579122561236,
+              0.00860948827158991
+            ],
+            "min": [
+              0.5021036267280579,
+              0.549664318561554
+            ],
+            "max": [
+              1.998426079750061,
+              0.6187118291854858
+            ],
+            "p10": [
+              0.5021089732646942,
+              0.5989760994911194
+            ],
+            "p25": [
+              0.5021428465843201,
+              0.6050062328577042
+            ],
+            "p50": [
+              0.5036046504974365,
+              0.6078461110591888
+            ],
+            "p75": [
+              0.569354921579361,
+              0.6141940057277679
+            ],
+            "p90": [
+              1.0927563428878784,
+              0.6179281771183014
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.08130717655000476,
+              0.2010502470316855
+            ],
+            [
+              0.0,
+              0.00017945861477275708
+            ]
+          ],
+          [
+            [
+              0.6239458531945704,
+              0.000686084088785079
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.6239458531945704,
+              0.000686084088785079
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3178.091914176941,
+      "train_seconds": 12.377974353032187,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 19,
+      "valid_ndcg10": 0.0607,
+      "valid_metrics": {
+        "hit@5": 0.0666,
+        "hit@10": 0.1126,
+        "hit@20": 0.1851,
+        "hit@50": 0.3308,
+        "ndcg@5": 0.0459,
+        "ndcg@10": 0.0607,
+        "ndcg@20": 0.0789,
+        "ndcg@50": 0.1076,
+        "recall@5": 0.0666,
+        "recall@10": 0.1126,
+        "recall@20": 0.1851,
+        "recall@50": 0.3308
+      },
+      "valid_seconds": 0.38129987102001905,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.467566525881525,
+              0.9252772784358358
+            ],
+            "std": [
+              0.615392653030838,
+              0.4761068298276777
+            ],
+            "min": [
+              0.5000054240226746,
+              0.5107999444007874
+            ],
+            "max": [
+              1.9940975904464722,
+              1.9962079524993896
+            ],
+            "p10": [
+              0.5115269899368287,
+              0.5131474256515502
+            ],
+            "p25": [
+              0.6839998662471771,
+              0.5312327146530151
+            ],
+            "p50": [
+              1.8643664717674255,
+              0.6962226033210754
+            ],
+            "p75": [
+              1.9847395420074463,
+              1.2933987379074097
+            ],
+            "p90": [
+              1.9930073976516725,
+              1.7580528140068055
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6452242391127052,
+              0.6143047576738212
+            ],
+            "std": [
+              0.32151497502596194,
+              0.011029523014703816
+            ],
+            "min": [
+              0.5018952488899231,
+              0.545958399772644
+            ],
+            "max": [
+              1.9985594749450684,
+              0.6287176609039307
+            ],
+            "p10": [
+              0.5018999576568604,
+              0.6029652833938599
+            ],
+            "p25": [
+              0.5019271671772003,
+              0.6093229800462723
+            ],
+            "p50": [
+              0.5032566785812378,
+              0.6138768792152405
+            ],
+            "p75": [
+              0.5657391846179962,
+              0.6227500885725021
+            ],
+            "p90": [
+              1.0865237712860107,
+              0.6276759922504425
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6452242391127052,
+              0.6143047576738212
+            ],
+            "std": [
+              0.32151497502596194,
+              0.011029523014703816
+            ],
+            "min": [
+              0.5018952488899231,
+              0.545958399772644
+            ],
+            "max": [
+              1.9985594749450684,
+              0.6287176609039307
+            ],
+            "p10": [
+              0.5018999576568604,
+              0.6029652833938599
+            ],
+            "p25": [
+              0.5019271671772003,
+              0.6093229800462723
+            ],
+            "p50": [
+              0.5032566785812378,
+              0.6138768792152405
+            ],
+            "p75": [
+              0.5657391846179962,
+              0.6227500885725021
+            ],
+            "p90": [
+              1.0865237712860107,
+              0.6276759922504425
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.09484111700563638,
+              0.1660668607580608
+            ],
+            [
+              0.0,
+              0.0002995578415822176
+            ]
+          ],
+          [
+            [
+              0.6310303271254457,
+              0.0007730524944057228
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.6310303271254457,
+              0.0007730524944057228
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3174.4289474487305,
+      "train_seconds": 12.373535282036755,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 20,
+      "valid_ndcg10": 0.0609,
+      "valid_metrics": {
+        "hit@5": 0.0687,
+        "hit@10": 0.1123,
+        "hit@20": 0.183,
+        "hit@50": 0.329,
+        "ndcg@5": 0.0469,
+        "ndcg@10": 0.0609,
+        "ndcg@20": 0.0786,
+        "ndcg@50": 0.1074,
+        "recall@5": 0.0687,
+        "recall@10": 0.1123,
+        "recall@20": 0.183,
+        "recall@50": 0.329
+      },
+      "valid_seconds": 0.3859352199942805,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.447610903894518,
+              0.9101608664175502
+            ],
+            "std": [
+              0.6196462411727764,
+              0.46796993491163497
+            ],
+            "min": [
+              0.5000040531158447,
+              0.5098838210105896
+            ],
+            "max": [
+              1.9933301210403442,
+              1.995982050895691
+            ],
+            "p10": [
+              0.5088810741901397,
+              0.5120969533920288
+            ],
+            "p25": [
+              0.6484139412641525,
+              0.5293353497982025
+            ],
+            "p50": [
+              1.8367781043052673,
+              0.6841518580913544
+            ],
+            "p75": [
+              1.9820805191993713,
+              1.2505220174789429
+            ],
+            "p90": [
+              1.9920384764671326,
+              1.7364952445030213
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6455224203461873,
+              0.6294326903530569
+            ],
+            "std": [
+              0.3232887395448165,
+              0.013750674903859244
+            ],
+            "min": [
+              0.5017510652542114,
+              0.5543385148048401
+            ],
+            "max": [
+              1.9986965656280518,
+              0.6503049731254578
+            ],
+            "p10": [
+              0.5017556548118591,
+              0.6165988445281982
+            ],
+            "p25": [
+              0.5017793774604797,
+              0.6190097033977509
+            ],
+            "p50": [
+              0.50303515791893,
+              0.6276079416275024
+            ],
+            "p75": [
+              0.5642257630825043,
+              0.6414535045623779
+            ],
+            "p90": [
+              1.0899828553199769,
+              0.6487866103649139
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6455224203461873,
+              0.6294326903530569
+            ],
+            "std": [
+              0.3232887395448165,
+              0.013750674903859244
+            ],
+            "min": [
+              0.5017510652542114,
+              0.5543385148048401
+            ],
+            "max": [
+              1.9986965656280518,
+              0.6503049731254578
+            ],
+            "p10": [
+              0.5017556548118591,
+              0.6165988445281982
+            ],
+            "p25": [
+              0.5017793774604797,
+              0.6190097033977509
+            ],
+            "p50": [
+              0.50303515791893,
+              0.6276079416275024
+            ],
+            "p75": [
+              0.5642257630825043,
+              0.6414535045623779
+            ],
+            "p90": [
+              1.0899828553199769,
+              0.6487866103649139
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.10693938854308595,
+              0.14011576461103725
+            ],
+            [
+              0.06971553048656752,
+              0.0002291548465559821
+            ]
+          ],
+          [
+            [
+              0.6351330271493275,
+              0.0008986735247466527
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.6351330271493275,
+              0.0008986735247466527
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3172.1667919158936,
+      "train_seconds": 12.378097086038906,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 21,
+      "valid_ndcg10": 0.061,
+      "valid_metrics": {
+        "hit@5": 0.0684,
+        "hit@10": 0.1131,
+        "hit@20": 0.1845,
+        "hit@50": 0.3294,
+        "ndcg@5": 0.0466,
+        "ndcg@10": 0.061,
+        "ndcg@20": 0.079,
+        "ndcg@50": 0.1076,
+        "recall@5": 0.0684,
+        "recall@10": 0.1131,
+        "recall@20": 0.1845,
+        "recall@50": 0.3294
+      },
+      "valid_seconds": 0.38132774201221764,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.4357120249744382,
+              0.9113046743026428
+            ],
+            "std": [
+              0.6201842710972372,
+              0.46752254929333187
+            ],
+            "min": [
+              0.5000039339065552,
+              0.5097801089286804
+            ],
+            "max": [
+              1.9925291538238525,
+              1.9960569143295288
+            ],
+            "p10": [
+              0.5081350982189179,
+              0.5120506584644318
+            ],
+            "p25": [
+              0.6346518248319626,
+              0.5299873799085617
+            ],
+            "p50": [
+              1.8146798610687256,
+              0.688729465007782
+            ],
+            "p75": [
+              1.9794205725193024,
+              1.2498423755168915
+            ],
+            "p90": [
+              1.991035258769989,
+              1.7373005270957946
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6426352657001972,
+              0.6317383469862791
+            ],
+            "std": [
+              0.3201782769951455,
+              0.015151957487383821
+            ],
+            "min": [
+              0.5016158819198608,
+              0.5505291819572449
+            ],
+            "max": [
+              1.9987083673477173,
+              0.6547597646713257
+            ],
+            "p10": [
+              0.5016200542449951,
+              0.6180016994476318
+            ],
+            "p25": [
+              0.5016383677721024,
+              0.6205701678991318
+            ],
+            "p50": [
+              0.5027948617935181,
+              0.629514753818512
+            ],
+            "p75": [
+              0.560523048043251,
+              0.6447716057300568
+            ],
+            "p90": [
+              1.0737552046775818,
+              0.653050696849823
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6426352657001972,
+              0.6317383469862791
+            ],
+            "std": [
+              0.3201782769951455,
+              0.015151957487383821
+            ],
+            "min": [
+              0.5016158819198608,
+              0.5505291819572449
+            ],
+            "max": [
+              1.9987083673477173,
+              0.6547597646713257
+            ],
+            "p10": [
+              0.5016200542449951,
+              0.6180016994476318
+            ],
+            "p25": [
+              0.5016383677721024,
+              0.6205701678991318
+            ],
+            "p50": [
+              0.5027948617935181,
+              0.629514753818512
+            ],
+            "p75": [
+              0.560523048043251,
+              0.6447716057300568
+            ],
+            "p90": [
+              1.0737552046775818,
+              0.653050696849823
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 0.9999999999999996,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.111424473461522,
+              0.1181624542207976
+            ],
+            [
+              0.07080056488050127,
+              0.0002443398062675231
+            ]
+          ],
+          [
+            [
+              0.6408163434340924,
+              0.0008862494668008465
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.6408163434340924,
+              0.0008862494668008465
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3169.3251452445984,
+      "train_seconds": 12.38253457902465,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 22,
+      "valid_ndcg10": 0.0612,
+      "valid_metrics": {
+        "hit@5": 0.0687,
+        "hit@10": 0.1133,
+        "hit@20": 0.1852,
+        "hit@50": 0.3316,
+        "ndcg@5": 0.0469,
+        "ndcg@10": 0.0612,
+        "ndcg@20": 0.0792,
+        "ndcg@50": 0.1082,
+        "recall@5": 0.0687,
+        "recall@10": 0.1133,
+        "recall@20": 0.1852,
+        "recall@50": 0.3316
+      },
+      "valid_seconds": 0.3849505340331234,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.425217814811802,
+              0.9116050964667438
+            ],
+            "std": [
+              0.6216330897280953,
+              0.47236985568817985
+            ],
+            "min": [
+              0.5000033974647522,
+              0.5091082453727722
+            ],
+            "max": [
+              1.9919899702072144,
+              1.9968150854110718
+            ],
+            "p10": [
+              0.5071477234363556,
+              0.511276239156723
+            ],
+            "p25": [
+              0.6206725686788559,
+              0.528613954782486
+            ],
+            "p50": [
+              1.7966280579566956,
+              0.6838231086730957
+            ],
+            "p75": [
+              1.977504849433899,
+              1.2529989778995514
+            ],
+            "p90": [
+              1.9903509378433228,
+              1.7500404000282288
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6336997740015949,
+              0.6380572833124227
+            ],
+            "std": [
+              0.3074125065455059,
+              0.018076478096232057
+            ],
+            "min": [
+              0.5015068650245667,
+              0.5404446721076965
+            ],
+            "max": [
+              1.9984486103057861,
+              0.6630595922470093
+            ],
+            "p10": [
+              0.501511138677597,
+              0.6196529567241669
+            ],
+            "p25": [
+              0.5015263557434082,
+              0.6284892857074738
+            ],
+            "p50": [
+              0.5025428235530853,
+              0.6367666125297546
+            ],
+            "p75": [
+              0.5533762872219086,
+              0.6525985300540924
+            ],
+            "p90": [
+              1.0203132033348083,
+              0.6611531674861908
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6336997740015949,
+              0.6380572833124227
+            ],
+            "std": [
+              0.3074125065455059,
+              0.018076478096232057
+            ],
+            "min": [
+              0.5015068650245667,
+              0.5404446721076965
+            ],
+            "max": [
+              1.9984486103057861,
+              0.6630595922470093
+            ],
+            "p10": [
+              0.501511138677597,
+              0.6196529567241669
+            ],
+            "p25": [
+              0.5015263557434082,
+              0.6284892857074738
+            ],
+            "p50": [
+              0.5025428235530853,
+              0.6367666125297546
+            ],
+            "p75": [
+              0.5533762872219086,
+              0.6525985300540924
+            ],
+            "p90": [
+              1.0203132033348083,
+              0.6611531674861908
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 0.999999999999999,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.11831568426879588,
+              0.10513375878829544
+            ],
+            [
+              0.08106697809638584,
+              0.0006267247008217824
+            ]
+          ],
+          [
+            [
+              0.6493751389078701,
+              0.0006446705622990581
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.6493751389078701,
+              0.0006446705622990581
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3166.5771412849426,
+      "train_seconds": 12.380571105983108,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 23,
+      "valid_ndcg10": 0.0609,
+      "valid_metrics": {
+        "hit@5": 0.0682,
+        "hit@10": 0.1133,
+        "hit@20": 0.1858,
+        "hit@50": 0.3316,
+        "ndcg@5": 0.0465,
+        "ndcg@10": 0.0609,
+        "ndcg@20": 0.079,
+        "ndcg@50": 0.1078,
+        "recall@5": 0.0682,
+        "recall@10": 0.1133,
+        "recall@20": 0.1858,
+        "recall@50": 0.3316
+      },
+      "valid_seconds": 0.3890487300232053,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.4142940645167532,
+              0.9068725625343818
+            ],
+            "std": [
+              0.6215419216911493,
+              0.4682544596872722
+            ],
+            "min": [
+              0.5000033974647522,
+              0.5088755488395691
+            ],
+            "max": [
+              1.9910941123962402,
+              1.9966570138931274
+            ],
+            "p10": [
+              0.5066417098045349,
+              0.5110519230365753
+            ],
+            "p25": [
+              0.610915869474411,
+              0.5286621153354645
+            ],
+            "p50": [
+              1.7735856771469116,
+              0.6833625435829163
+            ],
+            "p75": [
+              1.9744956493377686,
+              1.236395686864853
+            ],
+            "p90": [
+              1.9892264604568481,
+              1.7402331590652467
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6356249131530158,
+              0.6481266100657661
+            ],
+            "std": [
+              0.3109268120713703,
+              0.019484974469765038
+            ],
+            "min": [
+              0.5014548301696777,
+              0.545914888381958
+            ],
+            "max": [
+              1.9985918998718262,
+              0.6772897243499756
+            ],
+            "p10": [
+              0.5014590442180633,
+              0.6326084136962891
+            ],
+            "p25": [
+              0.5014758706092834,
+              0.6351114958524704
+            ],
+            "p50": [
+              0.5024785101413727,
+              0.645145982503891
+            ],
+            "p75": [
+              0.5539898425340652,
+              0.6648089289665222
+            ],
+            "p90": [
+              1.0323437571525573,
+              0.6750824689865113
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6356249131530158,
+              0.6481266100657661
+            ],
+            "std": [
+              0.3109268120713703,
+              0.019484974469765038
+            ],
+            "min": [
+              0.5014548301696777,
+              0.545914888381958
+            ],
+            "max": [
+              1.9985918998718262,
+              0.6772897243499756
+            ],
+            "p10": [
+              0.5014590442180633,
+              0.6326084136962891
+            ],
+            "p25": [
+              0.5014758706092834,
+              0.6351114958524704
+            ],
+            "p50": [
+              0.5024785101413727,
+              0.645145982503891
+            ],
+            "p75": [
+              0.5539898425340652,
+              0.6648089289665222
+            ],
+            "p90": [
+              1.0323437571525573,
+              0.6750824689865113
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.12235350310118291,
+              0.08646178014663149
+            ],
+            [
+              0.08445460456294235,
+              0.0004942014160665157
+            ]
+          ],
+          [
+            [
+              0.6497851328200817,
+              0.0007371607714511713
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.6497851328200817,
+              0.0007371607714511713
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3163.995150566101,
+      "train_seconds": 12.372630266007036,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 24,
+      "valid_ndcg10": 0.0603,
+      "valid_metrics": {
+        "hit@5": 0.0667,
+        "hit@10": 0.1122,
+        "hit@20": 0.1844,
+        "hit@50": 0.3278,
+        "ndcg@5": 0.0458,
+        "ndcg@10": 0.0603,
+        "ndcg@20": 0.0785,
+        "ndcg@50": 0.1068,
+        "recall@5": 0.0667,
+        "recall@10": 0.1122,
+        "recall@20": 0.1844,
+        "recall@50": 0.3278
+      },
+      "valid_seconds": 0.3826257809996605,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.4007335284168845,
+              0.9121478475140329
+            ],
+            "std": [
+              0.6224930047896318,
+              0.47283395101334497
+            ],
+            "min": [
+              0.5000029802322388,
+              0.5086483955383301
+            ],
+            "max": [
+              1.9901890754699707,
+              1.9970815181732178
+            ],
+            "p10": [
+              0.5057860374450683,
+              0.5108284950256348
+            ],
+            "p25": [
+              0.5974500477313995,
+              0.5287171751260757
+            ],
+            "p50": [
+              1.746287226676941,
+              0.6871933937072754
+            ],
+            "p75": [
+              1.9713636934757233,
+              1.2506411969661713
+            ],
+            "p90": [
+              1.9880856037139893,
+              1.7534879684448241
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6290384839196619,
+              0.6545751900696649
+            ],
+            "std": [
+              0.30129616399053955,
+              0.02070884035696953
+            ],
+            "min": [
+              0.5013738870620728,
+              0.5499993562698364
+            ],
+            "max": [
+              1.9983819723129272,
+              0.6868417263031006
+            ],
+            "p10": [
+              0.5013786375522613,
+              0.6358503103256226
+            ],
+            "p25": [
+              0.5014011263847351,
+              0.6388705223798752
+            ],
+            "p50": [
+              0.502306342124939,
+              0.6512710154056549
+            ],
+            "p75": [
+              0.5491896718740463,
+              0.6726879477500916
+            ],
+            "p90": [
+              0.9931308090686798,
+              0.6843138098716736
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6290384839196619,
+              0.6545751900696649
+            ],
+            "std": [
+              0.30129616399053955,
+              0.02070884035696953
+            ],
+            "min": [
+              0.5013738870620728,
+              0.5499993562698364
+            ],
+            "max": [
+              1.9983819723129272,
+              0.6868417263031006
+            ],
+            "p10": [
+              0.5013786375522613,
+              0.6358503103256226
+            ],
+            "p25": [
+              0.5014011263847351,
+              0.6388705223798752
+            ],
+            "p50": [
+              0.502306342124939,
+              0.6512710154056549
+            ],
+            "p75": [
+              0.5491896718740463,
+              0.6726879477500916
+            ],
+            "p90": [
+              0.9931308090686798,
+              0.6843138098716736
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 0.9999999999999996,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.1299031889795845,
+              0.07062110626572851
+            ],
+            [
+              0.0876158370847086,
+              0.0007578675346941818
+            ]
+          ],
+          [
+            [
+              0.6559143347400128,
+              0.0005659848619756184
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.6559143347400128,
+              0.0005659848619756184
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3162.593897342682,
+      "train_seconds": 12.390142849006224,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 25,
+      "valid_ndcg10": 0.0595,
+      "valid_metrics": {
+        "hit@5": 0.0673,
+        "hit@10": 0.1107,
+        "hit@20": 0.1861,
+        "hit@50": 0.3287,
+        "ndcg@5": 0.0455,
+        "ndcg@10": 0.0595,
+        "ndcg@20": 0.0784,
+        "ndcg@50": 0.1065,
+        "recall@5": 0.0673,
+        "recall@10": 0.1107,
+        "recall@20": 0.1861,
+        "recall@50": 0.3287
+      },
+      "valid_seconds": 0.385926513990853,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.39092872996595,
+              0.9165746662968436
+            ],
+            "std": [
+              0.6225998662890365,
+              0.4762158709406799
+            ],
+            "min": [
+              0.5000028014183044,
+              0.5085696578025818
+            ],
+            "max": [
+              1.9892945289611816,
+              1.997361183166504
+            ],
+            "p10": [
+              0.505299323797226,
+              0.5107770442962647
+            ],
+            "p25": [
+              0.5893676280975342,
+              0.5290728807449341
+            ],
+            "p50": [
+              1.7249395251274109,
+              0.6908702850341797
+            ],
+            "p75": [
+              1.968451738357544,
+              1.2623065114021301
+            ],
+            "p90": [
+              1.98697110414505,
+              1.7635386109352111
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6276228177255702,
+              0.661494004057315
+            ],
+            "std": [
+              0.29936211081237657,
+              0.022643107709707812
+            ],
+            "min": [
+              0.5013317465782166,
+              0.5546981692314148
+            ],
+            "max": [
+              1.9983566999435425,
+              0.6977501511573792
+            ],
+            "p10": [
+              0.5013368964195252,
+              0.6388425230979919
+            ],
+            "p25": [
+              0.5013628602027893,
+              0.6424330770969391
+            ],
+            "p50": [
+              0.5022370219230652,
+              0.6578969061374664
+            ],
+            "p75": [
+              0.5480533838272095,
+              0.6822440922260284
+            ],
+            "p90": [
+              0.9848699629306793,
+              0.6948156237602234
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6276228177255702,
+              0.661494004057315
+            ],
+            "std": [
+              0.29936211081237657,
+              0.022643107709707812
+            ],
+            "min": [
+              0.5013317465782166,
+              0.5546981692314148
+            ],
+            "max": [
+              1.9983566999435425,
+              0.6977501511573792
+            ],
+            "p10": [
+              0.5013368964195252,
+              0.6388425230979919
+            ],
+            "p25": [
+              0.5013628602027893,
+              0.6424330770969391
+            ],
+            "p50": [
+              0.5022370219230652,
+              0.6578969061374664
+            ],
+            "p75": [
+              0.5480533838272095,
+              0.6822440922260284
+            ],
+            "p90": [
+              0.9848699629306793,
+              0.6948156237602234
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 1.0,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.13482587682788952,
+              0.0
+            ],
+            [
+              0.08842063994942027,
+              0.0010187727515561132
+            ]
+          ],
+          [
+            [
+              0.657795889293361,
+              0.000530093139021067
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.657795889293361,
+              0.000530093139021067
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3160.6394834518433,
+      "train_seconds": 12.372664643044118,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    },
+    {
+      "epoch": 26,
+      "valid_ndcg10": 0.0603,
+      "valid_metrics": {
+        "hit@5": 0.0688,
+        "hit@10": 0.1116,
+        "hit@20": 0.1846,
+        "hit@50": 0.331,
+        "ndcg@5": 0.0466,
+        "ndcg@10": 0.0603,
+        "ndcg@20": 0.0786,
+        "ndcg@50": 0.1075,
+        "recall@5": 0.0688,
+        "recall@10": 0.1116,
+        "recall@20": 0.1846,
+        "recall@50": 0.331
+      },
+      "valid_seconds": 0.3804529820336029,
+      "valid_peak_allocated_bytes": 1267096576,
+      "valid_peak_reserved_bytes": 2466250752,
+      "diagnostics": {
+        "status": "MEASURED",
+        "active_history_gaps": 724401,
+        "temporal_heads": 2,
+        "shared_across_layers": true,
+        "scales": {
+          "decay": {
+            "mean": [
+              1.3833414991264041,
+              0.9197990051082567
+            ],
+            "std": [
+              0.6219011796566173,
+              0.4805365424832187
+            ],
+            "min": [
+              0.5000028610229492,
+              0.508286714553833
+            ],
+            "max": [
+              1.9884485006332397,
+              1.9977381229400635
+            ],
+            "p10": [
+              0.5051134288311004,
+              0.5104643940925598
+            ],
+            "p25": [
+              0.5850440561771393,
+              0.5287041962146759
+            ],
+            "p50": [
+              1.706221580505371,
+              0.691072404384613
+            ],
+            "p75": [
+              1.9656612277030945,
+              1.2726508378982544
+            ],
+            "p90": [
+              1.9859135150909424,
+              1.7752558946609498
+            ]
+          },
+          "write": {
+            "mean": [
+              0.6371626035027691,
+              0.666609124066086
+            ],
+            "std": [
+              0.3140635056930936,
+              0.02408178959183884
+            ],
+            "min": [
+              0.5013625621795654,
+              0.5473503470420837
+            ],
+            "max": [
+              1.9987411499023438,
+              0.7043938040733337
+            ],
+            "p10": [
+              0.5013679087162017,
+              0.6461918354034424
+            ],
+            "p25": [
+              0.5013940334320068,
+              0.6490722447633743
+            ],
+            "p50": [
+              0.5023516714572906,
+              0.6622203290462494
+            ],
+            "p75": [
+              0.554148867726326,
+              0.6873630434274673
+            ],
+            "p90": [
+              1.0423137664794921,
+              0.701454758644104
+            ]
+          },
+          "phase": {
+            "mean": [
+              0.6371626035027691,
+              0.666609124066086
+            ],
+            "std": [
+              0.3140635056930936,
+              0.02408178959183884
+            ],
+            "min": [
+              0.5013625621795654,
+              0.5473503470420837
+            ],
+            "max": [
+              1.9987411499023438,
+              0.7043938040733337
+            ],
+            "p10": [
+              0.5013679087162017,
+              0.6461918354034424
+            ],
+            "p25": [
+              0.5013940334320068,
+              0.6490722447633743
+            ],
+            "p50": [
+              0.5023516714572906,
+              0.6622203290462494
+            ],
+            "p75": [
+              0.554148867726326,
+              0.6873630434274673
+            ],
+            "p90": [
+              1.0423137664794921,
+              0.701454758644104
+            ]
+          }
+        },
+        "write_equals_phase": true,
+        "mean_abs_write_phase_log_difference_per_head": [
+          0.0,
+          0.0
+        ],
+        "write_phase_log_comparison": {
+          "mean_abs_log_difference": 0.0,
+          "log_correlation": 0.9999999999999996,
+          "decay_greater_fraction": 0.0,
+          "scan_greater_fraction": 0.0
+        },
+        "near_bound_fractions": [
+          [
+            [
+              0.13708291402137765,
+              0.0
+            ],
+            [
+              0.09278838654281261,
+              0.0017366072106471415
+            ]
+          ],
+          [
+            [
+              0.6510868980026256,
+              0.0008696840562064382
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            [
+              0.6510868980026256,
+              0.0008696840562064382
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "near_bound_axes": [
+          "decay/write/phase",
+          "temporal_head",
+          "below .51/above 1.99"
+        ],
+        "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+      },
+      "train_loss": 3158.252639770508,
+      "train_seconds": 12.374590574996546,
+      "train_peak_allocated_bytes": 1872662016,
+      "train_peak_reserved_bytes": 2466250752
+    }
+  ],
+  "actual_epochs": 27,
+  "rng_before_fit_sha256": "6ff5fb2fb57e3a4f80802afe70cf426918971cc6464d8f05d781a9cbb4f7320f",
+  "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/checkpoints/best_state_dict.pth",
+  "checkpoint_metadata_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/checkpoints/best_metadata.json",
+  "tensorboard_path": "log_tensorboard/ThreeTimeMamba3Rec-kuairand-Sep-26-2026_19-29-04-370cb3",
+  "first_train_batch_sha256": "96290ff5095b675be399fef25e4db30b014f4464488d69e085fd42a48e1edcfc",
+  "best_epoch": 15,
+  "best_valid_score": 0.0615,
+  "best_valid_metrics": {
+    "hit@5": 0.0681,
+    "hit@10": 0.1142,
+    "hit@20": 0.1813,
+    "hit@50": 0.3235,
+    "ndcg@5": 0.0467,
+    "ndcg@10": 0.0615,
+    "ndcg@20": 0.0783,
+    "ndcg@50": 0.1064,
+    "recall@5": 0.0681,
+    "recall@10": 0.1142,
+    "recall@20": 0.1813,
+    "recall@50": 0.3235
+  },
+  "best_diagnostics": {
+    "status": "MEASURED",
+    "active_history_gaps": 724401,
+    "temporal_heads": 2,
+    "shared_across_layers": true,
+    "scales": {
+      "decay": {
+        "mean": [
+          1.68438494797752,
+          0.9484220751550619
+        ],
+        "std": [
+          0.5019608009718723,
+          0.4998658000916765
+        ],
+        "min": [
+          0.5001599788665771,
+          0.513296902179718
+        ],
+        "max": [
+          1.9978903532028198,
+          1.997855305671692
+        ],
+        "p10": [
+          0.690930324792862,
+          0.5158028960227966
+        ],
+        "p25": [
+          1.525527685880661,
+          0.5339560955762863
+        ],
+        "p50": [
+          1.9817278385162354,
+          0.6927393674850464
+        ],
+        "p75": [
+          1.9961731731891632,
+          1.3740524053573608
+        ],
+        "p90": [
+          1.9976577639579773,
+          1.8166666507720948
+        ]
+      },
+      "write": {
+        "mean": [
+          0.6489652041548324,
+          0.5842814384356497
+        ],
+        "std": [
+          0.3181078725982513,
+          0.005767510732538973
+        ],
+        "min": [
+          0.5029506683349609,
+          0.5467866659164429
+        ],
+        "max": [
+          1.9976787567138672,
+          0.5885777473449707
+        ],
+        "p10": [
+          0.5029538869857788,
+          0.575601190328598
+        ],
+        "p25": [
+          0.5030199885368347,
+          0.5837732404470444
+        ],
+        "p50": [
+          0.504988044500351,
+          0.5866244435310364
+        ],
+        "p75": [
+          0.5806764364242554,
+          0.5874938666820526
+        ],
+        "p90": [
+          1.096921408176422,
+          0.5883558750152588
+        ]
+      },
+      "phase": {
+        "mean": [
+          0.6489652041548324,
+          0.5842814384356497
+        ],
+        "std": [
+          0.3181078725982513,
+          0.005767510732538973
+        ],
+        "min": [
+          0.5029506683349609,
+          0.5467866659164429
+        ],
+        "max": [
+          1.9976787567138672,
+          0.5885777473449707
+        ],
+        "p10": [
+          0.5029538869857788,
+          0.575601190328598
+        ],
+        "p25": [
+          0.5030199885368347,
+          0.5837732404470444
+        ],
+        "p50": [
+          0.504988044500351,
+          0.5866244435310364
+        ],
+        "p75": [
+          0.5806764364242554,
+          0.5874938666820526
+        ],
+        "p90": [
+          1.096921408176422,
+          0.5883558750152588
+        ]
+      }
+    },
+    "write_equals_phase": true,
+    "mean_abs_write_phase_log_difference_per_head": [
+      0.0,
+      0.0
+    ],
+    "write_phase_log_comparison": {
+      "mean_abs_log_difference": 0.0,
+      "log_correlation": 1.0,
+      "decay_greater_fraction": 0.0,
+      "scan_greater_fraction": 0.0
+    },
+    "near_bound_fractions": [
+      [
+        [
+          0.010622569543664351,
+          0.4242332630683834
+        ],
+        [
+          0.0,
+          0.0021245139087328704
+        ]
+      ],
+      [
+        [
+          0.598367478785921,
+          0.0002664270203934009
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      [
+        [
+          0.598367478785921,
+          0.0002664270203934009
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    ],
+    "near_bound_axes": [
+      "decay/write/phase",
+      "temporal_head",
+      "below .51/above 1.99"
+    ],
+    "sampling": "separate seeded CPU reservoirs; approximate quantiles; no new forward"
+  },
+  "checkpoint_sha256": "3f20f7d4e8b54bf2f64702ee2c6e78fe12c88b7797e125305b00e6f8f327fceb",
+  "first27_best_ndcg10": 0.0615,
+  "train_seconds": 593.2322801131522,
+  "valid_seconds": 11.176218414097093,
+  "peak_gpu_allocated_bytes": 1899601408,
+  "peak_gpu_reserved_bytes": 2466250752,
+  "finished_at": "2026-09-26T16:39:47.391632+00:00"
+}

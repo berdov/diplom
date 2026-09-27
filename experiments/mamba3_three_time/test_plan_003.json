@@ -1,0 +1,174 @@
+{
+  "seed": 2026,
+  "scientific_fits": 0,
+  "TRAIN": 0,
+  "VALID": 0,
+  "TEST": 0,
+  "structural": {
+    "atol": 0.000001,
+    "rtol": 0.00001
+  },
+  "cpu_gradcheck": {
+    "dtype": "float64",
+    "eps": 0.000001,
+    "atol": 0.00001,
+    "rtol": 0.001
+  },
+  "reference": {
+    "atol": 0.003,
+    "rtol": 0.08,
+    "relative_norm_limit": 0.08,
+    "gradient_atol": 0.006,
+    "gradient_rtol": 0.12,
+    "gradient_relative_norm_limit": 0.12,
+    "rationale": "Fixed before any GPU result: several bf16 roundings, approximate elementary functions and bf16 saved states. Elementwise tolerance AND relative L2 cap required. Must first pass official tied-baseline calibration on the same fixture/dtype for each architecture; triple is INCONCLUSIVE if baseline calibration fails. These caps are never fitted to triple errors or relaxed after failure.",
+    "kernel_dtype": "bf16 inputs and internal intermediates; ADT/DT fp32; SISO raw/cumulative angles bf16, MIMO angles fp32",
+    "reference_dtype": "fp32 on exactly quantized kernel input values; no claim of fp32 kernel execution"
+  },
+  "lengths": {
+    "SISO": [
+      1,
+      50,
+      63,
+      64,
+      65,
+      97
+    ],
+    "MIMO": [
+      1,
+      7,
+      8,
+      9,
+      15,
+      16,
+      17,
+      50,
+      65
+    ]
+  },
+  "suites": [
+    "I",
+    "initialization",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H"
+  ],
+  "scope": "Synthetic only; ADT-only full suite. Combined stable_scan advisory. No default promotion; native MIMO L16, wrapped L17/L50 then full suite.",
+  "attempt_id": "003",
+  "subprocess_timeout_seconds": 2400,
+  "parent_execution_commit": "d0c8a2356b235981436715e2d340803e1a0951a0",
+  "prefix_fixtures": [
+    [
+      17,
+      7
+    ],
+    [
+      65,
+      31
+    ],
+    [
+      97,
+      65
+    ]
+  ],
+  "loss_multipliers": [
+    1,
+    16
+  ],
+  "backends": [
+    "upstream",
+    "stable_angle",
+    "stable_adt",
+    "stable_scan"
+  ],
+  "default_backend": "upstream",
+  "candidate_backend": "SISO stable_adt; MIMO upstream angle with length adapter",
+  "promotion": "Never automatic, even if all checks PASS",
+  "expected_counts": {
+    "SISO": {
+      "base": 610440,
+      "dual": 610572,
+      "triple": 610638
+    },
+    "MIMO": {
+      "base": 714888,
+      "dual": 715020,
+      "triple": 715086
+    }
+  },
+  "profile": {
+    "SISO": {
+      "chunk_size": 64
+    },
+    "MIMO": {
+      "chunk_size": 8,
+      "rank": 4,
+      "d_state": 128,
+      "headdim": 64,
+      "d_model": 64,
+      "expand": 2,
+      "ngroups": 1,
+      "rope_fraction": 0.5,
+      "layers": 2,
+      "is_outproj_norm": false
+    }
+  },
+  "matched_launch": {
+    "num_warps": 4,
+    "num_stages": 2,
+    "maxnreg": 128,
+    "rule": "One supported config from unchanged upstream config list, frozen before measurements; no search or autotuner mutation"
+  },
+  "drift_matrix": {
+    "modes": [
+      "base",
+      "dual",
+      "triple"
+    ],
+    "training": [
+      "eval",
+      "train"
+    ],
+    "lengths": [
+      50,
+      64
+    ],
+    "backends": [
+      "upstream",
+      "upstream_repeat",
+      "stable_adt",
+      "stable_scan"
+    ],
+    "conditional_hybrid": "Only if identical-input dqkv replay changes non-ADT outputs; one variant, two full dqkv calls"
+  },
+  "adapter": {
+    "chunk": 8,
+    "native_length": 16,
+    "wrapped_gates": [
+      17,
+      50
+    ],
+    "tail": 0,
+    "extra_chunks": 1,
+    "axes": {
+      "q": 1,
+      "k": 1,
+      "v": 1,
+      "z": 1,
+      "angles": 1,
+      "adt": 2,
+      "dw": 2,
+      "dp": 2,
+      "trap": 2
+    },
+    "cross_length_profile": "unchanged reference profile; same padded shape uses structural profile"
+  },
+  "evidence_registry": "gpu_checks_003.specs: exact ID set; nested required failures propagate; parent finalizes interrupted progress",
+  "paired_reference": "Each original/candidate/reference triplet uses the same quantized source tensors; tied official calibrated first. Independent triple cannot be called confirmed if tied calibration fails.",
+  "angle_advisory": "Ideal FP64 PyTorch elementary functions are advisory, separate from arithmetic pair and actual GPU reverse scan"
+}

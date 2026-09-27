@@ -1,0 +1,109 @@
+{
+  "execution_commit": "176f72a206eb48ddc4de492b87bc3273b75e1cae",
+  "job_id": "4353838",
+  "files": [
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/runs/siso_diagnostics_004.json",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/runs/siso_diagnostics_004.json",
+      "size": 1635416,
+      "sha256": "6a575d9759e3a079246beedfd8f8253d0f5981cfd48fcc2435d9c0ddaae0e04c"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/runs/mimo_diagnostics_004.json",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/runs/mimo_diagnostics_004.json",
+      "size": 3374269,
+      "sha256": "f2760295d6ee2421cc155137dc9b03c7b8e443cf1a0c34c3d218f6db9ac01e08"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/runs/technical_summary_004.json",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/runs/technical_summary_004.json",
+      "size": 70561,
+      "sha256": "a88ffad65fd6dd8769200ab8cb585229f4b352c83a216ac6171a5f7ae8d12f4f"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/test_plan_004.json",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/test_plan_004.json",
+      "size": 2924,
+      "sha256": "752e0311d1345ad6decc84f37f6dd476b4c203e176ec94babaf332d1f39f9e0c"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/source_manifest_004.json",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/source_manifest_004.json",
+      "size": 8804,
+      "sha256": "7b36e8473ad8243fa81a9079870ca57a7a454860ee14164b2aa0975cd759cd52"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/submission_004.json",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/submission_004.json",
+      "size": 1835,
+      "sha256": "af9150432b5e85fc4bd8107aa900082b4ad72ec8e1704c042ceee315bf6e8957"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/pipeline_status.json",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/pipeline_status.json",
+      "size": 70561,
+      "sha256": "a88ffad65fd6dd8769200ab8cb585229f4b352c83a216ac6171a5f7ae8d12f4f"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/execution_004.lock",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/execution_004.lock",
+      "size": 285,
+      "sha256": "7e0abae861e693a44f12e40b7027e2a248615feae8e25fad22ed4aa4c5b76f68"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/login_preflight_004.json",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/login_preflight_004.json",
+      "size": 94972,
+      "sha256": "56136493e8e27e893015537525aac7439edbf8ee25669db066405a8d62fd7eb6"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/cpu_tests_004.json",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/cpu_tests_004.json",
+      "size": 2345,
+      "sha256": "1385e6aa7cddebd1f90e31899c88a03486990f9c4235c303be10ebefce795f77"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/predeploy_guard.json",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/predeploy_guard.json",
+      "size": 10323,
+      "sha256": "3f63772981497db39412e4cd19de56694f615c0fd78040819003ff8152cf2b15"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/siso_stdout.log",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/siso_stdout.log",
+      "size": 3747,
+      "sha256": "fccd41a003df8b11317427b9aa2e3a536cf929d78685885c56d464c2ecb1ef3d"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/siso_stderr.log",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/siso_stderr.log",
+      "size": 7392,
+      "sha256": "ee48b87183353be97a3a53322f86a56d372ebd1872e7f7626dc63533d8d77cc7"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/mimo_stdout.log",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/mimo_stdout.log",
+      "size": 4724,
+      "sha256": "bb79da456b52e01de89e8c6b0c6ffeb9d8f8509407c30c86c457f45adf666c8c"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/mimo_stderr.log",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/mimo_stderr.log",
+      "size": 1008,
+      "sha256": "1216a8bf3c3c2dd8593a5fe0b71c5301d5eee325088b897a9b485e1afdee90d9"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/m3-three-diag4-4353838.out",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/m3-three-diag4-4353838.out",
+      "size": 437,
+      "sha256": "951d638fe910386a7f5b8df77bf34f19a8ad1b4c1820e601f1893bcb2fd099d3"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/slurm_logs/attempt_004/m3-three-diag4-4353838.err",
+      "destination": "experiments/mamba3_three_time/evidence/attempt_004/slurm_logs/attempt_004/m3-three-diag4-4353838.err",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "verified": true
+}

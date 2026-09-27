@@ -1,0 +1,59 @@
+{
+  "attempt_id": "002",
+  "job_id": "4338153",
+  "execution_commit": "d0c8a2356b235981436715e2d340803e1a0951a0",
+  "parent_execution_commit": "1bff0863e13c90161b6828c1905b2f5a0ab62a14",
+  "source_hash": "c6470fb5ce3505b7209c4617b82d47cec351d965b592fb92c5afb56fa71ff07e",
+  "plan_sha256": "d72caf7525ea925a2be0659f450ef6e3ccba34ee83b6bb1a8bd2ac86ce8f1a94",
+  "status": "FAIL",
+  "architectures": {
+    "SISO": {
+      "exit_code": 1,
+      "status": "FAIL",
+      "evidence": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/runs/siso_correctness_002.json",
+      "failed_cases": [
+        "scan_regression_base_eval_L50",
+        "scan_regression_base_eval_L64",
+        "scan_regression_base_train_L50",
+        "scan_regression_base_train_L64",
+        "scan_regression_dual_eval_L50",
+        "scan_regression_dual_eval_L64",
+        "scan_regression_dual_train_L50",
+        "scan_regression_dual_train_L64",
+        "scan_regression_triple_eval_L50",
+        "scan_regression_triple_eval_L64",
+        "scan_regression_triple_train_L50",
+        "scan_regression_triple_train_L64",
+        "A_eval_L50",
+        "A_eval_L64",
+        "A_train_L50",
+        "A_train_L64",
+        "B_eval_L50",
+        "B_eval_L64",
+        "B_train_L50",
+        "B_train_L64"
+      ],
+      "failed_diagnostics": [],
+      "original_exact_zero_check": "FAIL",
+      "localization": "LOCALIZED",
+      "native_support": "PASS",
+      "full_local_correctness": "FAIL"
+    },
+    "MIMO": {
+      "exit_code": 1,
+      "status": "HARDWARE_OR_KERNEL_BLOCKED",
+      "evidence": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/runs/mimo_correctness_002.json",
+      "failed_cases": [],
+      "failed_diagnostics": [],
+      "original_exact_zero_check": "NOT_RUN",
+      "localization": "NOT_RUN",
+      "native_support": "HARDWARE_OR_KERNEL_BLOCKED",
+      "full_local_correctness": "NOT_RUN"
+    }
+  },
+  "scientific_fits": 0,
+  "TRAIN": 0,
+  "VALID": 0,
+  "TEST": 0,
+  "stage": "MIMO"
+}

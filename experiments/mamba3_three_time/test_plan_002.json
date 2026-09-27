@@ -1,0 +1,120 @@
+{
+  "seed": 2026,
+  "scientific_fits": 0,
+  "TRAIN": 0,
+  "VALID": 0,
+  "TEST": 0,
+  "structural": {
+    "atol": 0.000001,
+    "rtol": 0.00001
+  },
+  "cpu_gradcheck": {
+    "dtype": "float64",
+    "eps": 0.000001,
+    "atol": 0.00001,
+    "rtol": 0.001
+  },
+  "reference": {
+    "atol": 0.003,
+    "rtol": 0.08,
+    "relative_norm_limit": 0.08,
+    "gradient_atol": 0.006,
+    "gradient_rtol": 0.12,
+    "gradient_relative_norm_limit": 0.12,
+    "rationale": "Fixed before any GPU result: several bf16 roundings, approximate elementary functions and bf16 saved states. Elementwise tolerance AND relative L2 cap required. Must first pass official tied-baseline calibration on the same fixture/dtype for each architecture; triple is INCONCLUSIVE if baseline calibration fails. These caps are never fitted to triple errors or relaxed after failure.",
+    "kernel_dtype": "bf16 inputs and internal intermediates; ADT/DT fp32; SISO raw/cumulative angles bf16, MIMO angles fp32",
+    "reference_dtype": "fp32 on exactly quantized kernel input values; no claim of fp32 kernel execution"
+  },
+  "lengths": {
+    "SISO": [
+      1,
+      50,
+      63,
+      64,
+      65,
+      97
+    ],
+    "MIMO": [
+      1,
+      7,
+      8,
+      9,
+      15,
+      16,
+      17,
+      50,
+      65
+    ]
+  },
+  "suites": [
+    "I",
+    "initialization",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H"
+  ],
+  "scope": "Dense full sequences, no final-state loss/cache/varlen. Attempt001 rank4/chunk16 remains FAIL. Attempt002 rank4/chunk8 only; no hardware/config search. Default backend unchanged. CPU algebra is not GPU evidence.",
+  "attempt_id": "002",
+  "parent_execution_commit": "1bff0863e13c90161b6828c1905b2f5a0ab62a14",
+  "prefix_fixtures": [
+    [
+      17,
+      7
+    ],
+    [
+      65,
+      31
+    ],
+    [
+      97,
+      65
+    ]
+  ],
+  "loss_multipliers": [
+    1,
+    16
+  ],
+  "backends": [
+    "upstream",
+    "stable_angle",
+    "stable_adt",
+    "stable_scan"
+  ],
+  "default_backend": "upstream",
+  "candidate_backend": "stable_scan",
+  "promotion": "NOT automatic; localization, exact-zero, all regressions and reference must pass first",
+  "expected_counts": {
+    "SISO": {
+      "base": 610440,
+      "dual": 610572,
+      "triple": 610638
+    },
+    "MIMO": {
+      "base": 714888,
+      "dual": 715020,
+      "triple": 715086
+    }
+  },
+  "profile": {
+    "SISO": {
+      "chunk_size": 64
+    },
+    "MIMO": {
+      "chunk_size": 8,
+      "rank": 4,
+      "d_state": 128,
+      "headdim": 64,
+      "d_model": 64,
+      "expand": 2,
+      "ngroups": 1,
+      "rope_fraction": 0.5,
+      "layers": 2,
+      "is_outproj_norm": false
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "version": "siso_numeric_acceptance_v1",
+  "scope": "SISO dual/triple pilot only; not MIMO",
+  "timing": "Revised after diagnostics001-004, before new recommendation metrics; not fully preregistered",
+  "backend": "upstream",
+  "structural": {"atol": 0.000001, "rtol": 0.00001},
+  "future_gradient": {
+    "norm_dtype": "float64",
+    "rho": "future_l2 / (prefix_l2 + future_l2)",
+    "maximum_rho": 1.1920928955078125e-7,
+    "budget_basis": "float32 epsilon, chosen engineering normalized-residual budget; not a theoretical kernel bound or a PyTorch-prescribed test",
+    "zero_total": "ZERO_SIGNAL, not admissible for an informative fixture",
+    "zero_prefix_nonzero_future": "FAIL",
+    "denominator_floor": 0,
+    "modify_gradients": false
+  },
+  "unchanged": ["structural parity", "all common gradients", "tied/independent slots", "SISO reference profile", "finite", "forward prefix invariance", "no future/target inputs", "cross-user isolation", "padding", "initialization", "sources"],
+  "historical_exact_zero_reclassified": false,
+  "MIMO_acceptance_changed": false
+}

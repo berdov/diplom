@@ -1,0 +1,231 @@
+{
+  "head": "d0c8a2356b235981436715e2d340803e1a0951a0",
+  "main": "de0a137a6f46b5b214ccdc03a5ff1ede93454704",
+  "active_jobs": [],
+  "files": {
+    "experiments/mamba3_input_time/runs/gpu_checks_001.json": {
+      "sha256": "8a035bb00fe70bce99fb185a1dff7d295ced73e281407eeb63334dd5651cdecb",
+      "size": 1403
+    },
+    "experiments/mamba3_input_time/runs/mamba3_input_attention_content_seed2026_001.json": {
+      "sha256": "8143a705d16133b83820026e5f4170d5decfec745aa0f97c1a9190314acc1341",
+      "size": 574
+    },
+    "experiments/mamba3_input_time/runs/mamba3_input_attention_time_seed2026_001.json": {
+      "sha256": "144dd28fd0c86673190771315fd13783b7029579904ddbf990bdccf2b850294d",
+      "size": 568
+    },
+    "experiments/mamba3_input_time/runs/mamba3_input_separate_replay_seed2026_001.json": {
+      "sha256": "aa27df93a7558f28d68a7443c88875544eafce412192dc0df6b93ec7f35cf9f3",
+      "size": 570
+    },
+    "experiments/mamba3_input_time/runs/mamba3_input_time_add_seed2026_001.json": {
+      "sha256": "aeed0c8ea3a2af2b063ae297f4a43ed6e2f17a62331e05255c53603e015cc6f7",
+      "size": 556
+    },
+    "experiments/mamba3_input_time/runs/pilot_summary.json": {
+      "sha256": "b624c07c1d56dfbc1d4175da7578930606b2b7f7cd54731531ad46271f01d14c",
+      "size": 5337
+    },
+    "experiments/mamba3_input_time/runs/pilot_summary.md": {
+      "sha256": "7b1a8f85d1a3d5427424c3316fecacbf6e13f378af3cdac91798ec7d1308f38b",
+      "size": 1854
+    },
+    "experiments/mamba3_input_time/runs/pilot_summary.svg": {
+      "sha256": "855bf0d965cb96cb35e25ab9d106988a67340817be9720435b9f18486a701953",
+      "size": 3492
+    },
+    "experiments/mamba3_three_time/runs/mimo_correctness_001.json": {
+      "sha256": "fe066b43c013a2b2e64f11efdde683774a89645501cf624fd06c1069fee55a8a",
+      "size": 4888
+    },
+    "experiments/mamba3_three_time/runs/mimo_correctness_002.json": {
+      "sha256": "c235581ec62cc8abeab373f22e2245151e5132462a9fd81f50d122a0ddfddb9f",
+      "size": 11437
+    },
+    "experiments/mamba3_three_time/runs/siso_correctness_001.json": {
+      "sha256": "15125c795df8eea0454eaf804068c5b23a6836a79b51ebb98d6d67880bffe44a",
+      "size": 318399
+    },
+    "experiments/mamba3_three_time/runs/siso_correctness_002.json": {
+      "sha256": "d22bcfce1a74a529641f88d1b14e3ae07b5db1b516a73fd8a950b36145378b92",
+      "size": 7311680
+    },
+    "experiments/mamba3_three_time/runs/technical_summary.json": {
+      "sha256": "3036e1bc35b1635173395e316f34d9dbb455165503f70880bb5315a3701334ac",
+      "size": 831
+    },
+    "experiments/mamba3_three_time/runs/technical_summary_002.json": {
+      "sha256": "64041b2d004b8f443787d32da845185474fadd50a0cb42898a6217aaeca42ee3",
+      "size": 1999
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/execution_002.lock": {
+      "sha256": "097e80ebea29618c8da36cd1f14758bc0f04efc0967ba77192ff66616b215f27",
+      "size": 358
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/login_preflight.json": {
+      "sha256": "9294ad4b4a6fe7731e8ea8a792f7b473b9a27591fc0c3f95ae0ced5a0b3024c8",
+      "size": 91589
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/m3-three-check2-4338153.err": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/m3-three-check2-4338153.out": {
+      "sha256": "64041b2d004b8f443787d32da845185474fadd50a0cb42898a6217aaeca42ee3",
+      "size": 1999
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/mimo_stderr.log": {
+      "sha256": "620659e71405a801bd5ee78db525fe0adc928eb1862adea987451396befbf548",
+      "size": 1765
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/mimo_stdout.log": {
+      "sha256": "0b9c72d84cc9334ec449754624605a473d0b92380e7d1af7d7ebe7b8e9414eb6",
+      "size": 775
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/pipeline_status.json": {
+      "sha256": "64041b2d004b8f443787d32da845185474fadd50a0cb42898a6217aaeca42ee3",
+      "size": 1999
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/predeploy_guard.json": {
+      "sha256": "b59c11bdf614f1d351c9211216fc96b29495dd9ce4cb157fd495b641ac917372",
+      "size": 10234
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/siso_stderr.log": {
+      "sha256": "b5c5ddfed6eed8c91e25361369c17feaf36e4df95029a2437af8ab17bde159de",
+      "size": 8232
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/siso_stdout.log": {
+      "sha256": "4a9b8de970147c79826fc3f325e995b60ac50d2cc17b9b48ac3178e7f6d41d93",
+      "size": 8305
+    },
+    "experiments/mamba3_three_time/slurm_logs/attempt_002/submission_002.json": {
+      "sha256": "be88272e1d4eb6851b5eded30db028d074e4d0498c3457ea3351e6e1c1629b9d",
+      "size": 1707
+    },
+    "experiments/mamba3_three_time/slurm_logs/execution_001.lock": {
+      "sha256": "7b00016dbd31d9acbe888889bb6db88781beb9c831a58b90ff47ac75fc9e8df1",
+      "size": 177
+    },
+    "experiments/mamba3_three_time/slurm_logs/login_preflight.json": {
+      "sha256": "ed0fb0124733baefe693b38a6da969534630ee0190b9afbc1642911f1dfe5787",
+      "size": 89727
+    },
+    "experiments/mamba3_three_time/slurm_logs/m3-three-check-4337949.err": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    "experiments/mamba3_three_time/slurm_logs/m3-three-check-4337949.out": {
+      "sha256": "3036e1bc35b1635173395e316f34d9dbb455165503f70880bb5315a3701334ac",
+      "size": 831
+    },
+    "experiments/mamba3_three_time/slurm_logs/mimo_stderr.log": {
+      "sha256": "2dfcf2889480d1ddd1aa065d844f59bc586ad3fb06f6d9fb727ea5ceb567b2aa",
+      "size": 2348
+    },
+    "experiments/mamba3_three_time/slurm_logs/mimo_stdout.log": {
+      "sha256": "733f63ca937d272bd6dd86b13ca20201278621339acec61c7628a2e76f6a305b",
+      "size": 775
+    },
+    "experiments/mamba3_three_time/slurm_logs/pipeline_status.json": {
+      "sha256": "3036e1bc35b1635173395e316f34d9dbb455165503f70880bb5315a3701334ac",
+      "size": 831
+    },
+    "experiments/mamba3_three_time/slurm_logs/siso_stderr.log": {
+      "sha256": "f00baa52c4ce9e5ba04c7bd0e15ac8b40a879b7c04862be8dde897a375d8b65b",
+      "size": 3696
+    },
+    "experiments/mamba3_three_time/slurm_logs/siso_stdout.log": {
+      "sha256": "f0cef5e7420372cbde26942851e5bbea0f78607abf09bc855087bb2dcf5e2e78",
+      "size": 2669
+    },
+    "experiments/mamba3_three_time/slurm_logs/submission_001.json": {
+      "sha256": "5ca243f580a9300d45edf36876a6d2c60e0b9d6ce0638eb22aa63fe1f44b6fec",
+      "size": 1486
+    },
+    "experiments/stage_confirmation/DESIGN.md": {
+      "sha256": "9b4c2bce079fbdec0094e97336807b6c4ef5ea2051e3967726269e0eb849b7ec",
+      "size": 2321
+    },
+    "experiments/stage_confirmation/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    "experiments/stage_confirmation/fairness.py": {
+      "sha256": "4a398b528a2f6901f5c8fce244524157e422ec36b562695641aac1d50f2adaf5",
+      "size": 2645
+    },
+    "experiments/stage_confirmation/frozen_source_hashes.json": {
+      "sha256": "bbbd14e03bc498ec3c67a207486dce7096ca41d2e1b9a2704380a44860373f52",
+      "size": 7253
+    },
+    "experiments/stage_confirmation/preservation_summary.json": {
+      "sha256": "cf2b7fe791d3e2b70c838422a7f25d351277fcbe7834add6135fc64d1ffae6d3",
+      "size": 3694
+    },
+    "experiments/stage_confirmation/run.py": {
+      "sha256": "0b375094c1eea5ce77eaf60d3fc12f92e996c8bdfb1cf44b7a66fbf945d8491b",
+      "size": 5083
+    },
+    "experiments/stage_confirmation/runs/target_confirm_0000_seed2027_001.json": {
+      "sha256": "a957cce319de05308b644ac0a30959c12fd25d51b3b7a1f0594f23499e7458cb",
+      "size": 28377
+    },
+    "experiments/stage_confirmation/runs/target_confirm_0000_seed2028_001.json": {
+      "sha256": "a5a425b97bee44baeb87b2e968faf33d6778c26ee8e35b750671f03b35ca860f",
+      "size": 25236
+    },
+    "experiments/stage_confirmation/runs/target_confirm_0011_seed2028_001.json": {
+      "sha256": "32fde11c97da0801b7babf057e43f3f7615a0ea15cbc59dbbae022d14f341dfe",
+      "size": 31678
+    },
+    "experiments/stage_confirmation/runs/target_confirm_1011_seed2027_001.json": {
+      "sha256": "bcbcdf57269e752e65ba7f1e4afe34260d3278e77bd68670af5fbc2fa9bac8df",
+      "size": 40682
+    },
+    "experiments/stage_confirmation/submit.py": {
+      "sha256": "567ab5ba92f646fb4e6c7cca732b1273cf996767d83e7b8655ee407f24937b33",
+      "size": 1996
+    },
+    "experiments/stage_confirmation/summarize.py": {
+      "sha256": "5c15abe5a922d2806ed4ccf39b2d168b2ef0ef7f1883cba911a4f94741be9f61",
+      "size": 7181
+    },
+    "experiments/stage_confirmation/tests/test_confirmation.py": {
+      "sha256": "9cc9dee482008e97626f77b4be6434ba15614785e1b9830c661454023ece8971",
+      "size": 1494
+    },
+    "experiments/target_combination_analysis/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    "experiments/target_combination_analysis/combinations.yaml": {
+      "sha256": "bb18a33cc0efb07bff160ec86da1a41ea85f1c7d588db37683130172868d4e5d",
+      "size": 3216
+    },
+    "experiments/target_combination_analysis/common.py": {
+      "sha256": "e54c614abab7d0faddb23a51aa4cbaf350208e2e63af826fedf9102afeccee69",
+      "size": 4196
+    },
+    "experiments/target_combination_analysis/config.yaml": {
+      "sha256": "35a7e4c8bc68ff71e3e4537d2ad5e42d9752761b31d050b05afb85420dc0f1f1",
+      "size": 5432
+    },
+    "experiments/target_combination_analysis/data_audit.py": {
+      "sha256": "53e7ec6ebc04a8c0a8a9f68906cce367b2d85b9cac840c098c01ed448c2911fe",
+      "size": 6213
+    },
+    "experiments/target_combination_analysis/run.py": {
+      "sha256": "7fbc20e1cabcae09e528989d922e99459b05fbae548a4790ecb0211f2fbaea58",
+      "size": 9167
+    },
+    "experiments/target_combination_analysis/safety.py": {
+      "sha256": "4b539fbc1684838258bd9a90ba59a01b1ac760f3d60246bd06701e33b9350d91",
+      "size": 2676
+    },
+    "slurm/stage_confirmation.sh": {
+      "sha256": "a2debde011195df67378394a991cefa09107ae3b689f28936ef57f47bc9b2582",
+      "size": 1071
+    }
+  }
+}

@@ -1,0 +1,534 @@
+{
+  "study_id": "mamba3_three_time_siso_confirmation_001",
+  "execution_commit": "3d3b305c4c74e208cd226d3ed4ccec37b4fd8311",
+  "source_hash": "0e93a9aec6d152f5f13dd5ccae30d8a761c09e552aecc4d7d884e573da8f7785",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "backend": "upstream",
+  "architecture": "SISO",
+  "job_id": "4355052",
+  "policy_version": "siso_numeric_acceptance_v1",
+  "policy_sha256": "b40f72eae5895c379143e8ef590a66f7dab80b9b61e1f1349fcdf16efb509c50",
+  "admission_sha256": "574826c7d8777058d5c87788b9adcd411c8f9ce88f872ae8dd31569f1cd885c7",
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "login_verification_sha256": "babdf16e83d78d91334b18e5eb7d192581c51d886ec4236a2fd4ee4f946f364f",
+  "execution_commit_verification": "login-verified identifier + runtime file SHA256; not runtime Git HEAD",
+  "submission_attempt": 2,
+  "generated_at": "2026-09-27T08:36:46.482096+00:00",
+  "summaries": {
+    "new_four_pairs": {
+      "full": {
+        "horizon": "full",
+        "rows": [
+          {
+            "seed": 2027,
+            "role": "confirmation",
+            "dual": {
+              "status": "PASS",
+              "ndcg10": 0.0632,
+              "reason": null,
+              "actual_epochs": 65,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2027_001.json",
+              "source_sha256": "50ee336280fe241f3eaa97f56acc85d96243531623d5072841c4daa47baa0b58"
+            },
+            "triple": {
+              "status": "FAIL",
+              "ndcg10": null,
+              "reason": "ValueError('Pair mismatch: optimizer_settings')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2027_001.json",
+              "source_sha256": "415d966455e476e16337d3f07576ba430803bdb9b51c1e6fcdd176e85d8fff85"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2028,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2028_001.json",
+              "source_sha256": "f7fae14992a9d9f48586ad1afa7e9693e1a51d106090f0bc039e9d7f9593552b"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2028_001.json",
+              "source_sha256": "7efe755a846705809cfd3055f9e2e963bbeda06e16e7ff547448f71a7d70feaf"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2029,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2029_001.json",
+              "source_sha256": "4cb3abfe4a648a1b3482e5c548ae98bbc5cb6fa2a2f7cfa91b44fdf2c5e50c7a"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2029_001.json",
+              "source_sha256": "5b2f2bf55e44863a1a2ba279025a2718bf6aae6ab753a5a44810f112f1be8713"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2030,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2030_001.json",
+              "source_sha256": "a83f03b0d104f75e56f1ed017b50b2bbfa81046c78f0cce0a5348d20279c7214"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2030_001.json",
+              "source_sha256": "86b600174cb3a6ed0849d4358178a2b08453b2dc8d1a6c6a8e5d97bdb6b8333d"
+            },
+            "paired_delta": null
+          }
+        ],
+        "n_expected": 4,
+        "n_available": 0,
+        "n_expected_runs": 8,
+        "n_available_runs": 1,
+        "incomplete": true,
+        "mode_statistics_all_available": {
+          "dual": {
+            "n": 1,
+            "mean": 0.0632,
+            "sample_std_ddof1": null
+          },
+          "triple": {
+            "n": 0,
+            "mean": null,
+            "sample_std_ddof1": null
+          }
+        },
+        "paired_delta": {
+          "n": 0,
+          "mean": null,
+          "sample_std_ddof1": null
+        },
+        "positive": 0,
+        "negative": 0,
+        "zero": 0,
+        "relative_gain_percent": null,
+        "missingness_note": "All successful rows retained. Paired deltas use complete pairs only; no relative gain for incomplete sets."
+      },
+      "first27": {
+        "horizon": "first27",
+        "rows": [
+          {
+            "seed": 2027,
+            "role": "confirmation",
+            "dual": {
+              "status": "PASS",
+              "ndcg10": 0.0614,
+              "reason": null,
+              "actual_epochs": 65,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2027_001.json",
+              "source_sha256": "50ee336280fe241f3eaa97f56acc85d96243531623d5072841c4daa47baa0b58"
+            },
+            "triple": {
+              "status": "FAIL",
+              "ndcg10": null,
+              "reason": "ValueError('Pair mismatch: optimizer_settings')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2027_001.json",
+              "source_sha256": "415d966455e476e16337d3f07576ba430803bdb9b51c1e6fcdd176e85d8fff85"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2028,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2028_001.json",
+              "source_sha256": "f7fae14992a9d9f48586ad1afa7e9693e1a51d106090f0bc039e9d7f9593552b"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2028_001.json",
+              "source_sha256": "7efe755a846705809cfd3055f9e2e963bbeda06e16e7ff547448f71a7d70feaf"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2029,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2029_001.json",
+              "source_sha256": "4cb3abfe4a648a1b3482e5c548ae98bbc5cb6fa2a2f7cfa91b44fdf2c5e50c7a"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2029_001.json",
+              "source_sha256": "5b2f2bf55e44863a1a2ba279025a2718bf6aae6ab753a5a44810f112f1be8713"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2030,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2030_001.json",
+              "source_sha256": "a83f03b0d104f75e56f1ed017b50b2bbfa81046c78f0cce0a5348d20279c7214"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2030_001.json",
+              "source_sha256": "86b600174cb3a6ed0849d4358178a2b08453b2dc8d1a6c6a8e5d97bdb6b8333d"
+            },
+            "paired_delta": null
+          }
+        ],
+        "n_expected": 4,
+        "n_available": 0,
+        "n_expected_runs": 8,
+        "n_available_runs": 1,
+        "incomplete": true,
+        "mode_statistics_all_available": {
+          "dual": {
+            "n": 1,
+            "mean": 0.0614,
+            "sample_std_ddof1": null
+          },
+          "triple": {
+            "n": 0,
+            "mean": null,
+            "sample_std_ddof1": null
+          }
+        },
+        "paired_delta": {
+          "n": 0,
+          "mean": null,
+          "sample_std_ddof1": null
+        },
+        "positive": 0,
+        "negative": 0,
+        "zero": 0,
+        "relative_gain_percent": null,
+        "missingness_note": "All successful rows retained. Paired deltas use complete pairs only; no relative gain for incomplete sets."
+      }
+    },
+    "all_five_pairs": {
+      "full": {
+        "horizon": "full",
+        "rows": [
+          {
+            "seed": 2026,
+            "role": "exploratory",
+            "dual": {
+              "status": "PASS",
+              "ndcg10": 0.0615,
+              "reason": null,
+              "actual_epochs": 27,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/runs/mamba3_three_time_siso_dual_seed2026_001.json",
+              "source_sha256": "5a23da8bb5317a0a8f298902fe8b39e3e5e2b0c7893524595d84e5631f44caa7"
+            },
+            "triple": {
+              "status": "PASS",
+              "ndcg10": 0.0623,
+              "reason": null,
+              "actual_epochs": 27,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/runs/mamba3_three_time_siso_triple_seed2026_001.json",
+              "source_sha256": "0ec970f6b161ae39737cdf9b5e793b7d37d133d9e30d7b6cbd4882d6dd379500"
+            },
+            "paired_delta": 0.0008000000000000021
+          },
+          {
+            "seed": 2027,
+            "role": "confirmation",
+            "dual": {
+              "status": "PASS",
+              "ndcg10": 0.0632,
+              "reason": null,
+              "actual_epochs": 65,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2027_001.json",
+              "source_sha256": "50ee336280fe241f3eaa97f56acc85d96243531623d5072841c4daa47baa0b58"
+            },
+            "triple": {
+              "status": "FAIL",
+              "ndcg10": null,
+              "reason": "ValueError('Pair mismatch: optimizer_settings')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2027_001.json",
+              "source_sha256": "415d966455e476e16337d3f07576ba430803bdb9b51c1e6fcdd176e85d8fff85"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2028,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2028_001.json",
+              "source_sha256": "f7fae14992a9d9f48586ad1afa7e9693e1a51d106090f0bc039e9d7f9593552b"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2028_001.json",
+              "source_sha256": "7efe755a846705809cfd3055f9e2e963bbeda06e16e7ff547448f71a7d70feaf"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2029,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2029_001.json",
+              "source_sha256": "4cb3abfe4a648a1b3482e5c548ae98bbc5cb6fa2a2f7cfa91b44fdf2c5e50c7a"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2029_001.json",
+              "source_sha256": "5b2f2bf55e44863a1a2ba279025a2718bf6aae6ab753a5a44810f112f1be8713"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2030,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2030_001.json",
+              "source_sha256": "a83f03b0d104f75e56f1ed017b50b2bbfa81046c78f0cce0a5348d20279c7214"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2030_001.json",
+              "source_sha256": "86b600174cb3a6ed0849d4358178a2b08453b2dc8d1a6c6a8e5d97bdb6b8333d"
+            },
+            "paired_delta": null
+          }
+        ],
+        "n_expected": 5,
+        "n_available": 1,
+        "n_expected_runs": 10,
+        "n_available_runs": 3,
+        "incomplete": true,
+        "mode_statistics_all_available": {
+          "dual": {
+            "n": 2,
+            "mean": 0.06235,
+            "sample_std_ddof1": 0.0012020815280171357
+          },
+          "triple": {
+            "n": 1,
+            "mean": 0.0623,
+            "sample_std_ddof1": null
+          }
+        },
+        "paired_delta": {
+          "n": 1,
+          "mean": 0.0008000000000000021,
+          "sample_std_ddof1": null
+        },
+        "positive": 1,
+        "negative": 0,
+        "zero": 0,
+        "relative_gain_percent": null,
+        "missingness_note": "All successful rows retained. Paired deltas use complete pairs only; no relative gain for incomplete sets."
+      },
+      "first27": {
+        "horizon": "first27",
+        "rows": [
+          {
+            "seed": 2026,
+            "role": "exploratory",
+            "dual": {
+              "status": "PASS",
+              "ndcg10": 0.0615,
+              "reason": null,
+              "actual_epochs": 27,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/runs/mamba3_three_time_siso_dual_seed2026_001.json",
+              "source_sha256": "5a23da8bb5317a0a8f298902fe8b39e3e5e2b0c7893524595d84e5631f44caa7"
+            },
+            "triple": {
+              "status": "PASS",
+              "ndcg10": 0.0623,
+              "reason": null,
+              "actual_epochs": 27,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/runs/mamba3_three_time_siso_triple_seed2026_001.json",
+              "source_sha256": "0ec970f6b161ae39737cdf9b5e793b7d37d133d9e30d7b6cbd4882d6dd379500"
+            },
+            "paired_delta": 0.0008000000000000021
+          },
+          {
+            "seed": 2027,
+            "role": "confirmation",
+            "dual": {
+              "status": "PASS",
+              "ndcg10": 0.0614,
+              "reason": null,
+              "actual_epochs": 65,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2027_001.json",
+              "source_sha256": "50ee336280fe241f3eaa97f56acc85d96243531623d5072841c4daa47baa0b58"
+            },
+            "triple": {
+              "status": "FAIL",
+              "ndcg10": null,
+              "reason": "ValueError('Pair mismatch: optimizer_settings')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2027_001.json",
+              "source_sha256": "415d966455e476e16337d3f07576ba430803bdb9b51c1e6fcdd176e85d8fff85"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2028,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2028_001.json",
+              "source_sha256": "f7fae14992a9d9f48586ad1afa7e9693e1a51d106090f0bc039e9d7f9593552b"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2028_001.json",
+              "source_sha256": "7efe755a846705809cfd3055f9e2e963bbeda06e16e7ff547448f71a7d70feaf"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2029,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2029_001.json",
+              "source_sha256": "4cb3abfe4a648a1b3482e5c548ae98bbc5cb6fa2a2f7cfa91b44fdf2c5e50c7a"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2029_001.json",
+              "source_sha256": "5b2f2bf55e44863a1a2ba279025a2718bf6aae6ab753a5a44810f112f1be8713"
+            },
+            "paired_delta": null
+          },
+          {
+            "seed": 2030,
+            "role": "confirmation",
+            "dual": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2030_001.json",
+              "source_sha256": "a83f03b0d104f75e56f1ed017b50b2bbfa81046c78f0cce0a5348d20279c7214"
+            },
+            "triple": {
+              "status": "NOT_RUN",
+              "ndcg10": null,
+              "reason": "RuntimeError('experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log')",
+              "actual_epochs": 0,
+              "source_json": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2030_001.json",
+              "source_sha256": "86b600174cb3a6ed0849d4358178a2b08453b2dc8d1a6c6a8e5d97bdb6b8333d"
+            },
+            "paired_delta": null
+          }
+        ],
+        "n_expected": 5,
+        "n_available": 1,
+        "n_expected_runs": 10,
+        "n_available_runs": 3,
+        "incomplete": true,
+        "mode_statistics_all_available": {
+          "dual": {
+            "n": 2,
+            "mean": 0.061450000000000005,
+            "sample_std_ddof1": 7.071067811865187e-05
+          },
+          "triple": {
+            "n": 1,
+            "mean": 0.0623,
+            "sample_std_ddof1": null
+          }
+        },
+        "paired_delta": {
+          "n": 1,
+          "mean": 0.0008000000000000021,
+          "sample_std_ddof1": null
+        },
+        "positive": 1,
+        "negative": 0,
+        "zero": 0,
+        "relative_gain_percent": null,
+        "missingness_note": "All successful rows retained. Paired deltas use complete pairs only; no relative gain for incomplete sets."
+      }
+    }
+  },
+  "exploratory_seed": 2026,
+  "scientific_fits": 1,
+  "status": "INCOMPLETE"
+}

@@ -1,0 +1,20 @@
+{
+  "attempt_id": "002",
+  "status": "SUBMITTED",
+  "execution_commit": "d0c8a2356b235981436715e2d340803e1a0951a0",
+  "parent_execution_commit": "1bff0863e13c90161b6828c1905b2f5a0ab62a14",
+  "source_hash": "c6470fb5ce3505b7209c4617b82d47cec351d965b592fb92c5afb56fa71ff07e",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "plan_sha256": "d72caf7525ea925a2be0659f450ef6e3ccba34ee83b6bb1a8bd2ac86ce8f1a94",
+  "branch": "exp/mamba3-three-time",
+  "jobs_submitted": 1,
+  "scientific_fits": 0,
+  "TRAIN": 0,
+  "VALID": 0,
+  "TEST": 0,
+  "git_status_before_submit": "?? experiments/mamba3_input_time/\n?? experiments/mamba3_three_time/runs/\n?? experiments/stage_confirmation/\n?? experiments/target_combination_analysis/\n?? slurm/stage_confirmation.sh",
+  "stdout": "4338153\n",
+  "stderr": "sbatch: \u001b[1mThe job is starting as part of project: \u001b[0m\u001b[38;5;87m\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u0446\u0438\u0444\u0440\u043e\u0432\u044b\u0445 \u0430\u0432\u0430\u0442\u0430\u0440\u043e\u0432, \u0430\u0434\u0430\u043f\u0442\u0438\u0440\u0443\u044e\u0449\u0438\u0445\u0441\u044f \u043a \u044d\u043c\u043e\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u043c \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f\u043c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u0438 \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0432\u0430\u044e\u0449\u0438\u0445 \u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0435 \u0432\u0437\u0430\u0438\u043c\u043e\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435\u001b[0m (\u001b[38;5;82mproj_1833\u001b[0m)\n",
+  "returncode": 0,
+  "job_id": "4338153"
+}

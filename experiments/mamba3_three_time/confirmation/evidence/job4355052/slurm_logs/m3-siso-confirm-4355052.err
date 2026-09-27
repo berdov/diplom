@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/pipeline.py", line 53, in main
+    run_child(__package__+'.runner',['--mode',t['mode'],'--seed',str(t['seed'])],p['runtime'],deadline)
+  File "/home/daryumin/iberdov/diplom/experiments/mamba3_context_time/pipeline.py", line 35, in run_child
+    raise RuntimeError(f'{module} exited {code}; see {stage_dir}/stderr.log')
+RuntimeError: experiments.mamba3_three_time.confirmation.runner exited 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log

@@ -1,0 +1,27 @@
+command line args [--mode triple --seed 2027] will not be used in RecBole
+/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  feat[field].fillna(value=0, inplace=True)
+/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  feat[field].fillna(value=feat[field].mean(), inplace=True)
+Traceback (most recent call last):
+  File "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runner.py", line 141, in <module>
+    main()
+  File "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runner.py", line 105, in main
+    paired(dual, record)
+  File "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/state.py", line 101, in paired
+    raise ValueError('Pair mismatch: ' + key)
+ValueError: Pair mismatch: optimizer_settings

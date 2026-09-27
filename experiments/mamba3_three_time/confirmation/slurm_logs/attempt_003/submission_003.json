@@ -1,0 +1,40 @@
+{
+  "execution_commit": "995c5cde6449ea429c1d80ca6ab276b9791041c0",
+  "source_hash": "1fd03ab81df89b81417796e9b715f2c6b1e176eebdccf6600408df759f8e8741",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "policy_sha256": "b40f72eae5895c379143e8ef590a66f7dab80b9b61e1f1349fcdf16efb509c50",
+  "historical_manifest_sha256": "5da5b4ecf006edfbb7852b74465529a6d6bc2c32523719fbd585284fc934a86c",
+  "plan_sha256": "54e2804f5bceb592ab8f9194ec4aeaf9bac00eb08deb1474122a22f6d2740244",
+  "source_manifest_sha256": "a81feb201db2052b23bade881982f4dffac37ba157ca2500d0bdf0a4a7cdda1b",
+  "resume_plan_sha256": "761c66c4a62638bcef046ab4f1b0f542ce21c21ed0a933883a6daaa89e29930d",
+  "lineage_sha256": "18d975609d0dc709c051405fc9e1a5b72fd23035d1e9a467ed3e4178802c7d41",
+  "parent_job": "4355052",
+  "parent_execution_commit": "3d3b305c4c74e208cd226d3ed4ccec37b4fd8311",
+  "parent_source_hash": "0e93a9aec6d152f5f13dd5ccae30d8a761c09e552aecc4d7d884e573da8f7785",
+  "status": "SUBMITTED",
+  "reserved_at": "2026-09-27T10:52:20.793231+00:00",
+  "login_verification_sha256": "8ef1360890d76d4cc9e62e177d189da72673d12a5b7629adc899098ebacd806d",
+  "resume_reason": "optimizer_metadata_JSON_tuple_list_mismatch_before_triple2027_fit",
+  "max_scientific_fits": 7,
+  "previous_completed_confirmation_fits": 1,
+  "new_diagnostic_optimizer_steps": 0,
+  "new_diagnostic_batches": 0,
+  "scientific_fits_before_submit": 0,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "inherited_gates": [
+    {
+      "path": "experiments/mamba3_three_time/confirmation/runs/one_batch_001.json",
+      "sha256": "ef8a03fe1b83ef5d5a10dfcb6877a62c2b54d450f48d4cfb20fbb017e3ae1c54"
+    },
+    {
+      "path": "experiments/mamba3_three_time/confirmation/runs/initialization_001.json",
+      "sha256": "ad50042957f8cb8fc83096280202e53672fd62efe09fae5c47628ac04bedf6ab"
+    }
+  ],
+  "jobs_submitted": 1,
+  "stdout": "4355314\n",
+  "stderr": "sbatch: \u001b[1mThe job is starting as part of project: \u001b[0m\u001b[38;5;87m\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u0446\u0438\u0444\u0440\u043e\u0432\u044b\u0445 \u0430\u0432\u0430\u0442\u0430\u0440\u043e\u0432, \u0430\u0434\u0430\u043f\u0442\u0438\u0440\u0443\u044e\u0449\u0438\u0445\u0441\u044f \u043a \u044d\u043c\u043e\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u043c \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f\u043c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u0438 \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0432\u0430\u044e\u0449\u0438\u0445 \u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0435 \u0432\u0437\u0430\u0438\u043c\u043e\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435\u001b[0m (\u001b[38;5;82mproj_1833\u001b[0m)\n",
+  "returncode": 0,
+  "job_id": "4355314"
+}

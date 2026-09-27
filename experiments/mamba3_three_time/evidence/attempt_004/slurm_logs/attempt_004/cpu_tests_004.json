@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "source_hash": "795022880fe1459e3674e298638202bd10ddae2f04f3e737d0b4d90dbef035ca",
+  "execution_commit": "176f72a206eb48ddc4de492b87bc3273b75e1cae",
+  "tests_run": 14,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "cuda_initialized": false,
+  "historical_snapshot": {
+    "status": "KNOWN_HISTORICAL_SNAPSHOT_FAIL",
+    "error": "Three-time source manifest mismatch",
+    "reason": "Old immutable attempt003 manifest, not active attempt004 manifest."
+  },
+  "output": "test_D_oracle_independent_reference_and_zero_ssm (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_autotuner_recorder_isolates_cache (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_cotangents_fixed_and_quantized (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_cross_thread_forward_backward (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_independent_slots_gradcheck (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_invocation_ownership_not_last_record (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_launcher_single_submit_and_no_scientific_calls (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_near_zero_loss_bound_does_not_reclassify (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_nested_failure_registry_and_unique_ids (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_overwrite_protection (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_plan_registry_and_non_authorizing_summary (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_real_siso_ctx_uses_explicit_handle (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_snapshot_storage_and_layout (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\ntest_trace_on_off_parity_and_rng (experiments.mamba3_three_time.tests.test_attempt004_cpu.Attempt004CPU) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 2.288s\n\nOK\n",
+  "scientific_fits": 0,
+  "TRAIN": 0,
+  "VALID": 0,
+  "TEST": 0
+}
