@@ -7,7 +7,7 @@ import signal
 import traceback
 from .config import task, settings, effective_check, paths, COUNTS, BATCH, INIT
 from .provenance import identity, gates, atomic_json, create_record, sha, now, imported_sources
-from .state import initial, paired, precision, rng_record
+from .state import initial, paired, precision, rng_record, canonical_optimizer_settings
 
 
 def prepare(mode, seed, record, p, expected_batch=None):
@@ -60,8 +60,8 @@ def prepare(mode, seed, record, p, expected_batch=None):
     trainer = cls(config, model)
     trainer.saved_model_file = str(p['checkpoint'])
     record.update(initial(model, train_data))
-    record['optimizer_settings'] = [{k: v for k, v in group.items() if k != 'params'}
-                                    for group in trainer.optimizer.param_groups]
+    record['optimizer_settings'] = canonical_optimizer_settings(
+        [{k: v for k, v in group.items() if k != 'params'} for group in trainer.optimizer.param_groups])
     record.update(precision=precision(), checkpoint_path=str(p['checkpoint']),
                   checkpoint_metadata_path=str(p['metadata']), tensorboard_path=str(trainer.tensorboard.log_dir),
                   timing_note='Includes JIT; not steady-state overhead', imported_sources=imported_sources())
@@ -69,12 +69,18 @@ def prepare(mode, seed, record, p, expected_batch=None):
 
 
 def main():
+    global identity, gates, paths
     import torch
     from experiments.mamba3_three_time.validation_pilot.provenance import assert_upstream
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', required=True)
     parser.add_argument('--seed', type=int, required=True)
+    parser.add_argument('--resume', action='store_true')
     args = parser.parse_args()
+    if args.resume:
+        from .resume_provenance import identity, inherited_gates as gates
+        from .resume_config import paths, execution_task
+        execution_task(args.mode, args.seed)
     t = task(args.mode, args.seed)
     base = identity()
     init = gates(base)
@@ -92,8 +98,13 @@ def main():
     trainer = handle = None
     try:
         os.chdir(p['runtime'])
-        dual = json.loads(paths('dual', args.seed)['result'].read_text()) if args.mode == 'triple' else None
-        if dual is not None and (dual['status'] != 'PASS' or any(dual.get(k) != v for k, v in base.items())):
+        if args.resume and args.mode == 'triple':
+            from .resume_provenance import resolve
+            dual = resolve('dual', args.seed, base)
+        else:
+            dual = json.loads(paths('dual', args.seed)['result'].read_text()) if args.mode == 'triple' else None
+        if dual is not None and (dual['status'] != 'PASS' or
+                (not args.resume and any(dual.get(k) != v for k, v in base.items()))):
             raise ValueError('Same-allocation completed dual required')
         trainer, train_data, valid_data, handle = prepare(args.mode, args.seed, record, p,
             None if dual is None else dual['first_train_batch_sha256'])

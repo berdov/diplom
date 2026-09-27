@@ -102,6 +102,7 @@ class Contracts(unittest.TestCase):
     def test_pair_components_and_calibrators(self):
         a={k:'same' for k in ('initial_backbone_sha256','rng_components','rng_before_fit_sha256','protocol','manifest_sha256','train_time_stats_sha256','verified_history_stats','first_train_batch_sha256','precision','optimizer_settings')}
         b=copy.deepcopy(a)
+        a['optimizer_settings']=b['optimizer_settings']=[{'lr': .001, 'betas': (.9, .999)}]
         a['initial_calibrator_hashes']={'decay':'d','scan':'s'}
         b['initial_calibrator_hashes']={'decay':'d','write':'s','phase':'s'}
         state.paired(a,b,True)

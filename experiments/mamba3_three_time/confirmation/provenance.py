@@ -24,6 +24,12 @@ def manifest():
     names.update(str(HERE.relative_to(ROOT) / p) for p in ('study_plan.json', 'README.md', 'historical_sources.json'))
     names.update(str(p.relative_to(ROOT)) for p in (HERE / 'evidence/submission_001').iterdir() if p.is_file())
     names.add('slurm/mamba3_three_time_confirmation.sh')
+    archive = HERE / 'evidence/job4355052'
+    preserved_parent = archive / 'preservation_manifest.json'
+    names.add(str(preserved_parent.relative_to(ROOT)))
+    names.update(r['destination'] for r in json.loads(preserved_parent.read_text())['files'])
+    names.update(str(HERE.relative_to(ROOT) / n) for n in ('resume_plan_003.json', 'resume_lineage_003.json'))
+    names.add('slurm/mamba3_three_time_confirmation_resume.sh')
     files = {p: sha(ROOT / p) for p in sorted(names)}
     return dict(schema_version=1, files=files, source_hash=hashlib.sha256(
         json.dumps(files, sort_keys=True, separators=(',', ':')).encode()).hexdigest(),
@@ -112,10 +118,12 @@ def verify():
     if actual != json.loads((HERE / 'source_manifest.json').read_text()):
         raise ValueError('Confirmation sources changed')
     parent = json.loads((FAILED / 'source_manifest.json').read_text())
-    for name in ('one_batch.py', 'initialization.py', 'runner.py', 'state.py', 'report.py', 'study_plan.json'):
+    for name in ('one_batch.py', 'initialization.py', 'report.py', 'study_plan.json'):
         p = str(HERE.relative_to(ROOT) / name)
         if sha(ROOT / p) != parent['files'][p]:
             raise ValueError('Scientific confirmation procedure changed: ' + name)
+    from .resume_provenance import verify_lineage
+    verify_lineage()
     old_admission()
     execution_sources()
     return actual
@@ -220,10 +228,10 @@ def require_evidence(path, base):
     return row
 
 
-def gates(base):
+def gates(base, batch_path=None, init_path=None):
     from .config import MODES, SEEDS
     from .state import paired, ATOL, RTOL
-    batch = require_evidence(BATCH, base)
+    batch = require_evidence(BATCH if batch_path is None else batch_path, base)
     checks = batch.get('checks', {})
     if (batch.get('checks_passed') is not True or batch.get('optimizer_steps') != 2 or
             batch.get('diagnostic_batches') != 1 or not batch.get('batch_sha256') or
@@ -233,7 +241,7 @@ def gates(base):
             not all(c.get('passed') is True and c.get('tensors') and
                     all(r.get('passed') is True for r in c['tensors'].values()) for c in checks.values())):
         raise ValueError('Incomplete controlled step')
-    init = require_evidence(INIT, base)
+    init = require_evidence(INIT if init_path is None else init_path, base)
     if [(r['seed'], r['mode']) for r in init['rows']] != [(s, m) for s in (2026, *SEEDS) for m in MODES]:
         raise ValueError('Incomplete paired initialization')
     if init.get('forward_calls') != 0 or init.get('scientific_fits') != 0:

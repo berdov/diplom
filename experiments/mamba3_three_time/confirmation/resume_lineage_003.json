@@ -1,0 +1,33 @@
+{
+  "parent_commit": "3d3b305c4c74e208cd226d3ed4ccec37b4fd8311",
+  "parent_source_hash": "0e93a9aec6d152f5f13dd5ccae30d8a761c09e552aecc4d7d884e573da8f7785",
+  "changes": {
+    "experiments/mamba3_three_time/confirmation/README.md": {
+      "before_sha256": "20829eb203ecc693059fa9dc8dcafae892f9531836d05bca2c43c6133fba8d70",
+      "after_sha256": "324e274bb0649aa93234d5eda7c7489be0a5a86774b25e3b26b260583f0b9fa1",
+      "reason": "Document attempt003 ownership and inherited gates"
+    },
+    "experiments/mamba3_three_time/confirmation/provenance.py": {
+      "before_sha256": "9d9f244d2ef72a2f8d9af89e2c032ea68064904af6598b4f2ffe09b89e571c22",
+      "after_sha256": "3103720c5e05079e04d6f5e45827162ef65e02215417ffd3ec0ba2fd0ccd2e64",
+      "reason": "Additional immutable parent archive, resume manifests and explicit infrastructure allowlist; unchanged mathematical dependencies"
+    },
+    "experiments/mamba3_three_time/confirmation/runner.py": {
+      "before_sha256": "763676f09f5197ba48cbfc6eff318d6e4fd35f629e826e71451d38680e7b8df4",
+      "after_sha256": "425d6fe698e6ba4f1d3dfd69ea83875b5fed6f70541f7c1acb2f4248955a2d8a",
+      "reason": "Canonical metadata assignment plus explicit resume ownership/path dispatch; unchanged prepare AST after unwrapping metadata call"
+    },
+    "experiments/mamba3_three_time/confirmation/state.py": {
+      "before_sha256": "ab2ee99b0b825146df632e6e86d8c54835cc4e6d3b2c8cb6dc0b8ff47f84ab7a",
+      "after_sha256": "a3827f1b216edc8297e63811e6fb55176e5c08735472b88882cc36e2fb6aa61d",
+      "reason": "Canonical copy of optimizer metadata and exact field-path mismatch diagnostics; retain scientific pair guards"
+    },
+    "experiments/mamba3_three_time/confirmation/tests/test_confirmation.py": {
+      "before_sha256": "dff4c7c9bb26c7c5540a28262e93ff52f0390a0162bca6eeefa7a9abcab6cb7f",
+      "after_sha256": "c5cf3b24a077bec70ce77ced7dac4422cefa7f47821579df502440c0e21a20e6",
+      "reason": "Use representative optimizer metadata in existing pair guard test"
+    }
+  },
+  "unchanged_scope": "All other parent manifest files, including model/kernels/trainer/one_batch/initialization/report/policy/study_plan",
+  "prepare_check": "AST identical after removing only canonical_optimizer_settings wrapper"
+}

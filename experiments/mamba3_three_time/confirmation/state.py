@@ -1,6 +1,7 @@
 """Read-only state snapshots, strict name mapping, fixed structural comparisons."""
 import hashlib
 import json
+import math
 import random
 import numpy as np
 import torch
@@ -94,11 +95,48 @@ def initial(model, loader):
                 rng_components=rng_record(loader), rng_before_fit_sha256=rng_hash())
 
 
+def canonical_optimizer_settings(settings):
+    """Copy JSON-safe metadata without altering optimizer groups or scalar types."""
+    def visit(value, path):
+        if value is None or type(value) in (str, bool, int):
+            return value
+        if type(value) is float and math.isfinite(value):
+            return value
+        if type(value) in (list, tuple):
+            return [visit(v, f'{path}[{i}]') for i, v in enumerate(value)]
+        if type(value) is dict and all(type(k) is str for k in value):
+            return {k: visit(v, f'{path}.{k}') for k, v in value.items()}
+        raise ValueError(f'Unsupported optimizer metadata at {path}: {value!r} ({type(value).__name__})')
+    if type(settings) not in (list, tuple) or not all(type(g) is dict for g in settings):
+        raise ValueError('optimizer_settings must be an ordered sequence of groups')
+    return visit(settings, 'optimizer_settings')
+
+
+def compare_optimizer_settings(a, b):
+    missing = object()
+    def compare(left, right, path):
+        if type(left) is dict and type(right) is dict:
+            for key in sorted(set(left) | set(right)):
+                compare(left.get(key, missing), right.get(key, missing), f'{path}.{key}')
+            return
+        if type(left) is list and type(right) is list:
+            for i in range(max(len(left), len(right))):
+                compare(left[i] if i < len(left) else missing,
+                        right[i] if i < len(right) else missing, f'{path}[{i}]')
+            return
+        if type(left) is not type(right) or left != right:
+            def show(v):
+                return '<missing>' if v is missing else f'{v!r} ({type(v).__name__})'
+            raise ValueError(f'Pair mismatch: {path}: {show(left)} != {show(right)}')
+    compare(canonical_optimizer_settings(a), canonical_optimizer_settings(b), 'optimizer_settings')
+
+
 def paired(a, b, first_batch=False):
     for key in ('initial_backbone_sha256', 'rng_components', 'rng_before_fit_sha256', 'protocol',
-                'manifest_sha256', 'train_time_stats_sha256', 'verified_history_stats', 'precision', 'optimizer_settings'):
+                 'manifest_sha256', 'train_time_stats_sha256', 'verified_history_stats', 'precision'):
         if a[key] != b[key]:
             raise ValueError('Pair mismatch: ' + key)
+    compare_optimizer_settings(a['optimizer_settings'], b['optimizer_settings'])
     ca, cb = a['initial_calibrator_hashes'], b['initial_calibrator_hashes']
     if ca['decay'] != cb['decay'] or any(ca['scan'] != cb[k] for k in ('write', 'phase')):
         raise ValueError('Pair calibrator initialization mismatch')

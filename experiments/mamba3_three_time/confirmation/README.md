@@ -30,6 +30,18 @@
 
 CPU-проверки: `python -m unittest discover -s experiments/mamba3_three_time/confirmation/tests -v`; `python -m compileall -q experiments/mamba3_three_time/confirmation`; `bash -n slurm/mamba3_three_time_confirmation.sh`. Тест RecBole effective config пропускается локально, если RecBole отсутствует; на кластере обязателен. Установка библиотек не требуется. Login preflight не выполняет model/GPU work. После единственного guarded sbatch сохраняется Job ID; submitter не опрашивает очередь.
 
+## Продолжение attempt003 после job4355052
+
+Parent evidence сохранено побайтно в `evidence/job4355052/`; manifest фиксирует SHA256 47 файлов. Checkpoint dual2027 проверяется потоковым SHA256, не копируется в Git и не загружается в triple. Dual2027 остаётся PASS исходного job; triple2027 остаётся SETUP FAIL, остальные шесть старых записей остаются NOT_RUN.
+
+Причина FAIL: JSON превращает Adam betas tuple в list. `canonical_optimizer_settings()` нормализует копию обеих сторон без округления/потери полей; scalar types, None, False и отсутствующие поля различаются, NaN/Inf и неизвестные типы отклоняются. Реальные param_groups не меняются. Проверки weights/RNG/data/precision/calibrators/первого batch сохранены.
+
+`resume_plan_003.json` заранее выбирает десять источников для пяти пар: exploratory pilot2026, reused dual2027 и семь новых fits. Очередь: triple2027, dual/triple2028, dual/triple2029, dual/triple2030. Старые gates наследуются по SHA; новых diagnostic batches/steps нет. Каждый новый fit проходит прежний setup и проверку сохранённой initialization; cross-attempt dual разрешён только для конкретного parent4355052 по SHA, checkpoint metadata и фактическим paired states.
+
+`resume_lineage_003.json` перечисляет точные before/after hashes инфраструктурных изменений. Старый manifest проверяется против исторических Git blobs на login; runtime проверяет фактические bytes без Git. One-batch, initialization, модель, kernels, trainer, policy, исходный study_plan и aggregation formulas неизменны. AST-проверка prepare допускает только обёртку копии optimizer metadata. Один diagnostic step не объясняет историческую разницу .0633/.0615.
+
+Новые результаты и summary JSON/Markdown: `runs/attempt_003/`; runtime, locks и `submission_003.json`: `slurm_logs/attempt_003/`. Старые summary/locks не переписываются. Счётчики новой попытки отделены от одного предыдущего completed confirmation fit и exploratory pilot. Submitter `resume_submit` выполняет один guarded sbatch; launcher `mamba3_three_time_confirmation_resume.sh` не вызывает Git. После Job ID мониторинг не выполняется. TEST запрещён.
+
 ## Инфраструктурный retry 002
 
 Job4354908 (`886ef23`, source `1d524e1e...`) остановился на `git: command not found` до Python: 0 diagnostic batches, 0 optimizer steps, 0 scientific fits. Исходная reservation и логи побайтно сохранены в [evidence/submission_001](evidence/submission_001/failure.json); старый manifest сохранён отдельно. Это не mathematical attempt005. План, one-batch математика, порядок initialization, trainer, aggregation и policy не меняются.
