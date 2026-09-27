@@ -1,0 +1,22 @@
+test_actual_counts_effective_flags_and_base_pairing (test_cpu.CPUTests) ... command line args [discover -s /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/tests -v] will not be used in RecBole
+command line args [discover -s /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/tests -v] will not be used in RecBole
+command line args [discover -s /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/tests -v] will not be used in RecBole
+command line args [discover -s /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/tests -v] will not be used in RecBole
+command line args [discover -s /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/tests -v] will not be used in RecBole
+command line args [discover -s /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/tests -v] will not be used in RecBole
+ok
+test_fit_algorithm_and_safe_checkpoint_callback_inherited (test_cpu.CPUTests) ... ok
+test_numerical_zero_missing_nonfinite (test_cpu.CPUTests) ... ok
+test_real_adam_json_roundtrip_and_all_mutations (test_cpu.CPUTests) ... ok
+test_failed_case_persisted_and_cannot_authorize (test_records.RecordsTests) ... ok
+test_failed_gate_stops_pipeline_before_smoke_or_fit (test_records.RecordsTests) ... ok
+test_no_overwrite (test_records.RecordsTests) ... ok
+test_registry_all_required_leaves (test_records.RecordsTests) ... ok
+test_serialized_ownership_and_submit_race (test_records.RecordsTests) ... ok
+test_last_tie_and_missing_epoch (test_records.ReportTests) ... ok
+test_negative_delta_partial_and_test_separation (test_records.ReportTests) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 7.830s
+
+OK

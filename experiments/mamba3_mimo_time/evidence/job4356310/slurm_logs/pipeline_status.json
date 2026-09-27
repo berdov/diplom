@@ -1,0 +1,38 @@
+{
+  "study_id": "mamba3_mimo_time_pilot_001",
+  "execution_commit": "f4938792ab3415e431320d5ca7c2d6ce042ab35a",
+  "source_hash": "52c903ac4d2212ae8d81645079e424265b30c0f0733a3b48ec70571de8f9fc12",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "plan_sha256": "15240112901bc84f643faae4059fb5f1a6a93418f843d1bd94f5dde3e32ddc4f",
+  "source_manifest_sha256": "074053a5f59774724903a13ea439a82aa3f97728bc9518fb03b181b40f95246f",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "job_id": "4356310",
+  "reservation_token": "4e11932133cd17b50da7af92d91cd238",
+  "reservation_sha256": "85ceb423a1002249049a8593dbc1011f893cee9e9af33891e1768d142f5895b5",
+  "login_verification_sha256": "e7c381df41b82a9a1d66e35cf4d3348814c40e522fe206c023baf872bbd280ad",
+  "status": "FAIL",
+  "stages": [
+    {
+      "stage": "preflight",
+      "status": "FAIL",
+      "started_at": "2026-09-27T20:39:46.592684+00:00"
+    }
+  ],
+  "started_at": "2026-09-27T20:39:46.578650+00:00",
+  "scientific_fits": 0,
+  "deadline_unix": 1790569775.0,
+  "min_remaining_to_start_fit_seconds": 5400,
+  "error": "RuntimeError('preflight exit 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/preflight/stderr.log')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/pipeline.py\", line 56, in main\n    child(stage,'experiments.mamba3_mimo_time.'+module,['--mode',stage] if stage in c.MODES else [],deadline)\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/pipeline.py\", line 29, in child\n    raise RuntimeError(f'{stage} exit {code}; see {directory}/stderr.log')\nRuntimeError: preflight exit 1; see /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/preflight/stderr.log\n",
+  "summary_status": "INCOMPLETE",
+  "scientific_fits_completed": 0,
+  "finished_at": "2026-09-27T20:44:47.147153+00:00"
+}
