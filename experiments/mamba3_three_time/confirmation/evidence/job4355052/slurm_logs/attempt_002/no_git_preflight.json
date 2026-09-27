@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "source_hash": "0e93a9aec6d152f5f13dd5ccae30d8a761c09e552aecc4d7d884e573da8f7785",
+  "tests": [
+    "test_no_git.RuntimeContracts.test_changed_actual_source_rejected",
+    "test_no_git.RuntimeContracts.test_changed_login_evidence",
+    "test_no_git.RuntimeContracts.test_missing_and_changed_submission_evidence",
+    "test_no_git.RuntimeContracts.test_real_runtime_without_git_and_fast_start",
+    "test_no_git.RuntimeContracts.test_runtime_shell_no_git",
+    "test_no_git.RuntimeContracts.test_wrong_expected_hash",
+    "test_no_git.StaticContracts.test_duplicate_reservation_and_scientific_lock_rejected",
+    "test_no_git.StaticContracts.test_historical_manifest_matches_git_objects",
+    "test_no_git.StaticContracts.test_historical_manifest_tampering_rejected_without_git",
+    "test_no_git.StaticContracts.test_launcher_has_no_git_and_explicit_python"
+  ],
+  "launcher_empty_PATH": true,
+  "real_runtime_verifiers": true,
+  "model_forward": 0,
+  "optimizer_steps": 0,
+  "scientific_fits": 0,
+  "full_dataset_pass": 0,
+  "test_evaluation_count": 0
+}

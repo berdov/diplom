@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="260" viewBox="0 0 640 260">
+<rect width="640" height="260" fill="white"/>
+<text x="20" y="25" font-size="16">VALID NDCG@10: paired triple - dual</text>
+<line x1="320" y1="45" x2="320" y2="220" stroke="#777"/>
+<text x="20" y="65" font-size="13">2026</text>
+<line x1="320" y1="61" x2="456.00000000000034" y2="61" stroke="#17806d" stroke-width="5"/>
+<text x="520" y="65" font-size="13">+0.000800</text>
+<text x="20" y="100" font-size="13">2027</text>
+<text x="90" y="100" font-size="13">INCOMPLETE</text>
+<text x="20" y="135" font-size="13">2028</text>
+<text x="90" y="135" font-size="13">INCOMPLETE</text>
+<text x="20" y="170" font-size="13">2029</text>
+<text x="90" y="170" font-size="13">INCOMPLETE</text>
+<text x="20" y="205" font-size="13">2030</text>
+<text x="90" y="205" font-size="13">INCOMPLETE</text>
+</svg>

@@ -1,0 +1,292 @@
+{
+  "job_id": "4355052",
+  "execution_commit": "3d3b305c4c74e208cd226d3ed4ccec37b4fd8311",
+  "source_hash": "0e93a9aec6d152f5f13dd5ccae30d8a761c09e552aecc4d7d884e573da8f7785",
+  "files": [
+    {
+      "source": "experiments/mamba3_three_time/confirmation/config.py",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/config.py",
+      "size": 3699,
+      "sha256": "fe1d9ee8aecdb1c03ff291725ca4f5b3df5044513449a17e8c1a4fcc4619df20"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/initialization.py",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/initialization.py",
+      "size": 2323,
+      "sha256": "e605ad0401834c16898f65a1b2824ff2c186594c2c12c695f9c8a13cb7fe5c10"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/one_batch.py",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/one_batch.py",
+      "size": 8633,
+      "sha256": "950666395333399bf61382e089a8125f8abb65e4d774417c05944b8032d7c6fb"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/provenance.py",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/provenance.py",
+      "size": 14056,
+      "sha256": "9d9f244d2ef72a2f8d9af89e2c032ea68064904af6598b4f2ffe09b89e571c22"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/report.py",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/report.py",
+      "size": 9014,
+      "sha256": "e64e2ce373bbdb363f6cdee13c304ba40e501d57f31c256807f1cd99161928cd"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runner.py",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runner.py",
+      "size": 8225,
+      "sha256": "763676f09f5197ba48cbfc6eff318d6e4fd35f629e826e71451d38680e7b8df4"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/confirmation_summary.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/confirmation_summary.json",
+      "size": 27889,
+      "sha256": "5664108bda821d369d4cb67b47690b2c987d2fabe7d9dde4aef482bfd6513095"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/confirmation_summary.md",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/confirmation_summary.md",
+      "size": 9518,
+      "sha256": "ee275e5ff02bc729bed452a2e3a1d49c3f1e339978927fba8dd4e83b0364deb5"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/confirmation_summary.svg",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/confirmation_summary.svg",
+      "size": 874,
+      "sha256": "e38024b7098fe5526b746de4f5579ee33a1f6c9da1f1bdb25d3d5603781aee0a"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/initialization_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/initialization_001.json",
+      "size": 201748,
+      "sha256": "ad50042957f8cb8fc83096280202e53672fd62efe09fae5c47628ac04bedf6ab"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2027_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/mamba3_three_time_confirm_siso_dual_seed2027_001.json",
+      "size": 347413,
+      "sha256": "50ee336280fe241f3eaa97f56acc85d96243531623d5072841c4daa47baa0b58"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2028_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/mamba3_three_time_confirm_siso_dual_seed2028_001.json",
+      "size": 1339,
+      "sha256": "f7fae14992a9d9f48586ad1afa7e9693e1a51d106090f0bc039e9d7f9593552b"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2029_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/mamba3_three_time_confirm_siso_dual_seed2029_001.json",
+      "size": 1339,
+      "sha256": "4cb3abfe4a648a1b3482e5c548ae98bbc5cb6fa2a2f7cfa91b44fdf2c5e50c7a"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2030_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/mamba3_three_time_confirm_siso_dual_seed2030_001.json",
+      "size": 1339,
+      "sha256": "a83f03b0d104f75e56f1ed017b50b2bbfa81046c78f0cce0a5348d20279c7214"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2027_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/mamba3_three_time_confirm_siso_triple_seed2027_001.json",
+      "size": 19365,
+      "sha256": "415d966455e476e16337d3f07576ba430803bdb9b51c1e6fcdd176e85d8fff85"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2028_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/mamba3_three_time_confirm_siso_triple_seed2028_001.json",
+      "size": 1343,
+      "sha256": "7efe755a846705809cfd3055f9e2e963bbeda06e16e7ff547448f71a7d70feaf"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2029_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/mamba3_three_time_confirm_siso_triple_seed2029_001.json",
+      "size": 1343,
+      "sha256": "5b2f2bf55e44863a1a2ba279025a2718bf6aae6ab753a5a44810f112f1be8713"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_triple_seed2030_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/mamba3_three_time_confirm_siso_triple_seed2030_001.json",
+      "size": 1343,
+      "sha256": "86b600174cb3a6ed0849d4358178a2b08453b2dc8d1a6c6a8e5d97bdb6b8333d"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/runs/one_batch_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/runs/one_batch_001.json",
+      "size": 136501,
+      "sha256": "ef8a03fe1b83ef5d5a10dfcb6877a62c2b54d450f48d4cfb20fbb017e3ae1c54"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_002/allocation_preflight.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/attempt_002/allocation_preflight.json",
+      "size": 8153,
+      "sha256": "f4b713aa62e0323b3f790132ad2c25c299d8e919b8eb3714d7880c5b6e5e1d76"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_002/cpu_tests.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/attempt_002/cpu_tests.json",
+      "size": 2194,
+      "sha256": "fb3f8ddabf52d08d30ba3a042a5e1d30c2e95dde77793ab4328ec00348a18cb8"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_002/login_preflight.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/attempt_002/login_preflight.json",
+      "size": 8017,
+      "sha256": "89a5300c2377251dfbefefbe62a3468d8c2920362840376ee07b21d609f640f2"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_002/login_verification.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/attempt_002/login_verification.json",
+      "size": 914,
+      "sha256": "babdf16e83d78d91334b18e5eb7d192581c51d886ec4236a2fd4ee4f946f364f"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_002/no_git_preflight.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/attempt_002/no_git_preflight.json",
+      "size": 1079,
+      "sha256": "6cd6b9647d56e8158141be50115f887a84cd9748f785aab86abf615fb2e72bb1"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_002/submission_002.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/attempt_002/submission_002.json",
+      "size": 5729,
+      "sha256": "f85d12354ec4f2b2a86b7bd8a27a58340435f3559b051389f0a62721d06e84a2"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/initialization/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/initialization/stderr.log",
+      "size": 13450,
+      "sha256": "74a838b1a7c436e40c0d3e44cb126e098d167677e3061f2cfd0cad045b584e75"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/initialization/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/initialization/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/m3-siso-confirm-4355052.err",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/m3-siso-confirm-4355052.err",
+      "size": 659,
+      "sha256": "7efee19484eb3b03d39131d4209744070920cc8fb319136cb8a07ec595af7adb"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/m3-siso-confirm-4355052.out",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/m3-siso-confirm-4355052.out",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/checkpoints/best_metadata.json",
+      "size": 858,
+      "sha256": "387dfeb075434b151852030b48dd44a816e9726ad2fbe7b9ac9ab373c43d3834"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/run.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/run.lock",
+      "size": 1457,
+      "sha256": "64a37db22cadddc6da467ff77970e48c9a189ea8c39fb41d661edd01d3707620"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/stderr.log",
+      "size": 30054,
+      "sha256": "047e37f8f952db4a59c5046db6c39fc728d4fd875aa2a4fa6b714a95abd851e5"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/run.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/run.lock",
+      "size": 1461,
+      "sha256": "3c8eb55391ca93fe98dbf4a566a0a93ac6fc1fc827b3f0c654646fe29a46e75a"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log",
+      "size": 2202,
+      "sha256": "c690cc8f7fc3ea94478dddf755034ffafc99307ad02f6bb3967458f0ff5b883c"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/one_batch/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/one_batch/stderr.log",
+      "size": 1345,
+      "sha256": "a12214f3b75d8b8d94192a214cbd8c18a348fb564db0ab34796ff73238172e24"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/one_batch/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/one_batch/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/pipeline.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/pipeline.lock",
+      "size": 943,
+      "sha256": "28ded201a171c2d883cdb64d53ce828351fdb692543ae905c1f3ef9f05cba4d6"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/pipeline_status.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/pipeline_status.json",
+      "size": 2464,
+      "sha256": "67b0cd02df0323ec4e906d134d0583868ff3645ec46cbba4c3abeddf6877e5ea"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/preflight/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/preflight/stderr.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/preflight/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/preflight/stdout.log",
+      "size": 201,
+      "sha256": "10c11ec419ee276c5d4d6811fffe22f0f4154fba967488845c6ff2d0d89cc12f"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/report/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/report/stderr.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/slurm_logs/report/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/slurm_logs/report/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/source_manifest.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/source_manifest.json",
+      "size": 43357,
+      "sha256": "563936940572339cc849ab43b3d1f833fd575474dd0e4833db47f2a1ac5ad673"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/state.py",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/state.py",
+      "size": 5162,
+      "sha256": "ab2ee99b0b825146df632e6e86d8c54835cc4e6d3b2c8cb6dc0b8ff47f84ab7a"
+    },
+    {
+      "source": "experiments/mamba3_three_time/confirmation/study_plan.json",
+      "destination": "experiments/mamba3_three_time/confirmation/evidence/job4355052/study_plan.json",
+      "size": 2339,
+      "sha256": "54e2804f5bceb592ab8f9194ec4aeaf9bac00eb08deb1474122a22f6d2740244"
+    }
+  ],
+  "source_destination_sha256_verified": 47,
+  "checkpoint_copied": false,
+  "checkpoint_sha256": "c2a67aad5c5f18df193b6ca8bcb946fa71cc1a3b57eb32c70875e3a7fd0d29aa"
+}
