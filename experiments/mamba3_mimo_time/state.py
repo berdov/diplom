@@ -44,7 +44,8 @@ def paired(a, b, first_batch=False):
     from experiments.mamba3_three_time.confirmation.state import compare_optimizer_settings
     for key in ('initial_backbone_sha256', 'rng_components', 'protocol', 'manifest_sha256',
                 'train_time_stats_sha256', 'verified_history_stats', 'precision'):
-        if a.get(key) != b.get(key):
+        required = key in ('initial_backbone_sha256', 'rng_components') or key in a or key in b
+        if required and (key not in a or key not in b or a[key] is None or b[key] is None or a[key] != b[key]):
             raise ValueError('Pair mismatch: ' + key)
     if 'optimizer_settings' in a or 'optimizer_settings' in b:
         compare_optimizer_settings(a['optimizer_settings'], b['optimizer_settings'])

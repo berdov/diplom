@@ -33,7 +33,8 @@ def main():
                 loss.backward()
                 norms = {n:(p.grad.double().norm().item() if p.grad is not None and bool(torch.isfinite(p.grad).all()) else None)
                          for n,p in net.named_parameters()}
-                row['steps'].append(dict(step=step,loss=loss.item(),gradient_norms=norms))
+                row['steps'].append(dict(step=step,loss=loss.item() if bool(torch.isfinite(loss)) else None,
+                                         finite_loss=bool(torch.isfinite(loss)),gradient_norms=norms))
                 update(c.SMOKE,record)
                 if not torch.isfinite(loss) or any(v is None for v in norms.values()):
                     raise ValueError('Nonfinite/missing smoke gradients')

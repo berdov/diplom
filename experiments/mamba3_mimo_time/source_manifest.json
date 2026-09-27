@@ -20,8 +20,8 @@
     "experiments/mamba3_mimo_time/records.py": "483769e5abfea94298c423671daf48513f085b89c41a3a90d2ffcc0867158238",
     "experiments/mamba3_mimo_time/report.py": "f17b463524845a1cb19ed2ea5c8539881ba827d3887ca6acc7ee83c18c37e237",
     "experiments/mamba3_mimo_time/runner.py": "96787b734e3e9ceed42f72b01db05476b733705f5ee58e69be42a1c4846d4866",
-    "experiments/mamba3_mimo_time/smoke.py": "be13787dc8c1afad21c496cc1fb3831ef305307d9164e9b0e389b4a258d089f9",
-    "experiments/mamba3_mimo_time/state.py": "7fcab253434a2ea96725b44ab5b4c538660f2055ac87895a6e0b713c3f3ccaeb",
+    "experiments/mamba3_mimo_time/smoke.py": "da74528f37f26c8c29290e625b6d5fd9916224d28a2b795b17d263dafd8315d1",
+    "experiments/mamba3_mimo_time/state.py": "005e560821f4d2e6296c105a52f7ce8909e56bfe1dded0dbc4a927919e09e4a3",
     "experiments/mamba3_mimo_time/study_plan.json": "15240112901bc84f643faae4059fb5f1a6a93418f843d1bd94f5dde3e32ddc4f",
     "experiments/mamba3_mimo_time/submit.py": "fab7976c1ad93f668c793ecdf22e6c55379d312eeca35ed04e570c7728a68d5a",
     "experiments/mamba3_mimo_time/tests/test_cpu.py": "881eacd1057e173b1533ea36ba6491adadfa6d4bb8d17619d70bb3c9b8365048",
@@ -93,7 +93,7 @@
     "outputs/data/protocol_b_manifest.json": "9f39aa12ec16f697a8bedb91eeb21c46dce514e6f414b7e47fc4064c1fcffd2c",
     "slurm/mamba3_mimo_time.sh": "f5ce4c07d8f3756b17b0038d630c5f6bb2d9eb79d8dd935223fa61c24dd8d684"
   },
-  "source_hash": "1f59b0df56c1bda9ac449ffc0c8a3385d3dbf33328192fcb98a03a5ed1349fc7",
+  "source_hash": "52c903ac4d2212ae8d81645079e424265b30c0f0733a3b48ec70571de8f9fc12",
   "historical_execution": "995c5cde6449ea429c1d80ca6ab276b9791041c0",
   "historical_dependencies": {
     "experiments/mamba3_baseline/config_kuairand.yaml": "4d345f228a05e887d87b370f71d2b759ede6f02aa8b34555b848cda7a1411a53",
