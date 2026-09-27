@@ -1,0 +1,545 @@
+{
+  "head": "995c5cde6449ea429c1d80ca6ab276b9791041c0",
+  "status": "?? experiments/mamba3_input_time/\n?? experiments/mamba3_three_time/confirmation/runs/\n?? experiments/mamba3_three_time/runs/\n?? experiments/stage_confirmation/\n?? experiments/target_combination_analysis/\n?? slurm/stage_confirmation.sh\n",
+  "source_hash": "1fd03ab81df89b81417796e9b715f2c6b1e176eebdccf6600408df759f8e8741",
+  "source_manifest_files_verified": 371,
+  "checkpoints": [
+    {
+      "run_id": "mamba3_three_time_siso_dual_seed2026_001",
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/checkpoints/best_state_dict.pth",
+      "size": 2284310,
+      "sha256": "3f20f7d4e8b54bf2f64702ee2c6e78fe12c88b7797e125305b00e6f8f327fceb",
+      "metadata_path": "experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "5b327723fb887bdee9a1e329257782c4c964f9ab74f549b779b0292f6b1c712b"
+    },
+    {
+      "run_id": "mamba3_three_time_siso_triple_seed2026_001",
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_triple_seed2026_001/checkpoints/best_state_dict.pth",
+      "size": 2286279,
+      "sha256": "405d919a9fa642605db76f80be438ed8f2fb08bd4af4ac61e436e41705519622",
+      "metadata_path": "experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_triple_seed2026_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "86b58047c93f4253d4cc64b264135818f216e237eed4e7f17eb3f8daa79470a3"
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_dual_seed2027_001",
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/checkpoints/best_state_dict.pth",
+      "size": 2284310,
+      "sha256": "c2a67aad5c5f18df193b6ca8bcb946fa71cc1a3b57eb32c70875e3a7fd0d29aa",
+      "metadata_path": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "387dfeb075434b151852030b48dd44a816e9726ad2fbe7b9ac9ab373c43d3834"
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_triple_seed2027_001",
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001/checkpoints/best_state_dict.pth",
+      "size": 2286279,
+      "sha256": "0b6b61b705d040c47729c3218e9e0b2b5b6617c7f4213959a783384ddfabdc74",
+      "metadata_path": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "c378e8b53e2195a58ccad5facca7d4de77de380b991349f31adef80a7c41637c"
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_dual_seed2028_001",
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001/checkpoints/best_state_dict.pth",
+      "size": 2284310,
+      "sha256": "42e5dde4549a6edeff91cb38dfbeadddc2d92182f2541ea66d28485248cc17ee",
+      "metadata_path": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "d9cf9fb1fd879dd96b93f2eaeacdafe58f2dc18ee217c8c314db9be0de997a3c"
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_triple_seed2028_001",
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001/checkpoints/best_state_dict.pth",
+      "size": 2286279,
+      "sha256": "3ea18bbe2b4d4dbc060455b28b3bdc95f1088617d65c91a797993ab62ea67f25",
+      "metadata_path": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "a120fd58a4aaeb739d14eb43fa215fc55577f573d47de5882149425eb5b5be86"
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_dual_seed2029_001",
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001/checkpoints/best_state_dict.pth",
+      "size": 2284310,
+      "sha256": "79228077bacd866b0189e13e00060d828cc13418a8255d85e135f7f3ad8fa993",
+      "metadata_path": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "ecd6bb5e6296c1f2bd3b420edeb6e68d5af1187fcb4c83d0bb7ec3bb9deaf45c"
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_triple_seed2029_001",
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001/checkpoints/best_state_dict.pth",
+      "size": 2286279,
+      "sha256": "a7ef9d831576a4e2e14c9b4fe6dca8726470f91ac6507f4794fffaf594c1cb12",
+      "metadata_path": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "ca3bba4d8e3a9eecdb760e2a28c0994ea62184a06ad40b4b04ef861d9c1c144b"
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_dual_seed2030_001",
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001/checkpoints/best_state_dict.pth",
+      "size": 2284310,
+      "sha256": "130b0eaf99607ad54da5a7a7fb285a01fd7ac360109e9a7964cc06b707d8140b",
+      "metadata_path": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "fadf7f5239cb3a75f5c505aebe318ac66ae83063f5d8c7e57b033e1b76b86df6"
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_triple_seed2030_001",
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001/checkpoints/best_state_dict.pth",
+      "size": 2286279,
+      "sha256": "35e190d50b9e674debc75828374966afe466bd5bceda48afd405cc11f53a023a",
+      "metadata_path": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "b207a7cfdd65001b67a92fbcc45ba3ed2ae71bfb6b2e812c123d516d72086a49"
+    }
+  ],
+  "missing_optional": [
+    "experiments/mamba3_three_time/confirmation/runs/attempt_003/confirmation_summary.svg"
+  ],
+  "records": [
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/attempt_003/confirmation_summary.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/attempt_003/confirmation_summary.json",
+      "size": 31662,
+      "sha256": "244e386c4c1c4b7dfbf956a60b941d047729bec7e7ab29cab670ba4478bbee0b",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/attempt_003/confirmation_summary.md",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/attempt_003/confirmation_summary.md",
+      "size": 7355,
+      "sha256": "182394f25bbea03fa2ecc63b8d599530025a087fa0591df67622daf0e884a4de",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001.json",
+      "size": 229420,
+      "sha256": "4dca5f313733e2d5a6978450705115aeaefbc4d97c47e380bdb254cc9edfdc68",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001.json",
+      "size": 310688,
+      "sha256": "61356e7c79e95eda91534a56fc9bcd87be557e12295ec9937ec0353a648aa105",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001.json",
+      "size": 198034,
+      "sha256": "7bd16779958cd08cb82a5b50dbf13ed6b51ec245d33a81bb0673925f9f7365f6",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001.json",
+      "size": 272766,
+      "sha256": "4f11aad099ad252282a64e2e6aeaed6a235ed9779df8399c9f8fb0b762d56691",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001.json",
+      "size": 231788,
+      "sha256": "bcb43d53d6f08df479de21e05868edff6dcaf22e47590fb40dd4acae41b0829b",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001.json",
+      "size": 387558,
+      "sha256": "e5b7a84b1a5ba258b55a0fb5f1e06688fca0ac2e4fc4cced81727863ec4de54f",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001.json",
+      "size": 315435,
+      "sha256": "f8f1e4638552926b5cf72388adb7b101ca401158397289cb885dabd1d7098f85",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/initialization_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/initialization_001.json",
+      "size": 201748,
+      "sha256": "ad50042957f8cb8fc83096280202e53672fd62efe09fae5c47628ac04bedf6ab",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2027_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/mamba3_three_time_confirm_siso_dual_seed2027_001.json",
+      "size": 347413,
+      "sha256": "50ee336280fe241f3eaa97f56acc85d96243531623d5072841c4daa47baa0b58",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/runs/one_batch_001.json",
+      "destination": "experiments/mamba3_three_time/confirmation/runs/one_batch_001.json",
+      "size": 136501,
+      "sha256": "ef8a03fe1b83ef5d5a10dfcb6877a62c2b54d450f48d4cfb20fbb017e3ae1c54",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/allocation_preflight.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/allocation_preflight.json",
+      "size": 11353,
+      "sha256": "10fbedce515217c7c3cbe1304e40758ef1c6a0f9b25ca9822984cb68cd8e67da",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/cpu_tests.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/cpu_tests.json",
+      "size": 3065,
+      "sha256": "0236a5a7acb825dca28d09cb77b4b71fdfc8b54d7479ea88dc38f858c5723077",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/login_preflight.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/login_preflight.json",
+      "size": 11025,
+      "sha256": "f727a61313afdd6e427f64db947b0dedec2e5c521bbe8e178dc7bdfde2a6fd6b",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/login_verification.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/login_verification.json",
+      "size": 1325,
+      "sha256": "8ef1360890d76d4cc9e62e177d189da72673d12a5b7629adc899098ebacd806d",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/m3-siso-resume-4355314.err",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/m3-siso-resume-4355314.err",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/m3-siso-resume-4355314.out",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/m3-siso-resume-4355314.out",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001/checkpoints/best_metadata.json",
+      "size": 858,
+      "sha256": "d9cf9fb1fd879dd96b93f2eaeacdafe58f2dc18ee217c8c314db9be0de997a3c",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001/run.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001/run.lock",
+      "size": 2136,
+      "sha256": "df7d03859d760bef6a68b8b3c2a9d34000359e1becf2b5780c044e754bc8dfee",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001/stderr.log",
+      "size": 19694,
+      "sha256": "4d30327b64ff7e0f33cb1b8e136ab28e3d11796b0a71ad4b5b2248b73e8085e2",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2028_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001/checkpoints/best_metadata.json",
+      "size": 858,
+      "sha256": "ecd6bb5e6296c1f2bd3b420edeb6e68d5af1187fcb4c83d0bb7ec3bb9deaf45c",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001/run.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001/run.lock",
+      "size": 2136,
+      "sha256": "cff261068b40aa9ce0493c540e9566cca9d5fec0cafbcd892cd9c6bc6eb1fdfb",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001/stderr.log",
+      "size": 27011,
+      "sha256": "7e7d669661db2d26c654fe60af727fcf20fe2d60c219d16747f5a91adf5bff80",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2029_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001/checkpoints/best_metadata.json",
+      "size": 858,
+      "sha256": "fadf7f5239cb3a75f5c505aebe318ac66ae83063f5d8c7e57b033e1b76b86df6",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001/run.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001/run.lock",
+      "size": 2136,
+      "sha256": "6b6a3d585441d7f15f4e5023071f079fe4a5d571991bb3ba0de8d5fddf66ac98",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001/stderr.log",
+      "size": 17124,
+      "sha256": "31a9ef1e5b922a604f09855849206a67ae8abd8a93ced4a4c265f67d3047f3eb",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_dual_seed2030_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001/checkpoints/best_metadata.json",
+      "size": 861,
+      "sha256": "c378e8b53e2195a58ccad5facca7d4de77de380b991349f31adef80a7c41637c",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001/run.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001/run.lock",
+      "size": 2140,
+      "sha256": "ad71ae242a4dbc1cf6e5db1b5310f3639c5df861a83f4ce46cea213fec26b9c2",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001/stderr.log",
+      "size": 23132,
+      "sha256": "43469c22d319f6118da985c0fcfd2d2427cd7566521458ba078af3c2609ca339",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2027_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001/checkpoints/best_metadata.json",
+      "size": 861,
+      "sha256": "a120fd58a4aaeb739d14eb43fa215fc55577f573d47de5882149425eb5b5be86",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001/run.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001/run.lock",
+      "size": 2140,
+      "sha256": "9f3596e569d89a7d45ddbc79e00b8a0832048fc6060516bfe3b918265263775f",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001/stderr.log",
+      "size": 19699,
+      "sha256": "ac5bd9b5550123793e71776bca01a9ec98f732a3af5da42c77537e188a632558",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2028_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001/checkpoints/best_metadata.json",
+      "size": 860,
+      "sha256": "ca3bba4d8e3a9eecdb760e2a28c0994ea62184a06ad40b4b04ef861d9c1c144b",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001/run.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001/run.lock",
+      "size": 2140,
+      "sha256": "9137f601a0b7a5a71eefcdb7763428d4c626d898dbb4a0bedd847cf2c84e413d",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001/stderr.log",
+      "size": 33492,
+      "sha256": "ef06ef916a96c46d8c9a2e2d6f5bc457467d8fe91326387baa617ddc3de40faf",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2029_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001/checkpoints/best_metadata.json",
+      "size": 860,
+      "sha256": "b207a7cfdd65001b67a92fbcc45ba3ed2ae71bfb6b2e812c123d516d72086a49",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001/run.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001/run.lock",
+      "size": 2140,
+      "sha256": "ae7b13c3b529073bede29c59fdbba086b3ffb00b1d029e2a6b43b16595495e1d",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001/stderr.log",
+      "size": 26589,
+      "sha256": "7509a5c53ae8cfd4300501bfca17fa60d1be4856bf5a64e26002ec579e0cf4cc",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/mamba3_three_time_confirm_siso_triple_seed2030_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/no_git_preflight.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/no_git_preflight.json",
+      "size": 1066,
+      "sha256": "ece46a278427d99368dd2801ec9fb378651e1982d2648ec6d453ab06e02a59a6",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/pipeline.lock",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/pipeline.lock",
+      "size": 1622,
+      "sha256": "804ae0366d28c21dcf5a1e4dc5b116e4e9d9e94562507c38f82de66ac76c45d4",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/pipeline_status.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/pipeline_status.json",
+      "size": 3530,
+      "sha256": "51b87d4ee0347042114a9dd35e52082119c07540ae8283791a94d25ed05f214d",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/submission_003.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/attempt_003/submission_003.json",
+      "size": 2808,
+      "sha256": "626f340657464cac836e29bafcf01f87bb2fe5378f26291918af1dc48afda4d8",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/checkpoints/best_metadata.json",
+      "size": 858,
+      "sha256": "387dfeb075434b151852030b48dd44a816e9726ad2fbe7b9ac9ab373c43d3834",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/stderr.log",
+      "size": 30054,
+      "sha256": "047e37f8f952db4a59c5046db6c39fc728d4fd875aa2a4fa6b714a95abd851e5",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/confirmation/slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/runs/mamba3_three_time_siso_dual_seed2026_001.json",
+      "destination": "experiments/mamba3_three_time/validation_pilot/runs/mamba3_three_time_siso_dual_seed2026_001.json",
+      "size": 149063,
+      "sha256": "5a23da8bb5317a0a8f298902fe8b39e3e5e2b0c7893524595d84e5631f44caa7",
+      "action": "already_identical"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/runs/mamba3_three_time_siso_triple_seed2026_001.json",
+      "destination": "experiments/mamba3_three_time/validation_pilot/runs/mamba3_three_time_siso_triple_seed2026_001.json",
+      "size": 152099,
+      "sha256": "0ec970f6b161ae39737cdf9b5e793b7d37d133d9e30d7b6cbd4882d6dd379500",
+      "action": "already_identical"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/checkpoints/best_metadata.json",
+      "size": 850,
+      "sha256": "5b327723fb887bdee9a1e329257782c4c964f9ab74f549b779b0292f6b1c712b",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/stderr.log",
+      "size": 13715,
+      "sha256": "10467899d3b71b76355a036cf9b5a4a9c44a0b00137434248072dccb83317048",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_dual_seed2026_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_triple_seed2026_001/checkpoints/best_metadata.json",
+      "destination": "experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_triple_seed2026_001/checkpoints/best_metadata.json",
+      "size": 854,
+      "sha256": "86b58047c93f4253d4cc64b264135818f216e237eed4e7f17eb3f8daa79470a3",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_triple_seed2026_001/stderr.log",
+      "destination": "experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_triple_seed2026_001/stderr.log",
+      "size": 13706,
+      "sha256": "2220999cbb0e2fdb880216790a147a1d513162d5e810d2b8b162c3856a8cf15c",
+      "action": "copied"
+    },
+    {
+      "source": "/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_triple_seed2026_001/stdout.log",
+      "destination": "experiments/mamba3_three_time/validation_pilot/slurm_logs/mamba3_three_time_siso_triple_seed2026_001/stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "copied"
+    }
+  ],
+  "historical_manifests": [
+    {
+      "manifest": "experiments/mamba3_three_time/confirmation/source_manifest.json",
+      "execution_commit": "995c5cde6449ea429c1d80ca6ab276b9791041c0",
+      "files_verified": 371,
+      "source_hash": "1fd03ab81df89b81417796e9b715f2c6b1e176eebdccf6600408df759f8e8741",
+      "method": "git show execution_commit:path; current tree also checked before publication for final execution"
+    },
+    {
+      "manifest": "experiments/mamba3_three_time/confirmation/evidence/job4355052/source_manifest.json",
+      "execution_commit": "3d3b305c4c74e208cd226d3ed4ccec37b4fd8311",
+      "files_verified": 313,
+      "source_hash": "0e93a9aec6d152f5f13dd5ccae30d8a761c09e552aecc4d7d884e573da8f7785",
+      "method": "git show execution_commit:path; current tree also checked before publication for final execution"
+    },
+    {
+      "manifest": "experiments/mamba3_three_time/validation_pilot/source_manifest.json",
+      "execution_commit": "6b5618a769d8e3424df0b7232605426fac8c573a",
+      "files_verified": 277,
+      "source_hash": "105e09559cde506d0a6de46f8731213a5a6a8af0c56b20924d5c702c9ec87b58",
+      "method": "git show execution_commit:path; current tree also checked before publication for final execution"
+    }
+  ],
+  "checkpoint_deserialization": false,
+  "cluster_operations": "read-only; no scientific computation"
+}
