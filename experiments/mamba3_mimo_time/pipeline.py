@@ -8,14 +8,18 @@ import traceback
 from . import config as c
 from .records import create, update, now, read
 from .provenance import identity, require_gate
+from .process_env import child_environment, visibility
 
 
 def child(stage, module, args, deadline):
     directory=c.LOGS/stage
     directory.mkdir(parents=True,exist_ok=True)
+    environment = child_environment(stage, os.environ)
+    create(directory/'child_environment.json', dict(stage=stage,
+           parent_cuda_visibility=visibility(os.environ), child_cuda_visibility=visibility(environment)))
     with (directory/'stdout.log').open('xb') as out, (directory/'stderr.log').open('xb') as err:
         proc=subprocess.Popen([sys.executable,'-B','-m',module,*args],cwd=c.ROOT,
-                              stdout=out,stderr=err,start_new_session=True)
+                              stdout=out,stderr=err,start_new_session=True,env=environment)
         try:
             code=proc.wait(timeout=max(1,deadline-time.time()))
         except BaseException:
@@ -32,7 +36,8 @@ def child(stage, module, args, deadline):
 def main():
     base=identity()
     create(c.LOGS/'pipeline.lock',base)
-    result=dict(**base,status='RUNNING',stages=[],started_at=now(),scientific_fits=0)
+    result=dict(**base,status='RUNNING',stages=[],started_at=now(),scientific_fits=0,
+                allocation_cuda_visibility=visibility(os.environ))
     create(c.PIPELINE,result)
     end=min(float(os.environ.get('SLURM_JOB_END_TIME','inf')),time.time()+8*3600)
     deadline=end-c.plan()['budget']['save_margin_seconds']
@@ -53,7 +58,10 @@ def main():
             row=dict(stage=stage,status='RUNNING',started_at=now())
             result['stages'].append(row);update(c.PIPELINE,result)
             module='runner' if stage in c.MODES else stage
-            child(stage,'experiments.mamba3_mimo_time.'+module,['--mode',stage] if stage in c.MODES else [],deadline)
+            args = ['--mode',stage] if stage in c.MODES else []
+            if stage == 'preflight':
+                args = ['--evidence', str(c.LOGS/'preflight/evidence.json')]
+            child(stage,'experiments.mamba3_mimo_time.'+module,args,deadline)
             if stage in c.MODES:
                 run=read(c.paths(stage)['result'])
                 if run['status']!='PASS':

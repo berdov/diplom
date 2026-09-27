@@ -1,5 +1,38 @@
 # MIMO base / dual / triple: ограниченный пилот
 
+## Инфраструктурная попытка 002
+
+Первая попытка 4356310 остановилась на CPU-preflight до admission/smoke/fits:
+`CPU preflight initialized CUDA`. Evidence сохранено в `evidence/job4356310/`,
+оригинальные locks/reservation/logs/summary остаются на месте. Первый вызов,
+инициировавший CUDA, не установлен по прежнему traceback.
+
+Попытка 002 использует `slurm_logs/attempt_002/` и `runs/attempt_002/` для всех
+операционных артефактов, checkpoints и результатов, сохраняя logical run_id.
+Новая reservation привязана к parent job, commit, source hash и SHA256
+preservation manifest. Submit дополнительно сверяет оригиналы failure evidence
+и отсутствие parent scientific artifacts. Общего force/retry режима нет.
+
+Только CPU-preflight получает КОПИЮ allocation env с `CUDA_VISIBLE_DEVICES=""`
+до запуска нового Python. Launcher `--preflight-only` делает то же перед exec.
+Parent, admission, smoke и fits не получают эту маску или выдуманный индекс GPU.
+Pipeline сохраняет только наличие/значение маски parent/child, без полного env.
+RecBole `_init_device` записывает env из gpu_id, поэтому и проверяемый, и reference
+CPU Config имеют use_gpu=False/device=cpu/gpu_id="". Scientific gpu_id не меняется
+и не включается в общий список допускаемых научных расхождений.
+
+Preflight сохраняет entry/import/config/model/runtime stages до assertions;
+читает только `torch.cuda.is_initialized()`, не current_device/name/CUDA RNG
+для диагностики. Проверяет CPU-устройства всех parameters/buffers и сохраняет
+ошибку с последним успешным этапом. Guard остаётся также после ВСЕГО runtime
+verification. CUDA initialization не приравнивается к model forward/optimizer/fit.
+Фактическая доступность A100 проверяется прежним runtime(True) первого admission
+case в разрешённой allocation; CPU env tests не являются GPU evidence.
+
+Scientific settings, `study_plan.json`, numerical policy и 45 cases/2342 leaves
+первой попытки неизменны. Новые пути ниже всегда понимаются относительно
+`runs/attempt_002/` и `slurm_logs/attempt_002/`; старые корневые пути исторические.
+
 KuaiRand: хронологический leave-one-out, полный каталог. Только TRAIN/VALID;
 TEST loader/evaluation запрещены. Один exploratory seed2026, не подтверждение
 статистической значимости и не сравнение с опубликованным TEST TiM4Rec.

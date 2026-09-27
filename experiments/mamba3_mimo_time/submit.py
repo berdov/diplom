@@ -8,12 +8,14 @@ import traceback
 from . import config as c
 from .records import read, create, sha, now
 from .provenance import login_verify, bindings, verify
+from .retry import verify_parent
 
 
 def main():
     if str(c.ROOT)!='/home/daryumin/iberdov/diplom':
         raise ValueError('Canonical cluster checkout required')
     c.unused()
+    verify_parent(live=True)
     login=login_verify()
     m=verify()
     for name in ('cpu_tests_001.json','login_preflight_001.json','no_git_preflight_001.json','resource_check_001.json'):

@@ -14,7 +14,13 @@ HISTORICAL = '995c5cde6449ea429c1d80ca6ab276b9791041c0'
 CORE = '460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f'
 PIN = 'e9594ce1c732d97440f0332fdc43170a2294dbfa'
 PILOT = ROOT / 'experiments/mamba3_three_time/validation_pilot/runs/mamba3_three_time_siso_dual_seed2026_001.json'
-LOGS, RUNS = HERE / 'slurm_logs', HERE / 'runs'
+EXECUTION_ATTEMPT = '002'
+PARENT_JOB = '4356310'
+PARENT_COMMIT = 'f4938792ab3415e431320d5ca7c2d6ce042ab35a'
+PARENT_SOURCE = '52c903ac4d2212ae8d81645079e424265b30c0f0733a3b48ec70571de8f9fc12'
+PARENT_EVIDENCE_SHA = '5c51d7628c109f8011d58bc3a629d3e52a1ca0aa78f2caecda1f6b242356e672'
+PARENT_EVIDENCE = HERE / ('evidence/job' + PARENT_JOB)
+LOGS, RUNS = (HERE / n / ('attempt_' + EXECUTION_ATTEMPT) for n in ('slurm_logs', 'runs'))
 GATE, SMOKE, SUMMARY = (RUNS / n for n in ('admission_001.json', 'smoke_001.json', 'pilot_summary.json'))
 LOGIN, RESERVATION = LOGS / 'login_verification_001.json', LOGS / 'reservation_001.json'
 SUBMISSION, PIPELINE = LOGS / 'submission_001.json', LOGS / 'pipeline_status.json'
@@ -38,6 +44,8 @@ def settings(mode, device=None):
                   mamba3_chunk_size=8, checkpoint_dir=str(paths(mode)['checkpoint'].parent))
     if device is not None:
         values.update(use_gpu=device == 'cuda', device=device)
+        if device == 'cpu':
+            values['gpu_id'] = ''
     return values
 
 

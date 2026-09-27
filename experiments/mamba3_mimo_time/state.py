@@ -3,13 +3,23 @@ from . import config as c
 from .records import read
 
 
-def effective_check(config, mode):
+def effective_check(config, mode, observe=None):
     import json
     from recbole.config import Config
     from experiments.mamba3_three_time.model import ThreeTimeMamba3Rec
     old = read(c.PILOT)
     ref_values = dict(old['config'], use_gpu=config['use_gpu'], device=config['device'])
+    cpu_only = not config['use_gpu']
+    if cpu_only:
+        ref_values.update(use_gpu=False, device='cpu', gpu_id='')
     ref = Config(model=ThreeTimeMamba3Rec, config_dict=ref_values)
+    if observe is not None:
+        observe('after_reference_config', mode=mode, config=ref)
+    if cpu_only:
+        for candidate in (config, ref):
+            if (str(candidate['device']) != 'cpu' or candidate['use_gpu'] is not False
+                    or candidate['gpu_id'] != ''):
+                raise ValueError('CPU Config must not reopen CUDA')
     allowed = {'three_time_mode', 'mamba3_is_mimo', 'mamba3_chunk_size', 'mamba3_mimo_rank', 'checkpoint_dir'}
     clean = lambda d: {k: v for k, v in d.items() if k not in allowed}
     if clean(config.final_config_dict) != clean(ref.final_config_dict):
@@ -17,7 +27,7 @@ def effective_check(config, mode):
     saved = dict(old['effective_config'])
     actual = json.loads(json.dumps(ref.final_config_dict, default=str))
     # Only technical CPU preflight may override these device values.
-    ignore = allowed | ({'device', 'use_gpu'} if not config['use_gpu'] else set())
+    ignore = allowed | ({'device', 'use_gpu', 'gpu_id'} if cpu_only else set())
     differences = [k for k in set(saved) | set(actual) if k not in ignore and saved.get(k) != actual.get(k)]
     if differences:
         raise ValueError('Stored SISO effective flags drift: ' + repr(differences))
@@ -63,7 +73,7 @@ def paired(a, b, first_batch=False):
         raise ValueError('Consumed first batch differs')
 
 
-def initialization(device='cpu', save=None):
+def initialization(device='cpu', save=None, observe=None):
     from recbole.config import Config
     from recbole.utils import init_seed
     from experiments.mamba3_three_time.model import ThreeTimeMamba3Rec
@@ -71,9 +81,15 @@ def initialization(device='cpu', save=None):
     rows = []
     for mode in c.MODES:
         cfg = Config(model=ThreeTimeMamba3Rec, config_dict=c.settings(mode, device))
-        parity = effective_check(cfg, mode)
+        if observe is not None:
+            observe('after_checked_config', mode=mode, config=cfg)
+        parity = effective_check(cfg, mode, observe)
         init_seed(2026, True)
         net = ThreeTimeMamba3Rec(cfg, SyntheticCatalog()).to(device)
+        if observe is not None:
+            observe('after_cpu_model_construction', mode=mode, config=cfg, model=net)
+        if device == 'cpu' and any(t.device.type != 'cpu' for t in list(net.parameters()) + list(net.buffers())):
+            raise ValueError('CPU construction placed parameters/buffers off CPU')
         row = dict(mode=mode, parameter_count=sum(p.numel() for p in net.parameters()),
                    effective_config_check=parity, **initial(net))
         rows.append(row)

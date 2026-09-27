@@ -56,6 +56,10 @@ def dependency_paths():
                   c.ROOT / 'experiments/mamba3_three_time/LICENSE.upstream',
                   c.ROOT / 'experiments/mamba3_timeaware/runs/train_time_stats_001.json',
                   c.ROOT / 'outputs/data/protocol_b_manifest.json'])
+    preserved = read(c.PARENT_EVIDENCE/'preservation_manifest.json')
+    found.update(c.ROOT/row['destination'] for row in preserved['files'])
+    found.update([c.PARENT_EVIDENCE/'preservation_manifest.json', c.PARENT_EVIDENCE/'README.md',
+                  c.ROOT/preserved['generated_settings']['path']])
     return sorted(found)
 
 
@@ -89,6 +93,8 @@ def verify():
     if fingerprint() != c.CORE:
         raise ValueError('Frozen temporal core drift')
     c.plan()
+    from .retry import verify_parent
+    verify_parent()
     return m
 
 
@@ -129,7 +135,8 @@ def runtime(cuda=False):
 
 
 def bindings(commit, m):
-    return dict(study_id=c.STUDY, execution_commit=commit, source_hash=m['source_hash'], core_hash=c.CORE,
+    from .retry import parent_binding
+    return dict(**parent_binding(), study_id=c.STUDY, execution_commit=commit, source_hash=m['source_hash'], core_hash=c.CORE,
                 pinned_commit=c.PIN, policy_version=read(c.POLICY)['version'], policy_sha256=sha(c.POLICY),
                 plan_sha256=sha(c.HERE / 'study_plan.json'), source_manifest_sha256=sha(c.HERE / 'source_manifest.json'),
                 architecture='MIMO', backend='upstream', rank=4, chunk=8, TEST='NOT_RUN', test_evaluation_count=0)
