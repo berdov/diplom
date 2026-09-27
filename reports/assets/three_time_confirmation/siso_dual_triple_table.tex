@@ -1,0 +1,27 @@
+\begin{table}[t]
+\centering
+\small
+\caption{SISO validation ablation on KuaiRand (chronological leave-one-out, full catalog), not a TEST benchmark.}
+\label{tab:siso-dual-triple-validation}
+\begin{tabular}{lrrr}
+\toprule
+Seed / group & Dual & Triple & $\Delta$ (triple--dual) \\
+\midrule
+2026 (pilot) & 0.0615 & 0.0623 & $+0.0008$ \\
+2027 & 0.0632 & 0.0628 & $-0.0004$ \\
+2028 & 0.0627 & 0.0630 & $+0.0003$ \\
+2029 & 0.0625 & 0.0635 & $+0.0010$ \\
+2030 & 0.0627 & 0.0633 & $+0.0006$ \\
+\midrule
+\multicolumn{4}{l}{2027--2030: four confirmation pairs} \\
+Mean $\pm$ std & $0.062775 \pm 0.000299$ & $0.063150 \pm 0.000311$ & $0.000375 \pm 0.000591$ \\
+\midrule
+\multicolumn{4}{l}{2026--2030: five pairs including exploratory pilot} \\
+Mean $\pm$ std & $0.062520 \pm 0.000626$ & $0.062980 \pm 0.000466$ & $0.000460 \pm 0.000546$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\footnotesize
+All scores are VALID NDCG@10. Sample standard deviation uses $n-1$; it is not a confidence interval. The last column summarizes paired differences, not differences of standard deviations. Seed 2026 informed the decision to continue; it is not independent confirmation.
+\end{minipage}
+\end{table}

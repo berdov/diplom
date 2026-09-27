@@ -54,6 +54,8 @@ Shared RT выше reported TiM4Rec по NDCG@10 на +0.0002 (+0.3273%), но �
 
 У separate, decay_only, scan_only и Proto-Mamba3 нет TEST: [подтверждение shared/separate по VALID](MAMBA3_TIME_MECHANISMS_RESULTS.md#confirmation) не добавляется в сравнение с paper TEST.
 
+[SISO dual/triple: VALID-абляция двух и трёх временных механизмов](MAMBA3_TIME_MECHANISMS_RESULTS.md#siso-dual-triple-confirmation) не входит в TEST-сравнение.
+
 ## Связанные работы 2026 года
 
 - [Multi-Task Multi-Behavior Sequential Recommendation](https://dl.acm.org/doi/10.1145/3774904.3792187) (WWW 2026): тематически релевантна, но результаты не добавлены из-за неподтверждённой сопоставимости с протоколом TiM4Rec.

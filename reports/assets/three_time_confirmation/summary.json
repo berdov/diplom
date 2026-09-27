@@ -1,0 +1,184 @@
+{
+  "pairs": [
+    {
+      "seed": 2026,
+      "dual": 0.0615,
+      "dual_first27": 0.0615,
+      "dual_hr10": 0.1142,
+      "dual_best": 15,
+      "dual_epochs": 27,
+      "triple": 0.0623,
+      "triple_first27": 0.0623,
+      "triple_hr10": 0.1148,
+      "triple_best": 15,
+      "triple_epochs": 27,
+      "delta": 0.0008000000000000021
+    },
+    {
+      "seed": 2027,
+      "dual": 0.0632,
+      "dual_first27": 0.0614,
+      "dual_hr10": 0.1167,
+      "dual_best": 53,
+      "dual_epochs": 65,
+      "triple": 0.0628,
+      "triple_first27": 0.0623,
+      "triple_hr10": 0.1172,
+      "triple_best": 37,
+      "triple_epochs": 49,
+      "delta": -0.00040000000000001146
+    },
+    {
+      "seed": 2028,
+      "dual": 0.0627,
+      "dual_first27": 0.0618,
+      "dual_hr10": 0.1153,
+      "dual_best": 29,
+      "dual_epochs": 41,
+      "triple": 0.063,
+      "triple_first27": 0.0623,
+      "triple_hr10": 0.1163,
+      "triple_best": 29,
+      "triple_epochs": 41,
+      "delta": 0.0002999999999999947
+    },
+    {
+      "seed": 2029,
+      "dual": 0.0625,
+      "dual_first27": 0.0619,
+      "dual_hr10": 0.1165,
+      "dual_best": 46,
+      "dual_epochs": 58,
+      "triple": 0.0635,
+      "triple_first27": 0.0625,
+      "triple_hr10": 0.1186,
+      "triple_best": 61,
+      "triple_epochs": 73,
+      "delta": 0.0010000000000000009
+    },
+    {
+      "seed": 2030,
+      "dual": 0.0627,
+      "dual_first27": 0.0627,
+      "dual_hr10": 0.1159,
+      "dual_best": 23,
+      "dual_epochs": 35,
+      "triple": 0.0633,
+      "triple_first27": 0.0625,
+      "triple_hr10": 0.1156,
+      "triple_best": 45,
+      "triple_epochs": 57,
+      "delta": 0.0005999999999999894
+    }
+  ],
+  "best_triple_diagnostics": [
+    {
+      "seed": 2027,
+      "mean_abs_log_difference": 1.0256289986340599,
+      "log_correlation": -0.3802017736440822,
+      "max_head_write_below_bound": 0.6982431001613747,
+      "max_head_phase_above_bound": 0.8633215580873025
+    },
+    {
+      "seed": 2028,
+      "mean_abs_log_difference": 0.8914165313676061,
+      "log_correlation": -0.15348795726477127,
+      "max_head_write_below_bound": 0.6993999180012176,
+      "max_head_phase_above_bound": 0.0
+    },
+    {
+      "seed": 2029,
+      "mean_abs_log_difference": 0.9726932507345836,
+      "log_correlation": -0.04372904501913594,
+      "max_head_write_below_bound": 0.6818433436729104,
+      "max_head_phase_above_bound": 1.0
+    },
+    {
+      "seed": 2030,
+      "mean_abs_log_difference": 0.6933793006654715,
+      "log_correlation": 0.0009327003957318322,
+      "max_head_write_below_bound": 0.6552254897494619,
+      "max_head_phase_above_bound": 0.690226821884564
+    }
+  ],
+  "new_four_pairs": {
+    "full": {
+      "dual": {
+        "mean": 0.062775,
+        "sample_std": 0.0002986078811194839
+      },
+      "triple": {
+        "mean": 0.06315,
+        "sample_std": 0.00031091263510296197
+      },
+      "delta": {
+        "mean": 0.0003749999999999934,
+        "sample_std": 0.0005909032633745321
+      },
+      "n": 4,
+      "positive": 3,
+      "negative": 1,
+      "zero": 0,
+      "relative_percent": 0.5973715651135025
+    },
+    "first27": {
+      "dual": {
+        "mean": 0.061950000000000005,
+        "sample_std": 0.0005446711546122746
+      },
+      "triple": {
+        "mean": 0.0624,
+        "sample_std": 0.00011547005383792445
+      },
+      "delta": {
+        "mean": 0.000449999999999999,
+        "sample_std": 0.00046547466812563377
+      },
+      "n": 4,
+      "positive": 3,
+      "negative": 1,
+      "zero": 0,
+      "relative_percent": 0.726392251815966
+    }
+  },
+  "all_five_pairs": {
+    "full": {
+      "dual": {
+        "mean": 0.06252,
+        "sample_std": 0.000626099033699944
+      },
+      "triple": {
+        "mean": 0.06298,
+        "sample_std": 0.00046583258795408414
+      },
+      "delta": {
+        "mean": 0.00045999999999999514,
+        "sample_std": 0.000545893762558252
+      },
+      "n": 5,
+      "positive": 4,
+      "negative": 1,
+      "zero": 0,
+      "relative_percent": 0.7357645553422776
+    },
+    "first27": {
+      "dual": {
+        "mean": 0.06186,
+        "sample_std": 0.0005128352561983251
+      },
+      "triple": {
+        "mean": 0.06238,
+        "sample_std": 0.00010954451150103256
+      },
+      "delta": {
+        "mean": 0.0005199999999999996,
+        "sample_std": 0.0004324349662087955
+      },
+      "n": 5,
+      "positive": 4,
+      "negative": 1,
+      "zero": 0,
+      "relative_percent": 0.8406078241189885
+    }
+  }
+}
