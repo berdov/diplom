@@ -1,0 +1,80 @@
+{
+  "job_id": "4354908",
+  "execution_commit": "886ef23d0d922bea4fff5fd835834cf5daececcb",
+  "source_hash": "1d524e1e1be74a458193a6521789b0e224ca7e038295aebf4f09d2f3db72df94",
+  "stage": "launcher_before_python",
+  "state": "FAILED",
+  "exit_code": "1:0",
+  "elapsed": "00:00:02",
+  "node": "cn-046",
+  "start": "2026-09-27T09:12:15",
+  "end": "2026-09-27T09:12:17",
+  "stderr": "/var/spool/slurm/d/job4354908/slurm_script: line 21: git: command not found\n",
+  "files": {
+    "submission_001.json": {
+      "sha256": "493d158f396e17687406a6cc30ec18ad3253cc262b55c50d5e69c4ecb65c4187",
+      "size": 1928
+    },
+    "m3-siso-confirm-4354908.out": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    "m3-siso-confirm-4354908.err": {
+      "sha256": "a0242676b9d6e624f6bfaffa66609d3122fa93a7725389adc2f4e1c9cefe1b74",
+      "size": 76
+    },
+    "source_manifest.json": {
+      "sha256": "90a5fd2c1941c722afffcdbdfc40a116043c3e7dec3dab9cac091721e0174f26",
+      "origin": "git object 886ef23:experiments/mamba3_three_time/confirmation/source_manifest.json"
+    }
+  },
+  "checked_absent": [
+    "slurm_logs/pipeline.lock",
+    "slurm_logs/pipeline_status.json",
+    "runs/one_batch_001.json",
+    "runs/initialization_001.json",
+    "runs/confirmation_summary.json",
+    "runs/confirmation_summary.md",
+    "runs/confirmation_summary.svg",
+    "runs/mamba3_three_time_confirm_siso_dual_seed2027_001.json",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/run.lock",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/checkpoints/best_state_dict.pth",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2027_001/checkpoints/best_metadata.json",
+    "runs/mamba3_three_time_confirm_siso_triple_seed2027_001.json",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/run.lock",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/checkpoints/best_state_dict.pth",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2027_001/checkpoints/best_metadata.json",
+    "runs/mamba3_three_time_confirm_siso_dual_seed2028_001.json",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2028_001/run.lock",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2028_001/checkpoints/best_state_dict.pth",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2028_001/checkpoints/best_metadata.json",
+    "runs/mamba3_three_time_confirm_siso_triple_seed2028_001.json",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2028_001/run.lock",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2028_001/checkpoints/best_state_dict.pth",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2028_001/checkpoints/best_metadata.json",
+    "runs/mamba3_three_time_confirm_siso_dual_seed2029_001.json",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2029_001/run.lock",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2029_001/checkpoints/best_state_dict.pth",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2029_001/checkpoints/best_metadata.json",
+    "runs/mamba3_three_time_confirm_siso_triple_seed2029_001.json",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2029_001/run.lock",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2029_001/checkpoints/best_state_dict.pth",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2029_001/checkpoints/best_metadata.json",
+    "runs/mamba3_three_time_confirm_siso_dual_seed2030_001.json",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2030_001/run.lock",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2030_001/checkpoints/best_state_dict.pth",
+    "slurm_logs/mamba3_three_time_confirm_siso_dual_seed2030_001/checkpoints/best_metadata.json",
+    "runs/mamba3_three_time_confirm_siso_triple_seed2030_001.json",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2030_001/run.lock",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2030_001/checkpoints/best_state_dict.pth",
+    "slurm_logs/mamba3_three_time_confirm_siso_triple_seed2030_001/checkpoints/best_metadata.json"
+  ],
+  "occupied": [],
+  "reservations": [
+    "slurm_logs/submission_001.json"
+  ],
+  "diagnostic_batches": 0,
+  "optimizer_steps": 0,
+  "scientific_fits": 0,
+  "test_evaluation_count": 0
+}
