@@ -18,5 +18,9 @@ export TILELANG_CACHE_DIR="$PWD/experiments/mamba3_three_time/confirmation/slurm
 : "${RUN_COMMIT:?exact published commit required}"
 : "${EXPECTED_STUDY_HASH:?source hash required}"
 : "${EXPECTED_CORE_HASH:?core hash required}"
-test "$(git --no-optional-locks rev-parse HEAD)" = "$RUN_COMMIT"
-envs/mamba3/bin/python -m experiments.mamba3_three_time.confirmation.pipeline
+if [[ "${1:-}" == "--runtime-preflight-only" ]]; then
+    test "$#" -eq 2
+    exec /home/daryumin/iberdov/diplom/envs/mamba3/bin/python -m experiments.mamba3_three_time.confirmation.preflight --runtime-preflight-only "$2"
+fi
+test "$#" -eq 0
+exec /home/daryumin/iberdov/diplom/envs/mamba3/bin/python -m experiments.mamba3_three_time.confirmation.pipeline

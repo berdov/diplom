@@ -5,8 +5,17 @@ import os
 import re
 import subprocess
 import traceback
-from .config import ROOT, LOGS, HERE, SUBMISSION, POLICY_SHA, unused
-from .provenance import verify, create_record, atomic_json, sha, now, CORE
+from .config import ROOT, ATTEMPT, HERE, SUBMISSION, LOGIN_VERIFICATION, POLICY_SHA, unused
+from .provenance import verify, login_verify, retry_parent, create_record, atomic_json, sha, now, CORE
+
+
+def durable_record(path, row):
+    create_record(path, row)
+    descriptor=os.open(path.parent,os.O_RDONLY)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
 
 
 def main():
@@ -20,16 +29,21 @@ def main():
     if git('diff','HEAD','--'):
         raise ValueError('Tracked checkout not clean')
     m=verify()
-    for name in ('login_preflight.json','cpu_tests.json'):
-        r=json.loads((LOGS/name).read_text())
+    for name in ('login_preflight.json','cpu_tests.json','no_git_preflight.json'):
+        r=json.loads((ATTEMPT/name).read_text())
         if r['status']!='PASS' or r['source_hash']!=m['source_hash']:
             raise ValueError('Same-source preflight/tests required')
     unused(include_submission=True)
+    parent=retry_parent()
+    login=login_verify(commit)
+    durable_record(LOGIN_VERIFICATION,login)
     row=dict(status='RESERVED',reserved_at=now(),execution_commit=commit,source_hash=m['source_hash'],core_hash=CORE,
              policy_sha256=POLICY_SHA,plan_sha256=sha(HERE/'study_plan.json'),source_manifest_sha256=sha(HERE/'source_manifest.json'),
+             historical_manifest_sha256=sha(HERE/'historical_sources.json'),login_verification_sha256=sha(LOGIN_VERIFICATION),
+             new_execution_commit=commit,new_source_hash=m['source_hash'],**parent,
              jobs_submitted=None,max_scientific_fits=8,diagnostic_batches=1,max_diagnostic_optimizer_steps=2,
              scientific_fits_before_submit=0,TEST='NOT_RUN',test_evaluation_count=0,git_status_before_submit=git('status','--short'))
-    create_record(SUBMISSION,row)
+    durable_record(SUBMISSION,row)
     try:
         response=subprocess.run(['sbatch','--parsable','slurm/mamba3_three_time_confirmation.sh'],cwd=ROOT,
             env=dict(os.environ,RUN_COMMIT=commit,EXPECTED_STUDY_HASH=m['source_hash'],EXPECTED_CORE_HASH=CORE),

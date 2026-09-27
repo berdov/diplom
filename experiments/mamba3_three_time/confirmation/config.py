@@ -11,7 +11,13 @@ SEEDS = (2027, 2028, 2029, 2030)
 MODES = ('dual', 'triple')
 COUNTS = {'dual': 610572, 'triple': 610638}
 LOGS, RUNS = HERE / 'slurm_logs', HERE / 'runs'
-SUBMISSION, LOCK = LOGS / 'submission_001.json', LOGS / 'pipeline.lock'
+ATTEMPT = LOGS / 'attempt_002'
+SUBMISSION = ATTEMPT / 'submission_002.json'
+LOGIN_VERIFICATION = ATTEMPT / 'login_verification.json'
+LOCK = LOGS / 'pipeline.lock'
+FAILED = HERE / 'evidence/submission_001'
+PARENT_COMMIT = '886ef23d0d922bea4fff5fd835834cf5daececcb'
+PARENT_HASH = '1d524e1e1be74a458193a6521789b0e224ca7e038295aebf4f09d2f3db72df94'
 BATCH, INIT, SUMMARY = (RUNS / p for p in ('one_batch_001.json', 'initialization_001.json', 'confirmation_summary.json'))
 PILOT_COMMIT = '6b5618a769d8e3424df0b7232605426fac8c573a'
 B_COMMIT = '6feb8329334fe94d894c9d79f5a412a1241d5b3f'
@@ -71,7 +77,7 @@ def unused(include_submission=False):
     for t in plan()['tasks']:
         files.extend(paths(t['mode'], t['seed'])[k] for k in ('result', 'lock', 'checkpoint', 'metadata'))
     if include_submission:
-        files.append(SUBMISSION)
+        files.extend((SUBMISSION, LOGIN_VERIFICATION))
     occupied = [str(p) for p in files if p.exists() or p.is_symlink()]
     if occupied:
         raise FileExistsError('Existing reservation/results; no overwrite/retry: ' + repr(occupied))
