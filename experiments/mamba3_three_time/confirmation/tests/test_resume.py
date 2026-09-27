@@ -79,7 +79,8 @@ class OptimizerRoundtrip(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'optimizer_settings'): state.paired(a,bad)
         for key in ('initial_backbone_sha256','rng_components','rng_before_fit_sha256','first_train_batch_sha256'):
             bad=copy.deepcopy(b);bad[key]='changed'
-            with self.assertRaisesRegex(ValueError,key):state.paired(a,bad,first_batch=True)
+            message='Pair consumed batch mismatch' if key=='first_train_batch_sha256' else key
+            with self.assertRaisesRegex(ValueError,message):state.paired(a,bad,first_batch=True)
         self.assertFalse(torch.cuda.is_initialized())
 
 
@@ -91,6 +92,10 @@ class ResumeFixtures(unittest.TestCase):
         for entry in plan['source_index']:
             path=root/entry['path']
             if entry['kind']=='NEW':
+                old=q.read(r.ARCHIVE/'runs'/Path(entry['path']).name)
+                write(here/'runs'/Path(entry['path']).name,old)
+                if entry['seed']==2027:
+                    write(here/'slurm_logs'/old['run_id']/'run.lock',q.read(r.ARCHIVE/'slurm_logs'/old['run_id']/'run.lock'))
                 row=dict(mode=entry['mode'],seed=entry['seed'],run_id=c.task(entry['mode'],entry['seed'])['run_id'],
                          job_id='new-job',execution_commit='new-commit',source_hash='new-hash',execution_attempt=3,
                          TEST='NOT_RUN',test_evaluation_count=0,status='NOT_RUN',scientific_fit_started=False)
@@ -117,7 +122,10 @@ class ResumeFixtures(unittest.TestCase):
     def test_exact_queue_parent_acceptance_partial_summary_and_old_files(self):
         self.assertEqual([(t['mode'],t['seed']) for t in r.plan()['tasks']],list(r.ORDER))
         with self.assertRaises(ValueError):r.execution_task('dual',2027)
-        old=self.here/'runs/old_fail.json';write(old,{'status':'FAIL'});before=old.read_bytes()
+        old_files=[self.here/'runs'/Path(e['path']).name for e in r.plan()['source_index'] if e['kind']=='NEW']
+        old_files+=list((self.here/'slurm_logs').glob('*/run.lock'))
+        before={p:p.read_bytes() for p in old_files}
+        self.assertEqual([q.read(p)['status'] for p in old_files if p.suffix=='.json'],['FAIL',*(['NOT_RUN']*6)])
         row=q.resolve('dual',2027,self.base)
         self.assertEqual(row['job_id'],'4355052')
         value=resume_report.collect(self.base)
@@ -126,7 +134,7 @@ class ResumeFixtures(unittest.TestCase):
         self.assertEqual(value['summaries']['all_five_pairs']['full']['n_expected_runs'],10)
         self.assertEqual(value['summaries']['new_four_pairs']['full']['n_expected_runs'],8)
         self.assertEqual(value['status'],'INCOMPLETE')
-        self.assertEqual(old.read_bytes(),before)
+        self.assertEqual({p:p.read_bytes() for p in old_files},before)
 
     def test_cross_attempt_pair_before_and_after_real_json_save(self):
         dual=q.resolve('dual',2027,self.base)
@@ -182,6 +190,10 @@ class ResumeNoGit(unittest.TestCase):
             with patch.dict(os.environ,env),no_git() as attempted:
                 self.assertEqual(q.identity(submission_path=directory/'submission.json',login_path=directory/'login.json')['execution_attempt'],3)
                 self.assertFalse(attempted)
+                for key,value in [('job_id','99999'),('max_scientific_fits',8),('resume_plan_sha256','0'*64)]:
+                    altered=dict(submission,**{key:value});p.atomic_json(directory/'submission.json',altered)
+                    with self.assertRaises(ValueError):q.identity(submission_path=directory/'submission.json',login_path=directory/'login.json')
+                p.atomic_json(directory/'submission.json',submission)
             response=subprocess.run(['/bin/bash',str(c.ROOT/'slurm/mamba3_three_time_confirmation_resume.sh'),
                 '--runtime-preflight-only',str(directory)],env=dict(env,PATH=''),capture_output=True,text=True,timeout=180)
             self.assertEqual(response.returncode,0,response.stdout+response.stderr)

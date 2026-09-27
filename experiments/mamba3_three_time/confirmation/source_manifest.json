@@ -140,7 +140,7 @@
     "experiments/mamba3_three_time/confirmation/submit.py": "9047a5efc4dbb773c08568774b723c7ababba81334a5dcf68e2d5f4cda321214",
     "experiments/mamba3_three_time/confirmation/tests/test_confirmation.py": "c5cf3b24a077bec70ce77ced7dac4422cefa7f47821579df502440c0e21a20e6",
     "experiments/mamba3_three_time/confirmation/tests/test_no_git.py": "ef0db82a48ff0d20ba1edd281e4c392baa99a2e1eb6e5c49a29bb26ae6c773d4",
-    "experiments/mamba3_three_time/confirmation/tests/test_resume.py": "1e99c4a19a95227ea7d8bcc99bba036039b387d634888ad35cc62d8d5cbb2815",
+    "experiments/mamba3_three_time/confirmation/tests/test_resume.py": "d7073f6da4c0aa98f8ca02ab77ca3caaf65440aa20d7d090a42b5c1babe34c48",
     "experiments/mamba3_three_time/diagnostics.py": "296b580e3faff4b259a3182c7a5b7baa5e24c81076c60694c322d85bdd2809f9",
     "experiments/mamba3_three_time/diagnostics_003.py": "0f328be13ab5639c2f712541bf443d32a5c66723e38a7fb6a0554e178e2498dd",
     "experiments/mamba3_three_time/diagnostics_004.py": "692ff59e778a45df3c67f46813a843f66a436f28bca4436e01dcdff17403fedc",
@@ -373,7 +373,7 @@
     "slurm/mamba3_three_time_diagnostics_004.sh": "d060dba15327c4e7e1849dd848cee8183f09062ecfa03b731a18073971c44c70",
     "slurm/mamba3_three_time_validation_pilot.sh": "9d16de4c73390f6ab971fa92092a89ea8905ade28e5f94f6157d4f0845350671"
   },
-  "source_hash": "857a48a891b2383a0d7e265a9e7ab62473e820c188a6596a83a651c52b652239",
+  "source_hash": "1fd03ab81df89b81417796e9b715f2c6b1e176eebdccf6600408df759f8e8741",
   "pilot_source_hash": "105e09559cde506d0a6de46f8731213a5a6a8af0c56b20924d5c702c9ec87b58",
   "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f"
 }
