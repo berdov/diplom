@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "execution_commit": "c1dd31eec7907c67348769b6a1811b89aa4011c0",
+  "source_hash": "3182ed3ede715c01190e14d63c3b7c2613fc647d7a17cd871655fb16189c7940",
+  "checked_at": "2026-09-28T11:27:24.436553+00:00",
+  "resources": {
+    "partition": "rocky",
+    "account": "proj_1833",
+    "constraint": "type_e",
+    "gpu": "a100:1",
+    "cpus": 4,
+    "mem": 0,
+    "time": "08:00:00",
+    "requeue": false
+  },
+  "partition_raw": "PartitionName=rocky AllowGroups=ALL AllowAccounts=ALL AllowQos=ALL AllocNodes=ALL Default=YES QoS=N/A DefaultTime=1-00:00:00 DisableRootJobs=NO ExclusiveUser=NO ExclusiveTopo=NO GraceTime=0 Hidden=NO MaxNodes=UNLIMITED MaxTime=30-00:00:00 MinNodes=0 LLN=NO MaxCPUsPerNode=128 MaxCPUsPerSocket=UNLIMITED Nodes=cn-[001-041,043-051] PriorityJobFactor=1 PriorityTier=10 RootOnly=NO ReqResv=NO OverSubscribe=NO OverTimeLimit=NONE PreemptMode=OFF State=UP TotalCPUs=2776 TotalNodes=50 SelectTypeParameters=NONE JobDefaults=(null) DefMemPerNode=UNLIMITED MaxMemPerNode=UNLIMITED TRES=cpu=2776,mem=50M,node=50,billing=2776,gres/gpu=179,gres/gpu:a100=40,gres/gpu:h100=4,gres/gpu:h200=20,gres/gpu:v100=115",
+  "associations_raw": "root||normal||\nroot|root|normal||\nproj_1833||normal||\nproj_1833|aaxyonov|normal|normal|\nproj_1833|daryumin|normal|normal|\nproj_1833|evryumina|normal|normal|",
+  "qos_raw": "normal||cpu=180,gres/gpu=20|100",
+  "requested_hours": 8
+}

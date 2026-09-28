@@ -1,0 +1,32 @@
+test_actual_counts_effective_flags_and_base_pairing (test_cpu.CPUTests) ... ok
+test_fit_algorithm_and_safe_checkpoint_callback_inherited (test_cpu.CPUTests) ... ok
+test_numerical_zero_missing_nonfinite (test_cpu.CPUTests) ... ok
+test_real_adam_json_roundtrip_and_all_mutations (test_cpu.CPUTests) ... ok
+test_entry_failure_saved_before_assertion (test_isolation.EnvironmentTests) ... ok
+test_production_popen_masks_only_cpu_child (test_isolation.EnvironmentTests) ... ok
+test_scientific_settings_and_gpu_branch_unchanged (test_isolation.EnvironmentTests) ... ok
+test_real_launcher_without_git (test_isolation.FullPreflightTests) ... ok
+test_real_pipeline_cpu_preflight (test_isolation.FullPreflightTests) ... ok
+test_separate_namespace_and_one_shot (test_isolation.RetryTests) ... ok
+test_serialized_attempt_binding_rejects_old_or_changed_owner (test_isolation.RetryTests) ... ok
+test_source_manifest_tampering (test_isolation.RetryTests) ... ok
+test_verified_parent_and_tampering (test_isolation.RetryTests) ... ok
+test_cleanup_for_forward_backward_missing_detached_and_nonfinite (test_prefix.PrefixTests) ... ok
+test_complete_production_prefix_causal_fixture (test_prefix.PrefixTests) ... ok
+test_grad_disabled_is_failure_and_cleans_hook (test_prefix.PrefixTests) ... ok
+test_intervention_failure_keeps_partial_evidence_not_pass (test_prefix.PrefixTests) ... ok
+test_old_lifetime_reproduces_exact_failure (test_prefix.PrefixTests) ... ok
+test_production_capture_interventions_and_repeat (test_prefix.PrefixTests) ... ok
+test_suffix_dependency_detected_even_when_detached (test_prefix.PrefixTests) ... ok
+test_failed_case_persisted_and_cannot_authorize (test_records.RecordsTests) ... ok
+test_failed_gate_stops_pipeline_before_smoke_or_fit (test_records.RecordsTests) ... ok
+test_no_overwrite (test_records.RecordsTests) ... ok
+test_registry_all_required_leaves (test_records.RecordsTests) ... ok
+test_serialized_ownership_and_submit_race (test_records.RecordsTests) ... ok
+test_last_tie_and_missing_epoch (test_records.ReportTests) ... ok
+test_negative_delta_partial_and_test_separation (test_records.ReportTests) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 244.739s
+
+OK

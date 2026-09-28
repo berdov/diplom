@@ -1,0 +1,10 @@
+/opt/local/lmod/lmod/init/bash: line 24: id: command not found
+/opt/local/lmod/lmod/init/bash: line 25: uname: command not found
+/opt/local/lmod/lmod/init/bash: line 27: [: =: unary operator expected
+/opt/local/lmod/lmod/init/bash: line 31: [: syntax error: `-eq' unexpected
+command line args [--evidence /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/attempt_003/no_git_preflight_c1dd31e.evidence.json] will not be used in RecBole
+command line args [--evidence /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/attempt_003/no_git_preflight_c1dd31e.evidence.json] will not be used in RecBole
+command line args [--evidence /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/attempt_003/no_git_preflight_c1dd31e.evidence.json] will not be used in RecBole
+command line args [--evidence /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/attempt_003/no_git_preflight_c1dd31e.evidence.json] will not be used in RecBole
+command line args [--evidence /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/attempt_003/no_git_preflight_c1dd31e.evidence.json] will not be used in RecBole
+command line args [--evidence /home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/attempt_003/no_git_preflight_c1dd31e.evidence.json] will not be used in RecBole
