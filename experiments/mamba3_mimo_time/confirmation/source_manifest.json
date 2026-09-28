@@ -1,5 +1,5 @@
 {
-  "source_hash": "15dde89f56f1f8dfc7cd5025df2efa1e075ab20371b10a8d0f7dc5c65efce048",
+  "source_hash": "19fbe3d2e7134b785f35dd34f3776ee2bccaf956a4d8f7a638dddce78de99ed6",
   "files": {
     "experiments/mamba3_baseline/config_kuairand.yaml": "4d345f228a05e887d87b370f71d2b759ede6f02aa8b34555b848cda7a1411a53",
     "experiments/mamba3_baseline/mamba3_final_test.py": "d075248f41cadfbd0510518d36016020362629834961ea8df3c7e54a4d0566e3",
@@ -171,7 +171,7 @@
     "experiments/mamba3_mimo_time/confirmation/preflight.py": "ebcca82c7e91b98cdecc6f1c57ce8da9d7f59889f7d6ac7473d8c3c6bfb223e9",
     "experiments/mamba3_mimo_time/confirmation/tests/test_confirmation.py": "d6b54fa03dc81df038ab62d03a5fa77961c9a5409418b6063b2d68fa0a7cd54a",
     "experiments/mamba3_mimo_time/confirmation/tests/__init__.py": "bae5c71a6ea7311807bd6c39f38a49210570a80ab4d58e86914c5b4d58f11b5c",
-    "experiments/mamba3_mimo_time/confirmation/README.md": "5bd94b74681903a0479c399397951e21604422bda6be88d660e0b8fa44d79223",
+    "experiments/mamba3_mimo_time/confirmation/README.md": "6a477a055f76695955016a49dca4cb36d1da136eeca032a8fa433bb92dc67926",
     "experiments/mamba3_mimo_time/confirmation/study_plan.json": "0ee714d6b051f11e31c8f3aaed142a279f0ee03b4f5e26850d86cca15f8898a5",
     "slurm/mamba3_mimo_confirmation.sh": "d8be061963253ec59742ead842b502e9924782204d75201822f2cb975d1c9fe3",
     "experiments/mamba3_mimo_time/source_manifest.json": "5db2622cef5162e387eafce0acf15363ba73a65920c81a34b2447b1d5175536c",
