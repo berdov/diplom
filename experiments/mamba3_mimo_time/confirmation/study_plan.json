@@ -1,0 +1,147 @@
+{
+  "study_id": "mamba3_mimo_confirmation_001",
+  "tasks": [
+    {
+      "mode": "base",
+      "seed": 2027,
+      "run_id": "mamba3_mimo_confirm_base_seed2027_001"
+    },
+    {
+      "mode": "dual",
+      "seed": 2027,
+      "run_id": "mamba3_mimo_confirm_dual_seed2027_001"
+    },
+    {
+      "mode": "triple",
+      "seed": 2027,
+      "run_id": "mamba3_mimo_confirm_triple_seed2027_001"
+    },
+    {
+      "mode": "base",
+      "seed": 2028,
+      "run_id": "mamba3_mimo_confirm_base_seed2028_001"
+    },
+    {
+      "mode": "dual",
+      "seed": 2028,
+      "run_id": "mamba3_mimo_confirm_dual_seed2028_001"
+    },
+    {
+      "mode": "triple",
+      "seed": 2028,
+      "run_id": "mamba3_mimo_confirm_triple_seed2028_001"
+    },
+    {
+      "mode": "base",
+      "seed": 2029,
+      "run_id": "mamba3_mimo_confirm_base_seed2029_001"
+    },
+    {
+      "mode": "dual",
+      "seed": 2029,
+      "run_id": "mamba3_mimo_confirm_dual_seed2029_001"
+    },
+    {
+      "mode": "triple",
+      "seed": 2029,
+      "run_id": "mamba3_mimo_confirm_triple_seed2029_001"
+    },
+    {
+      "mode": "base",
+      "seed": 2030,
+      "run_id": "mamba3_mimo_confirm_base_seed2030_001"
+    },
+    {
+      "mode": "dual",
+      "seed": 2030,
+      "run_id": "mamba3_mimo_confirm_dual_seed2030_001"
+    },
+    {
+      "mode": "triple",
+      "seed": 2030,
+      "run_id": "mamba3_mimo_confirm_triple_seed2030_001"
+    }
+  ],
+  "parameter_counts": {
+    "base": 714888,
+    "dual": 715020,
+    "triple": 715086
+  },
+  "primary": "triple - dual",
+  "contrasts": [
+    [
+      "triple",
+      "dual"
+    ],
+    [
+      "dual",
+      "base"
+    ],
+    [
+      "triple",
+      "base"
+    ]
+  ],
+  "budget": {
+    "allocation_seconds": 28800,
+    "save_margin_seconds": 600,
+    "min_remaining_to_start_fit_seconds": 5400
+  },
+  "resources": {
+    "partition": "rocky",
+    "account": "proj_1833",
+    "constraint": "type_e",
+    "gpu": "a100:1",
+    "cpus": 4,
+    "mem": 0,
+    "time": "08:00:00",
+    "requeue": false
+  },
+  "max_scientific_fits": 12,
+  "max_jobs": 1,
+  "test_evaluations": 0,
+  "automatic_retries": false,
+  "setup_order": [
+    "runtime/config",
+    "seed",
+    "dataset/loaders",
+    "model",
+    "trainer",
+    "fit"
+  ],
+  "selection": "Last tied maximum rounded VALID NDCG@10; unchanged RecBole.fit",
+  "config_sources": {
+    "base": "experiments/mamba3_mimo_time/runs/attempt_003/mamba3_mimo_base_seed2026_001.json",
+    "dual": "experiments/mamba3_mimo_time/runs/attempt_003/mamba3_mimo_dual_seed2026_001.json",
+    "triple": "experiments/mamba3_mimo_time/runs/attempt_003/mamba3_mimo_triple_seed2026_001.json"
+  },
+  "inherited_admission_sha256": "c673524fda1a41d472c6cafebca7e25dad5cd7bd5df99fa772dfdcd4ee8bd5bc",
+  "inherited_smoke_sha256": "ac17c67b3fc411fce5cbdd53a855e75392d5bfd953b29a434e7237f135e7db9b",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "pilot_execution": "c1dd31eec7907c67348769b6a1811b89aa4011c0",
+  "pilot_job": "4358147",
+  "subsets": {
+    "confirmatory": [
+      2027,
+      2028,
+      2029,
+      2030
+    ],
+    "with_exploratory_pilot": [
+      2026,
+      2027,
+      2028,
+      2029,
+      2030
+    ]
+  },
+  "first27": "Observed history only; complete iff actual_epochs >= 27",
+  "stop_rule": "Technical failure or deadline only; never low VALID metric",
+  "fresh_process": true,
+  "fresh_weights": true,
+  "allowed_config_changes": [
+    "seed",
+    "checkpoint_dir"
+  ],
+  "uncertainty": "sample std ddof=1; no automatic significance or backbone selection"
+}
