@@ -1,0 +1,390 @@
+{
+  "status": "PASS",
+  "execution_attempt": "002",
+  "stages": [
+    {
+      "stage": "process_entry",
+      "mode": null,
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": false,
+      "cuda_initialized": null
+    },
+    {
+      "stage": "after_import_torch",
+      "mode": null,
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false
+    },
+    {
+      "stage": "after_runtime_imports",
+      "mode": null,
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false
+    },
+    {
+      "stage": "after_checked_config",
+      "mode": "base",
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false,
+      "effective_device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "after_reference_config",
+      "mode": "base",
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false,
+      "effective_device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "after_cpu_model_construction",
+      "mode": "base",
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false,
+      "effective_device": "cpu",
+      "use_gpu": false,
+      "gpu_id": "",
+      "parameter_devices": [
+        "cpu"
+      ],
+      "buffer_devices": [],
+      "parameters": 714888
+    },
+    {
+      "stage": "after_checked_config",
+      "mode": "dual",
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false,
+      "effective_device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "after_reference_config",
+      "mode": "dual",
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false,
+      "effective_device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "after_cpu_model_construction",
+      "mode": "dual",
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false,
+      "effective_device": "cpu",
+      "use_gpu": false,
+      "gpu_id": "",
+      "parameter_devices": [
+        "cpu"
+      ],
+      "buffer_devices": [
+        "cpu"
+      ],
+      "parameters": 715020
+    },
+    {
+      "stage": "after_checked_config",
+      "mode": "triple",
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false,
+      "effective_device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "after_reference_config",
+      "mode": "triple",
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false,
+      "effective_device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "after_cpu_model_construction",
+      "mode": "triple",
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false,
+      "effective_device": "cpu",
+      "use_gpu": false,
+      "gpu_id": "",
+      "parameter_devices": [
+        "cpu"
+      ],
+      "buffer_devices": [
+        "cpu"
+      ],
+      "parameters": 715086
+    },
+    {
+      "stage": "after_initialization",
+      "mode": null,
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false
+    },
+    {
+      "stage": "after_runtime_and_imported_source_verification",
+      "mode": null,
+      "cpu_mask": {
+        "present": true,
+        "value": ""
+      },
+      "torch_imported": true,
+      "cuda_initialized": false
+    }
+  ],
+  "last_successful_stage": "after_runtime_and_imported_source_verification",
+  "cuda_forward": 0,
+  "optimizer_steps": 0,
+  "scientific_fits": 0,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "source_hash": "b9375435bac4bec10ec0cc061eb58c5f55524a969282217d8af4911a36dd3868",
+  "initialization": {
+    "passed": true,
+    "rows": [
+      {
+        "mode": "base",
+        "parameter_count": 714888,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "mamba3_chunk_size",
+            "mamba3_is_mimo",
+            "mamba3_mimo_rank",
+            "three_time_mode"
+          ],
+          "stored_SISO_effective_verified": true
+        },
+        "initial_backbone_sha256": "b9dd55afe56025f320f3d6c4b6d4360f451a5520ee820c3c9394bf3cedfe8988",
+        "initial_calibrator_hashes": {},
+        "rng_components": {
+          "python": "a6501dd804b776a90cb540d1051540c8dd8009cee51906231f9dcbfba0af7590",
+          "numpy": "0725760628b35e82add26f61369288dc3e0bb4ec06c92abbfd1c1c8f6b3b5d67",
+          "cpu": "2ed04960bac5635e088d24ce02c27410a12f26607f10ad823874b30d7359b4d1",
+          "cuda": [],
+          "aggregate": "086ccb0d9f8426b127e7ac30ae5455adebe824887800ab09d94d927c46b6245d"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "dual",
+        "parameter_count": 715020,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "mamba3_chunk_size",
+            "mamba3_is_mimo",
+            "mamba3_mimo_rank",
+            "three_time_mode"
+          ],
+          "stored_SISO_effective_verified": true
+        },
+        "initial_backbone_sha256": "b9dd55afe56025f320f3d6c4b6d4360f451a5520ee820c3c9394bf3cedfe8988",
+        "initial_calibrator_hashes": {
+          "decay": "cf1b16c825918c80ae8bf27735fc913c6f93a7a10063815ad333139a0b832a08",
+          "scan": "cf1b16c825918c80ae8bf27735fc913c6f93a7a10063815ad333139a0b832a08"
+        },
+        "rng_components": {
+          "python": "a6501dd804b776a90cb540d1051540c8dd8009cee51906231f9dcbfba0af7590",
+          "numpy": "0725760628b35e82add26f61369288dc3e0bb4ec06c92abbfd1c1c8f6b3b5d67",
+          "cpu": "2ed04960bac5635e088d24ce02c27410a12f26607f10ad823874b30d7359b4d1",
+          "cuda": [],
+          "aggregate": "086ccb0d9f8426b127e7ac30ae5455adebe824887800ab09d94d927c46b6245d"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "triple",
+        "parameter_count": 715086,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "mamba3_chunk_size",
+            "mamba3_is_mimo",
+            "mamba3_mimo_rank",
+            "three_time_mode"
+          ],
+          "stored_SISO_effective_verified": true
+        },
+        "initial_backbone_sha256": "b9dd55afe56025f320f3d6c4b6d4360f451a5520ee820c3c9394bf3cedfe8988",
+        "initial_calibrator_hashes": {
+          "decay": "cf1b16c825918c80ae8bf27735fc913c6f93a7a10063815ad333139a0b832a08",
+          "write": "cf1b16c825918c80ae8bf27735fc913c6f93a7a10063815ad333139a0b832a08",
+          "phase": "cf1b16c825918c80ae8bf27735fc913c6f93a7a10063815ad333139a0b832a08"
+        },
+        "rng_components": {
+          "python": "a6501dd804b776a90cb540d1051540c8dd8009cee51906231f9dcbfba0af7590",
+          "numpy": "0725760628b35e82add26f61369288dc3e0bb4ec06c92abbfd1c1c8f6b3b5d67",
+          "cpu": "2ed04960bac5635e088d24ce02c27410a12f26607f10ad823874b30d7359b4d1",
+          "cuda": [],
+          "aggregate": "086ccb0d9f8426b127e7ac30ae5455adebe824887800ab09d94d927c46b6245d"
+        },
+        "independent_write_phase_storage": true
+      }
+    ],
+    "forward_calls": 0,
+    "scientific_fits": 0
+  },
+  "runtime": {
+    "torch": "2.9.1+cu128",
+    "recbole": "1.2.0",
+    "mamba_ssm": "2.3.2.post1",
+    "triton": "3.5.1",
+    "numpy": "1.26.4",
+    "tilelang": "0.1.8",
+    "apache_tvm_ffi": "0.1.9",
+    "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+    "upstream_manifest_sha256": "5c9097700345808fcfc2846dd4ccc8adc6b087ea681f2c0d22366c090f21f844",
+    "cuda": "12.8",
+    "gpu": null,
+    "imported_sources": {
+      "experiments.mamba3_mimo_time": "experiments/mamba3_mimo_time/__init__.py",
+      "experiments.mamba3_mimo_time.config": "experiments/mamba3_mimo_time/config.py",
+      "experiments.mamba3_mimo_time.records": "experiments/mamba3_mimo_time/records.py",
+      "experiments.mamba3_mimo_time.process_env": "experiments/mamba3_mimo_time/process_env.py",
+      "experiments.mamba3_mimo_time.provenance": "experiments/mamba3_mimo_time/provenance.py",
+      "experiments.mamba3_time_mechanisms.provenance": "experiments/mamba3_time_mechanisms/provenance.py",
+      "experiments.mamba3_mimo_time.retry": "experiments/mamba3_mimo_time/retry.py",
+      "experiments.mamba3_mimo_time.numerics": "experiments/mamba3_mimo_time/numerics.py",
+      "experiments.mamba3_three_time": "experiments/mamba3_three_time/__init__.py",
+      "experiments.mamba3_timeaware.config": "experiments/mamba3_timeaware/config.py",
+      "experiments.mamba3_three_time.config": "experiments/mamba3_three_time/config.py",
+      "experiments.mamba3_timeaware.time_inputs": "experiments/mamba3_timeaware/time_inputs.py",
+      "experiments.mamba3_three_time.calibrators": "experiments/mamba3_three_time/calibrators.py",
+      "experiments.mamba3_three_time.evidence": "experiments/mamba3_three_time/evidence.py",
+      "experiments.mamba3_three_time.initialization": "experiments/mamba3_three_time/initialization.py",
+      "experiments.mamba3_three_time.fixtures": "experiments/mamba3_three_time/fixtures.py",
+      "experiments.mamba3_mimo_time.admission": "experiments/mamba3_mimo_time/admission.py",
+      "experiments.mamba3_mimo_time.smoke": "experiments/mamba3_mimo_time/smoke.py",
+      "experiments.mamba3_mimo_time.state": "experiments/mamba3_mimo_time/state.py",
+      "experiments.mamba3_mimo_time.runner": "experiments/mamba3_mimo_time/runner.py",
+      "experiments.mamba3_time_mechanisms.diagnostics": "experiments/mamba3_time_mechanisms/diagnostics.py",
+      "experiments.mamba3_context_time.diagnostics": "experiments/mamba3_context_time/diagnostics.py",
+      "experiments.mamba3_time_confirmation.config": "experiments/mamba3_time_confirmation/config.py",
+      "experiments.mamba3_time_confirmation.provenance": "experiments/mamba3_time_confirmation/provenance.py",
+      "experiments.mamba3_context_time.config": "experiments/mamba3_context_time/config.py",
+      "experiments.mamba3_context_time.provenance": "experiments/mamba3_context_time/provenance.py",
+      "experiments.mamba3_context_time.trainer": "experiments/mamba3_context_time/trainer.py",
+      "experiments.mamba3_three_time.validation_pilot": "experiments/mamba3_three_time/validation_pilot/__init__.py",
+      "experiments.mamba3_three_time.validation_pilot.diagnostics": "experiments/mamba3_three_time/validation_pilot/diagnostics.py",
+      "experiments.mamba3_mimo_time.trainer": "experiments/mamba3_mimo_time/trainer.py",
+      "experiments.mamba3_mimo_time.report": "experiments/mamba3_mimo_time/report.py",
+      "experiments.mamba3_mimo_time.pipeline": "experiments/mamba3_mimo_time/pipeline.py",
+      "experiments.mamba3_baseline.model": "experiments/mamba3_baseline/model.py",
+      "experiments.mamba3_timeaware.time_mamba3": "experiments/mamba3_timeaware/time_mamba3.py",
+      "experiments.mamba3_timeaware.model": "experiments/mamba3_timeaware/model.py",
+      "experiments.mamba3_three_time.backends": "experiments/mamba3_three_time/backends.py",
+      "experiments.mamba3_three_time.kernels": "experiments/mamba3_three_time/kernels.py",
+      "experiments.mamba3_three_time.mixer": "experiments/mamba3_three_time/mixer.py",
+      "experiments.mamba3_three_time.model": "experiments/mamba3_three_time/model.py",
+      "experiments.mamba3_three_time.confirmation": "experiments/mamba3_three_time/confirmation/__init__.py",
+      "experiments.mamba3_three_time.confirmation.state": "experiments/mamba3_three_time/confirmation/state.py",
+      "experiments.mamba3_three_time.provenance": "experiments/mamba3_three_time/provenance.py"
+    }
+  },
+  "imported_sources": {
+    "experiments.mamba3_mimo_time": "experiments/mamba3_mimo_time/__init__.py",
+    "experiments.mamba3_mimo_time.config": "experiments/mamba3_mimo_time/config.py",
+    "experiments.mamba3_mimo_time.records": "experiments/mamba3_mimo_time/records.py",
+    "experiments.mamba3_mimo_time.process_env": "experiments/mamba3_mimo_time/process_env.py",
+    "experiments.mamba3_mimo_time.provenance": "experiments/mamba3_mimo_time/provenance.py",
+    "experiments.mamba3_time_mechanisms.provenance": "experiments/mamba3_time_mechanisms/provenance.py",
+    "experiments.mamba3_mimo_time.retry": "experiments/mamba3_mimo_time/retry.py",
+    "experiments.mamba3_mimo_time.numerics": "experiments/mamba3_mimo_time/numerics.py",
+    "experiments.mamba3_three_time": "experiments/mamba3_three_time/__init__.py",
+    "experiments.mamba3_timeaware.config": "experiments/mamba3_timeaware/config.py",
+    "experiments.mamba3_three_time.config": "experiments/mamba3_three_time/config.py",
+    "experiments.mamba3_timeaware.time_inputs": "experiments/mamba3_timeaware/time_inputs.py",
+    "experiments.mamba3_three_time.calibrators": "experiments/mamba3_three_time/calibrators.py",
+    "experiments.mamba3_three_time.evidence": "experiments/mamba3_three_time/evidence.py",
+    "experiments.mamba3_three_time.initialization": "experiments/mamba3_three_time/initialization.py",
+    "experiments.mamba3_three_time.fixtures": "experiments/mamba3_three_time/fixtures.py",
+    "experiments.mamba3_mimo_time.admission": "experiments/mamba3_mimo_time/admission.py",
+    "experiments.mamba3_mimo_time.smoke": "experiments/mamba3_mimo_time/smoke.py",
+    "experiments.mamba3_mimo_time.state": "experiments/mamba3_mimo_time/state.py",
+    "experiments.mamba3_mimo_time.runner": "experiments/mamba3_mimo_time/runner.py",
+    "experiments.mamba3_time_mechanisms.diagnostics": "experiments/mamba3_time_mechanisms/diagnostics.py",
+    "experiments.mamba3_context_time.diagnostics": "experiments/mamba3_context_time/diagnostics.py",
+    "experiments.mamba3_time_confirmation.config": "experiments/mamba3_time_confirmation/config.py",
+    "experiments.mamba3_time_confirmation.provenance": "experiments/mamba3_time_confirmation/provenance.py",
+    "experiments.mamba3_context_time.config": "experiments/mamba3_context_time/config.py",
+    "experiments.mamba3_context_time.provenance": "experiments/mamba3_context_time/provenance.py",
+    "experiments.mamba3_context_time.trainer": "experiments/mamba3_context_time/trainer.py",
+    "experiments.mamba3_three_time.validation_pilot": "experiments/mamba3_three_time/validation_pilot/__init__.py",
+    "experiments.mamba3_three_time.validation_pilot.diagnostics": "experiments/mamba3_three_time/validation_pilot/diagnostics.py",
+    "experiments.mamba3_mimo_time.trainer": "experiments/mamba3_mimo_time/trainer.py",
+    "experiments.mamba3_mimo_time.report": "experiments/mamba3_mimo_time/report.py",
+    "experiments.mamba3_mimo_time.pipeline": "experiments/mamba3_mimo_time/pipeline.py",
+    "experiments.mamba3_baseline.model": "experiments/mamba3_baseline/model.py",
+    "experiments.mamba3_timeaware.time_mamba3": "experiments/mamba3_timeaware/time_mamba3.py",
+    "experiments.mamba3_timeaware.model": "experiments/mamba3_timeaware/model.py",
+    "experiments.mamba3_three_time.backends": "experiments/mamba3_three_time/backends.py",
+    "experiments.mamba3_three_time.kernels": "experiments/mamba3_three_time/kernels.py",
+    "experiments.mamba3_three_time.mixer": "experiments/mamba3_three_time/mixer.py",
+    "experiments.mamba3_three_time.model": "experiments/mamba3_three_time/model.py",
+    "experiments.mamba3_three_time.confirmation": "experiments/mamba3_three_time/confirmation/__init__.py",
+    "experiments.mamba3_three_time.confirmation.state": "experiments/mamba3_three_time/confirmation/state.py",
+    "experiments.mamba3_three_time.provenance": "experiments/mamba3_three_time/provenance.py"
+  },
+  "final_cuda_initialized": false
+}

@@ -1,0 +1,14 @@
+{
+  "version": "mimo_numeric_acceptance_v1",
+  "decision": "New prospective limited-pilot policy after diagnostics003/004, before MIMO recommendation metrics; not retrospective historical PASS",
+  "structural": {"atol": 0.000001, "rtol": 0.00001},
+  "output": {"atol": 0.003, "rtol": 0.08, "relative_l2_cap": 0.08},
+  "vjp": {"atol": 0.006, "rtol": 0.12, "relative_l2_cap": 0.12},
+  "zero_reference": "No denominator floor: exact zero reference requires exact zero error for a norm-capped comparison; mixed-only structural comparisons retain their explicit absolute tolerance",
+  "backward_residual": {"rho_cap": 1.1920928955078125e-7, "formula": "norm(future)/(norm(prefix)+norm(future)); float64, no floor", "both_zero": "ZERO_SIGNAL; not informative PASS"},
+  "cotangents": ["signed", "nonnegative"],
+  "near_zero_loss": "Finite and mixed output atol/rtol required. Legacy pure-relative scalar-loss cap and nonlinear-loss gradient comparisons are measured but advisory; mandatory output-independent shared-VJP validates backward separately.",
+  "limitations": "Engineering profiles, not universal bounds or proof of mathematical equivalence. Exact-zero legacy failures are retained. D skip oracle uses continuous/STE interpretation of bf16 arithmetic, not derivative of discrete quantization. Loss propagation bound is explanatory only.",
+  "threshold_changes_after_gate": false,
+  "authorization": "ACCEPTED_FOR_MIMO_PILOT_WITH_DOCUMENTED_NUMERICAL_LIMITATIONS"
+}

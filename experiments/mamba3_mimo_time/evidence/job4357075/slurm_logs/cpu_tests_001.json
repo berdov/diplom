@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "source_hash": "b9375435bac4bec10ec0cc061eb58c5f55524a969282217d8af4911a36dd3868",
+  "execution_commit": "5e8335f3a56af68bac74aac975b749ca6214b371",
+  "tests": 20,
+  "skipped": 0,
+  "real_subprocess_env_isolation": true,
+  "full_preflight_and_no_git": true,
+  "scientific_fits": 0,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0
+}

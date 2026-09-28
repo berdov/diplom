@@ -1,0 +1,248 @@
+{
+  "job_id": "4357075",
+  "state": "FAILED",
+  "exit_code": "1:0",
+  "elapsed": "00:18:19",
+  "node": "cn-043",
+  "execution_commit": "5e8335f3a56af68bac74aac975b749ca6214b371",
+  "source_hash": "b9375435bac4bec10ec0cc061eb58c5f55524a969282217d8af4911a36dd3868",
+  "scientific_fits": 0,
+  "TEST": "NOT_RUN",
+  "reason": "gradient_capture_hook_active_during_no_grad_intervention",
+  "files": [
+    {
+      "source": "experiments/mamba3_mimo_time/admission.py",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/admission.py",
+      "size": 13662,
+      "sha256": "0d2101e1251c51d67efebbbb72087438f9a30f53b086373dd7aba0548ed3a85e"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/config.py",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/config.py",
+      "size": 9276,
+      "sha256": "a01bc19ad42c36a21fc44502bcc8d3b99469e8fda41b03b62b49e47ceda4b990"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/mimo_numeric_acceptance_v1.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/mimo_numeric_acceptance_v1.json",
+      "size": 1468,
+      "sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/retry.py",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/retry.py",
+      "size": 4436,
+      "sha256": "25ba9333fdb7d65d1f56625c819d53ea5cf379a1e89e4752ce2ca3358db5f8a0"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/runs/attempt_002/admission_001.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/runs/admission_001.json",
+      "size": 2620202,
+      "sha256": "580f29c1e56f163dd07b646aa07acfa59ebb6d0c366cf3d115eb1f8ede6d6b04"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/runs/attempt_002/pilot_summary.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/runs/pilot_summary.json",
+      "size": 2790,
+      "sha256": "09253f1d5f1aa3fb6e5145cce78ce4eda75bd3bbaed8d87c6e63669246731c6b"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/runs/attempt_002/pilot_summary.md",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/runs/pilot_summary.md",
+      "size": 3157,
+      "sha256": "3bdf072628741d2fc09a5deae1d5a794cc5afa3f462bd5669ac9604694bb43ea"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/admission/child_environment.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/admission/child_environment.json",
+      "size": 172,
+      "sha256": "8b19425bac634c26601caf35136efa51bd80e193331a63858c0fcb61f408779b"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/admission/stderr.log",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/admission/stderr.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/admission/stdout.log",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/admission/stdout.log",
+      "size": 5425,
+      "sha256": "5736fae4dbb3f4e9934325dfd468355aacc1bafc769e0ab3d29e4f32d645eb69"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/cpu_tests_001.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/cpu_tests_001.json",
+      "size": 358,
+      "sha256": "6f379dfe87f4bd0f068d3283381a76cf33382fbe6ef0c4a3eae02f904eeb444f"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/cpu_tests_5e8335f.stderr.log",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/cpu_tests_5e8335f.stderr.log",
+      "size": 2402,
+      "sha256": "33c25ae4bd2c6892794a6d3e17a04f21b7956b438ca8421a5b8056ff1a3a8164"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/cpu_tests_5e8335f.stdout.log",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/cpu_tests_5e8335f.stdout.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/login_preflight_001.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/login_preflight_001.json",
+      "size": 16950,
+      "sha256": "a9270e3fd796d0fee80b8cea395f5f623af53bcdf19434bf566da6de0f05fc9e"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/login_preflight_5e8335f.evidence.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/login_preflight_5e8335f.evidence.json",
+      "size": 16412,
+      "sha256": "949b441d7d9e727cfa6c9020d94609defe8cd519d2657257448255f891ed9026"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/login_preflight_5e8335f.stderr.log",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/login_preflight_5e8335f.stderr.log",
+      "size": 1074,
+      "sha256": "1a582b425513fd2e9c5be4ea95bf663ee4d3a6fac53a1582e91ff2aa8564e25c"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/login_preflight_5e8335f.stdout.log",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/login_preflight_5e8335f.stdout.log",
+      "size": 16412,
+      "sha256": "949b441d7d9e727cfa6c9020d94609defe8cd519d2657257448255f891ed9026"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/login_verification_001.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/login_verification_001.json",
+      "size": 2569,
+      "sha256": "447565610ec25ff4d1e47d8990a55b2ca350dc2de2665e83162441ee644ba66b"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/m3-mimo-pilot-4357075.err",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/m3-mimo-pilot-4357075.err",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/m3-mimo-pilot-4357075.out",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/m3-mimo-pilot-4357075.out",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/no_git_preflight_001.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/no_git_preflight_001.json",
+      "size": 16950,
+      "sha256": "dad1375dc90d3bccdbec103f50c487450583b5af003e428ee244019aa501bc9a"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/no_git_preflight_5e8335f.evidence.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/no_git_preflight_5e8335f.evidence.json",
+      "size": 16412,
+      "sha256": "949b441d7d9e727cfa6c9020d94609defe8cd519d2657257448255f891ed9026"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/no_git_preflight_5e8335f.stderr.log",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/no_git_preflight_5e8335f.stderr.log",
+      "size": 1355,
+      "sha256": "84a4463291704aac12924ebbf6765cf7ad23c8ee80be2d080beb14f9a7be841c"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/no_git_preflight_5e8335f.stdout.log",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/no_git_preflight_5e8335f.stdout.log",
+      "size": 16412,
+      "sha256": "949b441d7d9e727cfa6c9020d94609defe8cd519d2657257448255f891ed9026"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/pipeline.lock",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/pipeline.lock",
+      "size": 1474,
+      "sha256": "150557947781e19ab2961ee7b12ccf237e7724e810de1c8869fdf4e53aa109c8"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/pipeline_status.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/pipeline_status.json",
+      "size": 2862,
+      "sha256": "dca3b9318c9a6acd2bb598141be432e341b38ad76fcaf4ae08f753d4d37642a1"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/preflight/child_environment.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/preflight/child_environment.json",
+      "size": 171,
+      "sha256": "0ab16a286941395f9d7a42f3e643b0940ef9f82ff1fd2524d3170b023a337fae"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/preflight/evidence.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/preflight/evidence.json",
+      "size": 16412,
+      "sha256": "949b441d7d9e727cfa6c9020d94609defe8cd519d2657257448255f891ed9026"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/preflight/stderr.log",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/preflight/stderr.log",
+      "size": 990,
+      "sha256": "2b50b3f1dff89972fd94af09597bed166956068b34bb02c146c6cfc631372784"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/preflight/stdout.log",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/preflight/stdout.log",
+      "size": 16412,
+      "sha256": "949b441d7d9e727cfa6c9020d94609defe8cd519d2657257448255f891ed9026"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/reservation_001.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/reservation_001.json",
+      "size": 1500,
+      "sha256": "650f6c6b3782c8176f43a476f7b0588ef42421f6f7b217b62f5418f4f029909f"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/resource_check_001.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/resource_check_001.json",
+      "size": 1408,
+      "sha256": "968cf07ed6cefa315645af624bf37330108d8c5973ad7d0132278230d88a513f"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/slurm_logs/attempt_002/submission_001.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/slurm_logs/submission_001.json",
+      "size": 1017,
+      "sha256": "8aafbb09fe36a25dbb9af0e3d22f5df39d0b3c448fc0e4be83f9564a20e64ba3"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/source_manifest.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/source_manifest.json",
+      "size": 24298,
+      "sha256": "9148e10f57c1cfce164d780969b988d83190d5aae957ab3c1f205bf3ed6929e3"
+    },
+    {
+      "source": "experiments/mamba3_mimo_time/study_plan.json",
+      "destination": "experiments/mamba3_mimo_time/evidence/job4357075/study_plan.json",
+      "size": 111869,
+      "sha256": "15240112901bc84f643faae4059fb5f1a6a93418f843d1bd94f5dde3e32ddc4f"
+    }
+  ],
+  "generated_settings": {
+    "path": "experiments/mamba3_mimo_time/evidence/job4357075/scientific_settings.json",
+    "sha256": "0b8aaddb21cde99e77b8cd14fefa509b2eacf14035f1e53a2b0cec3116fb95b2",
+    "derivation": "config.settings(mode) from unchanged parent checkout; no model/forward"
+  },
+  "absent_paths": [
+    "experiments/mamba3_mimo_time/runs/attempt_002/smoke_001.json",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_base_seed2026_001",
+    "experiments/mamba3_mimo_time/runs/attempt_002/mamba3_mimo_base_seed2026_001.json",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_base_seed2026_001/run.lock",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_base_seed2026_001/checkpoints/best_state_dict.pth",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_base_seed2026_001/checkpoints/best_metadata.json",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_dual_seed2026_001",
+    "experiments/mamba3_mimo_time/runs/attempt_002/mamba3_mimo_dual_seed2026_001.json",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_dual_seed2026_001/run.lock",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_dual_seed2026_001/checkpoints/best_state_dict.pth",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_dual_seed2026_001/checkpoints/best_metadata.json",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_triple_seed2026_001",
+    "experiments/mamba3_mimo_time/runs/attempt_002/mamba3_mimo_triple_seed2026_001.json",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_triple_seed2026_001/run.lock",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_triple_seed2026_001/checkpoints/best_state_dict.pth",
+    "experiments/mamba3_mimo_time/slurm_logs/attempt_002/mamba3_mimo_triple_seed2026_001/checkpoints/best_metadata.json"
+  ],
+  "ancestor_evidence_sha256": "5c51d7628c109f8011d58bc3a629d3e52a1ca0aa78f2caecda1f6b242356e672"
+}
