@@ -1,5 +1,29 @@
 # MIMO base / dual / triple: ограниченный пилот
 
+## Исправление hook: попытка 003
+
+Попытка 002 (job4357075) прошла CPU-preflight и 28 admission cases, затем
+остановилась на `prefix_base_L17_P7_x1`: hook вызывал `retain_grad()` внутри
+intervention с `no_grad`. Исходное evidence сохранено в `evidence/job4357075/`;
+его FAIL и отсутствие несохранённых проверок не пересматриваются.
+
+В `prefix_checks.check_prefix` hook действует только в gradient-фазе: обязательны
+grad-enabled, ровно один ожидаемый positional tensor и конечный gradient нужной
+формы. Output/gradient клонируются с detach, hook снимается в finally до
+interventions. Их forwards остаются под no_grad, лишнего gradient forward нет.
+Callback Registry сохраняет stages, gradient checks, снятие hook и каждый
+intervention; поздняя ошибка сохраняет partial evidence/traceback и missing keys,
+но не даёт PASS. CPU regression использует этот же production helper и весь
+prefix case с маленькой Embedding-моделью; обнаруживает в том числе detached
+зависимость prefix от suffix. Это не MIMO GPU evidence.
+
+Новые артефакты только в `slurm_logs/attempt_003/` и `runs/attempt_003/`.
+Retry разрешён для конкретного hook failure с нулём scientific fits; обе
+завершённые ancestor attempts проверяются по сохранённым SHA256. Неизвестная
+попытка, новые старые scientific outputs или занятые новые paths блокируют submit.
+Новый job заново выполняет все 45 cases/2342 leaves, не переиспользует 28 PASS.
+Policy, scientific plan, модель, kernels, fixtures, trainer и допуски неизменны.
+
 ## Инфраструктурная попытка 002
 
 Первая попытка 4356310 остановилась на CPU-preflight до admission/smoke/fits:
@@ -30,8 +54,8 @@ verification. CUDA initialization не приравнивается к model for
 case в разрешённой allocation; CPU env tests не являются GPU evidence.
 
 Scientific settings, `study_plan.json`, numerical policy и 45 cases/2342 leaves
-первой попытки неизменны. Новые пути ниже всегда понимаются относительно
-`runs/attempt_002/` и `slurm_logs/attempt_002/`; старые корневые пути исторические.
+первой попытки неизменны. Для текущей попытки пути ниже понимаются относительно
+`runs/attempt_003/` и `slurm_logs/attempt_003/`; attempt002 и корневые пути исторические.
 
 KuaiRand: хронологический leave-one-out, полный каталог. Только TRAIN/VALID;
 TEST loader/evaluation запрещены. Один exploratory seed2026, не подтверждение

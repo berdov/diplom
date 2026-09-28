@@ -129,7 +129,8 @@ def reference(spec, save):
     return case(checks, measurements=evidence, fixture_seed=seed, baseline_before_triple=True)
 
 
-def prefix(spec):
+def prefix(spec, save):
+    from .prefix_checks import check_prefix
     mode, n, p, multiplier = (spec[k] for k in ('mode', 'length', 'prefix', 'multiplier'))
     net = fresh(mode)
     if mode != 'base':
@@ -138,29 +139,17 @@ def prefix(spec):
     items, lens, times = data
     it = items.clone(); it[0,p:] = (it[0,p:] + 37) % 7111 + 1
     tm = times.clone(); tm[0,p:] += 90000000
-    checks, diagnostics = {}, {}
+    checks, diagnostics, phases = {}, {}, {}
     for label, oracle in [('local', None)] + ([('official', 'official_' + mode)] if mode != 'triple' else []):
-        captured = []
-        def retain(_m, _a, x):
-            x.retain_grad(); captured.append(x)
-        hook = net.item_embedding.register_forward_hook(retain)
-        net.zero_grad(set_to_none=True)
-        try:
-            output = net.encode_sequence(*data, oracle=oracle)
-            (scalar_loss(output[0,:p]) * multiplier).backward()
-            g = captured[0].grad
-            diagnostics[label] = residual(g[:1], p)
-            checks[label+':residual'] = diagnostics[label]
-            checks[label+':cross_user_gradient'] = compare(g[1:], torch.zeros_like(g[1:]))
-            checks[label+':finite_output'] = finite(output)
-            with torch.no_grad():
-                for index, changed in enumerate(((it,lens,times),(items,lens,tm))):
-                    altered = net.encode_sequence(*changed, oracle=oracle)
-                    checks[f'{label}:prefix_intervention{index}'] = compare(altered[:,:p], output[:,:p])
-                    checks[f'{label}:cross_user_intervention{index}'] = compare(altered[1], output[1])
-        finally:
-            hook.remove()
-    return case(checks, residuals=diagnostics, fixture_seed=314159, nonzero_calibrators=mode != 'base',
+        def persist(partial, phase):
+            checks.update({label+':'+k: v for k,v in partial.items()})
+            phases[label] = phase
+            if 'residual' in partial:
+                diagnostics[label] = partial['residual']
+            save(dict(checks=dict(checks), required_keys=sorted(checks), residuals=diagnostics,
+                      prefix_phases=phases, fixture_seed=314159, nonzero_calibrators=mode != 'base'))
+        check_prefix(net, data, p, multiplier, oracle, ((it,lens,times),(items,lens,tm)), persist)
+    return case(checks, residuals=diagnostics, prefix_phases=phases, fixture_seed=314159, nonzero_calibrators=mode != 'base',
                 legacy_exact_zero_reclassified=False, input_tensors=tensor_records(dict(zip(('items','lengths','timestamps'),data))))
 
 
@@ -226,7 +215,7 @@ def dispatch(spec, save):
     if suite == 'reference':
         return reference(spec, save)
     if suite == 'prefix':
-        return prefix(spec)
+        return prefix(spec, save)
     if suite == 'D_oracle':
         return d_oracle()
     if suite == 'edges':

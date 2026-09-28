@@ -126,6 +126,8 @@ class Registry:
             row.update(status='PASS' if good else 'FAIL', failed_keys=[k for k, v in row['checks'].items() if not leaf_pass(v)])
         except BaseException:
             row.update(status='FAIL', traceback=traceback.format_exc())
+            row['missing_keys'] = sorted(set(spec['required_keys']) - set(row['checks']))
+            row['unexpected_keys'] = sorted(set(row['checks']) - set(spec['required_keys']))
         update(self.path, self.result)
         if row['status'] != 'PASS':
             raise RuntimeError('Required admission case failed: ' + row['case_id'])

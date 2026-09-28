@@ -9,13 +9,13 @@
 #SBATCH --time=08:00:00
 #SBATCH --no-requeue
 #SBATCH --signal=B:TERM@600
-#SBATCH --output=/home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/attempt_002/%x-%j.out
-#SBATCH --error=/home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/attempt_002/%x-%j.err
+#SBATCH --output=/home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/attempt_003/%x-%j.out
+#SBATCH --error=/home/daryumin/iberdov/diplom/experiments/mamba3_mimo_time/slurm_logs/attempt_003/%x-%j.err
 set -euo pipefail
 cd "${REPO_ROOT:-/home/daryumin/iberdov/diplom}"
 export PYTHONPATH="$PWD" PYTHONNOUSERSITE=1 PYTHONDONTWRITEBYTECODE=1
 export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4
-export TILELANG_CACHE_DIR="$PWD/experiments/mamba3_mimo_time/slurm_logs/attempt_002/tilelang_cache"
+export TILELANG_CACHE_DIR="$PWD/experiments/mamba3_mimo_time/slurm_logs/attempt_003/tilelang_cache"
 PYTHON="$PWD/envs/mamba3/bin/python"
 if [[ "${1:-}" == "--preflight-only" ]]; then
     shift

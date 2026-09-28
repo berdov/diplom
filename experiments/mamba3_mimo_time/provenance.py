@@ -56,10 +56,11 @@ def dependency_paths():
                   c.ROOT / 'experiments/mamba3_three_time/LICENSE.upstream',
                   c.ROOT / 'experiments/mamba3_timeaware/runs/train_time_stats_001.json',
                   c.ROOT / 'outputs/data/protocol_b_manifest.json'])
-    preserved = read(c.PARENT_EVIDENCE/'preservation_manifest.json')
-    found.update(c.ROOT/row['destination'] for row in preserved['files'])
-    found.update([c.PARENT_EVIDENCE/'preservation_manifest.json', c.PARENT_EVIDENCE/'README.md',
-                  c.ROOT/preserved['generated_settings']['path']])
+    for evidence in (c.HERE/'evidence/job4356310', c.PARENT_EVIDENCE):
+        preserved = read(evidence/'preservation_manifest.json')
+        found.update(c.ROOT/row['destination'] for row in preserved['files'])
+        found.update([evidence/'preservation_manifest.json', evidence/'README.md',
+                     c.ROOT/preserved['generated_settings']['path']])
     return sorted(found)
 
 

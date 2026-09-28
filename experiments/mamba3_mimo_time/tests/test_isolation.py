@@ -64,7 +64,7 @@ class EnvironmentTests(unittest.TestCase):
         self.assertEqual(len(c.plan()['required_cases']), 45)
         self.assertEqual(sum(len(s['required_keys']) for s in c.plan()['required_cases']), 2342)
         old_manifest = read(c.PARENT_EVIDENCE/'source_manifest.json')
-        for name in ('admission.py','numerics.py','smoke.py','runner.py','trainer.py','report.py'):
+        for name in ('numerics.py','smoke.py','runner.py','trainer.py','report.py','state.py','preflight.py','process_env.py','pipeline.py'):
             file=c.HERE/name
             self.assertEqual(sha(file), old_manifest['files'][str(file.relative_to(c.ROOT))])
 
@@ -88,12 +88,17 @@ class RetryTests(unittest.TestCase):
         verify_parent()
         with tempfile.TemporaryDirectory() as d:
             root=Path(d); e=root/c.PARENT_EVIDENCE.relative_to(c.ROOT)
-            shutil.copytree(c.PARENT_EVIDENCE,e)
+            for source in (c.HERE/'evidence/job4356310', c.PARENT_EVIDENCE):
+                shutil.copytree(source,root/source.relative_to(c.ROOT))
+                for row in read(source/'preservation_manifest.json')['files']:
+                    original=root/row['source'];original.parent.mkdir(parents=True,exist_ok=True)
+                    shutil.copyfile(root/row['destination'],original)
             m=read(e/'preservation_manifest.json')
-            for row in m['files']:
-                original=root/row['source']; original.parent.mkdir(parents=True,exist_ok=True)
-                shutil.copyfile(root/row['destination'],original)
             verify_parent(root,live=True)
+            unknown=root/c.HERE.relative_to(c.ROOT)/'slurm_logs/attempt_999'
+            unknown.mkdir()
+            with self.assertRaisesRegex(ValueError,'Unknown attempt'):verify_parent(root,live=True)
+            unknown.rmdir()
             p=root/m['absent_paths'][0];p.parent.mkdir(parents=True,exist_ok=True)
             create(p,{'status':'RUNNING'})
             with self.assertRaisesRegex(ValueError,'artifact appeared'):
@@ -105,7 +110,7 @@ class RetryTests(unittest.TestCase):
 
     def test_separate_namespace_and_one_shot(self):
         with tempfile.TemporaryDirectory() as d:
-            root=Path(d);logs=root/'slurm_logs/attempt_002';runs=root/'runs/attempt_002'
+            root=Path(d);logs=root/('slurm_logs/attempt_'+c.EXECUTION_ATTEMPT);runs=root/('runs/attempt_'+c.EXECUTION_ATTEMPT)
             create(root/'slurm_logs/pipeline.lock',{'old':True})
             create(root/'slurm_logs/reservation_001.json',{'old':True})
             create(root/'runs/pilot_summary.json',{'old':True})
