@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "execution_commit": "5670e898ed04924a929756e52f39d1d00eb79c5a",
+  "source_hash": "19fbe3d2e7134b785f35dd34f3776ee2bccaf956a4d8f7a638dddce78de99ed6",
+  "scientific_fits_before_submit": 0,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "checked_at": "2026-09-28T14:04:55.626698+00:00",
+  "resource_check": "rocky/proj_1833/type_e/A100x1/CPU4/mem0/08h/no-requeue",
+  "git_tracked_clean": true
+}

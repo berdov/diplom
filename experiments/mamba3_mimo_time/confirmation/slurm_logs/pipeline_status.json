@@ -1,0 +1,141 @@
+{
+  "study_id": "mamba3_mimo_confirmation_001",
+  "execution_commit": "5670e898ed04924a929756e52f39d1d00eb79c5a",
+  "source_hash": "19fbe3d2e7134b785f35dd34f3776ee2bccaf956a4d8f7a638dddce78de99ed6",
+  "source_manifest_sha256": "dea3224649ab6d52a34f718b52059d651a6f4477d198f3b6cd62dd776c8a3a2f",
+  "plan_sha256": "0ee714d6b051f11e31c8f3aaed142a279f0ee03b4f5e26850d86cca15f8898a5",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "inherited_admission_sha256": "c673524fda1a41d472c6cafebca7e25dad5cd7bd5df99fa772dfdcd4ee8bd5bc",
+  "inherited_smoke_sha256": "ac17c67b3fc411fce5cbdd53a855e75392d5bfd953b29a434e7237f135e7db9b",
+  "pilot_execution_commit": "c1dd31eec7907c67348769b6a1811b89aa4011c0",
+  "pilot_job_id": "4358147",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "job_id": "4358583",
+  "reservation_token": "d8a163dc03a8699a6679aac058a1a30e",
+  "reservation_sha256": "7dfa469446547568c67bdf6857a0aa89c5fa5ffba934e3e55eb1b278241f0614",
+  "login_verification_sha256": "b365e45a8f8fb07c57e3a3ce133f586dd866563fcc3fa2033421c82d1e6732bd",
+  "status": "PASS",
+  "stages": [
+    {
+      "stage": "runtime_inherited_admission",
+      "status": "PASS",
+      "started_at": "2026-09-28T14:24:36.959447+00:00",
+      "finished_at": "2026-09-28T14:25:11.952581+00:00"
+    },
+    {
+      "mode": "base",
+      "seed": 2027,
+      "run_id": "mamba3_mimo_confirm_base_seed2027_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T14:25:11.987043+00:00",
+      "finished_at": "2026-09-28T14:48:09.989643+00:00"
+    },
+    {
+      "mode": "dual",
+      "seed": 2027,
+      "run_id": "mamba3_mimo_confirm_dual_seed2027_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T14:48:10.019334+00:00",
+      "finished_at": "2026-09-28T14:59:30.648118+00:00"
+    },
+    {
+      "mode": "triple",
+      "seed": 2027,
+      "run_id": "mamba3_mimo_confirm_triple_seed2027_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T14:59:30.665701+00:00",
+      "finished_at": "2026-09-28T15:17:39.799729+00:00"
+    },
+    {
+      "mode": "base",
+      "seed": 2028,
+      "run_id": "mamba3_mimo_confirm_base_seed2028_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T15:17:39.808690+00:00",
+      "finished_at": "2026-09-28T15:36:41.470306+00:00"
+    },
+    {
+      "mode": "dual",
+      "seed": 2028,
+      "run_id": "mamba3_mimo_confirm_dual_seed2028_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T15:36:41.510303+00:00",
+      "finished_at": "2026-09-28T15:58:34.920892+00:00"
+    },
+    {
+      "mode": "triple",
+      "seed": 2028,
+      "run_id": "mamba3_mimo_confirm_triple_seed2028_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T15:58:34.942102+00:00",
+      "finished_at": "2026-09-28T16:17:50.800661+00:00"
+    },
+    {
+      "mode": "base",
+      "seed": 2029,
+      "run_id": "mamba3_mimo_confirm_base_seed2029_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T16:17:50.825839+00:00",
+      "finished_at": "2026-09-28T16:27:51.003169+00:00"
+    },
+    {
+      "mode": "dual",
+      "seed": 2029,
+      "run_id": "mamba3_mimo_confirm_dual_seed2029_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T16:27:51.024740+00:00",
+      "finished_at": "2026-09-28T17:04:14.535834+00:00"
+    },
+    {
+      "mode": "triple",
+      "seed": 2029,
+      "run_id": "mamba3_mimo_confirm_triple_seed2029_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T17:04:14.558867+00:00",
+      "finished_at": "2026-09-28T17:19:45.662333+00:00"
+    },
+    {
+      "mode": "base",
+      "seed": 2030,
+      "run_id": "mamba3_mimo_confirm_base_seed2030_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T17:19:45.689115+00:00",
+      "finished_at": "2026-09-28T17:32:52.653640+00:00"
+    },
+    {
+      "mode": "dual",
+      "seed": 2030,
+      "run_id": "mamba3_mimo_confirm_dual_seed2030_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T17:32:52.664564+00:00",
+      "finished_at": "2026-09-28T17:48:09.604538+00:00"
+    },
+    {
+      "mode": "triple",
+      "seed": 2030,
+      "run_id": "mamba3_mimo_confirm_triple_seed2030_001",
+      "status": "PASS",
+      "started_at": "2026-09-28T17:48:09.622713+00:00",
+      "finished_at": "2026-09-28T18:04:48.667443+00:00"
+    }
+  ],
+  "started_at": "2026-09-28T14:24:36.932329+00:00",
+  "scientific_fits_started": 12,
+  "scientific_fits_completed": 12,
+  "allocation_cuda_visibility": {
+    "present": true,
+    "value": "0"
+  },
+  "deadline_unix": 1790633670.0,
+  "min_remaining_to_start_fit_seconds": 5400,
+  "summary_status": "PASS",
+  "finished_at": "2026-09-28T18:04:49.662190+00:00"
+}

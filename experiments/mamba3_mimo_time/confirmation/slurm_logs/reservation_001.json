@@ -1,0 +1,90 @@
+{
+  "study_id": "mamba3_mimo_confirmation_001",
+  "execution_commit": "5670e898ed04924a929756e52f39d1d00eb79c5a",
+  "source_hash": "19fbe3d2e7134b785f35dd34f3776ee2bccaf956a4d8f7a638dddce78de99ed6",
+  "source_manifest_sha256": "dea3224649ab6d52a34f718b52059d651a6f4477d198f3b6cd62dd776c8a3a2f",
+  "plan_sha256": "0ee714d6b051f11e31c8f3aaed142a279f0ee03b4f5e26850d86cca15f8898a5",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "inherited_admission_sha256": "c673524fda1a41d472c6cafebca7e25dad5cd7bd5df99fa772dfdcd4ee8bd5bc",
+  "inherited_smoke_sha256": "ac17c67b3fc411fce5cbdd53a855e75392d5bfd953b29a434e7237f135e7db9b",
+  "pilot_execution_commit": "c1dd31eec7907c67348769b6a1811b89aa4011c0",
+  "pilot_job_id": "4358147",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "status": "RESERVED",
+  "token": "d8a163dc03a8699a6679aac058a1a30e",
+  "login_sha256": "b365e45a8f8fb07c57e3a3ce133f586dd866563fcc3fa2033421c82d1e6732bd",
+  "max_scientific_fits": 12,
+  "tasks": [
+    {
+      "mode": "base",
+      "seed": 2027,
+      "run_id": "mamba3_mimo_confirm_base_seed2027_001"
+    },
+    {
+      "mode": "dual",
+      "seed": 2027,
+      "run_id": "mamba3_mimo_confirm_dual_seed2027_001"
+    },
+    {
+      "mode": "triple",
+      "seed": 2027,
+      "run_id": "mamba3_mimo_confirm_triple_seed2027_001"
+    },
+    {
+      "mode": "base",
+      "seed": 2028,
+      "run_id": "mamba3_mimo_confirm_base_seed2028_001"
+    },
+    {
+      "mode": "dual",
+      "seed": 2028,
+      "run_id": "mamba3_mimo_confirm_dual_seed2028_001"
+    },
+    {
+      "mode": "triple",
+      "seed": 2028,
+      "run_id": "mamba3_mimo_confirm_triple_seed2028_001"
+    },
+    {
+      "mode": "base",
+      "seed": 2029,
+      "run_id": "mamba3_mimo_confirm_base_seed2029_001"
+    },
+    {
+      "mode": "dual",
+      "seed": 2029,
+      "run_id": "mamba3_mimo_confirm_dual_seed2029_001"
+    },
+    {
+      "mode": "triple",
+      "seed": 2029,
+      "run_id": "mamba3_mimo_confirm_triple_seed2029_001"
+    },
+    {
+      "mode": "base",
+      "seed": 2030,
+      "run_id": "mamba3_mimo_confirm_base_seed2030_001"
+    },
+    {
+      "mode": "dual",
+      "seed": 2030,
+      "run_id": "mamba3_mimo_confirm_dual_seed2030_001"
+    },
+    {
+      "mode": "triple",
+      "seed": 2030,
+      "run_id": "mamba3_mimo_confirm_triple_seed2030_001"
+    }
+  ],
+  "scientific_fits_before_submit": 0,
+  "jobs_requested": 1,
+  "reserved_at": "2026-09-28T14:05:33.089306+00:00"
+}

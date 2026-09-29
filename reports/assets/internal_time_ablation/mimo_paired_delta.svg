@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="450" viewBox="0 0 900 450" role="img" aria-labelledby="title desc">
+<title id="title">MIMO: paired VALID NDCG@10 differences</title>
+<desc id="desc">Triple minus dual for five seeds. Pilot 2026 and confirmation seed 2029 are negative. No confidence intervals.</desc>
+<rect width="900" height="450" fill="white"/>
+<g font-family="Arial, sans-serif" fill="#172936">
+<text x="40" y="38" font-size="23" font-weight="bold">MIMO: triple − dual</text>
+<text x="40" y="65" font-size="15">KuaiRand: хронологический leave-one-out, полный каталог · VALID</text>
+<line x1="140.0" x2="140.0" y1="92" y2="350" stroke="#e2e8ec" stroke-width="1"/>
+<text x="140.0" y="379" text-anchor="middle" font-size="14">-0.002</text>
+<line x1="300.0" x2="300.0" y1="92" y2="350" stroke="#e2e8ec" stroke-width="1"/>
+<text x="300.0" y="379" text-anchor="middle" font-size="14">-0.001</text>
+<line x1="460" x2="460" y1="92" y2="350" stroke="#667984" stroke-width="2"/>
+<text x="460" y="379" text-anchor="middle" font-size="14">+0.000</text>
+<line x1="620.0" x2="620.0" y1="92" y2="350" stroke="#e2e8ec" stroke-width="1"/>
+<text x="620.0" y="379" text-anchor="middle" font-size="14">+0.001</text>
+<line x1="780.0" x2="780.0" y1="92" y2="350" stroke="#e2e8ec" stroke-width="1"/>
+<text x="780.0" y="379" text-anchor="middle" font-size="14">+0.002</text>
+<text x="40" y="120" font-size="15">2026 pilot</text>
+<path d="M 220.0000000000009 107 L 228.0000000000009 115 L 220.0000000000009 123 L 212.0000000000009 115 Z" fill="#b65e21"/>
+<text x="234.0000000000009" y="120" font-size="15" fill="#b65e21">-0.0015</text>
+<text x="40" y="171" font-size="15">2027</text>
+<circle cx="652.000000000001" cy="166" r="6" fill="#156d8c"/>
+<text x="666.000000000001" y="171" font-size="15" fill="#156d8c">+0.0012</text>
+<text x="40" y="222" font-size="15">2028</text>
+<circle cx="523.9999999999997" cy="217" r="6" fill="#156d8c"/>
+<text x="537.9999999999997" y="222" font-size="15" fill="#156d8c">+0.0004</text>
+<text x="40" y="273" font-size="15">2029</text>
+<circle cx="299.9999999999999" cy="268" r="6" fill="#156d8c"/>
+<text x="313.9999999999999" y="273" font-size="15" fill="#156d8c">-0.0010</text>
+<text x="40" y="324" font-size="15">2030</text>
+<circle cx="620.0000000000001" cy="319" r="6" fill="#156d8c"/>
+<text x="634.0000000000001" y="324" font-size="15" fill="#156d8c">+0.0010</text>
+<text x="460" y="412" text-anchor="middle" font-size="16">Δ VALID NDCG@10</text>
+<text x="40" y="440" font-size="13">Diamond: exploratory pilot. Circles: seeds 2027–2030. Each point is one paired seed.</text>
+</g></svg>

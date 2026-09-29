@@ -1,0 +1,33 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Internal temporal ablations on KuaiRand VALID: chronological leave-one-out, full catalog. NDCG@10 mean $\pm$ sample standard deviation ($ddof=1$); $\Delta$ is the paired triple-minus-dual difference. Pilot seed 2026 is exploratory. No TEST evaluation for these series.}
+\label{tab:internal-time-valid}
+\begin{tabular}{lcc}
+\toprule
+Variant / contrast & $n_{\mathrm{seeds}}$ & VALID NDCG@10 \\
+\midrule
+\multicolumn{3}{l}{\textit{SISO: new seeds 2027--2030}} \\
+Dual & 4 & $0.062775 \pm 0.000299$ \\
+Triple & 4 & $0.063150 \pm 0.000311$ \\
+$\Delta$ triple--dual & 4 & $+0.000375 \pm 0.000591$ \\
+\midrule
+\multicolumn{3}{l}{\textit{SISO: seeds 2026--2030, with pilot}} \\
+Dual & 5 & $0.062520 \pm 0.000626$ \\
+Triple & 5 & $0.062980 \pm 0.000466$ \\
+$\Delta$ triple--dual & 5 & $+0.000460 \pm 0.000546$ \\
+\midrule
+\multicolumn{3}{l}{\textit{MIMO: new seeds 2027--2030}} \\
+Base & 4 & $0.059125 \pm 0.000250$ \\
+Dual & 4 & $0.062925 \pm 0.000793$ \\
+Triple & 4 & $0.063325 \pm 0.000287$ \\
+$\Delta$ triple--dual & 4 & $+0.000400 \pm 0.000993$ \\
+\midrule
+\multicolumn{3}{l}{\textit{MIMO: seeds 2026--2030, with pilot}} \\
+Base & 5 & $0.059100 \pm 0.000224$ \\
+Dual & 5 & $0.063000 \pm 0.000707$ \\
+Triple & 5 & $0.063020 \pm 0.000726$ \\
+$\Delta$ triple--dual & 5 & $+0.000020 \pm 0.001209$ \\
+\bottomrule
+\end{tabular}
+\end{table}

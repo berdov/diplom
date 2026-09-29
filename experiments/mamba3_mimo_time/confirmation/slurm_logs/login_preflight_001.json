@@ -1,0 +1,979 @@
+{
+  "status": "PASS",
+  "stages": [
+    {
+      "stage": "process_entry",
+      "mode": null,
+      "cuda_mask": "",
+      "cuda_initialized": false
+    },
+    {
+      "stage": "runtime_imports",
+      "mode": null,
+      "cuda_mask": "",
+      "cuda_initialized": false
+    },
+    {
+      "stage": "checked_config",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "base",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "dual",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "checked_config",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "reference_config",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "cpu_model_constructed",
+      "mode": "triple",
+      "cuda_mask": "",
+      "cuda_initialized": false,
+      "device": "cpu",
+      "use_gpu": false,
+      "gpu_id": ""
+    },
+    {
+      "stage": "final_guard",
+      "mode": null,
+      "cuda_mask": "",
+      "cuda_initialized": false
+    }
+  ],
+  "model_forward_calls": 0,
+  "scientific_fits": 0,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "source_hash": "19fbe3d2e7134b785f35dd34f3776ee2bccaf956a4d8f7a638dddce78de99ed6",
+  "initialization": {
+    "status": "PASS",
+    "rows": [
+      {
+        "mode": "base",
+        "seed": 2026,
+        "parameter_count": 714888,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "b9dd55afe56025f320f3d6c4b6d4360f451a5520ee820c3c9394bf3cedfe8988",
+        "initial_calibrator_hashes": {},
+        "rng_components": {
+          "python": "a6501dd804b776a90cb540d1051540c8dd8009cee51906231f9dcbfba0af7590",
+          "numpy": "0725760628b35e82add26f61369288dc3e0bb4ec06c92abbfd1c1c8f6b3b5d67",
+          "cpu": "2ed04960bac5635e088d24ce02c27410a12f26607f10ad823874b30d7359b4d1",
+          "cuda": [],
+          "aggregate": "086ccb0d9f8426b127e7ac30ae5455adebe824887800ab09d94d927c46b6245d"
+        },
+        "independent_write_phase_storage": true,
+        "pilot_replay": {
+          "backbone": "PASS",
+          "calibrators": "PASS",
+          "python_numpy_cpu": "PASS",
+          "cuda": "NOT_REPLAYED_CPU",
+          "loader_generator": "NOT_REPLAYED_CPU",
+          "first_batch": "NOT_REPLAYED_NO_FIT"
+        }
+      },
+      {
+        "mode": "dual",
+        "seed": 2026,
+        "parameter_count": 715020,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "b9dd55afe56025f320f3d6c4b6d4360f451a5520ee820c3c9394bf3cedfe8988",
+        "initial_calibrator_hashes": {
+          "decay": "cf1b16c825918c80ae8bf27735fc913c6f93a7a10063815ad333139a0b832a08",
+          "scan": "cf1b16c825918c80ae8bf27735fc913c6f93a7a10063815ad333139a0b832a08"
+        },
+        "rng_components": {
+          "python": "a6501dd804b776a90cb540d1051540c8dd8009cee51906231f9dcbfba0af7590",
+          "numpy": "0725760628b35e82add26f61369288dc3e0bb4ec06c92abbfd1c1c8f6b3b5d67",
+          "cpu": "2ed04960bac5635e088d24ce02c27410a12f26607f10ad823874b30d7359b4d1",
+          "cuda": [],
+          "aggregate": "086ccb0d9f8426b127e7ac30ae5455adebe824887800ab09d94d927c46b6245d"
+        },
+        "independent_write_phase_storage": true,
+        "pilot_replay": {
+          "backbone": "PASS",
+          "calibrators": "PASS",
+          "python_numpy_cpu": "PASS",
+          "cuda": "NOT_REPLAYED_CPU",
+          "loader_generator": "NOT_REPLAYED_CPU",
+          "first_batch": "NOT_REPLAYED_NO_FIT"
+        }
+      },
+      {
+        "mode": "triple",
+        "seed": 2026,
+        "parameter_count": 715086,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "b9dd55afe56025f320f3d6c4b6d4360f451a5520ee820c3c9394bf3cedfe8988",
+        "initial_calibrator_hashes": {
+          "decay": "cf1b16c825918c80ae8bf27735fc913c6f93a7a10063815ad333139a0b832a08",
+          "write": "cf1b16c825918c80ae8bf27735fc913c6f93a7a10063815ad333139a0b832a08",
+          "phase": "cf1b16c825918c80ae8bf27735fc913c6f93a7a10063815ad333139a0b832a08"
+        },
+        "rng_components": {
+          "python": "a6501dd804b776a90cb540d1051540c8dd8009cee51906231f9dcbfba0af7590",
+          "numpy": "0725760628b35e82add26f61369288dc3e0bb4ec06c92abbfd1c1c8f6b3b5d67",
+          "cpu": "2ed04960bac5635e088d24ce02c27410a12f26607f10ad823874b30d7359b4d1",
+          "cuda": [],
+          "aggregate": "086ccb0d9f8426b127e7ac30ae5455adebe824887800ab09d94d927c46b6245d"
+        },
+        "independent_write_phase_storage": true,
+        "pilot_replay": {
+          "backbone": "PASS",
+          "calibrators": "PASS",
+          "python_numpy_cpu": "PASS",
+          "cuda": "NOT_REPLAYED_CPU",
+          "loader_generator": "NOT_REPLAYED_CPU",
+          "first_batch": "NOT_REPLAYED_NO_FIT"
+        }
+      },
+      {
+        "mode": "base",
+        "seed": 2027,
+        "parameter_count": 714888,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "90c5894f3005b92e1b933923c01c1571d0dad2cfa59859ad1b7e1d117defefcd",
+        "initial_calibrator_hashes": {},
+        "rng_components": {
+          "python": "5787394d9138e6948fd95c585f56fc4a977d71c2a79230793d063dbf401fe052",
+          "numpy": "df212e165674bb3d15c185f43b7ca8a25e21ec90f701dd8ea648ac748572ed56",
+          "cpu": "adf507f29db5fc08c77e3a3c53a626e1ef4b9396de717da688b847cf28da4712",
+          "cuda": [],
+          "aggregate": "370b22280969c5488a2730c1d4da526a865a19a2201b6649b8a2d76428844b16"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "dual",
+        "seed": 2027,
+        "parameter_count": 715020,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "90c5894f3005b92e1b933923c01c1571d0dad2cfa59859ad1b7e1d117defefcd",
+        "initial_calibrator_hashes": {
+          "decay": "a75637a8945ef6864a98e6e6e14dae0aa7350f41703afe83a0359b8f8832d46f",
+          "scan": "a75637a8945ef6864a98e6e6e14dae0aa7350f41703afe83a0359b8f8832d46f"
+        },
+        "rng_components": {
+          "python": "5787394d9138e6948fd95c585f56fc4a977d71c2a79230793d063dbf401fe052",
+          "numpy": "df212e165674bb3d15c185f43b7ca8a25e21ec90f701dd8ea648ac748572ed56",
+          "cpu": "adf507f29db5fc08c77e3a3c53a626e1ef4b9396de717da688b847cf28da4712",
+          "cuda": [],
+          "aggregate": "370b22280969c5488a2730c1d4da526a865a19a2201b6649b8a2d76428844b16"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "triple",
+        "seed": 2027,
+        "parameter_count": 715086,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "90c5894f3005b92e1b933923c01c1571d0dad2cfa59859ad1b7e1d117defefcd",
+        "initial_calibrator_hashes": {
+          "decay": "a75637a8945ef6864a98e6e6e14dae0aa7350f41703afe83a0359b8f8832d46f",
+          "write": "a75637a8945ef6864a98e6e6e14dae0aa7350f41703afe83a0359b8f8832d46f",
+          "phase": "a75637a8945ef6864a98e6e6e14dae0aa7350f41703afe83a0359b8f8832d46f"
+        },
+        "rng_components": {
+          "python": "5787394d9138e6948fd95c585f56fc4a977d71c2a79230793d063dbf401fe052",
+          "numpy": "df212e165674bb3d15c185f43b7ca8a25e21ec90f701dd8ea648ac748572ed56",
+          "cpu": "adf507f29db5fc08c77e3a3c53a626e1ef4b9396de717da688b847cf28da4712",
+          "cuda": [],
+          "aggregate": "370b22280969c5488a2730c1d4da526a865a19a2201b6649b8a2d76428844b16"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "base",
+        "seed": 2028,
+        "parameter_count": 714888,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "efb33df0638ca5ddff21444372eca4e1e25ba0fdda91d1de0ca72f2475fa293a",
+        "initial_calibrator_hashes": {},
+        "rng_components": {
+          "python": "666f9899a07ec97547637446848cc68954290ccb440d72d89b923bba4c3d9639",
+          "numpy": "f29b2c24b7fbd0f968313a6ae9a5dfe0902a66c2362ccb15493f335b091db1db",
+          "cpu": "ac066da1c8958431f2b9c2d51bd4a225a3134cad9596b7346c1dc843ebd58104",
+          "cuda": [],
+          "aggregate": "60778fe89794352735b23dc178fca3c22f8839a4eab2d5a1531726cfc3fdea50"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "dual",
+        "seed": 2028,
+        "parameter_count": 715020,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "efb33df0638ca5ddff21444372eca4e1e25ba0fdda91d1de0ca72f2475fa293a",
+        "initial_calibrator_hashes": {
+          "decay": "0f82cc3b545e36ce16a86f6ef2ad0f9658c19f16b2d2709eebd0e41d957dfbbe",
+          "scan": "0f82cc3b545e36ce16a86f6ef2ad0f9658c19f16b2d2709eebd0e41d957dfbbe"
+        },
+        "rng_components": {
+          "python": "666f9899a07ec97547637446848cc68954290ccb440d72d89b923bba4c3d9639",
+          "numpy": "f29b2c24b7fbd0f968313a6ae9a5dfe0902a66c2362ccb15493f335b091db1db",
+          "cpu": "ac066da1c8958431f2b9c2d51bd4a225a3134cad9596b7346c1dc843ebd58104",
+          "cuda": [],
+          "aggregate": "60778fe89794352735b23dc178fca3c22f8839a4eab2d5a1531726cfc3fdea50"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "triple",
+        "seed": 2028,
+        "parameter_count": 715086,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "efb33df0638ca5ddff21444372eca4e1e25ba0fdda91d1de0ca72f2475fa293a",
+        "initial_calibrator_hashes": {
+          "decay": "0f82cc3b545e36ce16a86f6ef2ad0f9658c19f16b2d2709eebd0e41d957dfbbe",
+          "write": "0f82cc3b545e36ce16a86f6ef2ad0f9658c19f16b2d2709eebd0e41d957dfbbe",
+          "phase": "0f82cc3b545e36ce16a86f6ef2ad0f9658c19f16b2d2709eebd0e41d957dfbbe"
+        },
+        "rng_components": {
+          "python": "666f9899a07ec97547637446848cc68954290ccb440d72d89b923bba4c3d9639",
+          "numpy": "f29b2c24b7fbd0f968313a6ae9a5dfe0902a66c2362ccb15493f335b091db1db",
+          "cpu": "ac066da1c8958431f2b9c2d51bd4a225a3134cad9596b7346c1dc843ebd58104",
+          "cuda": [],
+          "aggregate": "60778fe89794352735b23dc178fca3c22f8839a4eab2d5a1531726cfc3fdea50"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "base",
+        "seed": 2029,
+        "parameter_count": 714888,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "27f3e6ddd7c9a3fade3826cb899549c047a5cf8c5207c69f5d782541890749fc",
+        "initial_calibrator_hashes": {},
+        "rng_components": {
+          "python": "69b0ec366a8cb2b0780dadd29cd925d6bb994d2ab4237a29e6de6ce196f54b41",
+          "numpy": "956a83ad82eea44c524f986cb8057dfd476d91bf1b89353b2682de7045948c85",
+          "cpu": "14fd8154855d3bde88fac9675501a433d03d556c1f4e61ca49390dde359a0f8b",
+          "cuda": [],
+          "aggregate": "638a71705f7d0ad8e285cc1f9f4a369ca7506a3e0da87c05a23e1a5b7f2becf2"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "dual",
+        "seed": 2029,
+        "parameter_count": 715020,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "27f3e6ddd7c9a3fade3826cb899549c047a5cf8c5207c69f5d782541890749fc",
+        "initial_calibrator_hashes": {
+          "decay": "d4130d42649844f843e5e4e2e40b6f1e2a2b0ecf9235adfd65f389e3ebffb4bf",
+          "scan": "d4130d42649844f843e5e4e2e40b6f1e2a2b0ecf9235adfd65f389e3ebffb4bf"
+        },
+        "rng_components": {
+          "python": "69b0ec366a8cb2b0780dadd29cd925d6bb994d2ab4237a29e6de6ce196f54b41",
+          "numpy": "956a83ad82eea44c524f986cb8057dfd476d91bf1b89353b2682de7045948c85",
+          "cpu": "14fd8154855d3bde88fac9675501a433d03d556c1f4e61ca49390dde359a0f8b",
+          "cuda": [],
+          "aggregate": "638a71705f7d0ad8e285cc1f9f4a369ca7506a3e0da87c05a23e1a5b7f2becf2"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "triple",
+        "seed": 2029,
+        "parameter_count": 715086,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "27f3e6ddd7c9a3fade3826cb899549c047a5cf8c5207c69f5d782541890749fc",
+        "initial_calibrator_hashes": {
+          "decay": "d4130d42649844f843e5e4e2e40b6f1e2a2b0ecf9235adfd65f389e3ebffb4bf",
+          "write": "d4130d42649844f843e5e4e2e40b6f1e2a2b0ecf9235adfd65f389e3ebffb4bf",
+          "phase": "d4130d42649844f843e5e4e2e40b6f1e2a2b0ecf9235adfd65f389e3ebffb4bf"
+        },
+        "rng_components": {
+          "python": "69b0ec366a8cb2b0780dadd29cd925d6bb994d2ab4237a29e6de6ce196f54b41",
+          "numpy": "956a83ad82eea44c524f986cb8057dfd476d91bf1b89353b2682de7045948c85",
+          "cpu": "14fd8154855d3bde88fac9675501a433d03d556c1f4e61ca49390dde359a0f8b",
+          "cuda": [],
+          "aggregate": "638a71705f7d0ad8e285cc1f9f4a369ca7506a3e0da87c05a23e1a5b7f2becf2"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "base",
+        "seed": 2030,
+        "parameter_count": 714888,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "cb424bb5482f8787c085e200a711b38276e3b59f34c7f2aa0e796e77dc113331",
+        "initial_calibrator_hashes": {},
+        "rng_components": {
+          "python": "addd46575377cd55f505843464e4293331d414532535876c6e9d9dca259e052a",
+          "numpy": "dfc7cba639b2669a22976701631a88fd9a38912e81e561d147bb5246aa770263",
+          "cpu": "fb113b8159ea395ae6ce2bbf4900e8e37f569ca36aaa7f3c725ce80cc89f38d0",
+          "cuda": [],
+          "aggregate": "5d587763556f14a346e9cbb6a842afda4369a9fc692c0adbfe4a9e345c8a75ab"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "dual",
+        "seed": 2030,
+        "parameter_count": 715020,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "cb424bb5482f8787c085e200a711b38276e3b59f34c7f2aa0e796e77dc113331",
+        "initial_calibrator_hashes": {
+          "decay": "aecc265d9cacaffa90418fd1a03c88798a20bdca936399ed2819882461fd9d31",
+          "scan": "aecc265d9cacaffa90418fd1a03c88798a20bdca936399ed2819882461fd9d31"
+        },
+        "rng_components": {
+          "python": "addd46575377cd55f505843464e4293331d414532535876c6e9d9dca259e052a",
+          "numpy": "dfc7cba639b2669a22976701631a88fd9a38912e81e561d147bb5246aa770263",
+          "cpu": "fb113b8159ea395ae6ce2bbf4900e8e37f569ca36aaa7f3c725ce80cc89f38d0",
+          "cuda": [],
+          "aggregate": "5d587763556f14a346e9cbb6a842afda4369a9fc692c0adbfe4a9e345c8a75ab"
+        },
+        "independent_write_phase_storage": true
+      },
+      {
+        "mode": "triple",
+        "seed": 2030,
+        "parameter_count": 715086,
+        "effective_config_check": {
+          "status": "PASS",
+          "allowed_differences": [
+            "checkpoint_dir",
+            "device",
+            "gpu_id",
+            "seed",
+            "use_gpu"
+          ],
+          "reference": "successful MIMO pilot effective_config"
+        },
+        "initial_backbone_sha256": "cb424bb5482f8787c085e200a711b38276e3b59f34c7f2aa0e796e77dc113331",
+        "initial_calibrator_hashes": {
+          "decay": "aecc265d9cacaffa90418fd1a03c88798a20bdca936399ed2819882461fd9d31",
+          "write": "aecc265d9cacaffa90418fd1a03c88798a20bdca936399ed2819882461fd9d31",
+          "phase": "aecc265d9cacaffa90418fd1a03c88798a20bdca936399ed2819882461fd9d31"
+        },
+        "rng_components": {
+          "python": "addd46575377cd55f505843464e4293331d414532535876c6e9d9dca259e052a",
+          "numpy": "dfc7cba639b2669a22976701631a88fd9a38912e81e561d147bb5246aa770263",
+          "cpu": "fb113b8159ea395ae6ce2bbf4900e8e37f569ca36aaa7f3c725ce80cc89f38d0",
+          "cuda": [],
+          "aggregate": "5d587763556f14a346e9cbb6a842afda4369a9fc692c0adbfe4a9e345c8a75ab"
+        },
+        "independent_write_phase_storage": true
+      }
+    ],
+    "model_forward_calls": 0,
+    "scientific_fits": 0
+  },
+  "runtime": {
+    "torch": "2.9.1+cu128",
+    "recbole": "1.2.0",
+    "mamba_ssm": "2.3.2.post1",
+    "triton": "3.5.1",
+    "numpy": "1.26.4",
+    "tilelang": "0.1.8",
+    "apache_tvm_ffi": "0.1.9",
+    "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+    "upstream_manifest_sha256": "5c9097700345808fcfc2846dd4ccc8adc6b087ea681f2c0d22366c090f21f844",
+    "cuda": "12.8",
+    "gpu": null,
+    "imported_sources": {
+      "experiments.mamba3_mimo_time": "experiments/mamba3_mimo_time/__init__.py",
+      "experiments.mamba3_mimo_time.confirmation": "experiments/mamba3_mimo_time/confirmation/__init__.py",
+      "experiments.mamba3_mimo_time.records": "experiments/mamba3_mimo_time/records.py",
+      "experiments.mamba3_mimo_time.confirmation.records": "experiments/mamba3_mimo_time/confirmation/records.py",
+      "experiments.mamba3_mimo_time.confirmation.config": "experiments/mamba3_mimo_time/confirmation/config.py",
+      "experiments.mamba3_mimo_time.confirmation.provenance": "experiments/mamba3_mimo_time/confirmation/provenance.py",
+      "experiments.mamba3_time_mechanisms.provenance": "experiments/mamba3_time_mechanisms/provenance.py",
+      "experiments.mamba3_mimo_time.config": "experiments/mamba3_mimo_time/config.py",
+      "experiments.mamba3_mimo_time.state": "experiments/mamba3_mimo_time/state.py",
+      "experiments.mamba3_mimo_time.confirmation.state": "experiments/mamba3_mimo_time/confirmation/state.py",
+      "experiments.mamba3_mimo_time.provenance": "experiments/mamba3_mimo_time/provenance.py",
+      "experiments.mamba3_mimo_time.confirmation.runner": "experiments/mamba3_mimo_time/confirmation/runner.py",
+      "experiments.mamba3_mimo_time.process_env": "experiments/mamba3_mimo_time/process_env.py",
+      "experiments.mamba3_mimo_time.confirmation.pipeline": "experiments/mamba3_mimo_time/confirmation/pipeline.py",
+      "experiments.mamba3_mimo_time.report": "experiments/mamba3_mimo_time/report.py",
+      "experiments.mamba3_mimo_time.confirmation.report": "experiments/mamba3_mimo_time/confirmation/report.py",
+      "experiments.mamba3_three_time": "experiments/mamba3_three_time/__init__.py",
+      "experiments.mamba3_baseline.model": "experiments/mamba3_baseline/model.py",
+      "experiments.mamba3_timeaware.time_inputs": "experiments/mamba3_timeaware/time_inputs.py",
+      "experiments.mamba3_timeaware.time_mamba3": "experiments/mamba3_timeaware/time_mamba3.py",
+      "experiments.mamba3_timeaware.model": "experiments/mamba3_timeaware/model.py",
+      "experiments.mamba3_three_time.calibrators": "experiments/mamba3_three_time/calibrators.py",
+      "experiments.mamba3_three_time.backends": "experiments/mamba3_three_time/backends.py",
+      "experiments.mamba3_three_time.kernels": "experiments/mamba3_three_time/kernels.py",
+      "experiments.mamba3_three_time.mixer": "experiments/mamba3_three_time/mixer.py",
+      "experiments.mamba3_three_time.model": "experiments/mamba3_three_time/model.py",
+      "experiments.mamba3_timeaware.config": "experiments/mamba3_timeaware/config.py",
+      "experiments.mamba3_three_time.config": "experiments/mamba3_three_time/config.py",
+      "experiments.mamba3_three_time.confirmation": "experiments/mamba3_three_time/confirmation/__init__.py",
+      "experiments.mamba3_time_confirmation.config": "experiments/mamba3_time_confirmation/config.py",
+      "experiments.mamba3_time_confirmation.provenance": "experiments/mamba3_time_confirmation/provenance.py",
+      "experiments.mamba3_context_time.config": "experiments/mamba3_context_time/config.py",
+      "experiments.mamba3_context_time.provenance": "experiments/mamba3_context_time/provenance.py",
+      "experiments.mamba3_three_time.confirmation.state": "experiments/mamba3_three_time/confirmation/state.py",
+      "experiments.mamba3_three_time.provenance": "experiments/mamba3_three_time/provenance.py"
+    }
+  },
+  "imported_sources": {
+    "experiments.mamba3_mimo_time": "experiments/mamba3_mimo_time/__init__.py",
+    "experiments.mamba3_mimo_time.confirmation": "experiments/mamba3_mimo_time/confirmation/__init__.py",
+    "experiments.mamba3_mimo_time.records": "experiments/mamba3_mimo_time/records.py",
+    "experiments.mamba3_mimo_time.confirmation.records": "experiments/mamba3_mimo_time/confirmation/records.py",
+    "experiments.mamba3_mimo_time.confirmation.config": "experiments/mamba3_mimo_time/confirmation/config.py",
+    "experiments.mamba3_mimo_time.confirmation.provenance": "experiments/mamba3_mimo_time/confirmation/provenance.py",
+    "experiments.mamba3_time_mechanisms.provenance": "experiments/mamba3_time_mechanisms/provenance.py",
+    "experiments.mamba3_mimo_time.config": "experiments/mamba3_mimo_time/config.py",
+    "experiments.mamba3_mimo_time.state": "experiments/mamba3_mimo_time/state.py",
+    "experiments.mamba3_mimo_time.confirmation.state": "experiments/mamba3_mimo_time/confirmation/state.py",
+    "experiments.mamba3_mimo_time.provenance": "experiments/mamba3_mimo_time/provenance.py",
+    "experiments.mamba3_mimo_time.confirmation.runner": "experiments/mamba3_mimo_time/confirmation/runner.py",
+    "experiments.mamba3_mimo_time.process_env": "experiments/mamba3_mimo_time/process_env.py",
+    "experiments.mamba3_mimo_time.confirmation.pipeline": "experiments/mamba3_mimo_time/confirmation/pipeline.py",
+    "experiments.mamba3_mimo_time.report": "experiments/mamba3_mimo_time/report.py",
+    "experiments.mamba3_mimo_time.confirmation.report": "experiments/mamba3_mimo_time/confirmation/report.py",
+    "experiments.mamba3_three_time": "experiments/mamba3_three_time/__init__.py",
+    "experiments.mamba3_baseline.model": "experiments/mamba3_baseline/model.py",
+    "experiments.mamba3_timeaware.time_inputs": "experiments/mamba3_timeaware/time_inputs.py",
+    "experiments.mamba3_timeaware.time_mamba3": "experiments/mamba3_timeaware/time_mamba3.py",
+    "experiments.mamba3_timeaware.model": "experiments/mamba3_timeaware/model.py",
+    "experiments.mamba3_three_time.calibrators": "experiments/mamba3_three_time/calibrators.py",
+    "experiments.mamba3_three_time.backends": "experiments/mamba3_three_time/backends.py",
+    "experiments.mamba3_three_time.kernels": "experiments/mamba3_three_time/kernels.py",
+    "experiments.mamba3_three_time.mixer": "experiments/mamba3_three_time/mixer.py",
+    "experiments.mamba3_three_time.model": "experiments/mamba3_three_time/model.py",
+    "experiments.mamba3_timeaware.config": "experiments/mamba3_timeaware/config.py",
+    "experiments.mamba3_three_time.config": "experiments/mamba3_three_time/config.py",
+    "experiments.mamba3_three_time.confirmation": "experiments/mamba3_three_time/confirmation/__init__.py",
+    "experiments.mamba3_time_confirmation.config": "experiments/mamba3_time_confirmation/config.py",
+    "experiments.mamba3_time_confirmation.provenance": "experiments/mamba3_time_confirmation/provenance.py",
+    "experiments.mamba3_context_time.config": "experiments/mamba3_context_time/config.py",
+    "experiments.mamba3_context_time.provenance": "experiments/mamba3_context_time/provenance.py",
+    "experiments.mamba3_three_time.confirmation.state": "experiments/mamba3_three_time/confirmation/state.py",
+    "experiments.mamba3_three_time.provenance": "experiments/mamba3_three_time/provenance.py"
+  },
+  "final_cuda_initialized": false,
+  "execution_commit": "5670e898ed04924a929756e52f39d1d00eb79c5a",
+  "no_git": false
+}
