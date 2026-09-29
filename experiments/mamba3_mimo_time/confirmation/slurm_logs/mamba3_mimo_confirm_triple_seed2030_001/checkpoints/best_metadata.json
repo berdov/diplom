@@ -1,0 +1,26 @@
+{
+  "epoch": 31,
+  "epoch_indexing": "zero-based",
+  "mode": "triple",
+  "seed": 2030,
+  "run_id": "mamba3_mimo_confirm_triple_seed2030_001",
+  "execution_commit": "5670e898ed04924a929756e52f39d1d00eb79c5a",
+  "config_sha256": "ff4e5defc4417ea8f8747ae04be44c2efb1cd38106891f3e6983690fb181dbc4",
+  "source_hash": "19fbe3d2e7134b785f35dd34f3776ee2bccaf956a4d8f7a638dddce78de99ed6",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "metrics": {
+    "hit@5": 0.0714,
+    "hit@10": 0.1176,
+    "hit@20": 0.1895,
+    "hit@50": 0.3358,
+    "ndcg@5": 0.0486,
+    "ndcg@10": 0.0634,
+    "ndcg@20": 0.0815,
+    "ndcg@50": 0.1104,
+    "recall@5": 0.0714,
+    "recall@10": 0.1176,
+    "recall@20": 0.1895,
+    "recall@50": 0.3358
+  },
+  "checkpoint_sha256": "1de6c6d1554ce6579c74f7c6dd7b28f9fee875a259444174f47fce6232a88717"
+}

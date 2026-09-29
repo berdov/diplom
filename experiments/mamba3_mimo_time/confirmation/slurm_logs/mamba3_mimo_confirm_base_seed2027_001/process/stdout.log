@@ -1,0 +1,16 @@
+2026-09-28 17:27:53  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-28 17:28:18  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-28 17:28:26  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-28 17:28:49  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-28 17:28:51  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-28 17:29:52  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+2026-09-28 17:30:41  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-28 17:30:55  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-28 17:30:58  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-09-28 17:31:20  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-09-28 17:31:23  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-09-28 17:32:23  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+2026-09-28 17:32:29  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-28 17:32:44  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-09-28 17:32:47  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-09-28 17:33:01  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`

@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-09-28T13:56:39.967374+00:00",
+  "active_jobs": [
+    {
+      "job_id": "4357757",
+      "name": "sqvirt_ptq",
+      "state": "PENDING",
+      "workdir": "/home/daryumin/paagafonov/sqvirt",
+      "command": "/home/daryumin/paagafonov/sqvirt/ptq.sbatch"
+    },
+    {
+      "job_id": "4357762",
+      "name": "q1_rob_a100",
+      "state": "PENDING",
+      "workdir": "/home/daryumin/paagafonov/ROB_SE_Q1_space_ablation",
+      "command": "(null)"
+    },
+    {
+      "job_id": "4357763",
+      "name": "q1_full_h100",
+      "state": "PENDING",
+      "workdir": "/home/daryumin/paagafonov/ROB_SE_Q1_space_ablation",
+      "command": "(null)"
+    },
+    {
+      "job_id": "4357758_0",
+      "name": "sqvirt_pair",
+      "state": "PENDING",
+      "workdir": "/home/daryumin/paagafonov/sqvirt",
+      "command": "/home/daryumin/paagafonov/sqvirt/train_array.sbatch"
+    },
+    {
+      "job_id": "4357758_1",
+      "name": "sqvirt_pair",
+      "state": "PENDING",
+      "workdir": "/home/daryumin/paagafonov/sqvirt",
+      "command": "/home/daryumin/paagafonov/sqvirt/train_array.sbatch"
+    },
+    {
+      "job_id": "4357758_2",
+      "name": "sqvirt_pair",
+      "state": "PENDING",
+      "workdir": "/home/daryumin/paagafonov/sqvirt",
+      "command": "/home/daryumin/paagafonov/sqvirt/train_array.sbatch"
+    },
+    {
+      "job_id": "4357758_3",
+      "name": "sqvirt_pair",
+      "state": "PENDING",
+      "workdir": "/home/daryumin/paagafonov/sqvirt",
+      "command": "/home/daryumin/paagafonov/sqvirt/train_array.sbatch"
+    },
+    {
+      "job_id": "4357758_4",
+      "name": "sqvirt_pair",
+      "state": "PENDING",
+      "workdir": "/home/daryumin/paagafonov/sqvirt",
+      "command": "/home/daryumin/paagafonov/sqvirt/train_array.sbatch"
+    }
+  ],
+  "canonical_checkout_in_use": false,
+  "query_count": 2,
+  "first_query_error": "compressed array ID rejected by scontrol; repeated once with --array; no checkout changed",
+  "source_hash": "19fbe3d2e7134b785f35dd34f3776ee2bccaf956a4d8f7a638dddce78de99ed6",
+  "execution_commit": "5670e898ed04924a929756e52f39d1d00eb79c5a"
+}

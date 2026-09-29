@@ -1,0 +1,26 @@
+test_bad_history_best_and_test_rejected (test_confirmation.AggregateTests) ... ok
+test_means_always_use_matching_seed_sets (test_confirmation.AggregateTests) ... ok
+test_missing_are_null_and_no_pilot_as_confirmation (test_confirmation.AggregateTests) ... ok
+test_negative_zero_positive_pairs_ddof1_and_incomplete_windows (test_confirmation.AggregateTests) ... ok
+test_exact_plan_and_twelve_fixed_ids (test_confirmation.FrozenTests) ... ok
+test_hook_lifecycle_from_real_preserved_production_evidence (test_confirmation.FrozenTests) ... ok
+test_inherited_full_leaf_coverage_and_policy (test_confirmation.FrozenTests) ... ok
+test_only_seed_paths_change_in_saved_config (test_confirmation.FrozenTests) ... ok
+test_runner_setup_order_matches_pilot (test_confirmation.FrozenTests) ... ok
+test_atomic_create_and_output_guards (test_confirmation.GuardTests) ... ok
+test_evidence_tampering_blocks_inheritance (test_confirmation.GuardTests) ... ok
+test_hash_and_manifest_tampering (test_confirmation.GuardTests) ... ok
+test_production_subprocess_cpu_mask_and_gpu_inheritance (test_confirmation.GuardTests) ... ok
+test_serialized_reservation_tampering (test_confirmation.GuardTests) ... ok
+test_submit_exactly_once_and_ambiguous_no_retry (test_confirmation.GuardTests) ... ok
+test_deadline_prevents_start_without_shortening_settings (test_confirmation.PipelineTests) ... ok
+test_low_metric_never_stops_twelve_fresh_processes (test_confirmation.PipelineTests) ... ok
+test_technical_failure_stops_and_saves_partial (test_confirmation.PipelineTests) ... ok
+test_real_adam_json_and_base_aware_pairing (test_confirmation.RuntimeCPUTests) ... ok
+test_real_launcher_cpu_preflight_no_git (test_confirmation.RuntimeCPUTests) ... ok
+test_trainer_and_safe_checkpoint_paths_inherited (test_confirmation.RuntimeCPUTests) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 147.819s
+
+OK
