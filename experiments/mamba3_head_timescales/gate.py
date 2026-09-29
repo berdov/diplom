@@ -5,6 +5,7 @@ from . import config as c
 from .provenance import identity,runtime,require_stage
 from .checks import calibrator_checks,tied_checks,nonzero
 from .state import transfer_common
+from .progress import progress_callback,snapshot
 from experiments.mamba3_mimo_time.records import create,update,Registry,case,accepted_cases,now
 from experiments.mamba3_mimo_time.provenance import assert_upstream
 from experiments.mamba3_mimo_time.admission import histories,model_measure
@@ -65,19 +66,17 @@ def causal(variant,save):
     changed_items=items.clone();changed_items[0,7:]=(changed_items[0,7:]+37)%7111+1
     changed_times=times.detach().clone();changed_times[0,7:]+=90000000
     saved={}
-    def persist(checks,phase):
-        saved.update(checks=checks,phase=phase)
-        save(case(checks,hook_phase=phase))
+    persist=progress_callback(save,saved)
     checks=check_prefix(net,data,7,1.,None,((changed_items,lens,times),(items,lens,changed_times)),persist)
     valid_gradient=times.grad is not None and times.grad.shape==times.shape and bool(torch.isfinite(times.grad).all())
     checks['timestamp_residual']=residual(times.grad[:1].unsqueeze(-1),7) if valid_gradient else dict(passed=False,reason='Missing/nonfinite timestamp gradient')
-    save(case(checks,hook_phase=saved['phase']))
+    save(snapshot(case(checks,hook_phase=saved['phase'])))
     checks['cross_user_timestamp_gradient']=difference(times.grad[1:],torch.zeros_like(times.grad[1:])) if valid_gradient else dict(passed=False,reason='Missing/nonfinite timestamp gradient')
-    save(case(checks,hook_phase=saved['phase']))
+    save(snapshot(case(checks,hook_phase=saved['phase'])))
     phase=saved['phase']
     checks['hook_lifecycle']=dict(passed=phase['hook_removed'] and phase['capture_count']==1
                                  and all(not s['grad_enabled'] for s in phase['stages'] if s['stage'].startswith('intervention')))
-    return case(checks,hook_phase=phase,legacy_exact_zero_reclassified=False)
+    return snapshot(case(checks,hook_phase=phase,legacy_exact_zero_reclassified=False))
 
 
 def main():

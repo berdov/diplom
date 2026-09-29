@@ -14,8 +14,9 @@ from experiments.mamba3_mimo_time.records import create,update,read,sha,now
 
 
 def run(commit,evidence=None):
-    result=dict(status='RUNNING',execution_commit=commit,scientific_fits=0,TEST='NOT_RUN',test_evaluation_count=0,
-                model_forward_calls=0,calibrator_cpu_checks=True,started_at=now())
+    from .retry import retry_bindings
+    result=dict(**retry_bindings(),status='RUNNING',execution_commit=commit,scientific_fits=0,TEST='NOT_RUN',test_evaluation_count=0,
+                mimo_model_forward_calls=0,cpu_fixture_forward_backward=True,calibrator_cpu_checks=True,started_at=now())
     if evidence:create(evidence,result)
     def persist():
         if evidence:update(evidence,result)
@@ -32,7 +33,7 @@ def run(commit,evidence=None):
         outcome=unittest.TextTestRunner(stream=stream,verbosity=2).run(suite)
         result['cpu_tests']=dict(run=outcome.testsRun,failures=len(outcome.failures),errors=len(outcome.errors),skipped=len(outcome.skipped),log=stream.getvalue())
         persist()
-        if not outcome.wasSuccessful() or outcome.skipped or outcome.testsRun<16:raise ValueError('Required CPU tests failed/skipped/missing')
+        if not outcome.wasSuccessful() or outcome.skipped or outcome.testsRun<35:raise ValueError('Required CPU tests failed/skipped/missing')
         old=read(c.PILOT)
         for path,expected in [('outputs/data/protocol_b_manifest.json',old['manifest_sha256']),
                               ('experiments/mamba3_timeaware/runs/train_time_stats_001.json',old['train_time_stats_sha256']),

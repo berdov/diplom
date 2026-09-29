@@ -10,30 +10,34 @@ from pathlib import Path
 from . import config as c
 from experiments.mamba3_mimo_time.records import read,sha,digest,create,now,accepted_cases
 from experiments.mamba3_mimo_time.confirmation.provenance import inherited,check_files
+from .retry import verify_parent,retry_bindings,PARENT_COMMIT
 
 
 def freeze():
     c.unused()
     inherited()
+    verify_parent()
     old=c.ROOT/'experiments/mamba3_mimo_time/confirmation/source_manifest.json'
     files=dict(read(old)['files'])
     files={p:h for p,h in files.items() if not p.startswith('reports/') and p not in ('README.md','experiments/results.csv')}
-    for p in [*c.HERE.glob('*.py'),*(c.HERE/'tests').glob('*.py'),c.HERE/'DESIGN.md',c.HERE/'study_plan.json',c.LAUNCHER,old]:
+    preserved=[p for p in c.PRESERVATION.parent.rglob('*') if p.is_file()]
+    for p in [*c.HERE.glob('*.py'),*(c.HERE/'tests').glob('*.py'),c.HERE/'DESIGN.md',c.HERE/'study_plan.json',c.HERE/'source_manifest.json',c.LAUNCHER,old,*preserved]:
         files[str(p.relative_to(c.ROOT))]=sha(p)
     value=dict(files=files,source_hash=digest(files),publication_commit=c.PUBLICATION,
                inherited_execution=c.PILOT_COMMIT,core_hash=c.CORE)
-    create(c.HERE/'source_manifest.json',value)
+    create(c.MANIFEST,value)
     return value
 
 
 def verify():
-    value=read(c.HERE/'source_manifest.json')
+    value=read(c.MANIFEST)
     check_files(c.ROOT,value)
     c.plan()
     from experiments.mamba3_time_mechanisms.provenance import fingerprint
     if fingerprint()!=c.CORE:
         raise ValueError('Frozen mathematical core drift')
     inherited()
+    verify_parent(originals=str(c.ROOT)=='/home/daryumin/iberdov/diplom')
     return value
 
 
@@ -71,8 +75,8 @@ def runtime(cuda=False):
 
 
 def bindings(commit,m):
-    return dict(study_id=c.STUDY,execution_commit=commit,source_hash=m['source_hash'],
-                source_manifest_sha256=sha(c.HERE/'source_manifest.json'),plan_sha256=sha(c.HERE/'study_plan.json'),
+    return dict(**retry_bindings(),study_id=c.STUDY,execution_commit=commit,source_hash=m['source_hash'],
+                source_manifest_sha256=sha(c.MANIFEST),plan_sha256=sha(c.HERE/'study_plan.json'),
                 core_hash=c.CORE,pinned_commit=c.PIN,policy_version='mimo_numeric_acceptance_v1',policy_sha256=c.POLICY_SHA,
                 inherited_admission_sha256=c.ADMISSION_SHA,inherited_smoke_sha256=c.SMOKE_SHA,
                 pilot_execution_commit=c.PILOT_COMMIT,pilot_job_id='4358147',architecture='MIMO',backend='upstream',
@@ -92,7 +96,8 @@ def login_verify():
         if hashlib.sha256(subprocess.check_output(['git','show',f'{commit}:{name}'],cwd=c.ROOT)).hexdigest()!=expected:
             raise ValueError('Published blob mismatch: '+name)
     for name,execution in [('experiments/mamba3_mimo_time/source_manifest.json',c.PILOT_COMMIT),
-                           ('experiments/mamba3_mimo_time/confirmation/source_manifest.json','5670e898ed04924a929756e52f39d1d00eb79c5a')]:
+                           ('experiments/mamba3_mimo_time/confirmation/source_manifest.json','5670e898ed04924a929756e52f39d1d00eb79c5a'),
+                           ('experiments/mamba3_head_timescales/source_manifest.json',PARENT_COMMIT)]:
         for p,h in read(c.ROOT/name)['files'].items():
             if hashlib.sha256(subprocess.check_output(['git','show',execution+':'+p],cwd=c.ROOT)).hexdigest()!=h:
                 raise ValueError('Historical execution blob mismatch: '+p)
