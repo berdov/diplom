@@ -1,0 +1,909 @@
+{
+  "metric": "VALID NDCG@10",
+  "dataset": "KuaiRand: хронологический leave-one-out, полный каталог",
+  "std": "sample standard deviation, ddof=1; not a confidence interval",
+  "cohorts": {
+    "SISO_new4": {
+      "architecture": "SISO",
+      "horizon": "full",
+      "seeds": [
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "n_seeds": 4,
+      "models": {
+        "dual": {
+          "mean": 0.062775,
+          "sample_std": 0.0002986078811194839,
+          "ddof": 1
+        },
+        "triple": {
+          "mean": 0.06315,
+          "sample_std": 0.00031091263510296197,
+          "ddof": 1
+        }
+      },
+      "contrasts": {
+        "triple-dual": {
+          "mean": 0.0003749999999999934,
+          "sample_std": 0.0005909032633745321,
+          "ddof": 1,
+          "deltas": [
+            -0.00040000000000001146,
+            0.0002999999999999947,
+            0.0010000000000000009,
+            0.0005999999999999894
+          ],
+          "positive": 3,
+          "negative": 1,
+          "zero": 0,
+          "relative_percent": 0.5973715651135025
+        }
+      }
+    },
+    "SISO_new4_first27": {
+      "architecture": "SISO",
+      "horizon": "first27",
+      "seeds": [
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "n_seeds": 4,
+      "models": {
+        "dual": {
+          "mean": 0.061950000000000005,
+          "sample_std": 0.0005446711546122746,
+          "ddof": 1
+        },
+        "triple": {
+          "mean": 0.0624,
+          "sample_std": 0.00011547005383792445,
+          "ddof": 1
+        }
+      },
+      "contrasts": {
+        "triple-dual": {
+          "mean": 0.000449999999999999,
+          "sample_std": 0.00046547466812563377,
+          "ddof": 1,
+          "deltas": [
+            0.000899999999999998,
+            0.0005000000000000004,
+            0.0006000000000000033,
+            -0.00020000000000000573
+          ],
+          "positive": 3,
+          "negative": 1,
+          "zero": 0,
+          "relative_percent": 0.726392251815966
+        }
+      }
+    },
+    "SISO_all5": {
+      "architecture": "SISO",
+      "horizon": "full",
+      "seeds": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "n_seeds": 5,
+      "models": {
+        "dual": {
+          "mean": 0.06252,
+          "sample_std": 0.000626099033699944,
+          "ddof": 1
+        },
+        "triple": {
+          "mean": 0.06298,
+          "sample_std": 0.00046583258795408414,
+          "ddof": 1
+        }
+      },
+      "contrasts": {
+        "triple-dual": {
+          "mean": 0.00045999999999999514,
+          "sample_std": 0.000545893762558252,
+          "ddof": 1,
+          "deltas": [
+            0.0008000000000000021,
+            -0.00040000000000001146,
+            0.0002999999999999947,
+            0.0010000000000000009,
+            0.0005999999999999894
+          ],
+          "positive": 4,
+          "negative": 1,
+          "zero": 0,
+          "relative_percent": 0.7357645553422776
+        }
+      }
+    },
+    "SISO_all5_first27": {
+      "architecture": "SISO",
+      "horizon": "first27",
+      "seeds": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "n_seeds": 5,
+      "models": {
+        "dual": {
+          "mean": 0.06186,
+          "sample_std": 0.0005128352561983251,
+          "ddof": 1
+        },
+        "triple": {
+          "mean": 0.06238,
+          "sample_std": 0.00010954451150103256,
+          "ddof": 1
+        }
+      },
+      "contrasts": {
+        "triple-dual": {
+          "mean": 0.0005199999999999996,
+          "sample_std": 0.0004324349662087955,
+          "ddof": 1,
+          "deltas": [
+            0.0008000000000000021,
+            0.000899999999999998,
+            0.0005000000000000004,
+            0.0006000000000000033,
+            -0.00020000000000000573
+          ],
+          "positive": 4,
+          "negative": 1,
+          "zero": 0,
+          "relative_percent": 0.8406078241189885
+        }
+      }
+    },
+    "MIMO_new4": {
+      "architecture": "MIMO",
+      "horizon": "full",
+      "seeds": [
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "n_seeds": 4,
+      "models": {
+        "base": {
+          "mean": 0.059125,
+          "sample_std": 0.00025000000000000163,
+          "ddof": 1
+        },
+        "dual": {
+          "mean": 0.06292500000000001,
+          "sample_std": 0.0007932002689527217,
+          "ddof": 1
+        },
+        "triple": {
+          "mean": 0.063325,
+          "sample_std": 0.0002872281323269024,
+          "ddof": 1
+        }
+      },
+      "contrasts": {
+        "triple-dual": {
+          "mean": 0.00040000000000000105,
+          "sample_std": 0.0009933109617167584,
+          "ddof": 1,
+          "deltas": [
+            0.0012000000000000066,
+            0.0003999999999999976,
+            -0.0010000000000000009,
+            0.0010000000000000009
+          ],
+          "positive": 3,
+          "negative": 1,
+          "zero": 0,
+          "relative_percent": 0.6356773937226778
+        },
+        "dual-base": {
+          "mean": 0.0038000000000000013,
+          "sample_std": 0.0010132456102380477,
+          "ddof": 1,
+          "deltas": [
+            0.0030999999999999986,
+            0.003500000000000003,
+            0.005300000000000006,
+            0.0032999999999999974
+          ],
+          "positive": 4,
+          "negative": 0,
+          "zero": 0,
+          "relative_percent": 6.427061310782256
+        },
+        "triple-base": {
+          "mean": 0.004200000000000002,
+          "sample_std": 0.0002000000000000011,
+          "ddof": 1,
+          "deltas": [
+            0.004300000000000005,
+            0.0039000000000000007,
+            0.004300000000000005,
+            0.004299999999999998
+          ],
+          "positive": 4,
+          "negative": 0,
+          "zero": 0,
+          "relative_percent": 7.1035940803382935
+        }
+      }
+    },
+    "MIMO_new4_first27": {
+      "architecture": "MIMO",
+      "horizon": "first27",
+      "seeds": [
+        2027,
+        2028,
+        2030
+      ],
+      "n_seeds": 3,
+      "models": {
+        "base": {
+          "mean": 0.058633333333333336,
+          "sample_std": 0.0005033222956847173,
+          "ddof": 1
+        },
+        "dual": {
+          "mean": 0.0619,
+          "sample_std": 0.0007937253933193776,
+          "ddof": 1
+        },
+        "triple": {
+          "mean": 0.06246666666666666,
+          "sample_std": 0.0008020806277010629,
+          "ddof": 1
+        }
+      },
+      "contrasts": {
+        "triple-dual": {
+          "mean": 0.0005666666666666644,
+          "sample_std": 0.0006110100926607787,
+          "ddof": 1,
+          "deltas": [
+            -0.00010000000000000286,
+            0.0006999999999999992,
+            0.0010999999999999968
+          ],
+          "positive": 2,
+          "negative": 1,
+          "zero": 0,
+          "relative_percent": 0.9154550350026991
+        },
+        "dual-base": {
+          "mean": 0.0032666666666666655,
+          "sample_std": 0.001059874206372312,
+          "ddof": 1,
+          "deltas": [
+            0.004400000000000001,
+            0.0022999999999999965,
+            0.0030999999999999986
+          ],
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "relative_percent": 5.571347356452527
+        },
+        "triple-base": {
+          "mean": 0.0038333333333333297,
+          "sample_std": 0.0007234178138070242,
+          "ddof": 1,
+          "deltas": [
+            0.004299999999999998,
+            0.0029999999999999957,
+            0.004199999999999995
+          ],
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "relative_percent": 6.537805571347355
+        }
+      }
+    },
+    "MIMO_all5": {
+      "architecture": "MIMO",
+      "horizon": "full",
+      "seeds": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "n_seeds": 5,
+      "models": {
+        "base": {
+          "mean": 0.0591,
+          "sample_std": 0.0002236067977499807,
+          "ddof": 1
+        },
+        "dual": {
+          "mean": 0.063,
+          "sample_std": 0.0007071067811865486,
+          "ddof": 1
+        },
+        "triple": {
+          "mean": 0.06302,
+          "sample_std": 0.0007259476565152626,
+          "ddof": 1
+        }
+      },
+      "contrasts": {
+        "triple-dual": {
+          "mean": 2.000000000000196e-05,
+          "sample_std": 0.0012091319200153473,
+          "ddof": 1,
+          "deltas": [
+            -0.0014999999999999944,
+            0.0012000000000000066,
+            0.0003999999999999976,
+            -0.0010000000000000009,
+            0.0010000000000000009
+          ],
+          "positive": 3,
+          "negative": 2,
+          "zero": 0,
+          "relative_percent": 0.0317460317460494
+        },
+        "dual-base": {
+          "mean": 0.0039000000000000007,
+          "sample_std": 0.0009055385138137443,
+          "ddof": 1,
+          "deltas": [
+            0.004299999999999998,
+            0.0030999999999999986,
+            0.003500000000000003,
+            0.005300000000000006,
+            0.0032999999999999974
+          ],
+          "positive": 5,
+          "negative": 0,
+          "zero": 0,
+          "relative_percent": 6.598984771573613
+        },
+        "triple-base": {
+          "mean": 0.0039200000000000025,
+          "sample_std": 0.0006496152707564682,
+          "ddof": 1,
+          "deltas": [
+            0.002800000000000004,
+            0.004300000000000005,
+            0.0039000000000000007,
+            0.004300000000000005,
+            0.004299999999999998
+          ],
+          "positive": 5,
+          "negative": 0,
+          "zero": 0,
+          "relative_percent": 6.632825719120139
+        }
+      }
+    },
+    "MIMO_all5_first27": {
+      "architecture": "MIMO",
+      "horizon": "first27",
+      "seeds": [
+        2027,
+        2028,
+        2030
+      ],
+      "n_seeds": 3,
+      "models": {
+        "base": {
+          "mean": 0.058633333333333336,
+          "sample_std": 0.0005033222956847173,
+          "ddof": 1
+        },
+        "dual": {
+          "mean": 0.0619,
+          "sample_std": 0.0007937253933193776,
+          "ddof": 1
+        },
+        "triple": {
+          "mean": 0.06246666666666666,
+          "sample_std": 0.0008020806277010629,
+          "ddof": 1
+        }
+      },
+      "contrasts": {
+        "triple-dual": {
+          "mean": 0.0005666666666666644,
+          "sample_std": 0.0006110100926607787,
+          "ddof": 1,
+          "deltas": [
+            -0.00010000000000000286,
+            0.0006999999999999992,
+            0.0010999999999999968
+          ],
+          "positive": 2,
+          "negative": 1,
+          "zero": 0,
+          "relative_percent": 0.9154550350026991
+        },
+        "dual-base": {
+          "mean": 0.0032666666666666655,
+          "sample_std": 0.001059874206372312,
+          "ddof": 1,
+          "deltas": [
+            0.004400000000000001,
+            0.0022999999999999965,
+            0.0030999999999999986
+          ],
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "relative_percent": 5.571347356452527
+        },
+        "triple-base": {
+          "mean": 0.0038333333333333297,
+          "sample_std": 0.0007234178138070242,
+          "ddof": 1,
+          "deltas": [
+            0.004299999999999998,
+            0.0029999999999999957,
+            0.004199999999999995
+          ],
+          "positive": 3,
+          "negative": 0,
+          "zero": 0,
+          "relative_percent": 6.537805571347355
+        }
+      }
+    },
+    "MIMO_dual_triple_new4_first27": {
+      "architecture": "MIMO",
+      "horizon": "first27",
+      "seeds": [
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "n_seeds": 4,
+      "models": {
+        "dual": {
+          "mean": 0.0618,
+          "sample_std": 0.0006782329983125271,
+          "ddof": 1
+        },
+        "triple": {
+          "mean": 0.062474999999999996,
+          "sample_std": 0.0006551081335677837,
+          "ddof": 1
+        }
+      },
+      "contrasts": {
+        "triple-dual": {
+          "mean": 0.0006749999999999985,
+          "sample_std": 0.000543905629069358,
+          "ddof": 1,
+          "deltas": [
+            -0.00010000000000000286,
+            0.0006999999999999992,
+            0.0010000000000000009,
+            0.0010999999999999968
+          ],
+          "positive": 3,
+          "negative": 1,
+          "zero": 0,
+          "relative_percent": 1.0922330097087318
+        }
+      }
+    }
+  },
+  "runs": [
+    {
+      "run_id": "mamba3_three_time_siso_dual_seed2026_001",
+      "architecture": "SISO",
+      "mode": "dual",
+      "seed": 2026,
+      "best_valid_score": 0.0615,
+      "best_epoch": 15,
+      "actual_epochs": 27,
+      "train_seconds": 593.2322801131522,
+      "valid_seconds": 11.176218414097093,
+      "peak_gpu_allocated_bytes": 1899601408,
+      "peak_gpu_reserved_bytes": 2466250752,
+      "first27": 0.0615,
+      "observed_first27": 0.0615,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_three_time_siso_triple_seed2026_001",
+      "architecture": "SISO",
+      "mode": "triple",
+      "seed": 2026,
+      "best_valid_score": 0.0623,
+      "best_epoch": 15,
+      "actual_epochs": 27,
+      "train_seconds": 600.2216197031667,
+      "valid_seconds": 10.499554241949227,
+      "peak_gpu_allocated_bytes": 1917216768,
+      "peak_gpu_reserved_bytes": 2485125120,
+      "first27": 0.0623,
+      "observed_first27": 0.0623,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_dual_seed2027_001",
+      "architecture": "SISO",
+      "mode": "dual",
+      "seed": 2027,
+      "best_valid_score": 0.0632,
+      "best_epoch": 53,
+      "actual_epochs": 65,
+      "train_seconds": 1071.8635953179328,
+      "valid_seconds": 26.83754210767802,
+      "peak_gpu_allocated_bytes": 1899601408,
+      "peak_gpu_reserved_bytes": 2466250752,
+      "first27": 0.0614,
+      "observed_first27": 0.0614,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_triple_seed2027_001",
+      "architecture": "SISO",
+      "mode": "triple",
+      "seed": 2027,
+      "best_valid_score": 0.0628,
+      "best_epoch": 37,
+      "actual_epochs": 49,
+      "train_seconds": 939.5638701437274,
+      "valid_seconds": 22.23132298293058,
+      "peak_gpu_allocated_bytes": 1917216768,
+      "peak_gpu_reserved_bytes": 2485125120,
+      "first27": 0.0623,
+      "observed_first27": 0.0623,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_dual_seed2028_001",
+      "architecture": "SISO",
+      "mode": "dual",
+      "seed": 2028,
+      "best_valid_score": 0.0627,
+      "best_epoch": 29,
+      "actual_epochs": 41,
+      "train_seconds": 808.8908041052055,
+      "valid_seconds": 17.21077100385446,
+      "peak_gpu_allocated_bytes": 1899601408,
+      "peak_gpu_reserved_bytes": 2466250752,
+      "first27": 0.0618,
+      "observed_first27": 0.0618,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_triple_seed2028_001",
+      "architecture": "SISO",
+      "mode": "triple",
+      "seed": 2028,
+      "best_valid_score": 0.063,
+      "best_epoch": 29,
+      "actual_epochs": 41,
+      "train_seconds": 813.7439664424164,
+      "valid_seconds": 17.25593800074421,
+      "peak_gpu_allocated_bytes": 1917216768,
+      "peak_gpu_reserved_bytes": 2485125120,
+      "first27": 0.0623,
+      "observed_first27": 0.0623,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_dual_seed2029_001",
+      "architecture": "SISO",
+      "mode": "dual",
+      "seed": 2029,
+      "best_valid_score": 0.0625,
+      "best_epoch": 46,
+      "actual_epochs": 58,
+      "train_seconds": 1004.5308543964056,
+      "valid_seconds": 24.28786897053942,
+      "peak_gpu_allocated_bytes": 1899601408,
+      "peak_gpu_reserved_bytes": 2466250752,
+      "first27": 0.0619,
+      "observed_first27": 0.0619,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_triple_seed2029_001",
+      "architecture": "SISO",
+      "mode": "triple",
+      "seed": 2029,
+      "best_valid_score": 0.0635,
+      "best_epoch": 61,
+      "actual_epochs": 73,
+      "train_seconds": 1234.0267074046424,
+      "valid_seconds": 31.186781600001268,
+      "peak_gpu_allocated_bytes": 1917216768,
+      "peak_gpu_reserved_bytes": 2485125120,
+      "first27": 0.0625,
+      "observed_first27": 0.0625,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_dual_seed2030_001",
+      "architecture": "SISO",
+      "mode": "dual",
+      "seed": 2030,
+      "best_valid_score": 0.0627,
+      "best_epoch": 23,
+      "actual_epochs": 35,
+      "train_seconds": 729.355263243895,
+      "valid_seconds": 14.539300102507696,
+      "peak_gpu_allocated_bytes": 1899601408,
+      "peak_gpu_reserved_bytes": 2466250752,
+      "first27": 0.0627,
+      "observed_first27": 0.0627,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_three_time_confirm_siso_triple_seed2030_001",
+      "architecture": "SISO",
+      "mode": "triple",
+      "seed": 2030,
+      "best_valid_score": 0.0633,
+      "best_epoch": 45,
+      "actual_epochs": 57,
+      "train_seconds": 1016.7926305506844,
+      "valid_seconds": 23.9020282527199,
+      "peak_gpu_allocated_bytes": 1917216768,
+      "peak_gpu_reserved_bytes": 2485125120,
+      "first27": 0.0625,
+      "observed_first27": 0.0625,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_base_seed2026_001",
+      "architecture": "MIMO",
+      "mode": "base",
+      "seed": 2026,
+      "best_valid_score": 0.059,
+      "best_epoch": 11,
+      "actual_epochs": 23,
+      "train_seconds": 580.6337199590635,
+      "valid_seconds": 44.54821834701579,
+      "peak_gpu_allocated_bytes": 2991943680,
+      "peak_gpu_reserved_bytes": 4043309056,
+      "first27": null,
+      "observed_first27": 0.059,
+      "observed_first27_epochs": 23
+    },
+    {
+      "run_id": "mamba3_mimo_dual_seed2026_001",
+      "architecture": "MIMO",
+      "mode": "dual",
+      "seed": 2026,
+      "best_valid_score": 0.0633,
+      "best_epoch": 27,
+      "actual_epochs": 39,
+      "train_seconds": 823.5356172581669,
+      "valid_seconds": 18.14687802467961,
+      "peak_gpu_allocated_bytes": 3024827392,
+      "peak_gpu_reserved_bytes": 4076863488,
+      "first27": 0.062,
+      "observed_first27": 0.062,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_triple_seed2026_001",
+      "architecture": "MIMO",
+      "mode": "triple",
+      "seed": 2026,
+      "best_valid_score": 0.0618,
+      "best_epoch": 11,
+      "actual_epochs": 23,
+      "train_seconds": 498.08924767840654,
+      "valid_seconds": 11.051067687454633,
+      "peak_gpu_allocated_bytes": 3042643456,
+      "peak_gpu_reserved_bytes": 4095737856,
+      "first27": null,
+      "observed_first27": 0.0618,
+      "observed_first27_epochs": 23
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_base_seed2027_001",
+      "architecture": "MIMO",
+      "mode": "base",
+      "seed": 2027,
+      "best_valid_score": 0.0594,
+      "best_epoch": 32,
+      "actual_epochs": 44,
+      "train_seconds": 1175.0973897123476,
+      "valid_seconds": 55.52094240731094,
+      "peak_gpu_allocated_bytes": 2991943680,
+      "peak_gpu_reserved_bytes": 4043309056,
+      "first27": 0.0581,
+      "observed_first27": 0.0581,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_dual_seed2027_001",
+      "architecture": "MIMO",
+      "mode": "dual",
+      "seed": 2027,
+      "best_valid_score": 0.0625,
+      "best_epoch": 17,
+      "actual_epochs": 29,
+      "train_seconds": 617.1526237635408,
+      "valid_seconds": 13.526372536318377,
+      "peak_gpu_allocated_bytes": 3024827392,
+      "peak_gpu_reserved_bytes": 4076863488,
+      "first27": 0.0625,
+      "observed_first27": 0.0625,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_triple_seed2027_001",
+      "architecture": "MIMO",
+      "mode": "triple",
+      "seed": 2027,
+      "best_valid_score": 0.0637,
+      "best_epoch": 35,
+      "actual_epochs": 47,
+      "train_seconds": 1013.9785268951673,
+      "valid_seconds": 21.85116584401112,
+      "peak_gpu_allocated_bytes": 3042643456,
+      "peak_gpu_reserved_bytes": 4095737856,
+      "first27": 0.0624,
+      "observed_first27": 0.0624,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_base_seed2028_001",
+      "architecture": "MIMO",
+      "mode": "base",
+      "seed": 2028,
+      "best_valid_score": 0.0592,
+      "best_epoch": 40,
+      "actual_epochs": 52,
+      "train_seconds": 1062.1527701099403,
+      "valid_seconds": 23.61135101178661,
+      "peak_gpu_allocated_bytes": 2991943680,
+      "peak_gpu_reserved_bytes": 4043309056,
+      "first27": 0.0587,
+      "observed_first27": 0.0587,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_dual_seed2028_001",
+      "architecture": "MIMO",
+      "mode": "dual",
+      "seed": 2028,
+      "best_valid_score": 0.0627,
+      "best_epoch": 46,
+      "actual_epochs": 58,
+      "train_seconds": 1225.5760502780322,
+      "valid_seconds": 27.105943858157843,
+      "peak_gpu_allocated_bytes": 3024827392,
+      "peak_gpu_reserved_bytes": 4076863488,
+      "first27": 0.061,
+      "observed_first27": 0.061,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_triple_seed2028_001",
+      "architecture": "MIMO",
+      "mode": "triple",
+      "seed": 2028,
+      "best_valid_score": 0.0631,
+      "best_epoch": 38,
+      "actual_epochs": 50,
+      "train_seconds": 1079.575546865468,
+      "valid_seconds": 23.859039957402274,
+      "peak_gpu_allocated_bytes": 3042643456,
+      "peak_gpu_reserved_bytes": 4095737856,
+      "first27": 0.0617,
+      "observed_first27": 0.0617,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_base_seed2029_001",
+      "architecture": "MIMO",
+      "mode": "base",
+      "seed": 2029,
+      "best_valid_score": 0.0588,
+      "best_epoch": 14,
+      "actual_epochs": 26,
+      "train_seconds": 535.308996727108,
+      "valid_seconds": 12.098833082127385,
+      "peak_gpu_allocated_bytes": 2991943680,
+      "peak_gpu_reserved_bytes": 4043309056,
+      "first27": null,
+      "observed_first27": 0.0588,
+      "observed_first27_epochs": 26
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_dual_seed2029_001",
+      "architecture": "MIMO",
+      "mode": "dual",
+      "seed": 2029,
+      "best_valid_score": 0.0641,
+      "best_epoch": 87,
+      "actual_epochs": 99,
+      "train_seconds": 2081.9964907879476,
+      "valid_seconds": 44.86739659903105,
+      "peak_gpu_allocated_bytes": 3024827392,
+      "peak_gpu_reserved_bytes": 4076863488,
+      "first27": 0.0615,
+      "observed_first27": 0.0615,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_triple_seed2029_001",
+      "architecture": "MIMO",
+      "mode": "triple",
+      "seed": 2029,
+      "best_valid_score": 0.0631,
+      "best_epoch": 28,
+      "actual_epochs": 40,
+      "train_seconds": 860.741048660595,
+      "valid_seconds": 18.553460528841242,
+      "peak_gpu_allocated_bytes": 3042643456,
+      "peak_gpu_reserved_bytes": 4095737856,
+      "first27": 0.0625,
+      "observed_first27": 0.0625,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_base_seed2030_001",
+      "architecture": "MIMO",
+      "mode": "base",
+      "seed": 2030,
+      "best_valid_score": 0.0591,
+      "best_epoch": 23,
+      "actual_epochs": 35,
+      "train_seconds": 716.913914483157,
+      "valid_seconds": 15.77515679213684,
+      "peak_gpu_allocated_bytes": 2991943680,
+      "peak_gpu_reserved_bytes": 4043309056,
+      "first27": 0.0591,
+      "observed_first27": 0.0591,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_dual_seed2030_001",
+      "architecture": "MIMO",
+      "mode": "dual",
+      "seed": 2030,
+      "best_valid_score": 0.0624,
+      "best_epoch": 28,
+      "actual_epochs": 40,
+      "train_seconds": 846.1947581440909,
+      "valid_seconds": 18.35153795883525,
+      "peak_gpu_allocated_bytes": 3024827392,
+      "peak_gpu_reserved_bytes": 4076863488,
+      "first27": 0.0622,
+      "observed_first27": 0.0622,
+      "observed_first27_epochs": 27
+    },
+    {
+      "run_id": "mamba3_mimo_confirm_triple_seed2030_001",
+      "architecture": "MIMO",
+      "mode": "triple",
+      "seed": 2030,
+      "best_valid_score": 0.0634,
+      "best_epoch": 31,
+      "actual_epochs": 43,
+      "train_seconds": 924.6004201981705,
+      "valid_seconds": 19.938862105365843,
+      "peak_gpu_allocated_bytes": 3042643456,
+      "peak_gpu_reserved_bytes": 4095737856,
+      "first27": 0.0633,
+      "observed_first27": 0.0633,
+      "observed_first27_epochs": 27
+    }
+  ]
+}

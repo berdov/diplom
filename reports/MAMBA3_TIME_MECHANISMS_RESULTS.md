@@ -1,5 +1,198 @@
 # Mamba3: результаты временных механизмов
 
+Завершено сравнение двух и трёх внутренних временных механизмов Mamba3:
+**пять пар SISO и пять троек MIMO, всего 25 запусков**. Base не использует
+дополнительную временную калибровку; dual отдельно калибрует затухание, но
+объединяет запись и фазу; triple разделяет все три пути. Коэффициенты зависят
+от одного интервала между историческими событиями.
+
+**KuaiRand: хронологический leave-one-out, полный каталог.** На четырёх новых
+seeds 2027–2030 средний VALID NDCG@10 SISO dual/triple равен
+**0.062775 / 0.063150** (+0.597%, три улучшения и одно снижение).
+Для MIMO base/dual/triple: **0.059125 / 0.062925 / 0.063325**.
+Оба временных варианта выше base во всех четырёх тройках; triple выше dual
+в трёх из четырёх, средний прирост +0.636%. С exploratory pilot 2026
+средние MIMO dual/triple почти совпадают: **0.063000 / 0.063020**.
+
+Это небольшой, неодинаковый по seeds эффект третьего пути, а не доказательство
+значимости, эквивалентности dual/triple или превосходства MIMO над SISO.
+При сравнении с base вместе меняются число параметров и использование
+интервалов, поэтому весь прирост нельзя приписать только временной информации.
+Эти серии ограничены VALID одного датасета; TEST для них не запускался.
+Первый пункт плана завершён в этом scope. Следующий пункт — временные масштабы
+голов — пока не реализован и не запущен.
+
+[SISO](#siso-dual-triple-confirmation) · [MIMO](#mimo-time-confirmation) ·
+[Единый индекс 25 runs и SHA256](assets/internal_time_ablation/sources.json) ·
+[Сводная TeX-таблица VALID](assets/internal_time_ablation/siso_mimo_valid_table.tex).
+Исторические shared/separate, experts и TEST ниже остаются отдельными сериями.
+
+<a id="mimo-time-confirmation"></a>
+
+## MIMO: подтверждение base / dual / triple
+
+Основной набор — четыре заранее выбранные тройки seeds **2027–2030**, 12 новых
+fits. Пилот **2026** повлиял на решение продолжить исследование, поэтому
+объединение всех пяти троек показано отдельно. Все модели обучались с нуля
+по неизменным настройкам соответствующего пилотного режима; менялись только
+seed и путь сохранения. Внутри тройки совпали начальный backbone, RNG,
+первый фактический batch, precision и настройки оптимизатора.
+
+KuaiRand: хронологический leave-one-out, полный каталог; **VALID NDCG@10**.
+Каждая ячейка метрики ведёт к исходному JSON.
+
+<!-- mimo:pairs:start -->
+| Seed | Base | Dual | Triple | Triple − dual | Dual − base | Triple − base |
+|---|---:|---:|---:|---:|---:|---:|
+| 2026 (пилот) | [0.0590](../experiments/mamba3_mimo_time/runs/attempt_003/mamba3_mimo_base_seed2026_001.json) | [0.0633](../experiments/mamba3_mimo_time/runs/attempt_003/mamba3_mimo_dual_seed2026_001.json) | [0.0618](../experiments/mamba3_mimo_time/runs/attempt_003/mamba3_mimo_triple_seed2026_001.json) | -0.0015 | +0.0043 | +0.0028 |
+| 2027 | [0.0594](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_base_seed2027_001.json) | [0.0625](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2027_001.json) | [0.0637](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_triple_seed2027_001.json) | +0.0012 | +0.0031 | +0.0043 |
+| 2028 | [0.0592](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_base_seed2028_001.json) | [0.0627](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2028_001.json) | [0.0631](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_triple_seed2028_001.json) | +0.0004 | +0.0035 | +0.0039 |
+| 2029 | [0.0588](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_base_seed2029_001.json) | [0.0641](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2029_001.json) | [0.0631](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_triple_seed2029_001.json) | -0.0010 | +0.0053 | +0.0043 |
+| 2030 | [0.0591](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_base_seed2030_001.json) | [0.0624](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2030_001.json) | [0.0634](../experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_triple_seed2030_001.json) | +0.0010 | +0.0033 | +0.0043 |
+<!-- mimo:pairs:end -->
+
+### Средние и парные разности
+
+Во всех таблицах std — **sample standard deviation, ddof=1**, не доверительный
+интервал. Разброс моделей и парных разностей рассчитан отдельно. Относительный
+прирост — `100 × (mean(left) / mean(right) − 1)`. Индивидуальные метрики
+сохранены с четырьмя знаками; точность исходных измерений от агрегации не растёт.
+
+<!-- mimo:aggregates:start -->
+| Seeds; n | Base: mean ± std | Dual: mean ± std | Triple: mean ± std |
+|---|---:|---:|---:|
+| 2027–2030; 4 | 0.059125 ± 0.000250 | 0.062925 ± 0.000793 | 0.063325 ± 0.000287 |
+| 2026–2030; 5, с пилотом | 0.059100 ± 0.000224 | 0.063000 ± 0.000707 | 0.063020 ± 0.000726 |
+<!-- mimo:aggregates:end -->
+
+<!-- mimo:contrasts:start -->
+| Seeds; n | Контраст | Парная Δ: mean ± std | + / − / 0 | Прирост по средним |
+|---|---|---:|---:|---:|
+| 2027–2030; 4 | triple-dual | +0.000400 ± 0.000993 | 3 / 1 / 0 | +0.636% |
+| 2027–2030; 4 | dual-base | +0.003800 ± 0.001013 | 4 / 0 / 0 | +6.427% |
+| 2027–2030; 4 | triple-base | +0.004200 ± 0.000200 | 4 / 0 / 0 | +7.104% |
+| 2026–2030; 5, с пилотом | triple-dual | +0.000020 ± 0.001209 | 3 / 2 / 0 | +0.032% |
+| 2026–2030; 5, с пилотом | dual-base | +0.003900 ± 0.000906 | 5 / 0 / 0 | +6.599% |
+| 2026–2030; 5, с пилотом | triple-base | +0.003920 ± 0.000650 | 5 / 0 / 0 | +6.633% |
+<!-- mimo:contrasts:end -->
+
+**Dual и triple выше base на всех четырёх дополнительных seeds**, по средним
+на +6.427% и +7.104%. Дополнительное разделение записи и фазы даёт небольшой
+и неодинаковый эффект: triple−dual = +0.000400, три положительные пары и одна
+отрицательная. С пилотом разница средних всего +0.000020 (+0.032%); отрицательны
+**2026 (−0.0015) и 2029 (−0.0010)**. Близость средних не доказывает эквивалентность.
+Новые критерии значимости не применялись, окончательный backbone не выбран.
+
+![MIMO: парная разница VALID NDCG@10 triple минус dual, пять seeds](assets/internal_time_ablation/mimo_paired_delta.svg)
+
+### Срез первых 27 эпох
+
+Окно включает только наблюдавшиеся эпохи **0–26**. У base/triple пилота всего
+23 эпохи, у base2029 — 26. Это успешные fits с ранней остановкой, но без
+полного окна first27; недостающие эпохи не дополнялись.
+
+<!-- mimo:first27:start -->
+| Seed | Base, first27 | Dual, first27 | Triple, first27 |
+|---|---:|---:|---:|
+| 2026 (пилот) | нет (23 эпох) | 0.0620 | нет (23 эпох) |
+| 2027 | 0.0581 | 0.0625 | 0.0624 |
+| 2028 | 0.0587 | 0.0610 | 0.0617 |
+| 2029 | нет (26 эпох) | 0.0615 | 0.0625 |
+| 2030 | 0.0591 | 0.0622 | 0.0633 |
+<!-- mimo:first27:end -->
+
+Для сравнения **всех трёх режимов** полное окно есть на seeds **2027, 2028,
+2030 (n=3)**. Для отдельной пары **dual/triple** — на **всех четырёх новых
+seeds 2027–2030 (n=4)**, включая 2029.
+
+<!-- mimo:first27_aggregates:start -->
+| Полные first27 окна; n | Base: mean ± std | Dual: mean ± std | Triple: mean ± std | Δ triple−dual: mean ± std |
+|---|---:|---:|---:|---:|
+| 2027, 2028, 2030; 3 | 0.058633 ± 0.000503 | 0.061900 ± 0.000794 | 0.062467 ± 0.000802 | +0.000567 ± 0.000611 |
+| 2027, 2028, 2029, 2030; 4 | — | 0.061800 ± 0.000678 | 0.062475 ± 0.000655 | +0.000675 ± 0.000544 |
+<!-- mimo:first27_aggregates:end -->
+
+Для dual/triple на четырёх новых seeds first27 даёт +0.000675 (+1.092%),
+три положительные пары и одну отрицательную (2027). Это другой срез тех же
+histories, а не независимая репликация или равный GPU-бюджет. Best full-run
+не подставлялся вместо first27.
+
+<details>
+<summary>Настройки, эпохи, диагностика по heads и происхождение</summary>
+
+Upstream MIMO, rank 4, chunk 8; два слоя и две temporal heads. Rank не является
+числом голов. История до 50 событий нейтрально дополняется до 56 только на
+границе kernel. Число параметров base/dual/triple: **714888 / 715020 / 715086**.
+Adam 0.001, batch 2048, максимум 300 эпох, stopping_step=10; выбирается последняя
+эпоха с максимальным округлённым VALID NDCG@10. У dual2028 максимум 0.0627
+достигнут в эпохах 36, 38, 46, выбран 46. Все 12 fits остановились после
+11 последующих эпох. Одинаковое правило не означает одинаковое время обучения.
+
+<!-- mimo:epochs:start -->
+| Seed | HR@10 base / dual / triple | Best epoch (с нуля), B / D / T | Actual epochs, B / D / T |
+|---|---:|---:|---:|
+| 2026 (пилот) | 0.1074 / 0.1162 / 0.1136 | 11 / 27 / 11 | 23 / 39 / 23 |
+| 2027 | 0.1086 / 0.1147 / 0.1172 | 32 / 17 / 35 | 44 / 29 / 47 |
+| 2028 | 0.1099 / 0.1169 / 0.1169 | 40 / 46 / 38 | 52 / 58 / 50 |
+| 2029 | 0.1069 / 0.1183 / 0.1168 | 14 / 87 / 28 | 26 / 99 / 40 |
+| 2030 | 0.1077 / 0.1150 / 0.1176 | 23 / 28 / 31 | 35 / 40 / 43 |
+<!-- mimo:epochs:end -->
+
+В best diagnostics dual использует одинаковые write/phase scales, у triple
+они различаются на всех пяти seeds. Ниже каждая пара значений соответствует
+**H0 / H1**, а не двум слоям; функции общие для слоёв. Bounds [0.5, 2] и
+TRAIN reference 838393 ms не менялись.
+
+<!-- mimo:diagnostics:start -->
+| Seed | mean abs log(write/phase), H0 / H1 | phase > 1.99, H0 / H1 |
+|---|---:|---:|
+| 2026 (пилот) | 0.322 / 1.179 | 0.37% / 100.00% |
+| 2027 | 0.888 / 1.227 | 70.18% / 72.04% |
+| 2028 | 0.583 / 1.120 | 9.69% / 0.00% |
+| 2029 | 0.514 / 1.228 | 2.85% / 100.00% |
+| 2030 | 1.239 / 0.533 | 100.00% / 0.00% |
+<!-- mimo:diagnostics:end -->
+
+Доли возле верхней границы различаются между heads и seeds; это не общая доля
+модели. Например, у triple2029 второй phase head целиком около верхней границы,
+а у triple2030 — первый. Эти наблюдения не устанавливают причину изменения
+NDCG, специализацию по интересам или короткие/длинные масштабы памяти.
+Использованы сохранённые diagnostics выбранной эпохи, без нового forward.
+
+Источник новых runs — [фиксированный study plan](../experiments/mamba3_mimo_time/confirmation/study_plan.json),
+job **4358583**, execution `5670e898ed04924a929756e52f39d1d00eb79c5a`.
+[Исходные summary JSON](../experiments/mamba3_mimo_time/confirmation/runs/confirmation_summary.json)
+и [Markdown](../experiments/mamba3_mimo_time/confirmation/runs/confirmation_summary.md)
+сохранены без изменений. [Manifest сохранения](../experiments/mamba3_mimo_time/confirmation/evidence/job4358583/preservation_manifest.json)
+содержит пути, размеры и SHA256 79 файлов. Веса остались на кластере; хеши
+checkpoint сверены потоково с results и metadata, без десериализации.
+
+Admission **45 случаев / 2342 обязательных checks** и smoke принадлежат
+**pilot job4358147**, а не job4358583. Они унаследованы по исходным SHA;
+повторных GPU gates при подтверждении и публикации не было. Действует
+[mimo_numeric_acceptance_v1](../experiments/mamba3_mimo_time/mimo_numeric_acceptance_v1.json).
+Старые exact-zero FAIL сохранены. Ограниченный численный допуск в проверенных
+случаях не доказывает глобальную математическую эквивалентность.
+
+[Единый source index](assets/internal_time_ablation/sources.json),
+[пересчитанные агрегаты и время/память каждого run](assets/internal_time_ablation/summary.json),
+[проверки публикации и их границы](assets/internal_time_ablation/PUBLICATION_AUDIT.md).
+Исторические manifests проверяются по execution Git blobs; текущие отчёты
+и CSV закономерно отличаются от execution snapshot. Модель, kernels, trainer,
+policy и данные не изменялись.
+
+```bash
+python3 -B reports/assets/internal_time_ablation/report.py --audit
+python3 -B -m unittest discover -s reports/assets/internal_time_ablation -p 'test_*.py'
+```
+
+Helper использует только стандартную библиотеку и читает сохранённые JSON.
+Обычный запуск ничего не записывает. `--write-derived` обновляет только
+производные материалы и отмеченные таблицы; `--append-registry` добавляет
+отсутствующие научные строки, сохраняя старый CSV побайтно.
+
+</details>
+
 <a id="mimo-time-pilot"></a>
 
 ## MIMO base / dual / triple: пилот seed2026
@@ -23,8 +216,9 @@
 Первые27 являются срезом исходной history; недостающие эпохи не заполнялись.
 
 На seed2026 двухпутевая MIMO получила лучший VALID. Triple ниже dual, но выше base.
-Повторяемость результата пока не установлена. Один seed не подтверждает
+На этапе пилота повторяемость ещё не была установлена. Один seed не подтверждает
 статистическую значимость, преимущество MIMO над SISO или пользу отдельного пути.
+Итог всей серии приведён в [завершённом подтверждении](#mimo-time-confirmation).
 
 В best diagnostics у обоих временных вариантов второй decay head насыщен возле
 верхней границы2; у triple также насыщен второй phase head. Средние write scales
@@ -38,10 +232,9 @@ admission45/45, обязательные checks2342/2342, smokePASS, scientific 
 Допуск действует по `mimo_numeric_acceptance_v1` с документированными численными
 ограничениями; исторические exact-zero failures не отменены.
 
-Дальнейший план: отдельная подтверждающая серия base/dual/triple на seeds2027–2030,
-12 fresh fits с неизменными настройками. Первичный контраст triple − dual;
-дополнительные dual − base и triple − base. Новые четыре тройки анализируются
-отдельно от всех пяти с exploratory pilot2026. Результатов этой серии здесь пока нет.
+Подтверждение base/dual/triple на seeds2027–2030 завершено: 12 fresh fits
+с неизменными настройками. [Выше](#mimo-time-confirmation) четыре новые тройки
+показаны отдельно от всех пяти с exploratory pilot2026.
 
 <a id="siso-dual-triple-confirmation"></a>
 
@@ -70,6 +263,7 @@ Seed **2026** является exploratory pilot: его результат ис
 <!-- siso:pairs:end -->
 
 В агрегатах ниже **std является sample standard deviation с ddof=1**, не доверительным интервалом. Разброс dual, triple и парных разностей рассчитан отдельно. Относительный прирост равен `100 × (mean(triple) / mean(dual) − 1)`. Исходные метрики сохранены с четырьмя десятичными знаками; дополнительные знаки среднего отражают агрегацию, а не повышение точности отдельных измерений.
+Первая строка содержит **n=4 пары, seeds 2027–2030**, вторая — **n=5 пар, seeds 2026–2030**.
 
 <!-- siso:aggregates:start -->
 | Пары | Dual: mean ± std | Triple: mean ± std | Парная Δ: mean ± std | + / − / 0 | Прирост по средним |
@@ -94,7 +288,7 @@ Seed **2026** является exploratory pilot: его результат ис
 
 ### Статус плана Дмитрия
 
-1. Три временных механизма: SISO-сравнение завершено; [MIMO pilot seed2026](#mimo-time-pilot) завершён, подтверждение на дополнительных seeds впереди.
+1. Три временных механизма: SISO и [MIMO confirmation](#mimo-time-confirmation) завершены, по пять seeds, в рамках текущего KuaiRand/VALID-протокола.
 2. Обучаемые временные масштабы отдельно по heads: не реализованы и не проверены как следующий самостоятельный механизм.
 3. Зависящее от gap трапециевидное смешивание: не реализовано и не проверено.
 4. Временные функции отдельно по слоям: не реализованы и не проверены.

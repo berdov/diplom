@@ -54,7 +54,7 @@ Shared RT выше reported TiM4Rec по NDCG@10 на +0.0002 (+0.3273%), но �
 
 У separate, decay_only, scan_only и Proto-Mamba3 нет TEST: [подтверждение shared/separate по VALID](MAMBA3_TIME_MECHANISMS_RESULTS.md#confirmation) не добавляется в сравнение с paper TEST.
 
-[SISO dual/triple: VALID-абляция двух и трёх временных механизмов](MAMBA3_TIME_MECHANISMS_RESULTS.md#siso-dual-triple-confirmation) не входит в TEST-сравнение.
+[SISO dual/triple](MAMBA3_TIME_MECHANISMS_RESULTS.md#siso-dual-triple-confirmation) и [MIMO base/dual/triple](MAMBA3_TIME_MECHANISMS_RESULTS.md#mimo-time-confirmation) — отдельные VALID-абляции; они не входят в TEST-сравнение. [Сводная TeX-таблица VALID](assets/internal_time_ablation/siso_mimo_valid_table.tex).
 
 ## Связанные работы 2026 года
 

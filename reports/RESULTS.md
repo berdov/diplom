@@ -4,7 +4,7 @@
 
 KuaiRand, хронологический leave-one-out, полный каталог. [Условия оценки и входы](EVALUATION_SETUP.md).
 
-**MIMO pilot, seed2026:** KuaiRand: хронологический leave-one-out, полный каталог. Base/dual/triple получили VALID NDCG@10 **0.0590 / 0.0633 / 0.0618**. Dual выше base на +0.0043; triple ниже dual на −0.0015, но выше base на +0.0028. Повторяемость пока не установлена; TEST не выполнялся. Подтверждение на четырёх новых seeds запланировано отдельно. [Результаты, evidence и ограничения](MAMBA3_TIME_MECHANISMS_RESULTS.md#mimo-time-pilot).
+**MIMO base/dual/triple:** на четырёх новых seeds 2027–2030 средний VALID NDCG@10 **0.059125 / 0.062925 / 0.063325**. Dual и triple выше base в 4/4 тройках (+6.427% / +7.104% по средним). Triple−dual: **+0.000400 (+0.636%)**, 3 улучшения и 1 снижение. С exploratory pilot 2026 средние dual/triple **0.063000 / 0.063020**, 3 положительные пары и 2 отрицательные. TEST для этой серии не выполнялся; значимость и эквивалентность не установлены. [Завершённое подтверждение, таблицы и график](MAMBA3_TIME_MECHANISMS_RESULTS.md#mimo-time-confirmation); [исторический пилот](MAMBA3_TIME_MECHANISMS_RESULTS.md#mimo-time-pilot).
 
 **SISO dual/triple:** на четырёх подтверждающих seeds 2027–2030 средний VALID NDCG@10 **0.062775 / 0.063150**, парный прирост **+0.000375 (+0.597%)**, 3 улучшения и 1 снижение. С exploratory pilot 2026 отдельно: **0.062520 / 0.062980**, 4/5 положительных пар. Добавлено 66 параметров; TEST не выполнялся. [Таблицы, график, диагностика и ограничения](MAMBA3_TIME_MECHANISMS_RESULTS.md#siso-dual-triple-confirmation).
 
