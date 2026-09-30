@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "scope": "Submission identity, queue limit, partial summary and publication integrity; no completed-fit audit",
+  "scheduler_observations": 22,
+  "journaled_intervals": 21,
+  "minimum_interval_seconds": 600.8093440532684,
+  "maximum_interval_seconds": 659.1801176071167,
+  "initial_poll_interval": "NOT_INDEPENDENTLY_TIMESTAMPED",
+  "preserved_files": 8,
+  "preservation_sha256": "e6e7b48fb4c4a68656c658e29c5058f233988d4449d84bd6192748881ad48010",
+  "partial_summary_sha256": "e8c3006f1cd55f9c38d4e3cca59e65b1469709bf6d925dff80838d11541d8e82",
+  "partial_markdown_sha256": "b1903b8294ee5eb02334fb16603d3d1c637e270b55a0fdd7d781ee7363eaee91",
+  "registry_rows": 96,
+  "confirmation_rows_added": 0,
+  "registry_unchanged_since_pilot": true,
+  "published_reports_and_TEST_unchanged": true,
+  "current_scientific_fits_audited": 0,
+  "checkpoint_deserializations": 0,
+  "model_evaluations": 0,
+  "links": "PASS",
+  "credential_pattern_scan": "PASS"
+}
