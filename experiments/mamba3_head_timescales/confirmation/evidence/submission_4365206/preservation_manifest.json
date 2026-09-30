@@ -1,0 +1,51 @@
+{
+  "job_id": "4365206",
+  "kind": "Submission and queue observation; not terminal scientific evidence",
+  "execution_commit": "0de6c380bb531b93a08e4915508b578af77fff3e",
+  "source_hash": "9288aa3386a652f15231ccdbc0116c963a0cb9ccb8d1d361b868999da51922d2",
+  "observed_at": "2026-09-30T15:26:54.305222+00:00",
+  "files": {
+    "experiments/mamba3_head_timescales/confirmation/runtime/allocation_001/login_verification.json": {
+      "copy": "experiments/mamba3_head_timescales/confirmation/evidence/submission_4365206/files/allocation_001/login_verification.json",
+      "sha256": "2f4919aeb5b9b386705b63017fd2ed12be40980e740c48d7126ffc11c4ff3863",
+      "bytes": 3801
+    },
+    "experiments/mamba3_head_timescales/confirmation/runtime/allocation_001/no_git_preflight_0de6c380bb531b93a08e4915508b578af77fff3e.json": {
+      "copy": "experiments/mamba3_head_timescales/confirmation/evidence/submission_4365206/files/allocation_001/no_git_preflight_0de6c380bb531b93a08e4915508b578af77fff3e.json",
+      "sha256": "d2e1306aa9073c60c382d94141011bad4a8f1773d735248c28d905aed4f557af",
+      "bytes": 35665
+    },
+    "experiments/mamba3_head_timescales/confirmation/runtime/allocation_001/submission.json": {
+      "copy": "experiments/mamba3_head_timescales/confirmation/evidence/submission_4365206/files/allocation_001/submission.json",
+      "sha256": "cf8773d15558c89ce2140f6658ccde6264e50a56eec161ffaeacdbae0e443e51",
+      "bytes": 1071
+    },
+    "experiments/mamba3_head_timescales/confirmation/runtime/allocation_001/reservation.json": {
+      "copy": "experiments/mamba3_head_timescales/confirmation/evidence/submission_4365206/files/allocation_001/reservation.json",
+      "sha256": "990a2daa5655fb03e9084f5fd63a9709368d9215e6d083085d158ffc09b24cbf",
+      "bytes": 4646
+    },
+    "experiments/mamba3_head_timescales/confirmation/runtime/preflight/cpu_preflight_0de6c380bb531b93a08e4915508b578af77fff3e.json": {
+      "copy": "experiments/mamba3_head_timescales/confirmation/evidence/submission_4365206/files/preflight/cpu_preflight_0de6c380bb531b93a08e4915508b578af77fff3e.json",
+      "sha256": "1da35d35046676db0561bdcd5df13feef9af9415b144f8ce48691e2f9d27669b",
+      "bytes": 35665
+    },
+    "experiments/mamba3_head_timescales/confirmation/runtime/preflight/deploy_audit.json": {
+      "copy": "experiments/mamba3_head_timescales/confirmation/evidence/submission_4365206/files/preflight/deploy_audit.json",
+      "sha256": "38c0f8a04719af6f31b486fec84153292e1da34d99e5c0507dcbee7d9d27b6f7",
+      "bytes": 11218
+    },
+    "experiments/mamba3_head_timescales/confirmation/runtime/scheduler_poll_001.txt": {
+      "copy": "experiments/mamba3_head_timescales/confirmation/evidence/submission_4365206/files/scheduler_poll_001.txt",
+      "sha256": "ab89c4290c09647c9c02ae8ff9a24af2cda070065b24d6c1febd6ac8a8b1f32c",
+      "bytes": 79
+    },
+    "experiments/mamba3_head_timescales/confirmation/runtime/scheduler_history.jsonl": {
+      "copy": "experiments/mamba3_head_timescales/confirmation/evidence/submission_4365206/files/scheduler_history.jsonl",
+      "sha256": "5f73c6f487368a683d4fa4cda165cd13dd651c510c8c0847252312efde4e301d",
+      "bytes": 7029
+    }
+  },
+  "weights_copied": false,
+  "queue_limit_sha256": "18613e1088c5dd1ee65c0076c98efb3e1baada065a13c46e3d20fbd4d321e5d6"
+}
