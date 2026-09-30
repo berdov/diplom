@@ -44,6 +44,8 @@ def run(commit,attempt='001',evidence=None):
         if result['cuda_initialized']:raise ValueError('CPU preflight initialized CUDA')
         result['status']='PASS'
     except BaseException as exc:result.update(status='FAIL',error=repr(exc),traceback=traceback.format_exc())
+    import sys
+    if 'torch' in sys.modules:result['cuda_initialized']=sys.modules['torch'].cuda.is_initialized()
     result['finished_at']=now()
     if evidence:update(evidence,result)
     return result

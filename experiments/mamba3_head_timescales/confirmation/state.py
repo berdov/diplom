@@ -70,7 +70,7 @@ def initialization(directory):
             row=dict(seed=seed,variant=variant,parameter_count=sum(p.numel() for p in model.parameters()),
                      effective_config_check=check,**initial(model))
             if row['parameter_count']!=c.COUNTS[variant]:raise ValueError('CPU parameter count')
-            optimizer=torch.optim.Adam(model.parameters(),lr=.001,betas=(.9,.999),eps=1e-8,weight_decay=0)
+            optimizer=torch.optim.Adam(model.parameters(),lr=cfg['learning_rate'],betas=(.9,.999),eps=1e-8,weight_decay=cfg['weight_decay'])
             metadata=canonical_optimizer_settings([{k:v for k,v in g.items() if k!='params'} for g in optimizer.param_groups])
             compare_optimizer_settings(metadata,json.loads(json.dumps(metadata)))
             pilot=read(c.pilot_path(variant));compare_optimizer_settings(metadata,pilot['optimizer_settings'])
