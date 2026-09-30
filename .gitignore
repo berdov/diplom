@@ -132,3 +132,4 @@ experiments/mamba3_baseline/runtime_cache/
 experiments/mamba3_baseline/runs/*.lock
 experiments/mamba3_baseline/runs/.*.lock
 experiments/mamba3_baseline/runs/*.tmp
+experiments/mamba3_head_timescales/confirmation/runtime/
