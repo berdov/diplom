@@ -170,6 +170,24 @@ class RecordsTests(unittest.TestCase):
             self.assertEqual(s['retry_reason'],'old serialization');self.assertIsNone(s['blocking_reason'])
             with self.assertRaises(FileExistsError):report.write(base,'001')
 
+    def test_partial_json_scalar_keeps_summary(self):
+        for encoded in ('null','123','"fixture"'):
+            with scratch():
+                p=c.paths('fixed',2027)['result'];p.parent.mkdir(parents=True);p.write_text(encoded)
+                s=report.write(dict(execution_attempt='001'),'001')
+                self.assertEqual(s['scientific_fits_start_unknown'],1)
+                self.assertEqual(s['rows'][3]['status'],'FAIL')
+                self.assertTrue(c.allocation()['summary'].with_suffix('.md').exists())
+
+    def test_already_failed_malformed_history_keeps_summary(self):
+        with scratch():
+            p=c.paths('fixed',2027)['result']
+            r=successful();r.update(status='FAIL',history=[{}]*30)
+            create(p,r)
+            s=report.write(dict(execution_attempt='001'),'001','original failure')
+            self.assertEqual(s['rows'][3]['status'],'FAIL');self.assertIsNone(s['rows'][3]['ndcg10'])
+            self.assertTrue(c.allocation()['summary'].with_suffix('.md').exists())
+
     def test_source_previous_variant_same_seed_and_order(self):
         with scratch():
             base=dict(execution_attempt='001',job_id='123')

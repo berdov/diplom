@@ -2,7 +2,7 @@
 import math
 import statistics
 from . import config as c
-from experiments.mamba3_mimo_time.records import read, create, sha, now
+from experiments.mamba3_mimo_time.records import read, create, sha, now, finite_tree
 
 
 def stats(values):
@@ -12,6 +12,7 @@ def stats(values):
 
 def validate_record(r,task):
     if r.get('status')!='PASS':return
+    if not finite_tree(r):raise ValueError('Nonfinite scientific record')
     expected=dict(run_id=task['run_id'],time_scale_mode=task['variant'],seed=task['seed'],mode='dual',
                   architecture='MIMO',backend='upstream',rank=4,chunk=8,parameter_count=c.COUNTS[task['variant']],
                   TEST='NOT_RUN',test_evaluation_count=0,scientific_fit_started=True)
@@ -114,10 +115,10 @@ def rows_from(records,seeds):
     for seed in seeds:
         for variant in c.MODES:
             r=records.get((seed,variant),{})
-            h=r.get('history',[]) if not r.get('validation_error') else []
+            valid=r.get('status')=='PASS' and not r.get('validation_error')
+            h=r.get('history',[]) if valid else []
             if not isinstance(h,list):h=[]
             complete=len(h)>=27 and [x['epoch'] for x in h[:27]]==list(range(27))
-            valid=r.get('status')=='PASS' and not r.get('validation_error')
             metrics=r.get('best_valid_metrics',{}) if valid else {}
             rows.append(dict(seed=seed,variant=variant,status=r.get('status','NOT_RUN'),
                 run_id=r.get('run_id'),job_id=r.get('job_id'),execution_attempt=r.get('execution_attempt'),
@@ -222,7 +223,9 @@ def write(base,attempt,reason=None):
         raw=dict(run_id=entry['run_id'],time_scale_mode=entry['variant'],seed=entry['seed'],
                  status='FAIL',scientific_fit_started=None,history=[],actual_epochs=0)
         try:
-            raw=read(p)
+            decoded=read(p)
+            if not isinstance(decoded,dict):raise ValueError('Result must be a JSON object')
+            raw=decoded
             r=source_record(entry,base)
             validate_record(r,entry)
             if r['status']=='PASS':validate_checkpoint(r,entry)
