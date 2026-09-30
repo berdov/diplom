@@ -19,8 +19,7 @@ seeds 2027–2030 средний VALID NDCG@10 SISO dual/triple равен
 При сравнении с base вместе меняются число параметров и использование
 интервалов, поэтому весь прирост нельзя приписать только временной информации.
 Эти серии ограничены VALID одного датасета; TEST для них не запускался.
-Первый пункт плана завершён в этом scope. Следующий пункт — временные масштабы
-голов — пока не реализован и не запущен.
+Первый пункт плана завершён в этом scope. Для временных масштабов голов завершён [пилот](#head-timescales-pilot).
 
 [SISO](#siso-dual-triple-confirmation) · [MIMO](#mimo-time-confirmation) ·
 [Единый индекс 25 runs и SHA256](assets/internal_time_ablation/sources.json) ·
@@ -537,3 +536,45 @@ per-head correlation на VALID не сохранена и не восстана
 Источники исходного сравнения: [decay_only](../experiments/mamba3_time_mechanisms/runs/mamba3_decay_only_validation_001.json), [scan_only](../experiments/mamba3_time_mechanisms/runs/mamba3_scan_only_validation_001.json), [separate](../experiments/mamba3_time_mechanisms/runs/mamba3_separate_time_validation_001.json), [shared](../experiments/mamba3_timeaware/runs/mamba3_timeaware_validation_001.json), [vanilla](../experiments/mamba3_baseline/runs/mamba3_validation_001.json). [GPU evidence](../experiments/mamba3_time_mechanisms/runs/gpu_equivalence_001.json) и старые графики сохранены без изменений.
 
 </details>
+
+<!-- head-timescales:pilot:start -->
+<a id="head-timescales-pilot"></a>
+## Обучаемые временные масштабы: пилот
+
+Завершены три новых TRAIN→VALID запуска на seed2026, job4362620. Основа — MIMO dual, rank4/chunk8, два слоя и две temporal heads. Fixed сохраняет TRAIN reference R₀=838393 мс; shared_tau обучает один R на механизм decay/scan; head_tau — отдельный R для каждой головы каждого механизма. Параметры R общие для пользователей и слоёв.
+
+`R=R₀·exp(log(4)·tanh(α))`, bounds `[R₀/4,4R₀]`, output scales `[0.5,2]`. Конфигурация, данные, начальный backbone, общие MLP и RNG совпадают. Gate 9/9 cases, 228/228 checks; smoke 3×3 шага. TEST не выполнялся.
+
+| Variant | Parameters | VALID NDCG@10 | HR@10 | Best epoch, с нуля | Epochs | Best first27 |
+|---|---:|---:|---:|---:|---:|---:|
+| [fixed](../experiments/mamba3_head_timescales/runs/attempt_002/mamba3_headtime_fixed_seed2026_001.json) | 715020 | 0.0633 | 0.1162 | 27 | 39 | 0.0620 |
+| [shared_tau](../experiments/mamba3_head_timescales/runs/attempt_002/mamba3_headtime_shared_tau_seed2026_001.json) | 715022 | 0.0627 | 0.1165 | 27 | 39 | 0.0617 |
+| [head_tau](../experiments/mamba3_head_timescales/runs/attempt_002/mamba3_headtime_head_tau_seed2026_001.json) | 715024 | 0.0639 | 0.1191 | 48 | 60 | 0.0621 |
+
+| Контраст | Δ VALID NDCG@10 | Относительно контроля |
+|---|---:|---:|
+| head_tau − shared_tau | +0.0012 | +1.914% |
+| head_tau − fixed | +0.0006 | +0.948% |
+| shared_tau − fixed | -0.0006 | -0.948% |
+
+Общая шкала в этом пилоте не улучшила основную метрику; индивидуальные шкалы дали положительную разницу. Head достиг лучшего результата позже. First27 — реальные эпохи 0–26 из тех же histories, не независимая репликация и не равный GPU-бюджет.
+
+| Variant | Mechanism | Head/shared | α | R/R₀ | R, мс |
+|---|---|---|---:|---:|---:|
+| fixed | decay | оба heads | — | 1.000000 | 838393 |
+| fixed | scan | оба heads | — | 1.000000 | 838393 |
+| shared_tau | decay | shared | -0.205215 | 0.755360 | 633288 |
+| shared_tau | scan | shared | 0.101182 | 1.150034 | 964181 |
+| head_tau | decay | h0 | -0.280562 | 0.684513 | 573891 |
+| head_tau | decay | h1 | -0.962438 | 0.355834 | 298329 |
+| head_tau | scan | h0 | -0.053040 | 0.929173 | 779012 |
+| head_tau | scan | h1 | 0.332417 | 1.559822 | 1307744 |
+
+Все обучаемые α изменились; near-reference-bound flags в histories false. Сохранённые scale(gap) не сводятся к одному R: decay второй головы почти насыщен на верхнем output bound. R — масштаб нормировки, не итоговый коэффициент затухания и не доказанный период интересов. Разные R не устанавливают специализацию голов.
+
+Новый fixed точно воспроизвёл 39 эпох, метрики и checkpoint SHA исторического MIMO dual seed2026. В реестре это отдельный выполненный run; в прежнюю MIMO-статистику он не добавлен как независимый seed. Совпадение метрики не было условием technical PASS.
+
+Один exploratory seed не устанавливает устойчивость или статистическую значимость. Сравнения нашего VALID с опубликованным TEST и утверждения о новом SOTA здесь нет.
+
+[Raw summary](../experiments/mamba3_head_timescales/runs/attempt_002/pilot_summary.json), [preservation и SHA](../experiments/mamba3_head_timescales/evidence/job4362620/preservation_manifest.json). Execution `4724392c88a2298e57fa662cba33baa3ab9ecdbb`; исходный failed job4361071 сохранён отдельно.
+<!-- head-timescales:pilot:end -->

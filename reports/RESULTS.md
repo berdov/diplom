@@ -2,6 +2,8 @@
 
 ## Mamba3: VALID
 
+**Обучаемые масштабы MIMO dual, пилот seed2026:** fixed/shared_tau/head_tau получили VALID NDCG@10 **0.0633 / 0.0627 / 0.0639**. Общая шкала не улучшила NDCG, индивидуальные дали небольшой выигрыш на одном seed. TEST не выполнялся; устойчивость не установлена. [Таблица, первые 27 эпох и выученные масштабы](MAMBA3_TIME_MECHANISMS_RESULTS.md#head-timescales-pilot).
+
 KuaiRand, хронологический leave-one-out, полный каталог. [Условия оценки и входы](EVALUATION_SETUP.md).
 
 **MIMO base/dual/triple:** на четырёх новых seeds 2027–2030 средний VALID NDCG@10 **0.059125 / 0.062925 / 0.063325**. Dual и triple выше base в 4/4 тройках (+6.427% / +7.104% по средним). Triple−dual: **+0.000400 (+0.636%)**, 3 улучшения и 1 снижение. С exploratory pilot 2026 средние dual/triple **0.063000 / 0.063020**, 3 положительные пары и 2 отрицательные. TEST для этой серии не выполнялся; значимость и эквивалентность не установлены. [Завершённое подтверждение, таблицы и график](MAMBA3_TIME_MECHANISMS_RESULTS.md#mimo-time-confirmation); [исторический пилот](MAMBA3_TIME_MECHANISMS_RESULTS.md#mimo-time-pilot).

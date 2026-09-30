@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "parent_job_id": "4361071",
+  "parent_execution_commit": "5eac7e22c05230f04dd87f3336dc426e093f6bd8",
+  "parent_source_hash": "a7ef84b343f159c475ccb8a300c025318361b39e65bf3eab1f36d78a85760905",
+  "reason": "empty_progress_passed_to_final_case_constructor",
+  "parent_scientific_fits": 0,
+  "parent_synthetic_optimizer_steps": 0,
+  "TEST": "NOT_RUN",
+  "parent_state": {
+    "JobID": "4361071",
+    "JobName": "m3-headtime",
+    "State": "FAILED",
+    "ExitCode": "1:0",
+    "Elapsed": "00:06:56",
+    "NodeList": "cn-046",
+    "Start": "2026-09-29T15:25:54",
+    "End": "2026-09-29T15:32:50"
+  },
+  "files": {
+    "source_manifest.json": {
+      "sha256": "90826292c1efa67c973e6da7505a30b34f766d9e6ebf82bd7a46eec97c159cbe",
+      "bytes": 27346,
+      "preserved": "files/source_manifest.json"
+    },
+    "study_plan.json": {
+      "sha256": "7e157b12a4a90782bf56d433fdebe34f117c395879c75e39e0c121c3ca1ef140",
+      "bytes": 13935,
+      "preserved": "files/study_plan.json"
+    },
+    "slurm_logs/reservation_001.json": {
+      "sha256": "8ac849ba357488e8a7468dabe1074c73536e3198858b21df1b2ccd75c531727d",
+      "bytes": 1846,
+      "preserved": "files/slurm_logs/reservation_001.json"
+    },
+    "slurm_logs/submission_001.json": {
+      "sha256": "fd5492ff344baa1819ec80f1b314cd749f4d9ae78fdaa622036b0cc6c673d73d",
+      "bytes": 1017,
+      "preserved": "files/slurm_logs/submission_001.json"
+    },
+    "slurm_logs/login_verification_001.json": {
+      "sha256": "2baf005de68f6a82c9aa5c9f32f8a9ba25f805c44aa9196859a082607d3563cd",
+      "bytes": 3027,
+      "preserved": "files/slurm_logs/login_verification_001.json"
+    },
+    "slurm_logs/pipeline_status.json": {
+      "sha256": "e302c646b9548bac9705b1e73a9510c0893872af4da9d9c6e5577c1e8c264bbe",
+      "bytes": 2525,
+      "preserved": "files/slurm_logs/pipeline_status.json"
+    },
+    "slurm_logs/pipeline.lock": {
+      "sha256": "5a3998afdc479d32e496b27784d7f94709dcb81d31c81b8c881d14bbce25a5d5",
+      "bytes": 1361,
+      "preserved": "files/slurm_logs/pipeline.lock"
+    },
+    "slurm_logs/gate/child_environment.json": {
+      "sha256": "a27b7795eb9686518ae242b4a09bb00bdb124f8354c9a77ad01a39db5e8e1544",
+      "bytes": 167,
+      "preserved": "files/slurm_logs/gate/child_environment.json"
+    },
+    "slurm_logs/gate/stdout.log": {
+      "sha256": "754011287fd3e529a0d35cbefbd238a3bd94a96b7f3c9fd4349505ae119876ba",
+      "bytes": 775,
+      "preserved": "files/slurm_logs/gate/stdout.log"
+    },
+    "slurm_logs/gate/stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "preserved": "files/slurm_logs/gate/stderr.log"
+    },
+    "slurm_logs/m3-headtime-4361071.out": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "preserved": "files/slurm_logs/m3-headtime-4361071.out"
+    },
+    "slurm_logs/m3-headtime-4361071.err": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "preserved": "files/slurm_logs/m3-headtime-4361071.err"
+    },
+    "runs/targeted_gate_001.json": {
+      "sha256": "3e387d38937c6a1339b235b74df35fa06c31a9c3f111f52d597628ae43729b53",
+      "bytes": 107105,
+      "preserved": "files/runs/targeted_gate_001.json"
+    },
+    "runs/inherited_kernel_001.json": {
+      "sha256": "13fa9199d24ba27263f67bbf635eea15c3d91214fd18e70d5166b8a25b9f93e9",
+      "bytes": 4163,
+      "preserved": "files/runs/inherited_kernel_001.json"
+    },
+    "runs/pilot_summary.json": {
+      "sha256": "62b121595ae5efc4ddaa7c0b67caca409451efa5428c1ebd9f21093be8f45c65",
+      "bytes": 3634,
+      "preserved": "files/runs/pilot_summary.json"
+    },
+    "runs/pilot_summary.md": {
+      "sha256": "f71f673f1923f2259df10249672b2f8bd54e08d07b4e7a9f5ff09680c5cf4b38",
+      "bytes": 1217,
+      "preserved": "files/runs/pilot_summary.md"
+    },
+    "runs/mamba3_headtime_fixed_seed2026_001.json": {
+      "sha256": "b075d0217f72296edcf71c8f40f5f78eecb868f4c716ef8c34aef175f358fa4e",
+      "bytes": 1765,
+      "preserved": "files/runs/mamba3_headtime_fixed_seed2026_001.json"
+    },
+    "runs/mamba3_headtime_shared_tau_seed2026_001.json": {
+      "sha256": "bd82e370a857dcd9f687938fa46f9d1b76e0a8f47b9a5842f3b97b5830daa33e",
+      "bytes": 1775,
+      "preserved": "files/runs/mamba3_headtime_shared_tau_seed2026_001.json"
+    },
+    "runs/mamba3_headtime_head_tau_seed2026_001.json": {
+      "sha256": "80bf61625256af19ebd92bc019723ecd7520d1a7f05467039b6bebb70e25cc5a",
+      "bytes": 1771,
+      "preserved": "files/runs/mamba3_headtime_head_tau_seed2026_001.json"
+    },
+    "slurm_logs/cpu_preflight_5eac7e22c05230f04dd87f3336dc426e093f6bd8.json": {
+      "sha256": "bb48a1eee3b54a1650d440eeb506a85535ea0e7fb6be26dbb330a2fccc6574a4",
+      "bytes": 12550,
+      "preserved": "files/slurm_logs/cpu_preflight_5eac7e22c05230f04dd87f3336dc426e093f6bd8.json"
+    },
+    "slurm_logs/no_git_preflight_5eac7e22c05230f04dd87f3336dc426e093f6bd8.json": {
+      "sha256": "d412d8db2ad03a503daba02e8cb8758d09162e590e048b9cc250c517881cc858",
+      "bytes": 12548,
+      "preserved": "files/slurm_logs/no_git_preflight_5eac7e22c05230f04dd87f3336dc426e093f6bd8.json"
+    }
+  },
+  "scheduler_sha256": "266a6e88f06fb634433578f17df96a34166a87398a7c88b044b0f7b4bbfdd425",
+  "preserved_at": "2026-09-29T13:31:21.393028+00:00",
+  "notes": "198 parity/derivative checks computed; failing causality forward never started. Original FAIL/NOT_RUN evidence unchanged."
+}

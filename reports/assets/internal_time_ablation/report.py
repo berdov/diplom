@@ -325,8 +325,10 @@ def registry(rows, sources, append=False):
         path.write_bytes(current + buf.getvalue().encode())
         return registry(rows, sources)
     require(not additions, 'Missing registry rows: run --append-registry')
-    require(len(old_rows) == 81 and len(existing) == 93, 'Registry row count')
-    return dict(before=81, added=12, after=93, scientific_rows_verified=25, historical_bytes=len(old), historical_sha256=hashlib.sha256(old).hexdigest())
+    published = subprocess.check_output(['git', 'show', 'ce6da46099fcc15f74f61c28ed946f78210ac053:experiments/results.csv'], cwd=ROOT)
+    require(len(old_rows) == 81 and len(existing) >= 93 and current.startswith(published), 'Published registry prefix changed')
+    return dict(before=81, added=12, after=len(existing), later_appended=len(existing)-93,
+                scientific_rows_verified=25, historical_bytes=len(old), historical_sha256=hashlib.sha256(old).hexdigest())
 
 
 def audit_sources():

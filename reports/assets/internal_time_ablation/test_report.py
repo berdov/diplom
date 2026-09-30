@@ -71,7 +71,9 @@ class PublicationTests(unittest.TestCase):
         p = report.ROOT / 'experiments/results.csv'
         before = p.read_bytes()
         result = report.registry(self.rows, self.sources, append=True)
-        self.assertEqual((result['before'], result['added'], result['after']), (81, 12, 93))
+        self.assertEqual((result['before'], result['added']), (81, 12))
+        self.assertGreaterEqual(result['after'], 93)
+        self.assertEqual(result['later_appended'], result['after'] - 93)
         self.assertEqual(before, p.read_bytes())
         self.assertEqual(result['historical_sha256'], '9c837008a31c643fa6a1e9e633e41c766a60c48d0db1fb815f28bc6d09aee3fa')
 
