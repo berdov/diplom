@@ -9,7 +9,8 @@ def save(phase,**values):
     state=read(p) if p.exists() else {}
     phases=['pilot published','confirmation prepared','submitted','pipeline_finished','terminal','audited','published']
     previous=state.get('phase')
-    if previous in phases and phase in phases and phases.index(previous)>phases.index(phase):
+    same_attempt=values.get('execution_attempt',state.get('execution_attempt'))==state.get('execution_attempt')
+    if same_attempt and previous in phases and phase in phases and phases.index(previous)>phases.index(phase):
         phase=previous
         values.pop('next_safe_step',None)
     if 'job_ids' in values:values['job_ids']=list(dict.fromkeys(state.get('job_ids',[])+values['job_ids']))

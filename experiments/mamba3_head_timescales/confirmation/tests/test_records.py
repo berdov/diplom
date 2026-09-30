@@ -284,6 +284,9 @@ class RecordsTests(unittest.TestCase):
             s=save('submitted',job_ids=['124'],next_safe_step='monitor')
             self.assertEqual(s['phase'],'pipeline_finished');self.assertEqual(s['job_ids'],['123','124'])
             self.assertEqual(s['next_safe_step'],'audit')
+            save('audited',execution_attempt='001')
+            s=save('submitted',execution_attempt='002',job_ids=['125'],next_safe_step='monitor002')
+            self.assertEqual(s['phase'],'submitted');self.assertEqual(s['next_safe_step'],'monitor002')
 
 
 if __name__=='__main__':unittest.main()
