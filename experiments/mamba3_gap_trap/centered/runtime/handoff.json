@@ -1,0 +1,31 @@
+{
+  "status": "INCOMPLETE",
+  "job_id": "4371302",
+  "job_state": "PENDING",
+  "reason": "Priority",
+  "checked_at": "2026-10-02T19:35:55.382961+03:00",
+  "estimated_start": "2026-10-03T06:28:00+03:00",
+  "execution_commit": "4347ecbd3bfa98b075dbf0dd8f227bfff3590e50",
+  "source_hash": "8593838aedf9abd976db8a38367de3697716be1ae6661426c3acb52d3ab5d2fa",
+  "scientific_fits_started": 0,
+  "scientific_fits_completed": 0,
+  "scientific_fits_expected": 2,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "cpu_tests": {
+    "normal": 16,
+    "no_git": 16,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cuda_initialized": false
+  },
+  "gpu_gate": "NOT_STARTED",
+  "smoke": "NOT_STARTED",
+  "registry_rows": 110,
+  "automatic_retries": 0,
+  "max_jobs": 1,
+  "background_monitor_process": false,
+  "point3": "PENDING_CENTERED_RESULT",
+  "point4": "NOT_STARTED"
+}
