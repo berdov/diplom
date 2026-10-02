@@ -289,7 +289,7 @@ Seed **2026** является exploratory pilot: его результат ис
 
 1. Три временных механизма: SISO и [MIMO confirmation](#mimo-time-confirmation) завершены, по пять seeds, в рамках текущего KuaiRand/VALID-протокола.
 2. Обучаемые временные масштабы heads: [пилот и подтверждение завершены](#head-timescales-confirmation). Head-specific reference scales не выбраны как обязательное усложнение; контроль — MIMO dual fixed.
-3. Зависящее от gap трапециевидное смешивание: не реализовано и не проверено.
+3. Зависящее от gap трапециевидное смешивание: [one-sided pilot завершён](#gap-trap-one-sided-pilot); centered-проверка ещё не выполнена.
 4. Временные функции отдельно по слоям: не реализованы и не проверены.
 5. Явная временная память состояния: отложенная гипотеза.
 
@@ -730,3 +730,10 @@ R — глобальные параметры модели, не персона�
 
 [Числовая сводка](assets/head_timescales/confirmation_summary.json) · [Markdown](assets/head_timescales/confirmation_summary.md) · [Индекс источников](assets/head_timescales/sources.json) · [TeX VALID](assets/head_timescales/valid_table.tex) · [Сохранённые artifacts и SHA](../experiments/mamba3_head_timescales/confirmation/evidence/job4365206/preservation_manifest.json) · [Независимый аудит](../experiments/mamba3_head_timescales/confirmation/evidence/job4365206/independent_audit.json).
 <!-- head-timescales:confirmation:end -->
+
+<a id="gap-trap-one-sided-pilot"></a>
+## One-sided Gap-Trap: pilot seed2026
+
+Один seed2026. One-sided Gap-Trap получил VALID NDCG@10 **0.0626 против 0.0633** у свежего fixed replay: Δ **−0.0007 (−1.11%)**. First27 также ниже: 0.0612 против 0.0620. Alpha обучалась, но в best checkpoint составила 0.00055767. Эта конкретная one-sided parameterization не улучшила pilot; это не общий вывод о gap-conditioned Trap. Multi-seed confirmation и TEST не запускались.
+
+Job4370162: 2/2 fits, 39/57 эпох, best27/45 (с нуля); HR@10 0.1162/0.1167. Fixed replay воспроизвёл прежний MIMO dual seed2026 по метрикам, train loss и checkpoint SHA. [Дизайн, полная таблица и диагностика](../experiments/mamba3_gap_trap/RESULTS.md), [raw summary](../experiments/mamba3_gap_trap/runs/attempt_001/pilot_summary.json), [сохранение и SHA](../experiments/mamba3_gap_trap/evidence/job4370162/preservation_manifest.json), [аудит](../experiments/mamba3_gap_trap/evidence/job4370162/independent_audit.json).

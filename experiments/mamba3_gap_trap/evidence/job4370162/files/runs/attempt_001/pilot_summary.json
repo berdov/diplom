@@ -1,0 +1,258 @@
+{
+  "execution_attempt": "001",
+  "study_id": "mamba3_gap_trap_001",
+  "execution_commit": "8ee54cf1faee22bb3abad3f31aa9268d77a125d1",
+  "source_hash": "ad9e4591d570a223848c8588dc2e0fed104d6802fccc22e7f2e1c4cc4068ecd0",
+  "source_manifest_sha256": "0706c40e72b4ddf328bfd6c3fa6fad74e7a858fa1daecb8b23def8a62a025175",
+  "plan_sha256": "273a5260c3a7eab7c2e012586f2d1eb0849bf5cb3919b550323a9e9ec9e9f5ae",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "inherited_admission_sha256": "c673524fda1a41d472c6cafebca7e25dad5cd7bd5df99fa772dfdcd4ee8bd5bc",
+  "inherited_smoke_sha256": "ac17c67b3fc411fce5cbdd53a855e75392d5bfd953b29a434e7237f135e7db9b",
+  "pilot_execution_commit": "c1dd31eec7907c67348769b6a1811b89aa4011c0",
+  "pilot_job_id": "4358147",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "job_id": "4370162",
+  "reservation_token": "f3210773ccf9eda7b3e6247adbf0ee3e",
+  "reservation_sha256": "c7224f0a4a184b1331ecc4dbf72343e9100195040324ac27bf4b2832afa56f91",
+  "login_verification_sha256": "ee2f244bcaf6632e2b882a98a6db07f6cc92c60b12c39eb21ebfea3f6ee9611e",
+  "status": "PASS",
+  "rows": [
+    {
+      "variant": "fixed_replay",
+      "parameters": 715020,
+      "status": "PASS",
+      "validation_error": null,
+      "ndcg10": 0.0633,
+      "hr10": 0.1162,
+      "best_epoch": 27,
+      "actual_epochs": 39,
+      "first27_complete": true,
+      "first27_ndcg10": 0.062,
+      "train_seconds": 934.2671438558027,
+      "valid_seconds": 51.98042598110624,
+      "peak_allocated_bytes": 3024827392,
+      "peak_reserved_bytes": 4076863488,
+      "scientific_fit_started": true,
+      "gap_trap_diagnostics": {
+        "alpha": 0.0,
+        "alpha_bounds": [
+          0.0,
+          1.0
+        ],
+        "at_lower_bound": true,
+        "at_upper_bound": false,
+        "shared_across_heads_and_layers": true,
+        "gaps_over_R0": [
+          0,
+          0.01,
+          0.1,
+          0.25,
+          0.5,
+          1,
+          2,
+          4,
+          10,
+          100
+        ],
+        "logit_shift": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "odds_multiplier": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "content_logits": [
+          -2,
+          0,
+          2
+        ],
+        "current_fraction": [
+          [
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755
+          ],
+          [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823
+          ]
+        ],
+        "interpretation": "Conditional on fixed content logit; not a measured distribution of learned event gates"
+      }
+    },
+    {
+      "variant": "gap_trap",
+      "parameters": 715021,
+      "status": "PASS",
+      "validation_error": null,
+      "ndcg10": 0.0626,
+      "hr10": 0.1167,
+      "best_epoch": 45,
+      "actual_epochs": 57,
+      "first27_complete": true,
+      "first27_ndcg10": 0.0612,
+      "train_seconds": 1343.7683879846008,
+      "valid_seconds": 27.01334846415557,
+      "peak_allocated_bytes": 3025238528,
+      "peak_reserved_bytes": 4076863488,
+      "scientific_fit_started": true,
+      "gap_trap_diagnostics": {
+        "alpha": 0.0005576708354055882,
+        "alpha_bounds": [
+          0.0,
+          1.0
+        ],
+        "at_lower_bound": false,
+        "at_upper_bound": false,
+        "shared_across_heads_and_layers": true,
+        "gaps_over_R0": [
+          0,
+          0.01,
+          0.1,
+          0.25,
+          0.5,
+          1,
+          2,
+          4,
+          10,
+          100
+        ],
+        "logit_shift": [
+          0.0,
+          5.521493419857308e-06,
+          5.069734867323528e-05,
+          0.00011153416708111762,
+          0.00018589027846852937,
+          0.0002788354177027941,
+          0.00037178055693705875,
+          0.0004461366683244705,
+          0.0005069734867323529,
+          0.0005521493419857308
+        ],
+        "odds_multiplier": [
+          1.0,
+          1.0000055215086634,
+          1.0000506986338056,
+          1.0001115403872476,
+          1.0001859075571369,
+          1.0002788742959112,
+          1.0003718496758938,
+          1.0004462362020892,
+          1.0005071020195104,
+          1.000552301804493
+        ],
+        "content_logits": [
+          -2,
+          0,
+          2
+        ],
+        "current_fraction": [
+          [
+            0.11920292202211755,
+            0.1192035017447274,
+            0.1192082450212867,
+            0.11921463289158496,
+            0.11922244069054715,
+            0.11923220106100987,
+            0.11924196212234615,
+            0.11924977146886506,
+            0.11925616126310343,
+            0.11926090635134046
+          ],
+          [
+            0.5,
+            0.500001380373355,
+            0.5000126743371656,
+            0.5000278835417413,
+            0.5000464725694833,
+            0.5000697088539741,
+            0.5000929451381637,
+            0.5001115341652311,
+            0.5001267433689685,
+            0.5001380373319895
+          ],
+          [
+            0.8807970779778823,
+            0.8807976576980545,
+            0.8808024007715304,
+            0.8808087878526267,
+            0.8808165938831921,
+            0.8808263507997551,
+            0.8808361070256318,
+            0.8808439115090596,
+            0.8808502966667372,
+            0.8808550379290261
+          ]
+        ],
+        "interpretation": "Conditional on fixed content logit; not a measured distribution of learned event gates"
+      }
+    }
+  ],
+  "contrasts": [
+    {
+      "comparison": "gap_trap - fixed_replay",
+      "status": "COMPLETE",
+      "delta": -0.0006999999999999923,
+      "relative_percent": -1.1058451816745534
+    }
+  ],
+  "scientific_fits_started": 2,
+  "scientific_fits_completed": 2,
+  "scientific_fits_expected": 2,
+  "seed": 2026,
+  "selection_split": "VALID",
+  "interpretation": "Exploratory single seed; no significance/backbone selection; historical dual replay is not a new independent seed",
+  "blocking_reason": null
+}

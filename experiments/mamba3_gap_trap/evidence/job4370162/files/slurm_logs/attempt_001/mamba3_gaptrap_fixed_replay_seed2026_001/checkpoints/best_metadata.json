@@ -1,0 +1,117 @@
+{
+  "epoch": 27,
+  "epoch_indexing": "zero-based",
+  "mode": "dual",
+  "seed": 2026,
+  "run_id": "mamba3_gaptrap_fixed_replay_seed2026_001",
+  "execution_commit": "8ee54cf1faee22bb3abad3f31aa9268d77a125d1",
+  "config_sha256": "e2a0e2e89182bd3c4ab591cba1a08dea3550da881457c8871a7c0df2f82a3458",
+  "source_hash": "ad9e4591d570a223848c8588dc2e0fed104d6802fccc22e7f2e1c4cc4068ecd0",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "metrics": {
+    "hit@5": 0.0712,
+    "hit@10": 0.1162,
+    "hit@20": 0.1865,
+    "hit@50": 0.3338,
+    "ndcg@5": 0.0488,
+    "ndcg@10": 0.0633,
+    "ndcg@20": 0.0809,
+    "ndcg@50": 0.11,
+    "recall@5": 0.0712,
+    "recall@10": 0.1162,
+    "recall@20": 0.1865,
+    "recall@50": 0.3338
+  },
+  "checkpoint_sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8",
+  "gap_trap_mode": "fixed_replay",
+  "gap_trap": {
+    "alpha": 0.0,
+    "alpha_bounds": [
+      0.0,
+      1.0
+    ],
+    "at_lower_bound": true,
+    "at_upper_bound": false,
+    "shared_across_heads_and_layers": true,
+    "gaps_over_R0": [
+      0,
+      0.01,
+      0.1,
+      0.25,
+      0.5,
+      1,
+      2,
+      4,
+      10,
+      100
+    ],
+    "logit_shift": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "odds_multiplier": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "content_logits": [
+      -2,
+      0,
+      2
+    ],
+    "current_fraction": [
+      [
+        0.11920292202211755,
+        0.11920292202211755,
+        0.11920292202211755,
+        0.11920292202211755,
+        0.11920292202211755,
+        0.11920292202211755,
+        0.11920292202211755,
+        0.11920292202211755,
+        0.11920292202211755,
+        0.11920292202211755
+      ],
+      [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.8807970779778823,
+        0.8807970779778823,
+        0.8807970779778823,
+        0.8807970779778823,
+        0.8807970779778823,
+        0.8807970779778823,
+        0.8807970779778823,
+        0.8807970779778823,
+        0.8807970779778823,
+        0.8807970779778823
+      ]
+    ],
+    "interpretation": "Conditional on fixed content logit; not a measured distribution of learned event gates"
+  }
+}

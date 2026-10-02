@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-10-02T15:26:21.279869+00:00",
+  "scheduler": {
+    "command": [
+      "sacct",
+      "-j",
+      "4370162",
+      "--format=JobID,State,ExitCode,Elapsed,Start,End,NodeList",
+      "-P"
+    ],
+    "stdout": "JobID|State|ExitCode|Elapsed|Start|End|NodeList\n4370162|COMPLETED|0:0|00:51:22|2026-10-02T15:23:37|2026-10-02T16:14:59|cn-043\n4370162.batch|COMPLETED|0:0|00:51:22|2026-10-02T15:23:37|2026-10-02T16:14:59|cn-043\n4370162.extern|COMPLETED|0:0|00:51:22|2026-10-02T15:23:37|2026-10-02T16:14:59|cn-043\n",
+    "stderr": "",
+    "returncode": 0
+  }
+}

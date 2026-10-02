@@ -1,0 +1,114 @@
+{
+  "status": "PASS",
+  "job_id": "4370162",
+  "audited_at": "2026-10-02T15:29:20.066659+00:00",
+  "execution_commit": "8ee54cf1faee22bb3abad3f31aa9268d77a125d1",
+  "source_hash": "ad9e4591d570a223848c8588dc2e0fed104d6802fccc22e7f2e1c4cc4068ecd0",
+  "preserved_files": 38,
+  "preserved_bytes": 1168636,
+  "source_blobs": 278,
+  "targeted_cases": 4,
+  "targeted_required_checks": 133,
+  "smoke_steps": 6,
+  "scientific_fits_started": 2,
+  "scientific_fits_completed": 2,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "paired_fields": [
+    "initial_backbone_sha256",
+    "initial_common_calibrator_hashes",
+    "rng_components",
+    "protocol",
+    "manifest_sha256",
+    "train_time_stats_sha256",
+    "verified_history_stats",
+    "precision",
+    "optimizer_settings",
+    "first_train_batch_sha256"
+  ],
+  "rows": [
+    {
+      "variant": "fixed_replay",
+      "status": "PASS",
+      "epochs": 39,
+      "metric_cells": 468,
+      "checkpoint_sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8",
+      "best_alpha": 0.0,
+      "final_alpha": 0.0,
+      "max_epoch_alpha": 0.0,
+      "zero_alpha_epochs": 39
+    },
+    {
+      "variant": "gap_trap",
+      "status": "PASS",
+      "epochs": 57,
+      "metric_cells": 684,
+      "checkpoint_sha256": "1671f5b6a61e5b036352e3d5c870b3d8e179388ac60f5bd7e93ddb9ce125aba7",
+      "best_alpha": 0.0005576708354055882,
+      "final_alpha": 0.0,
+      "max_epoch_alpha": 0.022844018414616585,
+      "zero_alpha_epochs": 13
+    }
+  ],
+  "metric_cells": 1152,
+  "runtime_errors": [],
+  "warnings": [
+    {
+      "path": "slurm_logs/attempt_001/cpu_preflight_8ee54cf1faee22bb3abad3f31aa9268d77a125d1.log",
+      "line": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/checks.py:23: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior."
+    },
+    {
+      "path": "slurm_logs/attempt_001/no_git_preflight_8ee54cf1faee22bb3abad3f31aa9268d77a125d1.log",
+      "line": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/checks.py:23: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior."
+    },
+    {
+      "path": "slurm_logs/attempt_001/smoke/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/smoke.py:55: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior."
+    },
+    {
+      "path": "slurm_logs/attempt_001/gate/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/checks.py:23: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_gaptrap_gap_trap_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_gaptrap_gap_trap_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_gaptrap_gap_trap_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_gaptrap_gap_trap_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_gaptrap_fixed_replay_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_gaptrap_fixed_replay_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_gaptrap_fixed_replay_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_gaptrap_fixed_replay_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    }
+  ],
+  "contrasts": [
+    {
+      "comparison": "gap_trap - fixed_replay",
+      "status": "COMPLETE",
+      "delta": -0.0006999999999999923,
+      "relative_percent": -1.1058451816745534
+    }
+  ],
+  "checkpoint_loading": false
+}

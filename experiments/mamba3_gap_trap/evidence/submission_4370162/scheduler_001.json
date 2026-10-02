@@ -1,0 +1,68 @@
+{
+  "scheduler": [
+    {
+      "command": [
+        "squeue",
+        "-h",
+        "-j",
+        "4370162",
+        "-o",
+        "%i|%T|%R|%M|%S"
+      ],
+      "result": {
+        "args": [
+          "squeue",
+          "-h",
+          "-j",
+          "4370162",
+          "-o",
+          "%i|%T|%R|%M|%S"
+        ],
+        "returncode": 0,
+        "stdout": "4370162|PENDING|(Priority)|0:00|N/A\n",
+        "stderr": ""
+      }
+    },
+    {
+      "command": [
+        "scontrol",
+        "show",
+        "job",
+        "4370162"
+      ],
+      "result": {
+        "args": [
+          "scontrol",
+          "show",
+          "job",
+          "4370162"
+        ],
+        "returncode": 0,
+        "stdout": "JobId=4370162 JobName=m3-gaptrap\n   UserId=daryumin(3677) GroupId=users(100) MCS_label=N/A\n   Priority=264 Nice=0 Account=proj_1833 QOS=normal\n   JobState=PENDING Reason=Priority Dependency=(null)\n   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0\n   RunTime=00:00:00 TimeLimit=06:00:00 TimeMin=N/A\n   SubmitTime=2026-10-02T11:09:16 EligibleTime=2026-10-02T11:09:16\n   AccrueTime=2026-10-02T11:09:16\n   StartTime=Unknown EndTime=Unknown Deadline=N/A\n   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-02T11:10:13 Scheduler=Backfill:*\n   Partition=rocky AllocNode:Sid=192.168.1.80:1783134\n   ReqNodeList=(null) ExcNodeList=(null)\n   NodeList=\n   NumNodes=1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:*\n   ReqTRES=cpu=4,mem=1M,node=1,billing=4,gres/gpu=1,gres/gpu:a100=1\n   AllocTRES=(null)\n   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*\n   MinCPUsNode=4 MinMemoryNode=0 MinTmpDiskNode=0\n   Features=type_e DelayBoot=00:00:00\n   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)\n   Command=/home/daryumin/iberdov/diplom/slurm/mamba3_gap_trap.sh\n   WorkDir=/home/daryumin/iberdov/diplom\n   StdErr=/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/slurm_logs/attempt_001/m3-gaptrap-4370162.err\n   StdIn=/dev/null\n   StdOut=/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/slurm_logs/attempt_001/m3-gaptrap-4370162.out\n   TresPerNode=gres/gpu:a100:1\n   TresPerTask=cpu=4\n   \n\n",
+        "stderr": ""
+      }
+    },
+    {
+      "command": [
+        "sacct",
+        "-j",
+        "4370162",
+        "--format=JobID,State,ExitCode,Elapsed,Start,End,NodeList",
+        "-P"
+      ],
+      "result": {
+        "args": [
+          "sacct",
+          "-j",
+          "4370162",
+          "--format=JobID,State,ExitCode,Elapsed,Start,End,NodeList",
+          "-P"
+        ],
+        "returncode": 0,
+        "stdout": "JobID|State|ExitCode|Elapsed|Start|End|NodeList\n4370162|PENDING|0:0|00:00:00|Unknown|Unknown|None assigned\n",
+        "stderr": ""
+      }
+    }
+  ],
+  "observed_at": "2026-10-02T08:10:16.116401+00:00"
+}

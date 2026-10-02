@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "registry_before": 108,
+  "registry_after": 110,
+  "previous_bytes": 49702,
+  "previous_sha256": "36e25000e656147e7b484defad705a5f486bb77a297606026a9791484291640d",
+  "registry_sha256": "2df7f7d65c865f43cf82bcb0d109b7cc56bce8b12f382deb2f0bac819362810f",
+  "old_prefix_unchanged": true,
+  "added_run_ids": [
+    "mamba3_gaptrap_fixed_replay_seed2026_001",
+    "mamba3_gaptrap_gap_trap_seed2026_001"
+  ],
+  "execution_commit": "8ee54cf1faee22bb3abad3f31aa9268d77a125d1",
+  "checkpoint_sha_rechecked": true,
+  "checkpoint_sha256": [
+    "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8",
+    "1671f5b6a61e5b036352e3d5c870b3d8e179388ac60f5bd7e93ddb9ce125aba7"
+  ],
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0
+}
