@@ -121,6 +121,7 @@
     {
       "id": "fixed_replay_parity",
       "required_keys": [
+        "common_adam_step",
         "gradient:input_norm.bias",
         "gradient:input_norm.weight",
         "gradient:item_embedding.weight",
@@ -174,13 +175,13 @@
         "gradient:times.calibrators.scan.last.weight",
         "input_gradient",
         "loss",
-        "output",
-        "common_adam_step"
+        "output"
       ]
     },
     {
       "id": "gap_trap_parity",
       "required_keys": [
+        "common_adam_step",
         "gradient:input_norm.bias",
         "gradient:input_norm.weight",
         "gradient:item_embedding.weight",
@@ -234,28 +235,28 @@
         "gradient:times.calibrators.scan.last.weight",
         "input_gradient",
         "loss",
-        "output",
-        "common_adam_step"
+        "output"
       ]
     },
     {
       "id": "modulation",
       "required_keys": [
-        "identity",
-        "monotonic",
-        "masks",
-        "zero_gap",
+        "boundary_update",
+        "dtype",
         "extreme",
         "gradient",
-        "roundtrip",
+        "identity",
+        "masks",
+        "monotonic",
         "projection",
-        "boundary_update",
-        "dtype"
+        "roundtrip",
+        "zero_gap"
       ]
     },
     {
       "id": "causality_gap_trap",
       "required_keys": [
+        "alpha_gradient",
         "cross_user_gradient",
         "cross_user_intervention0",
         "cross_user_intervention1",
@@ -265,8 +266,7 @@
         "prefix_intervention0",
         "prefix_intervention1",
         "residual",
-        "timestamp_residual",
-        "alpha_gradient"
+        "timestamp_residual"
       ]
     }
   ],

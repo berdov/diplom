@@ -39,6 +39,15 @@ def successful(variant,score=.06,epochs=12):
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_frozen_required_registry_is_accepted(self):
+        specs=c.plan()['required_cases']
+        rows=[dict(case_id=s['id'],status='PASS',required_keys=s['required_keys'],
+                   checks={k:dict(passed=True) for k in s['required_keys']}) for s in specs]
+        self.assertTrue(accepted_cases(rows,specs))
+        self.assertEqual(c.plan()['max_scientific_fits'],len(c.MODES))
+        self.assertEqual(c.plan()['max_jobs'],1)
+        self.assertEqual(c.plan()['test_evaluations'],0)
+
     def test_child_isolation_before_import_and_parent_unchanged(self):
         parent=dict(os.environ,CUDA_VISIBLE_DEVICES='GPU-fixture')
         original=dict(parent)

@@ -272,14 +272,14 @@
     "experiments/mamba3_gap_trap/preflight.py": "deb98a39d8f5cb1fca870a0cac01983d8e13a3634448c56ec530f7fdc6d01a2a",
     "experiments/mamba3_gap_trap/smoke.py": "cb6d3ffe8ef8436d95f05f01ea8879a95b122886bb6aae18fedc427bb248b268",
     "experiments/mamba3_gap_trap/tests/test_modulation.py": "564946870455d640c9c42721dab5cef09135757900f720fc6396b6f59fdb8d16",
-    "experiments/mamba3_gap_trap/tests/test_protocol.py": "ea6881dc16ca01cf6f96a317d85588567afbff5a9aa0963dbd358e48c3691286",
+    "experiments/mamba3_gap_trap/tests/test_protocol.py": "79fe84ee1fa7ed65994704bfe79dc32d118862dcf540f5bbb0de7cecec3984af",
     "experiments/mamba3_gap_trap/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "experiments/mamba3_gap_trap/DESIGN.md": "6469b6c4831f5af0fe3c2c3c059b2ce6af212f8b9d895ae5ac624a77490deb35",
-    "experiments/mamba3_gap_trap/study_plan.json": "798aa480c3fa535864e8038bc88dd8277f6797c4ae849929a8dab9b0a8573e35",
+    "experiments/mamba3_gap_trap/study_plan.json": "85e3b54af9789d88ef02fe34e6f5393c67205118caf180d094994dc316b648de",
     "slurm/mamba3_gap_trap.sh": "5d1721a43576747cbfa8bec0a8731b74a6a3ce526aa820e27f567d9bda1c122d",
     "experiments/mamba3_head_timescales/confirmation/source_manifest.json": "5cf8b69d9142d3da1079f58d47d2c60bc68e27729c49285f784a07dee8152583"
   },
-  "source_hash": "bc33d39668dddd48b52132caaf6cd38cd0933202aedb1b30b60297d8c6266c01",
+  "source_hash": "adf16411a52b57dcac9ef9294badc17189f743c061b9d31d15d024c2f612ab51",
   "publication_commit": "4e5fcd660115318ed8df26849498eabe3a72bb26",
   "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f"
 }
