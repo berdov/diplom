@@ -1,0 +1,12 @@
+{
+  "stage": "fixed",
+  "seed": 2027,
+  "parent_cuda_visibility": {
+    "present": true,
+    "value": "0"
+  },
+  "child_cuda_visibility": {
+    "present": true,
+    "value": "0"
+  }
+}

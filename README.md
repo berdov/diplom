@@ -14,6 +14,7 @@
 ## Результаты
 
 - Два и три внутренних временных механизма Mamba3: завершённые VALID-серии [SISO](reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#siso-dual-triple-confirmation) и [MIMO](reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#mimo-time-confirmation).
+- [Обучаемые временные масштабы голов: завершённое подтверждение](reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#head-timescales-confirmation). Устойчивый выигрыш над fixed не подтверждён; fixed остаётся контролем.
 - [Наши VALID и TEST](reports/RESULTS.md), включая vanilla TEST NDCG@10 **0.0590**.
 - [Опубликованные ориентиры и наши TEST](reports/PAPER_RESULTS.md): все cutoff и ограничения сопоставимости.
 - [Подтверждение временных механизмов: таблицы и график](reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#confirmation).

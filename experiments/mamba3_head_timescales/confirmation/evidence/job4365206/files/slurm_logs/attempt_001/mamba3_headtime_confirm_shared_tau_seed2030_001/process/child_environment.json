@@ -1,0 +1,12 @@
+{
+  "stage": "shared_tau",
+  "seed": 2030,
+  "parent_cuda_visibility": {
+    "present": true,
+    "value": "0"
+  },
+  "child_cuda_visibility": {
+    "present": true,
+    "value": "0"
+  }
+}

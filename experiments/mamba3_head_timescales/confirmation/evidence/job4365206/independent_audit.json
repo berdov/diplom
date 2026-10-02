@@ -1,0 +1,720 @@
+{
+  "status": "PASS",
+  "fits_verified": 12,
+  "epochs_verified": 596,
+  "result_sha256": {
+    "mamba3_headtime_confirm_fixed_seed2027_001": "30e93d89f659a6151b5ab8dbbda58f034ae315ac4005444141089cb57ec243bf",
+    "mamba3_headtime_confirm_shared_tau_seed2027_001": "2e0b1d74797f247d6d6613675877450ce10d27d8858d5872056a14bd48137f20",
+    "mamba3_headtime_confirm_head_tau_seed2027_001": "7c7e05ee0aeebf579abe4f8ce48b838392ba545b42b608ba210a8fe8448cf918",
+    "mamba3_headtime_confirm_fixed_seed2028_001": "a6ff3111741027f546888fe3e8ac0e027cba360e9641c70471f2d52732e1f4dc",
+    "mamba3_headtime_confirm_shared_tau_seed2028_001": "db1fe128fdd85e483f55a3ea8d573cf110db874a7f53a4b330482aa09d28d979",
+    "mamba3_headtime_confirm_head_tau_seed2028_001": "51ce6ffab671580f64079e1caedcde8e0c8639a2b07ac3e301622a525fc3b89a",
+    "mamba3_headtime_confirm_fixed_seed2029_001": "24fcc4f95db8a7f2953e1246067674d876e09790d228f32e03ed7b21ef234e63",
+    "mamba3_headtime_confirm_shared_tau_seed2029_001": "b1974bf9a743d44b24152479b7af18672333600f9d9f5aa06f3de85c41f77410",
+    "mamba3_headtime_confirm_head_tau_seed2029_001": "bf7f15fb4694e7e3483002a4edfc9f4b23c45955fd5305266b811bce58ceeecc",
+    "mamba3_headtime_confirm_fixed_seed2030_001": "4e2752f908c0f057b3e29ee984d247fda2056a6afc08dc147ac7ad162d259641",
+    "mamba3_headtime_confirm_shared_tau_seed2030_001": "8e47b1c9ac8179256455fd50da46c53373d5970c834a5fd739bd57516f38db35",
+    "mamba3_headtime_confirm_head_tau_seed2030_001": "1e8cbd706bc3d31f6a9d3615ec1f8458501d49eb9ac513e985b78647d6f54b12"
+  },
+  "rows": [
+    {
+      "seed": 2027,
+      "variant": "fixed",
+      "ndcg10": 0.0625,
+      "hr10": 0.1147,
+      "best_epoch": 17,
+      "epochs": 29,
+      "first27": 0.0625,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          1.0,
+          1.0
+        ],
+        "scan0": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "seed": 2027,
+      "variant": "shared_tau",
+      "ndcg10": 0.0628,
+      "hr10": 0.1161,
+      "best_epoch": 37,
+      "epochs": 49,
+      "first27": 0.0624,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          0.7804027527110119,
+          0.9604894123456098
+        ],
+        "scan0": [
+          0.930951522416458,
+          1.4572682506104617
+        ]
+      }
+    },
+    {
+      "seed": 2027,
+      "variant": "head_tau",
+      "ndcg10": 0.0635,
+      "hr10": 0.1179,
+      "best_epoch": 28,
+      "epochs": 40,
+      "first27": 0.063,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          0.8921724383981755,
+          1.0856849357437364
+        ],
+        "decay1": [
+          0.6127656186148736,
+          0.8000780343004226
+        ],
+        "scan0": [
+          0.7502363653374239,
+          1.1572535240180684
+        ],
+        "scan1": [
+          0.9491065844148557,
+          1.4493958507936868
+        ]
+      }
+    },
+    {
+      "seed": 2028,
+      "variant": "fixed",
+      "ndcg10": 0.0627,
+      "hr10": 0.1169,
+      "best_epoch": 46,
+      "epochs": 58,
+      "first27": 0.061,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          1.0,
+          1.0
+        ],
+        "scan0": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "seed": 2028,
+      "variant": "shared_tau",
+      "ndcg10": 0.0629,
+      "hr10": 0.1167,
+      "best_epoch": 29,
+      "epochs": 41,
+      "first27": 0.0622,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          0.7642388396504576,
+          0.8717978858648738
+        ],
+        "scan0": [
+          1.0024322749698025,
+          1.280848298045808
+        ]
+      }
+    },
+    {
+      "seed": 2028,
+      "variant": "head_tau",
+      "ndcg10": 0.063,
+      "hr10": 0.1175,
+      "best_epoch": 37,
+      "epochs": 49,
+      "first27": 0.0618,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          0.8046541367943574,
+          0.9232022291964366
+        ],
+        "decay1": [
+          0.4226413740559706,
+          0.8200746598462209
+        ],
+        "scan0": [
+          0.7069572593734904,
+          0.9707201251827682
+        ],
+        "scan1": [
+          0.9922065376141774,
+          1.5724547509512776
+        ]
+      }
+    },
+    {
+      "seed": 2029,
+      "variant": "fixed",
+      "ndcg10": 0.0641,
+      "hr10": 0.1183,
+      "best_epoch": 87,
+      "epochs": 99,
+      "first27": 0.0615,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          1.0,
+          1.0
+        ],
+        "scan0": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "seed": 2029,
+      "variant": "shared_tau",
+      "ndcg10": 0.0628,
+      "hr10": 0.1172,
+      "best_epoch": 33,
+      "epochs": 45,
+      "first27": 0.0623,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          0.7608339345466933,
+          0.8871096667563243
+        ],
+        "scan0": [
+          0.960478238867745,
+          1.3941678529744337
+        ]
+      }
+    },
+    {
+      "seed": 2029,
+      "variant": "head_tau",
+      "ndcg10": 0.0633,
+      "hr10": 0.1159,
+      "best_epoch": 56,
+      "epochs": 68,
+      "first27": 0.0618,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          0.843703034398397,
+          0.9789965554046126
+        ],
+        "decay1": [
+          0.3739416029512565,
+          0.7038442101153632
+        ],
+        "scan0": [
+          0.8055263557629392,
+          1.4710141569330977
+        ],
+        "scan1": [
+          1.014701301867542,
+          1.691345661246717
+        ]
+      }
+    },
+    {
+      "seed": 2030,
+      "variant": "fixed",
+      "ndcg10": 0.0624,
+      "hr10": 0.115,
+      "best_epoch": 28,
+      "epochs": 40,
+      "first27": 0.0622,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          1.0,
+          1.0
+        ],
+        "scan0": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "seed": 2030,
+      "variant": "shared_tau",
+      "ndcg10": 0.0625,
+      "hr10": 0.1159,
+      "best_epoch": 31,
+      "epochs": 43,
+      "first27": 0.0617,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          0.8740471433381088,
+          1.0937848621623145
+        ],
+        "scan0": [
+          0.9601027460640448,
+          1.52277250079961
+        ]
+      }
+    },
+    {
+      "seed": 2030,
+      "variant": "head_tau",
+      "ndcg10": 0.062,
+      "hr10": 0.1154,
+      "best_epoch": 23,
+      "epochs": 35,
+      "first27": 0.062,
+      "near_bound_observations": 0,
+      "ratio_ranges": {
+        "decay0": [
+          0.7076081698220936,
+          0.8485537670840906
+        ],
+        "decay1": [
+          0.8863526683935413,
+          1.1070855780717315
+        ],
+        "scan0": [
+          1.0733830801537934,
+          1.8447225082888659
+        ],
+        "scan1": [
+          0.7715553660449558,
+          0.9137537263897286
+        ]
+      }
+    }
+  ],
+  "independent_aggregates": {
+    "new4_full": {
+      "head_tau-shared_tau": {
+        "mean": 0.00020000000000000226,
+        "sample_std": 0.0005291502622129201,
+        "n_available": 4,
+        "n_expected": 4,
+        "positive": 3,
+        "zero": 0,
+        "negative": 1,
+        "relative_percent": 0.3187250996016022,
+        "pairs": [
+          [
+            2027,
+            0.0635,
+            0.0628
+          ],
+          [
+            2028,
+            0.063,
+            0.0629
+          ],
+          [
+            2029,
+            0.0633,
+            0.0628
+          ],
+          [
+            2030,
+            0.062,
+            0.0625
+          ]
+        ]
+      },
+      "head_tau-fixed": {
+        "mean": 2.4999999999997247e-05,
+        "sample_std": 0.000793200268952722,
+        "n_available": 4,
+        "n_expected": 4,
+        "positive": 2,
+        "zero": 0,
+        "negative": 2,
+        "relative_percent": 0.03972983710767153,
+        "pairs": [
+          [
+            2027,
+            0.0635,
+            0.0625
+          ],
+          [
+            2028,
+            0.063,
+            0.0627
+          ],
+          [
+            2029,
+            0.0633,
+            0.0641
+          ],
+          [
+            2030,
+            0.062,
+            0.0624
+          ]
+        ]
+      },
+      "shared_tau-fixed": {
+        "mean": -0.000175000000000005,
+        "sample_std": 0.0007544313531837542,
+        "n_available": 4,
+        "n_expected": 4,
+        "positive": 3,
+        "zero": 0,
+        "negative": 1,
+        "relative_percent": -0.2781088597536896,
+        "pairs": [
+          [
+            2027,
+            0.0628,
+            0.0625
+          ],
+          [
+            2028,
+            0.0629,
+            0.0627
+          ],
+          [
+            2029,
+            0.0628,
+            0.0641
+          ],
+          [
+            2030,
+            0.0625,
+            0.0624
+          ]
+        ]
+      }
+    },
+    "new4_first27": {
+      "head_tau-shared_tau": {
+        "mean": 1.734723475976807e-18,
+        "sample_std": 0.0005354126134736347,
+        "n_available": 4,
+        "n_expected": 4,
+        "positive": 2,
+        "zero": 0,
+        "negative": 2,
+        "relative_percent": 0.0,
+        "pairs": [
+          [
+            2027,
+            0.063,
+            0.0624
+          ],
+          [
+            2028,
+            0.0618,
+            0.0622
+          ],
+          [
+            2029,
+            0.0618,
+            0.0623
+          ],
+          [
+            2030,
+            0.062,
+            0.0617
+          ]
+        ]
+      },
+      "head_tau-fixed": {
+        "mean": 0.00035000000000000135,
+        "sample_std": 0.0004203173404306166,
+        "n_available": 4,
+        "n_expected": 4,
+        "positive": 3,
+        "zero": 0,
+        "negative": 1,
+        "relative_percent": 0.5663430420711935,
+        "pairs": [
+          [
+            2027,
+            0.063,
+            0.0625
+          ],
+          [
+            2028,
+            0.0618,
+            0.061
+          ],
+          [
+            2029,
+            0.0618,
+            0.0615
+          ],
+          [
+            2030,
+            0.062,
+            0.0622
+          ]
+        ]
+      },
+      "shared_tau-fixed": {
+        "mean": 0.0003499999999999996,
+        "sample_std": 0.0007852812659593174,
+        "n_available": 4,
+        "n_expected": 4,
+        "positive": 2,
+        "zero": 0,
+        "negative": 2,
+        "relative_percent": 0.5663430420711935,
+        "pairs": [
+          [
+            2027,
+            0.0624,
+            0.0625
+          ],
+          [
+            2028,
+            0.0622,
+            0.061
+          ],
+          [
+            2029,
+            0.0623,
+            0.0615
+          ],
+          [
+            2030,
+            0.0617,
+            0.0622
+          ]
+        ]
+      }
+    },
+    "all5_full": {
+      "head_tau-shared_tau": {
+        "mean": 0.00040000000000000034,
+        "sample_std": 0.0006403124237432832,
+        "n_available": 5,
+        "n_expected": 5,
+        "positive": 4,
+        "zero": 0,
+        "negative": 1,
+        "relative_percent": 0.6375518010838244,
+        "pairs": [
+          [
+            2026,
+            0.0639,
+            0.0627
+          ],
+          [
+            2027,
+            0.0635,
+            0.0628
+          ],
+          [
+            2028,
+            0.063,
+            0.0629
+          ],
+          [
+            2029,
+            0.0633,
+            0.0628
+          ],
+          [
+            2030,
+            0.062,
+            0.0625
+          ]
+        ]
+      },
+      "head_tau-fixed": {
+        "mean": 0.00013999999999999847,
+        "sample_std": 0.0007334848328356928,
+        "n_available": 5,
+        "n_expected": 5,
+        "positive": 3,
+        "zero": 0,
+        "negative": 2,
+        "relative_percent": 0.22222222222223476,
+        "pairs": [
+          [
+            2026,
+            0.0639,
+            0.0633
+          ],
+          [
+            2027,
+            0.0635,
+            0.0625
+          ],
+          [
+            2028,
+            0.063,
+            0.0627
+          ],
+          [
+            2029,
+            0.0633,
+            0.0641
+          ],
+          [
+            2030,
+            0.062,
+            0.0624
+          ]
+        ]
+      },
+      "shared_tau-fixed": {
+        "mean": -0.0002600000000000019,
+        "sample_std": 0.0006804410334481602,
+        "n_available": 5,
+        "n_expected": 5,
+        "positive": 3,
+        "zero": 0,
+        "negative": 2,
+        "relative_percent": -0.412698412698409,
+        "pairs": [
+          [
+            2026,
+            0.0627,
+            0.0633
+          ],
+          [
+            2027,
+            0.0628,
+            0.0625
+          ],
+          [
+            2028,
+            0.0629,
+            0.0627
+          ],
+          [
+            2029,
+            0.0628,
+            0.0641
+          ],
+          [
+            2030,
+            0.0625,
+            0.0624
+          ]
+        ]
+      }
+    },
+    "all5_first27": {
+      "head_tau-shared_tau": {
+        "mean": 8.00000000000023e-05,
+        "sample_std": 0.0004969909455915684,
+        "n_available": 5,
+        "n_expected": 5,
+        "positive": 3,
+        "zero": 0,
+        "negative": 2,
+        "relative_percent": 0.1289075088624081,
+        "pairs": [
+          [
+            2026,
+            0.0621,
+            0.0617
+          ],
+          [
+            2027,
+            0.063,
+            0.0624
+          ],
+          [
+            2028,
+            0.0618,
+            0.0622
+          ],
+          [
+            2029,
+            0.0618,
+            0.0623
+          ],
+          [
+            2030,
+            0.062,
+            0.0617
+          ]
+        ]
+      },
+      "head_tau-fixed": {
+        "mean": 0.00030000000000000165,
+        "sample_std": 0.00038078865529319537,
+        "n_available": 5,
+        "n_expected": 5,
+        "positive": 4,
+        "zero": 0,
+        "negative": 1,
+        "relative_percent": 0.48512289780078266,
+        "pairs": [
+          [
+            2026,
+            0.0621,
+            0.062
+          ],
+          [
+            2027,
+            0.063,
+            0.0625
+          ],
+          [
+            2028,
+            0.0618,
+            0.061
+          ],
+          [
+            2029,
+            0.0618,
+            0.0615
+          ],
+          [
+            2030,
+            0.062,
+            0.0622
+          ]
+        ]
+      },
+      "shared_tau-fixed": {
+        "mean": 0.00021999999999999936,
+        "sample_std": 0.0007395944834840248,
+        "n_available": 5,
+        "n_expected": 5,
+        "positive": 2,
+        "zero": 0,
+        "negative": 3,
+        "relative_percent": 0.35575679172057395,
+        "pairs": [
+          [
+            2026,
+            0.0617,
+            0.062
+          ],
+          [
+            2027,
+            0.0624,
+            0.0625
+          ],
+          [
+            2028,
+            0.0622,
+            0.061
+          ],
+          [
+            2029,
+            0.0623,
+            0.0615
+          ],
+          [
+            2030,
+            0.0617,
+            0.0622
+          ]
+        ]
+      }
+    }
+  },
+  "errors": [],
+  "checkpoint_deserialized": false,
+  "model_evaluations": 0
+}
