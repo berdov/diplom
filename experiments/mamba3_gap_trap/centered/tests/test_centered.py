@@ -1,6 +1,8 @@
 import copy
 import inspect
 import types
+import tempfile
+from pathlib import Path
 import unittest
 from unittest.mock import patch
 import torch
@@ -85,6 +87,97 @@ class CenteredTests(unittest.TestCase):
         self.assertEqual(models[1].gap_trap.alpha.dtype,torch.float32)
         self.assertEqual(float(models[1].gap_trap.alpha),0.)
         self.assertEqual(len([k for k in models[1].state_dict() if k.startswith('gap_trap.')]),1)
+
+    def test_historical_model_transfer_to_both_variants(self):
+        from recbole.config import Config
+        from experiments.mamba3_three_time.config import SyntheticCatalog
+        from experiments.mamba3_three_time.model import ThreeTimeMamba3Rec
+        from experiments.mamba3_gap_trap.centered.model import GapTrapMamba3Rec
+        cfg=Config(model=ThreeTimeMamba3Rec,config_dict=c.settings('fixed_replay','cpu'))
+        source=ThreeTimeMamba3Rec(cfg,SyntheticCatalog())
+        self.assertFalse(hasattr(source,'gap_trap_mode'))
+        with torch.no_grad():
+            source.item_embedding.weight[1,0].add_(.125)
+            source.times.calibrators['decay'].first.bias.add_(.25)
+        expected={k:v.clone() for k,v in source.state_dict().items()}
+        for mode in c.MODES:
+            with self.subTest(mode=mode):
+                cfg=Config(model=ThreeTimeMamba3Rec,config_dict=c.settings(mode,'cpu'))
+                target=GapTrapMamba3Rec(cfg,SyntheticCatalog())
+                self.assertFalse(torch.equal(target.item_embedding.weight,source.item_embedding.weight))
+                keys=transfer_common(source,target)
+                self.assertEqual(keys,sorted(expected))
+                self.assertTrue(all(torch.equal(v,target.state_dict()[k]) for k,v in expected.items()))
+                self.assertTrue(all(torch.equal(v,source.state_dict()[k]) for k,v in expected.items()))
+                self.assertEqual(set(target.state_dict())-set(expected),{'gap_trap.alpha'} if mode=='centered_gap_trap' else set())
+                if mode=='centered_gap_trap':self.assertEqual(float(target.gap_trap.alpha),0.)
+        self.assertFalse(torch.cuda.is_initialized())
+
+    def test_transfer_rejects_invalid_state_without_partial_write(self):
+        from recbole.config import Config
+        from experiments.mamba3_three_time.config import SyntheticCatalog
+        from experiments.mamba3_three_time.model import ThreeTimeMamba3Rec
+        from experiments.mamba3_gap_trap.centered.model import GapTrapMamba3Rec
+        cfg=Config(model=ThreeTimeMamba3Rec,config_dict=c.settings('centered_gap_trap','cpu'))
+        target=GapTrapMamba3Rec(cfg,SyntheticCatalog())
+        before={k:v.clone() for k,v in target.state_dict().items()}
+        common={k:v for k,v in before.items() if k!='gap_trap.alpha'}
+        key='item_embedding.weight'
+        for damage in ('missing','extra','shape','dtype'):
+            changed=dict(common)
+            if damage=='missing':changed.pop(key)
+            elif damage=='extra':changed['unexpected_buffer']=torch.zeros(())
+            elif damage=='shape':changed[key]=changed[key][:1]
+            else:changed[key]=changed[key].double()
+            with self.subTest(damage=damage),self.assertRaises(ValueError):
+                transfer_common(types.SimpleNamespace(state_dict=lambda:changed),target)
+            self.assertTrue(all(torch.equal(v,target.state_dict()[k]) for k,v in before.items()))
+
+    def test_gate_uses_regression_checked_transfer(self):
+        from experiments.mamba3_gap_trap.centered import gate
+        self.assertIs(gate.parity.__globals__['transfer_common'],transfer_common)
+        self.assertIs(gate.parity.__globals__['fresh'],gate.fresh)
+        self.assertIs(gate.fresh.__globals__['c'],c)
+        self.assertEqual(gate.fresh.__globals__['__package__'],'experiments.mamba3_gap_trap.centered')
+
+    def test_attempt002_namespaces_and_binding(self):
+        from experiments.mamba3_mimo_time.records import sha
+        self.assertEqual(c.EXECUTION_ATTEMPT,'002')
+        self.assertEqual(c.MANIFEST.name,'source_manifest_002.json')
+        self.assertEqual(c.PLAN.name,'study_plan_002.json')
+        for path in (c.LOGIN,c.RESERVATION,c.SUBMISSION,c.PIPELINE):self.assertTrue(path.is_relative_to(c.HERE/'slurm_logs/attempt_002'))
+        for path in (c.GATE,c.SMOKE,c.INHERITED,c.SUMMARY):self.assertTrue(path.is_relative_to(c.HERE/'runs/attempt_002'))
+        for mode in c.MODES:
+            self.assertTrue(c.paths(mode)['run_id'].endswith('_002'))
+            self.assertTrue(c.paths(mode)['checkpoint'].is_relative_to(c.LOGS))
+        binding=provenance.bindings('a'*40,{'source_hash':'b'*64})
+        self.assertEqual(binding['execution_attempt'],'002')
+        self.assertEqual(binding['plan_sha256'],sha(c.PLAN))
+        self.assertEqual(binding['previous_job_id'],'4371302')
+        self.assertIs(provenance.identity.__globals__['bindings'],provenance.bindings)
+        self.assertIs(provenance._engine['login_verify'].__globals__['bindings'],provenance.bindings)
+        old=__import__('json').loads((c.HERE/'study_plan.json').read_text())
+        current=c.plan()
+        allowed={'execution_attempt','retry_authorization','tasks'}
+        self.assertEqual({k:v for k,v in current.items() if k not in allowed},{k:v for k,v in old.items() if k not in allowed})
+        launcher=c.LAUNCHER.read_text()
+        self.assertNotIn('attempt_001',launcher)
+        self.assertIn('--no-requeue',launcher)
+
+    def test_preflight_attempt002_running_failure_and_return(self):
+        from experiments.mamba3_gap_trap.centered import preflight
+        from experiments.mamba3_mimo_time.records import read
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'fixture.json'
+            record=dict(execution_attempt='001',status='RUNNING')
+            preflight.create_evidence(path,record)
+            self.assertEqual(read(path)['execution_attempt'],'002')
+            record['status']='FAIL';preflight.update_evidence(path,record)
+            self.assertEqual(read(path)['execution_attempt'],'002')
+            result=preflight.run('invalid',Path(directory)/'failure.json')
+            self.assertEqual(result['status'],'FAIL')
+            self.assertEqual(read(Path(directory)/'failure.json')['execution_attempt'],'002')
+            self.assertEqual(preflight.run('invalid')['execution_attempt'],'002')
 
     def test_alpha_does_not_consume_rng(self):
         before=torch.get_rng_state().clone();GapTrap()

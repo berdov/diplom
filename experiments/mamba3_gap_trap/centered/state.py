@@ -18,4 +18,6 @@ def initial(model, loader=None):
 
 
 def transfer_common(source, target):
-    return parent.transfer_common(view(source), view(target))
+    # Only the target needs its centered mode adapted. Historical sources
+    # provide state_dict but have no gap_trap_mode attribute.
+    return parent.transfer_common(source, view(target))

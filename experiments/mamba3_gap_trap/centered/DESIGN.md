@@ -108,3 +108,21 @@ patience10 (stop после11 ухудшений), max300. First27 — толь�
 KuaiRand/VALID scope. При выигрыше только рекомендация отдельного решения о
 paired seeds2027–2030; при отсутствии выигрыша третьего Trap-варианта не будет.
 Следующий возможный пункт — layer-specific temporal functions, отдельно.
+
+
+## Повторный технический запуск, attempt002
+
+Job4371302 (attempt001, execution4347ecb) завершился до первого gate forward:
+адаптер переноса весов ожидал gap_trap_mode у исторического ThreeTimeMamba3Rec.
+Scientific fits0, TEST0. После явного разрешения на исправление и повторную
+отправку выделены новые attempt002 paths, plan и source manifest. Исправление
+передаёт источник в проверенный transfer_common без адаптера; mode adapter
+применяется только к целевой модели. CPU-регрессия проверяет исторический
+источник для обоих вариантов и отказ при неправильных ключах/формах/dtype.
+
+Формула, веса backbone, данные, optimizer, precision, критерии gate, smoke и
+scientific protocol не меняются. Разрешён один дополнительный job, максимум
+два scientific fits суммарно (предыдущая попытка не начала ни одного).
+Автоматические retries по-прежнему запрещены. Attempt001 evidence, plan,
+source manifest и launcher сохраняются; их исходные source bytes доступны
+по execution4347ecb. Новый job создаёт только attempt002 artifacts.

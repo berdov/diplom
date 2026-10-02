@@ -8,13 +8,27 @@ from . import config as c
 from .reuse import bind
 from .provenance import verify,runtime,imported_sources
 
-_engine=bind(parent,dict(c=c,verify=verify,runtime=runtime,imported_sources=imported_sources),__package__)
+def stamp(record):
+    record['execution_attempt']=c.EXECUTION_ATTEMPT
+    return record
+
+
+def create_evidence(path,record):
+    return parent.create(path,stamp(record))
+
+
+def update_evidence(path,record):
+    return parent.update(path,stamp(record))
+
+
+_engine=bind(parent,dict(c=c,verify=verify,runtime=runtime,imported_sources=imported_sources,
+                        create=create_evidence,update=update_evidence),__package__)
 
 
 def run(commit,evidence=None):
     for name in ('runner','pipeline','report','state','gate','smoke','submit'):
         importlib.import_module(__package__+'.'+name)
-    return _engine['run'](commit,evidence)
+    return stamp(_engine['run'](commit,evidence))
 
 
 if __name__=='__main__':
