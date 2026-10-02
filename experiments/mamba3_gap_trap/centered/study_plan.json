@@ -243,35 +243,35 @@
     {
       "id": "modulation",
       "required_keys": [
-        "identity",
-        "gradient",
-        "monotonic",
-        "masks",
-        "zero_gap",
-        "extreme",
-        "roundtrip",
-        "projection",
-        "boundary_update",
-        "dtype",
-        "direction",
-        "odds",
-        "antisymmetry",
         "affine",
-        "bf16"
+        "antisymmetry",
+        "bf16",
+        "boundary_update",
+        "direction",
+        "dtype",
+        "extreme",
+        "gradient",
+        "identity",
+        "masks",
+        "monotonic",
+        "odds",
+        "projection",
+        "roundtrip",
+        "zero_gap"
       ]
     },
     {
       "id": "native_isolation",
       "required_keys": [
-        "only_trap_changed",
         "exact_raw_shift",
-        "neutral_positions",
-        "short_long_direction",
-        "native_forward_backward",
-        "rank_chunk_dtype_crop",
         "finite_alpha_gradient",
-        "spies_removed",
-        "no_test"
+        "native_forward_backward",
+        "neutral_positions",
+        "no_test",
+        "only_trap_changed",
+        "rank_chunk_dtype_crop",
+        "short_long_direction",
+        "spies_removed"
       ]
     },
     {

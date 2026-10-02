@@ -124,6 +124,7 @@ class CenteredTests(unittest.TestCase):
             self.assertTrue(c.paths(mode)['checkpoint'].is_relative_to(c.HERE))
         self.assertFalse(c.HERE==old.HERE)
         p=c.plan();self.assertEqual((p['max_jobs'],p['max_scientific_fits'],p['test_evaluations'],p['automatic_retries']),(1,2,0,0))
+        for spec in p['required_cases']:self.assertEqual(spec['required_keys'],sorted(spec['required_keys']))
         env={'CUDA_VISIBLE_DEVICES':'fixture'}
         self.assertEqual(child_environment('centered_gap_trap',env)['CUDA_VISIBLE_DEVICES'],'fixture')
         self.assertEqual(child_environment('preflight',env)['CUDA_VISIBLE_DEVICES'],'')

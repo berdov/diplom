@@ -12,7 +12,8 @@ def diagnostics(model):
     q = [(g-1)/(g+1) for g in grid]
     shifts = [alpha*x for x in q]
     raw = torch.tensor(logits, dtype=torch.bfloat16)[:, None]
-    shift32 = torch.tensor(shifts, dtype=torch.float32)[None, :]
+    # Match modulation's q->fp32 cast followed by fp32 alpha multiplication.
+    shift32 = (torch.tensor(q, dtype=torch.float32)*torch.tensor(alpha, dtype=torch.float32))[None, :]
     effective = (raw.float()+shift32).to(raw.dtype).float()-raw.float()
     eligible = shift32.expand_as(effective) != 0
     zeros = int(((effective == 0) & eligible).sum())

@@ -13,6 +13,7 @@ def replay_check(record):
             'initial_common_calibrator_hashes','rng_components','optimizer_settings','precision',
             'protocol','manifest_sha256','train_time_stats_sha256','verified_history_stats')
     differences = [k for k in keys if record.get(k)!=reference.get(k)]
+    if len(record.get('history',[]))!=len(reference['history']):differences.append('history_length')
     for i,(actual,expected) in enumerate(zip(record.get('history',[]),reference['history'])):
         for key in ('epoch','valid_ndcg10','valid_metrics','train_loss'):
             if actual.get(key)!=expected.get(key):differences.append(f'history[{i}].{key}')

@@ -17,10 +17,10 @@ def child(stage,module,args,deadline,directory):
 
 def run():
     code=_run()
-    records={v:read(c.paths(v)['result']) for v in c.MODES}
+    validated=read(c.PIPELINE)
     terminal=dict(status='PASS' if code==0 else 'INCOMPLETE',finished_at=now(),
-        pipeline_sha256=sha(c.PIPELINE),scientific_fits_started=sum(r.get('scientific_fit_started',False) for r in records.values()),
-        scientific_fits_completed=sum(r.get('status')=='PASS' for r in records.values()),TEST='NOT_RUN',test_evaluation_count=0,
+        pipeline_sha256=sha(c.PIPELINE),scientific_fits_started=validated['scientific_fits_started'],
+        scientific_fits_completed=validated['scientific_fits_completed'],TEST='NOT_RUN',test_evaluation_count=0,
         checkpoints={v:sha(c.paths(v)['checkpoint']) for v in c.MODES if c.paths(v)['checkpoint'].exists()},
         scope='In-allocation streaming hashes; sacct and process-log audit required after terminal Slurm state')
     create(c.RUNS/'terminal_metadata.json',terminal)
