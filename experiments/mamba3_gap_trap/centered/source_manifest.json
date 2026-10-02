@@ -286,7 +286,7 @@
     "experiments/mamba3_gap_trap/centered/model.py": "80d58d6f683081c3bbf6354ff3809ba185c602db4e26d9197ce43b569519c408",
     "experiments/mamba3_gap_trap/centered/process_env.py": "13c041fcd1dc9405e6998201877bf230ac88685ee420020d5c6daf91d225a9aa",
     "experiments/mamba3_gap_trap/centered/pipeline.py": "d13dcd58162c3a2616729b67cf6acce1003a494b85fc1988d08e138bff1ceeef",
-    "experiments/mamba3_gap_trap/centered/gate.py": "be831e1c796bbe0f7d9df88212e9cc440a8bac45f80575d321a5a541fdac083a",
+    "experiments/mamba3_gap_trap/centered/gate.py": "6b72416f69a137a7ca26339390d17fe63580b146edc8c9e2170e6f6f0cb261c8",
     "experiments/mamba3_gap_trap/centered/reuse.py": "e2e33c0952c492a396ed05eca6a0095b4862266118b328f1070c57623dd2eb9d",
     "experiments/mamba3_gap_trap/centered/trainer.py": "abeebc6ba64e2ee2b9f3b5d1fa2ddccfd626c0dd0a9717e594e2791157580685",
     "experiments/mamba3_gap_trap/centered/provenance.py": "6f49b1db0597a507a37e3533f421529ca22b6ed978fa18e021367272b10e5e80",
@@ -307,7 +307,7 @@
     "experiments/mamba3_gap_trap/runs/attempt_001/mamba3_gaptrap_fixed_replay_seed2026_001.json": "3d08b6b45479716f08e6c5ed0013ae6c06703724d95eacdaf0b972dc94163787",
     "experiments/mamba3_gap_trap/runs/attempt_001/mamba3_gaptrap_gap_trap_seed2026_001.json": "13e3928f5112198de6bc5271cb83ce732e31bd01977fe9f2aa1a6584a55ce6cd"
   },
-  "source_hash": "4375deb61ff39413ce63c30c6f2b26a5e9efd9ca7a95f3714f170f9276fb26fa",
+  "source_hash": "8593838aedf9abd976db8a38367de3697716be1ae6661426c3acb52d3ab5d2fa",
   "publication_commit": "f533a49038a5a055a19837bb2dfde4518f10e3f4",
   "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
   "parent_execution": "8ee54cf1faee22bb3abad3f31aa9268d77a125d1",

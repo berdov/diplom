@@ -55,12 +55,13 @@ def native_isolation(save):
     decay,write,phase=net.times(g,active)
     hidden=net.input_norm(net.input_dropout(net.item_embedding(items)))
     layer=net.layers[0];u=layer.norm1(hidden).to(layer.mixer_dtype)
-    snapshots=[];calls={'forward':0,'backward':0};lengths=[]
+    snapshots=[];aliases=[];calls={'forward':0,'backward':0};lengths=[]
     original=kernels.mimo
     fwd=importlib.import_module('mamba_ssm.ops.tilelang.mamba3.mamba3_mimo_fwd')
     bwd=importlib.import_module('mamba_ssm.ops.tilelang.mamba3.mamba3_mimo_bwd')
     original_f,original_b=fwd.mamba_mimo_forward,bwd.mamba_mimo_bwd_combined
     def capture(*args,**kw):
+        aliases.append(args[4] is args[5])
         snapshots.append(([x.detach().clone() if torch.is_tensor(x) else x for x in args],dict(kw)))
         return original(*args,**kw)
     def forward(*args,**kw):
@@ -80,13 +81,13 @@ def native_isolation(save):
     mask=(~active)|(g==838393)
     negative=active&(g<838393);positive=active&(g>838393)
     checks=dict(
-        only_trap_changed=dict(passed=ka==kb and all(torch.equal(x,b[i]) for i,x in enumerate(a) if i!=6)),
+        only_trap_changed=dict(passed=ka==kb and aliases==[True,True] and all(torch.equal(x,b[i]) for i,x in enumerate(a) if i!=6),write_phase_same_object=aliases),
         exact_raw_shift=dict(passed=torch.equal(tb,(ta.float()+shift[:,None,:]).to(ta.dtype))),
         neutral_positions=dict(passed=torch.equal(ta.permute(0,2,1)[mask],tb.permute(0,2,1)[mask])),
         short_long_direction=dict(passed=bool((tb.permute(0,2,1)[negative]<ta.permute(0,2,1)[negative]).all()) and bool((tb.permute(0,2,1)[positive]>ta.permute(0,2,1)[positive]).all())),
         native_forward_backward=dict(passed=calls['forward']==2 and calls['backward']==1,calls=calls),
         rank_chunk_dtype_crop=dict(passed=a[0].shape[2]==4 and ka['chunk']==8 and ta.dtype==torch.bfloat16 and lengths==[56,56] and out.shape==out0.shape and out.shape[1]==50,native_lengths=lengths),
-        finite_alpha_gradient=dict(passed=net.gap_trap.alpha.grad is not None and bool(torch.isfinite(out).all()) and bool(torch.isfinite(net.gap_trap.alpha.grad)) and float(net.gap_trap.alpha.grad.abs())>0,value=float(net.gap_trap.alpha.grad)),
+        finite_alpha_gradient=dict(passed=net.gap_trap.alpha.grad is not None and bool(torch.isfinite(out).all()) and bool(torch.isfinite(net.gap_trap.alpha.grad)) and float(net.gap_trap.alpha.grad.abs())>0,value=float(net.gap_trap.alpha.grad) if net.gap_trap.alpha.grad is not None else None),
         spies_removed=dict(passed=kernels.mimo is original and fwd.mamba_mimo_forward is original_f and bwd.mamba_mimo_bwd_combined is original_b),
         no_test=dict(passed=True,source='SyntheticCatalog + synthetic histories only',test_evaluation_count=0))
     return case(checks,positions=dict(short=7,reference=8,long=9),same_mixer_input=True)
