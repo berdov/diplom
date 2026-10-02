@@ -1,0 +1,418 @@
+{
+  "execution_attempt": "002",
+  "study_id": "mamba3_gap_trap_centered_001",
+  "execution_commit": "e4e31370e29c2a34c5f0f1071046fccebd77c289",
+  "source_hash": "638b836780af7b6f9065546c128cb8ac2451c5d8af3581855029eea515c2ca10",
+  "source_manifest_sha256": "99ddd205f8130870c98b6fcc896f2469a867f87747f0f5bd127a277c8de92959",
+  "plan_sha256": "1eb64d70e55a7d59c2094113185d96b85dbb28df523690832b5133321c93c8e8",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "inherited_admission_sha256": "c673524fda1a41d472c6cafebca7e25dad5cd7bd5df99fa772dfdcd4ee8bd5bc",
+  "inherited_smoke_sha256": "ac17c67b3fc411fce5cbdd53a855e75392d5bfd953b29a434e7237f135e7db9b",
+  "pilot_execution_commit": "c1dd31eec7907c67348769b6a1811b89aa4011c0",
+  "pilot_job_id": "4358147",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "previous_job_id": "4371302",
+  "previous_failure_audit_sha256": "dc0ab67cb52ab3f1d4bb2b95648ec9485be1e981abc5a29161e8816db16a4872",
+  "job_id": "4371876",
+  "reservation_token": "e30e75a724d196146130c19291636acd",
+  "reservation_sha256": "deaa7164fdbd405b9bd6e09e49d6ddda5fc9d385a499b670fd247100c9ca66ec",
+  "login_verification_sha256": "bef8d18129fedf9b104336822bd90c45732428c9729d873be9a1df2056cb5bd9",
+  "status": "PASS",
+  "rows": [
+    {
+      "variant": "fixed_replay",
+      "parameters": 715020,
+      "status": "PASS",
+      "validation_error": null,
+      "ndcg10": 0.0633,
+      "hr10": 0.1162,
+      "best_epoch": 27,
+      "actual_epochs": 39,
+      "first27_complete": true,
+      "first27_ndcg10": 0.062,
+      "train_seconds": 968.2067418061197,
+      "valid_seconds": 62.95107648242265,
+      "peak_allocated_bytes": 3024827392,
+      "peak_reserved_bytes": 4076863488,
+      "scientific_fit_started": true,
+      "gap_trap_diagnostics": {
+        "alpha": 0.0,
+        "alpha_bounds": [
+          0.0,
+          1.0
+        ],
+        "at_lower_bound": true,
+        "at_upper_bound": false,
+        "shared_across_heads_and_layers": true,
+        "gaps_over_R0": [
+          0,
+          0.01,
+          0.1,
+          0.25,
+          0.5,
+          1,
+          2,
+          4,
+          10,
+          100
+        ],
+        "q_centered": [
+          -1.0,
+          -0.9801980198019802,
+          -0.8181818181818181,
+          -0.6,
+          -0.3333333333333333,
+          0.0,
+          0.3333333333333333,
+          0.6,
+          0.8181818181818182,
+          0.9801980198019802
+        ],
+        "logit_shift": [
+          -0.0,
+          -0.0,
+          -0.0,
+          -0.0,
+          -0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "odds_multiplier": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "content_logits": [
+          -2,
+          0,
+          2
+        ],
+        "current_fraction": [
+          [
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755,
+            0.11920292202211755
+          ],
+          [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823,
+            0.8807970779778823
+          ]
+        ],
+        "bf16": {
+          "shift_before_cast": [
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "shift_cast_alone": [
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "effective_shift_after_add_and_cast": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "nonzero_shift_grid_cases": 0,
+          "rounded_to_zero_cases": 0,
+          "rounded_to_zero_fraction": null
+        },
+        "interpretation": "Analytic fixed content logits, active gaps; first event/padding are neutral. No dataset forward."
+      }
+    },
+    {
+      "variant": "centered_gap_trap",
+      "parameters": 715021,
+      "status": "PASS",
+      "validation_error": null,
+      "ndcg10": 0.0635,
+      "hr10": 0.1189,
+      "best_epoch": 48,
+      "actual_epochs": 60,
+      "first27_complete": true,
+      "first27_ndcg10": 0.0615,
+      "train_seconds": 1433.5177418654785,
+      "valid_seconds": 31.308843017090112,
+      "peak_allocated_bytes": 3025238528,
+      "peak_reserved_bytes": 4076863488,
+      "scientific_fit_started": true,
+      "gap_trap_diagnostics": {
+        "alpha": 0.008423608727753162,
+        "alpha_bounds": [
+          0.0,
+          1.0
+        ],
+        "at_lower_bound": false,
+        "at_upper_bound": false,
+        "shared_across_heads_and_layers": true,
+        "gaps_over_R0": [
+          0,
+          0.01,
+          0.1,
+          0.25,
+          0.5,
+          1,
+          2,
+          4,
+          10,
+          100
+        ],
+        "q_centered": [
+          -1.0,
+          -0.9801980198019802,
+          -0.8181818181818181,
+          -0.6,
+          -0.3333333333333333,
+          0.0,
+          0.3333333333333333,
+          0.6,
+          0.8181818181818182,
+          0.9801980198019802
+        ],
+        "logit_shift": [
+          -0.008423608727753162,
+          -0.008256804594530327,
+          -0.006892043504525314,
+          -0.005054165236651897,
+          -0.002807869575917721,
+          0.0,
+          0.002807869575917721,
+          0.005054165236651897,
+          0.006892043504525315,
+          0.008256804594530327
+        ],
+        "odds_multiplier": [
+          0.9916117704544224,
+          0.9917771891921676,
+          0.9931316521588769,
+          0.9949585855658689,
+          0.9971960688028463,
+          1.0,
+          1.002811815333889,
+          1.0050669590747476,
+          1.0069158482928147,
+          1.0082909860172626
+        ],
+        "content_logits": [
+          -2,
+          0,
+          2
+        ],
+        "current_fraction": [
+          [
+            0.11832133022200074,
+            0.11833873256943298,
+            0.11848119866198277,
+            0.11867328756063823,
+            0.11890842880203455,
+            0.11920292202211755,
+            0.11949804567697073,
+            0.11973459909147086,
+            0.11992844361822816,
+            0.1200725628960372
+          ],
+          [
+            0.4978941102703807,
+            0.49793581057849967,
+            0.49827699594412544,
+            0.4987364613805501,
+            0.49929803306722054,
+            0.5,
+            0.5007019669327796,
+            0.5012635386194498,
+            0.5017230040558744,
+            0.5020641894215003
+          ],
+          [
+            0.8799098122725858,
+            0.8799274371039628,
+            0.8800715563817718,
+            0.8802654009085292,
+            0.8805019543230292,
+            0.8807970779778823,
+            0.8810915711979654,
+            0.8813267124393618,
+            0.8815188013380173,
+            0.8816612674305672
+          ]
+        ],
+        "bf16": {
+          "shift_before_cast": [
+            -0.008423608727753162,
+            -0.008256804198026657,
+            -0.006892043631523848,
+            -0.005054165609180927,
+            -0.002807869575917721,
+            0.0,
+            0.002807869575917721,
+            0.005054165609180927,
+            0.006892043631523848,
+            0.008256804198026657
+          ],
+          "shift_cast_alone": [
+            -0.0084228515625,
+            -0.00823974609375,
+            -0.00689697265625,
+            -0.00506591796875,
+            -0.0028076171875,
+            0.0,
+            0.0028076171875,
+            0.00506591796875,
+            0.00689697265625,
+            0.00823974609375
+          ],
+          "effective_shift_after_add_and_cast": [
+            [
+              -0.015625,
+              -0.015625,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0078125,
+              0.0078125,
+              0.0078125
+            ],
+            [
+              -0.0084228515625,
+              -0.00823974609375,
+              -0.00689697265625,
+              -0.00506591796875,
+              -0.0028076171875,
+              0.0,
+              0.0028076171875,
+              0.00506591796875,
+              0.00689697265625,
+              0.00823974609375
+            ],
+            [
+              -0.0078125,
+              -0.0078125,
+              -0.0078125,
+              -0.0078125,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.015625
+            ]
+          ],
+          "nonzero_shift_grid_cases": 27,
+          "rounded_to_zero_cases": 8,
+          "rounded_to_zero_fraction": 0.2962962962962963
+        },
+        "interpretation": "Analytic fixed content logits, active gaps; first event/padding are neutral. No dataset forward."
+      }
+    }
+  ],
+  "contrasts": [
+    {
+      "comparison": "centered_gap_trap - fixed_replay",
+      "status": "COMPLETE",
+      "delta": 0.00020000000000000573,
+      "relative_percent": 0.31595576619274207
+    }
+  ],
+  "scientific_fits_started": 2,
+  "scientific_fits_completed": 2,
+  "scientific_fits_expected": 2,
+  "seed": 2026,
+  "selection_split": "VALID",
+  "interpretation": "Exploratory single seed; no significance/backbone selection; historical dual replay is not a new independent seed",
+  "blocking_reason": null
+}

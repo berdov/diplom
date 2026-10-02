@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "job_id": "4371876",
+  "execution_commit": "e4e31370e29c2a34c5f0f1071046fccebd77c289",
+  "preservation_commit": "932ae815dd951e89c8cacd98d4232b20dba38351",
+  "phase_a_main_commit": "f533a49038a5a055a19837bb2dfde4518f10e3f4",
+  "old_branch_commit": "824ebbedcbcc8816a99a5f3c4df61429bc12accd",
+  "registry_before": 110,
+  "registry_after": 112,
+  "previous_bytes": 50642,
+  "previous_sha256": "2df7f7d65c865f43cf82bcb0d109b7cc56bce8b12f382deb2f0bac819362810f",
+  "registry_sha256": "5d01e67bcfc02e6df7851a8942a5f098e661e8541f02277150486761d46fb218",
+  "old_prefix_unchanged": true,
+  "added_run_ids": [
+    "mamba3_gaptrap_centered_fixed_replay_seed2026_002",
+    "mamba3_gaptrap_centered_centered_gap_trap_seed2026_002"
+  ],
+  "added_rows_sources": [
+    {
+      "path": "experiments/mamba3_gap_trap/centered/runs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002.json",
+      "sha256": "ba45a214f3f0a8f2d3772bc8e2cc092e8157a072cc5cf287d86f78f9ede5e970"
+    },
+    {
+      "path": "experiments/mamba3_gap_trap/centered/runs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002.json",
+      "sha256": "9360c0e074d17de9512b7af26e6bf38935a3deadbc8497cffbd65a908e2e16d6"
+    }
+  ],
+  "independent_audit_sha256": "74c08f4c641cb34879fc89306418be6cae5553322a19f873929b3d6fbbd2abcf",
+  "scientific_fits": 2,
+  "test_evaluation_count": 0,
+  "point3": "CLOSED_EXPLORATORY_KUAIRAND_VALID",
+  "point4": "NOT_STARTED",
+  "confirmation": "NOT_STARTED"
+}

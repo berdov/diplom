@@ -1,0 +1,11 @@
+{
+  "status": "INCOMPLETE",
+  "finished_at": "2026-10-02T18:40:19.904623+00:00",
+  "pipeline_sha256": "581ffcd645ca49775f29d300c1efc70d6db4c2453e99191252542193b0289a25",
+  "scientific_fits_started": 0,
+  "scientific_fits_completed": 0,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "checkpoints": {},
+  "scope": "In-allocation streaming hashes; sacct and process-log audit required after terminal Slurm state"
+}

@@ -1,0 +1,17 @@
+{
+  "job_id": "4371302",
+  "checked_at": "2026-10-02T19:35:55.382961+03:00",
+  "squeue": "4371302|PENDING|0:00||(Priority)",
+  "start_estimate": "4371302|PENDING|2026-10-03T06:28:00||(Priority)",
+  "sacct": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4371302|PENDING|0:0|00:00:00|None assigned|Unknown|Unknown",
+  "scontrol": "JobId=4371302 JobName=m3-gapcenter UserId=daryumin(3677) GroupId=users(100) MCS_label=N/A Priority=264 Nice=0 Account=proj_1833 QOS=normal JobState=PENDING Reason=Priority Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=06:00:00 TimeMin=N/A SubmitTime=2026-10-02T19:30:43 EligibleTime=2026-10-02T19:30:50 AccrueTime=2026-10-02T19:30:50 StartTime=2026-10-03T06:28:00 EndTime=2026-10-03T12:28:00 Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-10-02T19:35:52 Scheduler=Backfill:* Partition=rocky AllocNode:Sid=192.168.1.80:1620091 ReqNodeList=(null) ExcNodeList=(null) NodeList= SchedNodeList=cn-044 NumNodes=1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=1M,node=1,billing=4,gres/gpu=1,gres/gpu:a100=1 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=0 MinTmpDiskNode=0 Features=type_e DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null) Command=/home/daryumin/iberdov/diplom/slurm/mamba3_gap_trap_centered.sh WorkDir=/home/daryumin/iberdov/diplom StdErr=/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/slurm_logs/attempt_001/m3-gapcenter-4371302.err StdIn=/dev/null StdOut=/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/slurm_logs/attempt_001/m3-gapcenter-4371302.out TresPerNode=gres/gpu:a100:1 TresPerTask=cpu=4",
+  "checkout_commit": "4347ecbd3bfa98b075dbf0dd8f227bfff3590e50",
+  "tracked_clean": true,
+  "artifacts": {
+    "slurm_logs/attempt_001/pipeline_status.json": null,
+    "runs/attempt_001/targeted_gate_001.json": null,
+    "runs/attempt_001/smoke_001.json": null,
+    "runs/attempt_001/mamba3_gaptrap_centered_fixed_replay_seed2026_001.json": null,
+    "runs/attempt_001/mamba3_gaptrap_centered_centered_gap_trap_seed2026_001.json": null
+  }
+}
