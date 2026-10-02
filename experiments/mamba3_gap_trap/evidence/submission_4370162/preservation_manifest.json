@@ -1,0 +1,22 @@
+{
+  "files": [
+    {
+      "remote_path": "experiments/mamba3_gap_trap/slurm_logs/attempt_001/login_verification_001.json",
+      "path": "experiments/mamba3_gap_trap/evidence/submission_4370162/login_verification_001.json",
+      "bytes": 3783,
+      "sha256": "ee2f244bcaf6632e2b882a98a6db07f6cc92c60b12c39eb21ebfea3f6ee9611e"
+    },
+    {
+      "remote_path": "experiments/mamba3_gap_trap/slurm_logs/attempt_001/reservation_001.json",
+      "path": "experiments/mamba3_gap_trap/evidence/submission_4370162/reservation_001.json",
+      "bytes": 1780,
+      "sha256": "c7224f0a4a184b1331ecc4dbf72343e9100195040324ac27bf4b2832afa56f91"
+    },
+    {
+      "remote_path": "experiments/mamba3_gap_trap/slurm_logs/attempt_001/submission_001.json",
+      "path": "experiments/mamba3_gap_trap/evidence/submission_4370162/submission_001.json",
+      "bytes": 1017,
+      "sha256": "8d36932ae258cbb8849871d9000fdaf069e0e0cef00a7486bb3927dce341cd61"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "execution_commit": "8ee54cf1faee22bb3abad3f31aa9268d77a125d1",
+  "files": [
+    {
+      "remote_path": "experiments/mamba3_gap_trap/slurm_logs/attempt_001/cpu_preflight_8ee54cf1faee22bb3abad3f31aa9268d77a125d1.json",
+      "saved_path": "experiments/mamba3_gap_trap/evidence/preflight/cpu_preflight_8ee54cf1faee22bb3abad3f31aa9268d77a125d1.json",
+      "bytes": 14528,
+      "sha256": "ade7ebf540fe6238a8632cd1a5f1905bd425648cc02e4535f2835abba81bc271"
+    },
+    {
+      "remote_path": "experiments/mamba3_gap_trap/slurm_logs/attempt_001/cpu_preflight_8ee54cf1faee22bb3abad3f31aa9268d77a125d1.log",
+      "saved_path": "experiments/mamba3_gap_trap/evidence/preflight/cpu_preflight_8ee54cf1faee22bb3abad3f31aa9268d77a125d1.log",
+      "bytes": 15870,
+      "sha256": "0547cb2e552a0cdb1d1fad9a92fd36932ab967f4fc8650558e30a8f060ad1458"
+    },
+    {
+      "remote_path": "experiments/mamba3_gap_trap/slurm_logs/attempt_001/no_git_preflight_8ee54cf1faee22bb3abad3f31aa9268d77a125d1.json",
+      "saved_path": "experiments/mamba3_gap_trap/evidence/preflight/no_git_preflight_8ee54cf1faee22bb3abad3f31aa9268d77a125d1.json",
+      "bytes": 14765,
+      "sha256": "3111ff69dac8fb5c6ab0e841205c16839c6ee0838b6c44fe1f6781a73917bcac"
+    },
+    {
+      "remote_path": "experiments/mamba3_gap_trap/slurm_logs/attempt_001/no_git_preflight_8ee54cf1faee22bb3abad3f31aa9268d77a125d1.log",
+      "saved_path": "experiments/mamba3_gap_trap/evidence/preflight/no_git_preflight_8ee54cf1faee22bb3abad3f31aa9268d77a125d1.log",
+      "bytes": 15187,
+      "sha256": "392889d31f4331b735c60d0eb6c68b2cbff3b5f02fa136a0ad109eef9f6dc70c"
+    }
+  ]
+}

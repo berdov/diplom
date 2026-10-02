@@ -1,0 +1,45 @@
+{
+  "job_id": "4370162",
+  "status": "PENDING",
+  "reason": "Priority",
+  "last_observed_at": "2026-10-02T08:12:33.463872+00:00",
+  "execution_commit": "8ee54cf1faee22bb3abad3f31aa9268d77a125d1",
+  "source_hash": "ad9e4591d570a223848c8588dc2e0fed104d6802fccc22e7f2e1c4cc4068ecd0",
+  "branch": "exp/mamba3-gap-trap",
+  "cluster_checkout": "/home/daryumin/iberdov/diplom",
+  "jobs_submitted": 1,
+  "max_scientific_fits": 2,
+  "scientific_fits_started": 0,
+  "scientific_fits_completed": 0,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "cpu_preflight": {
+    "status": "PASS",
+    "tests": 20,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cuda_initialized": false
+  },
+  "no_git_preflight": {
+    "status": "PASS",
+    "tests": 20,
+    "git_calls": 0,
+    "cuda_initialized": false
+  },
+  "targeted_gpu_gate": {
+    "status": "NOT_RUN",
+    "planned_cases": 4,
+    "planned_required_checks": 133
+  },
+  "smoke": "NOT_RUN",
+  "phase_a": {
+    "status": "PUBLISHED",
+    "main_commit": "4e5fcd660115318ed8df26849498eabe3a72bb26",
+    "registry_before": 96,
+    "registry_after": 108
+  },
+  "next_action": "Read existing job4370162 only; preserve and audit terminal evidence; never resubmit or change active cluster checkout",
+  "handoff": "experiments/mamba3_gap_trap/HANDOFF.md",
+  "scheduler_snapshot": "experiments/mamba3_gap_trap/evidence/submission_4370162/scheduler_002.json"
+}
