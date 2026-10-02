@@ -1,59 +1,79 @@
-# Centered Gap-Trap: job4371302 завершился до обучения
+# Centered Gap-Trap: attempt002, job4371876
 
-**INCOMPLETE.** Slurm: FAILED, exit1:0, cn-043, 2 октября 2026,
-21:36:50–21:40:20 MSK, elapsed3:30. Scientific fits0/2, TEST0.
-Первая проверка gate остановилась до forward/backward. Smoke не запускался,
-историй обучения и checkpoint нет. Научного результата centered-пилота нет;
-пункт3 остаётся незавершённым.
-
-Причина: `centered/state.py:view()` безусловно читает `gap_trap_mode`.
-В GPU parity источник — исторический `ThreeTimeMamba3Rec`, у которого этого
-поля нет. `transfer_common(old,new)` падает до создания histories и
-`model_measure`. Это ошибка адаптера проверки, не отрицательный результат
-гипотезы. CPU-тесты проверяли перенос между двумя экземплярами новой модели
-и не покрывали historical→new. Их прежние PASS сохранены без изменения.
+Исправление выполнено, повторный job отправлен по явному запросу после сбоя.
+На 2 октября 2026, 23:11:48 MSK: **PENDING (Priority)**. Оценка старта Slurm:
+3 октября, 01:13:34 MSK; она может измениться. Node не назначен, elapsed0,
+scientific fits0/2, TEST0. GPU gate и smoke ещё не начинались.
 
 - Canonical local: `/Users/berdov/diplom`.
 - Canonical cluster: `/home/daryumin/iberdov/diplom`, SSH `hse-karizma`.
 - Ветка: `exp/mamba3-gap-trap-centered`.
-- Execution commit: `4347ecbd3bfa98b075dbf0dd8f227bfff3590e50`.
-- Source hash: `8593838aedf9abd976db8a38367de3697716be1ae6661426c3acb52d3ab5d2fa`.
-- Exact-source CPU/no-Git: по16 PASS, zero skips/errors/failures, CUDA false.
-- GPU: первый case начал setup, ноль numerical checks выполнено; остальные
-  пять cases и оба fit NOT_RUN. OOM не обнаружен.
-- Cluster checkout остаётся на execution4347ecb, tracked clean.
-- Один разрешённый job использован. Retry/continuation/requeue не отправлялись.
+- Execution commit: `e4e31370e29c2a34c5f0f1071046fccebd77c289`.
+- Source hash: `638b836780af7b6f9065546c128cb8ac2451c5d8af3581855029eea515c2ca10`.
+- Manifest: `source_manifest_002.json`, 333 файла; plan: `study_plan_002.json`.
+- Launcher: `slurm/mamba3_gap_trap_centered_002.sh`.
+- Runtime paths: `slurm_logs/attempt_002/` и `runs/attempt_002/`.
+- Exact-source CPU/no-Git: оба21/21 PASS, без skips/errors/failures, CUDA false.
+- GPU: прежние6cases/158leaves, затем synthetic smoke2x3steps, затем свежие
+  fixed_replay и centered_gap_trap seed2026 в раздельных процессах.
+- Ресурсы прежние: rocky/proj_1833/type_e, A100x1, CPU4, mem0,6h,no-requeue.
 
-[Terminal scheduler](../evidence/job4371302/scheduler_terminal.json),
-[22 сохранённых файла и SHA](../evidence/job4371302/preservation_manifest.json),
-[аудит сбоя](../evidence/job4371302/failure_audit.json).
-Сохранено139542bytes; все hashes и306 execution blobs проверены. Audit PASS
-означает согласованность сохранённых фактов, а не успешность эксперимента.
-[Первоначальный PENDING snapshot](status_4371302.json) сохранён как история.
-`audit_saved.py` рассчитан только на два успешных fit и для этого сбоя не запускался.
+[Scheduler snapshot](status_4371876.json),
+[submission evidence](../evidence/job4371876/submission_preservation.json).
+Cluster checkout остаётся на executione4e3137. Более поздние commits содержат
+только сохранение и post-run tooling. Пока job PENDING/RUNNING, checkout не менять.
 
-## Опубликованное ранее
+## Исправление и прошлая попытка
 
-One-sided pilot в main: `f533a49038a5a055a19837bb2dfde4518f10e3f4`,
-publication `824ebbedcbcc8816a99a5f3c4df61429bc12accd`. Registry110rows
-побайтно совпадает с этим main. Новых scientific rows не добавлено.
-Старая ветка `exp/mamba3-gap-trap` остаётся на824ebbe.
-[Результат one-sided](../../../../reports/MAMBA3_TIME_MECHANISMS_RESULTS.md#gap-trap-one-sided-pilot).
+В `state.transfer_common` адаптер теперь применяется только к target;
+source передаётся напрямую в проверенный parent transfer. Исторической модели
+достаточно state_dict, поле gap_trap_mode ей не требуется.
+Новый CPU-тест использует настоящий ThreeTimeMamba3Rec и оба целевых варианта;
+проверяет точность переноса изменённых backbone/calibrator weights и alpha0.
+Отрицательные fixtures проверяют missing/extra keys, неверные shape/dtype
+и отсутствие частичной записи при отказе. Ещё проверяются gate binding,
+attempt002 paths/plan bindings и сохранение preflight RUNNING/FAIL evidence.
 
-При deploy семь совпадающих untracked parent artifacts были перемещены с
-manifest в `.codex_deploy_preservation/centered_phase_a_20261002/` внутри
-canonical cluster repo. Файлы и checkpoint/caches не удалялись.
+Attempt001/job4371302: FAILED1:0 на gate setup, scientific fits0, TEST0.
+[Полный разбор](../evidence/job4371302/failure_audit.json),
+[исходные22файла и SHA](../evidence/job4371302/preservation_manifest.json).
+Они проверены повторно на кластере и не изменились. Старые plan, manifest,
+launcher и execution4347ecb сохранены. Формула и scientific protocol не менялись.
 
-## Остановка
+## Следующие действия
 
-По заданию при gate FAIL scientific fits не запускаются, новый job/retry
-запрещён. Выполнен terminal read-only audit, код execution не менялся.
-Исправление должно учитывать отсутствие специального mode у исторической
-модели и покрывать historical→new отдельным CPU regression fixture; оно здесь
-не применялось. Продолжение требует отдельного задания, разрешающего новый
-контролируемый запуск после исправления. Существующий job повторять нельзя.
+Проверять только существующий job4371876. Новый sbatch/requeue/continuation
+не разрешён: запросом разрешена одна повторная отправка, она уже выполнена.
+Максимум2scientific fits суммарно; предыдущая попытка не начала ни одного.
+При technical failure сохранить факты и остановиться.
 
-Нет оснований интерпретировать delta, выбирать модель, объявлять пункт3
-закрытым или рекомендовать confirmation по centered-результату. TEST, пункт4/5,
-статья и Overleaf не затронуты. Итоговое сообщение с научными выводами не
-составлено и никому не отправлено. Фоновый мониторинг не работает.
+После terminal state сохранить exact sacct, все компактные stage/run/metadata
+JSON, logs и locks в `evidence/job4371876/files/` с путями относительно centered.
+Создать preservation_manifest.json (`checkout_commit`, `files` path/bytes/SHA,
+`checkpoints` relative path→SHA/bytes); SHA checkpoint читать streaming,
+weights не загружать. Scheduler terminal сохранить отдельно с job_id/state/
+exit_code/raw_sacct/временем. Все файлы на кластере сохраняются без удаления.
+
+Если оба fit PASS, выполнить подготовленный stdlib-аудит:
+
+    python3 -m experiments.mamba3_gap_trap.centered.runtime.audit_saved --job 4371876
+
+Аудитор теперь берёт attempt paths и названия stage files из config. Он ещё
+не выполнялся для текущего job: terminal artifacts пока отсутствуют. Проверяет
+source/preservation, ownership, gate/smoke, epoch metrics/loss из двух logs,
+selection, checkpoint hashes, exact historical fixed replay, pairing, alpha,
+BF16 diagnostics, timings/memory, summary и scheduler terminal status.
+
+При полном успешном выполнении опубликовать результат независимо от выигрыша:
+raw runs/summary/concise RESULTS.md; anchor #gap-trap-centered-pilot в
+reports/MAMBA3_TIME_MECHANISMS_RESULTS.md, краткую строку reports/RESULTS.md,
+ровно2scientific rows в registry с сохранением старых bytes. Commit/push/merge
+в main разрешены исходным заданием. При неполных fits строки не добавлять.
+
+Registry сейчас110rows, побайтно как Phase A main f533a49038a5a055a19837bb2dfde4518f10e3f4.
+One-sided опубликован ранее; старая exp/mamba3-gap-trap остаётся на824ebbe.
+Пункт3 закрывается после фактического centered-результата в текущем KuaiRand/VALID
+scope. Третьих Trap-функций и автоматической confirmation не будет. TEST,
+пункт4/5, статья/Overleaf запрещены. Layer-specific temporal functions — только
+рекомендация отдельного будущего задания. Сообщения другим людям не отправлять.
+Фонового процесса мониторинга нет.

@@ -1,0 +1,34 @@
+{
+  "job_id": "4371876",
+  "execution_attempt": "002",
+  "execution_commit": "e4e31370e29c2a34c5f0f1071046fccebd77c289",
+  "files": [
+    {
+      "path": "cpu_preflight_e4e31370e29c2a34c5f0f1071046fccebd77c289.json",
+      "bytes": 19590,
+      "sha256": "f9faeab28389da8ca7987f9e9f57d9acfceb1e4975589d15adc8ea22e0e3b47e"
+    },
+    {
+      "path": "login_verification_002.json",
+      "bytes": 4524,
+      "sha256": "bef8d18129fedf9b104336822bd90c45732428c9729d873be9a1df2056cb5bd9"
+    },
+    {
+      "path": "no_git_preflight_e4e31370e29c2a34c5f0f1071046fccebd77c289.json",
+      "bytes": 19589,
+      "sha256": "eb2d515476825cdfe6415006b51c93cd8624b225a3640b9833044e69125ddf04"
+    },
+    {
+      "path": "reservation_002.json",
+      "bytes": 1960,
+      "sha256": "deaa7164fdbd405b9bd6e09e49d6ddda5fc9d385a499b670fd247100c9ca66ec"
+    },
+    {
+      "path": "submission_002.json",
+      "bytes": 1017,
+      "sha256": "54954a4c4ebe9b90683404e26b5388f2c994ad95db722112a924c85aadc279c6"
+    }
+  ],
+  "status_snapshot_sha256": "ed422af8a81682456414de2e6c71bbc418915d2f0066b9d0223f7200220cf0f4",
+  "terminal": false
+}

@@ -23,28 +23,28 @@ def audit(job):
     for name,expected in manifest['files'].items():
         blob=subprocess.check_output(['git','show',execution+':'+name],cwd=c.ROOT)
         if hashlib.sha256(blob).hexdigest()!=expected:raise ValueError('Execution source: '+name)
-    logs,runs=files/'slurm_logs/attempt_001',files/'runs/attempt_001'
+    logs,runs=files/c.LOGS.relative_to(c.HERE),files/c.RUNS.relative_to(c.HERE)
     base=p.bindings(execution,manifest)
-    login,reservation,submission=(read(logs/n) for n in ('login_verification_001.json','reservation_001.json','submission_001.json'))
-    p.validate_ownership(login,reservation,sha(logs/'login_verification_001.json'),base,job,submission)
-    base.update(job_id=job,reservation_token=reservation['token'],reservation_sha256=sha(logs/'reservation_001.json'),login_verification_sha256=sha(logs/'login_verification_001.json'))
+    login,reservation,submission=(read(logs/n) for n in (c.LOGIN.name,c.RESERVATION.name,c.SUBMISSION.name))
+    p.validate_ownership(login,reservation,sha(logs/c.LOGIN.name),base,job,submission)
+    base.update(job_id=job,reservation_token=reservation['token'],reservation_sha256=sha(logs/c.RESERVATION.name),login_verification_sha256=sha(logs/c.LOGIN.name))
     def checked(path):
         r=read(path)
         if r.get('status')!='PASS' or any(r.get(k)!=v for k,v in base.items()):raise ValueError('Failed/foreign artifact: '+str(path))
         return r
-    inherited=checked(runs/'inherited_kernel_001.json')
+    inherited=checked(runs/c.INHERITED.name)
     if inherited['inherited']!=p.inherited():raise ValueError('Inherited evidence mismatch')
-    gate,smoke=checked(runs/'targeted_gate_001.json'),checked(runs/'smoke_001.json')
+    gate,smoke=checked(runs/c.GATE.name),checked(runs/c.SMOKE.name)
     if not accepted_cases(gate['cases'],c.plan()['required_cases']):raise ValueError('Required GPU leaves')
     p.validate_smoke(smoke)
-    if smoke['targeted_gate_sha256']!=sha(runs/'targeted_gate_001.json'):raise ValueError('Smoke binding')
+    if smoke['targeted_gate_sha256']!=sha(runs/c.GATE.name):raise ValueError('Smoke binding')
     pipeline=checked(logs/'pipeline_status.json')
     if (pipeline['scientific_fits_started'],pipeline['scientific_fits_completed'])!=(2,2):raise ValueError('Fit count')
     if [row['stage'] for row in pipeline['stages']]!=['gate','smoke',*c.MODES] or any(row['status']!='PASS' for row in pipeline['stages']):raise ValueError('Pipeline stages')
     records={};rows=[];pilot=read(c.PILOT)
     for mode in c.MODES:
         run_id=c.paths(mode)['run_id'];r=checked(runs/(run_id+'.json'));report.validate_record(r,mode)
-        if r['targeted_gate_sha256']!=sha(runs/'targeted_gate_001.json') or r['smoke_sha256']!=sha(runs/'smoke_001.json'):raise ValueError('Fit admission')
+        if r['targeted_gate_sha256']!=sha(runs/c.GATE.name) or r['smoke_sha256']!=sha(runs/c.SMOKE.name):raise ValueError('Fit admission')
         for setting in ('config','effective_config'):
             a,b=r[setting],pilot[setting]
             if any(a.get(k)!=b.get(k) for k in set(a)|set(b) if k not in ('checkpoint_dir','gap_trap_mode')):raise ValueError('Frozen '+setting)
@@ -52,7 +52,7 @@ def audit(job):
         for key in ('protocol','manifest_sha256','train_time_stats_sha256','verified_history_stats','precision','optimizer_settings'):
             if r[key]!=pilot[key]:raise ValueError('Frozen pilot '+key)
         meta=read(logs/run_id/'checkpoints/best_metadata.json')
-        path='slurm_logs/attempt_001/'+run_id+'/checkpoints/best_state_dict.pth'
+        path=str(c.paths(mode)['checkpoint'].relative_to(c.HERE))
         if saved['checkpoints'][path]['sha256']!=r['checkpoint_sha256'] or meta['checkpoint_sha256']!=r['checkpoint_sha256']:raise ValueError('Checkpoint SHA')
         for key in ('run_id','mode','gap_trap_mode','seed','execution_commit','config_sha256','source_hash','core_hash'):
             if meta[key]!=r[key]:raise ValueError('Checkpoint metadata '+key)
