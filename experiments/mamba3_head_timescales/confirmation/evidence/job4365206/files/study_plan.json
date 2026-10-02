@@ -1,0 +1,182 @@
+{
+  "study_id": "mamba3_head_timescales_confirmation_001",
+  "tasks": [
+    {
+      "variant": "fixed",
+      "seed": 2027,
+      "run_id": "mamba3_headtime_confirm_fixed_seed2027_001"
+    },
+    {
+      "variant": "shared_tau",
+      "seed": 2027,
+      "run_id": "mamba3_headtime_confirm_shared_tau_seed2027_001"
+    },
+    {
+      "variant": "head_tau",
+      "seed": 2027,
+      "run_id": "mamba3_headtime_confirm_head_tau_seed2027_001"
+    },
+    {
+      "variant": "fixed",
+      "seed": 2028,
+      "run_id": "mamba3_headtime_confirm_fixed_seed2028_001"
+    },
+    {
+      "variant": "shared_tau",
+      "seed": 2028,
+      "run_id": "mamba3_headtime_confirm_shared_tau_seed2028_001"
+    },
+    {
+      "variant": "head_tau",
+      "seed": 2028,
+      "run_id": "mamba3_headtime_confirm_head_tau_seed2028_001"
+    },
+    {
+      "variant": "fixed",
+      "seed": 2029,
+      "run_id": "mamba3_headtime_confirm_fixed_seed2029_001"
+    },
+    {
+      "variant": "shared_tau",
+      "seed": 2029,
+      "run_id": "mamba3_headtime_confirm_shared_tau_seed2029_001"
+    },
+    {
+      "variant": "head_tau",
+      "seed": 2029,
+      "run_id": "mamba3_headtime_confirm_head_tau_seed2029_001"
+    },
+    {
+      "variant": "fixed",
+      "seed": 2030,
+      "run_id": "mamba3_headtime_confirm_fixed_seed2030_001"
+    },
+    {
+      "variant": "shared_tau",
+      "seed": 2030,
+      "run_id": "mamba3_headtime_confirm_shared_tau_seed2030_001"
+    },
+    {
+      "variant": "head_tau",
+      "seed": 2030,
+      "run_id": "mamba3_headtime_confirm_head_tau_seed2030_001"
+    }
+  ],
+  "modes": [
+    "fixed",
+    "shared_tau",
+    "head_tau"
+  ],
+  "seeds": [
+    2027,
+    2028,
+    2029,
+    2030
+  ],
+  "parameter_counts": {
+    "fixed": 715020,
+    "shared_tau": 715022,
+    "head_tau": 715024
+  },
+  "primary": [
+    "head_tau",
+    "shared_tau"
+  ],
+  "contrasts": [
+    [
+      "head_tau",
+      "shared_tau"
+    ],
+    [
+      "head_tau",
+      "fixed"
+    ],
+    [
+      "shared_tau",
+      "fixed"
+    ]
+  ],
+  "subsets": {
+    "confirmatory": [
+      2027,
+      2028,
+      2029,
+      2030
+    ],
+    "with_exploratory_pilot": [
+      2026,
+      2027,
+      2028,
+      2029,
+      2030
+    ]
+  },
+  "max_scientific_fits": 12,
+  "max_jobs": 2,
+  "max_requested_gpu_seconds": 43200,
+  "test_evaluations": 0,
+  "allocations": {
+    "001": 28800,
+    "002": 14400
+  },
+  "save_margin_seconds": 600,
+  "min_remaining_to_start_fit_seconds": 5400,
+  "max_session_wait_seconds": 57600,
+  "max_queue_wait_seconds": 14400,
+  "min_scheduler_poll_seconds": 600,
+  "resources": {
+    "partition": "rocky",
+    "account": "proj_1833",
+    "constraint": "type_e",
+    "gpu": "a100:1",
+    "cpus": 4,
+    "mem": 0,
+    "requeue": false
+  },
+  "setup_order": [
+    "runtime/config",
+    "seed",
+    "dataset/loaders",
+    "model",
+    "trainer",
+    "fit"
+  ],
+  "config_sources": {
+    "fixed": "experiments/mamba3_head_timescales/runs/attempt_002/mamba3_headtime_fixed_seed2026_001.json",
+    "shared_tau": "experiments/mamba3_head_timescales/runs/attempt_002/mamba3_headtime_shared_tau_seed2026_001.json",
+    "head_tau": "experiments/mamba3_head_timescales/runs/attempt_002/mamba3_headtime_head_tau_seed2026_001.json"
+  },
+  "allowed_config_changes": [
+    "seed",
+    "checkpoint_dir"
+  ],
+  "diagnostic_grid": [
+    0,
+    0.01,
+    0.1,
+    0.25,
+    0.5,
+    1,
+    2,
+    4,
+    10,
+    100
+  ],
+  "inherited_gate_sha256": "22a221b56a9cec4a88493c2827a943af65a46592f69a3deaabf14bc72992f51f",
+  "inherited_smoke_sha256": "32b631ba67656ea4312388e9d35d662615d9b8820c87be10aba627e9912e3e93",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "pilot_execution": "4724392c88a2298e57fa662cba33baa3ab9ecdbb",
+  "pilot_source_hash": "0735c8689e3a0f962a0be7560c08d8ccbc6cf53089a6457151b8e8af40fd899e",
+  "pilot_job": "4362620",
+  "mathematical_dependencies": "Unchanged model/calibrators/trainer/kernels/data/numerical policy",
+  "selection": "Last tied maximum rounded VALID NDCG@10; unchanged RecBole.fit and stopping_step10",
+  "first27": "Only complete observed epochs0..26; each contrast has its own complete-pair subset",
+  "aggregation": "sample std ddof1; paired signs/differences; relative gain on identical seed intersection; no p-values",
+  "continuation": "Only once after terminal preserved allocation: never-started infrastructure/serialization or deadline-before-start; any started incomplete/numerical failure blocks continuation",
+  "no_metric_retries": true,
+  "fresh_process": true,
+  "fresh_weights": true,
+  "inherited_gpu_checks_repeated": 0,
+  "extra_diagnostic_evaluations": 0,
+  "limitations": "Exploratory pilot separate; no automatic backbone selection or head specialization claim"
+}

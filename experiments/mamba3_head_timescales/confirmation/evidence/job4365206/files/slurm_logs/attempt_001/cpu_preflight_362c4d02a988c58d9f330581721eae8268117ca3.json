@@ -1,0 +1,21 @@
+{
+  "status": "FAIL",
+  "execution_commit": "362c4d02a988c58d9f330581721eae8268117ca3",
+  "execution_attempt": "001",
+  "scientific_fits": 0,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "model_forward_calls": 0,
+  "started_at": "2026-09-30T11:20:30.162386+00:00",
+  "source_hash": "90d58fdbdcb4d72630dbcacec9264361e4a5fbb2edb6e72099d06c20d4dc209f",
+  "cpu_tests": {
+    "run": 27,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "test_already_failed_malformed_history_keeps_summary (test_records.RecordsTests) ... ok\ntest_ambiguous_submit_durable_no_retry (test_records.RecordsTests) ... ok\ntest_continuation_never_restarts_started_or_unknown (test_records.RecordsTests) ... ok\ntest_cpu_mask_and_gpu_mask_preserved (test_records.RecordsTests) ... ok\ntest_empty_or_missing_final_checks_cannot_pass (test_records.RecordsTests) ... ok\ntest_failed_metrics_not_aggregated (test_records.RecordsTests) ... ok\ntest_first27_pair_does_not_require_third (test_records.RecordsTests) ... ok\ntest_handoff_phase_does_not_regress_or_lose_job (test_records.RecordsTests) ... ok\ntest_history_gap_duplicate_and_malformed_partial (test_records.RecordsTests) ... ok\ntest_index_duplicate_and_current_preserved_rejected (test_records.RecordsTests) ... ok\ntest_last_tie_and_earlystop (test_records.RecordsTests) ... ok\ntest_missing_first_and_last_result (test_records.RecordsTests) ... ok\ntest_pair_mean_uses_same_seed_intersection (test_records.RecordsTests) ... ok\ntest_pairing_rejects_serialized_batch_or_common_drift (test_records.RecordsTests) ... ok\ntest_partial_json_scalar_keeps_summary (test_records.RecordsTests) ... ok\ntest_partial_write_bad_json_keeps_numeric_markdown (test_records.RecordsTests) ... ok\ntest_pipeline_failure_keeps_real_partial_summary (test_records.RecordsTests) ... ok\ntest_plan_order_and_seed2026_blocked (test_records.RecordsTests) ... ok\ntest_real_progress_registry_empty_not_pass_negative_preserved (test_records.RecordsTests) ... ok\ntest_retry_reason_not_blocking_reason_and_no_overwrite (test_records.RecordsTests) ... ok\ntest_sample_std_empty_single_and_negative_pairs (test_records.RecordsTests) ... ok\ntest_selection_and_metric_schema_fail_closed (test_records.RecordsTests) ... ok\ntest_serialized_ownership_limits (test_records.RecordsTests) ... ok\ntest_settings_only_seed_and_output (test_records.RecordsTests) ... ok\ntest_source_previous_variant_same_seed_and_order (test_records.RecordsTests) ... ok\ntest_submit_intent_precedes_sbatch_and_duplicate_blocked (test_records.RecordsTests) ... ok\ntest_window26_vs27 (test_records.RecordsTests) ... ok\n\n----------------------------------------------------------------------\nRan 27 tests in 2.010s\n\nOK\n"
+  },
+  "error": "ValueError('Pair mismatch: optimizer_settings[0].weight_decay: 0 (int) != 0.0 (float)')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_head_timescales/confirmation/preflight.py\", line 36, in run\n    with tempfile.TemporaryDirectory() as directory:result['initialization']=initialization(directory)\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_head_timescales/confirmation/state.py\", line 76, in initialization\n    pilot=read(c.pilot_path(variant));compare_optimizer_settings(metadata,pilot['optimizer_settings'])\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/state.py\", line 131, in compare_optimizer_settings\n    compare(canonical_optimizer_settings(a), canonical_optimizer_settings(b), 'optimizer_settings')\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/state.py\", line 124, in compare\n    compare(left[i] if i < len(left) else missing,\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/state.py\", line 120, in compare\n    compare(left.get(key, missing), right.get(key, missing), f'{path}.{key}')\n  File \"/home/daryumin/iberdov/diplom/experiments/mamba3_three_time/confirmation/state.py\", line 130, in compare\n    raise ValueError(f'Pair mismatch: {path}: {show(left)} != {show(right)}')\nValueError: Pair mismatch: optimizer_settings[0].weight_decay: 0 (int) != 0.0 (float)\n",
+  "finished_at": "2026-09-30T11:23:48.175097+00:00"
+}
