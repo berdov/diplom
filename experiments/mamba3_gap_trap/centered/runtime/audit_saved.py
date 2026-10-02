@@ -11,6 +11,12 @@ from experiments.mamba3_gap_trap.centered import config as c, provenance as p, r
 from experiments.mamba3_mimo_time.records import read,sha,create,accepted_cases,now
 
 
+def analytic_equal(saved, expected):
+    """Allow one binary64 ULP for Linux/macOS libm exp rounding only."""
+    return (math.isfinite(saved) and math.isfinite(expected)
+            and abs(saved-expected) <= math.ulp(expected))
+
+
 def audit(job):
     folder=c.HERE/('evidence/job'+job);files=folder/'files'
     saved=read(folder/'preservation_manifest.json');execution=saved['checkout_commit']
@@ -41,7 +47,7 @@ def audit(job):
     pipeline=checked(logs/'pipeline_status.json')
     if (pipeline['scientific_fits_started'],pipeline['scientific_fits_completed'])!=(2,2):raise ValueError('Fit count')
     if [row['stage'] for row in pipeline['stages']]!=['gate','smoke',*c.MODES] or any(row['status']!='PASS' for row in pipeline['stages']):raise ValueError('Pipeline stages')
-    records={};rows=[];pilot=read(c.PILOT)
+    records={};rows=[];analytic_rounding=[];pilot=read(c.PILOT)
     for mode in c.MODES:
         run_id=c.paths(mode)['run_id'];r=checked(runs/(run_id+'.json'));report.validate_record(r,mode)
         if r['targeted_gate_sha256']!=sha(runs/c.GATE.name) or r['smoke_sha256']!=sha(runs/c.SMOKE.name):raise ValueError('Fit admission')
@@ -77,7 +83,15 @@ def audit(job):
             if not 0<=alpha<=1 or diag['q_centered']!=q or diag['logit_shift']!=shifts:raise ValueError('Centered diagnostics')
             if diag['alpha_bounds']!=[0.,1.] or diag['at_lower_bound']!=(alpha==0.) or diag['at_upper_bound']!=(alpha==1.) or diag['shared_across_heads_and_layers'] is not True:raise ValueError('Alpha flags')
             if diag['gaps_over_R0']!=c.plan()['diagnostic_grid'] or diag['content_logits']!=c.plan()['diagnostic_content_logits']:raise ValueError('Diagnostic grid')
-            if diag['odds_multiplier']!=[math.exp(x) for x in shifts] or diag['current_fraction']!=[[1/(1+math.exp(-t-v)) for v in shifts] for t in c.plan()['diagnostic_content_logits']]:raise ValueError('Odds/sigmoid diagnostics')
+            analytic=[('odds_multiplier',diag['odds_multiplier'],[math.exp(x) for x in shifts])]
+            fractions=diag['current_fraction'];logits=c.plan()['diagnostic_content_logits']
+            if len(fractions)!=len(logits):raise ValueError('Sigmoid diagnostic shape')
+            analytic.extend(('current_fraction_'+str(t),actual,[1/(1+math.exp(-t-v)) for v in shifts]) for t,actual in zip(logits,fractions))
+            for name,actual,expected in analytic:
+                if len(actual)!=len(expected):raise ValueError('Analytic diagnostic shape')
+                for grid_index,(a,b) in enumerate(zip(actual,expected)):
+                    if not analytic_equal(a,b):raise ValueError('Odds/sigmoid diagnostics')
+                    if a!=b:analytic_rounding.append(dict(variant=mode,epoch=index,field=name,grid_index=grid_index,saved=a,recomputed=b,ulps=abs(a-b)/math.ulp(b)))
             def fp32(x):return struct.unpack('<f',struct.pack('<f',x))[0]
             def bf16(x):
                 bits=struct.unpack('<I',struct.pack('<f',x))[0]
@@ -118,7 +132,8 @@ def audit(job):
         targeted_cases=len(c.plan()['required_cases']),targeted_required_checks=sum(len(x['required_keys']) for x in c.plan()['required_cases']),
         smoke_steps=6,scientific_fits_started=2,scientific_fits_completed=2,TEST='NOT_RUN',test_evaluation_count=0,
         rows=rows,metric_cells=sum(x['metric_cells'] for x in rows),paired_fields=list(pairing),fixed_replay=baseline,
-        contrasts=summary['contrasts'],runtime_errors=errors,warnings=warnings,checkpoint_loading=False)
+        contrasts=summary['contrasts'],runtime_errors=errors,warnings=warnings,checkpoint_loading=False,
+        analytic_libm_tolerance_ulps=1,analytic_rounding=analytic_rounding)
     output=folder/'independent_audit.json'
     if output.exists():
         previous=read(output)

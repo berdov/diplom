@@ -1,0 +1,194 @@
+{
+  "job_id": "4371876",
+  "captured_at": "2026-10-03T00:19:25.481728+03:00",
+  "checkout_commit": "e4e31370e29c2a34c5f0f1071046fccebd77c289",
+  "tracked_clean": true,
+  "sacct": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4371876|COMPLETED|0:0|00:50:21|cn-043|2026-10-02T23:26:27|2026-10-03T00:16:48\n4371876.batch|COMPLETED|0:0|00:50:21|cn-043|2026-10-02T23:26:27|2026-10-03T00:16:48\n4371876.extern|COMPLETED|0:0|00:50:21|cn-043|2026-10-02T23:26:27|2026-10-03T00:16:48\n",
+  "files": [
+    {
+      "path": "runs/attempt_002/inherited_kernel_002.json",
+      "bytes": 6957,
+      "sha256": "6efb6fbd53ccea68ec42ae68044d6dd8891612303ff53501ba232f6bd36fbd37"
+    },
+    {
+      "path": "runs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002.json",
+      "bytes": 606653,
+      "sha256": "9360c0e074d17de9512b7af26e6bf38935a3deadbc8497cffbd65a908e2e16d6"
+    },
+    {
+      "path": "runs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002.json",
+      "bytes": 378339,
+      "sha256": "ba45a214f3f0a8f2d3772bc8e2cc092e8157a072cc5cf287d86f78f9ede5e970"
+    },
+    {
+      "path": "runs/attempt_002/pilot_summary.json",
+      "bytes": 11018,
+      "sha256": "450e6809a04a4062ed82309ee767b3948afa2f2ac36c5a92bdd70025626e3a41"
+    },
+    {
+      "path": "runs/attempt_002/pilot_summary.md",
+      "bytes": 1247,
+      "sha256": "c7b4c90878f8aefab0853a643ed958bd881187e9b0643429aa40e48a37343917"
+    },
+    {
+      "path": "runs/attempt_002/smoke_002.json",
+      "bytes": 28650,
+      "sha256": "e3fafa7f257c18cbc46b8c9fff982145c15bf8c136c310f8eb1b0de79c43f832"
+    },
+    {
+      "path": "runs/attempt_002/targeted_gate_002.json",
+      "bytes": 183312,
+      "sha256": "ed3ad56a0beaf24bd7e3e17276fa0f80b0e306689f614b8abe24e37b0659b169"
+    },
+    {
+      "path": "runs/attempt_002/terminal_metadata.json",
+      "bytes": 596,
+      "sha256": "eb0cb621e31b4b60f2ee89dc026b28dec7a04abd14322032f46044dc0f001fd5"
+    },
+    {
+      "path": "slurm_logs/attempt_002/cpu_preflight_e4e31370e29c2a34c5f0f1071046fccebd77c289.json",
+      "bytes": 19590,
+      "sha256": "f9faeab28389da8ca7987f9e9f57d9acfceb1e4975589d15adc8ea22e0e3b47e"
+    },
+    {
+      "path": "slurm_logs/attempt_002/gate/child_environment.json",
+      "bytes": 167,
+      "sha256": "a27b7795eb9686518ae242b4a09bb00bdb124f8354c9a77ad01a39db5e8e1544"
+    },
+    {
+      "path": "slurm_logs/attempt_002/gate/stderr.log",
+      "bytes": 446,
+      "sha256": "4e618f2d1be2d7a54721ffd5bc8c6619a8825a1e1caa26c2644acf830f09e3a5"
+    },
+    {
+      "path": "slurm_logs/attempt_002/gate/stdout.log",
+      "bytes": 775,
+      "sha256": "a2b81acc73c48f1cf4bbc9194819fb255614dc0f9317a278382560c4311328d5"
+    },
+    {
+      "path": "slurm_logs/attempt_002/login_verification_002.json",
+      "bytes": 4524,
+      "sha256": "bef8d18129fedf9b104336822bd90c45732428c9729d873be9a1df2056cb5bd9"
+    },
+    {
+      "path": "slurm_logs/attempt_002/m3-gapcenter2-4371876.err",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_002/m3-gapcenter2-4371876.out",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002/checkpoints/best_metadata.json",
+      "bytes": 4641,
+      "sha256": "9c24881b49e564e35ec8f656c0e964f168d6f7df5d9b480089f0dbb36f49bcec"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002/log/ThreeTimeMamba3Rec/ThreeTimeMamba3Rec-kuairand-Oct-02-2026_23-51-25-2802fa.log",
+      "bytes": 27516,
+      "sha256": "0982d4ef160444d2d14501a87a57176039fd90b6e26a053f7f6116181e4381e4"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002/process/child_environment.json",
+      "bytes": 180,
+      "sha256": "7d4a9112c83ab66febdfd5ebd70c5ca883ac9b794038f3bbc0e0cb0f86cae364"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002/process/stderr.log",
+      "bytes": 27952,
+      "sha256": "af1ddd7bfdcfc417685ea0d94a734fc43a1b38ff7a152a9fb7f0c9a695295522"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002/process/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002/run.lock",
+      "bytes": 2269,
+      "sha256": "371437937287343c3cf70c8e2f15398c99cec7a6e5b8604ac2613aa5580ed11e"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002/checkpoints/best_metadata.json",
+      "bytes": 3724,
+      "sha256": "3d069253d5343042d8871f0e94af2fc3417c50012208dfbd5158898065c7f462"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002/log/ThreeTimeMamba3Rec/ThreeTimeMamba3Rec-kuairand-Oct-02-2026_23-33-07-f0496e.log",
+      "bytes": 17895,
+      "sha256": "0bee1fd3567e6ff614a5b6c1fc20870262c2a77e4b14832eca67ceaba1f4f3bb"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002/process/child_environment.json",
+      "bytes": 175,
+      "sha256": "b92f0141385ee3b058c960329f0e7343cf3240dd63a88e405306d69e30347c28"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002/process/stderr.log",
+      "bytes": 18888,
+      "sha256": "7eaf15f02d4384101b9eb954f61c6811516d263f0c30675700d0b8d53721a2ab"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002/process/stdout.log",
+      "bytes": 1281,
+      "sha256": "205b19e7cbe05e4f0fc48f4c6b71c4b5fb70737c56f161ed47e03165bff9a99b"
+    },
+    {
+      "path": "slurm_logs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002/run.lock",
+      "bytes": 2259,
+      "sha256": "59ae4880b58ea924bb87db8e8b4e181b05e9ac2b74627f3803f5989532899b9c"
+    },
+    {
+      "path": "slurm_logs/attempt_002/no_git_preflight_e4e31370e29c2a34c5f0f1071046fccebd77c289.json",
+      "bytes": 19589,
+      "sha256": "eb2d515476825cdfe6415006b51c93cd8624b225a3640b9833044e69125ddf04"
+    },
+    {
+      "path": "slurm_logs/attempt_002/pipeline.lock",
+      "bytes": 1528,
+      "sha256": "db34b1b17ab6e6f98bde095c1e1f1245e2dc3861d39105151b12a5d536c777e6"
+    },
+    {
+      "path": "slurm_logs/attempt_002/pipeline_status.json",
+      "bytes": 2585,
+      "sha256": "985fa11108a2ca9433be9f659d267e3d493270b4ccc070caca4009c22bb2bb11"
+    },
+    {
+      "path": "slurm_logs/attempt_002/reservation_002.json",
+      "bytes": 1960,
+      "sha256": "deaa7164fdbd405b9bd6e09e49d6ddda5fc9d385a499b670fd247100c9ca66ec"
+    },
+    {
+      "path": "slurm_logs/attempt_002/smoke/child_environment.json",
+      "bytes": 168,
+      "sha256": "f43836243ec122d6ff2574ff9519402254c83cba51a2f65c8ebd26cceca72c37"
+    },
+    {
+      "path": "slurm_logs/attempt_002/smoke/stderr.log",
+      "bytes": 394,
+      "sha256": "a376bb4d5483df2aff8363d7da7d96e0b3d1987f9ae844b22f161c033b615335"
+    },
+    {
+      "path": "slurm_logs/attempt_002/smoke/stdout.log",
+      "bytes": 775,
+      "sha256": "298e77846e0507ec8d80390702e5b3bd205e74bea4f806093389567223f430a7"
+    },
+    {
+      "path": "slurm_logs/attempt_002/submission_002.json",
+      "bytes": 1017,
+      "sha256": "54954a4c4ebe9b90683404e26b5388f2c994ad95db722112a924c85aadc279c6"
+    }
+  ],
+  "checkpoints": {
+    "slurm_logs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002/checkpoints/best_state_dict.pth": {
+      "bytes": 2507649,
+      "sha256": "9652b832b74aceaded101112a3afab58dc3369588c2e4830d9f388e1cc3d5636"
+    },
+    "slurm_logs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002/checkpoints/best_state_dict.pth": {
+      "bytes": 2507332,
+      "sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8"
+    }
+  }
+}

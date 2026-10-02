@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "finished_at": "2026-10-02T21:16:47.721130+00:00",
+  "pipeline_sha256": "985fa11108a2ca9433be9f659d267e3d493270b4ccc070caca4009c22bb2bb11",
+  "scientific_fits_started": 2,
+  "scientific_fits_completed": 2,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "checkpoints": {
+    "fixed_replay": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8",
+    "centered_gap_trap": "9652b832b74aceaded101112a3afab58dc3369588c2e4830d9f388e1cc3d5636"
+  },
+  "scope": "In-allocation streaming hashes; sacct and process-log audit required after terminal Slurm state"
+}
