@@ -261,7 +261,7 @@
     "experiments/mamba3_gap_trap/__init__.py": "4de19175c695d59474277fdd71e717a93f7cc907e7fe3146387d733f68fa363d",
     "experiments/mamba3_gap_trap/model.py": "6fd311e2d152c47bb0716f90c9953bde11931df75fbe85e7cd1674a65d7fd115",
     "experiments/mamba3_gap_trap/process_env.py": "954c6a5b2eb8c7c8ea4b2bd7c8110b9b6bbacb89ae420e71cedffa1b36acc8d4",
-    "experiments/mamba3_gap_trap/pipeline.py": "08dec58ca52ad05febf333f4dec093e2e9aaadab9acb08d016f4d3adf8451bc3",
+    "experiments/mamba3_gap_trap/pipeline.py": "1285b9b71156cd72d0169dde8d97287ed6240fc60529aa8fbc376b173e35f54a",
     "experiments/mamba3_gap_trap/gate.py": "c318e76e079e474067b1e36eb26d76036366a3682ef6d12320531e360ef49695",
     "experiments/mamba3_gap_trap/trainer.py": "a1f90672f7bf116874e1ad7d659a2743b95aab95562f1a5fee9509f5c55b7dfe",
     "experiments/mamba3_gap_trap/provenance.py": "3859c9507cc828ee11496bc70d1314df5f96d2e9e876f0a30a9d252dff1ed773",
@@ -272,14 +272,14 @@
     "experiments/mamba3_gap_trap/preflight.py": "deb98a39d8f5cb1fca870a0cac01983d8e13a3634448c56ec530f7fdc6d01a2a",
     "experiments/mamba3_gap_trap/smoke.py": "cb6d3ffe8ef8436d95f05f01ea8879a95b122886bb6aae18fedc427bb248b268",
     "experiments/mamba3_gap_trap/tests/test_modulation.py": "564946870455d640c9c42721dab5cef09135757900f720fc6396b6f59fdb8d16",
-    "experiments/mamba3_gap_trap/tests/test_protocol.py": "3d3e922f125c1fe63ae036ffaecc34afbf89538f08a96956b87e2cb653cd19a7",
+    "experiments/mamba3_gap_trap/tests/test_protocol.py": "f2f80f2bef86e4d7d54cd08f4b3818190bca29151794a01156c25541412eb09d",
     "experiments/mamba3_gap_trap/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "experiments/mamba3_gap_trap/DESIGN.md": "fcd8a498dde43b7ab15364dd72fe8cd78ab7f8a0eceb90f2fc902c17003d0ddd",
     "experiments/mamba3_gap_trap/study_plan.json": "273a5260c3a7eab7c2e012586f2d1eb0849bf5cb3919b550323a9e9ec9e9f5ae",
     "slurm/mamba3_gap_trap.sh": "5d1721a43576747cbfa8bec0a8731b74a6a3ce526aa820e27f567d9bda1c122d",
     "experiments/mamba3_head_timescales/confirmation/source_manifest.json": "5cf8b69d9142d3da1079f58d47d2c60bc68e27729c49285f784a07dee8152583"
   },
-  "source_hash": "b02167535c730a7910b17ea572510750fabd978ae7135c6dd8467e5fcd46b291",
+  "source_hash": "ad9e4591d570a223848c8588dc2e0fed104d6802fccc22e7f2e1c4cc4068ecd0",
   "publication_commit": "4e5fcd660115318ed8df26849498eabe3a72bb26",
   "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f"
 }

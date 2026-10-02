@@ -30,18 +30,18 @@ def child(stage,module,args,deadline,directory):
     if code:raise RuntimeError(f'{stage} exit {code}; see {directory}/stderr.log')
 
 
-def main():
+def run():
     base=identity();create(c.LOGS/'pipeline.lock',base)
     result=dict(**base,status='RUNNING',stages=[],started_at=now(),scientific_fits_started=0,scientific_fits_completed=0,
                 allocation_cuda_visibility=visibility(os.environ))
     create(c.PIPELINE,result)
-    budget=c.plan()['budget']
-    deadline=min(float(os.environ.get('SLURM_JOB_END_TIME','inf')),time.time()+budget['allocation_seconds'])-budget['save_margin_seconds']
-    os.environ['PIPELINE_DEADLINE']=str(deadline)
-    result['deadline_unix']=deadline
-    def terminate(signum,frame):raise TimeoutError(f'Pipeline interrupted: {signum}')
-    signal.signal(signal.SIGTERM,terminate)
     try:
+        budget=c.plan()['budget']
+        deadline=min(float(os.environ.get('SLURM_JOB_END_TIME','inf')),time.time()+budget['allocation_seconds'])-budget['save_margin_seconds']
+        os.environ['PIPELINE_DEADLINE']=str(deadline)
+        result['deadline_unix']=deadline
+        def terminate(signum,frame):raise TimeoutError(f'Pipeline interrupted: {signum}')
+        signal.signal(signal.SIGTERM,terminate)
         create(c.INHERITED,dict(**base,status='PASS',inherited=inherited(),runtime=runtime(True),verified_at=now()))
         require_stage(c.INHERITED,base)
         for stage in ('gate','smoke',*c.MODES):
@@ -76,6 +76,21 @@ def main():
         except BaseException:result.update(status='FAIL',report_traceback=traceback.format_exc())
         result['finished_at']=now();update(c.PIPELINE,result)
     return 0 if result['status']=='PASS' else 1
+
+
+def main():
+    try:
+        return run()
+    except BaseException as exc:
+        import re
+        job=os.environ.get('SLURM_JOB_ID','')
+        label=job if re.fullmatch('[0-9]+',job) else 'unknown'
+        failure=dict(status='FAIL',stage='STARTUP',identity_verified=False,job_id=job,
+                     scientific_fits_started=0,TEST='NOT_RUN',test_evaluation_count=0,
+                     error=repr(exc),traceback=traceback.format_exc(),finished_at=now())
+        path=c.LOGS/('startup_failure_'+label+'.json')
+        if not path.exists():create(path,failure)
+        return 1
 
 
 if __name__=='__main__':raise SystemExit(main())

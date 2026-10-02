@@ -217,6 +217,14 @@ class ProtocolTests(unittest.TestCase):
                 p.write_text('changed\n')
                 with self.assertRaises(ValueError):provenance.check_files(root,manifest)
 
+    def test_startup_failure_is_durable(self):
+        with scratch(),patch.dict(os.environ,{'SLURM_JOB_ID':'987'}),patch.object(pipeline,'identity',side_effect=ValueError('fixture')):
+            self.assertEqual(pipeline.main(),1)
+            row=read(c.LOGS/'startup_failure_987.json')
+            self.assertEqual(row['status'],'FAIL')
+            self.assertFalse(row['identity_verified'])
+            self.assertEqual(row['scientific_fits_started'],0)
+
     def test_malformed_pass_blocks_next_fit(self):
         with scratch(),ExitStack() as stack:
             stack.enter_context(patch.dict(os.environ,{},clear=False))
