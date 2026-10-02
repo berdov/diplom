@@ -1,0 +1,120 @@
+{
+  "job_id": "4371302",
+  "captured_at": "2026-10-02T22:27:08.572154+03:00",
+  "checkout_commit": "4347ecbd3bfa98b075dbf0dd8f227bfff3590e50",
+  "tracked_clean": true,
+  "sacct": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4371302|FAILED|1:0|00:03:30|cn-043|2026-10-02T21:36:50|2026-10-02T21:40:20\n4371302.batch|FAILED|1:0|00:03:30|cn-043|2026-10-02T21:36:50|2026-10-02T21:40:20\n4371302.extern|COMPLETED|0:0|00:03:30|cn-043|2026-10-02T21:36:50|2026-10-02T21:40:20\n",
+  "files": [
+    {
+      "path": "runs/attempt_001/inherited_kernel_001.json",
+      "bytes": 6822,
+      "sha256": "90fb900b2f6ee687e57f814f4f10ef9dc5940aba281fbeb73525b2731ff1f3ac"
+    },
+    {
+      "path": "runs/attempt_001/mamba3_gaptrap_centered_centered_gap_trap_seed2026_001.json",
+      "bytes": 1841,
+      "sha256": "b203e12c56de24b4debde9ec394c6fb8c9c4b02ca4a49337701b1fef46ecc099"
+    },
+    {
+      "path": "runs/attempt_001/mamba3_gaptrap_centered_fixed_replay_seed2026_001.json",
+      "bytes": 1831,
+      "sha256": "4ee44fc31c8a1d0be01df4e00227f77a21cc37f4a174c73dd5d96e2ca8dcaa69"
+    },
+    {
+      "path": "runs/attempt_001/pilot_summary.json",
+      "bytes": 3046,
+      "sha256": "d70fbba90cd88950ad52693cdcdcf59298bc69a132948920ffc4866906e9aca3"
+    },
+    {
+      "path": "runs/attempt_001/pilot_summary.md",
+      "bytes": 1122,
+      "sha256": "df0efdadd97e836f7a0646b79e8982ede468433e77f7f2f044b1c8cbfbba72a7"
+    },
+    {
+      "path": "runs/attempt_001/targeted_gate_001.json",
+      "bytes": 18274,
+      "sha256": "2d946ab528a3f336d834deaf89c57aafe974fb3d4480d6c8fdb0379ee3d0dd92"
+    },
+    {
+      "path": "runs/attempt_001/terminal_metadata.json",
+      "bytes": 419,
+      "sha256": "d9fc9653283ab8833a8eb065b313e2eff0856fad513714a9514be47766d098b2"
+    },
+    {
+      "path": "slurm_logs/attempt_001/cpu_preflight_12fb624038b68895d64c4216764ddb3bd818a61f.json",
+      "bytes": 18942,
+      "sha256": "e516b87e9151e60eb2a561e83ae105e64c43d6840c5e3f0c2a5153fd6c5c1094"
+    },
+    {
+      "path": "slurm_logs/attempt_001/cpu_preflight_4347ecbd3bfa98b075dbf0dd8f227bfff3590e50.json",
+      "bytes": 18942,
+      "sha256": "335bb6c03c743e5c2693394524e79cc5635c38099fe45c6becd4ce39b2e1a25b"
+    },
+    {
+      "path": "slurm_logs/attempt_001/cpu_preflight_8652514e58a96927ccfb279a504fadd9e7932ae5.json",
+      "bytes": 18944,
+      "sha256": "a0d7e805e41414016df04ae3ccb0d25d18765f1bc4fa7b901013ffa3eded1173"
+    },
+    {
+      "path": "slurm_logs/attempt_001/gate/child_environment.json",
+      "bytes": 167,
+      "sha256": "a27b7795eb9686518ae242b4a09bb00bdb124f8354c9a77ad01a39db5e8e1544"
+    },
+    {
+      "path": "slurm_logs/attempt_001/gate/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_001/gate/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_001/login_verification_001.json",
+      "bytes": 4336,
+      "sha256": "8dc168666c1b811c4a1d078f921de648ef7a1bf3dcd0f642b4030b614ed3fc79"
+    },
+    {
+      "path": "slurm_logs/attempt_001/m3-gapcenter-4371302.err",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_001/m3-gapcenter-4371302.out",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_001/no_git_preflight_12fb624038b68895d64c4216764ddb3bd818a61f.json",
+      "bytes": 18942,
+      "sha256": "1345b800c4e42dfff0ffec441be99e945e29df51c81da4cbc1651173d2fba6ce"
+    },
+    {
+      "path": "slurm_logs/attempt_001/no_git_preflight_4347ecbd3bfa98b075dbf0dd8f227bfff3590e50.json",
+      "bytes": 18942,
+      "sha256": "8e96bf27dd4dfacd8835866c1cb059b94a86bca7a1b174e89d477f776ed8df26"
+    },
+    {
+      "path": "slurm_logs/attempt_001/pipeline.lock",
+      "bytes": 1393,
+      "sha256": "59bb3347bddd6a6bc0c3716cefcea10be160e25282bbb6e6a02fee9bf282b7ed"
+    },
+    {
+      "path": "slurm_logs/attempt_001/pipeline_status.json",
+      "bytes": 2737,
+      "sha256": "581ffcd645ca49775f29d300c1efc70d6db4c2453e99191252542193b0289a25"
+    },
+    {
+      "path": "slurm_logs/attempt_001/reservation_001.json",
+      "bytes": 1825,
+      "sha256": "fc3270361f06a3d168bd5a8bbd692772026fbaf098d3b3f40f620ef63bb7d817"
+    },
+    {
+      "path": "slurm_logs/attempt_001/submission_001.json",
+      "bytes": 1017,
+      "sha256": "c44c5ac83b6b61ec6bfbf7b6d220dbccd77becc252a54e1d6925b284788a295b"
+    }
+  ],
+  "checkpoints": {}
+}
