@@ -1,11 +1,12 @@
 """Partial-safe numeric summary; no model, dataset or checkpoint loading."""
 import math
 from . import config as c
-from experiments.mamba3_mimo_time.records import read,create,now,sha
+from experiments.mamba3_mimo_time.records import read,create,now,sha,finite_tree
 
 
 def validate_record(r,variant):
     if r.get('status')!='PASS':return
+    if not finite_tree(r):raise ValueError('Nonfinite scientific record')
     p=c.paths(variant);h=r.get('history',[])
     if (r.get('run_id')!=p['run_id'] or r.get('gap_trap_mode')!=variant or r.get('mode')!='dual' or r.get('seed')!=2026
         or r.get('parameter_count')!=c.COUNTS[variant] or r.get('TEST')!='NOT_RUN' or r.get('test_evaluation_count')!=0
@@ -14,10 +15,24 @@ def validate_record(r,variant):
         raise ValueError('Invalid successful run identity/history')
     scores=[x['valid_ndcg10'] for x in h]
     if not all(math.isfinite(v) for v in scores):raise ValueError('Nonfinite history')
+    metric_keys={f'{kind}@{k}' for kind in ('hit','ndcg','recall') for k in (5,10,20,50)}
+    for row in h:
+        if set(row['valid_metrics'])!=metric_keys or row['valid_metrics']['ndcg@10']!=row['valid_ndcg10']:
+            raise ValueError('Metric keys/selection mismatch')
     best=max(i for i,v in enumerate(scores) if v==max(scores))
     if (r.get('best_epoch')!=best or r.get('best_valid_score')!=scores[best]
         or r.get('best_valid_metrics')!=h[best]['valid_metrics'] or r.get('best_diagnostics')!=h[best]['diagnostics']):
         raise ValueError('Best/last-tie mismatch')
+    best_so_far=-math.inf;stale=0;stop=None
+    for i,score in enumerate(scores):
+        if score>=best_so_far:best_so_far=score;stale=0
+        else:stale+=1
+        if stale>10 and stop is None:stop=i
+    if (len(h)<300 and stop!=len(h)-1) or (stop is not None and stop!=len(h)-1) or len(h)>300:
+        raise ValueError('Not a complete unchanged early-stopped fit')
+    if r.get('first27_complete')!=(len(h)>=27) or r.get('first27_best_ndcg10')!=(max(scores[:27]) if len(h)>=27 else None):
+        raise ValueError('First27 mismatch')
+
 
 
 def validate_checkpoint(r,variant):

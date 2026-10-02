@@ -30,12 +30,19 @@ def scratch():
 
 
 def successful(variant,score=.06,epochs=12):
-    metrics={'ndcg@10':score,'hit@10':.1}
-    h=[dict(epoch=i,valid_ndcg10=score,valid_metrics=metrics,diagnostics={}) for i in range(epochs)]
+    if score==0.:epochs=300
+    best=epochs-12 if score else epochs-1
+    h=[]
+    for i in range(epochs):
+        value=score if i<=best else score-.001
+        metrics={f'{kind}@{k}':value if kind=='ndcg' else .1 for kind in ('hit','ndcg','recall') for k in (5,10,20,50)}
+        h.append(dict(epoch=i,valid_ndcg10=value,valid_metrics=metrics,diagnostics={}))
     return dict(run_id=c.paths(variant)['run_id'],gap_trap_mode=variant,mode='dual',seed=2026,
                 parameter_count=c.COUNTS[variant],TEST='NOT_RUN',test_evaluation_count=0,
                 scientific_fit_started=True,status='PASS',history=h,actual_epochs=epochs,
-                best_epoch=epochs-1,best_valid_score=score,best_valid_metrics=metrics,best_diagnostics={})
+                first27_complete=epochs>=27,first27_best_ndcg10=max(x['valid_ndcg10'] for x in h[:27]) if epochs>=27 else None,
+                best_epoch=best,best_valid_score=score,best_valid_metrics=h[best]['valid_metrics'],best_diagnostics={})
+
 
 
 class ProtocolTests(unittest.TestCase):
@@ -135,8 +142,15 @@ class ProtocolTests(unittest.TestCase):
         self.assertLess(result['contrasts'][0]['delta'],0)
         records['fixed_replay']=successful('fixed_replay',0.)
         self.assertIsNone(report.summarize(records)['contrasts'][0]['relative_percent'])
-        bad=successful('gap_trap');bad['best_epoch']=0
+        bad=successful('gap_trap');bad['best_epoch']=1
         self.assertEqual(report.summarize({'gap_trap':bad})['rows'][1]['status'],'FAIL')
+
+    def test_partial_pass_and_metric_mismatch_rejected(self):
+        r=successful('fixed_replay')
+        r['history']=r['history'][:-1];r['actual_epochs']-=1
+        with self.assertRaises(ValueError):report.validate_record(r,'fixed_replay')
+        r=successful('gap_trap');r['history'][1]['valid_metrics']['ndcg@10']+=.01
+        with self.assertRaises(ValueError):report.validate_record(r,'gap_trap')
 
     def test_bad_checkpoint_keeps_numeric_and_markdown_summary(self):
         with scratch():

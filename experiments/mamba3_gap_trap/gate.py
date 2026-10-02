@@ -38,6 +38,7 @@ def parity(variant,save):
     for k in ['output','loss','input_gradient']+['gradient:'+n for n in c.plan()['common_parameter_keys']]:
         checks[k]=difference(a.get(k),b.get(k))
         save(case(checks,common_state_mapping=mapping,alpha_zero=True,nonzero_MLP=True))
+    checks['initial_output_bitwise']=dict(passed=all(checks[k]['bitwise_equal'] for k in ('output','loss')))
     from .modulation import attach_projection
     from experiments.mamba3_three_time.confirmation.state import compare_named
     left=torch.optim.Adam(new.parameters(),lr=.001)

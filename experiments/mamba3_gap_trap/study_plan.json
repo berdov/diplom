@@ -173,6 +173,7 @@
         "gradient:times.calibrators.scan.first.weight",
         "gradient:times.calibrators.scan.last.bias",
         "gradient:times.calibrators.scan.last.weight",
+        "initial_output_bitwise",
         "input_gradient",
         "loss",
         "output"
@@ -233,6 +234,7 @@
         "gradient:times.calibrators.scan.first.weight",
         "gradient:times.calibrators.scan.last.bias",
         "gradient:times.calibrators.scan.last.weight",
+        "initial_output_bitwise",
         "input_gradient",
         "loss",
         "output"
