@@ -1,0 +1,49 @@
+{
+  "mechanism": "private globals via FunctionType; unchanged code objects; no parent/global/module mutation",
+  "modules": {
+    "config": {
+      "parent": "experiments/mamba3_gap_trap/config.py",
+      "sha256": "86d296e4515a95650f2a52329d36efa8f0de9a49059532755f3dd71aa782df88"
+    },
+    "runner": {
+      "parent": "experiments/mamba3_gap_trap/runner.py",
+      "sha256": "5d5690be81af77932badcea13d9862d21e7fa47c81b85018ce8eb903ad718838"
+    },
+    "gate": {
+      "parent": "experiments/mamba3_gap_trap/gate.py",
+      "sha256": "c318e76e079e474067b1e36eb26d76036366a3682ef6d12320531e360ef49695"
+    },
+    "smoke": {
+      "parent": "experiments/mamba3_gap_trap/smoke.py",
+      "sha256": "cb6d3ffe8ef8436d95f05f01ea8879a95b122886bb6aae18fedc427bb248b268"
+    },
+    "pipeline": {
+      "parent": "experiments/mamba3_gap_trap/pipeline.py",
+      "sha256": "1285b9b71156cd72d0169dde8d97287ed6240fc60529aa8fbc376b173e35f54a"
+    },
+    "report": {
+      "parent": "experiments/mamba3_gap_trap/report.py",
+      "sha256": "c7a091b33331d2453aafc6e30b809e325e6010672b279309aef1f7d215a29534"
+    },
+    "provenance": {
+      "parent": "experiments/mamba3_gap_trap/provenance.py",
+      "sha256": "3859c9507cc828ee11496bc70d1314df5f96d2e9e876f0a30a9d252dff1ed773"
+    },
+    "trainer": {
+      "parent": "experiments/mamba3_gap_trap/trainer.py",
+      "sha256": "a1f90672f7bf116874e1ad7d659a2743b95aab95562f1a5fee9509f5c55b7dfe"
+    },
+    "state": {
+      "parent": "experiments/mamba3_gap_trap/state.py",
+      "sha256": "b5ba86a908e38a2a2afadf57ed516034dbf58ae33236fd21dc98b735b68eac76"
+    },
+    "submit": {
+      "parent": "experiments/mamba3_gap_trap/submit.py",
+      "sha256": "ccfa16cf9993ed6a9ed1c47e72e3956e739767b7613540f2e57dab1407b37e61"
+    },
+    "preflight": {
+      "parent": "experiments/mamba3_gap_trap/preflight.py",
+      "sha256": "deb98a39d8f5cb1fca870a0cac01983d8e13a3634448c56ec530f7fdc6d01a2a"
+    }
+  }
+}
