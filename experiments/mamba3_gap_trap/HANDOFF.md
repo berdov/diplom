@@ -1,8 +1,9 @@
 # Gap Trap pilot: job4370162
 
-Заявка отправлена 2 октября 2026, 11:09:16 MSK. На первом чтении scheduler:
-`PENDING (Priority)`, старт не назначен. Это не результат GPU допуска или fit.
-Последнее наблюдение и точное время хранятся в `runtime/state.json`.
+Job завершён 2 октября 2026, 16:14:59 MSK: `COMPLETED 0:0`, 51:22.
+GPU gate, smoke и оба fits PASS. Gap Trap уступил fresh fixed replay:
+VALID NDCG@10 0.0626 против 0.0633 (−1.106%).
+[Результаты и ограничения](RESULTS.md); [сверка](evidence/job4370162/independent_audit.json).
 
 ## Зафиксированный запуск
 
@@ -17,8 +18,8 @@
 
 Обычный и no-Git CPU preflight: оба PASS, 20 тестов, 0 failures/errors/skips,
 CUDA не инициализирована. No-Git проверка не вызвала Git.
-GPU gate ещё должен проверить 4 случая / 133 обязательных результата,
-затем smoke 2048×50 по 3 шага на вариант. Старые 45/2342 и 9/228 наследуются
+GPU gate прошёл 4 случая / 133 обязательных результата;
+smoke 2048×50 прошёл по 3 шага на вариант. Старые 45/2342 и 9/228 наследуются
 по SHA и lineage. Policy и kernels не менялись.
 
 Пути относительно checkout:
@@ -30,24 +31,18 @@ GPU gate ещё должен проверить 4 случая / 133 обяза�
 - `experiments/mamba3_gap_trap/evidence/` — сохранённые preflight и submission
   с SHA256; это снимки, их не перезаписывать при следующем чтении.
 
-## Следующая проверка
+## Состояние после завершения
 
-Только read-only: `squeue -j 4370162`, `sacct -j 4370162`, `scontrol show job 4370162`,
-чтение существующих JSON и логов. Не повторять submit, gate, smoke или runner.
-Не менять cluster checkout, пока заявка PENDING/RUNNING. Более поздние commits
-в этой ветке могут содержать только документы и сохранённые свидетельства;
-они не меняют execution commit заявки.
+Сохранены 38 raw-файлов с SHA256; числовой отчёт заново сверен с JSON,
+логами и metadata. Проверены 96 эпох, 1152 значения метрик, parity common
+state/RNG/first batch/optimizer/data, выбор checkpoint и first27.
+Checkpoint SHA подтверждены потоковым чтением на кластере; веса не загружались.
 
-После terminal status сохранить полученные файлы с SHA256, проверить provenance,
-число started/completed fits, gate registry, smoke, TEST0, pairing common state,
-RNG/first batch/optimizer/precision/data, непрерывную историю и last-tie checkpoint.
-Проверить хеши checkpoint на кластере; весовые файлы не нужны для числового отчёта.
-Ничего не переобучать при неполном или отрицательном результате.
-
-Если оба fits завершились, показать VALID NDCG@10, HR@10, best/actual epochs,
-first27, TRAIN/VALID seconds, peak memory, absolute/relative delta и сохранённую
-диагностику alpha на заранее заданной gap grid. Один seed не доказывает устойчивость.
-Нулевой alpha допустим: constrained optimizer мог предпочесть исходный контроль.
+Не повторять submit, gate, smoke или runner. Лимит задания исчерпан:
+один job, два завершённых fit, TEST0. Дополнительные seeds и пункт 4
+не запускать. Этот single-seed pilot не показал улучшения основной метрики.
+Alpha лучшего checkpoint равна 0.0005576708354, последней эпохи — 0;
+нулевой final alpha не означает идентичности обученных backbone.
 
 ## Уже опубликованный пункт 2
 

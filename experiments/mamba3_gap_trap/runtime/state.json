@@ -1,16 +1,16 @@
 {
   "job_id": "4370162",
-  "status": "PENDING",
-  "reason": "Priority",
-  "last_observed_at": "2026-10-02T08:12:33.463872+00:00",
+  "status": "COMPLETED",
+  "reason": null,
+  "last_observed_at": "2026-10-02T15:26:21.279869+00:00",
   "execution_commit": "8ee54cf1faee22bb3abad3f31aa9268d77a125d1",
   "source_hash": "ad9e4591d570a223848c8588dc2e0fed104d6802fccc22e7f2e1c4cc4068ecd0",
   "branch": "exp/mamba3-gap-trap",
   "cluster_checkout": "/home/daryumin/iberdov/diplom",
   "jobs_submitted": 1,
   "max_scientific_fits": 2,
-  "scientific_fits_started": 0,
-  "scientific_fits_completed": 0,
+  "scientific_fits_started": 2,
+  "scientific_fits_completed": 2,
   "TEST": "NOT_RUN",
   "test_evaluation_count": 0,
   "cpu_preflight": {
@@ -28,18 +28,36 @@
     "cuda_initialized": false
   },
   "targeted_gpu_gate": {
-    "status": "NOT_RUN",
-    "planned_cases": 4,
-    "planned_required_checks": 133
+    "status": "PASS",
+    "cases": 4,
+    "required_checks": 133
   },
-  "smoke": "NOT_RUN",
+  "smoke": "PASS",
   "phase_a": {
     "status": "PUBLISHED",
     "main_commit": "4e5fcd660115318ed8df26849498eabe3a72bb26",
     "registry_before": 96,
     "registry_after": 108
   },
-  "next_action": "Read existing job4370162 only; preserve and audit terminal evidence; never resubmit or change active cluster checkout",
+  "next_action": "No additional runs; terminal raw preserved and audited. Fixed-reference dual remains control in this single-seed scope.",
   "handoff": "experiments/mamba3_gap_trap/HANDOFF.md",
-  "scheduler_snapshot": "experiments/mamba3_gap_trap/evidence/submission_4370162/scheduler_002.json"
+  "scheduler_snapshot": "experiments/mamba3_gap_trap/evidence/job4370162/scheduler_snapshot.json",
+  "exit_code": "0:0",
+  "elapsed": "00:51:22",
+  "terminal_audit": {
+    "status": "PASS",
+    "path": "experiments/mamba3_gap_trap/evidence/job4370162/independent_audit.json",
+    "sha256": "79861b46c9cadd33e5ef28fdcca9acc3039ff868683c59e20cecf20321d39c2b"
+  },
+  "results": "experiments/mamba3_gap_trap/RESULTS.md",
+  "valid_ndcg10": {
+    "fixed_replay": 0.0633,
+    "gap_trap": 0.0626
+  },
+  "primary_delta": {
+    "comparison": "gap_trap - fixed_replay",
+    "status": "COMPLETE",
+    "delta": -0.0006999999999999923,
+    "relative_percent": -1.1058451816745534
+  }
 }
