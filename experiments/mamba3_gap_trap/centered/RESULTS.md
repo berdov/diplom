@@ -24,8 +24,10 @@ Centered−fixed: **+0.0002 NDCG@10 (+0.316%)**, HR@10 +0.0027.
 | centered_gap_trap | 1433.518 | 31.309 | 3025238528 | 4076863488 |
 
 Время включает влияние JIT/cache и не является сравнением warm-kernel latency.
-Все NDCG/HR/Recall @5/10/20/50 сохранены в [сводке](runs/attempt_002/pilot_summary.json)
-и двух исходных JSON рядом с ней.
+Все NDCG/HR/Recall @5/10/20/50 сохранены в исходных JSON:
+[fixed](runs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002.json),
+[centered](runs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002.json).
+Отдельно — [краткая сводка](runs/attempt_002/pilot_summary.json).
 
 ## Проверки и происхождение
 

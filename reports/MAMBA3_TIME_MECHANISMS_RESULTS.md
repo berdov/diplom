@@ -289,7 +289,7 @@ Seed **2026** является exploratory pilot: его результат ис
 
 1. Три временных механизма: SISO и [MIMO confirmation](#mimo-time-confirmation) завершены, по пять seeds, в рамках текущего KuaiRand/VALID-протокола.
 2. Обучаемые временные масштабы heads: [пилот и подтверждение завершены](#head-timescales-confirmation). Head-specific reference scales не выбраны как обязательное усложнение; контроль — MIMO dual fixed.
-3. Зависящее от gap трапециевидное смешивание: [one-sided pilot завершён](#gap-trap-one-sided-pilot); centered-проверка ещё не выполнена.
+3. Зависящее от gap трапециевидное смешивание: [one-sided](#gap-trap-one-sided-pilot) и [centered](#gap-trap-centered-pilot) pilots завершены. Пункт закрыт на текущем KuaiRand/VALID exploratory этапе; устойчивость небольшого centered-выигрыша не установлена.
 4. Временные функции отдельно по слоям: не реализованы и не проверены.
 5. Явная временная память состояния: отложенная гипотеза.
 
@@ -737,3 +737,17 @@ R — глобальные параметры модели, не персона�
 Один seed2026. One-sided Gap-Trap получил VALID NDCG@10 **0.0626 против 0.0633** у свежего fixed replay: Δ **−0.0007 (−1.11%)**. First27 также ниже: 0.0612 против 0.0620. Alpha обучалась, но в best checkpoint составила 0.00055767. Эта конкретная one-sided parameterization не улучшила pilot; это не общий вывод о gap-conditioned Trap. Multi-seed confirmation и TEST не запускались.
 
 Job4370162: 2/2 fits, 39/57 эпох, best27/45 (с нуля); HR@10 0.1162/0.1167. Fixed replay воспроизвёл прежний MIMO dual seed2026 по метрикам, train loss и checkpoint SHA. [Дизайн, полная таблица и диагностика](../experiments/mamba3_gap_trap/RESULTS.md), [raw summary](../experiments/mamba3_gap_trap/runs/attempt_001/pilot_summary.json), [сохранение и SHA](../experiments/mamba3_gap_trap/evidence/job4370162/preservation_manifest.json), [аудит](../experiments/mamba3_gap_trap/evidence/job4370162/independent_audit.json).
+
+<a id="gap-trap-centered-pilot"></a>
+## Centered Gap-Trap: pilot seed2026
+
+| Вариант | VALID NDCG@10 | HR@10 | First27 NDCG@10 | Best epoch (с нуля) | Всего эпох |
+|---|---:|---:|---:|---:|---:|
+| fixed_replay | 0.0633 | 0.1162 | 0.0620 | 27 | 39 |
+| centered_gap_trap | 0.0635 | 0.1189 | 0.0615 | 48 | 60 |
+
+Centered получил **+0.0002 NDCG@10 (+0.316%)** на одном seed, но first27 ниже на 0.0005, а обучение продолжалось 60 эпох против 39. Это небольшой положительный exploratory pilot; устойчивое преимущество не установлено. Пункт 3 закрыт в текущем KuaiRand/VALID scope. Парные seeds2027–2030 можно рассматривать только отдельным будущим решением; подтверждение не запускалось. Следующий пункт плана — layer-specific temporal functions, без реализации и запуска в этой работе.
+
+`q=(g−R0)/(g+R0)`, `T'=T+alpha*q`, R0=838393 мс. Centered-механизм реализует short-old / long-new относительно R0. Best alpha=0.00842361; на диагностической сетке 8/27 ненулевых shifts исчезают после add и BF16 cast. Это не доля событий датасета. Job4371876: COMPLETED0:0, 2/2 fits, TEST=0. Fresh fixed воспроизвёл прежний fixed по scientific history и checkpoint SHA; CPU21/21, GPU6/158, smoke PASS. Небольшой выигрыш качества сам по себе не доказывает его причину.
+
+[Результаты и ограничения](../experiments/mamba3_gap_trap/centered/RESULTS.md), [raw summary](../experiments/mamba3_gap_trap/centered/runs/attempt_002/pilot_summary.json), [alpha и диагностическая сетка](../experiments/mamba3_gap_trap/centered/diagnostics.json), [сохранение и SHA](../experiments/mamba3_gap_trap/centered/evidence/job4371876/preservation_manifest.json), [аудит](../experiments/mamba3_gap_trap/centered/evidence/job4371876/independent_audit.json).
