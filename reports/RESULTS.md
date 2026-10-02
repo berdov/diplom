@@ -2,6 +2,8 @@
 
 ## Mamba3: VALID
 
+**Обучаемые масштабы MIMO dual, подтверждение2027–2030:** fixed/shared_tau/head_tau — VALID NDCG@10 **0.062925 / 0.062750 / 0.062950**. Head−shared: **+0.000200 (+0.319%)**, пары +/−/0: 3/1/0. Head−fixed: +0.040%, 2/4 wins; first27 head−shared: 0.000000. Пункт 2 завершён: head-specific reference scales не выбираются как обязательное усложнение, контроль остаётся fixed. Пять seeds с exploratory pilot показаны отдельно. TEST=0; эквивалентность и отсутствие эффекта вообще не установлены. [Полный результат, график и TeX](MAMBA3_TIME_MECHANISMS_RESULTS.md#head-timescales-confirmation).
+
 **Обучаемые масштабы MIMO dual, пилот seed2026:** fixed/shared_tau/head_tau получили VALID NDCG@10 **0.0633 / 0.0627 / 0.0639**. Общая шкала не улучшила NDCG, индивидуальные дали небольшой выигрыш на одном seed. TEST не выполнялся; устойчивость не установлена. [Таблица, первые 27 эпох и выученные масштабы](MAMBA3_TIME_MECHANISMS_RESULTS.md#head-timescales-pilot).
 
 KuaiRand, хронологический leave-one-out, полный каталог. [Условия оценки и входы](EVALUATION_SETUP.md).

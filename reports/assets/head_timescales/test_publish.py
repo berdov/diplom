@@ -52,7 +52,10 @@ class PublicationTests(unittest.TestCase):
         tex=publish.confirmation_tex(summary)
         self.assertEqual(tex,(HERE/'valid_table.tex').read_text())
         self.assertEqual(tex.count('{'),tex.count('}'))
-        self.assertEqual(tex.count('\\multicolumn'),2)
+        self.assertNotIn('All five',tex)
+        self.assertEqual(tex.count(' & 4 & '),3)
+        self.assertIn('не выбираются как обязательное усложнение',publish.REPORT.read_text())
+        self.assertIn('+ / − / 0',publish.REPORT.read_text())
         import xml.etree.ElementTree as ET
         ET.parse(HERE/'paired_delta.svg')
 

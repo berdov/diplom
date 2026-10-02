@@ -157,7 +157,8 @@ def confirmation_records(attempt):
 
 def pm(values,signed=False):
     if values['mean'] is None:return '—'
-    mean=format(values['mean'],'+.6f' if signed else '.6f')
+    value=0.0 if round(values['mean'],6)==0 else values['mean']
+    mean=format(value,'+.6f' if signed else '.6f')
     return mean+' ± '+format(values['sample_std'],'.6f') if values['sample_std'] is not None else mean+' (n=1)'
 
 
@@ -172,16 +173,27 @@ def confirmation_section(summary):
         '|---|---:|---:|---:|---:|---:|---:|']
     for seed in range(2027,2031):
         f,s,h=[by[seed,v]['ndcg10'] for v in MODES]
-        lines.append(f'| {seed} | {f:.4f} | {s:.4f} | {h:.4f} | {h-s:+.4f} | {h-f:+.4f} | {s-f:+.4f} |')
+        cells=[f"[{by[seed,v]['ndcg10']:.4f}](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/{by[seed,v]['run_id']}.json)" for v in MODES]
+        lines.append(f'| {seed} | '+ ' | '.join(cells)+f' | {h-s:+.4f} | {h-f:+.4f} | {s-f:+.4f} |')
     lines+=['','Mean ± sample std, ddof=1. Относительные разницы посчитаны по средним на одинаковом наборе seeds.','',
             '| Набор | n | Fixed | Shared τ | Head τ |','|---|---:|---:|---:|---:|']
     for key,label in [('new4_full','Четыре новых seed'),('all5_full','Пять с exploratory pilot')]:
         g=summary['cohorts'][key]
         lines.append('| '+label+' | '+str(len(g['complete_triples']))+' | '+' | '.join(pm(g['models_same_complete_triples'][v]) for v in MODES)+' |')
-    lines+=['','| Набор | Контраст | Δ mean ± std | + / 0 / − | Relative % |','|---|---|---:|---:|---:|']
+    lines+=['','| Набор | Контраст | Δ mean ± std | + / − / 0 | Relative % |','|---|---|---:|---:|---:|']
     for key,label in [('new4_full','Новые4'),('all5_full','Все5')]:
         for name,d in summary['cohorts'][key]['contrasts'].items():
-            lines.append(f"| {label} | {name} | {pm(d,True)} | {d['positive']}/{d['zero']}/{d['negative']} | {d['relative_percent']:+.3f}% |")
+            lines.append(f"| {label} | {name} | {pm(d,True)} | {d['positive']}/{d['negative']}/{d['zero']} | {d['relative_percent']:+.3f}% |")
+    g=summary['cohorts']['new4_full'];primary=g['contrasts']['head_tau-shared_tau'];fixed=g['contrasts']['head_tau-fixed']
+    first=summary['cohorts']['new4_first27']['contrasts']['head_tau-shared_tau']
+    lines+=['',f"На четырёх новых seeds head_tau превосходит shared_tau в среднем на **{primary['relative_percent']:+.3f}%**, "
+        f"в {primary['positive']}/{primary['n_available']} пар. Относительно fixed разница составляет лишь "
+        f"**{fixed['relative_percent']:+.3f}%**, положительны {fixed['positive']}/{fixed['n_available']} пар. "
+        f"В first27 средняя разница head−shared равна **{first['mean']:.6f}**. "
+        'Устойчивое практически значимое преимущество отдельных reference scales над fixed не подтверждено. '
+        'Они не выбираются как обязательное усложнение backbone; рабочим контролем остаётся MIMO dual с fixed reference. '
+        'Это не доказательство эквивалентности моделей или отсутствия эффекта вообще. '
+        'Пункт 2 завершён в текущем KuaiRand/VALID-протоколе.','']
     lines+=['','![Парные разницы head_tau минус shared_tau, VALID NDCG@10](assets/head_timescales/paired_delta.svg)','',
             '### Первые27 эпох','',
             '| Seed | Fixed | Shared τ | Head τ |','|---|---:|---:|---:|']
@@ -191,12 +203,12 @@ def confirmation_section(summary):
             r=by[seed,v]
             values.append(f"{r['first27_ndcg10']:.4f}" if r['first27_complete'] else f"неполное ({r['actual_epochs']} эпох)")
         lines.append('| '+str(seed)+(' (пилот)' if seed==2026 else '')+' | '+' | '.join(values)+' |')
-    lines+=['','| Набор | Парный контраст first27 | Доступно / ожидается | Seeds | Δ mean ± std | + / 0 / − | Relative % |',
+    lines+=['','| Набор | Парный контраст first27 | Доступно / ожидается | Seeds | Δ mean ± std | + / − / 0 | Relative % |',
             '|---|---|---:|---|---:|---:|---:|']
     for key,label in [('new4_first27','Новые4'),('all5_first27','Все5')]:
         for name,d in summary['cohorts'][key]['contrasts'].items():
             relative='—' if d['relative_percent'] is None else f"{d['relative_percent']:+.3f}%"
-            lines.append(f"| {label} | {name} | {d['n_available']}/{d['n_expected']} | {d['seeds']} | {pm(d,True)} | {d['positive']}/{d['zero']}/{d['negative']} | {relative} |")
+            lines.append(f"| {label} | {name} | {d['n_available']}/{d['n_expected']} | {d['seeds']} | {pm(d,True)} | {d['positive']}/{d['negative']}/{d['zero']} | {relative} |")
     lines+=['','First27 использует только реальные полные окна0–26. Пары выбираются независимо: '
             'короткий третий run не исключает полную пару. Это срез тех же histories, '
             'не независимая репликация и не строго равный GPU-бюджет.','',
@@ -232,32 +244,47 @@ def confirmation_section(summary):
         'R — глобальные параметры модели, не персональные периоды пользователей. Bounds '
         '[R₀/4,4R₀] при R₀=838393 мс и output bounds[0.5,2] неизменны. Сохранённые '
         'scale(gap) и histories рассматриваются вместе с R; одинаковые или разные R '
-        'сами по себе не доказывают специализацию голов или причину разницы качества.','',
+        'сами по себе не доказывают специализацию голов или причину разницы качества. '
+        'На seeds2027–2029 у head_tau R(decay,h0)>R(decay,h1), а R(scan,h0)<R(scan,h1); '
+        'на seed2030 оба направления меняются. Индексы heads не имеют стабильной short/long семантики. '
+        'Reference bounds не достигнуты; при этом на seeds2028–2029 выходной decay-scale второй головы '
+        'у shared_tau и head_tau близок к верхней границе.','',
         'Четыре новых seed дают ограниченную оценку разброса на одном датасете. Новые p-values '
         'не подбирались, статистическая значимость и эквивалентность не установлены. '
         'Наш VALID не сравнивается с опубликованным TEST как доказанный апгрейд; '
-        'окончательный backbone автоматически не выбран.','',
+        'TEST-модель автоматически не выбрана.','',
         '[Числовая сводка](assets/head_timescales/confirmation_summary.json) · '
         '[Markdown](assets/head_timescales/confirmation_summary.md) · '
         '[Индекс источников](assets/head_timescales/sources.json) · '
-        '[TeX VALID](assets/head_timescales/valid_table.tex).','']
+        '[TeX VALID](assets/head_timescales/valid_table.tex) · '
+        '[Сохранённые artifacts и SHA](../experiments/mamba3_head_timescales/confirmation/evidence/job4365206/preservation_manifest.json) · '
+        '[Независимый аудит](../experiments/mamba3_head_timescales/confirmation/evidence/job4365206/independent_audit.json).','']
     return '\n'.join(lines)
 
 
 def confirmation_tex(summary):
     lines=[r'\begin{table}[t]',r'\centering',r'\small',
-           r'\caption{Learned global normalization scales, KuaiRand VALID NDCG@10. Mean $\pm$ sample standard deviation ($ddof=1$); pilot seed2026 is exploratory. TEST was not evaluated.}',
+           r'\caption{Learned global normalization scales, KuaiRand VALID NDCG@10 on seeds 2027--2030. Mean $\pm$ sample standard deviation ($ddof=1$). Exploratory pilot 2026 is excluded; TEST was not evaluated.}',
            r'\label{tab:head-timescales-valid}',r'\begin{tabular}{lcc}',r'\toprule',
-           r'Variant / paired contrast & Seeds & VALID NDCG@10 \\',r'\midrule']
-    for key,label in [('new4_full','New seeds2027--2030'),('all5_full','All five, including exploratory pilot')]:
-        g=summary['cohorts'][key];lines.append(r'\multicolumn{3}{l}{\textit{'+label+r'}} \\')
-        for v in MODES:
-            d=g['models_same_complete_triples'][v]
-            lines.append(v.replace('_',r'\_')+' & '+str(d['n_available'])+' & $'+pm(d).replace('±',r'\pm')+r'$ \\')
-        d=g['contrasts']['head_tau-shared_tau']
-        lines.append(r'$\Delta$ head--shared & '+str(d['n_available'])+' & $'+pm(d,True).replace('±',r'\pm')+r'$ \\')
-        lines.append(r'\midrule')
-    return '\n'.join(lines[:-1]+[r'\bottomrule',r'\end{tabular}',r'\end{table}'])+'\n'
+           r'Variant & Seeds & VALID NDCG@10 \\',r'\midrule']
+    for v in MODES:
+        d=summary['cohorts']['new4_full']['models_same_complete_triples'][v]
+        lines.append(v.replace('_',r'\_')+' & '+str(d['n_available'])+' & $'+pm(d).replace('±',r'\pm')+r'$ \\')
+    return '\n'.join(lines+[r'\bottomrule',r'\end{tabular}',r'\end{table}'])+'\n'
+
+
+def confirmation_markdown(summary):
+    from experiments.mamba3_head_timescales.confirmation import report as numeric
+    lines=numeric.markdown(summary).splitlines();cohort=None
+    for i,line in enumerate(lines):
+        if line.startswith('## '):cohort=line[3:]
+        if cohort in summary['cohorts']:
+            for name,d in summary['cohorts'][cohort]['contrasts'].items():
+                if line.startswith('| '+name+' |'):
+                    cells=line.split('|');cells[5]=f" {d['positive']}/{d['negative']}/{d['zero']} "
+                    lines[i]='|'.join(cells)
+        lines[i]=lines[i].replace('+ / 0 / −','+ / − / 0')
+    return '\n'.join(lines)+'\n'
 
 
 def source_entry(record,path,role):
@@ -278,7 +305,7 @@ def publish_confirmation(attempt):
     rows,sources,summary=confirmation_records(attempt)
     registry=append_registry(rows,sources,'head-timescales-confirmation')
     (HERE/'confirmation_summary.json').write_text(json.dumps(summary,indent=2,allow_nan=False)+'\n')
-    (HERE/'confirmation_summary.md').write_text(numeric.markdown(summary))
+    (HERE/'confirmation_summary.md').write_text(confirmation_markdown(summary))
     entries=[source_entry(r,p,'confirmation') for r,p in zip(rows,sources,strict=True)]
     entries += [source_entry(r,f"experiments/mamba3_head_timescales/runs/attempt_002/{r['run_id']}.json",'pilot') for r in pilot_records()]
     (HERE/'sources.json').write_text(json.dumps(dict(sources=entries),indent=2)+'\n')
@@ -290,12 +317,20 @@ def publish_confirmation(attempt):
     else:text+='\n'+start+'\n'+section+end+'\n'
     pilot_link='[Завершённое подтверждение на четырёх новых seeds](#head-timescales-confirmation).\n\n'
     text=text.replace('## Обучаемые временные масштабы: пилот\n\n','## Обучаемые временные масштабы: пилот\n\n'+pilot_link,1) if pilot_link not in text else text
+    text=text.replace('2. Обучаемые временные масштабы отдельно по heads: не реализованы и не проверены как следующий самостоятельный механизм.',
+        '2. Обучаемые временные масштабы heads: [пилот и подтверждение завершены](#head-timescales-confirmation). Head-specific reference scales не выбраны как обязательное усложнение; контроль — MIMO dual fixed.')
+    text=text.replace('Для временных масштабов голов завершён [пилот](#head-timescales-pilot).',
+        'Для временных масштабов голов завершены [пилот](#head-timescales-pilot) и [подтверждение](#head-timescales-confirmation).')
     REPORT.write_text(text)
     g=summary['cohorts']['new4_full'];d=g['contrasts']['head_tau-shared_tau']
     paragraph=('**Обучаемые масштабы MIMO dual, подтверждение2027–2030:** fixed/shared_tau/head_tau — VALID NDCG@10 **'+
         ' / '.join(f"{g['models_same_complete_triples'][v]['mean']:.6f}" for v in MODES)+
-        f"**. Head−shared: **{d['mean']:+.6f} ({d['relative_percent']:+.3f}%)**, пары +/0/−: {d['positive']}/{d['zero']}/{d['negative']}. "
-        'Пять seeds с exploratory pilot и first27 показаны отдельно. TEST=0; устойчивость и специализация голов не объявляются. '
+        f"**. Head−shared: **{d['mean']:+.6f} ({d['relative_percent']:+.3f}%)**, пары +/−/0: {d['positive']}/{d['negative']}/{d['zero']}. "
+        f"Head−fixed: {g['contrasts']['head_tau-fixed']['relative_percent']:+.3f}%, "
+        f"{g['contrasts']['head_tau-fixed']['positive']}/4 wins; first27 head−shared: "
+        f"{summary['cohorts']['new4_first27']['contrasts']['head_tau-shared_tau']['mean']:.6f}. "
+        'Пункт 2 завершён: head-specific reference scales не выбираются как обязательное усложнение, контроль остаётся fixed. '
+        'Пять seeds с exploratory pilot показаны отдельно. TEST=0; эквивалентность и отсутствие эффекта вообще не установлены. '
         '[Полный результат, график и TeX](MAMBA3_TIME_MECHANISMS_RESULTS.md#head-timescales-confirmation).')
     p=ROOT/'reports/RESULTS.md';overview=p.read_text()
     if paragraph not in overview:overview=overview.replace('## Mamba3: VALID\n','## Mamba3: VALID\n\n'+paragraph+'\n',1)

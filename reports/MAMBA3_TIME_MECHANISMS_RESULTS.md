@@ -19,7 +19,7 @@ seeds 2027–2030 средний VALID NDCG@10 SISO dual/triple равен
 При сравнении с base вместе меняются число параметров и использование
 интервалов, поэтому весь прирост нельзя приписать только временной информации.
 Эти серии ограничены VALID одного датасета; TEST для них не запускался.
-Первый пункт плана завершён в этом scope. Для временных масштабов голов завершён [пилот](#head-timescales-pilot).
+Первый пункт плана завершён в этом scope. Для временных масштабов голов завершены [пилот](#head-timescales-pilot) и [подтверждение](#head-timescales-confirmation).
 
 [SISO](#siso-dual-triple-confirmation) · [MIMO](#mimo-time-confirmation) ·
 [Единый индекс 25 runs и SHA256](assets/internal_time_ablation/sources.json) ·
@@ -288,7 +288,7 @@ Seed **2026** является exploratory pilot: его результат ис
 ### Статус плана
 
 1. Три временных механизма: SISO и [MIMO confirmation](#mimo-time-confirmation) завершены, по пять seeds, в рамках текущего KuaiRand/VALID-протокола.
-2. Обучаемые временные масштабы отдельно по heads: не реализованы и не проверены как следующий самостоятельный механизм.
+2. Обучаемые временные масштабы heads: [пилот и подтверждение завершены](#head-timescales-confirmation). Head-specific reference scales не выбраны как обязательное усложнение; контроль — MIMO dual fixed.
 3. Зависящее от gap трапециевидное смешивание: не реализовано и не проверено.
 4. Временные функции отдельно по слоям: не реализованы и не проверены.
 5. Явная временная память состояния: отложенная гипотеза.
@@ -541,6 +541,8 @@ per-head correlation на VALID не сохранена и не восстана
 <a id="head-timescales-pilot"></a>
 ## Обучаемые временные масштабы: пилот
 
+[Завершённое подтверждение на четырёх новых seeds](#head-timescales-confirmation).
+
 Завершены три новых TRAIN→VALID запуска на seed2026, job4362620. Основа — MIMO dual, rank4/chunk8, два слоя и две temporal heads. Fixed сохраняет TRAIN reference R₀=838393 мс; shared_tau обучает один R на механизм decay/scan; head_tau — отдельный R для каждой головы каждого механизма. Параметры R общие для пользователей и слоёв.
 
 `R=R₀·exp(log(4)·tanh(α))`, bounds `[R₀/4,4R₀]`, output scales `[0.5,2]`. Конфигурация, данные, начальный backbone, общие MLP и RNG совпадают. Gate 9/9 cases, 228/228 checks; smoke 3×3 шага. TEST не выполнялся.
@@ -578,3 +580,153 @@ per-head correlation на VALID не сохранена и не восстана
 
 [Raw summary](../experiments/mamba3_head_timescales/runs/attempt_002/pilot_summary.json), [preservation и SHA](../experiments/mamba3_head_timescales/evidence/job4362620/preservation_manifest.json). Execution `4724392c88a2298e57fa662cba33baa3ab9ecdbb`; исходный failed job4361071 сохранён отдельно.
 <!-- head-timescales:pilot:end -->
+
+<!-- head-timescales:confirmation:start -->
+<a id="head-timescales-confirmation"></a>
+## Обучаемые временные масштабы: подтверждение
+
+Завершены12 новых fresh fits: fixed/shared_tau/head_tau на заранее выбранных seeds2027–2030. Все три контроля сохранены независимо от качества. Основной контраст — head_tau−shared_tau. Пилот2026 показан отдельно; исторический MIMO dual2026 повторно в статистику не включён. Только VALID, TEST=0.
+
+| Seed | Fixed | Shared τ | Head τ | Δ head−shared | Δ head−fixed | Δ shared−fixed |
+|---|---:|---:|---:|---:|---:|---:|
+| 2027 | [0.0625](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_fixed_seed2027_001.json) | [0.0628](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_shared_tau_seed2027_001.json) | [0.0635](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_head_tau_seed2027_001.json) | +0.0007 | +0.0010 | +0.0003 |
+| 2028 | [0.0627](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_fixed_seed2028_001.json) | [0.0629](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_shared_tau_seed2028_001.json) | [0.0630](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_head_tau_seed2028_001.json) | +0.0001 | +0.0003 | +0.0002 |
+| 2029 | [0.0641](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_fixed_seed2029_001.json) | [0.0628](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_shared_tau_seed2029_001.json) | [0.0633](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_head_tau_seed2029_001.json) | +0.0005 | -0.0008 | -0.0013 |
+| 2030 | [0.0624](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_fixed_seed2030_001.json) | [0.0625](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_shared_tau_seed2030_001.json) | [0.0620](../experiments/mamba3_head_timescales/confirmation/runs/attempt_001/mamba3_headtime_confirm_head_tau_seed2030_001.json) | -0.0005 | -0.0004 | +0.0001 |
+
+Mean ± sample std, ddof=1. Относительные разницы посчитаны по средним на одинаковом наборе seeds.
+
+| Набор | n | Fixed | Shared τ | Head τ |
+|---|---:|---:|---:|---:|
+| Четыре новых seed | 4 | 0.062925 ± 0.000793 | 0.062750 ± 0.000173 | 0.062950 ± 0.000666 |
+| Пять с exploratory pilot | 5 | 0.063000 ± 0.000707 | 0.062740 ± 0.000152 | 0.063140 ± 0.000716 |
+
+| Набор | Контраст | Δ mean ± std | + / − / 0 | Relative % |
+|---|---|---:|---:|---:|
+| Новые4 | head_tau-shared_tau | +0.000200 ± 0.000529 | 3/1/0 | +0.319% |
+| Новые4 | head_tau-fixed | +0.000025 ± 0.000793 | 2/2/0 | +0.040% |
+| Новые4 | shared_tau-fixed | -0.000175 ± 0.000754 | 3/1/0 | -0.278% |
+| Все5 | head_tau-shared_tau | +0.000400 ± 0.000640 | 4/1/0 | +0.638% |
+| Все5 | head_tau-fixed | +0.000140 ± 0.000733 | 3/2/0 | +0.222% |
+| Все5 | shared_tau-fixed | -0.000260 ± 0.000680 | 3/2/0 | -0.413% |
+
+На четырёх новых seeds head_tau превосходит shared_tau в среднем на **+0.319%**, в 3/4 пар. Относительно fixed разница составляет лишь **+0.040%**, положительны 2/4 пар. В first27 средняя разница head−shared равна **0.000000**. Устойчивое практически значимое преимущество отдельных reference scales над fixed не подтверждено. Они не выбираются как обязательное усложнение backbone; рабочим контролем остаётся MIMO dual с fixed reference. Это не доказательство эквивалентности моделей или отсутствия эффекта вообще. Пункт 2 завершён в текущем KuaiRand/VALID-протоколе.
+
+
+![Парные разницы head_tau минус shared_tau, VALID NDCG@10](assets/head_timescales/paired_delta.svg)
+
+### Первые27 эпох
+
+| Seed | Fixed | Shared τ | Head τ |
+|---|---:|---:|---:|
+| 2026 (пилот) | 0.0620 | 0.0617 | 0.0621 |
+| 2027 | 0.0625 | 0.0624 | 0.0630 |
+| 2028 | 0.0610 | 0.0622 | 0.0618 |
+| 2029 | 0.0615 | 0.0623 | 0.0618 |
+| 2030 | 0.0622 | 0.0617 | 0.0620 |
+
+| Набор | Парный контраст first27 | Доступно / ожидается | Seeds | Δ mean ± std | + / − / 0 | Relative % |
+|---|---|---:|---|---:|---:|---:|
+| Новые4 | head_tau-shared_tau | 4/4 | [2027, 2028, 2029, 2030] | +0.000000 ± 0.000535 | 2/2/0 | +0.000% |
+| Новые4 | head_tau-fixed | 4/4 | [2027, 2028, 2029, 2030] | +0.000350 ± 0.000420 | 3/1/0 | +0.566% |
+| Новые4 | shared_tau-fixed | 4/4 | [2027, 2028, 2029, 2030] | +0.000350 ± 0.000785 | 2/2/0 | +0.566% |
+| Все5 | head_tau-shared_tau | 5/5 | [2026, 2027, 2028, 2029, 2030] | +0.000080 ± 0.000497 | 3/2/0 | +0.129% |
+| Все5 | head_tau-fixed | 5/5 | [2026, 2027, 2028, 2029, 2030] | +0.000300 ± 0.000381 | 4/1/0 | +0.485% |
+| Все5 | shared_tau-fixed | 5/5 | [2026, 2027, 2028, 2029, 2030] | +0.000220 ± 0.000740 | 2/3/0 | +0.356% |
+
+First27 использует только реальные полные окна0–26. Пары выбираются независимо: короткий третий run не исключает полную пару. Это срез тех же histories, не независимая репликация и не строго равный GPU-бюджет.
+
+<details>
+<summary>Эпохи, HR, время, память и выученные масштабы</summary>
+
+| Seed | Variant | HR@10 | Best epoch, с нуля | Epochs | TRAIN / VALID, s | Peak allocated / reserved, GiB |
+|---|---|---:|---:|---:|---:|---:|
+| 2026 | fixed | 0.1162 | 27 | 39 | 936.5 / 51.4 | 2.817 / 3.797 |
+| 2026 | shared_tau | 0.1165 | 27 | 39 | 834.5 / 17.2 | 2.820 / 3.799 |
+| 2026 | head_tau | 0.1191 | 48 | 60 | 1304.1 / 26.4 | 2.849 / 3.830 |
+| 2027 | fixed | 0.1147 | 17 | 29 | 878.3 / 48.0 | 2.817 / 3.797 |
+| 2027 | shared_tau | 0.1161 | 37 | 49 | 1038.5 / 21.3 | 2.820 / 3.799 |
+| 2027 | head_tau | 0.1179 | 28 | 40 | 867.3 / 17.7 | 2.849 / 3.830 |
+| 2028 | fixed | 0.1169 | 46 | 58 | 1219.3 / 24.7 | 2.817 / 3.797 |
+| 2028 | shared_tau | 0.1167 | 29 | 41 | 871.1 / 18.1 | 2.820 / 3.799 |
+| 2028 | head_tau | 0.1175 | 37 | 49 | 1058.2 / 21.4 | 2.849 / 3.830 |
+| 2029 | fixed | 0.1183 | 87 | 99 | 2076.8 / 42.7 | 2.817 / 3.797 |
+| 2029 | shared_tau | 0.1172 | 33 | 45 | 955.8 / 19.6 | 2.820 / 3.799 |
+| 2029 | head_tau | 0.1159 | 56 | 68 | 1467.8 / 29.5 | 2.849 / 3.830 |
+| 2030 | fixed | 0.1150 | 28 | 40 | 846.0 / 17.4 | 2.817 / 3.797 |
+| 2030 | shared_tau | 0.1159 | 31 | 43 | 914.1 / 19.0 | 2.820 / 3.799 |
+| 2030 | head_tau | 0.1154 | 23 | 35 | 759.5 / 15.4 | 2.849 / 3.830 |
+
+| Seed | Variant | Mechanism | Head/shared | α | R/R₀ | R, мс | Near bound |
+|---|---|---|---|---:|---:|---:|---|
+| 2026 | fixed | decay | оба | — | 1.000000 | 838393 | False |
+| 2026 | fixed | scan | оба | — | 1.000000 | 838393 | False |
+| 2026 | shared_tau | decay | shared | -0.205215 | 0.755360 | 633288 | False |
+| 2026 | shared_tau | scan | shared | 0.101182 | 1.150034 | 964181 | False |
+| 2026 | head_tau | decay | h0 | -0.280562 | 0.684513 | 573891 | False |
+| 2026 | head_tau | decay | h1 | -0.962438 | 0.355834 | 298329 | False |
+| 2026 | head_tau | scan | h0 | -0.053040 | 0.929173 | 779012 | False |
+| 2026 | head_tau | scan | h1 | 0.332417 | 1.559822 | 1307744 | False |
+| 2027 | fixed | decay | оба | — | 1.000000 | 838393 | False |
+| 2027 | fixed | scan | оба | — | 1.000000 | 838393 | False |
+| 2027 | shared_tau | decay | shared | -0.051525 | 0.931122 | 780646 | False |
+| 2027 | shared_tau | scan | shared | 0.221636 | 1.352992 | 1134339 | False |
+| 2027 | head_tau | decay | h0 | 0.054664 | 1.078644 | 904328 | False |
+| 2027 | head_tau | decay | h1 | -0.352114 | 0.625682 | 524568 | False |
+| 2027 | head_tau | scan | h0 | -0.089688 | 0.883378 | 740618 | False |
+| 2027 | head_tau | scan | h1 | 0.252053 | 1.408047 | 1180497 | False |
+| 2028 | fixed | decay | оба | — | 1.000000 | 838393 | False |
+| 2028 | fixed | scan | оба | — | 1.000000 | 838393 | False |
+| 2028 | shared_tau | decay | shared | -0.176368 | 0.785061 | 658189 | False |
+| 2028 | shared_tau | scan | shared | 0.139320 | 1.211548 | 1015753 | False |
+| 2028 | head_tau | decay | h0 | -0.155958 | 0.806971 | 676558 | False |
+| 2028 | head_tau | decay | h1 | -0.669949 | 0.444454 | 372627 | False |
+| 2028 | head_tau | scan | h0 | -0.239948 | 0.721518 | 604916 | False |
+| 2028 | head_tau | scan | h1 | 0.294378 | 1.486912 | 1246616 | False |
+| 2029 | fixed | decay | оба | — | 1.000000 | 838393 | False |
+| 2029 | fixed | scan | оба | — | 1.000000 | 838393 | False |
+| 2029 | shared_tau | decay | shared | -0.167381 | 0.794616 | 666200 | False |
+| 2029 | shared_tau | scan | shared | 0.197735 | 1.310753 | 1098926 | False |
+| 2029 | head_tau | decay | h0 | -0.054287 | 0.927573 | 777671 | False |
+| 2029 | head_tau | decay | h1 | -0.864788 | 0.379604 | 318257 | False |
+| 2029 | head_tau | scan | h0 | 0.184734 | 1.288170 | 1079992 | False |
+| 2029 | head_tau | scan | h1 | 0.368888 | 1.631316 | 1367684 | False |
+| 2030 | fixed | decay | оба | — | 1.000000 | 838393 | False |
+| 2030 | fixed | scan | оба | — | 1.000000 | 838393 | False |
+| 2030 | shared_tau | decay | shared | 0.047410 | 1.067880 | 895303 | False |
+| 2030 | shared_tau | scan | shared | 0.276190 | 1.452713 | 1217944 | False |
+| 2030 | head_tau | decay | h0 | -0.241189 | 0.720346 | 603933 | False |
+| 2030 | head_tau | decay | h1 | 0.062855 | 1.090920 | 914620 | False |
+| 2030 | head_tau | scan | h0 | 0.439933 | 1.774211 | 1487486 | False |
+| 2030 | head_tau | scan | h1 | -0.137277 | 0.827687 | 693927 | False |
+
+Срез сохранённых эффективных функций на `gap=R₀` (H0 / H1), best epoch. Новых forward для этой таблицы нет.
+
+| Seed | Variant | Decay scale, H0 / H1 | Scan scale, H0 / H1 |
+|---|---|---:|---:|
+| 2026 | fixed | 0.5699 / 2.0000 | 0.7539 / 0.5026 |
+| 2026 | shared_tau | 0.5595 / 2.0000 | 0.7689 / 0.5038 |
+| 2026 | head_tau | 0.5633 / 2.0000 | 0.9918 / 0.5042 |
+| 2027 | fixed | 0.5157 / 1.5212 | 0.7201 / 0.5005 |
+| 2027 | shared_tau | 0.5213 / 1.0901 | 1.0280 / 0.5007 |
+| 2027 | head_tau | 0.5162 / 1.2860 | 0.8618 / 0.5005 |
+| 2028 | fixed | 0.5312 / 1.9995 | 1.0251 / 0.5025 |
+| 2028 | shared_tau | 0.5321 / 2.0000 | 0.8464 / 0.5025 |
+| 2028 | head_tau | 0.5300 / 2.0000 | 0.8447 / 0.5030 |
+| 2029 | fixed | 0.5222 / 2.0000 | 1.3295 / 0.5067 |
+| 2029 | shared_tau | 0.5546 / 2.0000 | 0.9101 / 0.5028 |
+| 2029 | head_tau | 0.5275 / 2.0000 | 1.0482 / 0.5060 |
+| 2030 | fixed | 1.3215 / 0.5195 | 0.5003 / 0.9004 |
+| 2030 | shared_tau | 1.1778 / 0.5165 | 0.5005 / 0.8677 |
+| 2030 | head_tau | 1.5851 / 0.5186 | 0.5007 / 0.8293 |
+
+</details>
+
+Настройки и математическая реализация совпадают с пилотом: MIMO dual rank4/chunk8, две temporal heads, два слоя, batch2048, history50/padding56, Adam0.001, epochs300, stopping_step10 и прежняя last-tie семантика. Counts715020/715022/715024. Внутри каждого seed проверены общий backbone/MLP/buffers, RNG, precision, Adam и первый фактически потреблённый batch. Время включает JIT/cache и не служит сравнением warm-kernel latency.
+
+R — глобальные параметры модели, не персональные периоды пользователей. Bounds [R₀/4,4R₀] при R₀=838393 мс и output bounds[0.5,2] неизменны. Сохранённые scale(gap) и histories рассматриваются вместе с R; одинаковые или разные R сами по себе не доказывают специализацию голов или причину разницы качества. На seeds2027–2029 у head_tau R(decay,h0)>R(decay,h1), а R(scan,h0)<R(scan,h1); на seed2030 оба направления меняются. Индексы heads не имеют стабильной short/long семантики. Reference bounds не достигнуты; при этом на seeds2028–2029 выходной decay-scale второй головы у shared_tau и head_tau близок к верхней границе.
+
+Четыре новых seed дают ограниченную оценку разброса на одном датасете. Новые p-values не подбирались, статистическая значимость и эквивалентность не установлены. Наш VALID не сравнивается с опубликованным TEST как доказанный апгрейд; TEST-модель автоматически не выбрана.
+
+[Числовая сводка](assets/head_timescales/confirmation_summary.json) · [Markdown](assets/head_timescales/confirmation_summary.md) · [Индекс источников](assets/head_timescales/sources.json) · [TeX VALID](assets/head_timescales/valid_table.tex) · [Сохранённые artifacts и SHA](../experiments/mamba3_head_timescales/confirmation/evidence/job4365206/preservation_manifest.json) · [Независимый аудит](../experiments/mamba3_head_timescales/confirmation/evidence/job4365206/independent_audit.json).
+<!-- head-timescales:confirmation:end -->
