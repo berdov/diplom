@@ -1,8 +1,8 @@
 # Time-addressed memory pilot: job4373262
 
-Phase: SUBMITTED_PENDING. **3 октября2026,17:56:17MSK:** PENDING(Priority), node not assigned,
-elapsed00:00:00. Scientific fits0/3, TEST0. Next scheduler poll no earlier than18:06:17MSK
-(2026-10-03T15:06:17.085850+00:00). No background process.
+Phase: SUBMITTED_PENDING. **3 октября 2026, 18:06:24 MSK:** PENDING (Priority), node not assigned,
+elapsed 00:00:00. Scientific fits 0/3, TEST 0. Next scheduler poll no earlier than 18:16:24 MSK
+(2026-10-03T15:16:24.816908+00:00). No background process.
 [Exact snapshot](status_4373262.json), [state](state.json),
 [submission preservation](../evidence/job4373262/submission_preservation.json).
 
