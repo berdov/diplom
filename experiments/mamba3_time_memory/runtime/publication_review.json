@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "reviewed_at": "2026-10-03T18:08:42.417548+00:00",
+  "execution_commit": "53bcc76752d0d7fd06c8ba0866709a64cd978165",
+  "preservation_commit": "a7aecd5129e6eb03f02d0ad11b0c41cec0c0d4b0",
+  "frozen_source_files_unchanged": 412,
+  "preserved_raw_files_unchanged": 55,
+  "canonical_copies_identical": 8,
+  "terminal_audit_sha256": "f87fec30614e513708581734ada3b226e0e1ee99f02ff2807ba8f5b64a5a2f5d",
+  "registry": {
+    "before": 122,
+    "after": 125,
+    "appended": 3,
+    "original_bytes": 56821,
+    "original_sha256": "073435a00d73646b4ed2c442a2538cd60338090a0bf00ae18902ca8a9181e79e",
+    "old_prefix_identical": true,
+    "header_identical": true,
+    "new_metric_cells_verified": 36,
+    "sha256": "30ef3c9c58c90662367fe21de5fcc8d71315d6d475564ec0c6d9b1adb8053c63"
+  },
+  "scientific_reports_sha256": {
+    "experiments/mamba3_time_memory/RESULTS.md": "351014621196b2979bb50a4c864c9dee8fb0e3db349a75f0efa7330123777bd0",
+    "reports/MAMBA3_TIME_MECHANISMS_RESULTS.md": "90a80beb44bedab4a4e1a17075160eda4ab7bd91ba80b0ebc284cb8c1d60ac87",
+    "reports/RESULTS.md": "4824af9e23cd935019883c039101fbdf1c33189a8f152668e8cdc7c7b017adc3"
+  },
+  "detailed_report_relative_links_verified": 17,
+  "independent_publication_review": "PASS; raw numbers, claims, all new registry rows, links, scope, diff reviewed read-only by a separate agent",
+  "model_forward_count": 0,
+  "checkpoint_loading": false,
+  "article_changed": false,
+  "remaining_action": "Commit publication, normal merge and push main; no experiments"
+}

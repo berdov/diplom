@@ -291,7 +291,7 @@ Seed **2026** является exploratory pilot: его результат ис
 2. Обучаемые временные масштабы heads: [пилот и подтверждение завершены](#head-timescales-confirmation). Head-specific reference scales не выбраны как обязательное усложнение; контроль — MIMO dual fixed.
 3. Зависящее от gap трапециевидное смешивание: оба пилота и [centered confirmation](#gap-trap-centered-confirmation) завершены. На четырёх новых seeds 2 выигрыша и 2 проигрыша, средний Δ NDCG@10 −0.000025. Centered не выбран; рабочая основа — MIMO dual fixed-reference.
 4. Временные функции отдельно по слоям: [paired pilot seed2026 завершён](#layer-temporal-functions-pilot). Отдельные функции дали NDCG@10 0.0625 против 0.0633 shared (−1.264%); confirmation не рекомендована, остаются общие функции.
-5. Явная временная память состояния: отложенная гипотеза.
+5. Явная временная память: [ограниченный пилот seed2026 завершён](#time-addressed-memory-pilot). Проверен readout причинных представлений внутри окна 50 событий. Time−index +0.0008 NDCG@10, time−no_memory +0.0001; первые 27 эпох ниже контроля. Рабочая основа сохраняется; возможное подтверждение этой конструкции требует отдельных seeds.
 
 <details>
 <summary>Эпохи, диагностика, происхождение и воспроизводимость</summary>
@@ -847,6 +847,47 @@ Primary Δ **−0.0008 (−1.2638%)**; first27 Δ **−0.0001**. Независ�
 
 Выученные функции разошлись: mean abs log-ratio H0/H1 между слоями равен 0.743/1.186 для decay и 0.268/0.617 для scan. Relative parameter L2 составляет 0.830/0.680 соответственно. На фиксированной сетке layer1 decay H1 близок к верхней границе в 10/10 точках, scan H1 к нижней в 9/10. Это не задаёт семантику short/long-term для слоёв.
 
-Пункт 4 проверен в pilot scope. Оставляем MIMO dual fixed-reference с общими temporal functions; confirmation не рекомендована по этому результату. Один seed не устанавливает общий отрицательный эффект. Пункт 5 остаётся отдельной гипотезой, оснований переходить к нему автоматически нет. Статья и Overleaf не менялись.
+Пункт 4 проверен в pilot scope. Оставляем MIMO dual fixed-reference с общими temporal functions; confirmation не рекомендована по этому результату. Один seed не устанавливает общий отрицательный эффект. На момент завершения пункта 4 явная память оставалась отдельной гипотезой; её последующий ограниченный пилот приведён ниже. Статья и Overleaf не менялись.
 
 Job 4372822: COMPLETED 0:0, cn-045, 38 м 50 с. Реестр 120→122, прежние строки byte-identical. [Полные метрики, grid curves, L2, границы и provenance](../experiments/mamba3_layer_temporal/RESULTS.md) · [raw summary](../experiments/mamba3_layer_temporal/runs/attempt_001/pilot_summary.json) · [terminal audit](../experiments/mamba3_layer_temporal/evidence/job4372822/independent_audit.json).
+
+<a id="time-addressed-memory-pilot"></a>
+## Явная память с временной адресацией: ограниченный пилот
+
+**COMPLETE. Проверен ограниченный пилот явной памяти причинных представлений в пределах текущего 50-event окна, с ordinal и elapsed-time addressing controls.** Три свежих TRAIN→VALID запуска, seed2026, KuaiRand, полный каталог 7111 items. MIMO dual fixed-reference с общими temporal functions, R0=838393 мс, rank4/chunk8 сохранён.
+
+В архив попадают исходные причинные представления `h_j` после `output_norm`, не полная SSM-матрица `S_j`. Для каждого запроса выбираются до четырёх уникальных прошлых позиций `j<t`. Anchors `[1,4,16,32]` означают число событий для index_memory и множители R0 для time_memory; выбор — ближайший возраст в `log1p`, при равенстве последняя оставшаяся позиция. Reader использует `softmax(dot(h_t,h_j)/sqrt(64))`; выход `r_t=h_t+tanh(beta)*m_t`, начальный beta точно равен нулю. Добавлен один параметр без новых Q/K/V. Памяти вне окна и persistence между запросами нет.
+
+| Режим | Параметры | VALID NDCG@10 | HR@10 | First27 | Best epoch (с 0) | Всего эпох |
+|---|---:|---:|---:|---:|---:|---:|
+| no_memory | 715020 | 0.0633 | 0.1162 | 0.0620 | 27 | 39 |
+| index_memory | 715021 | 0.0626 | 0.1153 | 0.0611 | 30 | 42 |
+| time_memory | 715021 | 0.0634 | 0.1175 | 0.0613 | 64 | 76 |
+
+Primary **time−index = +0.0008 (+1.278%)**. Относительно fresh no_memory: time **+0.0001 (+0.158%)**, index **−0.0007 (−1.106%)**. В первых 27 эпохах (0–26) time−index **+0.0002**, time−no_memory **−0.0007**, index−no_memory **−0.0009**. Все три окна полные; это срез тех же histories, а не независимые наблюдения или одинаковый вычислительный бюджет. Fresh no_memory точно воспроизвёл исторический dual seed2026, включая историю метрик и checkpoint SHA; этот replay не добавляет независимый seed.
+
+| Режим | TRAIN, с | VALID, с | Peak allocated, bytes | Peak reserved, bytes |
+|---|---:|---:|---:|---:|
+| no_memory | 932.18 | 50.57 | 3024827392 | 4076863488 |
+| index_memory | 1087.34 | 297.22 | 3025564672 | 4374659072 |
+| time_memory | 1958.58 | 544.00 | 3025564672 | 4374659072 |
+
+VALID time включает сбор диагностики в существующих forwards; различия длительности также зависят от числа эпох и JIT/cache. Это не чистый benchmark скорости reader. Реальные банки `[4096,50,4,64]` и `[3471,50,4,64]` ограничены K=4; полного `[B,L,L,D]` банка нет. Selector имеет O(BKL²) операций и O(BL²) metadata; reader — O(BLKD). Линейная сложность всей расширенной модели не заявляется.
+
+TRAIN coverage до обучения: 10000 фиксированных историй, selected sets различаются в **89.02%**, минимум четыре прошлых события доступны в **91.27%**, пустые наборы — **2.11%**. Средний span окна **2.385 суток**, максимальный **11.882 суток**. Span достигает anchors 1/4/16/32 R0 в **97.21/96.31/94.12/91.08%** историй. При этом anchor вне диапазона возрастов оставшихся кандидатов встречается в **51.90%** временных выборов: достижение anchor общим span не гарантирует доступность близкого события.
+
+На VALID selected sets совпадают в **6.80%** запросов; пустых наборов нет. Средний event lag time/index — **2.592/10.593**. **89.18% временных anchor choices лежат вне диапазона оставшихся кандидатов.** Это важное ограничение интерпретации: time_memory часто выбирает ближайшие доступные события и не демонстрирует извлечение именно на заданных физических масштабах. Доля относится к отдельным выборкам anchors, не к доле пользователей. Best lambda index/time — **0.5178/0.7032**, final — **0.5541/0.7215**; отрицательных значений на сохранённых границах эпох нет. Положительный gate и веса внимания сами по себе не доказывают причинную полезность памяти.
+
+**На этом seed временная адресация дала небольшой плюс к ordinal control; выигрыш над исходной моделью составил только 0.0001 — один шаг сохранённой точности NDCG@10.** Time_memory обучалась 76 эпох против 39 и уступает контролю на first27. Рабочей основой остаётся MIMO dual fixed-reference без этого расширения. Получен лишь слабый повод для отдельной multi-seed confirmation той же frozen конструкции; новых запусков здесь нет. Значимость, устойчивость, SOTA, польза памяти за пределами окна, native SSM state memory и persistent long-term memory не проверены. Другие способы памяти этим результатом не опровергаются.
+
+Job **4373393**, attempt002: **COMPLETED 0:0**, cn-044, A100-SXM4-80GB, **01:31:29**; **3/3 fits**, TEST=0. CPU **85/85**, no-Git CPU **85/85**, GPU **11 cases / 429 checks**, smoke **3 режима × 3 шага** PASS; прежний MIMO kernel gate **45 cases / 2342 checks** унаследован по SHA. Аудит сверил **157 эпох / 1884 metric cells** с обоими логами, selection/early stopping, pairing, provenance, checkpoint metadata и streaming SHA; новых model forwards и загрузки весов для публикации не было.
+
+Первый job4373262 отменён строго в PENDING после локального воспроизведения сбоя обвязки создания progress и отдельной ошибки учёта неизвестного старта. GPU allocation и fit не начинались. Evidence сохранено до исправления; изменены только четыре wrapper-файла и добавлены 18 regressions, научные функции сохранены. Использованы **2/2 submissions**, scientific fits **3/3**. Execution commit: `53bcc76752d0d7fd06c8ba0866709a64cd978165`; preservation: `a7aecd5129e6eb03f02d0ad11b0c41cec0c0d4b0`.
+
+Реестр **122→125**, прежние строки и header сохранены побайтно. Статья и Overleaf не менялись.
+
+[Полный отчёт, метрики, gates, ages/lags и диагностика](../experiments/mamba3_time_memory/RESULTS.md) ·
+[raw summary](../experiments/mamba3_time_memory/runs/attempt_002/pilot_summary.json) ·
+[исходные артефакты и SHA](../experiments/mamba3_time_memory/evidence/job4373393/preservation_manifest.json) ·
+[независимый аудит](../experiments/mamba3_time_memory/evidence/job4373393/independent_audit.json) ·
+[реестр](../experiments/results.csv).

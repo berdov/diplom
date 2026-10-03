@@ -1,5 +1,5 @@
 {
-  "phase": "AUDITED_AWAITING_PUBLICATION",
+  "phase": "PUBLICATION_REVIEW",
   "branch": "exp/mamba3-time-addressed-memory",
   "base_commit": "7ba5e45ed110914b354c89d4377836910b55408c",
   "execution_attempt": "002",
@@ -29,7 +29,7 @@
   "gpu_checks_expected": 429,
   "gpu_gate": "PASS",
   "smoke": "PASS",
-  "next_step": "Preservation commit, write reports and append exactly3 registry rows with unchanged prefix, review, merge/push main; no more experiments",
+  "next_step": "Review reports and registry diff, commit publication, normal merge/push main; no more experiments",
   "job_state": "COMPLETED",
   "node": "cn-044",
   "elapsed": "01:31:29",
@@ -42,5 +42,7 @@
   "unknown_scientific_starts": 0,
   "audit_status": "PASS",
   "audit_metric_cells": 1884,
-  "audit_epochs": 157
+  "audit_epochs": 157,
+  "registry_after": 125,
+  "preservation_commit": "a7aecd5129e6eb03f02d0ad11b0c41cec0c0d4b0"
 }
