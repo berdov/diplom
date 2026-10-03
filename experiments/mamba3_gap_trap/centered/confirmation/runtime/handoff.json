@@ -1,65 +1,24 @@
 {
-  "status": "INCOMPLETE",
+  "status": "COMPLETE",
   "study_id": "mamba3_gap_trap_centered_confirmation_001",
   "job_id": "4372023",
   "execution_attempt": "001",
-  "job_state": "PENDING",
-  "reason": "Priority",
-  "node": null,
-  "elapsed": "00:00:00",
-  "stage": "NOT_STARTED",
-  "checked_at": "2026-10-02T22:06:53.460493+00:00",
-  "next_scheduler_poll_not_before": "2026-10-02T22:16:53.460493+00:00",
+  "job_state": "COMPLETED",
+  "reason": null,
+  "node": "cn-044",
+  "elapsed": "02:48:56",
+  "stage": "TERMINAL_AUDIT_PASS",
+  "checked_at": "2026-10-03T09:56:39.453695+00:00",
+  "next_scheduler_poll_not_before": null,
   "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
   "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
   "source_files": 358,
-  "scientific_fits_started": 0,
-  "scientific_fits_completed": 0,
+  "scientific_fits_started": 8,
+  "scientific_fits_completed": 8,
   "scientific_fits_expected": 8,
-  "complete_pairs": 0,
+  "complete_pairs": 4,
   "pairs_expected": 4,
-  "remaining_tasks": [
-    {
-      "variant": "fixed_replay",
-      "seed": 2027,
-      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2027_001"
-    },
-    {
-      "variant": "centered_gap_trap",
-      "seed": 2027,
-      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2027_001"
-    },
-    {
-      "variant": "fixed_replay",
-      "seed": 2028,
-      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2028_001"
-    },
-    {
-      "variant": "centered_gap_trap",
-      "seed": 2028,
-      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2028_001"
-    },
-    {
-      "variant": "fixed_replay",
-      "seed": 2029,
-      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2029_001"
-    },
-    {
-      "variant": "centered_gap_trap",
-      "seed": 2029,
-      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2029_001"
-    },
-    {
-      "variant": "fixed_replay",
-      "seed": 2030,
-      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2030_001"
-    },
-    {
-      "variant": "centered_gap_trap",
-      "seed": 2030,
-      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2030_001"
-    }
-  ],
+  "remaining_tasks": [],
   "TEST": "NOT_RUN",
   "test_evaluation_count": 0,
   "cpu_tests": {
@@ -79,9 +38,12 @@
   "continuation_jobs_submitted": 0,
   "max_continuation_jobs": 1,
   "background_monitor_process": false,
-  "point3": "CONFIRMATION_PENDING",
+  "point3": "COMPLETE_FIXED_RETAINED",
   "point4": "NOT_STARTED",
   "article": "UNCHANGED",
-  "evidence_publication": "LOCAL_BRANCH_COMMIT; keep remote at exact execution until continuation decision",
-  "remote_branch_must_remain_at_execution": true
+  "evidence_publication": "TERMINAL_AUDIT_PASS; publication pending",
+  "remote_branch_must_remain_at_execution": false,
+  "independent_audit": "../evidence/job4372023/independent_audit.json",
+  "checkpoint_hashes_verified": 8,
+  "scientific_epochs_verified": 407
 }

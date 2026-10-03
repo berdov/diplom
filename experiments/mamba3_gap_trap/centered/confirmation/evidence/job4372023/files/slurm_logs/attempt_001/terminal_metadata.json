@@ -1,0 +1,75 @@
+{
+  "execution_attempt": "001",
+  "study_id": "mamba3_gap_trap_centered_confirmation_001",
+  "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+  "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+  "source_manifest_sha256": "666617b17cb20b683b47446c2197fea0eded5815e57da3c4ff693dd3ce47c8ee",
+  "plan_sha256": "1fdf940b88f178067421dff60eb93df9ab9c2e8de76b28b7a0f841076d5253a3",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "inherited_admission_sha256": "ed3ad56a0beaf24bd7e3e17276fa0f80b0e306689f614b8abe24e37b0659b169",
+  "inherited_smoke_sha256": "e3fafa7f257c18cbc46b8c9fff982145c15bf8c136c310f8eb1b0de79c43f832",
+  "pilot_execution_commit": "e4e31370e29c2a34c5f0f1071046fccebd77c289",
+  "pilot_job_id": "4371876",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "source_index_sha256": "f2746cef640dd989d40cc28ce084521a6c7d08ea56bf493f54c6b362558e21d7",
+  "job_id": "4372023",
+  "reservation_token": "d07b267a460f660d3542890f540e86a9",
+  "reservation_sha256": "683ddb5945eb05746b5bb93c307431c97b8ed7f516035c7445db671f3ecd594a",
+  "login_verification_sha256": "299f48503b0622cf8e38dada1bd13ea26b806efefc3d9ca702036ace1208730a",
+  "status": "PASS",
+  "pipeline_sha256": "e3abaeece8a72d10f992d818dfbbc98d8f1c4fd4a868500fa89628737f07b9cc",
+  "scientific_fits_started": 8,
+  "scientific_fits_completed": 8,
+  "checkpoints": {
+    "mamba3_gaptrap_centered_confirm_fixed_seed2027_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507332,
+      "sha256": "509089e0b0186ce724104f748a8881fd172ee6c0d9c5b5e1099f92b83aad5ad9"
+    },
+    "mamba3_gaptrap_centered_confirm_centered_seed2027_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507649,
+      "sha256": "3f9190211340c7a96d90582637986da67f74421b82b53accbaa97a64253fc7d7"
+    },
+    "mamba3_gaptrap_centered_confirm_fixed_seed2028_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507332,
+      "sha256": "16b934781a9a19045d76236ceccf33a4f3f0fb6ff19e3287654d4c8392e7f1a2"
+    },
+    "mamba3_gaptrap_centered_confirm_centered_seed2028_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507649,
+      "sha256": "bc47d51cd78bdfd990fa3806b4dfee9daecc5429c8b219bffc8f17419ee5ff91"
+    },
+    "mamba3_gaptrap_centered_confirm_fixed_seed2029_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2029_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507332,
+      "sha256": "b1aca2cfda604a49fa9700d5015dbb5a09f8f0cd804aa2b3d3cdd8608960874e"
+    },
+    "mamba3_gaptrap_centered_confirm_centered_seed2029_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2029_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507649,
+      "sha256": "89b85639d4493e45d1631a7a9dc27be69cc3aced596a94b99dabfbe95e66d7b1"
+    },
+    "mamba3_gaptrap_centered_confirm_fixed_seed2030_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2030_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507332,
+      "sha256": "0e7fa643bd9505535440db2594cc038d964b0b96851820e13790dadf53d17bef"
+    },
+    "mamba3_gaptrap_centered_confirm_centered_seed2030_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2030_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507649,
+      "sha256": "dd9643af86abaf94e3adda88a1a81192101ce36726d2eaa3310b9fbc90e857ca"
+    }
+  },
+  "checkpoint_loading": false,
+  "finished_at": "2026-10-03T07:36:40.840499+00:00"
+}

@@ -1,0 +1,107 @@
+{
+  "execution_attempt": "001",
+  "study_id": "mamba3_gap_trap_centered_confirmation_001",
+  "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+  "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+  "source_manifest_sha256": "666617b17cb20b683b47446c2197fea0eded5815e57da3c4ff693dd3ce47c8ee",
+  "plan_sha256": "1fdf940b88f178067421dff60eb93df9ab9c2e8de76b28b7a0f841076d5253a3",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "inherited_admission_sha256": "ed3ad56a0beaf24bd7e3e17276fa0f80b0e306689f614b8abe24e37b0659b169",
+  "inherited_smoke_sha256": "e3fafa7f257c18cbc46b8c9fff982145c15bf8c136c310f8eb1b0de79c43f832",
+  "pilot_execution_commit": "e4e31370e29c2a34c5f0f1071046fccebd77c289",
+  "pilot_job_id": "4371876",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "source_index_sha256": "f2746cef640dd989d40cc28ce084521a6c7d08ea56bf493f54c6b362558e21d7",
+  "job_id": "4372023",
+  "reservation_token": "d07b267a460f660d3542890f540e86a9",
+  "reservation_sha256": "683ddb5945eb05746b5bb93c307431c97b8ed7f516035c7445db671f3ecd594a",
+  "login_verification_sha256": "299f48503b0622cf8e38dada1bd13ea26b806efefc3d9ca702036ace1208730a",
+  "status": "PASS",
+  "stages": [
+    {
+      "variant": "fixed_replay",
+      "seed": 2027,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2027_001",
+      "status": "PASS",
+      "started_at": "2026-10-03T04:48:46.928566+00:00",
+      "finished_at": "2026-10-03T05:06:41.823221+00:00"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2027,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2027_001",
+      "status": "PASS",
+      "started_at": "2026-10-03T05:06:42.857307+00:00",
+      "finished_at": "2026-10-03T05:33:16.954774+00:00"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2028,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2028_001",
+      "status": "PASS",
+      "started_at": "2026-10-03T05:33:18.939367+00:00",
+      "finished_at": "2026-10-03T05:55:05.886423+00:00"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2028,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2028_001",
+      "status": "PASS",
+      "started_at": "2026-10-03T05:55:08.850710+00:00",
+      "finished_at": "2026-10-03T06:15:06.243973+00:00"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2029,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2029_001",
+      "status": "PASS",
+      "started_at": "2026-10-03T06:15:10.237783+00:00",
+      "finished_at": "2026-10-03T06:51:40.798020+00:00"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2029,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2029_001",
+      "status": "PASS",
+      "started_at": "2026-10-03T06:51:45.765382+00:00",
+      "finished_at": "2026-10-03T07:10:38.254141+00:00"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2030,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2030_001",
+      "status": "PASS",
+      "started_at": "2026-10-03T07:10:44.161742+00:00",
+      "finished_at": "2026-10-03T07:26:12.402574+00:00"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2030,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2030_001",
+      "status": "PASS",
+      "started_at": "2026-10-03T07:26:19.196072+00:00",
+      "finished_at": "2026-10-03T07:36:32.898598+00:00"
+    }
+  ],
+  "started_at": "2026-10-03T04:48:02.929044+00:00",
+  "scientific_fits_started": 8,
+  "scientific_fits_completed": 8,
+  "allocation_cuda_visibility": {
+    "present": true,
+    "value": "0"
+  },
+  "hard_deadline_unix": 1791031665.0,
+  "deadline_unix": 1791031065.0,
+  "summary_status": "PASS",
+  "unknown_scientific_starts": 0,
+  "complete_pairs": 4,
+  "finished_at": "2026-10-03T07:36:40.798389+00:00"
+}

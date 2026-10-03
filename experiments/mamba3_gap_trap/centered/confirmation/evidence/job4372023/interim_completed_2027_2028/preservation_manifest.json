@@ -1,0 +1,175 @@
+{
+  "files": [
+    {
+      "path": "runs/mamba3_gaptrap_centered_confirm_fixed_seed2027_001.json",
+      "bytes": 292872,
+      "sha256": "1879b882d3ce2694b360fa032e9a230c3e49ea8cb6499c698e5f4656c1989830"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/run.lock",
+      "bytes": 2148,
+      "sha256": "0b7ed23b9ef818c55fd33fd330e14737e3362c63ebc4dfdbdd98dccee778695c"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/checkpoints/best_metadata.json",
+      "bytes": 3727,
+      "sha256": "3892757dd40b69b9a65220b154f894c4cfa01176ebe47020fdea9d30fa55d662"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/process/child_environment.json",
+      "bytes": 175,
+      "sha256": "b92f0141385ee3b058c960329f0e7343cf3240dd63a88e405306d69e30347c28"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/process/stderr.log",
+      "bytes": 14646,
+      "sha256": "1d349e02e2a5bbcf99a2760fd9e70e89eafbe8af46a8a5f7039322e929235370"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/process/stdout.log",
+      "bytes": 2056,
+      "sha256": "541653e5148e95bb17e360d46aa2993e452deaf01e476c070473e5c77101226d"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/log/ThreeTimeMamba3Rec/ThreeTimeMamba3Rec-kuairand-Oct-03-2026_07-50-43-054bdf.log",
+      "bytes": 13331,
+      "sha256": "005c8d75adce05e306be6440aa6f05609dee972dbdd5e16056a20c8a55bccced"
+    },
+    {
+      "path": "runs/mamba3_gaptrap_centered_confirm_centered_seed2027_001.json",
+      "bytes": 671450,
+      "sha256": "bfc6d75c2b59f119a41707e021f3efcb456c529a114d7cdf7d9bc84601a16df9"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/run.lock",
+      "bytes": 2156,
+      "sha256": "e7d4045aa1449b2f045dcec3ac9ea361eaa22d78763d862f0a9feffd1c15883a"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/checkpoints/best_metadata.json",
+      "bytes": 4590,
+      "sha256": "9532f0d2660ef474c0715235416deb4b0bc48edf717edba83f82c27c3eabe614"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/process/child_environment.json",
+      "bytes": 180,
+      "sha256": "7d4a9112c83ab66febdfd5ebd70c5ca883ac9b794038f3bbc0e0cb0f86cae364"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/process/stderr.log",
+      "bytes": 30173,
+      "sha256": "498e8e3511796d72b50c7bf0666bf060f0de367c6e6598c7700465a5bfeb1150"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/process/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/log/ThreeTimeMamba3Rec/ThreeTimeMamba3Rec-kuairand-Oct-03-2026_08-06-57-1fdd7f.log",
+      "bytes": 29820,
+      "sha256": "167b665e3c69ea4202bf1b1c717b14a511ae5ee9cd731d4b76a8329931f4718a"
+    },
+    {
+      "path": "runs/pair_seed2027.json",
+      "bytes": 3463,
+      "sha256": "9f53c265a5a02f061c7b148335063697cdd1ec01ae6cadeed386297a6609c6dc"
+    },
+    {
+      "path": "runs/mamba3_gaptrap_centered_confirm_fixed_seed2028_001.json",
+      "bytes": 551916,
+      "sha256": "652dac7096a2f9b31b89c09131ab193b16f08577107e8109b61c959a4d8603ef"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/run.lock",
+      "bytes": 2148,
+      "sha256": "90b5f08088d899713d1895bddf9553f87453a6a18f6453a214da2fe60afc228b"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/checkpoints/best_metadata.json",
+      "bytes": 3724,
+      "sha256": "9997b3d6748c531aba2ed609596700bbd42ea50d91befe6512ebb3aeb3480ba5"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/process/child_environment.json",
+      "bytes": 175,
+      "sha256": "b92f0141385ee3b058c960329f0e7343cf3240dd63a88e405306d69e30347c28"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/process/stderr.log",
+      "bytes": 27153,
+      "sha256": "f22168ec26b03dada93fc7ae41f83eaa7f29e9bd6940fe2578e73b3f567305d6"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/process/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/log/ThreeTimeMamba3Rec/ThreeTimeMamba3Rec-kuairand-Oct-03-2026_08-33-33-919961.log",
+      "bytes": 26621,
+      "sha256": "a1be3c609e3b164550f601076adf1894149e8b955daa3b1a0f81b571bf1c8d27"
+    },
+    {
+      "path": "runs/mamba3_gaptrap_centered_confirm_centered_seed2028_001.json",
+      "bytes": 499042,
+      "sha256": "9af62dc07348c2b4044294483d9ff6b4bf7f3de9b36831f9e0670122576cab55"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/run.lock",
+      "bytes": 2156,
+      "sha256": "f77cd557779c77066f473b572427b5912c71547939f6659c0f64a0a0bd645b09"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/checkpoints/best_metadata.json",
+      "bytes": 4643,
+      "sha256": "f2fc7078e20b0540c07bbfe25a455546b2b27a278f102c2ee5735a2ad0f80631"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/process/child_environment.json",
+      "bytes": 180,
+      "sha256": "7d4a9112c83ab66febdfd5ebd70c5ca883ac9b794038f3bbc0e0cb0f86cae364"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/process/stderr.log",
+      "bytes": 22851,
+      "sha256": "658ad85cf362b544fd4cd49ebc2e17963ea8a1375ad8bca8d26fefb86062546b"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/process/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/log/ThreeTimeMamba3Rec/ThreeTimeMamba3Rec-kuairand-Oct-03-2026_08-55-25-7d1d8f.log",
+      "bytes": 22039,
+      "sha256": "c1f511576b7115cc49f3da5280708c3e67ae2ebde730ed4e3bc42287c3f0b8db"
+    },
+    {
+      "path": "runs/pair_seed2028.json",
+      "bytes": 3463,
+      "sha256": "0bb2ef362a17749a647543dc34dc27dd3034a684306f4227071875ecdb938b5f"
+    }
+  ],
+  "checkpoints": {
+    "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/checkpoints/best_state_dict.pth": {
+      "bytes": 2507332,
+      "sha256": "509089e0b0186ce724104f748a8881fd172ee6c0d9c5b5e1099f92b83aad5ad9"
+    },
+    "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/checkpoints/best_state_dict.pth": {
+      "bytes": 2507649,
+      "sha256": "3f9190211340c7a96d90582637986da67f74421b82b53accbaa97a64253fc7d7"
+    },
+    "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/checkpoints/best_state_dict.pth": {
+      "bytes": 2507332,
+      "sha256": "16b934781a9a19045d76236ceccf33a4f3f0fb6ff19e3287654d4c8392e7f1a2"
+    },
+    "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/checkpoints/best_state_dict.pth": {
+      "bytes": 2507649,
+      "sha256": "bc47d51cd78bdfd990fa3806b4dfee9daecc5429c8b219bffc8f17419ee5ff91"
+    }
+  },
+  "job_id": "4372023",
+  "scope": "Completed first two pairs only; job remains RUNNING, not a terminal audit",
+  "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328"
+}
