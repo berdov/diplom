@@ -1,0 +1,60 @@
+{
+  "status": "APPROVED_PRE_FIT_TECHNICAL_RETRY",
+  "reviewed_at": "2026-10-03T15:48:01.680978+00:00",
+  "authorization": "One pre-fit technical retry explicitly authorized by the task; no additional permission inferred",
+  "old_job_id": "4373262",
+  "old_job_terminal": true,
+  "scheduler": {
+    "JobIDRaw": "4373262",
+    "State": "CANCELLED",
+    "ExitCode": "0:0",
+    "Start": "None",
+    "End": "2026-10-03T18:30:29",
+    "Elapsed": "00:00:00",
+    "NodeList": "None assigned",
+    "State_raw": "CANCELLED by 3677"
+  },
+  "scheduler_state_normalization": "State is the first Slurm state token; unmodified scheduler value retained in State_raw and terminal evidence",
+  "scientific_fits_started": 0,
+  "unknown_scientific_starts": 0,
+  "method_unchanged": true,
+  "tolerances_unchanged": true,
+  "regression_passed": true,
+  "infrastructure_error": "First progress update attempted before file creation; separate damaged/missing-result path could erase unknown-start evidence",
+  "preservation_manifest_path": "experiments/mamba3_time_memory/evidence/job4373262/preservation_manifest.json",
+  "preservation_manifest_sha256": "ed8bd9cb6e4f8ab241a025bc2e4cda51624572bddeb7facdc8352091bd232e6b",
+  "parent_audit_path": "experiments/mamba3_time_memory/evidence/job4373262/pre_fit_cancellation_audit.json",
+  "parent_audit_sha256": "e839287bbe582fa69abdccac178585535edf69e1c1819e00aa75315328a771d7",
+  "parent_execution_commit": "55d812bf55b1dffbbab6a7b0da86e616a6227b8b",
+  "corrected_source_hash": "ad4565d171b78c83831ef84c139a4912af2022a04fdb39fdfd5b4a858461f5e6",
+  "source_files": 412,
+  "expected_cpu_tests": 85,
+  "changed_source_paths": [
+    "experiments/mamba3_time_memory/runner.py",
+    "experiments/mamba3_time_memory/pipeline.py",
+    "experiments/mamba3_time_memory/progress.py",
+    "experiments/mamba3_time_memory/report.py"
+  ],
+  "added_regression_paths": [
+    "experiments/mamba3_time_memory/tests/test_failure_records.py",
+    "experiments/mamba3_time_memory/tests/test_progress.py"
+  ],
+  "unchanged_prior_source_files": 406,
+  "unchanged_scientific_function_asts": {
+    "experiments/mamba3_time_memory/runner.py:train": true,
+    "experiments/mamba3_time_memory/pipeline.py:run": true,
+    "experiments/mamba3_time_memory/pipeline.py:main": true,
+    "experiments/mamba3_time_memory/report.py:replay_check": true,
+    "experiments/mamba3_time_memory/report.py:validate_record": true,
+    "experiments/mamba3_time_memory/report.py:validate_checkpoint": true
+  },
+  "regression_evidence_path": "experiments/mamba3_time_memory/runtime/wrapper_regression.json",
+  "regression_evidence_sha256": "0758dea5c2d0ba6735cae333b16070987d69dc317310924e6462aa9dd97bdf66",
+  "new_regression_tests": 18,
+  "execution_attempt": "002",
+  "max_allocation_seconds": 14400,
+  "max_total_submits": 2,
+  "max_total_scientific_fits": 3,
+  "test_evaluation_count": 0,
+  "reason": "Pending-only cancellation prevented a proven wrapper failure; no allocation or scientific result existed. This is not a numerical/quality retry or queue resubmission."
+}

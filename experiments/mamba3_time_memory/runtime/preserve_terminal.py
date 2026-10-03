@@ -33,7 +33,7 @@ for base in (here/('runs/attempt_'+attempt),here/('slurm_logs/attempt_'+attempt)
    content=path.read_bytes();assert len(content)<20_000_000
    blobs['files/'+rel]=content;files.append(dict(path=rel,cluster_path=str(path),bytes=len(content),sha256=hashlib.sha256(content).hexdigest()))
 manifest_name='source_manifest.json' if attempt=='001' else 'source_manifest_002.json'
-for name in ('study_plan.json',manifest_name,'DESIGN.md'):
+for name in ('study_plan.json',manifest_name,'DESIGN.md')+(('runtime/retry_review.json',) if attempt=='002' else ()):
  path=here/name;content=path.read_bytes();blobs['files/'+name]=content
  files.append(dict(path=name,cluster_path=str(path),bytes=len(content),sha256=hashlib.sha256(content).hexdigest()))
 scheduler=dict(checked_at=datetime.now(timezone.utc).isoformat(),timezone='Europe/Moscow',sacct_raw=raw,steps=rows,job=main)

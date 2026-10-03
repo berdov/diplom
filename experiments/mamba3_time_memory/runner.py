@@ -123,15 +123,19 @@ def main():
     create(p['lock'],record);create(p['result'],record)
     def terminate(signum,frame):raise TimeoutError(f'Allocation interrupted: {signum}')
     signal.signal(signal.SIGTERM,terminate)
+    progress_initialized=False
     try:
         os.chdir(p['runtime'])
+        # Establish the owned status file before setup can reach any fit flag.
+        write_progress(record,p);progress_initialized=True
         train(args.variant,record,p)
     except BaseException as exc:
         record.update(status='BLOCKED_OOM' if isinstance(exc,torch.cuda.OutOfMemoryError) else 'INCOMPLETE' if isinstance(exc,TimeoutError) else 'FAIL',
                       error=repr(exc),traceback=traceback.format_exc())
         raise
     finally:
-        record['finished_at']=now();update(p['result'],record);write_progress(record,p)
+        record['finished_at']=now();update(p['result'],record)
+        if progress_initialized:write_progress(record,p)
 
 
 if __name__=='__main__':

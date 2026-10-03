@@ -16,13 +16,17 @@ child=bind(parent,dict(c=c,child_environment=child_environment))['child']
 
 
 def fit_counters():
+    from .report import owner_artifacts,scientific_start
     started=completed=unknown=0
     for v in c.MODES:
         paths=c.paths(v)
-        if paths['result'].exists():
-            try:r=read(paths['result']);started+=r.get('scientific_fit_started') is True;completed+=r.get('status')=='PASS'
-            except (ValueError,OSError):unknown+=1
-        elif paths['lock'].exists():unknown+=1
+        if paths['result'].exists() or paths['result'].is_symlink():
+            try:r=read(paths['result'])
+            except (ValueError,OSError):unknown+=1;continue
+            state=scientific_start(r,paths)
+            if state is None:unknown+=1
+            else:started+=state;completed+=state and r.get('status')=='PASS'
+        elif owner_artifacts(paths):unknown+=1
     return dict(scientific_fits_started=started,scientific_fits_completed=completed,unknown_scientific_starts=unknown)
 
 

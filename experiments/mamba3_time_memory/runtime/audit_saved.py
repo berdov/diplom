@@ -456,7 +456,7 @@ SAMPLE_ADDRESS_FIELDS = {'stream_ordinal', 'input_index', 'query_position', 'his
                          'selected_sets_equal', 'selected_set_jaccard'}
 
 
-def audit(folder, execution=EXECUTION):
+def audit(folder, execution=EXECUTION, cpu_tests=67):
     # Config imports are pure stdlib. Select the preserved attempt before the
     # first import; never mutate existing module globals or scientific files.
     folder = Path(folder).resolve()
@@ -469,6 +469,7 @@ def audit(folder, execution=EXECUTION):
     require(c.EXECUTION_ATTEMPT == attempt, 'Set TIME_MEMORY_ATTEMPT to the preserved attempt before importing config')
     require('torch' not in sys.modules, 'Audit must run in a fresh process without Torch')
     require(re.fullmatch('[0-9a-f]{40}', execution) and saved['execution_commit'] == execution, 'Expected execution identity')
+    integer(cpu_tests, 'Expected frozen CPU test count', 67)
     manifest = p.verify(); files = folder / 'files'
     require(saved['source_hash'] == manifest['source_hash'], 'Preserved source identity')
     if execution == EXECUTION:
@@ -501,6 +502,27 @@ def audit(folder, execution=EXECUTION):
     login, reservation, submission = [read(logs / name) for name in ('login_verification.json', 'reservation.json', 'submission.json')]
     base = p.bindings(execution, manifest)
     p.validate_ownership(login, reservation, sha(logs / 'login_verification.json'), base, job, submission)
+    if attempt == '002':
+        review = read(files / 'runtime/retry_review.json')
+        require(sha(files / 'runtime/retry_review.json') == reservation['retry_review_sha256'], 'Retry review reservation binding')
+        require(review['status'] == 'APPROVED_PRE_FIT_TECHNICAL_RETRY' and
+                review['scientific_fits_started'] == review['unknown_scientific_starts'] == 0 and
+                all(review[k] is True for k in ('old_job_terminal', 'method_unchanged', 'tolerances_unchanged', 'regression_passed')),
+                'Authorized pre-fit technical retry')
+        require(review['corrected_source_hash'] == manifest['source_hash'] and
+                review['expected_cpu_tests'] == cpu_tests, 'Retry frozen source/test count')
+        parent_manifest = c.ROOT / review['preservation_manifest_path']
+        require(sha(parent_manifest) == review['preservation_manifest_sha256'], 'Parent preservation binding')
+        parent = read(parent_manifest)
+        require(parent['job_id'] == review['old_job_id'] != job and parent['execution_attempt'] == '001' and
+                not parent['checkpoints'], 'Parent identity/no checkpoints')
+        for row in parent['files']:
+            path = parent_manifest.parent / 'files' / row['path']
+            require(path.stat().st_size == row['bytes'] and sha(path) == row['sha256'], 'Parent preserved bytes')
+        cancelled = read(parent_manifest.parent / 'scheduler_terminal.json')['job']
+        require(cancelled['JobIDRaw'] == review['old_job_id'] and cancelled['State'].split()[0] == 'CANCELLED' and
+                cancelled['Start'] == 'None' and cancelled['Elapsed'] == '00:00:00' and cancelled['NodeList'] == 'None assigned',
+                'Parent cancelled before allocation')
     coverage = read(logs / 'train_coverage.json'); coverage_sha = sha(logs / 'train_coverage.json')
     require(all(coverage.get(k) == v for k, v in base.items()) and coverage['status'] == 'PASS', 'TRAIN coverage owner')
     require(coverage_sha == login['coverage_sha256'] == reservation['coverage_sha256'], 'Frozen TRAIN coverage SHA chain')
@@ -541,11 +563,11 @@ def audit(folder, execution=EXECUTION):
         name = prefix + execution + '.json'; cpu = read(logs / name); tests = cpu['cpu_tests']
         require(cpu['status'] == 'PASS' and cpu['execution_commit'] == execution and cpu['source_hash'] == manifest['source_hash'] and
                 cpu['execution_attempt'] == attempt and cpu['cuda_initialized'] is False and cpu['cuda_mask'] == '', 'CPU provenance')
-        require(tests['run'] == 67 and not any(tests[k] for k in ('failures', 'errors', 'skipped')), 'CPU67 tests')
+        require(tests['run'] == cpu_tests and not any(tests[k] for k in ('failures', 'errors', 'skipped')), 'Frozen CPU tests')
         require(cpu['parameter_counts'] == c.COUNTS and cpu['scientific_fits'] == 0 and cpu['test_evaluation_count'] == 0 and
                 cpu['TEST'] == 'NOT_RUN' and cpu['mimo_model_forward_calls'] == 0 and cpu['gradcheck'] == 'PASS', 'CPU scope')
         runtime_identity(cpu, old['runtime'], manifest, name, False)
-        cpu_rows.append(dict(file=name, tests=67, status='PASS'))
+        cpu_rows.append(dict(file=name, tests=cpu_tests, status='PASS'))
     inherited = read(runs / 'inherited_kernel.json'); owner(inherited, 'Inherited')
     require(inherited['inherited'] == p.inherited(), 'Inherited exact admission')
     runtime_identity(inherited, old['runtime'], manifest, 'Inherited', True)
@@ -686,6 +708,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('folder', type=Path)
     parser.add_argument('--execution', default=EXECUTION, help='Exact expected published execution commit')
+    parser.add_argument('--cpu-tests', type=int, default=67, help='Exact test count frozen before this execution')
     args = parser.parse_args()
-    result = audit(args.folder, args.execution)
+    result = audit(args.folder, args.execution, args.cpu_tests)
     print(json.dumps({k: v for k, v in result.items() if k not in ('warnings', 'paired_fields', 'diagnostic_arithmetic')}, indent=2))

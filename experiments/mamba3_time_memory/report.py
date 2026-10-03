@@ -8,6 +8,33 @@ _validate=bind(history_report,{'c':c})['validate_record']
 PAIRING=('initial_backbone_sha256','initial_common_calibrator_hashes','rng_components','protocol','manifest_sha256','train_time_stats_sha256','verified_history_stats','precision','optimizer_settings','first_train_batch_sha256')
 
 
+def owner_artifacts(paths):
+    """Evidence of an owner survives a missing/damaged scientific result."""
+    candidates=[paths[k] for k in ('lock','checkpoint','metadata')]
+    candidates.append(paths['runtime']/'progress.json')
+    return [path for path in candidates if path.exists() or path.is_symlink()]
+
+
+def scientific_start(record,paths=None):
+    if not isinstance(record,dict) or type(record.get('scientific_fit_started')) is not bool:
+        return None
+    started=record['scientific_fit_started']
+    if not started:
+        if record.get('status')=='PASS':return None
+        if record.get('actual_epochs',0)!=0 or record.get('history'):return None
+        if paths is not None:
+            if any(paths[k].exists() or paths[k].is_symlink() for k in ('checkpoint','metadata')):return None
+            if record.get('status')=='NOT_RUN' and owner_artifacts(paths):return None
+    return started
+
+
+def unknown_record(base,variant,reason):
+    # Derived summary row only. Never manufacture a replacement raw result.
+    return dict(base,memory_mode=variant,mode='dual',seed=2026,run_id=c.paths(variant)['run_id'],
+                status='UNKNOWN',scientific_fit_started=None,actual_epochs=None,
+                validation_error=reason)
+
+
 def replay_check(r):
     old=read(c.PILOT)
     keys=('seed','checkpoint_sha256','best_epoch','best_valid_metrics','actual_epochs','first27_best_ndcg10','first_train_batch_sha256','initial_backbone_sha256','rng_components','optimizer_settings','precision','protocol','manifest_sha256','train_time_stats_sha256','verified_history_stats')
@@ -50,7 +77,10 @@ def validate_checkpoint(r,variant):
 def summarize(records):
     rows=[]
     for variant in c.MODES:
-        r=records.get(variant,{});error=r.get('validation_error')
+        r=records.get(variant,dict(status='NOT_RUN',scientific_fit_started=False))
+        if scientific_start(r) is None:
+            r=unknown_record({},variant,r.get('validation_error','Missing/invalid scientific start flag') if isinstance(r,dict) else 'Scientific result is not an object')
+        error=r.get('validation_error')
         try:validate_record(r,variant)
         except (ValueError,KeyError,TypeError) as exc:error=str(exc);r=dict(r,status='INVALID')
         good=r.get('status')=='PASS'
@@ -66,18 +96,30 @@ def summarize(records):
             x,y=a['best_valid_metrics']['ndcg@10'],b['best_valid_metrics']['ndcg@10'];delta=x-y;relative=100*delta/y if y else None
             if a['first27_complete'] and b['first27_complete']:first=a['first27_best_ndcg10']-b['first27_best_ndcg10']
         contrasts.append(dict(comparison=left+' - '+right,status='COMPLETE' if complete else 'NOT_AVAILABLE',delta=delta,relative_percent=relative,first27_delta=first))
-    return dict(status='PASS' if all(x['status']=='PASS' for x in rows) else 'INCOMPLETE',rows=rows,contrasts=contrasts,primary_contrast='time_memory - index_memory',scientific_fits_started=sum(x['scientific_fit_started'] is True for x in rows),scientific_fits_completed=sum(x['status']=='PASS' for x in rows),scientific_fits_expected=3,seed=2026,TEST='NOT_RUN',test_evaluation_count=0,interpretation='Single paired seed; supplied 50-event window representations, not native SSM states or persistent memory; VALID only')
+    return dict(status='PASS' if all(x['status']=='PASS' for x in rows) else 'INCOMPLETE',rows=rows,contrasts=contrasts,primary_contrast='time_memory - index_memory',scientific_fits_started=sum(x['scientific_fit_started'] is True for x in rows),scientific_fits_completed=sum(x['status']=='PASS' for x in rows),unknown_scientific_starts=sum(x['scientific_fit_started'] is None for x in rows),scientific_fits_expected=3,seed=2026,TEST='NOT_RUN',test_evaluation_count=0,interpretation='Single paired seed; supplied 50-event window representations, not native SSM states or persistent memory; VALID only')
 
 
 def write(base,reason=None):
     records={}
     for v in c.MODES:
         p=c.paths(v)
-        if not p['result'].exists():
+        if not p['result'].exists() and not p['result'].is_symlink():
+            if owner_artifacts(p):
+                records[v]=unknown_record(base,v,'Owner artifacts exist but the scientific result is missing')
+                continue
             create(p['result'],dict(**base,memory_mode=v,mode='dual',seed=2026,run_id=p['run_id'],status='NOT_RUN',scientific_fit_started=False,actual_epochs=0,history=[],reason=reason))
-        r=read(p['result'])
+        try:r=read(p['result'])
+        except (ValueError,OSError) as exc:
+            records[v]=unknown_record(base,v,'Unreadable scientific result: '+repr(exc))
+            continue
+        if not isinstance(r,dict):
+            records[v]=unknown_record(base,v,'Scientific result is not an object')
+            continue
         if any(r.get(k)!=value for k,value in base.items()) or r.get('memory_mode')!=v:raise ValueError('Foreign run record')
-        if r['status']=='PASS':
+        if scientific_start(r,p) is None:
+            records[v]=unknown_record(base,v,'Missing, invalid or contradictory scientific start evidence')
+            continue
+        if r.get('status')=='PASS':
             try:validate_record(r,v);validate_checkpoint(r,v)
             except (ValueError,KeyError,TypeError,OSError) as exc:r=dict(r,status='INVALID',validation_error=str(exc))
         records[v]=r
