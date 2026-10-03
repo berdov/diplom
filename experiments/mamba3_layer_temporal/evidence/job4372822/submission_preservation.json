@@ -1,0 +1,30 @@
+{
+  "job_id": "4372822",
+  "files": [
+    {
+      "path": "evidence/job4372822/submission/login_verification.json",
+      "bytes": 4084,
+      "sha256": "e3a50f52e7ea9fd233fdf97c1b5cb70cfe9036c8283b5cd79195f0699e3ffc9c"
+    },
+    {
+      "path": "evidence/job4372822/submission/reservation.json",
+      "bytes": 1795,
+      "sha256": "5bb456a0c847dbbda79da1456ee422eb3f8330e42bcefacde1e50c440af94674"
+    },
+    {
+      "path": "evidence/job4372822/submission/submission.json",
+      "bytes": 1017,
+      "sha256": "4e75bf81b3b19dff555ee1260b7a9847ad67e20f925870b430fddd3ed5eef3ed"
+    },
+    {
+      "path": "evidence/job4372822/submission/cpu_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.json",
+      "bytes": 17281,
+      "sha256": "e3d567c456f1051196de50b5b263cc40459b0c1318df98e7cdd412379bad633b"
+    },
+    {
+      "path": "evidence/job4372822/submission/no_git_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.json",
+      "bytes": 17281,
+      "sha256": "1741e0a68c330a6a66c0d74f49b1947eb1f273a96dd662b924be9c0e6022d5b8"
+    }
+  ]
+}

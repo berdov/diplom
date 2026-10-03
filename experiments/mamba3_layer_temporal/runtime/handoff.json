@@ -1,0 +1,58 @@
+{
+  "status": "INCOMPLETE",
+  "study_id": "mamba3_layer_temporal_pilot_001",
+  "job_id": "4372822",
+  "job_state": "PENDING",
+  "reason": "Priority",
+  "node": null,
+  "elapsed": "00:00:00",
+  "stage": "NOT_STARTED",
+  "checked_at": "2026-10-03T10:49:35.029975+00:00",
+  "next_scheduler_poll_not_before": "2026-10-03T10:59:35.029975+00:00",
+  "execution_commit": "30640e2be36b45c6f89e31f91aae83f76f2d2254",
+  "source_hash": "ad71e91b271db416cf05717e03d7429c60d39657216d1cf18275465ed1500e5b",
+  "source_files": 381,
+  "scientific_fits_started": 0,
+  "scientific_fits_completed": 0,
+  "scientific_fits_expected": 2,
+  "complete_pairs": 0,
+  "pairs_expected": 1,
+  "remaining_variants": [
+    "shared_layers",
+    "layer_specific"
+  ],
+  "seed": 2026,
+  "parameter_counts": {
+    "shared_layers": 715020,
+    "layer_specific": 715152
+  },
+  "CPU": [
+    {
+      "status": "PASS",
+      "tests": 28,
+      "cuda_initialized": false
+    },
+    {
+      "status": "PASS",
+      "tests": 28,
+      "cuda_initialized": false
+    }
+  ],
+  "gpu_gate": "NOT_RUN",
+  "gpu_cases_expected": 6,
+  "gpu_checks_expected": 214,
+  "smoke": "NOT_RUN",
+  "inherited_kernel": "45 cases / 2342 checks, exact SHA verified",
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "main_jobs_submitted": 1,
+  "automatic_retries": 0,
+  "continuation_allowed": false,
+  "confirmation_allowed": false,
+  "registry_rows": 120,
+  "main_before_pilot": "0afbba24c9402886483d7f3cc2680222264052d9",
+  "point4": "PILOT_PENDING",
+  "point5": "NOT_STARTED",
+  "article": "UNCHANGED",
+  "background_monitor_process": false
+}
