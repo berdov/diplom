@@ -1,0 +1,215 @@
+{
+  "status": "INTERIM_VERIFIED",
+  "job_id": "4372023",
+  "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+  "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+  "source_blobs": 358,
+  "audited_at": "2026-10-03T06:43:32.624011+00:00",
+  "terminal": false,
+  "preserved_files": 30,
+  "preserved_bytes": 2236898,
+  "scientific_fits_verified": 4,
+  "complete_pairs_verified": 2,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "rows": [
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2027_001",
+      "variant": "fixed_replay",
+      "seed": 2027,
+      "epochs": 29,
+      "metric_cells": 348,
+      "checkpoint_sha256": "509089e0b0186ce724104f748a8881fd172ee6c0d9c5b5e1099f92b83aad5ad9",
+      "best_alpha": 0.0,
+      "final_alpha": 0.0,
+      "max_epoch_alpha": 0.0,
+      "zero_alpha_epochs": 29
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2027_001",
+      "variant": "centered_gap_trap",
+      "seed": 2027,
+      "epochs": 65,
+      "metric_cells": 780,
+      "checkpoint_sha256": "3f9190211340c7a96d90582637986da67f74421b82b53accbaa97a64253fc7d7",
+      "best_alpha": 0.06844499707221985,
+      "final_alpha": 0.07719486206769943,
+      "max_epoch_alpha": 0.1580061912536621,
+      "zero_alpha_epochs": 0
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2028_001",
+      "variant": "fixed_replay",
+      "seed": 2028,
+      "epochs": 58,
+      "metric_cells": 696,
+      "checkpoint_sha256": "16b934781a9a19045d76236ceccf33a4f3f0fb6ff19e3287654d4c8392e7f1a2",
+      "best_alpha": 0.0,
+      "final_alpha": 0.0,
+      "max_epoch_alpha": 0.0,
+      "zero_alpha_epochs": 58
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2028_001",
+      "variant": "centered_gap_trap",
+      "seed": 2028,
+      "epochs": 48,
+      "metric_cells": 576,
+      "checkpoint_sha256": "bc47d51cd78bdfd990fa3806b4dfee9daecc5429c8b219bffc8f17419ee5ff91",
+      "best_alpha": 0.005047659855335951,
+      "final_alpha": 0.02075977437198162,
+      "max_epoch_alpha": 0.19096383452415466,
+      "zero_alpha_epochs": 8
+    }
+  ],
+  "metric_cells": 2400,
+  "fixed_replays": [
+    {
+      "status": "PASS",
+      "historical_run_id": "mamba3_mimo_confirm_dual_seed2027_001",
+      "historical_job_id": "4358583",
+      "checkpoint_sha256": "509089e0b0186ce724104f748a8881fd172ee6c0d9c5b5e1099f92b83aad5ad9",
+      "scientific_history_exact": true,
+      "timing_memory_excluded": true
+    },
+    {
+      "status": "PASS",
+      "historical_run_id": "mamba3_mimo_confirm_dual_seed2028_001",
+      "historical_job_id": "4358583",
+      "checkpoint_sha256": "16b934781a9a19045d76236ceccf33a4f3f0fb6ff19e3287654d4c8392e7f1a2",
+      "scientific_history_exact": true,
+      "timing_memory_excluded": true
+    }
+  ],
+  "paired_fields": [
+    "initial_backbone_sha256",
+    "initial_common_calibrator_hashes",
+    "rng_components",
+    "protocol",
+    "manifest_sha256",
+    "train_time_stats_sha256",
+    "verified_history_stats",
+    "precision",
+    "optimizer_settings",
+    "first_train_batch_sha256"
+  ],
+  "runtime_errors": [],
+  "warnings": [
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    }
+  ],
+  "analytic_libm_tolerance_ulps": 1,
+  "analytic_rounding": [
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2027_001",
+      "variant": "centered_gap_trap",
+      "epoch": 5,
+      "field": "odds_multiplier",
+      "grid_index": 6,
+      "saved": 1.021177833727868,
+      "recomputed": 1.0211778337278679,
+      "ulps": 1.0
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2027_001",
+      "variant": "centered_gap_trap",
+      "epoch": 35,
+      "field": "odds_multiplier",
+      "grid_index": 1,
+      "saved": 0.9253676249822586,
+      "recomputed": 0.9253676249822584,
+      "ulps": 1.0
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2027_001",
+      "variant": "centered_gap_trap",
+      "epoch": 56,
+      "field": "current_fraction_-2",
+      "grid_index": 0,
+      "saved": 0.11031650047032106,
+      "recomputed": 0.11031650047032104,
+      "ulps": 1.0
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2028_001",
+      "variant": "centered_gap_trap",
+      "epoch": 2,
+      "field": "odds_multiplier",
+      "grid_index": 3,
+      "saved": 0.9497751642328228,
+      "recomputed": 0.9497751642328229,
+      "ulps": 1.0
+    }
+  ],
+  "summary_std_tolerance_ulps": 2,
+  "summary_rounding": [],
+  "checkpoint_loading": false,
+  "result_sha256": {
+    "mamba3_gaptrap_centered_confirm_fixed_seed2027_001": "1879b882d3ce2694b360fa032e9a230c3e49ea8cb6499c698e5f4656c1989830",
+    "mamba3_gaptrap_centered_confirm_centered_seed2027_001": "bfc6d75c2b59f119a41707e021f3efcb456c529a114d7cdf7d9bc84601a16df9",
+    "mamba3_gaptrap_centered_confirm_fixed_seed2028_001": "652dac7096a2f9b31b89c09131ab193b16f08577107e8109b61c959a4d8603ef",
+    "mamba3_gaptrap_centered_confirm_centered_seed2028_001": "9af62dc07348c2b4044294483d9ff6b4bf7f3de9b36831f9e0670122576cab55"
+  }
+}

@@ -2,6 +2,8 @@
 
 ## Mamba3: VALID
 
+**Centered Gap-Trap, confirmation 2027–2030:** fixed **0.062925 ± 0.000793**, centered **0.062900 ± 0.000787**; paired Δ **−0.000025 ± 0.001124**, 2 выигрыша и 2 проигрыша (mean ± sample std, ddof=1). Устойчивого преимущества нет; пункт 3 завершён, рабочая основа — MIMO dual fixed-reference. TEST=0. [Таблицы, график и ограничения](MAMBA3_TIME_MECHANISMS_RESULTS.md#gap-trap-centered-confirmation).
+
 **Centered Gap-Trap, seed2026:** VALID NDCG@10 0.0635 против 0.0633 fixed (+0.316%); first27 0.0615 против 0.0620, всего 60/39 эпох. Небольшой положительный пилот, устойчивость не установлена. Пункт 3 закрыт на текущем exploratory этапе, TEST=0. [Результат](MAMBA3_TIME_MECHANISMS_RESULTS.md#gap-trap-centered-pilot).
 
 **One-sided Gap-Trap, seed2026:** VALID NDCG@10 0.0626 против 0.0633 fixed replay (−1.11%); first27 также ниже. Эта параметризация не улучшила пилот. TEST=0, multi-seed confirmation не запускалась. [Результат](MAMBA3_TIME_MECHANISMS_RESULTS.md#gap-trap-one-sided-pilot).

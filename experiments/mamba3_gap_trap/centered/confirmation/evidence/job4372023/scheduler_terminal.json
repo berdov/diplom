@@ -1,0 +1,44 @@
+{
+  "checked_at": "2026-10-03T09:56:39.453695+00:00",
+  "timezone": "Europe/Moscow",
+  "sacct_raw": "JobIDRaw|State|ExitCode|Start|End|Elapsed|NodeList\n4372023|COMPLETED|0:0|2026-10-03T07:47:45|2026-10-03T10:36:41|02:48:56|cn-044\n4372023.batch|COMPLETED|0:0|2026-10-03T07:47:45|2026-10-03T10:36:41|02:48:56|cn-044\n4372023.extern|COMPLETED|0:0|2026-10-03T07:47:45|2026-10-03T10:36:41|02:48:56|cn-044\n",
+  "jobs": {
+    "4372023": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "start": "2026-10-03T07:47:45",
+      "end": "2026-10-03T10:36:41",
+      "elapsed": "02:48:56",
+      "node": "cn-044"
+    }
+  },
+  "steps": [
+    {
+      "JobIDRaw": "4372023",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Start": "2026-10-03T07:47:45",
+      "End": "2026-10-03T10:36:41",
+      "Elapsed": "02:48:56",
+      "NodeList": "cn-044"
+    },
+    {
+      "JobIDRaw": "4372023.batch",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Start": "2026-10-03T07:47:45",
+      "End": "2026-10-03T10:36:41",
+      "Elapsed": "02:48:56",
+      "NodeList": "cn-044"
+    },
+    {
+      "JobIDRaw": "4372023.extern",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Start": "2026-10-03T07:47:45",
+      "End": "2026-10-03T10:36:41",
+      "Elapsed": "02:48:56",
+      "NodeList": "cn-044"
+    }
+  ]
+}

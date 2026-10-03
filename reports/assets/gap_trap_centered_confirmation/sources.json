@@ -1,0 +1,166 @@
+{
+  "confirmation": [
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2027_001",
+      "seed": 2027,
+      "variant": "fixed_replay",
+      "source_json": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_fixed_seed2027_001.json",
+      "result_sha256": "1879b882d3ce2694b360fa032e9a230c3e49ea8cb6499c698e5f4656c1989830",
+      "metadata": "experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/files/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "3892757dd40b69b9a65220b154f894c4cfa01176ebe47020fdea9d30fa55d662",
+      "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2027_001/checkpoints/best_state_dict.pth",
+      "checkpoint_sha256": "509089e0b0186ce724104f748a8881fd172ee6c0d9c5b5e1099f92b83aad5ad9",
+      "checkpoint_bytes": 2507332,
+      "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+      "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+      "job_id": "4372023"
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2027_001",
+      "seed": 2027,
+      "variant": "centered_gap_trap",
+      "source_json": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_centered_seed2027_001.json",
+      "result_sha256": "bfc6d75c2b59f119a41707e021f3efcb456c529a114d7cdf7d9bc84601a16df9",
+      "metadata": "experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/files/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "9532f0d2660ef474c0715235416deb4b0bc48edf717edba83f82c27c3eabe614",
+      "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2027_001/checkpoints/best_state_dict.pth",
+      "checkpoint_sha256": "3f9190211340c7a96d90582637986da67f74421b82b53accbaa97a64253fc7d7",
+      "checkpoint_bytes": 2507649,
+      "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+      "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+      "job_id": "4372023"
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2028_001",
+      "seed": 2028,
+      "variant": "fixed_replay",
+      "source_json": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_fixed_seed2028_001.json",
+      "result_sha256": "652dac7096a2f9b31b89c09131ab193b16f08577107e8109b61c959a4d8603ef",
+      "metadata": "experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/files/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "9997b3d6748c531aba2ed609596700bbd42ea50d91befe6512ebb3aeb3480ba5",
+      "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2028_001/checkpoints/best_state_dict.pth",
+      "checkpoint_sha256": "16b934781a9a19045d76236ceccf33a4f3f0fb6ff19e3287654d4c8392e7f1a2",
+      "checkpoint_bytes": 2507332,
+      "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+      "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+      "job_id": "4372023"
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2028_001",
+      "seed": 2028,
+      "variant": "centered_gap_trap",
+      "source_json": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_centered_seed2028_001.json",
+      "result_sha256": "9af62dc07348c2b4044294483d9ff6b4bf7f3de9b36831f9e0670122576cab55",
+      "metadata": "experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/files/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "f2fc7078e20b0540c07bbfe25a455546b2b27a278f102c2ee5735a2ad0f80631",
+      "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2028_001/checkpoints/best_state_dict.pth",
+      "checkpoint_sha256": "bc47d51cd78bdfd990fa3806b4dfee9daecc5429c8b219bffc8f17419ee5ff91",
+      "checkpoint_bytes": 2507649,
+      "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+      "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+      "job_id": "4372023"
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2029_001",
+      "seed": 2029,
+      "variant": "fixed_replay",
+      "source_json": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_fixed_seed2029_001.json",
+      "result_sha256": "241766ac287595abad7bf28a055d6aab1c6bcaee62997cb088e06f2a4f544b34",
+      "metadata": "experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/files/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2029_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "80210cdf3fce274e67b728a75c8a2954621ca0a10bfe59b06586713c4a416f63",
+      "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2029_001/checkpoints/best_state_dict.pth",
+      "checkpoint_sha256": "b1aca2cfda604a49fa9700d5015dbb5a09f8f0cd804aa2b3d3cdd8608960874e",
+      "checkpoint_bytes": 2507332,
+      "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+      "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+      "job_id": "4372023"
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2029_001",
+      "seed": 2029,
+      "variant": "centered_gap_trap",
+      "source_json": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_centered_seed2029_001.json",
+      "result_sha256": "833388457a5ab572490f1dadc9c6e46f555b41c5f2f351c5265b072a30b0cdf8",
+      "metadata": "experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/files/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2029_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "11e837dd192ec88088585954b26865c18f77844a45364d71c16fd7f57dfb0b61",
+      "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2029_001/checkpoints/best_state_dict.pth",
+      "checkpoint_sha256": "89b85639d4493e45d1631a7a9dc27be69cc3aced596a94b99dabfbe95e66d7b1",
+      "checkpoint_bytes": 2507649,
+      "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+      "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+      "job_id": "4372023"
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2030_001",
+      "seed": 2030,
+      "variant": "fixed_replay",
+      "source_json": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_fixed_seed2030_001.json",
+      "result_sha256": "a1263205c6199553256ab4793fe05bdf61b14c4897d531108ad812500b13625e",
+      "metadata": "experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/files/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2030_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "cefe77374b3765800236a02e1f7a4b51bf31c6a930c953502be59054037629fe",
+      "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_fixed_seed2030_001/checkpoints/best_state_dict.pth",
+      "checkpoint_sha256": "0e7fa643bd9505535440db2594cc038d964b0b96851820e13790dadf53d17bef",
+      "checkpoint_bytes": 2507332,
+      "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+      "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+      "job_id": "4372023"
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2030_001",
+      "seed": 2030,
+      "variant": "centered_gap_trap",
+      "source_json": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_centered_seed2030_001.json",
+      "result_sha256": "6667dff652348f03205a2792d68c20296e3b6050a658a3aecc5fc65e7fbcb0c6",
+      "metadata": "experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/files/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2030_001/checkpoints/best_metadata.json",
+      "metadata_sha256": "cffd3b01cb48cb39253d9a908e7a88e92acbc576de652c599325593c2260ceae",
+      "checkpoint_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_gap_trap/centered/confirmation/slurm_logs/fits/mamba3_gaptrap_centered_confirm_centered_seed2030_001/checkpoints/best_state_dict.pth",
+      "checkpoint_sha256": "dd9643af86abaf94e3adda88a1a81192101ce36726d2eaa3310b9fbc90e857ca",
+      "checkpoint_bytes": 2507649,
+      "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+      "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+      "job_id": "4372023"
+    }
+  ],
+  "exploratory_pilot": [
+    {
+      "run_id": "mamba3_gaptrap_centered_fixed_replay_seed2026_002",
+      "source_json": "experiments/mamba3_gap_trap/centered/runs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002.json",
+      "sha256": "ba45a214f3f0a8f2d3772bc8e2cc092e8157a072cc5cf287d86f78f9ede5e970",
+      "cohort": "exploratory pilot; excluded from primary"
+    },
+    {
+      "run_id": "mamba3_gaptrap_centered_centered_gap_trap_seed2026_002",
+      "source_json": "experiments/mamba3_gap_trap/centered/runs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002.json",
+      "sha256": "9360c0e074d17de9512b7af26e6bf38935a3deadbc8497cffbd65a908e2e16d6",
+      "cohort": "exploratory pilot; excluded from primary"
+    }
+  ],
+  "historical_replay_references": [
+    {
+      "seed": 2027,
+      "source_json": "experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2027_001.json",
+      "sha256": "eab9d1c9958922351d2739945c1232c71b4f3836f711e573b0ce4b5a191bb73b",
+      "role": "replay reference only; not additional observations"
+    },
+    {
+      "seed": 2028,
+      "source_json": "experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2028_001.json",
+      "sha256": "f991d229c29245bb84b6a8d72f584f8c839bd4208d459da566f04bc4dd612045",
+      "role": "replay reference only; not additional observations"
+    },
+    {
+      "seed": 2029,
+      "source_json": "experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2029_001.json",
+      "sha256": "634974c452917c0e2f4a3f1ee92a03f94bc11403f7ef74872b18def88c7e2c02",
+      "role": "replay reference only; not additional observations"
+    },
+    {
+      "seed": 2030,
+      "source_json": "experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2030_001.json",
+      "sha256": "f90d9dd8a826824a71f9c98b980b6e4cc5160dcf2311f57227ea1b4667be38e0",
+      "role": "replay reference only; not additional observations"
+    }
+  ],
+  "independent_audit": "experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/independent_audit.json",
+  "audit_sha256": "8e6b6d0371ae9ce5e3b17b42af9e3d2c384e8bce84628d82da9650fc1bf9b9a9"
+}

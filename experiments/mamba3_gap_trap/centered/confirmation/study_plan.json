@@ -1,0 +1,186 @@
+{
+  "study_id": "mamba3_gap_trap_centered_confirmation_001",
+  "seeds": [
+    2027,
+    2028,
+    2029,
+    2030
+  ],
+  "modes": [
+    "fixed_replay",
+    "centered_gap_trap"
+  ],
+  "tasks": [
+    {
+      "variant": "fixed_replay",
+      "seed": 2027,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2027_001"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2027,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2027_001"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2028,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2028_001"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2028,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2028_001"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2029,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2029_001"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2029,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2029_001"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2030,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2030_001"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2030,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2030_001"
+    }
+  ],
+  "parameter_counts": {
+    "fixed_replay": 715020,
+    "centered_gap_trap": 715021
+  },
+  "primary_contrast": [
+    "centered_gap_trap",
+    "fixed_replay"
+  ],
+  "max_scientific_fits": 8,
+  "max_jobs": 2,
+  "allocations": {
+    "001": 28800,
+    "002": 28800
+  },
+  "automatic_retries": 0,
+  "test_evaluations": 0,
+  "save_margin_seconds": 600,
+  "min_remaining_to_start_fit_seconds": 5400,
+  "min_scheduler_poll_seconds": 600,
+  "resources": {
+    "partition": "rocky",
+    "account": "proj_1833",
+    "constraint": "type_e",
+    "gpu": "a100:1",
+    "cpus": 4,
+    "mem": 0,
+    "requeue": false
+  },
+  "reference_ms": 838393,
+  "centered_formula": "q=(g-R0)/(g+R0); T_prime=T+alpha*q",
+  "alpha_bounds": [
+    0.0,
+    1.0
+  ],
+  "alpha": "One fp32 scalar shared across heads/layers; exact0 init; unchanged Adam and projection",
+  "masks": {
+    "first_event": 0,
+    "padding": 0,
+    "active_zero_gap": -1,
+    "target_timestamp_used": false
+  },
+  "diagnostic_grid": [
+    0,
+    0.01,
+    0.1,
+    0.25,
+    0.5,
+    1,
+    2,
+    4,
+    10,
+    100
+  ],
+  "diagnostic_content_logits": [
+    -2,
+    0,
+    2
+  ],
+  "pilot_execution": "e4e31370e29c2a34c5f0f1071046fccebd77c289",
+  "pilot_source_hash": "638b836780af7b6f9065546c128cb8ac2451c5d8af3581855029eea515c2ca10",
+  "pilot_job": "4371876",
+  "inherited_gate_sha256": "ed3ad56a0beaf24bd7e3e17276fa0f80b0e306689f614b8abe24e37b0659b169",
+  "inherited_smoke_sha256": "e3fafa7f257c18cbc46b8c9fff982145c15bf8c136c310f8eb1b0de79c43f832",
+  "historical_fixed": {
+    "2027": {
+      "path": "experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2027_001.json",
+      "sha256": "eab9d1c9958922351d2739945c1232c71b4f3836f711e573b0ce4b5a191bb73b"
+    },
+    "2028": {
+      "path": "experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2028_001.json",
+      "sha256": "f991d229c29245bb84b6a8d72f584f8c839bd4208d459da566f04bc4dd612045"
+    },
+    "2029": {
+      "path": "experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2029_001.json",
+      "sha256": "634974c452917c0e2f4a3f1ee92a03f94bc11403f7ef74872b18def88c7e2c02"
+    },
+    "2030": {
+      "path": "experiments/mamba3_mimo_time/confirmation/runs/mamba3_mimo_confirm_dual_seed2030_001.json",
+      "sha256": "f90d9dd8a826824a71f9c98b980b6e4cc5160dcf2311f57227ea1b4667be38e0"
+    }
+  },
+  "config_sources": {
+    "fixed_replay": "experiments/mamba3_gap_trap/centered/runs/attempt_002/mamba3_gaptrap_centered_fixed_replay_seed2026_002.json",
+    "centered_gap_trap": "experiments/mamba3_gap_trap/centered/runs/attempt_002/mamba3_gaptrap_centered_centered_gap_trap_seed2026_002.json"
+  },
+  "allowed_config_changes": [
+    "seed",
+    "checkpoint_dir"
+  ],
+  "dataset": {
+    "manifest_sha256": "9f39aa12ec16f697a8bedb91eeb21c46dce514e6f414b7e47fc4064c1fcffd2c",
+    "train_time_stats_sha256": "fa5df0e5ec97d84e5dffd157373318ebfa2cb94fe2853c2aec4898ecd5f89943",
+    "protocol": {
+      "users": 23951,
+      "items": 7111,
+      "interactions": 1134420,
+      "train": 1086518,
+      "validation": 23951,
+      "test": 23951,
+      "manifest_path": "/home/daryumin/iberdov/diplom/outputs/data/protocol_b_manifest.json",
+      "recbole_inter_path": "/home/daryumin/iberdov/diplom/data/processed/protocol_b/recbole/kuairand/kuairand.inter",
+      "recbole_inter_sha256": "e275ded0b330c2827b49ccf567d6784452d6dcbf8cd719dc3009d36eadc2e2cc",
+      "sha_checked": true
+    }
+  },
+  "selection": "last tied maximum rounded VALID NDCG@10; unchanged Trainer.fit",
+  "first27": "Only full observed epochs0..26; paired available subset, descriptive",
+  "source_identity": "source_manifest.json SHA256 digest of exact files, including this plan; no self-referential hash",
+  "subsets": {
+    "primary": [
+      2027,
+      2028,
+      2029,
+      2030
+    ],
+    "secondary_including_exploratory_pilot": [
+      2026,
+      2027,
+      2028,
+      2029,
+      2030
+    ]
+  },
+  "aggregation": "sample std ddof=1, paired signs and deltas, relative difference of means; no p-values",
+  "replay": "Exact historical fixed scientific history/loss/metrics/state/RNG/first batch/checkpoint; timing/memory excluded",
+  "continuation": "Once only after terminal safe deadline guard between fits, no technical failure or started-incomplete fit; unchanged execution/source/config; never-started suffix only",
+  "no_gpu_gate_repeat": true,
+  "no_extra_forward": true,
+  "no_tuning": true,
+  "point4": "NOT_STARTED",
+  "article": "UNCHANGED"
+}

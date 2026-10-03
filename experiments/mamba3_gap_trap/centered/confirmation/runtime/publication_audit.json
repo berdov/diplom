@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "registry": {
+    "before": 112,
+    "after": 120,
+    "added": 8,
+    "previous_bytes": 51660,
+    "previous_sha256": "5d01e67bcfc02e6df7851a8942a5f098e661e8541f02277150486761d46fb218",
+    "registry_sha256": "a2c4119a7bb8ebb72f6eec23cf7a295fe0b6b418f86758cbd4372ab528570adc",
+    "old_prefix_unchanged": true,
+    "added_run_ids": [
+      "mamba3_gaptrap_centered_confirm_fixed_seed2027_001",
+      "mamba3_gaptrap_centered_confirm_centered_seed2027_001",
+      "mamba3_gaptrap_centered_confirm_fixed_seed2028_001",
+      "mamba3_gaptrap_centered_confirm_centered_seed2028_001",
+      "mamba3_gaptrap_centered_confirm_fixed_seed2029_001",
+      "mamba3_gaptrap_centered_confirm_centered_seed2029_001",
+      "mamba3_gaptrap_centered_confirm_fixed_seed2030_001",
+      "mamba3_gaptrap_centered_confirm_centered_seed2030_001"
+    ]
+  },
+  "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+  "preservation_commit": "ec7560f40d0977f5f6290af70b2390fa09aa1b0d",
+  "independent_audit_sha256": "8e6b6d0371ae9ce5e3b17b42af9e3d2c384e8bce84628d82da9650fc1bf9b9a9",
+  "scheduler_terminal_sha256": "87fb41a6cd38bd57935173af58f97e59c7b753b9bd98f6389e11c54031f9cfc1",
+  "preservation_manifest_sha256": "ed021df93110dc07662d371697da45effea49e075c615304a69ce4ed323ce644"
+}

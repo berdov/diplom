@@ -1,0 +1,53 @@
+{
+  "study_id": "mamba3_gap_trap_centered_confirmation_001",
+  "entries": [
+    {
+      "variant": "fixed_replay",
+      "seed": 2027,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2027_001",
+      "result": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_fixed_seed2027_001.json"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2027,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2027_001",
+      "result": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_centered_seed2027_001.json"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2028,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2028_001",
+      "result": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_fixed_seed2028_001.json"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2028,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2028_001",
+      "result": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_centered_seed2028_001.json"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2029,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2029_001",
+      "result": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_fixed_seed2029_001.json"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2029,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2029_001",
+      "result": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_centered_seed2029_001.json"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2030,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2030_001",
+      "result": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_fixed_seed2030_001.json"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2030,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2030_001",
+      "result": "experiments/mamba3_gap_trap/centered/confirmation/runs/mamba3_gaptrap_centered_confirm_centered_seed2030_001.json"
+    }
+  ]
+}
