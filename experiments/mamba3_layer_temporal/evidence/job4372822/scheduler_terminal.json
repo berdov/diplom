@@ -1,0 +1,43 @@
+{
+  "checked_at": "2026-10-03T12:02:01.015395+00:00",
+  "timezone": "Europe/Moscow",
+  "sacct_raw": "JobIDRaw|State|ExitCode|Start|End|Elapsed|NodeList\n4372822|COMPLETED|0:0|2026-10-03T13:51:11|2026-10-03T14:30:01|00:38:50|cn-045\n4372822.batch|COMPLETED|0:0|2026-10-03T13:51:11|2026-10-03T14:30:01|00:38:50|cn-045\n4372822.extern|COMPLETED|0:0|2026-10-03T13:51:11|2026-10-03T14:30:01|00:38:50|cn-045\n",
+  "steps": [
+    {
+      "JobIDRaw": "4372822",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Start": "2026-10-03T13:51:11",
+      "End": "2026-10-03T14:30:01",
+      "Elapsed": "00:38:50",
+      "NodeList": "cn-045"
+    },
+    {
+      "JobIDRaw": "4372822.batch",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Start": "2026-10-03T13:51:11",
+      "End": "2026-10-03T14:30:01",
+      "Elapsed": "00:38:50",
+      "NodeList": "cn-045"
+    },
+    {
+      "JobIDRaw": "4372822.extern",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Start": "2026-10-03T13:51:11",
+      "End": "2026-10-03T14:30:01",
+      "Elapsed": "00:38:50",
+      "NodeList": "cn-045"
+    }
+  ],
+  "job": {
+    "JobIDRaw": "4372822",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "Start": "2026-10-03T13:51:11",
+    "End": "2026-10-03T14:30:01",
+    "Elapsed": "00:38:50",
+    "NodeList": "cn-045"
+  }
+}

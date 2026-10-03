@@ -1,0 +1,12 @@
+{
+  "execution_commit": "30640e2be36b45c6f89e31f91aae83f76f2d2254",
+  "preservation_commit": "a44fd9e43b09fdf3a64d03116dc4556629bbfd13",
+  "source_hash": "ad71e91b271db416cf05717e03d7429c60d39657216d1cf18275465ed1500e5b",
+  "job_id": "4372822",
+  "result_sha256": {
+    "shared_layers": "7d3e5b39fc235f809dca72760cebc28eff0864eaa69954126e7a266b6825bce2",
+    "layer_specific": "d21463f3582a191d1eff55c4ff96b92b4e0e59984c72fb7f0eb78ff880c87103"
+  },
+  "summary_sha256": "1b909011b4b17e39ca044155d5b779a5e4add69a69518850e4ead3f54758886a",
+  "audit_path": "experiments/mamba3_layer_temporal/evidence/job4372822/independent_audit.json"
+}

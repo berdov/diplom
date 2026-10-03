@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-10-03T12:18:09.403439+00:00",
+  "execution_commit": "30640e2be36b45c6f89e31f91aae83f76f2d2254",
+  "preservation_commit": "a44fd9e43b09fdf3a64d03116dc4556629bbfd13",
+  "registry_before": 120,
+  "registry_after": 122,
+  "old_registry_prefix_bytes": 55799,
+  "old_registry_prefix_sha256": "a2c4119a7bb8ebb72f6eec23cf7a295fe0b6b418f86758cbd4372ab528570adc",
+  "raw_copies_verified": 7,
+  "links_checked": 15,
+  "frozen_source_files": 381,
+  "old_report_unchanged_except_plan_status": true,
+  "figure_preview_checked": true,
+  "files": {
+    "experiments/mamba3_layer_temporal/RESULTS.md": "0caedfdb3a971c08df0006e38ed124b08e66440b6289cbb9a14c8d694656e33f",
+    "reports/MAMBA3_TIME_MECHANISMS_RESULTS.md": "ec9a4e04bfb9befa5e7fc65f1b976799e373415cbfdeec67df7c899dfa0a0a4e",
+    "reports/RESULTS.md": "8e3ddf370aa301636889d9df4a656cde9657ebb2de6c0062d3847b6a776de866",
+    "experiments/results.csv": "073435a00d73646b4ed2c442a2538cd60338090a0bf00ae18902ca8a9181e79e",
+    "reports/assets/layer_temporal_functions_pilot/curves.svg": "623d3ed5729c1a609a34c93139b92cd454b43203a708247392d4525a71822641",
+    "reports/assets/layer_temporal_functions_pilot/diagnostics.json": "7757ff2f22f9097ddbc431a926a85c52a24a6e29899b87b6ee2f16f70bb1672b",
+    "reports/assets/layer_temporal_functions_pilot/plot.py": "eea42ffddf8ac061411ed1639d6f6b94351440ae1b937a9b01a7a1fbf35a5af6",
+    "reports/assets/layer_temporal_functions_pilot/registry_append.json": "05ea8596ff33ec653b2e4774e00a7965c1b765505da44082111c96667a417d84",
+    "reports/assets/layer_temporal_functions_pilot/sources.json": "8ea7adb907dab7e5f20f3c83679f5214b5320596cfe43a1beb2a2c70a87a08b2"
+  }
+}

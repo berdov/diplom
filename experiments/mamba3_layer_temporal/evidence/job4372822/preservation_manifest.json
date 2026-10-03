@@ -1,0 +1,256 @@
+{
+  "job_id": "4372822",
+  "execution_commit": "30640e2be36b45c6f89e31f91aae83f76f2d2254",
+  "source_hash": "ad71e91b271db416cf05717e03d7429c60d39657216d1cf18275465ed1500e5b",
+  "preserved_at": "2026-10-03T12:02:01.015395+00:00",
+  "files": [
+    {
+      "path": "runs/attempt_001/inherited_kernel.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/runs/attempt_001/inherited_kernel.json",
+      "bytes": 5402,
+      "sha256": "5d554d14759e188c55e5dc07cf2415c77fed40b2e3c251b8541efe8ef1c14af0"
+    },
+    {
+      "path": "runs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/runs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001.json",
+      "bytes": 858366,
+      "sha256": "d21463f3582a191d1eff55c4ff96b92b4e0e59984c72fb7f0eb78ff880c87103"
+    },
+    {
+      "path": "runs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/runs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001.json",
+      "bytes": 637508,
+      "sha256": "7d3e5b39fc235f809dca72760cebc28eff0864eaa69954126e7a266b6825bce2"
+    },
+    {
+      "path": "runs/attempt_001/pilot_summary.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/runs/attempt_001/pilot_summary.json",
+      "bytes": 38272,
+      "sha256": "1b909011b4b17e39ca044155d5b779a5e4add69a69518850e4ead3f54758886a"
+    },
+    {
+      "path": "runs/attempt_001/smoke.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/runs/attempt_001/smoke.json",
+      "bytes": 29749,
+      "sha256": "4ba7aa5da0a48cabf602f1d10ae8c619181b4ef16ef5cb4d218a2c44521632b9"
+    },
+    {
+      "path": "runs/attempt_001/targeted_gate.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/runs/attempt_001/targeted_gate.json",
+      "bytes": 168023,
+      "sha256": "1e48d78027b77d71b532e06c0b040a132ea9ddaca3104527dfe6ff1ea1711a70"
+    },
+    {
+      "path": "runs/attempt_001/terminal_metadata.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/runs/attempt_001/terminal_metadata.json",
+      "bytes": 2514,
+      "sha256": "4f81639f360ee03a6737b3145fd2581a4a287ff04d9ef637ff758a421ba9c085"
+    },
+    {
+      "path": "slurm_logs/attempt_001/cpu_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/cpu_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.json",
+      "bytes": 17281,
+      "sha256": "e3d567c456f1051196de50b5b263cc40459b0c1318df98e7cdd412379bad633b"
+    },
+    {
+      "path": "slurm_logs/attempt_001/cpu_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.stdout.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/cpu_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.stdout.json",
+      "bytes": 17281,
+      "sha256": "e3d567c456f1051196de50b5b263cc40459b0c1318df98e7cdd412379bad633b"
+    },
+    {
+      "path": "slurm_logs/attempt_001/gate/child_environment.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/gate/child_environment.json",
+      "bytes": 167,
+      "sha256": "a27b7795eb9686518ae242b4a09bb00bdb124f8354c9a77ad01a39db5e8e1544"
+    },
+    {
+      "path": "slurm_logs/attempt_001/gate/stderr.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/gate/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_001/gate/stdout.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/gate/stdout.log",
+      "bytes": 775,
+      "sha256": "e907c9942b261b471b6ff0d1c1363c60a3d2dba3c6a470f1f685e7bd79d3506b"
+    },
+    {
+      "path": "slurm_logs/attempt_001/login_verification.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/login_verification.json",
+      "bytes": 4084,
+      "sha256": "e3a50f52e7ea9fd233fdf97c1b5cb70cfe9036c8283b5cd79195f0699e3ffc9c"
+    },
+    {
+      "path": "slurm_logs/attempt_001/m3-layer-time-4372822.err",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/m3-layer-time-4372822.err",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_001/m3-layer-time-4372822.out",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/m3-layer-time-4372822.out",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/checkpoints/best_metadata.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/checkpoints/best_metadata.json",
+      "bytes": 9547,
+      "sha256": "4e4a1fe7f891312379e840ab282c8ab8af679d3097a7a19db3287023fe449ad6"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/log/ThreeTimeMamba3Rec/ThreeTimeMamba3Rec-kuairand-Oct-03-2026_14-14-16-1a9ada.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/log/ThreeTimeMamba3Rec/ThreeTimeMamba3Rec-kuairand-Oct-03-2026_14-14-16-1a9ada.log",
+      "bytes": 18370,
+      "sha256": "d0300a8e4407ac8d4e90b2d5c6e1751ebb9b8299c5b1501472f1d314de6de63b"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/process/child_environment.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/process/child_environment.json",
+      "bytes": 177,
+      "sha256": "ec7ea38f3b9cfd00da303651c800063d089b7293294d3239ce31cf3151e1562c"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/process/stderr.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/process/stderr.log",
+      "bytes": 19340,
+      "sha256": "012d1470d29498d082783704955f6f1bd0b141beeb38164e3eb37e90775b1e1c"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/process/stdout.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/process/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/run.lock",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/run.lock",
+      "bytes": 2132,
+      "sha256": "6449390684cbf97f8b15cf36612bcf95d12316c94bd439597168ce56232dbd6b"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/checkpoints/best_metadata.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/checkpoints/best_metadata.json",
+      "bytes": 9081,
+      "sha256": "49427c0daa046783650f72998324f22b4d29c96f079416547737c0a4df4e4e0d"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/log/ThreeTimeMamba3Rec/ThreeTimeMamba3Rec-kuairand-Oct-03-2026_13-56-59-c266d1.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/log/ThreeTimeMamba3Rec/ThreeTimeMamba3Rec-kuairand-Oct-03-2026_13-56-59-c266d1.log",
+      "bytes": 17895,
+      "sha256": "9e90fea796dd7f21dccab813d5c9002d20916090f8345f1f16edff3fae9e057e"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/process/child_environment.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/process/child_environment.json",
+      "bytes": 176,
+      "sha256": "5175c9363526906f53e80bf3a4517366daeb4a03e004e909607057855cb19947"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/process/stderr.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/process/stderr.log",
+      "bytes": 18890,
+      "sha256": "d51fba14d2d3559be540106fc089871817befb5e6a9193df956c4ec872a40dea"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/process/stdout.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/process/stdout.log",
+      "bytes": 1281,
+      "sha256": "55904afb60b478cb65ba44c0eecd49ef44923d72e8123b6f39fb9f67190fa918"
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/run.lock",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/run.lock",
+      "bytes": 2130,
+      "sha256": "e223e4576e924dd6ed40343b0b67748cd0fb921e21befad5c9f74997dad82396"
+    },
+    {
+      "path": "slurm_logs/attempt_001/no_git_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/no_git_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.json",
+      "bytes": 17281,
+      "sha256": "1741e0a68c330a6a66c0d74f49b1947eb1f273a96dd662b924be9c0e6022d5b8"
+    },
+    {
+      "path": "slurm_logs/attempt_001/no_git_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.stdout.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/no_git_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.stdout.json",
+      "bytes": 17281,
+      "sha256": "1741e0a68c330a6a66c0d74f49b1947eb1f273a96dd662b924be9c0e6022d5b8"
+    },
+    {
+      "path": "slurm_logs/attempt_001/pipeline.lock",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/pipeline.lock",
+      "bytes": 1396,
+      "sha256": "a7030c6575e7130a503eb18b809447bf0f0417b6dda7946efadee498bb05a9b2"
+    },
+    {
+      "path": "slurm_logs/attempt_001/pipeline_status.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/pipeline_status.json",
+      "bytes": 2451,
+      "sha256": "d57b232d18bfd32044729a28b5f4dffebf3eb4646312e8ae5a9b56118da0abcd"
+    },
+    {
+      "path": "slurm_logs/attempt_001/reservation.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/reservation.json",
+      "bytes": 1795,
+      "sha256": "5bb456a0c847dbbda79da1456ee422eb3f8330e42bcefacde1e50c440af94674"
+    },
+    {
+      "path": "slurm_logs/attempt_001/smoke/child_environment.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/smoke/child_environment.json",
+      "bytes": 168,
+      "sha256": "f43836243ec122d6ff2574ff9519402254c83cba51a2f65c8ebd26cceca72c37"
+    },
+    {
+      "path": "slurm_logs/attempt_001/smoke/stderr.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/smoke/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "slurm_logs/attempt_001/smoke/stdout.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/smoke/stdout.log",
+      "bytes": 775,
+      "sha256": "4e8b0a98c910d371e0c4da02e27bfc938acc6f9c50c7431318e024d209e510a5"
+    },
+    {
+      "path": "slurm_logs/attempt_001/submission.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/submission.json",
+      "bytes": 1017,
+      "sha256": "4e75bf81b3b19dff555ee1260b7a9847ad67e20f925870b430fddd3ed5eef3ed"
+    },
+    {
+      "path": "study_plan.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/study_plan.json",
+      "bytes": 14056,
+      "sha256": "7ffdf94f568114709943d84b85e1edb75d65892cb6c494ba38fe7b76d95015b6"
+    },
+    {
+      "path": "source_manifest.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/source_manifest.json",
+      "bytes": 52891,
+      "sha256": "817d44dbb94d5dda8a5e5692199fdc0787d92df82478be58c9e593525bdd246d"
+    },
+    {
+      "path": "DESIGN.md",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/DESIGN.md",
+      "bytes": 3917,
+      "sha256": "509c4af690b2285a4d76399ea1215fbaa8e185d78ffd827d3d9aa03015a837ab"
+    }
+  ],
+  "checkpoints": {
+    "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/checkpoints/best_state_dict.pth": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/checkpoints/best_state_dict.pth",
+      "bytes": 2511462,
+      "sha256": "c005f303f2f863fceed1a4db9d4e1f771600c5f2456d10e9636bf2633670ee6d"
+    },
+    "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/checkpoints/best_state_dict.pth": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_layer_temporal/slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507332,
+      "sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8"
+    }
+  },
+  "checkpoint_loading": false,
+  "weights_copied": false
+}

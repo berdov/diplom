@@ -290,7 +290,7 @@ Seed **2026** является exploratory pilot: его результат ис
 1. Три временных механизма: SISO и [MIMO confirmation](#mimo-time-confirmation) завершены, по пять seeds, в рамках текущего KuaiRand/VALID-протокола.
 2. Обучаемые временные масштабы heads: [пилот и подтверждение завершены](#head-timescales-confirmation). Head-specific reference scales не выбраны как обязательное усложнение; контроль — MIMO dual fixed.
 3. Зависящее от gap трапециевидное смешивание: оба пилота и [centered confirmation](#gap-trap-centered-confirmation) завершены. На четырёх новых seeds 2 выигрыша и 2 проигрыша, средний Δ NDCG@10 −0.000025. Centered не выбран; рабочая основа — MIMO dual fixed-reference.
-4. Временные функции отдельно по слоям: не реализованы и не проверены.
+4. Временные функции отдельно по слоям: [paired pilot seed2026 завершён](#layer-temporal-functions-pilot). Отдельные функции дали NDCG@10 0.0625 против 0.0633 shared (−1.264%); confirmation не рекомендована, остаются общие функции.
 5. Явная временная память состояния: отложенная гипотеза.
 
 <details>
@@ -831,3 +831,22 @@ recommendation, без заявления первенства. Статья и 
 [TeX](assets/gap_trap_centered_confirmation/valid_table.tex) ·
 [preservation](../experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/preservation_manifest.json) ·
 [аудит](../experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/independent_audit.json).
+
+
+<a id="layer-temporal-functions-pilot"></a>
+## Временные функции отдельно по слоям: пилот
+
+**COMPLETE.** MIMO dual fixed-reference, seed2026; менялось только sharing temporal calibrators между двумя слоями. Fresh shared использует одни decay/scan functions на оба слоя (715020 параметров); layer-specific — независимые копии с одинаковым init (715152). Reference 838393 мс, rank4/chunk8, history50 сохранены.
+
+| Variant | VALID NDCG@10 | HR@10 | First27 | Best epoch (с 0) | Epochs |
+|---|---:|---:|---:|---:|---:|
+| shared_layers | 0.0633 | 0.1162 | 0.0620 | 27 | 39 |
+| layer_specific | 0.0625 | 0.1168 | 0.0619 | 28 | 40 |
+
+Primary Δ **−0.0008 (−1.2638%)**; first27 Δ **−0.0001**. Независимые функции не улучшили NDCG@10 на этой паре. Fresh shared полностью повторил исторический MIMO dual seed2026, включая checkpoint SHA. CPU 28/28 и no-Git 28/28, GPU 6 cases / 214 checks и оба smoke PASS; завершены 2/2 fits. Terminal audit сверил 79 epochs / 948 metric cells с обоими логами. TEST=0.
+
+Выученные функции разошлись: mean abs log-ratio H0/H1 между слоями равен 0.743/1.186 для decay и 0.268/0.617 для scan. Relative parameter L2 составляет 0.830/0.680 соответственно. На фиксированной сетке layer1 decay H1 близок к верхней границе в 10/10 точках, scan H1 к нижней в 9/10. Это не задаёт семантику short/long-term для слоёв.
+
+Пункт 4 проверен в pilot scope. Оставляем MIMO dual fixed-reference с общими temporal functions; confirmation не рекомендована по этому результату. Один seed не устанавливает общий отрицательный эффект. Пункт 5 остаётся отдельной гипотезой, оснований переходить к нему автоматически нет. Статья и Overleaf не менялись.
+
+Job 4372822: COMPLETED 0:0, cn-045, 38 м 50 с. Реестр 120→122, прежние строки byte-identical. [Полные метрики, grid curves, L2, границы и provenance](../experiments/mamba3_layer_temporal/RESULTS.md) · [raw summary](../experiments/mamba3_layer_temporal/runs/attempt_001/pilot_summary.json) · [terminal audit](../experiments/mamba3_layer_temporal/evidence/job4372822/independent_audit.json).

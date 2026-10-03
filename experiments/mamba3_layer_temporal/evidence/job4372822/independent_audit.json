@@ -1,0 +1,129 @@
+{
+  "status": "PASS",
+  "job_id": "4372822",
+  "execution_commit": "30640e2be36b45c6f89e31f91aae83f76f2d2254",
+  "source_hash": "ad71e91b271db416cf05717e03d7429c60d39657216d1cf18275465ed1500e5b",
+  "source_blobs": 381,
+  "audited_at": "2026-10-03T12:10:16.656900+00:00",
+  "preserved_files": 39,
+  "preserved_bytes": 1991469,
+  "scheduler": {
+    "JobIDRaw": "4372822",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "Start": "2026-10-03T13:51:11",
+    "End": "2026-10-03T14:30:01",
+    "Elapsed": "00:38:50",
+    "NodeList": "cn-045"
+  },
+  "cpu": [
+    {
+      "file": "cpu_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.json",
+      "tests": 28,
+      "status": "PASS"
+    },
+    {
+      "file": "no_git_preflight_30640e2be36b45c6f89e31f91aae83f76f2d2254.json",
+      "tests": 28,
+      "status": "PASS"
+    }
+  ],
+  "gpu_cases": 6,
+  "gpu_checks": 214,
+  "smoke_steps_per_variant": 3,
+  "scientific_fits_verified": 2,
+  "complete_pairs_verified": 1,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "rows": [
+    {
+      "variant": "shared_layers",
+      "run_id": "mamba3_layer_temporal_shared_layers_seed2026_001",
+      "epochs": 39,
+      "metric_cells": 468,
+      "checkpoint_sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8",
+      "best_epoch": 27
+    },
+    {
+      "variant": "layer_specific",
+      "run_id": "mamba3_layer_temporal_layer_specific_seed2026_001",
+      "epochs": 40,
+      "metric_cells": 480,
+      "checkpoint_sha256": "c005f303f2f863fceed1a4db9d4e1f771600c5f2456d10e9636bf2633670ee6d",
+      "best_epoch": 28
+    }
+  ],
+  "epochs": 79,
+  "metric_cells": 948,
+  "fresh_control_replay": {
+    "status": "PASS",
+    "historical_run_id": "mamba3_mimo_dual_seed2026_001",
+    "historical_job_id": "4358147",
+    "checkpoint_sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8",
+    "scientific_history_exact": true,
+    "timing_memory_excluded": true
+  },
+  "paired_fields": [
+    "initial_backbone_sha256",
+    "initial_common_calibrator_hashes",
+    "initial_layer_calibrator_hashes",
+    "rng_components",
+    "protocol",
+    "manifest_sha256",
+    "train_time_stats_sha256",
+    "verified_history_stats",
+    "precision",
+    "optimizer_settings",
+    "first_train_batch_sha256"
+  ],
+  "runtime_errors": [],
+  "warnings": [
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_layer_specific_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/attempt_001/mamba3_layer_temporal_shared_layers_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    }
+  ],
+  "diagnostic_reductions": {
+    "different_reductions": 140,
+    "max_absolute_difference": 8.881784197001252e-16,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance": 1e-15
+  },
+  "parameter_distances_audit": "Saved per-fit values: algebraic consistency only; checkpoint SHA and selected-epoch metadata bound. No weight loading.",
+  "checkpoint_loading": false,
+  "result_sha256": {
+    "shared_layers": "7d3e5b39fc235f809dca72760cebc28eff0864eaa69954126e7a266b6825bce2",
+    "layer_specific": "d21463f3582a191d1eff55c4ff96b92b4e0e59984c72fb7f0eb78ff880c87103"
+  },
+  "summary_sha256": "1b909011b4b17e39ca044155d5b779a5e4add69a69518850e4ead3f54758886a",
+  "preservation_manifest_sha256": "7b8a6f6c9399d2da0513b6f12aea4805cef898d7dcc09aa7d3e2cd0fcaae2e1c",
+  "scheduler_sha256": "20db4fc6de4b3431e4190ecfc557798b624c7facd2ca5c8e85672b053e898737"
+}
