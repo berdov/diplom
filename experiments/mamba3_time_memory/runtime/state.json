@@ -1,0 +1,22 @@
+{
+  "phase": "SOURCE_FROZEN_PRE_SUBMIT",
+  "branch": "exp/mamba3-time-addressed-memory",
+  "base_commit": "7ba5e45ed110914b354c89d4377836910b55408c",
+  "execution_commit": null,
+  "reservation": null,
+  "job_id": null,
+  "submits": 0,
+  "max_submits": 2,
+  "scientific_fits_started": 0,
+  "scientific_fits_completed": 0,
+  "max_scientific_fits": 3,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "registry_before": 122,
+  "next_step": "Publish exact execution commit, safe canonical deploy, CPU/no-Git preflight and frozen TRAIN coverage; then reserve one job",
+  "source_hash": "4e26434f8bf084d6acd562e6859c24699013510d8f2ffcaaf2653435d3698e8d",
+  "source_files": 410,
+  "cpu_tests_expected": 67,
+  "gpu_cases_expected": 11,
+  "gpu_checks_expected": 429
+}
