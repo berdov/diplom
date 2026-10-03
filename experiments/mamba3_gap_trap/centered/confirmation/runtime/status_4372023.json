@@ -1,0 +1,18 @@
+{
+  "job_id": "4372023",
+  "checked_at": "2026-10-02T22:06:53.460493+00:00",
+  "checkout_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+  "tracked_clean": true,
+  "squeue": {
+    "returncode": 0,
+    "stdout": "4372023|PENDING|0:00|(Priority)|N/A|\n",
+    "stderr": ""
+  },
+  "sacct": {
+    "returncode": 0,
+    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4372023|PENDING|0:0|00:00:00|None assigned|Unknown|Unknown\n",
+    "stderr": ""
+  },
+  "pipeline": null,
+  "records": []
+}

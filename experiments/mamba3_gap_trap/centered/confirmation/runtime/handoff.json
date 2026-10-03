@@ -1,0 +1,87 @@
+{
+  "status": "INCOMPLETE",
+  "study_id": "mamba3_gap_trap_centered_confirmation_001",
+  "job_id": "4372023",
+  "execution_attempt": "001",
+  "job_state": "PENDING",
+  "reason": "Priority",
+  "node": null,
+  "elapsed": "00:00:00",
+  "stage": "NOT_STARTED",
+  "checked_at": "2026-10-02T22:06:53.460493+00:00",
+  "next_scheduler_poll_not_before": "2026-10-02T22:16:53.460493+00:00",
+  "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+  "source_hash": "ec0ab4281cb7fdba01e0f8465d7c144895894038eeed2517aaa633ebc157bef5",
+  "source_files": 358,
+  "scientific_fits_started": 0,
+  "scientific_fits_completed": 0,
+  "scientific_fits_expected": 8,
+  "complete_pairs": 0,
+  "pairs_expected": 4,
+  "remaining_tasks": [
+    {
+      "variant": "fixed_replay",
+      "seed": 2027,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2027_001"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2027,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2027_001"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2028,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2028_001"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2028,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2028_001"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2029,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2029_001"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2029,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2029_001"
+    },
+    {
+      "variant": "fixed_replay",
+      "seed": 2030,
+      "run_id": "mamba3_gaptrap_centered_confirm_fixed_seed2030_001"
+    },
+    {
+      "variant": "centered_gap_trap",
+      "seed": 2030,
+      "run_id": "mamba3_gaptrap_centered_confirm_centered_seed2030_001"
+    }
+  ],
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "cpu_tests": {
+    "normal": 38,
+    "no_git": 38,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cuda_initialized": false
+  },
+  "gpu_gate": "INHERITED_PASS_6_CASES_158_CHECKS",
+  "smoke": "INHERITED_PASS",
+  "registry_rows": 112,
+  "main_commit": "e8f8f1ecce0646c5815b524d0bd9683c423b4775",
+  "automatic_retries": 0,
+  "main_jobs_submitted": 1,
+  "continuation_jobs_submitted": 0,
+  "max_continuation_jobs": 1,
+  "background_monitor_process": false,
+  "point3": "CONFIRMATION_PENDING",
+  "point4": "NOT_STARTED",
+  "article": "UNCHANGED",
+  "evidence_publication": "LOCAL_BRANCH_COMMIT; keep remote at exact execution until continuation decision",
+  "remote_branch_must_remain_at_execution": true
+}

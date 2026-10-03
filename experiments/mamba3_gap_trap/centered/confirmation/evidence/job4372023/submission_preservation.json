@@ -1,0 +1,36 @@
+{
+  "job_id": "4372023",
+  "execution_commit": "23468e74389aed841aab0ac16b370c5ce376e328",
+  "files": [
+    {
+      "source_path": "slurm_logs/attempt_001/cpu_preflight_23468e74389aed841aab0ac16b370c5ce376e328.json",
+      "local_path": "submission/cpu_preflight_23468e74389aed841aab0ac16b370c5ce376e328.json",
+      "bytes": 25889,
+      "sha256": "7d32468854e0db8da515a6b7f1277c86efad20a16825d240beb11733d37942b1"
+    },
+    {
+      "source_path": "slurm_logs/attempt_001/login_verification.json",
+      "local_path": "submission/login_verification.json",
+      "bytes": 4935,
+      "sha256": "299f48503b0622cf8e38dada1bd13ea26b806efefc3d9ca702036ace1208730a"
+    },
+    {
+      "source_path": "slurm_logs/attempt_001/no_git_preflight_23468e74389aed841aab0ac16b370c5ce376e328.json",
+      "local_path": "submission/no_git_preflight_23468e74389aed841aab0ac16b370c5ce376e328.json",
+      "bytes": 25888,
+      "sha256": "5ed010b13ed08830ee22441bc951d16484ec289030b048f2b35526f5d970ef65"
+    },
+    {
+      "source_path": "slurm_logs/attempt_001/reservation.json",
+      "local_path": "submission/reservation.json",
+      "bytes": 2695,
+      "sha256": "683ddb5945eb05746b5bb93c307431c97b8ed7f516035c7445db671f3ecd594a"
+    },
+    {
+      "source_path": "slurm_logs/attempt_001/submission.json",
+      "local_path": "submission/submission.json",
+      "bytes": 1017,
+      "sha256": "433e10b2874e4814b3fadcdbe49bc83fe2a0892e71289661c7d53c4f1c6e2b85"
+    }
+  ]
+}
