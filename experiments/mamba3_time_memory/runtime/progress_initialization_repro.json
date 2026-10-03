@@ -1,0 +1,23 @@
+{
+  "status": "REPRODUCED",
+  "checked_at": "2026-10-03T15:31:45.027057+00:00",
+  "execution_commit": "55d812bf55b1dffbbab6a7b0da86e616a6227b8b",
+  "source_path": "experiments/mamba3_time_memory/progress.py",
+  "source_sha256": "7e4817ee55c22b862cb51fc52d2853527505f89b7bb4ed4fa5e7ac839b20e9fb",
+  "source_matches_published_execution": true,
+  "production_function": "experiments.mamba3_time_memory.progress.write",
+  "invocation": "write(record, paths), then fit sentinel; same pre-fit ordering as runner.train",
+  "failure": {
+    "type": "FileNotFoundError",
+    "message": "Owner must create first: /var/folders/8_/2209xngj6qz3nh1thpv4hld80000gn/T/time-memory-progress-repro-vsxwiphp/run/progress.json",
+    "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 15, in <module>\n  File \"/Users/berdov/diplom/experiments/mamba3_time_memory/progress.py\", line 8, in write\n    update(paths['runtime']/'progress.json',value)\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/berdov/diplom/experiments/mamba3_mimo_time/records.py\", line 55, in update\n    raise FileNotFoundError('Owner must create first: ' + str(path))\nFileNotFoundError: Owner must create first: /var/folders/8_/2209xngj6qz3nh1thpv4hld80000gn/T/time-memory-progress-repro-vsxwiphp/run/progress.json\n"
+  },
+  "record_flag_before_write": true,
+  "actual_fit_callable_reached": false,
+  "scientific_fits_started": 0,
+  "model_forward_count": 0,
+  "torch_imported": false,
+  "progress_file_before": false,
+  "progress_file_after": false,
+  "scope": "Local synthetic stdlib reproduction only, not evidence of cluster execution; scientific_fit_started=True is the pre-fit record flag that would already be written by runner"
+}

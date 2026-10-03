@@ -1,0 +1,90 @@
+{
+  "job_id": "4373262",
+  "execution_attempt": "001",
+  "execution_commit": "55d812bf55b1dffbbab6a7b0da86e616a6227b8b",
+  "source_hash": "4e26434f8bf084d6acd562e6859c24699013510d8f2ffcaaf2653435d3698e8d",
+  "preserved_at": "2026-10-03T15:37:36.758029+00:00",
+  "files": [
+    {
+      "path": "slurm_logs/attempt_001/coverage.stderr.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_001/coverage.stderr.log",
+      "bytes": 1345,
+      "sha256": "a12214f3b75d8b8d94192a214cbd8c18a348fb564db0ab34796ff73238172e24"
+    },
+    {
+      "path": "slurm_logs/attempt_001/coverage.stdout.log",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_001/coverage.stdout.log",
+      "bytes": 86,
+      "sha256": "ba663d5ea309edcba0ad3be69c57971788a9aa10dacaa33caeba96b860d88d0a"
+    },
+    {
+      "path": "slurm_logs/attempt_001/cpu_preflight_55d812bf55b1dffbbab6a7b0da86e616a6227b8b.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_001/cpu_preflight_55d812bf55b1dffbbab6a7b0da86e616a6227b8b.json",
+      "bytes": 22520,
+      "sha256": "b8f1a13e7c3e30f89df4aadd8832d9c9097924fc04b0302eaa29cb7470b89aac"
+    },
+    {
+      "path": "slurm_logs/attempt_001/cpu_preflight_55d812bf55b1dffbbab6a7b0da86e616a6227b8b.stdout.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_001/cpu_preflight_55d812bf55b1dffbbab6a7b0da86e616a6227b8b.stdout.json",
+      "bytes": 22520,
+      "sha256": "b8f1a13e7c3e30f89df4aadd8832d9c9097924fc04b0302eaa29cb7470b89aac"
+    },
+    {
+      "path": "slurm_logs/attempt_001/login_verification.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_001/login_verification.json",
+      "bytes": 4162,
+      "sha256": "bb4eeb779d5e5244a37d26d2b422284a36024e983f48e9e7d6a652c4723ea176"
+    },
+    {
+      "path": "slurm_logs/attempt_001/no_git_preflight_55d812bf55b1dffbbab6a7b0da86e616a6227b8b.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_001/no_git_preflight_55d812bf55b1dffbbab6a7b0da86e616a6227b8b.json",
+      "bytes": 22520,
+      "sha256": "becfa20f9e3bc1e0771286dfaa70626587c97865d12087823e7d38609c9d4f70"
+    },
+    {
+      "path": "slurm_logs/attempt_001/no_git_preflight_55d812bf55b1dffbbab6a7b0da86e616a6227b8b.stdout.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_001/no_git_preflight_55d812bf55b1dffbbab6a7b0da86e616a6227b8b.stdout.json",
+      "bytes": 22520,
+      "sha256": "becfa20f9e3bc1e0771286dfaa70626587c97865d12087823e7d38609c9d4f70"
+    },
+    {
+      "path": "slurm_logs/attempt_001/reservation.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_001/reservation.json",
+      "bytes": 1957,
+      "sha256": "1bf7cd6a0440b55080f9a535103fc721032a8d3b92e4c4978e04fe4e5dc187ec"
+    },
+    {
+      "path": "slurm_logs/attempt_001/submission.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_001/submission.json",
+      "bytes": 1017,
+      "sha256": "d563fad060f4929143be443796a8b28908b6435b2286e72a5c23473cb67ae9ce"
+    },
+    {
+      "path": "slurm_logs/attempt_001/train_coverage.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_001/train_coverage.json",
+      "bytes": 144923,
+      "sha256": "4b9ccb9ab90a3e9f3b1faa335542439e8629d64e0e75c359d2760e5918e5e16a"
+    },
+    {
+      "path": "study_plan.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/study_plan.json",
+      "bytes": 25347,
+      "sha256": "7400ea8e3364c44720e4a3fd356eecd1d63b1fa5818b4445f5e185373a8936de"
+    },
+    {
+      "path": "source_manifest.json",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/source_manifest.json",
+      "bytes": 56352,
+      "sha256": "b338d8d0bb1bb9be74f18f005da279c425e4ccc21afcf729d29e5287ae581b60"
+    },
+    {
+      "path": "DESIGN.md",
+      "cluster_path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/DESIGN.md",
+      "bytes": 10238,
+      "sha256": "8f223dc5493cd9e78badf71aeceba583f49cc1d0c79f16b4d9002836127a1c98"
+    }
+  ],
+  "checkpoints": {},
+  "checkpoint_loading": false,
+  "weights_copied": false
+}

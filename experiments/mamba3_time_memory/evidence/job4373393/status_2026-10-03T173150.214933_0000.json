@@ -1,0 +1,221 @@
+{
+  "job_id": "4373393",
+  "execution_attempt": "002",
+  "checked_at": "2026-10-03T17:31:50.214933+00:00",
+  "checkout": {
+    "returncode": 0,
+    "stdout": "53bcc76752d0d7fd06c8ba0866709a64cd978165\n",
+    "stderr": ""
+  },
+  "tracked_status": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "squeue": {
+    "returncode": 0,
+    "stdout": "4373393|RUNNING|1:13:56|cn-044|cn-044|2026-10-03T19:17:54\n",
+    "stderr": ""
+  },
+  "sacct": {
+    "returncode": 0,
+    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4373393|RUNNING|0:0|01:13:56|cn-044|2026-10-03T19:17:54|Unknown\n4373393.batch|RUNNING|0:0|01:13:56|cn-044|2026-10-03T19:17:54|Unknown\n4373393.extern|RUNNING|0:0|01:13:56|cn-044|2026-10-03T19:17:54|Unknown\n",
+    "stderr": ""
+  },
+  "pipeline": {
+    "status": "RUNNING",
+    "started_at": "2026-10-03T16:17:57.527653+00:00",
+    "finished_at": null,
+    "error": null,
+    "scientific_fits_started": 2,
+    "scientific_fits_completed": 2,
+    "stages": [
+      {
+        "stage": "gate",
+        "status": "PASS",
+        "started_at": "2026-10-03T16:18:05.154293+00:00",
+        "finished_at": "2026-10-03T16:23:04.881504+00:00"
+      },
+      {
+        "stage": "smoke",
+        "status": "PASS",
+        "started_at": "2026-10-03T16:23:04.901835+00:00",
+        "finished_at": "2026-10-03T16:25:11.683029+00:00"
+      },
+      {
+        "stage": "no_memory",
+        "status": "PASS",
+        "started_at": "2026-10-03T16:25:11.736610+00:00",
+        "finished_at": "2026-10-03T16:42:28.839025+00:00"
+      },
+      {
+        "stage": "index_memory",
+        "status": "PASS",
+        "started_at": "2026-10-03T16:42:28.847757+00:00",
+        "finished_at": "2026-10-03T17:06:30.527593+00:00"
+      },
+      {
+        "stage": "time_memory",
+        "status": "RUNNING",
+        "started_at": "2026-10-03T17:06:30.537848+00:00"
+      }
+    ]
+  },
+  "records": [
+    {
+      "execution_attempt": "002",
+      "study_id": "mamba3_time_addressed_memory_pilot_001",
+      "execution_commit": "53bcc76752d0d7fd06c8ba0866709a64cd978165",
+      "source_hash": "ad4565d171b78c83831ef84c139a4912af2022a04fdb39fdfd5b4a858461f5e6",
+      "job_id": "4373393",
+      "run_id": "mamba3_time_memory_index_memory_seed2026_001",
+      "memory_mode": "index_memory",
+      "seed": 2026,
+      "status": "PASS",
+      "stage": "COMPLETED",
+      "scientific_fit_started": true,
+      "actual_epochs": 42,
+      "started_at": "2026-10-03T16:42:38.988582+00:00",
+      "finished_at": "2026-10-03T17:06:29.142116+00:00",
+      "error": null,
+      "last_epoch": 41
+    },
+    {
+      "execution_attempt": "002",
+      "study_id": "mamba3_time_addressed_memory_pilot_001",
+      "execution_commit": "53bcc76752d0d7fd06c8ba0866709a64cd978165",
+      "source_hash": "ad4565d171b78c83831ef84c139a4912af2022a04fdb39fdfd5b4a858461f5e6",
+      "job_id": "4373393",
+      "run_id": "mamba3_time_memory_no_memory_seed2026_001",
+      "memory_mode": "no_memory",
+      "seed": 2026,
+      "status": "PASS",
+      "stage": "COMPLETED",
+      "scientific_fit_started": true,
+      "actual_epochs": 39,
+      "started_at": "2026-10-03T16:25:21.848012+00:00",
+      "finished_at": "2026-10-03T16:42:27.467006+00:00",
+      "error": null,
+      "last_epoch": 38
+    },
+    {
+      "execution_attempt": "002",
+      "study_id": "mamba3_time_addressed_memory_pilot_001",
+      "execution_commit": "53bcc76752d0d7fd06c8ba0866709a64cd978165",
+      "source_hash": "ad4565d171b78c83831ef84c139a4912af2022a04fdb39fdfd5b4a858461f5e6",
+      "job_id": "4373393",
+      "run_id": "mamba3_time_memory_time_memory_seed2026_001",
+      "memory_mode": "time_memory",
+      "seed": 2026,
+      "status": "RUNNING",
+      "stage": "TRAIN_VALID",
+      "scientific_fit_started": true,
+      "actual_epochs": 44,
+      "started_at": "2026-10-03T17:06:40.796516+00:00",
+      "finished_at": null,
+      "error": null,
+      "last_epoch": 43
+    }
+  ],
+  "gate": {
+    "status": "PASS",
+    "started_at": null,
+    "finished_at": "2026-10-03T16:23:02.860817+00:00",
+    "error": null,
+    "scientific_fits_started": null,
+    "scientific_fits_completed": null,
+    "cases": [
+      {
+        "case_id": "no_memory_historical",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "index_memory_beta0",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "time_memory_beta0",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "selector_reader",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "index_memory_edges",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "time_memory_edges",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "index_memory_prefix8",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "index_memory_prefix9",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "time_memory_prefix8",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "time_memory_prefix9",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "negative_controls",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      }
+    ]
+  },
+  "smoke": {
+    "status": "PASS",
+    "started_at": null,
+    "finished_at": "2026-10-03T16:25:10.416591+00:00",
+    "error": null,
+    "scientific_fits_started": null,
+    "scientific_fits_completed": null,
+    "rows": [
+      {
+        "memory_mode": "no_memory",
+        "status": "PASS",
+        "steps": 3
+      },
+      {
+        "memory_mode": "index_memory",
+        "status": "PASS",
+        "steps": 3
+      },
+      {
+        "memory_mode": "time_memory",
+        "status": "PASS",
+        "steps": 3
+      }
+    ]
+  }
+}

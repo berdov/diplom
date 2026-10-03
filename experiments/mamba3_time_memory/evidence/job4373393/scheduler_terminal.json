@@ -1,0 +1,43 @@
+{
+  "checked_at": "2026-10-03T17:53:03.779895+00:00",
+  "timezone": "Europe/Moscow",
+  "sacct_raw": "JobIDRaw|State|ExitCode|Start|End|Elapsed|NodeList\n4373393|COMPLETED|0:0|2026-10-03T19:17:54|2026-10-03T20:49:23|01:31:29|cn-044\n4373393.batch|COMPLETED|0:0|2026-10-03T19:17:54|2026-10-03T20:49:23|01:31:29|cn-044\n4373393.extern|COMPLETED|0:0|2026-10-03T19:17:54|2026-10-03T20:49:23|01:31:29|cn-044\n",
+  "steps": [
+    {
+      "JobIDRaw": "4373393",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Start": "2026-10-03T19:17:54",
+      "End": "2026-10-03T20:49:23",
+      "Elapsed": "01:31:29",
+      "NodeList": "cn-044"
+    },
+    {
+      "JobIDRaw": "4373393.batch",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Start": "2026-10-03T19:17:54",
+      "End": "2026-10-03T20:49:23",
+      "Elapsed": "01:31:29",
+      "NodeList": "cn-044"
+    },
+    {
+      "JobIDRaw": "4373393.extern",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Start": "2026-10-03T19:17:54",
+      "End": "2026-10-03T20:49:23",
+      "Elapsed": "01:31:29",
+      "NodeList": "cn-044"
+    }
+  ],
+  "job": {
+    "JobIDRaw": "4373393",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "Start": "2026-10-03T19:17:54",
+    "End": "2026-10-03T20:49:23",
+    "Elapsed": "01:31:29",
+    "NodeList": "cn-044"
+  }
+}

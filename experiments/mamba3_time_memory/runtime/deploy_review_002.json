@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "execution_commit": "53bcc76752d0d7fd06c8ba0866709a64cd978165",
+  "active_jobs_checked": [
+    {
+      "JobId": "4373276",
+      "JobState": "PENDING",
+      "WorkDir": "/home/daryumin/paagafonov/ROB_SE_LearnedSubspaces_HSE",
+      "Command": "/home/daryumin/paagafonov/ROB_SE_LearnedSubspaces_HSE/hse/train.sbatch"
+    },
+    {
+      "JobId": "4370133",
+      "JobState": "RUNNING",
+      "WorkDir": "/home/daryumin/paagafonov/ROB_SE_RankOrdered_v3_HSE_10epochs",
+      "Command": "/home/daryumin/paagafonov/ROB_SE_RankOrdered_v3_HSE_10epochs/hse/gpu.sbatch"
+    },
+    {
+      "JobId": "4368972",
+      "JobState": "RUNNING",
+      "WorkDir": "/home/daryumin/ensamsanovich",
+      "Command": "/home/daryumin/ensamsanovich/aggregation_experiment/run_temporal_notebook_hse.sbatch"
+    }
+  ],
+  "tracked_clean": true,
+  "other_jobs_untouched": true
+}

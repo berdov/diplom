@@ -1,0 +1,58 @@
+{
+  "job_id": "4373393",
+  "execution_attempt": "002",
+  "checked_at": "2026-10-03T16:18:47.662000+00:00",
+  "checkout": {
+    "returncode": 0,
+    "stdout": "53bcc76752d0d7fd06c8ba0866709a64cd978165\n",
+    "stderr": ""
+  },
+  "tracked_status": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "squeue": {
+    "returncode": 0,
+    "stdout": "4373393|RUNNING|0:54|cn-044|cn-044|2026-10-03T19:17:54\n",
+    "stderr": ""
+  },
+  "sacct": {
+    "returncode": 0,
+    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4373393|RUNNING|0:0|00:00:54|cn-044|2026-10-03T19:17:54|Unknown\n4373393.batch|RUNNING|0:0|00:00:54|cn-044|2026-10-03T19:17:54|Unknown\n4373393.extern|RUNNING|0:0|00:00:54|cn-044|2026-10-03T19:17:54|Unknown\n",
+    "stderr": ""
+  },
+  "pipeline": {
+    "status": "RUNNING",
+    "started_at": "2026-10-03T16:17:57.527653+00:00",
+    "finished_at": null,
+    "error": null,
+    "scientific_fits_started": 0,
+    "scientific_fits_completed": 0,
+    "stages": [
+      {
+        "stage": "gate",
+        "status": "RUNNING",
+        "started_at": "2026-10-03T16:18:05.154293+00:00"
+      }
+    ]
+  },
+  "records": [],
+  "gate": {
+    "status": "RUNNING",
+    "started_at": null,
+    "finished_at": null,
+    "error": null,
+    "scientific_fits_started": null,
+    "scientific_fits_completed": null,
+    "cases": [
+      {
+        "case_id": "no_memory_historical",
+        "status": "RUNNING",
+        "failed_keys": null,
+        "missing_keys": null
+      }
+    ]
+  },
+  "smoke": null
+}

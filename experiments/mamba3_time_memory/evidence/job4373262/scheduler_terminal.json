@@ -1,0 +1,25 @@
+{
+  "checked_at": "2026-10-03T15:37:36.758029+00:00",
+  "timezone": "Europe/Moscow",
+  "sacct_raw": "JobIDRaw|State|ExitCode|Start|End|Elapsed|NodeList\n4373262|CANCELLED by 3677|0:0|None|2026-10-03T18:30:29|00:00:00|None assigned\n",
+  "steps": [
+    {
+      "JobIDRaw": "4373262",
+      "State": "CANCELLED by 3677",
+      "ExitCode": "0:0",
+      "Start": "None",
+      "End": "2026-10-03T18:30:29",
+      "Elapsed": "00:00:00",
+      "NodeList": "None assigned"
+    }
+  ],
+  "job": {
+    "JobIDRaw": "4373262",
+    "State": "CANCELLED by 3677",
+    "ExitCode": "0:0",
+    "Start": "None",
+    "End": "2026-10-03T18:30:29",
+    "Elapsed": "00:00:00",
+    "NodeList": "None assigned"
+  }
+}

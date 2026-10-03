@@ -1,0 +1,409 @@
+"""Production orchestration/JSON failure paths with expensive GPU work replaced."""
+import copy
+import json
+import os
+import signal
+import subprocess
+import tempfile
+import unittest
+from contextlib import ExitStack, contextmanager
+from pathlib import Path
+from unittest.mock import patch
+
+from experiments.mamba3_time_memory import config as c, pipeline, provenance, report, submit
+from experiments.mamba3_time_memory.process_env import child_environment
+from experiments.mamba3_mimo_time.records import create, read, sha, Registry, accepted_cases
+
+
+@contextmanager
+def scratch():
+    plan_text = (c.HERE / 'study_plan.json').read_text()
+    with tempfile.TemporaryDirectory() as directory, ExitStack() as stack:
+        root = Path(directory)
+        here = root / 'study'
+        here.mkdir()
+        (here / 'study_plan.json').write_text(plan_text)
+        values = dict(ROOT=root, HERE=here, LOGS=here / 'slurm_logs/attempt_001',
+                      RUNS=here / 'runs/attempt_001', LAUNCHER=root / 'launch.sh',
+                      MANIFEST=here / 'source_manifest.json', EXECUTION_ATTEMPT='001')
+        for key in ('LOGIN', 'RESERVATION', 'SUBMISSION', 'PIPELINE', 'COVERAGE'):
+            values[key] = values['LOGS'] / (key + '.json')
+        for key in ('INHERITED', 'GATE', 'SMOKE', 'SUMMARY'):
+            values[key] = values['RUNS'] / (key + '.json')
+        for key, value in values.items():
+            stack.enter_context(patch.object(c, key, value))
+        yield root
+
+
+def owner():
+    return dict(execution_commit='a' * 40, source_hash='b' * 64,
+                execution_attempt='001', job_id='900001', test_evaluation_count=0,
+                TEST='NOT_RUN', retry_reason='synthetic infrastructure fixture')
+
+
+def cpu_proofs(base, good=True):
+    for prefix in ('cpu_preflight_', 'no_git_preflight_'):
+        create(c.LOGS / (prefix + base['execution_commit'] + '.json'),
+               dict(execution_commit=base['execution_commit'], source_hash=base['source_hash'],
+                    status='PASS' if good else 'FAIL', cuda_initialized=False))
+
+
+def saved_gate(base, failed=False):
+    value = dict(base, status='RUNNING')
+    create(c.GATE, value)
+    specs = c.plan()['required_cases']
+    registry = Registry(c.GATE, value, specs)
+    for i, spec in enumerate(specs):
+        def compute(save, spec=spec, i=i):
+            # Production callback/Registry/JSON path, synthetic CPU values only.
+            save(dict(checks={}, required_keys=[], phase='setup'))
+            checks = {key: dict(passed=not (failed and i == 0)) for key in spec['required_keys']}
+            row = dict(checks=checks, required_keys=spec['required_keys'])
+            save(row)
+            return row
+        try:
+            registry.run(spec, compute)
+        except RuntimeError:
+            value['status'] = 'FAIL'
+            break
+    else:
+        value['status'] = 'PASS'
+    from experiments.mamba3_mimo_time.records import update
+    update(c.GATE, value)
+
+
+def saved_smoke(base, invalid=False):
+    rows = []
+    for mode in c.MODES:
+        rows.append(dict(memory_mode=mode, status='PASS',
+                         steps=[dict(step=i, loss=1.0, finite_loss=True,
+                                     gradient_norms=dict.fromkeys(c.parameter_keys(mode), 1.0))
+                                for i in range(3)],
+                         roundtrip_passed=True, roundtrip='weights_only=True'))
+    for row in rows[1:]:
+        for step in row['steps']:
+            step.update(memory_shape=[2048,50,4,64], selected_causal=True, finite_weights=True,
+                        invalid_weights_zero=True, weight_sums=True, selected_value_gradient_finite=True,
+                        hook_removed=True, beta_before=0., beta_after=.01, lambda_before=0.,
+                        lambda_after=.00999966667999946, selected_value_gradient_l2=1.)
+    if invalid:
+        rows[-1]['steps'][-1]['gradient_norms'].pop('beta')
+    create(c.SMOKE, dict(base, status='PASS', batch=2048, history_length=50,
+                         kernel_length=56, steps_per_mode=3, rows=rows,
+                         targeted_gate_sha256=sha(c.GATE)))
+
+
+def saved_control(base, historical):
+    """Real saved-record validators run against a self-consistent tiny checkpoint."""
+    paths = c.paths('no_memory')
+    paths['checkpoint'].parent.mkdir(parents=True)
+    paths['checkpoint'].write_bytes(b'opaque checkpoint bytes; tests never deserialize')
+    checkpoint_sha = sha(paths['checkpoint'])
+    fixture_reference = copy.deepcopy(historical)
+    fixture_reference['checkpoint_sha256'] = checkpoint_sha
+    reference_path = c.HERE / 'historical_fixture.json'
+    create(reference_path, fixture_reference)
+    record = copy.deepcopy(fixture_reference)
+    record.update(base, memory_mode='no_memory', run_id=paths['run_id'],
+                  initial_common_calibrator_hashes=record['initial_calibrator_hashes'],
+                  initial_beta=None, scientific_fit_started=True,
+                  checkpoint_path=str(paths['checkpoint']), checkpoint_metadata_path=str(paths['metadata']))
+    for key in ('config', 'effective_config'):
+        record[key].update(memory_mode='no_memory', checkpoint_dir=str(paths['checkpoint'].parent))
+    metadata = {key: record[key] for key in
+                ('run_id', 'mode', 'memory_mode', 'seed', 'execution_commit',
+                 'config_sha256', 'source_hash', 'core_hash', 'checkpoint_sha256')}
+    metadata.update(epoch=record['best_epoch'], metrics=record['best_valid_metrics'], memory=None)
+    create(paths['metadata'], metadata)
+    create(paths['result'], record)
+    return reference_path
+
+
+class ProtocolTests(unittest.TestCase):
+    def test_plan_scope_and_initial_budget(self):
+        plan = c.plan()
+        self.assertEqual(plan['max_scientific_fits'], 3)
+        self.assertEqual(plan['max_jobs'], 2)
+        self.assertEqual(plan['test_evaluations'], 0)
+        self.assertEqual(plan['automatic_continuations'], 0)
+        self.assertEqual(plan['anchors'], [1, 4, 16, 32])
+        self.assertEqual(plan['budget']['allocation_seconds'], 21600)
+        self.assertEqual(plan['budget']['retry_allocation_seconds'], 14400)
+        self.assertEqual(c.COUNTS, dict(no_memory=715020, index_memory=715021, time_memory=715021))
+
+    def test_child_environment_preserves_owned_gpu_mask(self):
+        parent = {'CUDA_VISIBLE_DEVICES': 'GPU-owned', 'UNCHANGED': 'yes'}
+        for stage in ('gate', 'smoke', *c.MODES):
+            self.assertEqual(child_environment(stage, parent)['CUDA_VISIBLE_DEVICES'], 'GPU-owned')
+        for stage in ('coverage', 'preflight'):
+            self.assertEqual(child_environment(stage, parent)['CUDA_VISIBLE_DEVICES'], '')
+        self.assertEqual(parent, {'CUDA_VISIBLE_DEVICES': 'GPU-owned', 'UNCHANGED': 'yes'})
+        with self.assertRaises(ValueError):
+            child_environment('TEST', parent)
+
+    def test_production_child_saves_environment_without_changing_parent(self):
+        with scratch(), patch.dict(os.environ, CUDA_VISIBLE_DEVICES='GPU-owned'):
+            process = type('Process', (), {'wait': lambda self, timeout: 0})()
+            with patch.object(subprocess, 'Popen', return_value=process) as launch:
+                pipeline.child('preflight', 'fixture', [], 10**12, c.LOGS / 'child')
+            evidence = read(c.LOGS / 'child/child_environment.json')
+            self.assertEqual(launch.call_args.kwargs['env']['CUDA_VISIBLE_DEVICES'], '')
+            self.assertEqual(os.environ['CUDA_VISIBLE_DEVICES'], 'GPU-owned')
+            self.assertNotEqual(evidence['parent_cuda_visibility'], evidence['child_cuda_visibility'])
+
+    def test_adam_settings_real_json_roundtrip(self):
+        import torch
+        from experiments.mamba3_three_time.confirmation.state import canonical_optimizer_settings, compare_optimizer_settings
+        parameter = torch.nn.Parameter(torch.tensor(1.0))
+        optimizer = torch.optim.Adam([parameter], lr=.001)
+        actual = [{key: value for key, value in group.items() if key != 'params'}
+                  for group in optimizer.param_groups]
+        restored = json.loads(json.dumps(canonical_optimizer_settings(actual), allow_nan=False))
+        compare_optimizer_settings(actual, restored)
+        changed = copy.deepcopy(restored)
+        changed[0]['lr'] = .002
+        with self.assertRaises(ValueError):
+            compare_optimizer_settings(actual, changed)
+
+    def test_cpu_config_and_reference_never_reopen_cuda(self):
+        import torch
+        from recbole.config import Config
+        from experiments.mamba3_three_time.model import ThreeTimeMamba3Rec
+        from experiments.mamba3_time_memory.state import effective_check
+        self.assertEqual(os.environ.get('CUDA_VISIBLE_DEVICES'), '')
+        self.assertFalse(torch.cuda.is_initialized())
+        before = os.environ.get('CUDA_VISIBLE_DEVICES')
+        with patch.object(torch.cuda, 'init', side_effect=AssertionError('CPU Config initialized CUDA')):
+            for mode in c.MODES:
+                config = Config(model=ThreeTimeMamba3Rec, config_dict=c.settings(mode, device='cpu'))
+                checked = effective_check(config, mode)
+                self.assertEqual(checked['status'], 'PASS')
+                self.assertEqual(checked['cpu_reference_device'], 'cpu')
+                self.assertEqual(str(config['device']), 'cpu')
+                self.assertFalse(config['use_gpu'])
+                self.assertEqual(config['gpu_id'], '')
+        self.assertEqual(os.environ.get('CUDA_VISIBLE_DEVICES'), before)
+        self.assertFalse(torch.cuda.is_initialized())
+
+    def test_saved_partial_reason_does_not_collide_with_retry_reason(self):
+        with scratch():
+            base = owner()
+            result = report.write(base, 'fixture failure before GPU')
+            self.assertEqual(result['status'], 'INCOMPLETE')
+            self.assertEqual(result['retry_reason'], base['retry_reason'])
+            self.assertEqual(result['blocking_reason'], 'fixture failure before GPU')
+            for mode in c.MODES:
+                raw = read(c.paths(mode)['result'])
+                self.assertEqual(raw['status'], 'NOT_RUN')
+                self.assertEqual(raw['reason'], 'fixture failure before GPU')
+                self.assertEqual(raw['retry_reason'], base['retry_reason'])
+                self.assertFalse(raw['scientific_fit_started'])
+            for contrast in result['contrasts']:
+                self.assertEqual(contrast['status'], 'NOT_AVAILABLE')
+                self.assertIsNone(contrast['delta'])
+            self.assertEqual(read(c.SUMMARY), result)
+
+    def _failure_pipeline(self, failure):
+        with scratch(), ExitStack() as stack:
+            base = owner()
+            cpu_proofs(base, good=failure != 'before_gate')
+            stack.enter_context(patch.object(pipeline, 'identity', return_value=base))
+            stack.enter_context(patch.object(pipeline, 'inherited', return_value={'status': 'fixture'}))
+            stack.enter_context(patch.object(pipeline, 'runtime', return_value={'status': 'fixture'}))
+            stack.enter_context(patch.dict(os.environ, CUDA_VISIBLE_DEVICES='GPU-owned', SLURM_JOB_END_TIME='999999999999'))
+            # Keep production signal handling from changing this test process.
+            stack.enter_context(patch.object(signal, 'signal'))
+            stages = []
+            def work(stage, *_args):
+                stages.append(stage)
+                if stage == 'gate':
+                    saved_gate(base, failed=failure == 'inside_gate')
+                elif stage == 'smoke':
+                    saved_smoke(base, invalid=failure == 'smoke')
+                else:
+                    raise AssertionError('Scientific fit must not be reached')
+            stack.enter_context(patch.object(pipeline, 'child', side_effect=work))
+            self.assertEqual(pipeline.run(), 1)
+            value, summary = read(c.PIPELINE), read(c.SUMMARY)
+            expected = [] if failure == 'before_gate' else ['gate'] if failure == 'inside_gate' else ['gate', 'smoke']
+            self.assertEqual(stages, expected)
+            self.assertEqual([r['stage'] for r in value['stages']], expected)
+            self.assertEqual(value['status'], 'FAIL')
+            self.assertEqual(summary['status'], 'INCOMPLETE')
+            self.assertEqual(value['scientific_fits_started'], 0)
+            self.assertEqual(value['scientific_fits_completed'], 0)
+            self.assertEqual(value['unknown_scientific_starts'], 0)
+            self.assertNotIn('report_traceback', value)
+            terminal = read(c.RUNS / 'terminal_metadata.json')
+            self.assertEqual(terminal['pipeline_sha256'], sha(c.PIPELINE))
+            self.assertEqual(terminal['checkpoints'], {})
+            self.assertFalse(terminal['checkpoint_loading'])
+
+    def test_failure_before_gate_preserves_not_run_summary(self):
+        self._failure_pipeline('before_gate')
+
+    def test_failure_inside_gate_preserves_not_run_summary(self):
+        self._failure_pipeline('inside_gate')
+
+    def test_failure_in_smoke_blocks_every_scientific_fit(self):
+        self._failure_pipeline('smoke')
+
+    def test_budget_expires_before_next_fit_retains_completed_control(self):
+        historical = read(c.PILOT)
+        with scratch(), ExitStack() as stack:
+            base, clock = owner(), [1000.0]
+            cpu_proofs(base)
+            stack.enter_context(patch.object(pipeline, 'identity', return_value=base))
+            stack.enter_context(patch.object(pipeline, 'inherited', return_value={'status': 'fixture'}))
+            stack.enter_context(patch.object(pipeline, 'runtime', return_value={'status': 'fixture'}))
+            stack.enter_context(patch.object(pipeline.time, 'time', side_effect=lambda: clock[0]))
+            stack.enter_context(patch.object(signal, 'signal'))
+            stack.enter_context(patch.dict(os.environ, SLURM_JOB_END_TIME='999999999999'))
+            stages = []
+            def work(stage, *_args):
+                stages.append(stage)
+                if stage == 'gate':
+                    saved_gate(base)
+                elif stage == 'smoke':
+                    saved_smoke(base)
+                elif stage == 'no_memory':
+                    reference = saved_control(base, historical)
+                    stack.enter_context(patch.object(c, 'PILOT', reference))
+                    clock[0] = float(os.environ['PIPELINE_DEADLINE']) - c.plan()['budget']['min_remaining_to_start_fit_seconds'] + 1
+                else:
+                    raise AssertionError('No next fit may start after the time budget expires')
+            stack.enter_context(patch.object(pipeline, 'child', side_effect=work))
+            self.assertEqual(pipeline.run(), 1)
+            self.assertEqual(stages, ['gate', 'smoke', 'no_memory'])
+            value, summary = read(c.PIPELINE), read(c.SUMMARY)
+            self.assertEqual(value['status'], 'INCOMPLETE')
+            self.assertEqual(value['scientific_fits_started'], 1)
+            self.assertEqual(value['scientific_fits_completed'], 1)
+            self.assertEqual(summary['rows'][0]['status'], 'PASS')
+            self.assertEqual([r['status'] for r in summary['rows'][1:]], ['NOT_RUN', 'NOT_RUN'])
+            self.assertNotIn('report_traceback', value)
+            self.assertEqual(set(read(c.RUNS / 'terminal_metadata.json')['checkpoints']), {'no_memory'})
+
+    def test_startup_identity_failure_is_saved_without_submission(self):
+        with scratch(), patch.dict(os.environ, SLURM_JOB_ID='900001'), patch.object(pipeline, 'identity', side_effect=ValueError('owner mismatch')):
+            self.assertEqual(pipeline.main(), 1)
+            value = read(c.LOGS / 'startup_failure_900001.json')
+            self.assertFalse(value['identity_verified'])
+            self.assertEqual(value['scientific_fits_started'], 0)
+            self.assertEqual(value['test_evaluation_count'], 0)
+            self.assertFalse(c.PIPELINE.exists())
+
+    def test_fit_counters_fail_closed_on_unknown_locked_record(self):
+        with scratch():
+            paths = c.paths('index_memory')
+            create(paths['lock'], {})
+            self.assertEqual(pipeline.fit_counters()['unknown_scientific_starts'], 1)
+            create(paths['result'], {'scientific_fit_started': True, 'status': 'INCOMPLETE'})
+            value = pipeline.fit_counters()
+            self.assertEqual(value, dict(scientific_fits_started=1, scientific_fits_completed=0, unknown_scientific_starts=0))
+
+    def test_ownership_binds_identical_valid_coverage_hashes(self):
+        expected = dict(execution_commit='a' * 40, source_hash='b' * 64)
+        coverage_sha = 'c' * 64
+        login = dict(expected, status='PASS', tracked_clean=True, source_blobs_verified=True,
+                     published_commit=expected['execution_commit'], coverage_sha256=coverage_sha)
+        reservation = dict(expected, status='RESERVED', token='d' * 32, login_sha256='e' * 64,
+                           coverage_sha256=coverage_sha, max_scientific_fits=3,
+                           jobs_requested=1, tasks=c.plan()['tasks'])
+        provenance.validate_ownership(login, reservation, 'e' * 64, expected, '900001')
+        for field in ('login', 'reservation'):
+            for changed_hash in ('f' * 64, '', None, 'not-a-sha'):
+                changed_login, changed_reservation = copy.deepcopy(login), copy.deepcopy(reservation)
+                (changed_login if field == 'login' else changed_reservation)['coverage_sha256'] = changed_hash
+                with self.subTest(field=field, coverage_sha256=changed_hash), self.assertRaises(ValueError):
+                    provenance.validate_ownership(changed_login, changed_reservation, 'e' * 64, expected, '900001')
+        # Equality alone is insufficient: both missing/malformed pointers fail.
+        for malformed in ('', None, 'same-but-not-a-sha'):
+            with self.subTest(both=malformed), self.assertRaises(ValueError):
+                provenance.validate_ownership(dict(login, coverage_sha256=malformed),
+                                              dict(reservation, coverage_sha256=malformed),
+                                              'e' * 64, expected, '900001')
+
+    def test_identity_rejects_changed_coverage_bytes_after_reservation(self):
+        from experiments.mamba3_mimo_time.records import update
+        with scratch(), ExitStack() as stack:
+            expected = dict(execution_commit='a' * 40, source_hash='b' * 64)
+            token, job = 'd' * 32, '900001'
+            create(c.COVERAGE, dict(status='PASS', fixture='original coverage bytes'))
+            admitted_sha = sha(c.COVERAGE)
+            create(c.LOGIN, dict(expected, status='PASS', tracked_clean=True, source_blobs_verified=True,
+                                 published_commit=expected['execution_commit'], coverage_sha256=admitted_sha))
+            create(c.RESERVATION, dict(expected, status='RESERVED', token=token, login_sha256=sha(c.LOGIN),
+                                       coverage_sha256=admitted_sha, max_scientific_fits=3,
+                                       jobs_requested=1, tasks=c.plan()['tasks']))
+            create(c.SUBMISSION, dict(token=token, job_id=job, status='SUBMITTED'))
+            stack.enter_context(patch.dict(os.environ, RUN_COMMIT=expected['execution_commit'],
+                                            EXPECTED_STUDY_HASH=expected['source_hash'],
+                                            RESERVATION_TOKEN=token, SLURM_JOB_ID=job))
+            stack.enter_context(patch.object(provenance, 'verify', return_value={'source_hash': expected['source_hash']}))
+            stack.enter_context(patch.object(provenance, 'bindings', return_value=expected))
+            # Isolate the ownership binding from the expensive coverage-content
+            # audit while still hashing the actual immutable proof bytes.
+            stack.enter_context(patch.object(provenance, 'coverage_verify', side_effect=lambda commit: sha(c.COVERAGE)))
+            self.assertEqual(provenance.identity()['coverage_sha256'], admitted_sha)
+            update(c.COVERAGE, dict(status='PASS', fixture='changed but independently valid coverage bytes'))
+            self.assertNotEqual(sha(c.COVERAGE), admitted_sha)
+            with self.assertRaises(ValueError):
+                provenance.identity()
+
+    def test_submission_reservation_precedes_sbatch_and_cannot_repeat(self):
+        with scratch(), patch.object(submit, 'bindings', return_value={'execution_commit': 'a' * 40}), patch.object(submit, 'coverage_verify', return_value='c' * 64):
+            def sbatch(command, **kwargs):
+                self.assertTrue(c.RESERVATION.exists())
+                self.assertTrue(c.SUBMISSION.exists())
+                self.assertEqual(read(c.RESERVATION)['scientific_fits_before_submit'], 0)
+                self.assertIn('--time=06:00:00', command)
+                return subprocess.CompletedProcess(command, 0, '900001\n', '')
+            with patch.object(submit.subprocess, 'run', side_effect=sbatch) as call:
+                result = submit.reserve_and_submit({'execution_commit': 'a' * 40}, {'source_hash': 'b' * 64})
+                self.assertEqual(result['job_id'], '900001')
+                with self.assertRaises(FileExistsError):
+                    submit.reserve_and_submit({}, {})
+                self.assertEqual(call.call_count, 1)
+
+    def test_ambiguous_sbatch_keeps_reservation_and_blocks_duplicate(self):
+        with scratch(), patch.object(submit, 'bindings', return_value={}), patch.object(submit, 'coverage_verify', return_value='c' * 64):
+            with patch.object(submit.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0, 'unknown', '')) as call:
+                with self.assertRaises(RuntimeError):
+                    submit.reserve_and_submit({'execution_commit': 'a' * 40}, {'source_hash': 'b' * 64})
+                self.assertEqual(read(c.SUBMISSION)['status'], 'SUBMISSION_UNKNOWN_NO_RETRY')
+                with self.assertRaises(FileExistsError):
+                    submit.reserve_and_submit({}, {})
+                self.assertEqual(call.call_count, 1)
+
+    def test_retry_refuses_scientific_start_or_method_change(self):
+        with scratch(), patch.object(c, 'EXECUTION_ATTEMPT', '002'):
+            path = c.HERE / 'runtime/retry_review.json'
+            create(path, dict(status='APPROVED_PRE_FIT_TECHNICAL_RETRY', scientific_fits_started=1,
+                              unknown_scientific_starts=0, method_unchanged=True, tolerances_unchanged=True,
+                              regression_passed=True, infrastructure_error='fixture', old_job_terminal=True))
+            with self.assertRaises(ValueError):
+                submit.retry_review()
+            from experiments.mamba3_mimo_time.records import update
+            value = read(path)
+            value.update(scientific_fits_started=0, method_unchanged=False)
+            update(path, value)
+            with self.assertRaises(ValueError):
+                submit.retry_review()
+
+    def test_replay_rejects_history_and_checkpoint_drift(self):
+        value = read(c.PILOT)
+        value['initial_common_calibrator_hashes'] = value['initial_calibrator_hashes']
+        report.replay_check(value)
+        for key in ('history', 'checkpoint_sha256'):
+            changed = copy.deepcopy(value)
+            if key == 'history':
+                changed[key][0]['train_loss'] += .01
+            else:
+                changed[key] = 'changed'
+            with self.assertRaises(ValueError):
+                report.replay_check(changed)
+
+
+if __name__ == '__main__':
+    unittest.main()

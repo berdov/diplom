@@ -2,6 +2,8 @@
 
 ## Mamba3: VALID
 
+**Явная память внутри окна 50 событий, pilot seed2026:** no_memory / index_memory / time_memory — **0.0633 / 0.0626 / 0.0634** VALID NDCG@10. Primary time−index **+0.0008 (+1.278%)**, time−no_memory только **+0.0001**; first27 ниже исходной модели, эпох 76 против 39. Проверен ограниченный readout причинных представлений; устойчивый эффект не установлен, рабочая основа сохраняется. На VALID 89.18% временных anchor choices вне диапазона оставшихся кандидатов. 3/3 fits, TEST=0. [Результат и ограничения](MAMBA3_TIME_MECHANISMS_RESULTS.md#time-addressed-memory-pilot).
+
 **Временные функции по слоям, paired pilot seed2026:** shared **0.0633**, layer-specific **0.0625** VALID NDCG@10; Δ **−0.0008 (−1.264%)**, first27 −0.0001. Пункт 4 проверен в pilot scope; сохраняются общие функции, confirmation не рекомендована. TEST=0. [Результат и диагностика](MAMBA3_TIME_MECHANISMS_RESULTS.md#layer-temporal-functions-pilot).
 
 **Centered Gap-Trap, confirmation 2027–2030:** fixed **0.062925 ± 0.000793**, centered **0.062900 ± 0.000787**; paired Δ **−0.000025 ± 0.001124**, 2 выигрыша и 2 проигрыша (mean ± sample std, ddof=1). Устойчивого преимущества нет; пункт 3 завершён, рабочая основа — MIMO dual fixed-reference. TEST=0. [Таблицы, график и ограничения](MAMBA3_TIME_MECHANISMS_RESULTS.md#gap-trap-centered-confirmation).

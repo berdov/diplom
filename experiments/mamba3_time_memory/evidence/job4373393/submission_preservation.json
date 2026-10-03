@@ -1,0 +1,35 @@
+{
+  "job_id": "4373393",
+  "files": [
+    {
+      "path": "evidence/job4373393/submission/login_verification.json",
+      "bytes": 4162,
+      "sha256": "0d468f46ee1beb80a31ac9640ce1161ac426c035325ddf4c6ec67b07860483e0"
+    },
+    {
+      "path": "evidence/job4373393/submission/reservation.json",
+      "bytes": 2019,
+      "sha256": "2e22bd86442fb931d6a993bc1efab8f6160e6da4ef5a2c47305019126f2a2642"
+    },
+    {
+      "path": "evidence/job4373393/submission/submission.json",
+      "bytes": 1017,
+      "sha256": "f45776d83811314aea6eb195c6188754cd116823bd4b572f28e727d0bd23f743"
+    },
+    {
+      "path": "evidence/job4373393/submission/train_coverage.json",
+      "bytes": 144923,
+      "sha256": "d19a9ebdef16c6cfa9c535148096b0fd9b4cee5e818de335a3dbdbbaa21ec40c"
+    },
+    {
+      "path": "evidence/job4373393/submission/cpu_preflight_53bcc76752d0d7fd06c8ba0866709a64cd978165.json",
+      "bytes": 24336,
+      "sha256": "d41f63a0aea6497386b0f638bebf682d7069e1c184418e119394bb7328558a9f"
+    },
+    {
+      "path": "evidence/job4373393/submission/no_git_preflight_53bcc76752d0d7fd06c8ba0866709a64cd978165.json",
+      "bytes": 24336,
+      "sha256": "bea9f0af77b23521193d4dc8feb7c01a6287e901c752ecd300f7c3df3cae1dd7"
+    }
+  ]
+}

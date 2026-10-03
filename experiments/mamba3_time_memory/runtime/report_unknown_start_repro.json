@@ -1,0 +1,53 @@
+{
+  "status": "CONFIRMED_WRAPPER_BUG",
+  "recorded_at": "2026-10-03T15:33:26.141395+00:00",
+  "source_sha256": {
+    "experiments/mamba3_time_memory/report.py": "b8027a59b1bc3062b963daa6a9c95601a2177c8bc6fc7a681b4c13a00b4dfa10",
+    "experiments/mamba3_time_memory/pipeline.py": "f3adcbdfa3081e083b7983be61c4676e9dc2e942505019399bf420cd5604107c",
+    "experiments/mamba3_time_memory/config.py": "e470078da8f548acb16b87833170b294ed5463f992a427bcda2c81604a459421",
+    "experiments/mamba3_mimo_time/records.py": "b857f3a5f40c9405101d18656f2fd0b673784744f3b62af488386cf96ea7e0b2"
+  },
+  "method": "Real report.write followed by real pipeline.fit_counters; config paths isolated in TemporaryDirectory; only a synthetic run.lock exists initially; no training, model import, scheduler or cluster call.",
+  "synthetic_fixture_only": true,
+  "scientific_fit_count": 0,
+  "model_forward_count": 0,
+  "torch_imported": false,
+  "source_files_modified": false,
+  "before": {
+    "scientific_fits_started": 0,
+    "scientific_fits_completed": 0,
+    "unknown_scientific_starts": 1
+  },
+  "after": {
+    "scientific_fits_started": 0,
+    "scientific_fits_completed": 0,
+    "unknown_scientific_starts": 0
+  },
+  "summary_status": "INCOMPLETE",
+  "lock_still_exists": true,
+  "generated_placeholders": {
+    "no_memory": {
+      "status": "NOT_RUN",
+      "scientific_fit_started": false,
+      "actual_epochs": 0,
+      "history": [],
+      "reason": "Synthetic wrapper fixture: lock exists but owner result is absent"
+    },
+    "index_memory": {
+      "status": "NOT_RUN",
+      "scientific_fit_started": false,
+      "actual_epochs": 0,
+      "history": [],
+      "reason": "Synthetic wrapper fixture: lock exists but owner result is absent"
+    },
+    "time_memory": {
+      "status": "NOT_RUN",
+      "scientific_fit_started": false,
+      "actual_epochs": 0,
+      "history": [],
+      "reason": "Synthetic wrapper fixture: lock exists but owner result is absent"
+    }
+  },
+  "finding": "report.write manufactures scientific_fit_started=False for a missing result despite an existing owner lock; the next fit_counters call loses the unknown start (1 -> 0).",
+  "recommended_fix": "Do not create a NOT_RUN record when the result is absent but a run lock or checkpoint exists. Preserve unknown_scientific_starts and block retry; retain original owner evidence unchanged."
+}
