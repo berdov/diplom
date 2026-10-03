@@ -1,7 +1,7 @@
 {
   "job_id": "4373262",
   "execution_attempt": "001",
-  "checked_at": "2026-10-03T15:37:28.851345+00:00",
+  "checked_at": "2026-10-03T15:16:39.021995+00:00",
   "checkout": {
     "returncode": 0,
     "stdout": "55d812bf55b1dffbbab6a7b0da86e616a6227b8b\n",
@@ -13,13 +13,13 @@
     "stderr": ""
   },
   "squeue": {
-    "returncode": 1,
-    "stdout": "",
-    "stderr": "slurm_load_jobs error: Invalid job id specified\n"
+    "returncode": 0,
+    "stdout": "4373262|PENDING|0:00||(Priority)|N/A\n",
+    "stderr": ""
   },
   "sacct": {
     "returncode": 0,
-    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4373262|CANCELLED by 3677|0:0|00:00:00|None assigned|None|2026-10-03T18:30:29\n",
+    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4373262|PENDING|0:0|00:00:00|None assigned|Unknown|Unknown\n",
     "stderr": ""
   },
   "pipeline": null,

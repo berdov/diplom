@@ -1,0 +1,31 @@
+{
+  "status": "VERIFIED_PRE_FIT_CANCELLATION",
+  "audited_at": "2026-10-03T15:38:56.908102+00:00",
+  "job_id": "4373262",
+  "scheduler": {
+    "JobIDRaw": "4373262",
+    "State": "CANCELLED by 3677",
+    "ExitCode": "0:0",
+    "Start": "None",
+    "End": "2026-10-03T18:30:29",
+    "Elapsed": "00:00:00",
+    "NodeList": "None assigned"
+  },
+  "execution_commit": "55d812bf55b1dffbbab6a7b0da86e616a6227b8b",
+  "source_hash": "4e26434f8bf084d6acd562e6859c24699013510d8f2ffcaaf2653435d3698e8d",
+  "source_files": 410,
+  "preserved_files": 13,
+  "preservation_manifest_sha256": "ed8bd9cb6e4f8ab241a025bc2e4cda51624572bddeb7facdc8352091bd232e6b",
+  "scientific_fits_started": 0,
+  "scientific_fits_completed": 0,
+  "unknown_scientific_starts": 0,
+  "test_evaluation_count": 0,
+  "gpu_allocations_started": 0,
+  "reproductions": {
+    "experiments/mamba3_time_memory/runtime/progress_initialization_repro.json": "28fcdb8307b522bfec8899778be99fe6f32c02335e828b419b25ccd0818de5ca",
+    "experiments/mamba3_time_memory/runtime/report_unknown_start_repro.json": "c6b03b0a6cc9f339e83d3238192b2f15103a7c50131135dfcf1f548e0bd20acf"
+  },
+  "interpretation": "Pilot stopped while still pending to prevent independently reproduced wrapper failure, not because of queue duration or numerical/quality results; no compute allocation or scientific fit started",
+  "checkpoint_loading": false,
+  "model_forward_count": 0
+}

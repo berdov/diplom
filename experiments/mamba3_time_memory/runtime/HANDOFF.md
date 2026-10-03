@@ -1,8 +1,17 @@
 # Time-addressed memory pilot: job4373262
 
-Phase: SUBMITTED_PENDING. **3 октября 2026, 18:06:24 MSK:** PENDING (Priority), node not assigned,
-elapsed 00:00:00. Scientific fits 0/3, TEST 0. Next scheduler poll no earlier than 18:16:24 MSK
-(2026-10-03T15:16:24.816908+00:00). No background process.
+Phase: PRE_FIT_TECHNICAL_REPAIR. **3 October 2026, 18:37:28 MSK:** job4373262 is terminal
+CANCELLED by3677, Start=None, elapsed00:00:00, node=None assigned. No compute allocation,
+pipeline, gate, smoke or scientific fit started; TEST0. Cancellation was explicitly restricted
+to pending state after reproducing the absent-progress-file wrapper failure, not queue delay.
+Terminal files and all13 compact artifacts preserved and SHA-checked before source changes:
+[pre-fit audit](../evidence/job4373262/pre_fit_cancellation_audit.json).
+Original source410 still exactly55d812b at preservation. Two local stdlib reproductions retained:
+progress_initialization_repro.json and report_unknown_start_repro.json. The latter shows an
+unknown start incorrectly becoming NOT_RUN when report.write sees a lock without result.
+Next: minimal wrapper corrections + regression, unchanged method/tolerances, attempt002 paths,
+exact execution/source+CPU/noGit+TRAINcoverage verification, then one last allocation<=4h.
+Budget: submits1/2, scientific fits0/3. No extra seeds/continuation/TEST. No background process.
 [Exact snapshot](status_4373262.json), [state](state.json),
 [submission preservation](../evidence/job4373262/submission_preservation.json).
 
@@ -54,7 +63,7 @@ If queue exceeds4h or sessionends, save actualhandoff and stop; do not cancel/re
 When terminal:
 `python3 experiments/mamba3_time_memory/runtime/preserve_terminal.py 4373262 55d812bf55b1dffbbab6a7b0da86e616a6227b8b`
 It streams SHA/bytes ofweights, neverdeserializes/downloadsthem; preservescompactraw/logs.
-Then independent runtime/audit_saved.py (being prepared) mustvalidate all3fits/logmetrics,
+Then independent runtime/audit_saved.py (prepared and reviewed, commit 4049595) mustvalidate all3fits/logmetrics,
 controlreplay, pairing, ownershipinclcoverageSHA, gate11/429,smoke3×3, TEST0, checkpointmetadata,
 selection/ties/earlystop, first27, diagnostics andsummary. No newforwards forpublication.
 

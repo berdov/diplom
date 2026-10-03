@@ -1,0 +1,19 @@
+{
+  "requested_at": "2026-10-03T15:30:29.162860+00:00",
+  "job_id": "4373262",
+  "reason": "Confirmed progress writer updates an absent file; pending-only cancellation before any scientific fit",
+  "command": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "hse-karizma",
+    "scancel",
+    "--state=PENDING",
+    "4373262"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\nHigh-performance computing cluster cHARISMa of the HSE University\nHost: login-02\n",
+  "terminal_status_verified": false,
+  "scope": "Only pending job4373262; running jobs excluded"
+}
