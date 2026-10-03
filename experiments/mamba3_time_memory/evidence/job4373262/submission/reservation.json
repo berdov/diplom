@@ -1,0 +1,48 @@
+{
+  "execution_attempt": "001",
+  "study_id": "mamba3_time_addressed_memory_pilot_001",
+  "execution_commit": "55d812bf55b1dffbbab6a7b0da86e616a6227b8b",
+  "source_hash": "4e26434f8bf084d6acd562e6859c24699013510d8f2ffcaaf2653435d3698e8d",
+  "source_manifest_sha256": "b338d8d0bb1bb9be74f18f005da279c425e4ccc21afcf729d29e5287ae581b60",
+  "plan_sha256": "7400ea8e3364c44720e4a3fd356eecd1d63b1fa5818b4445f5e185373a8936de",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "inherited_admission_sha256": "c673524fda1a41d472c6cafebca7e25dad5cd7bd5df99fa772dfdcd4ee8bd5bc",
+  "inherited_smoke_sha256": "ac17c67b3fc411fce5cbdd53a855e75392d5bfd953b29a434e7237f135e7db9b",
+  "pilot_execution_commit": "c1dd31eec7907c67348769b6a1811b89aa4011c0",
+  "pilot_job_id": "4358147",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "status": "RESERVED",
+  "token": "a86bb43dd23c40db335f34aa178d68d2",
+  "login_sha256": "bb4eeb779d5e5244a37d26d2b422284a36024e983f48e9e7d6a652c4723ea176",
+  "coverage_sha256": "4b9ccb9ab90a3e9f3b1faa335542439e8629d64e0e75c359d2760e5918e5e16a",
+  "max_scientific_fits": 3,
+  "tasks": [
+    {
+      "memory_mode": "no_memory",
+      "seed": 2026,
+      "run_id": "mamba3_time_memory_no_memory_seed2026_001"
+    },
+    {
+      "memory_mode": "index_memory",
+      "seed": 2026,
+      "run_id": "mamba3_time_memory_index_memory_seed2026_001"
+    },
+    {
+      "memory_mode": "time_memory",
+      "seed": 2026,
+      "run_id": "mamba3_time_memory_time_memory_seed2026_001"
+    }
+  ],
+  "scientific_fits_before_submit": 0,
+  "jobs_requested": 1,
+  "retry_review_sha256": null,
+  "reserved_at": "2026-10-03T14:56:08.123871+00:00"
+}

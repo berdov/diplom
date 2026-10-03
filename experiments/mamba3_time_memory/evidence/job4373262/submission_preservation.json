@@ -1,0 +1,35 @@
+{
+  "job_id": "4373262",
+  "files": [
+    {
+      "path": "evidence/job4373262/submission/login_verification.json",
+      "bytes": 4162,
+      "sha256": "bb4eeb779d5e5244a37d26d2b422284a36024e983f48e9e7d6a652c4723ea176"
+    },
+    {
+      "path": "evidence/job4373262/submission/reservation.json",
+      "bytes": 1957,
+      "sha256": "1bf7cd6a0440b55080f9a535103fc721032a8d3b92e4c4978e04fe4e5dc187ec"
+    },
+    {
+      "path": "evidence/job4373262/submission/submission.json",
+      "bytes": 1017,
+      "sha256": "d563fad060f4929143be443796a8b28908b6435b2286e72a5c23473cb67ae9ce"
+    },
+    {
+      "path": "evidence/job4373262/submission/train_coverage.json",
+      "bytes": 144923,
+      "sha256": "4b9ccb9ab90a3e9f3b1faa335542439e8629d64e0e75c359d2760e5918e5e16a"
+    },
+    {
+      "path": "evidence/job4373262/submission/cpu_preflight_55d812bf55b1dffbbab6a7b0da86e616a6227b8b.json",
+      "bytes": 22520,
+      "sha256": "b8f1a13e7c3e30f89df4aadd8832d9c9097924fc04b0302eaa29cb7470b89aac"
+    },
+    {
+      "path": "evidence/job4373262/submission/no_git_preflight_55d812bf55b1dffbbab6a7b0da86e616a6227b8b.json",
+      "bytes": 22520,
+      "sha256": "becfa20f9e3bc1e0771286dfaa70626587c97865d12087823e7d38609c9d4f70"
+    }
+  ]
+}
