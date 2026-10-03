@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "checkpoint_weights_copied": false,
+  "files": [
+    {
+      "path": "experiments/mamba3_time_memory/runs/attempt_002/inherited_kernel.json",
+      "source": "experiments/mamba3_time_memory/evidence/job4373393/files/runs/attempt_002/inherited_kernel.json",
+      "bytes": 5650,
+      "sha256": "bc13a7e14273c91200c54ab6bbb112156a40129ea9f7fc04544b5393e8b3b966"
+    },
+    {
+      "path": "experiments/mamba3_time_memory/runs/attempt_002/mamba3_time_memory_index_memory_seed2026_001.json",
+      "source": "experiments/mamba3_time_memory/evidence/job4373393/files/runs/attempt_002/mamba3_time_memory_index_memory_seed2026_001.json",
+      "bytes": 1877311,
+      "sha256": "0bbcb96b3468fd76862d39284d054339e140ea9ce8ea221bc6a656b37959e3b4"
+    },
+    {
+      "path": "experiments/mamba3_time_memory/runs/attempt_002/mamba3_time_memory_no_memory_seed2026_001.json",
+      "source": "experiments/mamba3_time_memory/evidence/job4373393/files/runs/attempt_002/mamba3_time_memory_no_memory_seed2026_001.json",
+      "bytes": 223866,
+      "sha256": "7d43f89f00105d7c2c6025d5ef8794bc103d3e56b6ece9558683d1e9ce68e155"
+    },
+    {
+      "path": "experiments/mamba3_time_memory/runs/attempt_002/mamba3_time_memory_time_memory_seed2026_001.json",
+      "source": "experiments/mamba3_time_memory/evidence/job4373393/files/runs/attempt_002/mamba3_time_memory_time_memory_seed2026_001.json",
+      "bytes": 3344313,
+      "sha256": "b2908dfb6171d2b39cbbb0fa4345e8431107c2a1a74c76ae8475dd2cb47cabd4"
+    },
+    {
+      "path": "experiments/mamba3_time_memory/runs/attempt_002/pilot_summary.json",
+      "source": "experiments/mamba3_time_memory/evidence/job4373393/files/runs/attempt_002/pilot_summary.json",
+      "bytes": 95994,
+      "sha256": "0b816ce6c024435ed376e0656bfc5408fbd9ac744c758e2dd5299e15aa2fb9f5"
+    },
+    {
+      "path": "experiments/mamba3_time_memory/runs/attempt_002/smoke.json",
+      "source": "experiments/mamba3_time_memory/evidence/job4373393/files/runs/attempt_002/smoke.json",
+      "bytes": 41970,
+      "sha256": "ba90036c46b1aff8ed643733c985ad300ad1577b0fdb7b3de0904fcb3f6707a5"
+    },
+    {
+      "path": "experiments/mamba3_time_memory/runs/attempt_002/targeted_gate.json",
+      "source": "experiments/mamba3_time_memory/evidence/job4373393/files/runs/attempt_002/targeted_gate.json",
+      "bytes": 334250,
+      "sha256": "faa22e470a768e081de25137832cffcd6fd2f0cdea57a792cfaa6b8316fa418e"
+    },
+    {
+      "path": "experiments/mamba3_time_memory/runs/attempt_002/terminal_metadata.json",
+      "source": "experiments/mamba3_time_memory/evidence/job4373393/files/runs/attempt_002/terminal_metadata.json",
+      "bytes": 2932,
+      "sha256": "01f338e1803b586ad2b49a040d506fc8091508f7fff5d4a82f842c75a408a5ca"
+    }
+  ]
+}

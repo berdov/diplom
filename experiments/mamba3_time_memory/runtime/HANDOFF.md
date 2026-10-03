@@ -1,6 +1,13 @@
 # Time-addressed memory pilot: attempt002, job4373393
 
-Phase: RUNNING. **2026-10-03 19:18:47 MSK:** RUNNING, node cn-044, elapsed 00:00:54. Scientific fits started 0, completed 0/3. GPU gate RUNNING; smoke UNKNOWN. Next explicit poll no earlier than 2026-10-03 19:28:47 MSK (2026-10-03T16:28:47.662000+00:00). No background process.
+Phase: AUDITED_AWAITING_PUBLICATION. Job4373393 COMPLETED0:0, cn-044,01:31:29,
+2026-10-03 19:17:54–20:49:23MSK. All3fits complete:39/42/76epochs; TEST0.
+Independent audit PASS:157epochs,1884metriccells,exact control replay+checkpointSHA,
+CPU85+85,GPU11/429,smoke3×3,412publishedsourceblobs,ownership/runtime/checkpoints verified.
+No new forwards or weightloading.55rawfiles preservedSHA;8canonicalJSON copies verified.
+NDCG@10 no/index/time=.0633/.0626/.0634;first27=.0620/.0611/.0613.
+Primary time−index+.0008;time−no+.0001,first27−.0007. Weak single-seed signal;
+no automatic confirmation or replacement of baseline. Reports/registry publication remains.
 [Exact snapshot](status_4373393.json), [state](state.json).
 
 ## Рабочие каталоги и версия

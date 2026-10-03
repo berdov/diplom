@@ -1,7 +1,7 @@
 {
   "job_id": "4373393",
   "execution_attempt": "002",
-  "checked_at": "2026-10-03T17:52:46.092609+00:00",
+  "checked_at": "2026-10-03T16:50:04.540227+00:00",
   "checkout": {
     "returncode": 0,
     "stdout": "53bcc76752d0d7fd06c8ba0866709a64cd978165\n",
@@ -14,21 +14,21 @@
   },
   "squeue": {
     "returncode": 0,
-    "stdout": "",
+    "stdout": "4373393|RUNNING|32:10|cn-044|cn-044|2026-10-03T19:17:54\n",
     "stderr": ""
   },
   "sacct": {
     "returncode": 0,
-    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4373393|COMPLETED|0:0|01:31:29|cn-044|2026-10-03T19:17:54|2026-10-03T20:49:23\n4373393.batch|COMPLETED|0:0|01:31:29|cn-044|2026-10-03T19:17:54|2026-10-03T20:49:23\n4373393.extern|COMPLETED|0:0|01:31:29|cn-044|2026-10-03T19:17:54|2026-10-03T20:49:23\n",
+    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4373393|RUNNING|0:0|00:32:10|cn-044|2026-10-03T19:17:54|Unknown\n4373393.batch|RUNNING|0:0|00:32:10|cn-044|2026-10-03T19:17:54|Unknown\n4373393.extern|RUNNING|0:0|00:32:10|cn-044|2026-10-03T19:17:54|Unknown\n",
     "stderr": ""
   },
   "pipeline": {
-    "status": "PASS",
+    "status": "RUNNING",
     "started_at": "2026-10-03T16:17:57.527653+00:00",
-    "finished_at": "2026-10-03T17:49:22.696448+00:00",
+    "finished_at": null,
     "error": null,
-    "scientific_fits_started": 3,
-    "scientific_fits_completed": 3,
+    "scientific_fits_started": 1,
+    "scientific_fits_completed": 1,
     "stages": [
       {
         "stage": "gate",
@@ -50,15 +50,8 @@
       },
       {
         "stage": "index_memory",
-        "status": "PASS",
-        "started_at": "2026-10-03T16:42:28.847757+00:00",
-        "finished_at": "2026-10-03T17:06:30.527593+00:00"
-      },
-      {
-        "stage": "time_memory",
-        "status": "PASS",
-        "started_at": "2026-10-03T17:06:30.537848+00:00",
-        "finished_at": "2026-10-03T17:49:22.432174+00:00"
+        "status": "RUNNING",
+        "started_at": "2026-10-03T16:42:28.847757+00:00"
       }
     ]
   },
@@ -72,14 +65,14 @@
       "run_id": "mamba3_time_memory_index_memory_seed2026_001",
       "memory_mode": "index_memory",
       "seed": 2026,
-      "status": "PASS",
-      "stage": "COMPLETED",
+      "status": "RUNNING",
+      "stage": "TRAIN_VALID",
       "scientific_fit_started": true,
-      "actual_epochs": 42,
+      "actual_epochs": 12,
       "started_at": "2026-10-03T16:42:38.988582+00:00",
-      "finished_at": "2026-10-03T17:06:29.142116+00:00",
+      "finished_at": null,
       "error": null,
-      "last_epoch": 41
+      "last_epoch": 11
     },
     {
       "execution_attempt": "002",
@@ -98,24 +91,6 @@
       "finished_at": "2026-10-03T16:42:27.467006+00:00",
       "error": null,
       "last_epoch": 38
-    },
-    {
-      "execution_attempt": "002",
-      "study_id": "mamba3_time_addressed_memory_pilot_001",
-      "execution_commit": "53bcc76752d0d7fd06c8ba0866709a64cd978165",
-      "source_hash": "ad4565d171b78c83831ef84c139a4912af2022a04fdb39fdfd5b4a858461f5e6",
-      "job_id": "4373393",
-      "run_id": "mamba3_time_memory_time_memory_seed2026_001",
-      "memory_mode": "time_memory",
-      "seed": 2026,
-      "status": "PASS",
-      "stage": "COMPLETED",
-      "scientific_fit_started": true,
-      "actual_epochs": 76,
-      "started_at": "2026-10-03T17:06:40.796516+00:00",
-      "finished_at": "2026-10-03T17:49:20.927657+00:00",
-      "error": null,
-      "last_epoch": 75
     }
   ],
   "gate": {

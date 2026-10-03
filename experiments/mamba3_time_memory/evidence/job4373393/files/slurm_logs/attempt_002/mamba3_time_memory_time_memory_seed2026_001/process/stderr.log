@@ -1,0 +1,325 @@
+command line args [--variant time_memory] will not be used in RecBole
+command line args [--variant time_memory] will not be used in RecBole
+/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  feat[field].fillna(value=0, inplace=True)
+/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  feat[field].fillna(value=feat[field].mean(), inplace=True)
+/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = amp.GradScaler(enabled=self.enable_scaler)
+03 Oct 20:07    INFO  epoch 0 training [time: 35.69s, train loss: 3893.8878]
+03 Oct 20:08    INFO  epoch 0 evaluating [time: 7.84s, valid_score: 0.044300]
+03 Oct 20:08    INFO  valid result: 
+hit@5 : 0.0502    hit@10 : 0.0795    hit@20 : 0.1249    hit@50 : 0.2222    ndcg@5 : 0.035    ndcg@10 : 0.0443    ndcg@20 : 0.0557    ndcg@50 : 0.0748    recall@5 : 0.0502    recall@10 : 0.0795    recall@20 : 0.1249    recall@50 : 0.2222
+/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = amp.GradScaler(enabled=self.enable_scaler)
+03 Oct 20:08    INFO  epoch 1 training [time: 25.82s, train loss: 3473.5805]
+03 Oct 20:08    INFO  epoch 1 evaluating [time: 7.16s, valid_score: 0.050200]
+03 Oct 20:08    INFO  valid result: 
+hit@5 : 0.0576    hit@10 : 0.0913    hit@20 : 0.1472    hit@50 : 0.2638    ndcg@5 : 0.0394    ndcg@10 : 0.0502    ndcg@20 : 0.0642    ndcg@50 : 0.0872    recall@5 : 0.0576    recall@10 : 0.0913    recall@20 : 0.1472    recall@50 : 0.2638
+03 Oct 20:09    INFO  epoch 2 training [time: 25.62s, train loss: 3374.0629]
+03 Oct 20:09    INFO  epoch 2 evaluating [time: 7.32s, valid_score: 0.054000]
+03 Oct 20:09    INFO  valid result: 
+hit@5 : 0.0621    hit@10 : 0.0974    hit@20 : 0.1591    hit@50 : 0.2817    ndcg@5 : 0.0427    ndcg@10 : 0.054    ndcg@20 : 0.0694    ndcg@50 : 0.0936    recall@5 : 0.0621    recall@10 : 0.0974    recall@20 : 0.1591    recall@50 : 0.2817
+03 Oct 20:09    INFO  epoch 3 training [time: 25.61s, train loss: 3318.1428]
+03 Oct 20:09    INFO  epoch 3 evaluating [time: 7.14s, valid_score: 0.056000]
+03 Oct 20:09    INFO  valid result: 
+hit@5 : 0.064    hit@10 : 0.1017    hit@20 : 0.1633    hit@50 : 0.2926    ndcg@5 : 0.0439    ndcg@10 : 0.056    ndcg@20 : 0.0715    ndcg@50 : 0.097    recall@5 : 0.064    recall@10 : 0.1017    recall@20 : 0.1633    recall@50 : 0.2926
+03 Oct 20:10    INFO  epoch 4 training [time: 25.68s, train loss: 3285.6315]
+03 Oct 20:10    INFO  epoch 4 evaluating [time: 7.15s, valid_score: 0.057700]
+03 Oct 20:10    INFO  valid result: 
+hit@5 : 0.0657    hit@10 : 0.105    hit@20 : 0.1699    hit@50 : 0.3012    ndcg@5 : 0.0451    ndcg@10 : 0.0577    ndcg@20 : 0.074    ndcg@50 : 0.0999    recall@5 : 0.0657    recall@10 : 0.105    recall@20 : 0.1699    recall@50 : 0.3012
+03 Oct 20:10    INFO  epoch 5 training [time: 25.62s, train loss: 3261.0898]
+03 Oct 20:10    INFO  epoch 5 evaluating [time: 7.14s, valid_score: 0.059100]
+03 Oct 20:10    INFO  valid result: 
+hit@5 : 0.0656    hit@10 : 0.1085    hit@20 : 0.1715    hit@50 : 0.3055    ndcg@5 : 0.0455    ndcg@10 : 0.0591    ndcg@20 : 0.0749    ndcg@50 : 0.1014    recall@5 : 0.0656    recall@10 : 0.1085    recall@20 : 0.1715    recall@50 : 0.3055
+03 Oct 20:11    INFO  epoch 6 training [time: 25.60s, train loss: 3241.8022]
+03 Oct 20:11    INFO  epoch 6 evaluating [time: 7.16s, valid_score: 0.058400]
+03 Oct 20:11    INFO  valid result: 
+hit@5 : 0.0652    hit@10 : 0.1066    hit@20 : 0.1737    hit@50 : 0.3146    ndcg@5 : 0.0451    ndcg@10 : 0.0584    ndcg@20 : 0.0753    ndcg@50 : 0.1031    recall@5 : 0.0652    recall@10 : 0.1066    recall@20 : 0.1737    recall@50 : 0.3146
+03 Oct 20:11    INFO  epoch 7 training [time: 25.60s, train loss: 3227.5455]
+03 Oct 20:11    INFO  epoch 7 evaluating [time: 7.33s, valid_score: 0.060700]
+03 Oct 20:11    INFO  valid result: 
+hit@5 : 0.0678    hit@10 : 0.1107    hit@20 : 0.1759    hit@50 : 0.3169    ndcg@5 : 0.0469    ndcg@10 : 0.0607    ndcg@20 : 0.077    ndcg@50 : 0.1047    recall@5 : 0.0678    recall@10 : 0.1107    recall@20 : 0.1759    recall@50 : 0.3169
+03 Oct 20:12    INFO  epoch 8 training [time: 25.71s, train loss: 3215.4605]
+03 Oct 20:12    INFO  epoch 8 evaluating [time: 7.17s, valid_score: 0.059300]
+03 Oct 20:12    INFO  valid result: 
+hit@5 : 0.0668    hit@10 : 0.1069    hit@20 : 0.1746    hit@50 : 0.3214    ndcg@5 : 0.0465    ndcg@10 : 0.0593    ndcg@20 : 0.0763    ndcg@50 : 0.1053    recall@5 : 0.0668    recall@10 : 0.1069    recall@20 : 0.1746    recall@50 : 0.3214
+03 Oct 20:12    INFO  epoch 9 training [time: 25.61s, train loss: 3206.0832]
+03 Oct 20:12    INFO  epoch 9 evaluating [time: 7.17s, valid_score: 0.059300]
+03 Oct 20:12    INFO  valid result: 
+hit@5 : 0.0669    hit@10 : 0.108    hit@20 : 0.1768    hit@50 : 0.3226    ndcg@5 : 0.0461    ndcg@10 : 0.0593    ndcg@20 : 0.0765    ndcg@50 : 0.1052    recall@5 : 0.0669    recall@10 : 0.108    recall@20 : 0.1768    recall@50 : 0.3226
+03 Oct 20:13    INFO  epoch 10 training [time: 25.65s, train loss: 3198.0151]
+03 Oct 20:13    INFO  epoch 10 evaluating [time: 7.20s, valid_score: 0.059500]
+03 Oct 20:13    INFO  valid result: 
+hit@5 : 0.0657    hit@10 : 0.1083    hit@20 : 0.1774    hit@50 : 0.3239    ndcg@5 : 0.0459    ndcg@10 : 0.0595    ndcg@20 : 0.0768    ndcg@50 : 0.1057    recall@5 : 0.0657    recall@10 : 0.1083    recall@20 : 0.1774    recall@50 : 0.3239
+03 Oct 20:13    INFO  epoch 11 training [time: 25.63s, train loss: 3191.5549]
+03 Oct 20:14    INFO  epoch 11 evaluating [time: 7.38s, valid_score: 0.060900]
+03 Oct 20:14    INFO  valid result: 
+hit@5 : 0.069    hit@10 : 0.1107    hit@20 : 0.18    hit@50 : 0.326    ndcg@5 : 0.0476    ndcg@10 : 0.0609    ndcg@20 : 0.0783    ndcg@50 : 0.1071    recall@5 : 0.069    recall@10 : 0.1107    recall@20 : 0.18    recall@50 : 0.326
+03 Oct 20:14    INFO  epoch 12 training [time: 25.61s, train loss: 3185.2438]
+03 Oct 20:14    INFO  epoch 12 evaluating [time: 7.19s, valid_score: 0.059500]
+03 Oct 20:14    INFO  valid result: 
+hit@5 : 0.0676    hit@10 : 0.1081    hit@20 : 0.1772    hit@50 : 0.3265    ndcg@5 : 0.0466    ndcg@10 : 0.0595    ndcg@20 : 0.0768    ndcg@50 : 0.1063    recall@5 : 0.0676    recall@10 : 0.1081    recall@20 : 0.1772    recall@50 : 0.3265
+03 Oct 20:15    INFO  epoch 13 training [time: 25.65s, train loss: 3180.0960]
+03 Oct 20:15    INFO  epoch 13 evaluating [time: 7.24s, valid_score: 0.060600]
+03 Oct 20:15    INFO  valid result: 
+hit@5 : 0.0689    hit@10 : 0.11    hit@20 : 0.1802    hit@50 : 0.3282    ndcg@5 : 0.0474    ndcg@10 : 0.0606    ndcg@20 : 0.0782    ndcg@50 : 0.1074    recall@5 : 0.0689    recall@10 : 0.11    recall@20 : 0.1802    recall@50 : 0.3282
+03 Oct 20:15    INFO  epoch 14 training [time: 25.65s, train loss: 3175.4702]
+03 Oct 20:15    INFO  epoch 14 evaluating [time: 7.44s, valid_score: 0.060800]
+03 Oct 20:15    INFO  valid result: 
+hit@5 : 0.0681    hit@10 : 0.1121    hit@20 : 0.1827    hit@50 : 0.3293    ndcg@5 : 0.0467    ndcg@10 : 0.0608    ndcg@20 : 0.0785    ndcg@50 : 0.1074    recall@5 : 0.0681    recall@10 : 0.1121    recall@20 : 0.1827    recall@50 : 0.3293
+03 Oct 20:16    INFO  epoch 15 training [time: 25.66s, train loss: 3170.6578]
+03 Oct 20:16    INFO  epoch 15 evaluating [time: 7.23s, valid_score: 0.060400]
+03 Oct 20:16    INFO  valid result: 
+hit@5 : 0.0679    hit@10 : 0.1108    hit@20 : 0.1805    hit@50 : 0.3291    ndcg@5 : 0.0466    ndcg@10 : 0.0604    ndcg@20 : 0.0778    ndcg@50 : 0.1071    recall@5 : 0.0679    recall@10 : 0.1108    recall@20 : 0.1805    recall@50 : 0.3291
+03 Oct 20:16    INFO  epoch 16 training [time: 25.68s, train loss: 3166.7844]
+03 Oct 20:16    INFO  epoch 16 evaluating [time: 7.19s, valid_score: 0.060800]
+03 Oct 20:16    INFO  valid result: 
+hit@5 : 0.0683    hit@10 : 0.1119    hit@20 : 0.1844    hit@50 : 0.3284    ndcg@5 : 0.0469    ndcg@10 : 0.0608    ndcg@20 : 0.079    ndcg@50 : 0.1074    recall@5 : 0.0683    recall@10 : 0.1119    recall@20 : 0.1844    recall@50 : 0.3284
+03 Oct 20:17    INFO  epoch 17 training [time: 25.65s, train loss: 3163.1114]
+03 Oct 20:17    INFO  epoch 17 evaluating [time: 7.26s, valid_score: 0.059800]
+03 Oct 20:17    INFO  valid result: 
+hit@5 : 0.0676    hit@10 : 0.1106    hit@20 : 0.183    hit@50 : 0.3282    ndcg@5 : 0.0461    ndcg@10 : 0.0598    ndcg@20 : 0.0779    ndcg@50 : 0.1066    recall@5 : 0.0676    recall@10 : 0.1106    recall@20 : 0.183    recall@50 : 0.3282
+03 Oct 20:17    INFO  epoch 18 training [time: 25.62s, train loss: 3160.1343]
+03 Oct 20:17    INFO  epoch 18 evaluating [time: 7.43s, valid_score: 0.061100]
+03 Oct 20:17    INFO  valid result: 
+hit@5 : 0.0684    hit@10 : 0.1124    hit@20 : 0.1839    hit@50 : 0.3311    ndcg@5 : 0.047    ndcg@10 : 0.0611    ndcg@20 : 0.079    ndcg@50 : 0.108    recall@5 : 0.0684    recall@10 : 0.1124    recall@20 : 0.1839    recall@50 : 0.3311
+03 Oct 20:18    INFO  epoch 19 training [time: 25.60s, train loss: 3156.3952]
+03 Oct 20:18    INFO  epoch 19 evaluating [time: 7.22s, valid_score: 0.061100]
+03 Oct 20:18    INFO  valid result: 
+hit@5 : 0.067    hit@10 : 0.113    hit@20 : 0.1835    hit@50 : 0.3285    ndcg@5 : 0.0464    ndcg@10 : 0.0611    ndcg@20 : 0.0788    ndcg@50 : 0.1074    recall@5 : 0.067    recall@10 : 0.113    recall@20 : 0.1835    recall@50 : 0.3285
+03 Oct 20:18    INFO  epoch 20 training [time: 25.64s, train loss: 3154.0042]
+03 Oct 20:19    INFO  epoch 20 evaluating [time: 7.22s, valid_score: 0.060000]
+03 Oct 20:19    INFO  valid result: 
+hit@5 : 0.0683    hit@10 : 0.1095    hit@20 : 0.1809    hit@50 : 0.3278    ndcg@5 : 0.0468    ndcg@10 : 0.06    ndcg@20 : 0.0779    ndcg@50 : 0.1069    recall@5 : 0.0683    recall@10 : 0.1095    recall@20 : 0.1809    recall@50 : 0.3278
+03 Oct 20:19    INFO  epoch 21 training [time: 25.65s, train loss: 3151.3197]
+03 Oct 20:19    INFO  epoch 21 evaluating [time: 7.23s, valid_score: 0.061300]
+03 Oct 20:19    INFO  valid result: 
+hit@5 : 0.0683    hit@10 : 0.1137    hit@20 : 0.1843    hit@50 : 0.3315    ndcg@5 : 0.0467    ndcg@10 : 0.0613    ndcg@20 : 0.079    ndcg@50 : 0.108    recall@5 : 0.0683    recall@10 : 0.1137    recall@20 : 0.1843    recall@50 : 0.3315
+03 Oct 20:20    INFO  epoch 22 training [time: 25.61s, train loss: 3148.6771]
+03 Oct 20:20    INFO  epoch 22 evaluating [time: 7.27s, valid_score: 0.060800]
+03 Oct 20:20    INFO  valid result: 
+hit@5 : 0.0681    hit@10 : 0.1126    hit@20 : 0.1844    hit@50 : 0.3316    ndcg@5 : 0.0466    ndcg@10 : 0.0608    ndcg@20 : 0.0789    ndcg@50 : 0.1079    recall@5 : 0.0681    recall@10 : 0.1126    recall@20 : 0.1844    recall@50 : 0.3316
+03 Oct 20:20    INFO  epoch 23 training [time: 25.60s, train loss: 3146.4604]
+03 Oct 20:20    INFO  epoch 23 evaluating [time: 7.42s, valid_score: 0.061200]
+03 Oct 20:20    INFO  valid result: 
+hit@5 : 0.0686    hit@10 : 0.1136    hit@20 : 0.1845    hit@50 : 0.3311    ndcg@5 : 0.0468    ndcg@10 : 0.0612    ndcg@20 : 0.0789    ndcg@50 : 0.1079    recall@5 : 0.0686    recall@10 : 0.1136    recall@20 : 0.1845    recall@50 : 0.3311
+03 Oct 20:21    INFO  epoch 24 training [time: 25.67s, train loss: 3143.7634]
+03 Oct 20:21    INFO  epoch 24 evaluating [time: 7.30s, valid_score: 0.060500]
+03 Oct 20:21    INFO  valid result: 
+hit@5 : 0.0676    hit@10 : 0.1119    hit@20 : 0.1821    hit@50 : 0.3273    ndcg@5 : 0.0463    ndcg@10 : 0.0605    ndcg@20 : 0.0781    ndcg@50 : 0.1067    recall@5 : 0.0676    recall@10 : 0.1119    recall@20 : 0.1821    recall@50 : 0.3273
+03 Oct 20:21    INFO  epoch 25 training [time: 25.63s, train loss: 3141.9673]
+03 Oct 20:21    INFO  epoch 25 evaluating [time: 7.26s, valid_score: 0.060200]
+03 Oct 20:21    INFO  valid result: 
+hit@5 : 0.0668    hit@10 : 0.1111    hit@20 : 0.1826    hit@50 : 0.3299    ndcg@5 : 0.0461    ndcg@10 : 0.0602    ndcg@20 : 0.0782    ndcg@50 : 0.1073    recall@5 : 0.0668    recall@10 : 0.1111    recall@20 : 0.1826    recall@50 : 0.3299
+03 Oct 20:22    INFO  epoch 26 training [time: 25.65s, train loss: 3139.9765]
+03 Oct 20:22    INFO  epoch 26 evaluating [time: 7.24s, valid_score: 0.061300]
+03 Oct 20:22    INFO  valid result: 
+hit@5 : 0.0679    hit@10 : 0.1129    hit@20 : 0.1838    hit@50 : 0.3313    ndcg@5 : 0.0469    ndcg@10 : 0.0613    ndcg@20 : 0.0791    ndcg@50 : 0.1082    recall@5 : 0.0679    recall@10 : 0.1129    recall@20 : 0.1838    recall@50 : 0.3313
+03 Oct 20:22    INFO  epoch 27 training [time: 25.60s, train loss: 3137.6635]
+03 Oct 20:22    INFO  epoch 27 evaluating [time: 7.25s, valid_score: 0.062000]
+03 Oct 20:22    INFO  valid result: 
+hit@5 : 0.0693    hit@10 : 0.1136    hit@20 : 0.1866    hit@50 : 0.3354    ndcg@5 : 0.0479    ndcg@10 : 0.062    ndcg@20 : 0.0803    ndcg@50 : 0.1097    recall@5 : 0.0693    recall@10 : 0.1136    recall@20 : 0.1866    recall@50 : 0.3354
+03 Oct 20:23    INFO  epoch 28 training [time: 25.65s, train loss: 3136.0301]
+03 Oct 20:23    INFO  epoch 28 evaluating [time: 7.44s, valid_score: 0.061400]
+03 Oct 20:23    INFO  valid result: 
+hit@5 : 0.0696    hit@10 : 0.113    hit@20 : 0.1858    hit@50 : 0.3339    ndcg@5 : 0.0475    ndcg@10 : 0.0614    ndcg@20 : 0.0797    ndcg@50 : 0.109    recall@5 : 0.0696    recall@10 : 0.113    recall@20 : 0.1858    recall@50 : 0.3339
+03 Oct 20:23    INFO  epoch 29 training [time: 25.61s, train loss: 3134.6166]
+03 Oct 20:23    INFO  epoch 29 evaluating [time: 7.38s, valid_score: 0.061700]
+03 Oct 20:23    INFO  valid result: 
+hit@5 : 0.0691    hit@10 : 0.114    hit@20 : 0.1847    hit@50 : 0.3331    ndcg@5 : 0.0472    ndcg@10 : 0.0617    ndcg@20 : 0.0794    ndcg@50 : 0.1087    recall@5 : 0.0691    recall@10 : 0.114    recall@20 : 0.1847    recall@50 : 0.3331
+03 Oct 20:24    INFO  epoch 30 training [time: 25.68s, train loss: 3132.7023]
+03 Oct 20:24    INFO  epoch 30 evaluating [time: 7.26s, valid_score: 0.061600]
+03 Oct 20:24    INFO  valid result: 
+hit@5 : 0.0688    hit@10 : 0.1129    hit@20 : 0.1837    hit@50 : 0.3323    ndcg@5 : 0.0474    ndcg@10 : 0.0616    ndcg@20 : 0.0793    ndcg@50 : 0.1087    recall@5 : 0.0688    recall@10 : 0.1129    recall@20 : 0.1837    recall@50 : 0.3323
+03 Oct 20:24    INFO  epoch 31 training [time: 25.64s, train loss: 3131.4266]
+03 Oct 20:25    INFO  epoch 31 evaluating [time: 7.43s, valid_score: 0.061400]
+03 Oct 20:25    INFO  valid result: 
+hit@5 : 0.0694    hit@10 : 0.1136    hit@20 : 0.1827    hit@50 : 0.3299    ndcg@5 : 0.0473    ndcg@10 : 0.0614    ndcg@20 : 0.0788    ndcg@50 : 0.1079    recall@5 : 0.0694    recall@10 : 0.1136    recall@20 : 0.1827    recall@50 : 0.3299
+03 Oct 20:25    INFO  epoch 32 training [time: 25.68s, train loss: 3129.5328]
+03 Oct 20:25    INFO  epoch 32 evaluating [time: 7.28s, valid_score: 0.061100]
+03 Oct 20:25    INFO  valid result: 
+hit@5 : 0.069    hit@10 : 0.1132    hit@20 : 0.1836    hit@50 : 0.3324    ndcg@5 : 0.0469    ndcg@10 : 0.0611    ndcg@20 : 0.0787    ndcg@50 : 0.1081    recall@5 : 0.069    recall@10 : 0.1132    recall@20 : 0.1836    recall@50 : 0.3324
+03 Oct 20:26    INFO  epoch 33 training [time: 25.68s, train loss: 3127.8953]
+03 Oct 20:26    INFO  epoch 33 evaluating [time: 7.46s, valid_score: 0.061100]
+03 Oct 20:26    INFO  valid result: 
+hit@5 : 0.0684    hit@10 : 0.112    hit@20 : 0.1845    hit@50 : 0.3333    ndcg@5 : 0.0471    ndcg@10 : 0.0611    ndcg@20 : 0.0793    ndcg@50 : 0.1087    recall@5 : 0.0684    recall@10 : 0.112    recall@20 : 0.1845    recall@50 : 0.3333
+03 Oct 20:26    INFO  epoch 34 training [time: 25.65s, train loss: 3126.5597]
+03 Oct 20:26    INFO  epoch 34 evaluating [time: 7.33s, valid_score: 0.060500]
+03 Oct 20:26    INFO  valid result: 
+hit@5 : 0.0689    hit@10 : 0.1106    hit@20 : 0.1829    hit@50 : 0.3305    ndcg@5 : 0.0472    ndcg@10 : 0.0605    ndcg@20 : 0.0786    ndcg@50 : 0.1078    recall@5 : 0.0689    recall@10 : 0.1106    recall@20 : 0.1829    recall@50 : 0.3305
+03 Oct 20:27    INFO  epoch 35 training [time: 25.60s, train loss: 3125.0474]
+03 Oct 20:27    INFO  epoch 35 evaluating [time: 7.36s, valid_score: 0.062200]
+03 Oct 20:27    INFO  valid result: 
+hit@5 : 0.0694    hit@10 : 0.1147    hit@20 : 0.1864    hit@50 : 0.3365    ndcg@5 : 0.0477    ndcg@10 : 0.0622    ndcg@20 : 0.0801    ndcg@50 : 0.1097    recall@5 : 0.0694    recall@10 : 0.1147    recall@20 : 0.1864    recall@50 : 0.3365
+03 Oct 20:27    INFO  epoch 36 training [time: 25.62s, train loss: 3123.8200]
+03 Oct 20:27    INFO  epoch 36 evaluating [time: 7.58s, valid_score: 0.062200]
+03 Oct 20:27    INFO  valid result: 
+hit@5 : 0.0706    hit@10 : 0.1141    hit@20 : 0.1864    hit@50 : 0.3357    ndcg@5 : 0.0482    ndcg@10 : 0.0622    ndcg@20 : 0.0803    ndcg@50 : 0.1098    recall@5 : 0.0706    recall@10 : 0.1141    recall@20 : 0.1864    recall@50 : 0.3357
+03 Oct 20:28    INFO  epoch 37 training [time: 25.65s, train loss: 3122.5323]
+03 Oct 20:28    INFO  epoch 37 evaluating [time: 7.31s, valid_score: 0.061300]
+03 Oct 20:28    INFO  valid result: 
+hit@5 : 0.0687    hit@10 : 0.1133    hit@20 : 0.185    hit@50 : 0.3323    ndcg@5 : 0.047    ndcg@10 : 0.0613    ndcg@20 : 0.0793    ndcg@50 : 0.1084    recall@5 : 0.0687    recall@10 : 0.1133    recall@20 : 0.185    recall@50 : 0.3323
+03 Oct 20:28    INFO  epoch 38 training [time: 25.66s, train loss: 3121.7685]
+03 Oct 20:28    INFO  epoch 38 evaluating [time: 7.30s, valid_score: 0.061600]
+03 Oct 20:28    INFO  valid result: 
+hit@5 : 0.0682    hit@10 : 0.1147    hit@20 : 0.1843    hit@50 : 0.3349    ndcg@5 : 0.0468    ndcg@10 : 0.0616    ndcg@20 : 0.0791    ndcg@50 : 0.1089    recall@5 : 0.0682    recall@10 : 0.1147    recall@20 : 0.1843    recall@50 : 0.3349
+03 Oct 20:29    INFO  epoch 39 training [time: 25.62s, train loss: 3120.1885]
+03 Oct 20:29    INFO  epoch 39 evaluating [time: 7.30s, valid_score: 0.062500]
+03 Oct 20:29    INFO  valid result: 
+hit@5 : 0.0705    hit@10 : 0.1147    hit@20 : 0.1872    hit@50 : 0.3371    ndcg@5 : 0.0483    ndcg@10 : 0.0625    ndcg@20 : 0.0806    ndcg@50 : 0.1102    recall@5 : 0.0705    recall@10 : 0.1147    recall@20 : 0.1872    recall@50 : 0.3371
+03 Oct 20:29    INFO  epoch 40 training [time: 25.65s, train loss: 3119.0160]
+03 Oct 20:30    INFO  epoch 40 evaluating [time: 7.48s, valid_score: 0.061200]
+03 Oct 20:30    INFO  valid result: 
+hit@5 : 0.0693    hit@10 : 0.1135    hit@20 : 0.1853    hit@50 : 0.3317    ndcg@5 : 0.047    ndcg@10 : 0.0612    ndcg@20 : 0.0791    ndcg@50 : 0.1081    recall@5 : 0.0693    recall@10 : 0.1135    recall@20 : 0.1853    recall@50 : 0.3317
+03 Oct 20:30    INFO  epoch 41 training [time: 25.65s, train loss: 3118.3123]
+03 Oct 20:30    INFO  epoch 41 evaluating [time: 7.31s, valid_score: 0.062100]
+03 Oct 20:30    INFO  valid result: 
+hit@5 : 0.0689    hit@10 : 0.1149    hit@20 : 0.1855    hit@50 : 0.3354    ndcg@5 : 0.0473    ndcg@10 : 0.0621    ndcg@20 : 0.0798    ndcg@50 : 0.1094    recall@5 : 0.0689    recall@10 : 0.1149    recall@20 : 0.1855    recall@50 : 0.3354
+03 Oct 20:31    INFO  epoch 42 training [time: 25.62s, train loss: 3116.7505]
+03 Oct 20:31    INFO  epoch 42 evaluating [time: 7.33s, valid_score: 0.061700]
+03 Oct 20:31    INFO  valid result: 
+hit@5 : 0.0695    hit@10 : 0.1139    hit@20 : 0.1848    hit@50 : 0.3328    ndcg@5 : 0.0474    ndcg@10 : 0.0617    ndcg@20 : 0.0795    ndcg@50 : 0.1087    recall@5 : 0.0695    recall@10 : 0.1139    recall@20 : 0.1848    recall@50 : 0.3328
+03 Oct 20:31    INFO  epoch 43 training [time: 25.67s, train loss: 3115.7236]
+03 Oct 20:31    INFO  epoch 43 evaluating [time: 7.33s, valid_score: 0.061500]
+03 Oct 20:31    INFO  valid result: 
+hit@5 : 0.0677    hit@10 : 0.1134    hit@20 : 0.1853    hit@50 : 0.3352    ndcg@5 : 0.0468    ndcg@10 : 0.0615    ndcg@20 : 0.0795    ndcg@50 : 0.1091    recall@5 : 0.0677    recall@10 : 0.1134    recall@20 : 0.1853    recall@50 : 0.3352
+03 Oct 20:32    INFO  epoch 44 training [time: 25.65s, train loss: 3114.9314]
+03 Oct 20:32    INFO  epoch 44 evaluating [time: 7.37s, valid_score: 0.061600]
+03 Oct 20:32    INFO  valid result: 
+hit@5 : 0.0684    hit@10 : 0.1139    hit@20 : 0.1859    hit@50 : 0.3362    ndcg@5 : 0.0471    ndcg@10 : 0.0616    ndcg@20 : 0.0797    ndcg@50 : 0.1093    recall@5 : 0.0684    recall@10 : 0.1139    recall@20 : 0.1859    recall@50 : 0.3362
+03 Oct 20:32    INFO  epoch 45 training [time: 25.60s, train loss: 3113.5448]
+03 Oct 20:32    INFO  epoch 45 evaluating [time: 7.34s, valid_score: 0.062600]
+03 Oct 20:32    INFO  valid result: 
+hit@5 : 0.07    hit@10 : 0.1147    hit@20 : 0.187    hit@50 : 0.336    ndcg@5 : 0.0483    ndcg@10 : 0.0626    ndcg@20 : 0.0807    ndcg@50 : 0.1101    recall@5 : 0.07    recall@10 : 0.1147    recall@20 : 0.187    recall@50 : 0.336
+03 Oct 20:33    INFO  epoch 46 training [time: 25.61s, train loss: 3112.5757]
+03 Oct 20:33    INFO  epoch 46 evaluating [time: 7.52s, valid_score: 0.062400]
+03 Oct 20:33    INFO  valid result: 
+hit@5 : 0.0701    hit@10 : 0.1148    hit@20 : 0.1865    hit@50 : 0.3352    ndcg@5 : 0.0482    ndcg@10 : 0.0624    ndcg@20 : 0.0804    ndcg@50 : 0.1098    recall@5 : 0.0701    recall@10 : 0.1148    recall@20 : 0.1865    recall@50 : 0.3352
+03 Oct 20:33    INFO  epoch 47 training [time: 25.67s, train loss: 3111.9343]
+03 Oct 20:33    INFO  epoch 47 evaluating [time: 7.34s, valid_score: 0.061700]
+03 Oct 20:33    INFO  valid result: 
+hit@5 : 0.0703    hit@10 : 0.1139    hit@20 : 0.1853    hit@50 : 0.3348    ndcg@5 : 0.0477    ndcg@10 : 0.0617    ndcg@20 : 0.0795    ndcg@50 : 0.109    recall@5 : 0.0703    recall@10 : 0.1139    recall@20 : 0.1853    recall@50 : 0.3348
+03 Oct 20:34    INFO  epoch 48 training [time: 25.68s, train loss: 3110.4113]
+03 Oct 20:34    INFO  epoch 48 evaluating [time: 7.35s, valid_score: 0.062700]
+03 Oct 20:34    INFO  valid result: 
+hit@5 : 0.0696    hit@10 : 0.1159    hit@20 : 0.1871    hit@50 : 0.3368    ndcg@5 : 0.0479    ndcg@10 : 0.0627    ndcg@20 : 0.0806    ndcg@50 : 0.1102    recall@5 : 0.0696    recall@10 : 0.1159    recall@20 : 0.1871    recall@50 : 0.3368
+03 Oct 20:34    INFO  epoch 49 training [time: 25.63s, train loss: 3109.8003]
+03 Oct 20:34    INFO  epoch 49 evaluating [time: 7.39s, valid_score: 0.062000]
+03 Oct 20:34    INFO  valid result: 
+hit@5 : 0.0698    hit@10 : 0.1139    hit@20 : 0.1887    hit@50 : 0.3366    ndcg@5 : 0.0479    ndcg@10 : 0.062    ndcg@20 : 0.0807    ndcg@50 : 0.1098    recall@5 : 0.0698    recall@10 : 0.1139    recall@20 : 0.1887    recall@50 : 0.3366
+03 Oct 20:35    INFO  epoch 50 training [time: 25.63s, train loss: 3108.7962]
+03 Oct 20:35    INFO  epoch 50 evaluating [time: 7.55s, valid_score: 0.062000]
+03 Oct 20:35    INFO  valid result: 
+hit@5 : 0.0708    hit@10 : 0.1136    hit@20 : 0.1873    hit@50 : 0.337    ndcg@5 : 0.0483    ndcg@10 : 0.062    ndcg@20 : 0.0805    ndcg@50 : 0.1101    recall@5 : 0.0708    recall@10 : 0.1136    recall@20 : 0.1873    recall@50 : 0.337
+03 Oct 20:35    INFO  epoch 51 training [time: 25.61s, train loss: 3108.3384]
+03 Oct 20:36    INFO  epoch 51 evaluating [time: 7.34s, valid_score: 0.062400]
+03 Oct 20:36    INFO  valid result: 
+hit@5 : 0.0693    hit@10 : 0.1165    hit@20 : 0.1878    hit@50 : 0.3359    ndcg@5 : 0.0473    ndcg@10 : 0.0624    ndcg@20 : 0.0803    ndcg@50 : 0.1095    recall@5 : 0.0693    recall@10 : 0.1165    recall@20 : 0.1878    recall@50 : 0.3359
+03 Oct 20:36    INFO  epoch 52 training [time: 25.68s, train loss: 3107.5791]
+03 Oct 20:36    INFO  epoch 52 evaluating [time: 7.39s, valid_score: 0.061700]
+03 Oct 20:36    INFO  valid result: 
+hit@5 : 0.0683    hit@10 : 0.1139    hit@20 : 0.1856    hit@50 : 0.3367    ndcg@5 : 0.0471    ndcg@10 : 0.0617    ndcg@20 : 0.0797    ndcg@50 : 0.1095    recall@5 : 0.0683    recall@10 : 0.1139    recall@20 : 0.1856    recall@50 : 0.3367
+03 Oct 20:37    INFO  epoch 53 training [time: 25.64s, train loss: 3106.2919]
+03 Oct 20:37    INFO  epoch 53 evaluating [time: 7.68s, valid_score: 0.063000]
+03 Oct 20:37    INFO  valid result: 
+hit@5 : 0.07    hit@10 : 0.1163    hit@20 : 0.1862    hit@50 : 0.337    ndcg@5 : 0.0482    ndcg@10 : 0.063    ndcg@20 : 0.0805    ndcg@50 : 0.1103    recall@5 : 0.07    recall@10 : 0.1163    recall@20 : 0.1862    recall@50 : 0.337
+03 Oct 20:37    INFO  epoch 54 training [time: 25.68s, train loss: 3105.9870]
+03 Oct 20:37    INFO  epoch 54 evaluating [time: 7.38s, valid_score: 0.063000]
+03 Oct 20:37    INFO  valid result: 
+hit@5 : 0.0706    hit@10 : 0.1164    hit@20 : 0.1858    hit@50 : 0.3367    ndcg@5 : 0.0484    ndcg@10 : 0.063    ndcg@20 : 0.0804    ndcg@50 : 0.1102    recall@5 : 0.0706    recall@10 : 0.1164    recall@20 : 0.1858    recall@50 : 0.3367
+03 Oct 20:38    INFO  epoch 55 training [time: 25.61s, train loss: 3104.6399]
+03 Oct 20:38    INFO  epoch 55 evaluating [time: 7.37s, valid_score: 0.062000]
+03 Oct 20:38    INFO  valid result: 
+hit@5 : 0.0711    hit@10 : 0.1146    hit@20 : 0.1864    hit@50 : 0.3386    ndcg@5 : 0.0481    ndcg@10 : 0.062    ndcg@20 : 0.08    ndcg@50 : 0.11    recall@5 : 0.0711    recall@10 : 0.1146    recall@20 : 0.1864    recall@50 : 0.3386
+03 Oct 20:38    INFO  epoch 56 training [time: 25.69s, train loss: 3103.7529]
+03 Oct 20:38    INFO  epoch 56 evaluating [time: 7.40s, valid_score: 0.060600]
+03 Oct 20:38    INFO  valid result: 
+hit@5 : 0.0689    hit@10 : 0.1123    hit@20 : 0.1859    hit@50 : 0.3361    ndcg@5 : 0.0468    ndcg@10 : 0.0606    ndcg@20 : 0.0791    ndcg@50 : 0.1087    recall@5 : 0.0689    recall@10 : 0.1123    recall@20 : 0.1859    recall@50 : 0.3361
+03 Oct 20:39    INFO  epoch 57 training [time: 25.61s, train loss: 3102.6356]
+03 Oct 20:39    INFO  epoch 57 evaluating [time: 7.67s, valid_score: 0.062300]
+03 Oct 20:39    INFO  valid result: 
+hit@5 : 0.0699    hit@10 : 0.1144    hit@20 : 0.1888    hit@50 : 0.338    ndcg@5 : 0.048    ndcg@10 : 0.0623    ndcg@20 : 0.0809    ndcg@50 : 0.1103    recall@5 : 0.0699    recall@10 : 0.1144    recall@20 : 0.1888    recall@50 : 0.338
+03 Oct 20:39    INFO  epoch 58 training [time: 25.64s, train loss: 3102.6359]
+03 Oct 20:39    INFO  epoch 58 evaluating [time: 7.39s, valid_score: 0.062000]
+03 Oct 20:39    INFO  valid result: 
+hit@5 : 0.0691    hit@10 : 0.1141    hit@20 : 0.1885    hit@50 : 0.3364    ndcg@5 : 0.0476    ndcg@10 : 0.062    ndcg@20 : 0.0807    ndcg@50 : 0.1099    recall@5 : 0.0691    recall@10 : 0.1141    recall@20 : 0.1885    recall@50 : 0.3364
+03 Oct 20:40    INFO  epoch 59 training [time: 25.64s, train loss: 3101.8268]
+03 Oct 20:40    INFO  epoch 59 evaluating [time: 7.40s, valid_score: 0.062600]
+03 Oct 20:40    INFO  valid result: 
+hit@5 : 0.0701    hit@10 : 0.1144    hit@20 : 0.1876    hit@50 : 0.3375    ndcg@5 : 0.0484    ndcg@10 : 0.0626    ndcg@20 : 0.0809    ndcg@50 : 0.1105    recall@5 : 0.0701    recall@10 : 0.1144    recall@20 : 0.1876    recall@50 : 0.3375
+03 Oct 20:40    INFO  epoch 60 training [time: 25.68s, train loss: 3100.7448]
+03 Oct 20:41    INFO  epoch 60 evaluating [time: 7.40s, valid_score: 0.062100]
+03 Oct 20:41    INFO  valid result: 
+hit@5 : 0.0703    hit@10 : 0.1146    hit@20 : 0.186    hit@50 : 0.3374    ndcg@5 : 0.0479    ndcg@10 : 0.0621    ndcg@20 : 0.0801    ndcg@50 : 0.1099    recall@5 : 0.0703    recall@10 : 0.1146    recall@20 : 0.186    recall@50 : 0.3374
+03 Oct 20:41    INFO  epoch 61 training [time: 25.62s, train loss: 3099.9923]
+03 Oct 20:41    INFO  epoch 61 evaluating [time: 7.42s, valid_score: 0.062300]
+03 Oct 20:41    INFO  valid result: 
+hit@5 : 0.0704    hit@10 : 0.1149    hit@20 : 0.185    hit@50 : 0.3356    ndcg@5 : 0.048    ndcg@10 : 0.0623    ndcg@20 : 0.0798    ndcg@50 : 0.1095    recall@5 : 0.0704    recall@10 : 0.1149    recall@20 : 0.185    recall@50 : 0.3356
+03 Oct 20:42    INFO  epoch 62 training [time: 25.59s, train loss: 3099.8222]
+03 Oct 20:42    INFO  epoch 62 evaluating [time: 7.62s, valid_score: 0.062000]
+03 Oct 20:42    INFO  valid result: 
+hit@5 : 0.0692    hit@10 : 0.114    hit@20 : 0.1849    hit@50 : 0.3354    ndcg@5 : 0.0476    ndcg@10 : 0.062    ndcg@20 : 0.0798    ndcg@50 : 0.1094    recall@5 : 0.0692    recall@10 : 0.114    recall@20 : 0.1849    recall@50 : 0.3354
+03 Oct 20:42    INFO  epoch 63 training [time: 25.68s, train loss: 3098.9935]
+03 Oct 20:42    INFO  epoch 63 evaluating [time: 7.48s, valid_score: 0.062600]
+03 Oct 20:42    INFO  valid result: 
+hit@5 : 0.07    hit@10 : 0.1156    hit@20 : 0.1873    hit@50 : 0.3359    ndcg@5 : 0.048    ndcg@10 : 0.0626    ndcg@20 : 0.0805    ndcg@50 : 0.1098    recall@5 : 0.07    recall@10 : 0.1156    recall@20 : 0.1873    recall@50 : 0.3359
+03 Oct 20:43    INFO  epoch 64 training [time: 25.64s, train loss: 3098.5614]
+03 Oct 20:43    INFO  epoch 64 evaluating [time: 7.42s, valid_score: 0.063400]
+03 Oct 20:43    INFO  valid result: 
+hit@5 : 0.0719    hit@10 : 0.1175    hit@20 : 0.1898    hit@50 : 0.3366    ndcg@5 : 0.0488    ndcg@10 : 0.0634    ndcg@20 : 0.0816    ndcg@50 : 0.1105    recall@5 : 0.0719    recall@10 : 0.1175    recall@20 : 0.1898    recall@50 : 0.3366
+03 Oct 20:43    INFO  epoch 65 training [time: 25.61s, train loss: 3097.3646]
+03 Oct 20:43    INFO  epoch 65 evaluating [time: 7.42s, valid_score: 0.062200]
+03 Oct 20:43    INFO  valid result: 
+hit@5 : 0.0708    hit@10 : 0.1146    hit@20 : 0.1854    hit@50 : 0.3381    ndcg@5 : 0.0481    ndcg@10 : 0.0622    ndcg@20 : 0.0799    ndcg@50 : 0.11    recall@5 : 0.0708    recall@10 : 0.1146    recall@20 : 0.1854    recall@50 : 0.3381
+03 Oct 20:44    INFO  epoch 66 training [time: 25.65s, train loss: 3097.1649]
+03 Oct 20:44    INFO  epoch 66 evaluating [time: 7.43s, valid_score: 0.062300]
+03 Oct 20:44    INFO  valid result: 
+hit@5 : 0.0713    hit@10 : 0.1147    hit@20 : 0.1863    hit@50 : 0.3378    ndcg@5 : 0.0484    ndcg@10 : 0.0623    ndcg@20 : 0.0803    ndcg@50 : 0.1102    recall@5 : 0.0713    recall@10 : 0.1147    recall@20 : 0.1863    recall@50 : 0.3378
+03 Oct 20:44    INFO  epoch 67 training [time: 25.61s, train loss: 3096.3118]
+03 Oct 20:44    INFO  epoch 67 evaluating [time: 7.64s, valid_score: 0.063300]
+03 Oct 20:44    INFO  valid result: 
+hit@5 : 0.0714    hit@10 : 0.1166    hit@20 : 0.1879    hit@50 : 0.3395    ndcg@5 : 0.0489    ndcg@10 : 0.0633    ndcg@20 : 0.0813    ndcg@50 : 0.1112    recall@5 : 0.0714    recall@10 : 0.1166    recall@20 : 0.1879    recall@50 : 0.3395
+03 Oct 20:45    INFO  epoch 68 training [time: 25.60s, train loss: 3095.6216]
+03 Oct 20:45    INFO  epoch 68 evaluating [time: 7.42s, valid_score: 0.061200]
+03 Oct 20:45    INFO  valid result: 
+hit@5 : 0.0688    hit@10 : 0.113    hit@20 : 0.1873    hit@50 : 0.3386    ndcg@5 : 0.0471    ndcg@10 : 0.0612    ndcg@20 : 0.0799    ndcg@50 : 0.1097    recall@5 : 0.0688    recall@10 : 0.113    recall@20 : 0.1873    recall@50 : 0.3386
+03 Oct 20:45    INFO  epoch 69 training [time: 25.62s, train loss: 3095.0261]
+03 Oct 20:46    INFO  epoch 69 evaluating [time: 7.43s, valid_score: 0.062100]
+03 Oct 20:46    INFO  valid result: 
+hit@5 : 0.0696    hit@10 : 0.1154    hit@20 : 0.1864    hit@50 : 0.338    ndcg@5 : 0.0475    ndcg@10 : 0.0621    ndcg@20 : 0.08    ndcg@50 : 0.1098    recall@5 : 0.0696    recall@10 : 0.1154    recall@20 : 0.1864    recall@50 : 0.338
+03 Oct 20:46    INFO  epoch 70 training [time: 25.61s, train loss: 3094.8958]
+03 Oct 20:46    INFO  epoch 70 evaluating [time: 7.49s, valid_score: 0.062400]
+03 Oct 20:46    INFO  valid result: 
+hit@5 : 0.0692    hit@10 : 0.1151    hit@20 : 0.1863    hit@50 : 0.3344    ndcg@5 : 0.0477    ndcg@10 : 0.0624    ndcg@20 : 0.0803    ndcg@50 : 0.1096    recall@5 : 0.0692    recall@10 : 0.1151    recall@20 : 0.1863    recall@50 : 0.3344
+03 Oct 20:47    INFO  epoch 71 training [time: 25.61s, train loss: 3094.3178]
+03 Oct 20:47    INFO  epoch 71 evaluating [time: 7.64s, valid_score: 0.062300]
+03 Oct 20:47    INFO  valid result: 
+hit@5 : 0.0699    hit@10 : 0.1153    hit@20 : 0.1841    hit@50 : 0.3354    ndcg@5 : 0.0478    ndcg@10 : 0.0623    ndcg@20 : 0.0795    ndcg@50 : 0.1094    recall@5 : 0.0699    recall@10 : 0.1153    recall@20 : 0.1841    recall@50 : 0.3354
+03 Oct 20:47    INFO  epoch 72 training [time: 25.65s, train loss: 3093.8964]
+03 Oct 20:47    INFO  epoch 72 evaluating [time: 7.49s, valid_score: 0.063100]
+03 Oct 20:47    INFO  valid result: 
+hit@5 : 0.0714    hit@10 : 0.1171    hit@20 : 0.1881    hit@50 : 0.3372    ndcg@5 : 0.0484    ndcg@10 : 0.0631    ndcg@20 : 0.0809    ndcg@50 : 0.1103    recall@5 : 0.0714    recall@10 : 0.1171    recall@20 : 0.1881    recall@50 : 0.3372
+03 Oct 20:48    INFO  epoch 73 training [time: 25.62s, train loss: 3093.1715]
+03 Oct 20:48    INFO  epoch 73 evaluating [time: 7.47s, valid_score: 0.062600]
+03 Oct 20:48    INFO  valid result: 
+hit@5 : 0.0695    hit@10 : 0.1152    hit@20 : 0.1868    hit@50 : 0.3376    ndcg@5 : 0.0479    ndcg@10 : 0.0626    ndcg@20 : 0.0806    ndcg@50 : 0.1104    recall@5 : 0.0695    recall@10 : 0.1152    recall@20 : 0.1868    recall@50 : 0.3376
+03 Oct 20:48    INFO  epoch 74 training [time: 25.59s, train loss: 3092.5420]
+03 Oct 20:48    INFO  epoch 74 evaluating [time: 7.67s, valid_score: 0.062000]
+03 Oct 20:48    INFO  valid result: 
+hit@5 : 0.0706    hit@10 : 0.1139    hit@20 : 0.1874    hit@50 : 0.3387    ndcg@5 : 0.0482    ndcg@10 : 0.062    ndcg@20 : 0.0805    ndcg@50 : 0.1104    recall@5 : 0.0706    recall@10 : 0.1139    recall@20 : 0.1874    recall@50 : 0.3387
+03 Oct 20:49    INFO  epoch 75 training [time: 25.62s, train loss: 3091.6620]
+03 Oct 20:49    INFO  epoch 75 evaluating [time: 7.46s, valid_score: 0.062500]
+03 Oct 20:49    INFO  valid result: 
+hit@5 : 0.0709    hit@10 : 0.1151    hit@20 : 0.1878    hit@50 : 0.3389    ndcg@5 : 0.0483    ndcg@10 : 0.0625    ndcg@20 : 0.0808    ndcg@50 : 0.1106    recall@5 : 0.0709    recall@10 : 0.1151    recall@20 : 0.1878    recall@50 : 0.3389
+03 Oct 20:49    INFO  Finished training, best eval result in epoch 64

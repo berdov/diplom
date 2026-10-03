@@ -1,0 +1,18 @@
+{
+  "execution_attempt": "002",
+  "study_id": "mamba3_time_addressed_memory_pilot_001",
+  "execution_commit": "53bcc76752d0d7fd06c8ba0866709a64cd978165",
+  "source_hash": "ad4565d171b78c83831ef84c139a4912af2022a04fdb39fdfd5b4a858461f5e6",
+  "job_id": "4373393",
+  "run_id": "mamba3_time_memory_no_memory_seed2026_001",
+  "memory_mode": "no_memory",
+  "seed": 2026,
+  "status": "PASS",
+  "stage": "COMPLETED",
+  "scientific_fit_started": true,
+  "actual_epochs": 39,
+  "started_at": "2026-10-03T16:25:21.848012+00:00",
+  "finished_at": "2026-10-03T16:42:27.467006+00:00",
+  "error": null,
+  "last_epoch": 38
+}

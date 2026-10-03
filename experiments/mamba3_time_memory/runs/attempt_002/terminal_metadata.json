@@ -1,0 +1,58 @@
+{
+  "execution_attempt": "002",
+  "study_id": "mamba3_time_addressed_memory_pilot_001",
+  "execution_commit": "53bcc76752d0d7fd06c8ba0866709a64cd978165",
+  "source_hash": "ad4565d171b78c83831ef84c139a4912af2022a04fdb39fdfd5b4a858461f5e6",
+  "source_manifest_sha256": "d1d81e90f7a66c535ff4284a34790ad06166fe050b61a642d2df13bce2f5e91a",
+  "plan_sha256": "7400ea8e3364c44720e4a3fd356eecd1d63b1fa5818b4445f5e185373a8936de",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "inherited_admission_sha256": "c673524fda1a41d472c6cafebca7e25dad5cd7bd5df99fa772dfdcd4ee8bd5bc",
+  "inherited_smoke_sha256": "ac17c67b3fc411fce5cbdd53a855e75392d5bfd953b29a434e7237f135e7db9b",
+  "pilot_execution_commit": "c1dd31eec7907c67348769b6a1811b89aa4011c0",
+  "pilot_job_id": "4358147",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "job_id": "4373393",
+  "reservation_token": "d05f6a370b8fff1c5e441b496852f871",
+  "reservation_sha256": "2e22bd86442fb931d6a993bc1efab8f6160e6da4ef5a2c47305019126f2a2642",
+  "login_verification_sha256": "0d468f46ee1beb80a31ac9640ce1161ac426c035325ddf4c6ec67b07860483e0",
+  "coverage_sha256": "d19a9ebdef16c6cfa9c535148096b0fd9b4cee5e818de335a3dbdbbaa21ec40c",
+  "status": "PASS",
+  "started_at": "2026-10-03T16:17:57.527653+00:00",
+  "scientific_fits_started": 3,
+  "scientific_fits_completed": 3,
+  "unknown_scientific_starts": 0,
+  "allocation_cuda_visibility": {
+    "present": true,
+    "value": "0"
+  },
+  "deadline_unix": 1791058074.0,
+  "summary_status": "PASS",
+  "finished_at": "2026-10-03T17:49:22.696448+00:00",
+  "pipeline_sha256": "a793de91654c90f4c427baf345ad90cafbeeac3076558a3e7ed8e06ae8c1a819",
+  "checkpoints": {
+    "no_memory": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_002/mamba3_time_memory_no_memory_seed2026_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507332,
+      "sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8"
+    },
+    "index_memory": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_002/mamba3_time_memory_index_memory_seed2026_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507649,
+      "sha256": "896e9deda169361d3eb98e8c6bd13028eee4df1194b6fd2701e8a6a2f3dd5cec"
+    },
+    "time_memory": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_time_memory/slurm_logs/attempt_002/mamba3_time_memory_time_memory_seed2026_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507649,
+      "sha256": "c062577838a688a01c401ed9bab1922cac0b98a63ea33cbf3cefbdd41d4be3f3"
+    }
+  },
+  "checkpoint_loading": false
+}
