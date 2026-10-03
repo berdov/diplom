@@ -1,5 +1,5 @@
 {
-  "phase": "PUBLICATION_REVIEW",
+  "phase": "COMPLETE",
   "branch": "exp/mamba3-time-addressed-memory",
   "base_commit": "7ba5e45ed110914b354c89d4377836910b55408c",
   "execution_attempt": "002",
@@ -29,7 +29,7 @@
   "gpu_checks_expected": 429,
   "gpu_gate": "PASS",
   "smoke": "PASS",
-  "next_step": "Review reports and registry diff, commit publication, normal merge/push main; no more experiments",
+  "next_step": "Stop. Limited pilot and publication complete; no polling, submissions or further experiments.",
   "job_state": "COMPLETED",
   "node": "cn-044",
   "elapsed": "01:31:29",
@@ -44,5 +44,10 @@
   "audit_metric_cells": 1884,
   "audit_epochs": 157,
   "registry_after": 125,
-  "preservation_commit": "a7aecd5129e6eb03f02d0ad11b0c41cec0c0d4b0"
+  "preservation_commit": "a7aecd5129e6eb03f02d0ad11b0c41cec0c0d4b0",
+  "current_branch": "main",
+  "publication_commit": "c00ce135732d0ef4d94308de3e525b1a6b9867ee",
+  "main_merge_commit": "5cb43aae6dc53d7e3348e3abf741cad3f1c5c791",
+  "publication_reachable_from_origin_main": true,
+  "publication_verified_at": "2026-10-03T18:10:01.820523+00:00"
 }
