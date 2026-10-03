@@ -31,8 +31,7 @@
   },
   "gpu_gate": "INHERITED_PASS_6_CASES_158_CHECKS",
   "smoke": "INHERITED_PASS",
-  "registry_rows": 112,
-  "main_commit": "e8f8f1ecce0646c5815b524d0bd9683c423b4775",
+  "registry_rows": 120,
   "automatic_retries": 0,
   "main_jobs_submitted": 1,
   "continuation_jobs_submitted": 0,
@@ -41,9 +40,12 @@
   "point3": "COMPLETE_FIXED_RETAINED",
   "point4": "NOT_STARTED",
   "article": "UNCHANGED",
-  "evidence_publication": "TERMINAL_AUDIT_PASS; publication pending",
+  "evidence_publication": "COMPLETE; included in publication commit",
   "remote_branch_must_remain_at_execution": false,
   "independent_audit": "../evidence/job4372023/independent_audit.json",
   "checkpoint_hashes_verified": 8,
-  "scientific_epochs_verified": 407
+  "scientific_epochs_verified": 407,
+  "registry_previous_rows": 112,
+  "preservation_commit": "ec7560f40d0977f5f6290af70b2390fa09aa1b0d",
+  "main_before_confirmation": "e8f8f1ecce0646c5815b524d0bd9683c423b4775"
 }

@@ -289,7 +289,7 @@ Seed **2026** является exploratory pilot: его результат ис
 
 1. Три временных механизма: SISO и [MIMO confirmation](#mimo-time-confirmation) завершены, по пять seeds, в рамках текущего KuaiRand/VALID-протокола.
 2. Обучаемые временные масштабы heads: [пилот и подтверждение завершены](#head-timescales-confirmation). Head-specific reference scales не выбраны как обязательное усложнение; контроль — MIMO dual fixed.
-3. Зависящее от gap трапециевидное смешивание: [one-sided](#gap-trap-one-sided-pilot) и [centered](#gap-trap-centered-pilot) pilots завершены. Пункт закрыт на текущем KuaiRand/VALID exploratory этапе; устойчивость небольшого centered-выигрыша не установлена.
+3. Зависящее от gap трапециевидное смешивание: оба пилота и [centered confirmation](#gap-trap-centered-confirmation) завершены. На четырёх новых seeds 2 выигрыша и 2 проигрыша, средний Δ NDCG@10 −0.000025. Centered не выбран; рабочая основа — MIMO dual fixed-reference.
 4. Временные функции отдельно по слоям: не реализованы и не проверены.
 5. Явная временная память состояния: отложенная гипотеза.
 
@@ -751,3 +751,83 @@ Centered получил **+0.0002 NDCG@10 (+0.316%)** на одном seed, но
 `q=(g−R0)/(g+R0)`, `T'=T+alpha*q`, R0=838393 мс. Centered-механизм реализует short-old / long-new относительно R0. Best alpha=0.00842361; на диагностической сетке 8/27 ненулевых shifts исчезают после add и BF16 cast. Это не доля событий датасета. Job4371876: COMPLETED0:0, 2/2 fits, TEST=0. Fresh fixed воспроизвёл прежний fixed по scientific history и checkpoint SHA; CPU21/21, GPU6/158, smoke PASS. Небольшой выигрыш качества сам по себе не доказывает его причину.
 
 [Результаты и ограничения](../experiments/mamba3_gap_trap/centered/RESULTS.md), [raw summary](../experiments/mamba3_gap_trap/centered/runs/attempt_002/pilot_summary.json), [alpha и диагностическая сетка](../experiments/mamba3_gap_trap/centered/diagnostics.json), [сохранение и SHA](../experiments/mamba3_gap_trap/centered/evidence/job4371876/preservation_manifest.json), [аудит](../experiments/mamba3_gap_trap/centered/evidence/job4371876/independent_audit.json).
+
+
+<a id="gap-trap-centered-confirmation"></a>
+## Centered Gap-Trap: подтверждение на seeds 2027–2030
+
+**Устойчивое преимущество centered не подтвердилось.** Из четырёх заранее выбранных
+новых seeds два дали улучшение, два — снижение. Средняя разница NDCG@10
+**−0.000025 (−0.040%)** близка к нулю при sample std парных разниц **0.001124**.
+Пункт 3 завершён; для следующего этапа сохраняется **MIMO dual fixed-reference**.
+Пункт 4, временные функции отдельно по слоям, пока не реализован и не запускался.
+
+Это 8 новых последовательных TRAIN→VALID запусков. Формула, R0, границы alpha,
+backbone, precision и training settings перенесены из опубликованного centered
+пилота без изменений. Dataset — KuaiRand-Pure, user-wise chronological leave-one-out,
+полный каталог; TEST = 0. Пилот 2026 был известен заранее и исключён из основной
+статистики. Исторические пилотные разделы выше отражают состояние до confirmation.
+
+| Seed | Fixed NDCG@10 | Centered NDCG@10 | Δ centered − fixed |
+|---|---:|---:|---:|
+| 2027 | 0.0625 | 0.0638 | +0.0013 |
+| 2028 | 0.0627 | 0.0631 | +0.0004 |
+| 2029 | 0.0641 | 0.0628 | −0.0013 |
+| 2030 | 0.0624 | 0.0619 | −0.0005 |
+
+Mean ± sample std, **ddof = 1**. Это разброс между seeds, не standard error или
+доверительный интервал. Relative — относительная разница средних.
+
+| Набор | Fixed | Centered | Paired Δ | + / − / 0 | Relative |
+|---|---:|---:|---:|---:|---:|
+| Новые 2027–2030, primary | 0.062925 ± 0.000793 | 0.062900 ± 0.000787 | −0.000025 ± 0.001124 | 2 / 2 / 0 | −0.040% |
+| Все 5, including exploratory pilot | 0.063000 ± 0.000707 | 0.063020 ± 0.000733 | +0.000020 ± 0.000978 | 3 / 2 / 0 | +0.032% |
+
+![Парная разница VALID NDCG@10, четыре новых seeds; пилот исключён](assets/gap_trap_centered_confirmation/paired_delta.svg)
+
+| Seed | First27 fixed / centered | Δ first27 | Best epoch fixed / centered | Всего эпох fixed / centered |
+|---|---:|---:|---:|---:|
+| 2027 | 0.0625 / 0.0628 | +0.0003 | 17 / 53 | 29 / 65 |
+| 2028 | 0.0610 / 0.0618 | +0.0008 | 46 / 36 | 58 / 48 |
+| 2029 | 0.0615 / 0.0624 | +0.0009 | 87 / 33 | 99 / 45 |
+| 2030 | 0.0622 / N/A | N/A | 28 / 11 | 40 / 23 |
+
+First27 — максимум на существующих эпохах 0–26. У centered2030 только 23 эпохи,
+поэтому его окно не дополняется и итоговый best не подставляется. На **трёх полных
+парах 2027–2029**: fixed **0.061667 ± 0.000764**, centered **0.062333 ± 0.000503**,
+paired Δ **+0.000667 ± 0.000321**, знаки **3 / 0 / 0**. Это неполный описательный
+срез тех же запусков, который не заменяет primary результат четырёх пар.
+
+Centered выбрал лучшую эпоху позже fixed только на seed 2027. Оба итоговых выигрыша
+уже имеют положительный знак в first27; на seed 2029 ранний плюс сменяется итоговым
+минусом. Разные траектории при одинаковом early stopping не доказывают причинное
+влияние числа эпох.
+
+Best alpha по seeds 2027–2030: **0.068445 / 0.005048 / 0 / 0.013416**.
+На seed 2030 положительная alpha сопровождается отрицательным Δ; на seed 2029
+она равна нулю в лучшем checkpoint, но менялась при обучении. Монотонной связи
+alpha с Δ не видно; корреляционные выводы по четырём наблюдениям не делаются.
+Alpha означает общую силу смещения Trap, а не шкалу времени пользователя.
+После добавления и BF16 cast исчезли **0/27, 13/27, N/A и 2/27** ненулевых сдвигов
+аналитической сетки. Для seed 2029 при alpha = 0 знаменатель равен нулю; это N/A,
+не нулевая доля. Эти доли не относятся к событиям датасета.
+
+Job **4372023**: `COMPLETED 0:0`, node `cn-044`, **02:48:56**, **8/8 fits, 4/4 pairs**.
+Сверены 407 эпох и 4884 значения метрик по двум логам, выбор checkpoint и early
+stopping, SHA всех 8 checkpoints. Fresh fixed точно воспроизвели четыре исторические
+истории обучения и checkpoint SHA; initialization/RNG/первые batch совпали внутри
+каждой пары. CPU 38/38 и no-Git 38/38 PASS; GPU 6/158 и smoke унаследованы по SHA.
+Новых обучений или dataset forwards для публикации не выполнялось.
+
+Вывод ограничен VALID одного датасета. Статистическая значимость, эквивалентность
+и SOTA не заявляются. Gap-conditioned updates уже исследовались, в том числе в
+Mag-Mamba; эта серия проверяет конкретную controlled parameterization в sequential
+recommendation, без заявления первенства. Статья и Overleaf не менялись.
+
+[Все метрики, HR, время, память, alpha и checkpoint SHA](../experiments/mamba3_gap_trap/centered/confirmation/RESULTS.md) ·
+[raw summary](../experiments/mamba3_gap_trap/centered/confirmation/runs/confirmation_summary.json) ·
+[источники](assets/gap_trap_centered_confirmation/sources.json) ·
+[диагностика](assets/gap_trap_centered_confirmation/diagnostics.json) ·
+[TeX](assets/gap_trap_centered_confirmation/valid_table.tex) ·
+[preservation](../experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/preservation_manifest.json) ·
+[аудит](../experiments/mamba3_gap_trap/centered/confirmation/evidence/job4372023/independent_audit.json).
