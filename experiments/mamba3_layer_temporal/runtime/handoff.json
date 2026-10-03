@@ -46,14 +46,15 @@
   "automatic_retries": 0,
   "continuation_allowed": false,
   "confirmation_allowed": false,
-  "registry_rows": 120,
+  "registry_rows": 122,
   "main_before_pilot": "0afbba24c9402886483d7f3cc2680222264052d9",
   "point4": "PILOT_COMPLETE",
   "point5": "NOT_STARTED",
   "article": "UNCHANGED",
   "background_monitor_process": false,
   "terminal_audit": "PASS",
-  "publication": "PENDING",
+  "publication": "REPORT_AND_REGISTRY_READY",
   "decision": "Keep shared_layers; negative single-seed pilot; no confirmation",
-  "delta_ndcg10": -0.0008
+  "delta_ndcg10": -0.0008,
+  "preservation_commit": "a44fd9e43b09fdf3a64d03116dc4556629bbfd13"
 }

@@ -1,0 +1,12 @@
+{
+  "before_rows": 120,
+  "after_rows": 122,
+  "added_run_ids": [
+    "mamba3_layer_temporal_shared_layers_seed2026_001",
+    "mamba3_layer_temporal_layer_specific_seed2026_001"
+  ],
+  "unchanged_prefix_bytes": 55799,
+  "unchanged_prefix_sha256": "a2c4119a7bb8ebb72f6eec23cf7a295fe0b6b418f86758cbd4372ab528570adc",
+  "registry_sha256": "073435a00d73646b4ed2c442a2538cd60338090a0bf00ae18902ca8a9181e79e",
+  "preservation_commit": "a44fd9e43b09fdf3a64d03116dc4556629bbfd13"
+}

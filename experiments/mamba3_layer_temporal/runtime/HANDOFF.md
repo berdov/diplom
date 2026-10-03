@@ -26,10 +26,11 @@ Raw evidence сохранено в [39 компактных файлах](../evi
 1 991 469 bytes. Веса остались на кластере; сохранены paths, bytes и SHA256.
 Терминальный аудит использует только сохранённые записи, без model forward и
 загрузки весов. Для float64 diagnostic reductions учтено округление Python/Torch:
-140 отличающихся вычислений, максимум 8.88e−16; science metrics и GPU policy не менялись.
+140 отличающихся вычислений, максимум 8.89e−16; science metrics и GPU policy не менялись.
 Нормы параметров проверены на алгебраическую согласованность, не пересчитаны из весов.
 
-Публикация: после preservation commit добавить RESULTS.md и ровно две строки
-реестра (120→122), затем publication commit и merge/push main.
+Результат опубликован в [RESULTS.md](../RESULTS.md), в реестр добавлены ровно две строки
+(120→122). Preservation commit `a44fd9e43b09fdf3a64d03116dc4556629bbfd13`.
+Publication commit следует непосредственно за preservation; main merge содержит эту ветку.
 Новые scheduler polls, sbatch, retry, continuation, confirmation и TEST не нужны.
 Пункт 5, статья и Overleaf остаются вне выполненной работы. Фонового процесса нет.

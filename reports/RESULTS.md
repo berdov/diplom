@@ -2,6 +2,8 @@
 
 ## Mamba3: VALID
 
+**Временные функции по слоям, paired pilot seed2026:** shared **0.0633**, layer-specific **0.0625** VALID NDCG@10; Δ **−0.0008 (−1.264%)**, first27 −0.0001. Пункт 4 проверен в pilot scope; сохраняются общие функции, confirmation не рекомендована. TEST=0. [Результат и диагностика](MAMBA3_TIME_MECHANISMS_RESULTS.md#layer-temporal-functions-pilot).
+
 **Centered Gap-Trap, confirmation 2027–2030:** fixed **0.062925 ± 0.000793**, centered **0.062900 ± 0.000787**; paired Δ **−0.000025 ± 0.001124**, 2 выигрыша и 2 проигрыша (mean ± sample std, ddof=1). Устойчивого преимущества нет; пункт 3 завершён, рабочая основа — MIMO dual fixed-reference. TEST=0. [Таблицы, график и ограничения](MAMBA3_TIME_MECHANISMS_RESULTS.md#gap-trap-centered-confirmation).
 
 **Centered Gap-Trap, seed2026:** VALID NDCG@10 0.0635 против 0.0633 fixed (+0.316%); first27 0.0615 против 0.0620, всего 60/39 эпох. Небольшой положительный пилот, устойчивость не установлена. Пункт 3 закрыт на текущем exploratory этапе, TEST=0. [Результат](MAMBA3_TIME_MECHANISMS_RESULTS.md#gap-trap-centered-pilot).
