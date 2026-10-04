@@ -2,6 +2,15 @@
 
 ## Mamba3: VALID
 
+**Абсолютная и относительная фаза, pilot seed2026:** baseline / relative / absolute —
+**0.0633 / 0.0616 / 0.0635** VALID NDCG@10. Primary absolute−relative
+**+0.0019 (+3.084%)**; absolute−baseline только **+0.0002 (+0.316%)**, first27
+равен baseline, эпох 66 против 39. Пилот и независимый аудит завершены,
+3/3 fits, TEST=0. По заранее заданному правилу разрешена confirmation на
+четырёх новых seeds 2027–2030; её результаты ещё не получены.
+[Пилот и ограничения](MAMBA3_TIME_MECHANISMS_RESULTS.md#absolute-phase-pilot) ·
+[состояние confirmation](MAMBA3_TIME_MECHANISMS_RESULTS.md#absolute-phase-confirmation).
+
 **Явная память внутри окна 50 событий, pilot seed2026:** no_memory / index_memory / time_memory — **0.0633 / 0.0626 / 0.0634** VALID NDCG@10. Primary time−index **+0.0008 (+1.278%)**, time−no_memory только **+0.0001**; first27 ниже исходной модели, эпох 76 против 39. Проверен ограниченный readout причинных представлений; устойчивый эффект не установлен, рабочая основа сохраняется. На VALID 89.18% временных anchor choices вне диапазона оставшихся кандидатов. 3/3 fits, TEST=0. [Результат и ограничения](MAMBA3_TIME_MECHANISMS_RESULTS.md#time-addressed-memory-pilot).
 
 **Временные функции по слоям, paired pilot seed2026:** shared **0.0633**, layer-specific **0.0625** VALID NDCG@10; Δ **−0.0008 (−1.264%)**, first27 −0.0001. Пункт 4 проверен в pilot scope; сохраняются общие функции, confirmation не рекомендована. TEST=0. [Результат и диагностика](MAMBA3_TIME_MECHANISMS_RESULTS.md#layer-temporal-functions-pilot).

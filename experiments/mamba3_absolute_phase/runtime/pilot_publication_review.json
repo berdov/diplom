@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "scope": "Completed pilot publication only; confirmation not submitted",
+  "reviewed_at": "2026-10-04T09:27:11.241313+00:00",
+  "independent_review": "Separate read-only agent verified saved raw numbers, claims, tables, local links, source hashes and exact CSV append",
+  "pilot_execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+  "pilot_preservation_commit": "f3aad61",
+  "pilot_audit_sha256": "19daa0ed41947a10ca327f5c575cff12dba6ac8354cb7433dbeac562f6205399",
+  "epochs": 128,
+  "metric_cells_in_full_audit": 1536,
+  "new_registry_metric_cells_reviewed": 36,
+  "registry_before": 125,
+  "registry_after": 128,
+  "old_prefix_bytes": 58287,
+  "old_prefix_sha256": "30ef3c9c58c90662367fe21de5fcc8d71315d6d475564ec0c6d9b1adb8053c63",
+  "files": {
+    "experiments/mamba3_absolute_phase/RESULTS.md": "40b4c463492a4a8cdd9dea579275f2ebbc9b4880629577d1fdb0649f90a319bd",
+    "reports/MAMBA3_TIME_MECHANISMS_RESULTS.md": "4a184df9aa79de740bc745e103c72a8626b1ff1f8f10c57d6a5c6d4036d8736e",
+    "reports/RESULTS.md": "296cd809348c60d894ba0c5e1ecde24e94ee417eedfb384248f589ef1288fcb5",
+    "experiments/results.csv": "39aaa1219caeda7f3a4552d7ff1178944b8c1912e0c2254ad90c222190508d58"
+  },
+  "article_overleaf_drawio_changed": false,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "remaining_required_work": "Prepare and run authorized four-seed confirmation, audit and publish complete results"
+}
