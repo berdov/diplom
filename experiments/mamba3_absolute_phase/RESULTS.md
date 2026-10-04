@@ -65,7 +65,9 @@ CPU preflight: 100/100 PASS. Отдельная проверка без Git:
 [submission evidence](evidence/job4374917/submission/).
 Прежние 45 cases / 2342 kernel checks наследуются по проверенным SHA.
 Новый GPU gate имеет собственный список из 17 cases и 532 обязательных
-проверок. Полный итог gate, smoke и научных запусков ещё ожидается.
+проверок. На срезе 4 октября, 08:22 UTC, все 17 cases имеют PASS, smoke
+всех трёх режимов по 3 шага тоже PASS. Начат baseline fit. Полная сверка
+листов gate и smoke будет выполнена по сохранённым terminal bytes.
 
 Порядок пилота: `baseline_dual2026 → relative_phase2026 → absolute_phase2026`.
 Каждый fit выполняется с нуля в отдельном процессе. Выбор checkpoint —

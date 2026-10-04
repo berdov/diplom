@@ -1,6 +1,6 @@
 # Абсолютная фаза: подготовка пилота
 
-Phase: RUNNING. **2026-10-04 11:12:27 MSK:** RUNNING, node cn-043, elapsed 00:16:15. Scientific fits started 0, completed 0/3. GPU gate RUNNING; smoke UNKNOWN. Next explicit poll no earlier than 2026-10-04 11:22:27 MSK (2026-10-04T08:22:27.665845+00:00). No background process.
+Phase: RUNNING. **2026-10-04 11:22:42 MSK:** RUNNING, node cn-043, elapsed 00:26:30. Scientific fits started 1, completed 0/3. GPU gate PASS; smoke PASS. Next explicit poll no earlier than 2026-10-04 11:32:42 MSK (2026-10-04T08:32:42.714059+00:00). No background process.
 
 Запрос: `/Users/berdov/.codex/attachments/867dda07-c9ee-42e7-a7ff-e83250722c3e/Вставленный текст.txt`.
 Выполняется только новый phase этап; старые пять исследований не повторяются.
