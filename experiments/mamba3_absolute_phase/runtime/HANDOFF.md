@@ -1,6 +1,6 @@
 # Абсолютная фаза: подготовка пилота
 
-Phase: SUBMITTED_PENDING. **2026-10-04 10:51:49 MSK:** PENDING (Priority), node UNKNOWN, elapsed 00:00:00. Scientific fits started UNKNOWN, completed UNKNOWN/3. GPU gate UNKNOWN; smoke UNKNOWN. Next explicit poll no earlier than 2026-10-04 11:01:49 MSK (2026-10-04T08:01:49.007566+00:00). No background process.
+Phase: RUNNING. **2026-10-04 11:02:06 MSK:** RUNNING, node cn-043, elapsed 00:05:55. Scientific fits started 0, completed 0/3. GPU gate RUNNING; smoke UNKNOWN. Next explicit poll no earlier than 2026-10-04 11:12:06 MSK (2026-10-04T08:12:06.937721+00:00). No background process.
 
 Запрос: `/Users/berdov/.codex/attachments/867dda07-c9ee-42e7-a7ff-e83250722c3e/Вставленный текст.txt`.
 Выполняется только новый phase этап; старые пять исследований не повторяются.
@@ -40,3 +40,8 @@ Pilot CPU100+100 PASS. Read-only запуск stdlibtests с ABS_PHASE_STAGE=con
 толькоtestfixtures, сохранитьстарыйexecution/source и явно доказатьнеизменность
 научныхфайловприпривязкеновоготестовогоexecution. Не копироватьpilotPASSсновымstamp.
 Еслиfrozenruleнепройдёт, confirmationне готовить/не запускать.
+
+Фактический confirmation CPU preflight на execution11913ff: 100 tests,
+29 failing subcases и 2 errors в тех же 12 fixture methods. Исходный FAIL JSON
+и stdout/stderr сохранены в evidence/confirmation_cpu_scope_failure с SHA.
+Это CPU-проверка обвязки: confirmation job не отправлялся, fits0.

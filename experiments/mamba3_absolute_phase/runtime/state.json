@@ -1,5 +1,5 @@
 {
-  "phase": "SUBMITTED_PENDING",
+  "phase": "RUNNING",
   "branch": "exp/mamba3-absolute-phase",
   "base_main": "de2cddf271bd4c5ccaa4693552f005799a171526",
   "candidate_commit": "33c13bb923f93852ed6e054ee449e1a7f98aa1a5",
@@ -13,8 +13,8 @@
   ],
   "submits": 1,
   "max_submits": 3,
-  "scientific_fits_started": null,
-  "scientific_fits_completed": null,
+  "scientific_fits_started": 0,
+  "scientific_fits_completed": 0,
   "max_scientific_fits": 15,
   "requested_gpu_seconds": 21600,
   "max_requested_gpu_seconds": 64800,
@@ -31,8 +31,8 @@
   "job_id": "4374917",
   "prior_scientific_fits_completed": 0,
   "current_phase_max_fits": 3,
-  "current_phase_fits_started": null,
-  "current_phase_fits_completed": null,
+  "current_phase_fits_started": 0,
+  "current_phase_fits_completed": 0,
   "coverage_status": "PASS",
   "coverage_sha256": "ea63a9a73f079d144437be247ad820986c04da0838ca58f87738e7b2c0a5b553",
   "cpu_tests": 100,
@@ -40,16 +40,16 @@
   "no_git_cpu_status": "PASS",
   "reservation": "/home/daryumin/iberdov/diplom/experiments/mamba3_absolute_phase/slurm_logs/pilot/attempt_001/reservation.json",
   "submitted_at": "2026-10-04T07:51:48.300796+00:00",
-  "job_state": "PENDING",
-  "node": null,
-  "elapsed": "00:00:00",
-  "reason": "Priority",
-  "checked_at": "2026-10-04T07:51:49.007566+00:00",
-  "next_poll_not_before": "2026-10-04T08:01:49.007566+00:00",
+  "job_state": "RUNNING",
+  "node": "cn-043",
+  "elapsed": "00:05:55",
+  "reason": null,
+  "checked_at": "2026-10-04T08:02:06.937721+00:00",
+  "next_poll_not_before": "2026-10-04T08:12:06.937721+00:00",
   "terminal_status_verified": false,
-  "gpu_gate": null,
+  "gpu_gate": "RUNNING",
   "smoke": null,
-  "pipeline_status": null,
+  "pipeline_status": "RUNNING",
   "fit_counters_source": "Observed pipeline/progress; null means not recorded in this snapshot",
   "confirmation_preflight_review": {
     "status": "TEST_FIXTURE_SCOPE_ISSUE",
@@ -61,6 +61,17 @@
       "test_failure_records.test_valid_control_summary_keeps_exact_scientific_values",
       "test_protocol.test_ownership_binds_identical_valid_coverage_hashes"
     ],
-    "handling": "Do not alter current job checkout. If confirmation is authorized, correct only fixture scoping after pilot terminal; explicitly preserve pilot execution/source and bind any new test-only execution with verified unchanged scientific files. Never relabel pilot proof as confirmation."
+    "handling": "Do not alter current job checkout. If confirmation is authorized, correct only fixture scoping after pilot terminal; explicitly preserve pilot execution/source and bind any new test-only execution with verified unchanged scientific files. Never relabel pilot proof as confirmation.",
+    "actual_production_cpu_proof": {
+      "path": "experiments/mamba3_absolute_phase/evidence/confirmation_cpu_scope_failure/cpu_preflight_11913ff8fe99aa28f124d667e2ae3aad14465098.json",
+      "status": "FAIL",
+      "tests_run": 100,
+      "failure_subcases": 29,
+      "errors": 2,
+      "skipped": 0,
+      "finished_at": "2026-10-04T08:03:53.300548+00:00",
+      "scientific_fits": 0,
+      "GPU_submissions": 0
+    }
   }
 }

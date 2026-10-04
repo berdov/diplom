@@ -1,0 +1,24 @@
+{
+  "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+  "study_phase": "confirmation",
+  "status": "CPU_TEST_FIXTURE_SCOPE_FAILURE",
+  "scientific_fits": 0,
+  "GPU_submissions": 0,
+  "files": [
+    {
+      "path": "cpu_preflight_11913ff8fe99aa28f124d667e2ae3aad14465098.json",
+      "bytes": 31803,
+      "sha256": "f428f34449849011f794bfd102f543a6239a0bc2b8f4dabe58116361e29e6759"
+    },
+    {
+      "path": "cpu_preflight_11913ff8fe99aa28f124d667e2ae3aad14465098.stderr.log",
+      "bytes": 2490,
+      "sha256": "b7bd0527a1e29e7b9a2a3a7d2da48e1b11b28f4edda1349e7ddba0c2ebc2d99c"
+    },
+    {
+      "path": "cpu_preflight_11913ff8fe99aa28f124d667e2ae3aad14465098.stdout.json",
+      "bytes": 31803,
+      "sha256": "f428f34449849011f794bfd102f543a6239a0bc2b8f4dabe58116361e29e6759"
+    }
+  ]
+}
