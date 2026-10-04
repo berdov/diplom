@@ -2,7 +2,7 @@
   "job_id": "4374917",
   "execution_attempt": "001",
   "study_phase": "pilot",
-  "checked_at": "2026-10-04T08:43:26.817206+00:00",
+  "checked_at": "2026-10-04T08:32:57.056669+00:00",
   "checkout": {
     "returncode": 0,
     "stdout": "11913ff8fe99aa28f124d667e2ae3aad14465098\n",
@@ -15,12 +15,12 @@
   },
   "squeue": {
     "returncode": 0,
-    "stdout": "4374917|RUNNING|47:15|cn-043|cn-043|2026-10-04T10:56:12\n",
+    "stdout": "4374917|RUNNING|36:45|cn-043|cn-043|2026-10-04T10:56:12\n",
     "stderr": ""
   },
   "sacct": {
     "returncode": 0,
-    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4374917|RUNNING|0:0|00:47:15|cn-043|2026-10-04T10:56:12|Unknown\n4374917.batch|RUNNING|0:0|00:47:15|cn-043|2026-10-04T10:56:12|Unknown\n4374917.extern|RUNNING|0:0|00:47:15|cn-043|2026-10-04T10:56:12|Unknown\n",
+    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4374917|RUNNING|0:0|00:36:45|cn-043|2026-10-04T10:56:12|Unknown\n4374917.batch|RUNNING|0:0|00:36:45|cn-043|2026-10-04T10:56:12|Unknown\n4374917.extern|RUNNING|0:0|00:36:45|cn-043|2026-10-04T10:56:12|Unknown\n",
     "stderr": ""
   },
   "pipeline": {
@@ -28,8 +28,8 @@
     "started_at": "2026-10-04T07:56:15.927422+00:00",
     "finished_at": null,
     "error": null,
-    "scientific_fits_started": 1,
-    "scientific_fits_completed": 1,
+    "scientific_fits_started": 0,
+    "scientific_fits_completed": 0,
     "stages": [
       {
         "stage": "gate",
@@ -51,16 +51,8 @@
         "stage": "baseline_dual",
         "seed": 2026,
         "run_id": "mamba3_absolute_phase_baseline_dual_seed2026_001",
-        "status": "PASS",
-        "started_at": "2026-10-04T08:16:11.619963+00:00",
-        "finished_at": "2026-10-04T08:33:26.265507+00:00"
-      },
-      {
-        "stage": "relative_phase",
-        "seed": 2026,
-        "run_id": "mamba3_absolute_phase_relative_phase_seed2026_001",
         "status": "RUNNING",
-        "started_at": "2026-10-04T08:33:26.287280+00:00"
+        "started_at": "2026-10-04T08:16:11.619963+00:00"
       }
     ]
   },
@@ -75,33 +67,14 @@
       "run_id": "mamba3_absolute_phase_baseline_dual_seed2026_001",
       "phase_mode": "baseline_dual",
       "seed": 2026,
-      "status": "PASS",
-      "stage": "COMPLETED",
-      "scientific_fit_started": true,
-      "actual_epochs": 39,
-      "started_at": "2026-10-04T08:16:22.204864+00:00",
-      "finished_at": "2026-10-04T08:33:24.903610+00:00",
-      "error": null,
-      "last_epoch": 38
-    },
-    {
-      "execution_attempt": "001",
-      "study_phase": "pilot",
-      "study_id": "mamba3_absolute_phase_001",
-      "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
-      "source_hash": "4c404906e61121f967307e8c3e97a63e9a476711202a4a5baa005ef9899574c6",
-      "job_id": "4374917",
-      "run_id": "mamba3_absolute_phase_relative_phase_seed2026_001",
-      "phase_mode": "relative_phase",
-      "seed": 2026,
       "status": "RUNNING",
       "stage": "TRAIN_VALID",
       "scientific_fit_started": true,
-      "actual_epochs": 21,
-      "started_at": "2026-10-04T08:33:36.877971+00:00",
+      "actual_epochs": 37,
+      "started_at": "2026-10-04T08:16:22.204864+00:00",
       "finished_at": null,
       "error": null,
-      "last_epoch": 20
+      "last_epoch": 36
     }
   ],
   "gate": {
