@@ -60,7 +60,7 @@ def sync_handoff(value,runtime):
     totals={key:(number+prior if number is not None else None) for key,number in counters.items()}
     state.update(totals,current_phase_fits_started=counters['scientific_fits_started'],current_phase_fits_completed=counters['scientific_fits_completed'],phase=phase,job_state=job_state,node=node,elapsed=elapsed,
                  reason=queued[4].strip('()') if job_state=='PENDING' and len(queued)>4 else None,
-                 checked_at=value['checked_at'],next_poll_not_before=due,terminal_status_verified=terminal,
+                 checked_at=value['checked_at'],updated_at=value['checked_at'],next_poll_not_before=due,terminal_status_verified=terminal,
                  gpu_gate=(value.get('gate') or {}).get('status'),smoke=(value.get('smoke') or {}).get('status'),
                  pipeline_status=pipeline.get('status'),fit_counters_source='Observed pipeline/progress; null means not recorded in this snapshot',
                  next_step='Preserve terminal evidence and perform independent audit; no automatic poll, resubmit or refit' if terminal else 'One explicit compact poll no earlier than next_poll_not_before; no duplicate submission')

@@ -2,7 +2,7 @@
   "job_id": "4374917",
   "execution_attempt": "001",
   "study_phase": "pilot",
-  "checked_at": "2026-10-04T09:04:06.675078+00:00",
+  "checked_at": "2026-10-04T08:53:47.974508+00:00",
   "checkout": {
     "returncode": 0,
     "stdout": "11913ff8fe99aa28f124d667e2ae3aad14465098\n",
@@ -15,12 +15,12 @@
   },
   "squeue": {
     "returncode": 0,
-    "stdout": "4374917|RUNNING|1:07:54|cn-043|cn-043|2026-10-04T10:56:12\n",
+    "stdout": "4374917|RUNNING|57:36|cn-043|cn-043|2026-10-04T10:56:12\n",
     "stderr": ""
   },
   "sacct": {
     "returncode": 0,
-    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4374917|RUNNING|0:0|01:07:54|cn-043|2026-10-04T10:56:12|Unknown\n4374917.batch|RUNNING|0:0|01:07:54|cn-043|2026-10-04T10:56:12|Unknown\n4374917.extern|RUNNING|0:0|01:07:54|cn-043|2026-10-04T10:56:12|Unknown\n",
+    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4374917|RUNNING|0:0|00:57:36|cn-043|2026-10-04T10:56:12|Unknown\n4374917.batch|RUNNING|0:0|00:57:36|cn-043|2026-10-04T10:56:12|Unknown\n4374917.extern|RUNNING|0:0|00:57:36|cn-043|2026-10-04T10:56:12|Unknown\n",
     "stderr": ""
   },
   "pipeline": {
@@ -86,11 +86,11 @@
       "status": "RUNNING",
       "stage": "TRAIN_VALID",
       "scientific_fit_started": true,
-      "actual_epochs": 44,
+      "actual_epochs": 20,
       "started_at": "2026-10-04T08:44:20.143831+00:00",
       "finished_at": null,
       "error": null,
-      "last_epoch": 43
+      "last_epoch": 19
     },
     {
       "execution_attempt": "001",
