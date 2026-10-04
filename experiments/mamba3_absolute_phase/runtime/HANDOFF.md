@@ -1,8 +1,6 @@
 # Абсолютная фаза: подготовка пилота
 
-Phase: CPU_PREFLIGHT. GPU jobs ещё не отправлялись, scientific fits=0, TEST=0.
-Canonical local `/Users/berdov/diplom`; cluster `/home/daryumin/iberdov/diplom`,
-SSH `hse-karizma`. Branch `exp/mamba3-absolute-phase`, base main `de2cddf271bd4c5ccaa4693552f005799a171526`.
+Phase: SUBMITTED_PENDING. **2026-10-04 10:51:49 MSK:** PENDING (Priority), node UNKNOWN, elapsed 00:00:00. Scientific fits started UNKNOWN, completed UNKNOWN/3. GPU gate UNKNOWN; smoke UNKNOWN. Next explicit poll no earlier than 2026-10-04 11:01:49 MSK (2026-10-04T08:01:49.007566+00:00). No background process.
 
 Запрос: `/Users/berdov/.codex/attachments/867dda07-c9ee-42e7-a7ff-e83250722c3e/Вставленный текст.txt`.
 Выполняется только новый phase этап; старые пять исследований не повторяются.
@@ -12,10 +10,12 @@ Baseline MIMOdualfixed, relative/absolute clocks, две периодическ�
 разрешено без вопроса только после complete/paired/auditPASS и absolute>=обоихcomparators.
 Сначала прочитать state, plan и reservations; не дублировать отправки.
 
-Candidate commit `33c13bb923f93852ed6e054ee449e1a7f98aa1a5` отправлен и развернут;
-исходники пока до финального freeze/submit. CPU preflight этого кандидата выполняется
-в существующем clusterenv с пустой CUDA_VISIBLE_DEVICES. LocalvenvTorchотсутствует;
-новое окружение не создаётся. Дополнительные submissionregressions ещё добавляются.
+Точный execution11913ff8fe99aa28f124d667e2ae3aad14465098 опубликован и развернут.
+TRAINcoverage:10000windows,301109validoccurrences,291109active;9–21апреля2022UTC,
+49.56шестичасовых/12.39суточныхperiods,все24binsoccupied,9.425%zero-gapactive.
+ДополнительныхstageB/C/E/Fнет. Native targetedgate17cases/532leaves затемsmoke3×3,
+после них3freshfits2026. Sourcefreezeзавершён, никакихправокscienceпослеsubmit.
+Runtime/audit_saved.py готовит независимыйagent; этиинструментывнеманифеста.
 
 Ограничения: всего3submit/15startedfits/18hrequestedGPU максимум. Pilot6h,
 conditionalconfirmation8h, один доказанный pre-fitwrapperretry4h. После начатого
@@ -23,7 +23,10 @@ conditionalconfirmation8h, один доказанный pre-fitwrapperretry4h. 
 не чаще600s; очередь в сессии не дольше4h. НовыхTEST/modelreplayвнеплана нет.
 Статья, Overleaf, draw.io неизменны, сообщения не отправляются. Имена в репо не писать.
 
-Следующий шаг: закончить CPU/noGit, TRAINcoverage, проверитьfinalmanifest,
-зарезервировать и отправить ровно один pilot job. Полные результаты независимо
-проверить и опубликовать; если frozenruleразрешает, выполнить confirmation.
-Финал11пунктов по запросу и короткий lowercase текст сообщения, не отправлять.
+Следующий шаг: наблюдать существующийjob4374917 черезstage-aware
+`runtime/capture_status.py` не чаще600секунд. После terminal выполнить
+`runtime/preserve_terminal.py`, независимый `runtime/audit_saved.py`,
+сохранитьaudit+preservationcommit. Полныйpilotопубликовать независимоотзнака.
+Еслиfrozenruleразрешает, выполнитьconditionalconfirmation, затемполныйаудит/публикацию.
+Строго ниодного дополнительногоsubmitрадиочереди/метрики. Веткупушитьможно;
+clustercheckoutоставлятьexecution11913ff доterminal. Итог11пунктовпозапросу.
