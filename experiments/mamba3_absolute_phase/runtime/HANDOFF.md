@@ -46,3 +46,13 @@ Pilot CPU100+100 PASS. Read-only запуск stdlibtests с ABS_PHASE_STAGE=con
 29 failing subcases и 2 errors в тех же 12 fixture methods. Исходный FAIL JSON
 и stdout/stderr сохранены в evidence/confirmation_cpu_scope_failure с SHA.
 Это CPU-проверка обвязки: confirmation job не отправлялся, fits0.
+
+## Подготовка публикации
+
+Независимый reviewer проверил runtime/audit_saved.py (12 stdlib tests PASS)
+и runtime/append_registry.py. Второй инструмент по умолчанию выполняет dry-run;
+--write разрешён только после сохранения terminal evidence и полного audit PASS.
+Он сохраняет исходные 125 строк / 58287 байт и добавляет отдельные fits.
+Реестр не изменён. RESULTS.md содержит проверенные вводные и явный pending.
+Полный terminal audit ещё не выполнялся. При изменении manifest locator для
+confirmation согласованно обновить preserve_terminal, audit_saved и append_registry.

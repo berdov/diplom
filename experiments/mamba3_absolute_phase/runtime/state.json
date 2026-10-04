@@ -79,5 +79,14 @@
     "regression_tests": 12,
     "status": "READY_FOR_TERMINAL_BYTES",
     "frozen_source_changed": false
+  },
+  "publication_preparation": {
+    "saved_auditor_review": "PASS; 12 stdlib regressions; separate read-only reviewer",
+    "registry_append_helper": "experiments/mamba3_absolute_phase/runtime/append_registry.py",
+    "registry_helper_review": "PASS; dry-run by default; exact 125-row byte prefix and audited individual rows",
+    "registry_changed": false,
+    "report_outline": "experiments/mamba3_absolute_phase/RESULTS.md",
+    "report_review": "PASS for currently available facts; scientific results pending",
+    "terminal_audit_status": "NOT_RUN"
   }
 }
