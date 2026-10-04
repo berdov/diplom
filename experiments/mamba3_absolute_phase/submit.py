@@ -36,21 +36,31 @@ def retry_review():
         path = c.HERE/'runs'/c.STAGE/'attempt_001'/(name+'.json')
         owner = old/name
         if not path.exists():
-            if any((owner/x).exists() for x in ('run.lock', 'progress.json', 'checkpoints')):
+            if path.is_symlink() or any((owner/x).exists() or (owner/x).is_symlink() for x in ('run.lock', 'progress.json', 'checkpoints')):
                 raise ValueError('Unknown prior scientific start')
         else:
+            from .report import scientific_start
             record = read(path)
-            if record.get('scientific_fit_started') is not False or record.get('history') or record.get('actual_epochs', 0):
+            paths = dict(runtime=owner, lock=owner/'run.lock', checkpoint=owner/'checkpoints/best_state_dict.pth',
+                         metadata=owner/'checkpoints/best_metadata.json')
+            if scientific_start(record, paths) is not False:
                 raise ValueError('Scientific fit already started; retry forbidden')
+            progress = owner/'progress.json'
+            if progress.is_symlink() or (progress.exists() and scientific_start(read(progress), paths) is not False):
+                raise ValueError('Progress contradicts safe pre-fit retry')
     return sha(review_path)
 
 
 def budget_review():
-    previous = [read(p) for p in (c.HERE/'slurm_logs').glob('*/*/reservation.json')]
-    for r in previous:
+    previous = []
+    for path in (c.HERE/'slurm_logs').glob('*/*/reservation.json'):
+        r = read(path)
+        previous.append(r)
         stage, attempt = r.get('study_phase'), r.get('execution_attempt')
         if r.get('study_id') != c.STUDY or stage not in ('pilot', 'confirmation') or attempt not in ('001', '002'):
             raise ValueError('Malformed global reservation ledger')
+        if path.parent.name != 'attempt_'+attempt or path.parent.parent.name != stage:
+            raise ValueError('Global reservation path/phase/attempt mismatch')
         expected = 14400 if attempt == '002' else 21600 if stage == 'pilot' else 28800
         if (type(r.get('requested_seconds')) is not int or r['requested_seconds'] != expected
             or r.get('max_scientific_fits') != (3 if stage == 'pilot' else 12)):

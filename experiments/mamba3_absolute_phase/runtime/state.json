@@ -1,0 +1,22 @@
+{
+  "phase": "CPU_PREFLIGHT",
+  "branch": "exp/mamba3-absolute-phase",
+  "base_main": "de2cddf271bd4c5ccaa4693552f005799a171526",
+  "candidate_commit": "33c13bb923f93852ed6e054ee449e1a7f98aa1a5",
+  "candidate_source_hash": "af797aadba9c30729c94ee09a2e2c46399c000d159b50b12cbfa39d3105bcf7a",
+  "source_is_final": false,
+  "job_ids": [],
+  "reservations": [],
+  "submits": 0,
+  "max_submits": 3,
+  "scientific_fits_started": 0,
+  "scientific_fits_completed": 0,
+  "max_scientific_fits": 15,
+  "requested_gpu_seconds": 0,
+  "max_requested_gpu_seconds": 64800,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "registry_before": 125,
+  "next_step": "Finish exact CPU/no-Git proofs and TRAIN coverage, freeze final source, one pilot submit; conditional confirmation only after pilot independent audit and predefined noninferiority to both comparators.",
+  "updated_at": "2026-10-04T07:42:10.363182+00:00"
+}

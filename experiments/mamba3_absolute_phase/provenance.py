@@ -71,7 +71,7 @@ def confirmation_authorization():
     audit = read(audit_path)
     if sha(audit_path) != decision['audit_sha256'] or audit.get('status') != 'PASS':
         raise ValueError('Pilot independent audit missing or changed')
-    expected_audit = dict(study_phase='pilot', execution_commit=decision['execution_commit'],
+    expected_audit = dict(study_id=c.STUDY, study_phase='pilot', execution_commit=decision['execution_commit'],
         source_hash=decision['source_hash'], plan_sha256=decision['plan_sha256'],
         scientific_fits_started=3, scientific_fits_completed=3, unknown_scientific_starts=0,
         TEST='NOT_RUN', test_evaluation_count=0, pairing_verified=True)
@@ -86,9 +86,11 @@ def confirmation_authorization():
         if (sha(p) != entry['sha256'] or audit.get('pilot_result_sha256', {}).get(mode) != entry['sha256']
             or r.get('status') != 'PASS' or r.get('seed') != 2026 or r.get('phase_mode') != mode
             or r.get('scientific_fit_started') is not True
-            or any(r.get(k) != expected_audit[k] for k in ('study_phase', 'execution_commit', 'source_hash', 'plan_sha256', 'TEST', 'test_evaluation_count'))):
+            or any(r.get(k) != expected_audit[k] for k in ('study_id', 'study_phase', 'execution_commit', 'source_hash', 'plan_sha256', 'TEST', 'test_evaluation_count'))):
             raise ValueError('Pilot result identity')
         scores[mode] = r['best_valid_metrics']['ndcg@10']
+        if type(scores[mode]) not in (int, float) or not math.isfinite(scores[mode]) or not 0 <= scores[mode] <= 1:
+            raise ValueError('Invalid pilot metric')
         results[mode] = r
     from .report import PAIRING
     for mode in c.MODES[1:]:

@@ -29,7 +29,12 @@ _engine=bind(parent,dict(c=c,verify=verify,runtime=runtime,imported_sources=impo
 def run(commit,evidence=None):
     for name in ('runner','pipeline','report','state','gate','smoke','submit'):
         importlib.import_module(__package__+'.'+name)
-    return stamp(_engine['run'](commit,evidence))
+    result=stamp(_engine['run'](commit,evidence))
+    expected=c.plan()['cpu_test_count']
+    if result.get('status')=='PASS' and result.get('cpu_tests',{}).get('run')!=expected:
+        result.update(status='FAIL',error='Frozen CPU test count mismatch')
+        if evidence:update_evidence(evidence,result)
+    return result
 
 
 if __name__=='__main__':
