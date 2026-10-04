@@ -1,5 +1,5 @@
 {
-  "phase": "AWAITING_TERMINAL_AUDIT",
+  "phase": "CONFIRMATION_PREPARATION",
   "branch": "exp/mamba3-absolute-phase",
   "base_main": "de2cddf271bd4c5ccaa4693552f005799a171526",
   "candidate_commit": "33c13bb923f93852ed6e054ee449e1a7f98aa1a5",
@@ -21,8 +21,8 @@
   "TEST": "NOT_RUN",
   "test_evaluation_count": 0,
   "registry_before": 125,
-  "next_step": "Preserve terminal evidence and perform independent audit; no automatic poll, resubmit or refit",
-  "updated_at": "2026-10-04T09:14:24.321043+00:00",
+  "next_step": "Review narrow fixture/source-lineage correction, freeze separate confirmation execution, run exact confirmation CPU/no-Git, then one 12-fit submission",
+  "updated_at": "2026-10-04T09:23:52.763581+00:00",
   "study_phase": "pilot",
   "execution_attempt": "001",
   "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
@@ -84,9 +84,17 @@
     "saved_auditor_review": "PASS; 12 stdlib regressions; separate read-only reviewer",
     "registry_append_helper": "experiments/mamba3_absolute_phase/runtime/append_registry.py",
     "registry_helper_review": "PASS; dry-run by default; exact 125-row byte prefix and audited individual rows",
-    "registry_changed": false,
+    "registry_changed": true,
     "report_outline": "experiments/mamba3_absolute_phase/RESULTS.md",
-    "report_review": "PASS for currently available facts; scientific results pending",
-    "terminal_audit_status": "NOT_RUN"
-  }
+    "report_review": "Full pilot reports await final independent publication review",
+    "terminal_audit_status": "PASS"
+  },
+  "pilot_status": "COMPLETE",
+  "terminal_audit_status": "PASS",
+  "pilot_audit_sha256": "19daa0ed41947a10ca327f5c575cff12dba6ac8354cb7433dbeac562f6205399",
+  "pilot_preservation_commit": "f3aad61",
+  "registry_after": 128,
+  "registry_sha256": "39aaa1219caeda7f3a4552d7ff1178944b8c1912e0c2254ad90c222190508d58",
+  "confirmation_authorized": true,
+  "confirmation_submitted": false
 }
