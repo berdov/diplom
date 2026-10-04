@@ -1,0 +1,2340 @@
+{
+  "status": "PASS",
+  "study_id": "mamba3_absolute_phase_001",
+  "study_phase": "pilot",
+  "job_id": "4374917",
+  "execution_attempt": "001",
+  "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+  "source_hash": "4c404906e61121f967307e8c3e97a63e9a476711202a4a5baa005ef9899574c6",
+  "plan_sha256": "bdaf20ed3c7986df98938a201324727397afb733e91ce237ab238541a380b650",
+  "source_blobs": 447,
+  "audited_at": "2026-10-04T09:15:50.650475+00:00",
+  "preserved_files": 58,
+  "preserved_bytes": 60688161,
+  "scheduler": {
+    "JobIDRaw": "4374917",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "Start": "2026-10-04T10:56:12",
+    "End": "2026-10-04T12:13:48",
+    "Elapsed": "01:17:36",
+    "NodeList": "cn-043"
+  },
+  "cpu": [
+    {
+      "file": "cpu_preflight_11913ff8fe99aa28f124d667e2ae3aad14465098.json",
+      "tests": 100,
+      "status": "PASS"
+    },
+    {
+      "file": "no_git_preflight_11913ff8fe99aa28f124d667e2ae3aad14465098.json",
+      "tests": 100,
+      "status": "PASS"
+    }
+  ],
+  "gpu_cases": 17,
+  "gpu_checks": 532,
+  "numeric_gate": {
+    "packed_tensors_rehashed": 88,
+    "shift_cases_recomputed": 3,
+    "native_reference_comparisons_recomputed": 2,
+    "native_raw_angle_dtype": "torch.float32",
+    "counterfactual_bf16_is_not_actual_rotation": true
+  },
+  "smoke_steps_per_variant": 3,
+  "cuda_environment": {
+    "allocation_cuda_visibility": {
+      "present": true,
+      "value": "0"
+    },
+    "children_verified": 5,
+    "child_paths": [
+      "slurm_logs/pilot/attempt_001/gate/child_environment.json",
+      "slurm_logs/pilot/attempt_001/smoke/child_environment.json",
+      "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_baseline_dual_seed2026_001/process/child_environment.json",
+      "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_relative_phase_seed2026_001/process/child_environment.json",
+      "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_absolute_phase_seed2026_001/process/child_environment.json"
+    ],
+    "original_mask_preserved": true,
+    "scope": "Saved environment at child launch; absent masks remain absent, no assumed physical GPU index"
+  },
+  "scientific_fits_started": 3,
+  "scientific_fits_completed": 3,
+  "unknown_scientific_starts": 0,
+  "complete_triples_verified": 1,
+  "pairing_verified": true,
+  "paired_fields": [
+    "initial_backbone_sha256",
+    "initial_common_calibrator_hashes",
+    "rng_components",
+    "protocol",
+    "manifest_sha256",
+    "train_time_stats_sha256",
+    "verified_history_stats",
+    "precision",
+    "optimizer_settings",
+    "first_train_batch_sha256"
+  ],
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "rows": [
+    {
+      "variant": "baseline_dual",
+      "seed": 2026,
+      "run_id": "mamba3_absolute_phase_baseline_dual_seed2026_001",
+      "parameters": 715020,
+      "epochs": 39,
+      "metric_cells": 468,
+      "checkpoint_sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8",
+      "checkpoint_bytes": 2507332,
+      "best_epoch": 27,
+      "ndcg10": 0.0633,
+      "hr10": 0.1162,
+      "first27_complete": true,
+      "first27_best_ndcg10": 0.062,
+      "train_seconds": 928.1001807295252,
+      "valid_seconds": 51.68269948777743,
+      "peak_allocated_bytes": 3024827392,
+      "peak_reserved_bytes": 4076863488
+    },
+    {
+      "variant": "relative_phase",
+      "seed": 2026,
+      "run_id": "mamba3_absolute_phase_relative_phase_seed2026_001",
+      "parameters": 715148,
+      "epochs": 23,
+      "metric_cells": 276,
+      "checkpoint_sha256": "0b46b40c047a500d774b37d611e1dbae6eebdce35d5242b4394e4b6615a764ae",
+      "checkpoint_bytes": 2508161,
+      "best_epoch": 11,
+      "ndcg10": 0.0616,
+      "hr10": 0.1124,
+      "first27_complete": false,
+      "first27_best_ndcg10": null,
+      "train_seconds": 564.8712767101824,
+      "valid_seconds": 18.078396104974672,
+      "peak_allocated_bytes": 3041423872,
+      "peak_reserved_bytes": 4250927104,
+      "phase_boundaries": {
+        "best_W_l2_norm": 3.997392884685592,
+        "final_W_l2_norm": 4.973961100350053,
+        "maximum_W_l2_norm": 4.973961100350053,
+        "best_frequency_pair_l2_norms": {
+          "6h": 1.261895709084382,
+          "24h": 3.792989466625161
+        },
+        "final_frequency_pair_l2_norms": {
+          "6h": 1.5883538713443452,
+          "24h": 4.71353593464407
+        },
+        "best_VALID_layers": {
+          "0": {
+            "selected_active_queries": 23951,
+            "abs_delta_near_saturation_fraction": 0.0,
+            "counterfactual_bf16_lost_nonzero_fraction": 0.012996586781345246
+          },
+          "1": {
+            "selected_active_queries": 23951,
+            "abs_delta_near_saturation_fraction": 0.0,
+            "counterfactual_bf16_lost_nonzero_fraction": 0.00734311719761179
+          }
+        },
+        "interpretation": "Descriptive VALID-boundary diagnostics; not feature importance or actual downstream BF16 rotation"
+      }
+    },
+    {
+      "variant": "absolute_phase",
+      "seed": 2026,
+      "run_id": "mamba3_absolute_phase_absolute_phase_seed2026_001",
+      "parameters": 715148,
+      "epochs": 66,
+      "metric_cells": 792,
+      "checkpoint_sha256": "20e6f86e1b075da7ca3c0bebe534c760d16e2881b300c3a7bd323e718a12bbab",
+      "checkpoint_bytes": 2508161,
+      "best_epoch": 54,
+      "ndcg10": 0.0635,
+      "hr10": 0.1174,
+      "first27_complete": true,
+      "first27_best_ndcg10": 0.062,
+      "train_seconds": 1591.3216228857636,
+      "valid_seconds": 77.174582693493,
+      "peak_allocated_bytes": 3041423872,
+      "peak_reserved_bytes": 4250927104,
+      "phase_boundaries": {
+        "best_W_l2_norm": 7.553419883043175,
+        "final_W_l2_norm": 7.681981021233738,
+        "maximum_W_l2_norm": 7.681981021233738,
+        "best_frequency_pair_l2_norms": {
+          "6h": 1.8119677842730697,
+          "24h": 7.332866061664328
+        },
+        "final_frequency_pair_l2_norms": {
+          "6h": 1.8280856879393155,
+          "24h": 7.461295807575704
+        },
+        "best_VALID_layers": {
+          "0": {
+            "selected_active_queries": 23951,
+            "abs_delta_near_saturation_fraction": 0.0,
+            "counterfactual_bf16_lost_nonzero_fraction": 0.0036559016324996868
+          },
+          "1": {
+            "selected_active_queries": 23951,
+            "abs_delta_near_saturation_fraction": 0.0,
+            "counterfactual_bf16_lost_nonzero_fraction": 0.0032827439355350508
+          }
+        },
+        "interpretation": "Descriptive VALID-boundary diagnostics; not feature importance or actual downstream BF16 rotation"
+      }
+    }
+  ],
+  "epochs": 128,
+  "metric_cells": 1536,
+  "contrasts": [
+    {
+      "seed": 2026,
+      "comparison": "absolute_phase - relative_phase",
+      "status": "COMPLETE",
+      "delta": 0.001899999999999999,
+      "relative_percent": 3.0844155844155825,
+      "first27_delta": null
+    },
+    {
+      "seed": 2026,
+      "comparison": "absolute_phase - baseline_dual",
+      "status": "COMPLETE",
+      "delta": 0.00020000000000000573,
+      "relative_percent": 0.31595576619274207,
+      "first27_delta": 0.0
+    },
+    {
+      "seed": 2026,
+      "comparison": "relative_phase - baseline_dual",
+      "status": "COMPLETE",
+      "delta": -0.0016999999999999932,
+      "relative_percent": -2.68562401263822,
+      "first27_delta": null
+    }
+  ],
+  "aggregates": [
+    {
+      "label": "pilot descriptive only",
+      "seeds": [
+        2026
+      ],
+      "per_variant": {
+        "baseline_dual": {
+          "hit@10": {
+            "n": 1,
+            "mean": 0.1162,
+            "sample_std": null
+          },
+          "hit@20": {
+            "n": 1,
+            "mean": 0.1865,
+            "sample_std": null
+          },
+          "hit@5": {
+            "n": 1,
+            "mean": 0.0712,
+            "sample_std": null
+          },
+          "hit@50": {
+            "n": 1,
+            "mean": 0.3338,
+            "sample_std": null
+          },
+          "ndcg@10": {
+            "n": 1,
+            "mean": 0.0633,
+            "sample_std": null
+          },
+          "ndcg@20": {
+            "n": 1,
+            "mean": 0.0809,
+            "sample_std": null
+          },
+          "ndcg@5": {
+            "n": 1,
+            "mean": 0.0488,
+            "sample_std": null
+          },
+          "ndcg@50": {
+            "n": 1,
+            "mean": 0.11,
+            "sample_std": null
+          },
+          "recall@10": {
+            "n": 1,
+            "mean": 0.1162,
+            "sample_std": null
+          },
+          "recall@20": {
+            "n": 1,
+            "mean": 0.1865,
+            "sample_std": null
+          },
+          "recall@5": {
+            "n": 1,
+            "mean": 0.0712,
+            "sample_std": null
+          },
+          "recall@50": {
+            "n": 1,
+            "mean": 0.3338,
+            "sample_std": null
+          }
+        },
+        "relative_phase": {
+          "hit@10": {
+            "n": 1,
+            "mean": 0.1124,
+            "sample_std": null
+          },
+          "hit@20": {
+            "n": 1,
+            "mean": 0.1796,
+            "sample_std": null
+          },
+          "hit@5": {
+            "n": 1,
+            "mean": 0.0689,
+            "sample_std": null
+          },
+          "hit@50": {
+            "n": 1,
+            "mean": 0.3236,
+            "sample_std": null
+          },
+          "ndcg@10": {
+            "n": 1,
+            "mean": 0.0616,
+            "sample_std": null
+          },
+          "ndcg@20": {
+            "n": 1,
+            "mean": 0.0784,
+            "sample_std": null
+          },
+          "ndcg@5": {
+            "n": 1,
+            "mean": 0.0476,
+            "sample_std": null
+          },
+          "ndcg@50": {
+            "n": 1,
+            "mean": 0.1069,
+            "sample_std": null
+          },
+          "recall@10": {
+            "n": 1,
+            "mean": 0.1124,
+            "sample_std": null
+          },
+          "recall@20": {
+            "n": 1,
+            "mean": 0.1796,
+            "sample_std": null
+          },
+          "recall@5": {
+            "n": 1,
+            "mean": 0.0689,
+            "sample_std": null
+          },
+          "recall@50": {
+            "n": 1,
+            "mean": 0.3236,
+            "sample_std": null
+          }
+        },
+        "absolute_phase": {
+          "hit@10": {
+            "n": 1,
+            "mean": 0.1174,
+            "sample_std": null
+          },
+          "hit@20": {
+            "n": 1,
+            "mean": 0.1886,
+            "sample_std": null
+          },
+          "hit@5": {
+            "n": 1,
+            "mean": 0.0715,
+            "sample_std": null
+          },
+          "hit@50": {
+            "n": 1,
+            "mean": 0.3375,
+            "sample_std": null
+          },
+          "ndcg@10": {
+            "n": 1,
+            "mean": 0.0635,
+            "sample_std": null
+          },
+          "ndcg@20": {
+            "n": 1,
+            "mean": 0.0814,
+            "sample_std": null
+          },
+          "ndcg@5": {
+            "n": 1,
+            "mean": 0.0489,
+            "sample_std": null
+          },
+          "ndcg@50": {
+            "n": 1,
+            "mean": 0.1108,
+            "sample_std": null
+          },
+          "recall@10": {
+            "n": 1,
+            "mean": 0.1174,
+            "sample_std": null
+          },
+          "recall@20": {
+            "n": 1,
+            "mean": 0.1886,
+            "sample_std": null
+          },
+          "recall@5": {
+            "n": 1,
+            "mean": 0.0715,
+            "sample_std": null
+          },
+          "recall@50": {
+            "n": 1,
+            "mean": 0.3375,
+            "sample_std": null
+          }
+        }
+      },
+      "contrasts": [
+        {
+          "comparison": "absolute_phase - relative_phase",
+          "seeds": [
+            2026
+          ],
+          "deltas": [
+            0.001899999999999999
+          ],
+          "n": 1,
+          "mean": 0.001899999999999999,
+          "sample_std": null,
+          "signs": {
+            "+": 1,
+            "-": 0,
+            "0": 0
+          },
+          "relative_difference_of_means_percent": 3.0844155844155825
+        },
+        {
+          "comparison": "absolute_phase - baseline_dual",
+          "seeds": [
+            2026
+          ],
+          "deltas": [
+            0.00020000000000000573
+          ],
+          "n": 1,
+          "mean": 0.00020000000000000573,
+          "sample_std": null,
+          "signs": {
+            "+": 1,
+            "-": 0,
+            "0": 0
+          },
+          "relative_difference_of_means_percent": 0.31595576619274207
+        },
+        {
+          "comparison": "relative_phase - baseline_dual",
+          "seeds": [
+            2026
+          ],
+          "deltas": [
+            -0.0016999999999999932
+          ],
+          "n": 1,
+          "mean": -0.0016999999999999932,
+          "sample_std": null,
+          "signs": {
+            "+": 0,
+            "-": 1,
+            "0": 0
+          },
+          "relative_difference_of_means_percent": -2.68562401263822
+        }
+      ],
+      "first27_subsets": [
+        {
+          "comparison": "absolute_phase - relative_phase",
+          "seeds": [],
+          "omitted_seeds": [
+            2026
+          ],
+          "label": "Matched complete epochs 0\u201326 only; no imputation of short fits"
+        },
+        {
+          "comparison": "absolute_phase - baseline_dual",
+          "seeds": [
+            2026
+          ],
+          "omitted_seeds": [],
+          "label": "Matched complete epochs 0\u201326 only; no imputation of short fits",
+          "left": {
+            "n": 1,
+            "mean": 0.062,
+            "sample_std": null
+          },
+          "right": {
+            "n": 1,
+            "mean": 0.062,
+            "sample_std": null
+          },
+          "paired": {
+            "n": 1,
+            "mean": 0.0,
+            "sample_std": null
+          },
+          "deltas": [
+            0.0
+          ],
+          "signs": {
+            "+": 0,
+            "-": 0,
+            "0": 1
+          },
+          "relative_difference_of_means_percent": 0.0
+        },
+        {
+          "comparison": "relative_phase - baseline_dual",
+          "seeds": [],
+          "omitted_seeds": [
+            2026
+          ],
+          "label": "Matched complete epochs 0\u201326 only; no imputation of short fits"
+        }
+      ]
+    }
+  ],
+  "fresh_control_replays": [
+    {
+      "status": "PASS",
+      "scientific_history_exact": true,
+      "checkpoint_serialization_match": true,
+      "historical_checkpoint_sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8",
+      "current_checkpoint_sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8",
+      "historical_run_id": "mamba3_mimo_dual_seed2026_001",
+      "timing_memory_excluded": true,
+      "note": "Serialization mismatch alone is not mathematical failure; review scientific state identity before progression"
+    }
+  ],
+  "coverage_sha256": "ea63a9a73f079d144437be247ad820986c04da0838ca58f87738e7b2c0a5b553",
+  "coverage_summary": {
+    "status": "PASS",
+    "scope": "fixed TRAIN input-history sample; all valid positions in each sampled window",
+    "sampled_examples": 10000,
+    "valid_event_occurrences": 301109,
+    "active_event_occurrences": 291109,
+    "timestamp_min_ms": 1649475963278.0,
+    "timestamp_max_ms": 1650546478532.0,
+    "utc_range": [
+      "2022-04-09T03:46:03.278000+00:00",
+      "2022-04-21T13:07:58.532000+00:00"
+    ],
+    "range_ms": 1070515254.0,
+    "equal_adjacent_timestamp_fraction": 0.0942499201330086,
+    "negative_adjacent_gap_count": 0,
+    "chronological_history_span_ms": {
+      "count": 10000,
+      "min": 0.0,
+      "max": 1026592333.0,
+      "mean": 206036133.1549,
+      "quantiles": {
+        "p00": 0.0,
+        "p25": 82091883.0,
+        "p50": 154526970.5,
+        "p75": 272488612.75,
+        "p90": 483197608.90000004,
+        "p99": 774422729.07,
+        "p100": 1026592333.0
+      }
+    },
+    "clamped_cumulative_history_span_ms": {
+      "count": 10000,
+      "min": 0.0,
+      "max": 1026592333.0,
+      "mean": 206036133.1549,
+      "quantiles": {
+        "p00": 0.0,
+        "p25": 82091883.0,
+        "p50": 154526970.5,
+        "p75": 272488612.75,
+        "p90": 483197608.90000004,
+        "p99": 774422729.07,
+        "p100": 1026592333.0
+      }
+    },
+    "selected_records_sha256": "66b35d62589fdbc9cc37db5a32fbc60bf8da286888b0858cd225ee1e89f304ad",
+    "decision_rule": "finite exact integer positive Unix milliseconds; active events with nonconstant exact phases for each period; range >=24h and >=2 UTC dates as conservative identifiability checks. No phase-bin occupancy or metric-based threshold.",
+    "blocking_reason": null,
+    "periods": [
+      {
+        "period_ms": 21600000,
+        "span_in_periods": 49.56089138888889,
+        "complete_period_lengths_in_range": 49,
+        "occupied_valid_bins": 24,
+        "occupied_active_bins": 24,
+        "unique_active_exact_phases": 262772,
+        "unique_exact_phases_on_multiple_dates": 1340,
+        "bins_seen_on_multiple_dates": 24
+      },
+      {
+        "period_ms": 86400000,
+        "span_in_periods": 12.390222847222223,
+        "complete_period_lengths_in_range": 12,
+        "occupied_valid_bins": 24,
+        "occupied_active_bins": 24,
+        "unique_active_exact_phases": 263915,
+        "unique_exact_phases_on_multiple_dates": 368,
+        "bins_seen_on_multiple_dates": 24
+      }
+    ]
+  },
+  "runtime_errors": [],
+  "warnings": [
+    {
+      "path": "slurm_logs/pilot/attempt_001/coverage.stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/coverage.stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_absolute_phase_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_absolute_phase_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_absolute_phase_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_absolute_phase_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_relative_phase_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_relative_phase_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_relative_phase_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_relative_phase_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_baseline_dual_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:648: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_baseline_dual_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/data/dataset/dataset.py:650: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_baseline_dual_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    },
+    {
+      "path": "slurm_logs/pilot/attempt_001/mamba3_absolute_phase_baseline_dual_seed2026_001/process/stderr.log",
+      "line": "/home/daryumin/iberdov/diplom/envs/mamba3/lib/python3.10/site-packages/recbole/trainer/trainer.py:235: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead."
+    }
+  ],
+  "diagnostic_arithmetic": {
+    "count": 345955,
+    "first_200_differences": [
+      {
+        "field": "baseline_dual.original.native_increment.0.0.0",
+        "saved": 0.5346139669418335,
+        "derived": 0.5346139073371887,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.0.1",
+        "saved": -0.3688352406024933,
+        "derived": -0.3688352704048157,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.0.3",
+        "saved": 0.5668009519577026,
+        "derived": 0.5668008923530579,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.0.16",
+        "saved": 0.17605260014533997,
+        "derived": 0.17605257034301758,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.0.20",
+        "saved": 0.39884331822395325,
+        "derived": 0.39884334802627563,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.0.24",
+        "saved": 0.45927688479423523,
+        "derived": 0.45927694439888,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.0.29",
+        "saved": -0.47752898931503296,
+        "derived": -0.47752904891967773,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.1.0",
+        "saved": 0.5575071573257446,
+        "derived": 0.5575070977210999,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.4235180921134526e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.1.1",
+        "saved": -0.3846294581890106,
+        "derived": -0.384629487991333,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 2.4235180921134526e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.1.3",
+        "saved": 0.5910724401473999,
+        "derived": 0.5910723805427551,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.4235180921134526e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.1.12",
+        "saved": -0.6441203355789185,
+        "derived": -0.6441203951835632,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.4235180921134526e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.1.16",
+        "saved": 0.18359149992465973,
+        "derived": 0.18359147012233734,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 2.4235180921134526e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.1.18",
+        "saved": -0.5714500546455383,
+        "derived": -0.5714499950408936,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.4235180921134526e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.1.20",
+        "saved": 0.41592252254486084,
+        "derived": 0.4159225821495056,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.4235180921134526e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.1.24",
+        "saved": 0.47894400358200073,
+        "derived": 0.4789440631866455,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.4235180921134526e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.0.1.29",
+        "saved": -0.49797767400741577,
+        "derived": -0.49797773361206055,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.4235180921134526e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.0",
+        "saved": -0.18782936036586761,
+        "derived": -0.1878293752670288,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.1",
+        "saved": 0.221127450466156,
+        "derived": 0.2211274355649948,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.3",
+        "saved": 0.1894298642873764,
+        "derived": 0.1894298791885376,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.6",
+        "saved": -0.3871859312057495,
+        "derived": -0.3871859014034271,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.10",
+        "saved": -0.24078874289989471,
+        "derived": -0.2407887578010559,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.13",
+        "saved": 0.20516158640384674,
+        "derived": 0.20516155660152435,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.20",
+        "saved": 0.22038035094738007,
+        "derived": 0.22038033604621887,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.21",
+        "saved": -0.27833861112594604,
+        "derived": -0.27833864092826843,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.23",
+        "saved": 0.2966296970844269,
+        "derived": 0.2966296672821045,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.24",
+        "saved": 0.3047303855419159,
+        "derived": 0.3047303557395935,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.25",
+        "saved": -0.15313972532749176,
+        "derived": -0.15313974022865295,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.28",
+        "saved": 0.2143557369709015,
+        "derived": 0.2143557220697403,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.29",
+        "saved": 0.2074776291847229,
+        "derived": 0.2074775993824005,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.0.31",
+        "saved": -0.22038035094738007,
+        "derived": -0.22038033604621887,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.0",
+        "saved": -0.2392551451921463,
+        "derived": -0.2392551600933075,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.1",
+        "saved": 0.2816699147224426,
+        "derived": 0.28166988492012024,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.3",
+        "saved": 0.24129384756088257,
+        "derived": 0.24129386246204376,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.6",
+        "saved": -0.49319353699684143,
+        "derived": -0.49319347739219666,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.13",
+        "saved": 0.26133275032043457,
+        "derived": 0.2613327205181122,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.20",
+        "saved": 0.28071826696395874,
+        "derived": 0.28071823716163635,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.21",
+        "saved": -0.35454487800598145,
+        "derived": -0.3545449376106262,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.23",
+        "saved": 0.3778438866138458,
+        "derived": 0.37784385681152344,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.24",
+        "saved": 0.3881624937057495,
+        "derived": 0.38816243410110474,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.25",
+        "saved": -0.19506782293319702,
+        "derived": -0.1950678527355194,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.26",
+        "saved": 0.17979438602924347,
+        "derived": 0.17979440093040466,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.28",
+        "saved": 0.2730441689491272,
+        "derived": 0.2730441391468048,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.1.1.31",
+        "saved": -0.28071826696395874,
+        "derived": -0.28071823716163635,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1743096289953301e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.0.0",
+        "saved": -0.33452048897743225,
+        "derived": -0.33452051877975464,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.2659035335348177e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.0.6",
+        "saved": -0.3787175416946411,
+        "derived": -0.37871748208999634,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.2659035335348177e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.0.8",
+        "saved": 0.02105756662786007,
+        "derived": 0.02105756476521492,
+        "absolute_difference": 1.862645149230957e-09,
+        "absolute_bound": 1.2659035335348177e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.0.9",
+        "saved": -0.21028274297714233,
+        "derived": -0.21028277277946472,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.2659035335348177e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.0.19",
+        "saved": 0.38392770290374756,
+        "derived": 0.38392767310142517,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.2659035335348177e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.0.23",
+        "saved": 0.21956530213356018,
+        "derived": 0.21956533193588257,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.2659035335348177e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.0.24",
+        "saved": 0.0825328528881073,
+        "derived": 0.0825328454375267,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 1.2659035335348177e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.0.25",
+        "saved": -0.11610714346170425,
+        "derived": -0.11610713601112366,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 1.2659035335348177e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.0.28",
+        "saved": 0.07454462349414825,
+        "derived": 0.07454461604356766,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 1.2659035335348177e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.0.29",
+        "saved": -0.21028274297714233,
+        "derived": -0.21028277277946472,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.2659035335348177e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.0",
+        "saved": -0.21215777099132538,
+        "derived": -0.21215778589248657,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.4",
+        "saved": 0.1820245087146759,
+        "derived": 0.1820244938135147,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.6",
+        "saved": -0.24018819630146027,
+        "derived": -0.24018815159797668,
+        "absolute_difference": 4.470348358154297e-08,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.8",
+        "saved": 0.013355016708374023,
+        "derived": 0.013355014845728874,
+        "absolute_difference": 1.862645149230957e-09,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.9",
+        "saved": -0.13336437940597534,
+        "derived": -0.13336440920829773,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.19",
+        "saved": 0.24349255859851837,
+        "derived": 0.24349252879619598,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.23",
+        "saved": 0.13925151526927948,
+        "derived": 0.13925154507160187,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.24",
+        "saved": 0.05234353989362717,
+        "derived": 0.05234353616833687,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.25",
+        "saved": -0.07363685220479965,
+        "derived": -0.07363683730363846,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.28",
+        "saved": 0.047277286648750305,
+        "derived": 0.04727728292346001,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.2.1.29",
+        "saved": -0.13336437940597534,
+        "derived": -0.13336440920829773,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 8.028545135416428e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.0",
+        "saved": -0.17870575189590454,
+        "derived": -0.17870576679706573,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.1",
+        "saved": 0.18188706040382385,
+        "derived": 0.18188709020614624,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.3",
+        "saved": 0.27788400650024414,
+        "derived": 0.27788397669792175,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.9",
+        "saved": 0.205889493227005,
+        "derived": 0.2058895081281662,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.11",
+        "saved": -0.3045540452003479,
+        "derived": -0.3045541048049927,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.13",
+        "saved": 0.21203315258026123,
+        "derived": 0.21203318238258362,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.19",
+        "saved": 0.08402682840824127,
+        "derived": 0.08402681350708008,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.22",
+        "saved": -0.09429315477609634,
+        "derived": -0.09429314732551575,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.24",
+        "saved": 0.3010864555835724,
+        "derived": 0.3010864853858948,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.25",
+        "saved": 0.09030712395906448,
+        "derived": 0.09030710905790329,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.0.27",
+        "saved": 0.10450268536806107,
+        "derived": 0.10450267791748047,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 1.1393813883796242e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.0",
+        "saved": -0.0769137367606163,
+        "derived": -0.0769137442111969,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.1",
+        "saved": 0.07828295230865479,
+        "derived": 0.07828296720981598,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.3",
+        "saved": 0.11959938704967499,
+        "derived": 0.1195993721485138,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.9",
+        "saved": 0.08861343562602997,
+        "derived": 0.08861344307661057,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.11",
+        "saved": -0.13107798993587494,
+        "derived": -0.13107800483703613,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.13",
+        "saved": 0.09125762432813644,
+        "derived": 0.09125763922929764,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.16",
+        "saved": 0.07964729517698288,
+        "derived": 0.07964730262756348,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.19",
+        "saved": 0.036164574325084686,
+        "derived": 0.03616456687450409,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.22",
+        "saved": -0.040583133697509766,
+        "derived": -0.04058312997221947,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.25",
+        "saved": 0.03886757045984268,
+        "derived": 0.03886756673455238,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.3.1.27",
+        "saved": 0.04497724398970604,
+        "derived": 0.04497724026441574,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 4.903819888781838e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.5",
+        "saved": 0.18180908262729645,
+        "derived": 0.18180911242961884,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.7",
+        "saved": 0.08823386579751968,
+        "derived": 0.08823388069868088,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.8",
+        "saved": -0.15912890434265137,
+        "derived": -0.15912891924381256,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.13",
+        "saved": 0.054034970700740814,
+        "derived": 0.05403496325016022,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.16",
+        "saved": 0.10058432817459106,
+        "derived": 0.10058434307575226,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.17",
+        "saved": 0.22469598054885864,
+        "derived": 0.22469595074653625,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.19",
+        "saved": -0.10002993792295456,
+        "derived": -0.10002995282411575,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.20",
+        "saved": -0.08595505356788635,
+        "derived": -0.08595506846904755,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.27",
+        "saved": -0.04953472688794136,
+        "derived": -0.04953472316265106,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.28",
+        "saved": -0.04047386348247528,
+        "derived": -0.04047385975718498,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.0.29",
+        "saved": 0.20416001975536346,
+        "derived": 0.20416003465652466,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 6.02180886822462e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.5",
+        "saved": 0.27833861112594604,
+        "derived": 0.27833864092826843,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.7",
+        "saved": 0.13508066534996033,
+        "derived": 0.13508068025112152,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.8",
+        "saved": -0.24361662566661835,
+        "derived": -0.24361664056777954,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.13",
+        "saved": 0.08272423595190048,
+        "derived": 0.08272422850131989,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.16",
+        "saved": 0.15398846566677094,
+        "derived": 0.15398848056793213,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.17",
+        "saved": 0.3439958095550537,
+        "derived": 0.3439957797527313,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.19",
+        "saved": -0.15313972532749176,
+        "derived": -0.15313974022865295,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.20",
+        "saved": -0.13159193098545074,
+        "derived": -0.13159196078777313,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.22",
+        "saved": 0.24502228200435638,
+        "derived": 0.24502229690551758,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.28",
+        "saved": -0.06196301430463791,
+        "derived": -0.061963003128767014,
+        "absolute_difference": 1.1175870895385742e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.4.1.29",
+        "saved": 0.31255650520324707,
+        "derived": 0.31255653500556946,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.219021509250144e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.1",
+        "saved": -0.26685255765914917,
+        "derived": -0.26685258746147156,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.2",
+        "saved": 0.06274496763944626,
+        "derived": 0.06274496018886566,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.3",
+        "saved": -0.09218630194664001,
+        "derived": -0.09218629449605942,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.7",
+        "saved": 0.016995253041386604,
+        "derived": 0.016995249316096306,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.10",
+        "saved": -0.04514138400554657,
+        "derived": -0.04514138028025627,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.12",
+        "saved": 0.4483270049095154,
+        "derived": 0.44832703471183777,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.15",
+        "saved": 0.17813903093338013,
+        "derived": 0.17813906073570251,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.19",
+        "saved": 0.2230626940727234,
+        "derived": 0.223062664270401,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.20",
+        "saved": -0.16877435147762299,
+        "derived": -0.16877436637878418,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.23",
+        "saved": -0.4622352421283722,
+        "derived": -0.4622352123260498,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.26",
+        "saved": 0.2792407274246216,
+        "derived": 0.27924075722694397,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.0.31",
+        "saved": -0.45321106910705566,
+        "derived": -0.45321112871170044,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.0216921111488338e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.2",
+        "saved": 0.03057081624865532,
+        "derived": 0.03057081438601017,
+        "absolute_difference": 1.862645149230957e-09,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.3",
+        "saved": -0.044915322214365005,
+        "derived": -0.04491531848907471,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.7",
+        "saved": 0.008280484937131405,
+        "derived": 0.008280483074486256,
+        "absolute_difference": 1.862645149230957e-09,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.10",
+        "saved": -0.021993938833475113,
+        "derived": -0.021993936970829964,
+        "absolute_difference": 1.862645149230957e-09,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.12",
+        "saved": 0.2184354066848755,
+        "derived": 0.21843542158603668,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.15",
+        "saved": 0.08679350465536118,
+        "derived": 0.08679351210594177,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.19",
+        "saved": 0.10868135839700699,
+        "derived": 0.10868135094642639,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.20",
+        "saved": -0.08223080635070801,
+        "derived": -0.0822308212518692,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.23",
+        "saved": -0.22521182894706726,
+        "derived": -0.22521181404590607,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.26",
+        "saved": 0.13605260848999023,
+        "derived": 0.13605262339115143,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.5.1.31",
+        "saved": -0.2208150327205658,
+        "derived": -0.22081506252288818,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 4.977922975472842e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.0",
+        "saved": 0.23027892410755157,
+        "derived": 0.23027896881103516,
+        "absolute_difference": 4.470348358154297e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.1",
+        "saved": 0.41354042291641235,
+        "derived": 0.4135403633117676,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.5",
+        "saved": -0.5866863131523132,
+        "derived": -0.5866862535476685,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.10",
+        "saved": -0.3852284550666809,
+        "derived": -0.3852285146713257,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.13",
+        "saved": -0.23415549099445343,
+        "derived": -0.23415552079677582,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.15",
+        "saved": -0.2770380675792694,
+        "derived": -0.2770380973815918,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.16",
+        "saved": -0.10900523513555527,
+        "derived": -0.10900522023439407,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.19",
+        "saved": -0.4633742868900299,
+        "derived": -0.46337422728538513,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.21",
+        "saved": 0.22248321771621704,
+        "derived": 0.22248323261737823,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.22",
+        "saved": -0.5561009049415588,
+        "derived": -0.5561009645462036,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.23",
+        "saved": 0.20540420711040497,
+        "derived": 0.20540423691272736,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.27",
+        "saved": -0.23673184216022491,
+        "derived": -0.2367318570613861,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.29",
+        "saved": -0.07083632051944733,
+        "derived": -0.07083631306886673,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.30",
+        "saved": -0.14244230091571808,
+        "derived": -0.14244228601455688,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.0.31",
+        "saved": 0.11811304837465286,
+        "derived": 0.11811303347349167,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.4018482140335726e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.0",
+        "saved": 0.3060539662837982,
+        "derived": 0.306054025888443,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.1",
+        "saved": 0.5496190190315247,
+        "derived": 0.5496189594268799,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.5",
+        "saved": -0.7797399163246155,
+        "derived": -0.7797397971153259,
+        "absolute_difference": 1.1920928955078125e-07,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.10",
+        "saved": -0.5119908452033997,
+        "derived": -0.5119909048080444,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.13",
+        "saved": -0.3112061321735382,
+        "derived": -0.311206191778183,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.15",
+        "saved": -0.36819958686828613,
+        "derived": -0.3681996166706085,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.16",
+        "saved": -0.14487424492835999,
+        "derived": -0.1448742300271988,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.19",
+        "saved": -0.615851104259491,
+        "derived": -0.6158510446548462,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.22",
+        "saved": -0.7390901446342468,
+        "derived": -0.7390902042388916,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.23",
+        "saved": 0.2729940414428711,
+        "derived": 0.2729940712451935,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.27",
+        "saved": -0.3146302402019501,
+        "derived": -0.31463029980659485,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.29",
+        "saved": -0.09414555132389069,
+        "derived": -0.09414554387331009,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.30",
+        "saved": -0.18931402266025543,
+        "derived": -0.18931399285793304,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.6.1.31",
+        "saved": 0.1569790542125702,
+        "derived": 0.156979039311409,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.8631370714231956e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.0",
+        "saved": -0.05935133248567581,
+        "derived": -0.05935132876038551,
+        "absolute_difference": 3.725290298461914e-09,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.1",
+        "saved": -0.07759305089712143,
+        "derived": -0.07759304344654083,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.3",
+        "saved": -0.17176371812820435,
+        "derived": -0.17176374793052673,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.4",
+        "saved": 0.15566948056221008,
+        "derived": 0.15566949546337128,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.6",
+        "saved": -0.17343422770500183,
+        "derived": -0.17343424260616302,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.7",
+        "saved": 0.22354140877723694,
+        "derived": 0.22354139387607574,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.13",
+        "saved": 0.14443393051624298,
+        "derived": 0.14443394541740417,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.14",
+        "saved": -0.09836573153734207,
+        "derived": -0.09836572408676147,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.15",
+        "saved": 0.37990957498550415,
+        "derived": 0.3799096345901489,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.18",
+        "saved": -0.3159685432910919,
+        "derived": -0.3159685730934143,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.20",
+        "saved": -0.1453043669462204,
+        "derived": -0.14530439674854279,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.22",
+        "saved": -0.20347310602664948,
+        "derived": -0.20347309112548828,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.24",
+        "saved": 0.3069041669368744,
+        "derived": 0.3069041073322296,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.26",
+        "saved": 0.18825693428516388,
+        "derived": 0.18825694918632507,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.27",
+        "saved": -0.17176371812820435,
+        "derived": -0.17176374793052673,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.28",
+        "saved": 0.13919033110141754,
+        "derived": 0.13919034600257874,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.0.29",
+        "saved": 0.24769707024097443,
+        "derived": 0.24769708514213562,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 9.319661415591916e-07,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.0",
+        "saved": -0.10467581450939178,
+        "derived": -0.10467580705881119,
+        "absolute_difference": 7.450580596923828e-09,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.1",
+        "saved": -0.1368480771780014,
+        "derived": -0.1368480622768402,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.3",
+        "saved": -0.3029335141181946,
+        "derived": -0.30293354392051697,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.4",
+        "saved": 0.2745486795902252,
+        "derived": 0.2745487093925476,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.6",
+        "saved": -0.30587971210479736,
+        "derived": -0.30587974190711975,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.7",
+        "saved": 0.3942519724369049,
+        "derived": 0.39425191283226013,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.13",
+        "saved": 0.2547329366207123,
+        "derived": 0.25473296642303467,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.14",
+        "saved": -0.17348411679267883,
+        "derived": -0.17348410189151764,
+        "absolute_difference": 1.4901161193847656e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.15",
+        "saved": 0.6700329184532166,
+        "derived": 0.6700329780578613,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.18",
+        "saved": -0.5572624206542969,
+        "derived": -0.5572624802589417,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.20",
+        "saved": -0.25626811385154724,
+        "derived": -0.25626814365386963,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.22",
+        "saved": -0.35885822772979736,
+        "derived": -0.358858197927475,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.24",
+        "saved": 0.5412758588790894,
+        "derived": 0.5412757992744446,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.26",
+        "saved": 0.3320219814777374,
+        "derived": 0.3320220112800598,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.27",
+        "saved": -0.3029335141181946,
+        "derived": -0.30293354392051697,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.28",
+        "saved": 0.24548497796058655,
+        "derived": 0.24548500776290894,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.original.native_increment.7.1.29",
+        "saved": 0.43685445189476013,
+        "derived": 0.4368544816970825,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 1.6436752513860636e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.plus_2h.native_increment.0.0.0",
+        "saved": 0.5346139669418335,
+        "derived": 0.5346139073371887,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.plus_2h.native_increment.0.0.1",
+        "saved": -0.3688352406024933,
+        "derived": -0.3688352704048157,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.plus_2h.native_increment.0.0.3",
+        "saved": 0.5668009519577026,
+        "derived": 0.5668008923530579,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.plus_2h.native_increment.0.0.16",
+        "saved": 0.17605260014533997,
+        "derived": 0.17605257034301758,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.plus_2h.native_increment.0.0.20",
+        "saved": 0.39884331822395325,
+        "derived": 0.39884334802627563,
+        "absolute_difference": 2.9802322387695312e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      },
+      {
+        "field": "baseline_dual.plus_2h.native_increment.0.0.24",
+        "saved": 0.45927688479423523,
+        "derived": 0.45927694439888,
+        "absolute_difference": 5.960464477539063e-08,
+        "absolute_bound": 2.32400001821479e-06,
+        "reason": "FP32 local tanh/product/subtraction propagation; not recurrence acceptance"
+      }
+    ],
+    "by_reason": {
+      "FP32 local tanh/product/subtraction propagation; not recurrence acceptance": {
+        "count": 37395,
+        "maximum_absolute_difference": 4.76837158203125e-07
+      },
+      "float64 diagnostic reduction order": {
+        "count": 265,
+        "maximum_absolute_difference": 5.684341886080802e-14
+      },
+      "four-term FP32 product/reduction error bound": {
+        "count": 258917,
+        "maximum_absolute_difference": 1.3262707909689198e-07
+      },
+      "propagated per-element FP32 diagnostic increment bound": {
+        "count": 948,
+        "maximum_absolute_difference": 1.430511474609375e-06
+      },
+      "FP32 sine/cosine feature pair norm": {
+        "count": 2848,
+        "maximum_absolute_difference": 3.9270801499569075e-08
+      },
+      "four-term FP32 matmul and tanh": {
+        "count": 45568,
+        "maximum_absolute_difference": 1.150171435870817e-07
+      },
+      "CPU/CUDA FP32 tanh versus rounded libm": {
+        "count": 14,
+        "maximum_absolute_difference": 5.960464477539063e-08
+      }
+    },
+    "reduction_relative_tolerance": 1e-12,
+    "reduction_absolute_tolerance": 1e-15,
+    "tanh_fp32_max_ulps": 2,
+    "dot_sum_abs_multiplier": 4.76837158203125e-07,
+    "increment_abs_multiplier_pi_abs_dt": 1.9073486328125e-06,
+    "scope": "Detached diagnostic arithmetic only; all metrics, replay, hashes and frozen GPU acceptance remain exact"
+  },
+  "checkpoint_loading": false,
+  "model_forward_count": 0,
+  "torch_imported": false,
+  "runtime_identity": {
+    "dependencies_match_historical": true,
+    "imported_paths_in_frozen_manifest": true,
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "historical_gpu_label_not_required": true
+  },
+  "result_sha256": {
+    "mamba3_absolute_phase_baseline_dual_seed2026_001": "39a470b3e83ff895dfae9d87c32d03d58267ff1a910352a51af157e0f9eb8e27",
+    "mamba3_absolute_phase_relative_phase_seed2026_001": "76179dee3b6d1004aad804a880603ab700d3241110afae9d9fbec11f8036b685",
+    "mamba3_absolute_phase_absolute_phase_seed2026_001": "c83cdf63d745768bfb6180b72bb90350522f4515c25fbbf7ef7c867677ad97af"
+  },
+  "summary_sha256": "6fa4ce46c45c14a479aba8395184a5c43702eff0f644f89e6bae721beb4c90be",
+  "preservation_manifest_sha256": "1a8564251021388e0c30455a4265df94a9004300cafe05056a5a65d4810c77bd",
+  "scheduler_sha256": "d4ad27476330e34b3a3607d091457a18c41d06ebc195f005051a58f865c41234",
+  "confirmation_decision_sha256": null,
+  "limitations": [
+    "Checkpoint SHA and byte counts were streamed during preservation and bound to selected-epoch metadata; no weights copied, loaded or locally rehashed.",
+    "TRAIN raw histories are not preserved: exact indices, input hash binding, coverage counts and algebra checked; timestamp multiplicities and span quantiles cannot be independently reconstructed.",
+    "VALID aggregates cover the last active query per history separately for each layer, not every event. Eight saved examples cannot reconstruct all-query sums or extrema.",
+    "W and fixed analytic grid values are preserved and checked; native fixture samples cover first four angles. All-angle fixture aggregates are independently bounded from saved corrections and fixed content/DT, accounting for FP32 libm/reduction differences.",
+    "Gradient norms are preserved summaries, not raw gradients; all TRAIN backward hook counts and finite flags checked, no backward replay.",
+    "Native MIMO raw angles stay FP32. BF16 diagnostic fields are hypothetical raw-angle casts, not measurements of actual downstream Q/K rotation quantization.",
+    "Native local increment formulas and saved shift tensors checked; accumulated theta and recurrence are not regenerated. GPU reference acceptance uses the unchanged frozen policy.",
+    "RecBole log timers and saved wrapper timers have different envelopes; both log copies agree and saved sums/memory maxima are checked.",
+    "No-Git CPU proof is evidence from a separate invocation; its CPU JSON does not itself record the deny-git environment.",
+    "A conditional confirmation uses new four seeds as primary; all-five aggregates include the selection pilot and are explicitly exploratory."
+  ],
+  "pilot_result_sha256": {
+    "baseline_dual": "39a470b3e83ff895dfae9d87c32d03d58267ff1a910352a51af157e0f9eb8e27",
+    "relative_phase": "76179dee3b6d1004aad804a880603ab700d3241110afae9d9fbec11f8036b685",
+    "absolute_phase": "c83cdf63d745768bfb6180b72bb90350522f4515c25fbbf7ef7c867677ad97af"
+  }
+}

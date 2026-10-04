@@ -2,7 +2,7 @@
   "job_id": "4374917",
   "execution_attempt": "001",
   "study_phase": "pilot",
-  "checked_at": "2026-10-04T09:04:06.675078+00:00",
+  "checked_at": "2026-10-04T09:14:24.321043+00:00",
   "checkout": {
     "returncode": 0,
     "stdout": "11913ff8fe99aa28f124d667e2ae3aad14465098\n",
@@ -15,21 +15,21 @@
   },
   "squeue": {
     "returncode": 0,
-    "stdout": "4374917|RUNNING|1:07:54|cn-043|cn-043|2026-10-04T10:56:12\n",
+    "stdout": "",
     "stderr": ""
   },
   "sacct": {
     "returncode": 0,
-    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4374917|RUNNING|0:0|01:07:54|cn-043|2026-10-04T10:56:12|Unknown\n4374917.batch|RUNNING|0:0|01:07:54|cn-043|2026-10-04T10:56:12|Unknown\n4374917.extern|RUNNING|0:0|01:07:54|cn-043|2026-10-04T10:56:12|Unknown\n",
+    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4374917|COMPLETED|0:0|01:17:36|cn-043|2026-10-04T10:56:12|2026-10-04T12:13:48\n4374917.batch|COMPLETED|0:0|01:17:36|cn-043|2026-10-04T10:56:12|2026-10-04T12:13:48\n4374917.extern|COMPLETED|0:0|01:17:36|cn-043|2026-10-04T10:56:12|2026-10-04T12:13:48\n",
     "stderr": ""
   },
   "pipeline": {
-    "status": "RUNNING",
+    "status": "PASS",
     "started_at": "2026-10-04T07:56:15.927422+00:00",
-    "finished_at": null,
+    "finished_at": "2026-10-04T09:13:48.152171+00:00",
     "error": null,
-    "scientific_fits_started": 2,
-    "scientific_fits_completed": 2,
+    "scientific_fits_started": 3,
+    "scientific_fits_completed": 3,
     "stages": [
       {
         "stage": "gate",
@@ -67,8 +67,9 @@
         "stage": "absolute_phase",
         "seed": 2026,
         "run_id": "mamba3_absolute_phase_absolute_phase_seed2026_001",
-        "status": "RUNNING",
-        "started_at": "2026-10-04T08:44:09.511711+00:00"
+        "status": "PASS",
+        "started_at": "2026-10-04T08:44:09.511711+00:00",
+        "finished_at": "2026-10-04T09:13:46.559466+00:00"
       }
     ]
   },
@@ -83,14 +84,14 @@
       "run_id": "mamba3_absolute_phase_absolute_phase_seed2026_001",
       "phase_mode": "absolute_phase",
       "seed": 2026,
-      "status": "RUNNING",
-      "stage": "TRAIN_VALID",
+      "status": "PASS",
+      "stage": "COMPLETED",
       "scientific_fit_started": true,
-      "actual_epochs": 44,
+      "actual_epochs": 66,
       "started_at": "2026-10-04T08:44:20.143831+00:00",
-      "finished_at": null,
+      "finished_at": "2026-10-04T09:13:43.008119+00:00",
       "error": null,
-      "last_epoch": 43
+      "last_epoch": 65
     },
     {
       "execution_attempt": "001",

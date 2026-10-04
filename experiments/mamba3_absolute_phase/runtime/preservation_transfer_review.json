@@ -1,0 +1,17 @@
+{
+  "status": "TRANSPORT_LIMIT_FIXED",
+  "job_id": "4374917",
+  "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+  "observed_error": "AssertionError at preservation pack per-file limit 20_000_000 bytes",
+  "file": "runs/pilot/attempt_001/mamba3_absolute_phase_absolute_phase_seed2026_001.json",
+  "bytes": 35235733,
+  "former_limit_bytes": 20000000,
+  "new_limit_bytes": 100000000,
+  "helper_before_sha256": "f9341474eff4ce26b65a5c3d7cdfe666b49be57826190221892ba24279da4fac",
+  "helper_after_sha256": "5b39b8dd6c5da9b8ec048c2fea74d04dc54751af3d39ef207c0567408e10fb44",
+  "scientific_source_changed": false,
+  "raw_changed": false,
+  "new_gpu_submissions": 0,
+  "new_scientific_fits": 0,
+  "archive_created_on_failed_call": false
+}

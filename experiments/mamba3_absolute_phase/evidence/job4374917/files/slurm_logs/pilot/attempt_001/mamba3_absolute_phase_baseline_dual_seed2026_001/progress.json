@@ -1,0 +1,19 @@
+{
+  "execution_attempt": "001",
+  "study_phase": "pilot",
+  "study_id": "mamba3_absolute_phase_001",
+  "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+  "source_hash": "4c404906e61121f967307e8c3e97a63e9a476711202a4a5baa005ef9899574c6",
+  "job_id": "4374917",
+  "run_id": "mamba3_absolute_phase_baseline_dual_seed2026_001",
+  "phase_mode": "baseline_dual",
+  "seed": 2026,
+  "status": "PASS",
+  "stage": "COMPLETED",
+  "scientific_fit_started": true,
+  "actual_epochs": 39,
+  "started_at": "2026-10-04T08:16:22.204864+00:00",
+  "finished_at": "2026-10-04T08:33:24.903610+00:00",
+  "error": null,
+  "last_epoch": 38
+}

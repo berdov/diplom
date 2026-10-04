@@ -1,0 +1,272 @@
+{
+  "job_id": "4374917",
+  "execution_attempt": "001",
+  "study_phase": "pilot",
+  "checked_at": "2026-10-04T09:14:24.321043+00:00",
+  "checkout": {
+    "returncode": 0,
+    "stdout": "11913ff8fe99aa28f124d667e2ae3aad14465098\n",
+    "stderr": ""
+  },
+  "tracked_status": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "squeue": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "sacct": {
+    "returncode": 0,
+    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4374917|COMPLETED|0:0|01:17:36|cn-043|2026-10-04T10:56:12|2026-10-04T12:13:48\n4374917.batch|COMPLETED|0:0|01:17:36|cn-043|2026-10-04T10:56:12|2026-10-04T12:13:48\n4374917.extern|COMPLETED|0:0|01:17:36|cn-043|2026-10-04T10:56:12|2026-10-04T12:13:48\n",
+    "stderr": ""
+  },
+  "pipeline": {
+    "status": "PASS",
+    "started_at": "2026-10-04T07:56:15.927422+00:00",
+    "finished_at": "2026-10-04T09:13:48.152171+00:00",
+    "error": null,
+    "scientific_fits_started": 3,
+    "scientific_fits_completed": 3,
+    "stages": [
+      {
+        "stage": "gate",
+        "seed": null,
+        "run_id": null,
+        "status": "PASS",
+        "started_at": "2026-10-04T07:56:24.005677+00:00",
+        "finished_at": "2026-10-04T08:14:03.540938+00:00"
+      },
+      {
+        "stage": "smoke",
+        "seed": null,
+        "run_id": null,
+        "status": "PASS",
+        "started_at": "2026-10-04T08:14:03.552389+00:00",
+        "finished_at": "2026-10-04T08:16:11.584469+00:00"
+      },
+      {
+        "stage": "baseline_dual",
+        "seed": 2026,
+        "run_id": "mamba3_absolute_phase_baseline_dual_seed2026_001",
+        "status": "PASS",
+        "started_at": "2026-10-04T08:16:11.619963+00:00",
+        "finished_at": "2026-10-04T08:33:26.265507+00:00"
+      },
+      {
+        "stage": "relative_phase",
+        "seed": 2026,
+        "run_id": "mamba3_absolute_phase_relative_phase_seed2026_001",
+        "status": "PASS",
+        "started_at": "2026-10-04T08:33:26.287280+00:00",
+        "finished_at": "2026-10-04T08:44:09.491809+00:00"
+      },
+      {
+        "stage": "absolute_phase",
+        "seed": 2026,
+        "run_id": "mamba3_absolute_phase_absolute_phase_seed2026_001",
+        "status": "PASS",
+        "started_at": "2026-10-04T08:44:09.511711+00:00",
+        "finished_at": "2026-10-04T09:13:46.559466+00:00"
+      }
+    ]
+  },
+  "records": [
+    {
+      "execution_attempt": "001",
+      "study_phase": "pilot",
+      "study_id": "mamba3_absolute_phase_001",
+      "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+      "source_hash": "4c404906e61121f967307e8c3e97a63e9a476711202a4a5baa005ef9899574c6",
+      "job_id": "4374917",
+      "run_id": "mamba3_absolute_phase_absolute_phase_seed2026_001",
+      "phase_mode": "absolute_phase",
+      "seed": 2026,
+      "status": "PASS",
+      "stage": "COMPLETED",
+      "scientific_fit_started": true,
+      "actual_epochs": 66,
+      "started_at": "2026-10-04T08:44:20.143831+00:00",
+      "finished_at": "2026-10-04T09:13:43.008119+00:00",
+      "error": null,
+      "last_epoch": 65
+    },
+    {
+      "execution_attempt": "001",
+      "study_phase": "pilot",
+      "study_id": "mamba3_absolute_phase_001",
+      "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+      "source_hash": "4c404906e61121f967307e8c3e97a63e9a476711202a4a5baa005ef9899574c6",
+      "job_id": "4374917",
+      "run_id": "mamba3_absolute_phase_baseline_dual_seed2026_001",
+      "phase_mode": "baseline_dual",
+      "seed": 2026,
+      "status": "PASS",
+      "stage": "COMPLETED",
+      "scientific_fit_started": true,
+      "actual_epochs": 39,
+      "started_at": "2026-10-04T08:16:22.204864+00:00",
+      "finished_at": "2026-10-04T08:33:24.903610+00:00",
+      "error": null,
+      "last_epoch": 38
+    },
+    {
+      "execution_attempt": "001",
+      "study_phase": "pilot",
+      "study_id": "mamba3_absolute_phase_001",
+      "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+      "source_hash": "4c404906e61121f967307e8c3e97a63e9a476711202a4a5baa005ef9899574c6",
+      "job_id": "4374917",
+      "run_id": "mamba3_absolute_phase_relative_phase_seed2026_001",
+      "phase_mode": "relative_phase",
+      "seed": 2026,
+      "status": "PASS",
+      "stage": "COMPLETED",
+      "scientific_fit_started": true,
+      "actual_epochs": 23,
+      "started_at": "2026-10-04T08:33:36.877971+00:00",
+      "finished_at": "2026-10-04T08:44:07.450862+00:00",
+      "error": null,
+      "last_epoch": 22
+    }
+  ],
+  "gate": {
+    "status": "PASS",
+    "started_at": null,
+    "finished_at": "2026-10-04T08:14:00.982268+00:00",
+    "error": null,
+    "scientific_fits_started": null,
+    "scientific_fits_completed": null,
+    "cases": [
+      {
+        "case_id": "baseline_dual_W0",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "relative_phase_W0",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "absolute_phase_W0",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "phase_operation",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "native_recurrence_reference",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "baseline_dual_shift",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "relative_phase_shift",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "absolute_phase_shift",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "relative_phase_edges",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "absolute_phase_edges",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "relative_phase_prefix7",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "relative_phase_prefix8",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "relative_phase_prefix9",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "absolute_phase_prefix7",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "absolute_phase_prefix8",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "absolute_phase_prefix9",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      },
+      {
+        "case_id": "negative_controls",
+        "status": "PASS",
+        "failed_keys": [],
+        "missing_keys": []
+      }
+    ]
+  },
+  "smoke": {
+    "status": "PASS",
+    "started_at": null,
+    "finished_at": "2026-10-04T08:16:10.203242+00:00",
+    "error": null,
+    "scientific_fits_started": null,
+    "scientific_fits_completed": null,
+    "rows": [
+      {
+        "phase_mode": "baseline_dual",
+        "status": "PASS",
+        "steps": 3
+      },
+      {
+        "phase_mode": "relative_phase",
+        "status": "PASS",
+        "steps": 3
+      },
+      {
+        "phase_mode": "absolute_phase",
+        "status": "PASS",
+        "steps": 3
+      }
+    ]
+  }
+}

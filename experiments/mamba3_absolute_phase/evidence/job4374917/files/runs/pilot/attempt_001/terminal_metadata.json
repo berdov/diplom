@@ -1,0 +1,60 @@
+{
+  "execution_attempt": "001",
+  "study_id": "mamba3_absolute_phase_001",
+  "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+  "source_hash": "4c404906e61121f967307e8c3e97a63e9a476711202a4a5baa005ef9899574c6",
+  "source_manifest_sha256": "6d4a529b6eb7a64f672e2af66d2760be51e2ffa547bb60fef6e278c7a9e2c0c7",
+  "plan_sha256": "bdaf20ed3c7986df98938a201324727397afb733e91ce237ab238541a380b650",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "inherited_admission_sha256": "c673524fda1a41d472c6cafebca7e25dad5cd7bd5df99fa772dfdcd4ee8bd5bc",
+  "inherited_smoke_sha256": "ac17c67b3fc411fce5cbdd53a855e75392d5bfd953b29a434e7237f135e7db9b",
+  "pilot_execution_commit": "c1dd31eec7907c67348769b6a1811b89aa4011c0",
+  "pilot_job_id": "4358147",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "study_phase": "pilot",
+  "job_id": "4374917",
+  "reservation_token": "99349cd9978cc96c08532f093679aaa1",
+  "reservation_sha256": "c4e0a9c671e7778e4e4e27af0e39729a17e36fb368bbc95e140c7d0cbe5c7aa3",
+  "login_verification_sha256": "e0db73e98fecacad270cd38581ead917a31dc6953d91e78c0e198fd9d9a119b6",
+  "coverage_sha256": "ea63a9a73f079d144437be247ad820986c04da0838ca58f87738e7b2c0a5b553",
+  "confirmation_decision_sha256": null,
+  "status": "PASS",
+  "started_at": "2026-10-04T07:56:15.927422+00:00",
+  "scientific_fits_started": 3,
+  "scientific_fits_completed": 3,
+  "unknown_scientific_starts": 0,
+  "allocation_cuda_visibility": {
+    "present": true,
+    "value": "0"
+  },
+  "deadline_unix": 1791121572.0,
+  "summary_status": "PASS",
+  "finished_at": "2026-10-04T09:13:48.152171+00:00",
+  "pipeline_sha256": "f7fc222e14ad34b3e2b6ef2bafa21dc97069c2ba6760d82e0c4b959b5cc37c83",
+  "checkpoints": {
+    "mamba3_absolute_phase_baseline_dual_seed2026_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_absolute_phase/slurm_logs/pilot/attempt_001/mamba3_absolute_phase_baseline_dual_seed2026_001/checkpoints/best_state_dict.pth",
+      "bytes": 2507332,
+      "sha256": "cba3da6aa7daf883cf9bcddb1b92540d48c26c62d797f8c9a1b602bcea292db8"
+    },
+    "mamba3_absolute_phase_relative_phase_seed2026_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_absolute_phase/slurm_logs/pilot/attempt_001/mamba3_absolute_phase_relative_phase_seed2026_001/checkpoints/best_state_dict.pth",
+      "bytes": 2508161,
+      "sha256": "0b46b40c047a500d774b37d611e1dbae6eebdce35d5242b4394e4b6615a764ae"
+    },
+    "mamba3_absolute_phase_absolute_phase_seed2026_001": {
+      "path": "/home/daryumin/iberdov/diplom/experiments/mamba3_absolute_phase/slurm_logs/pilot/attempt_001/mamba3_absolute_phase_absolute_phase_seed2026_001/checkpoints/best_state_dict.pth",
+      "bytes": 2508161,
+      "sha256": "20e6f86e1b075da7ca3c0bebe534c760d16e2881b300c3a7bd323e718a12bbab"
+    }
+  },
+  "checkpoint_loading": false
+}

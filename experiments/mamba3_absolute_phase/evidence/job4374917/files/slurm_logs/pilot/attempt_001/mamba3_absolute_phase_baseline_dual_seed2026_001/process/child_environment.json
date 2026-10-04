@@ -1,0 +1,11 @@
+{
+  "stage": "baseline_dual",
+  "parent_cuda_visibility": {
+    "present": true,
+    "value": "0"
+  },
+  "child_cuda_visibility": {
+    "present": true,
+    "value": "0"
+  }
+}

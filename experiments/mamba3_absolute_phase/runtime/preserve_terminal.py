@@ -30,7 +30,8 @@ for base in (here/'runs'/stage/('attempt_'+attempt),here/'slurm_logs'/stage/('at
     for block in iter(lambda:stream.read(1024*1024),b''):h.update(block);size+=len(block)
    weights[rel]=dict(path=str(path),bytes=size,sha256=h.hexdigest())
   elif path.suffix in ('.json','.log','.out','.err','.md','.lock'):
-   content=path.read_bytes();assert len(content)<20_000_000
+   content=path.read_bytes()
+   if len(content)>=100_000_000:raise ValueError('Compact evidence exceeds 100 MB: '+rel)
    blobs['files/'+rel]=content;files.append(dict(path=rel,cluster_path=str(path),bytes=len(content),sha256=hashlib.sha256(content).hexdigest()))
 manifest_name='source_manifest.json' if attempt=='001' else 'source_manifest_002.json'
 for name in ('study_plan.json',manifest_name,'DESIGN.md','NEW_PLAN.md')+ (('runtime/confirmation_decision.json',) if stage=='confirmation' else ())+(('runtime/retry_review_'+stage+'.json',) if attempt=='002' else ()):
