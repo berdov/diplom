@@ -1,6 +1,6 @@
 # Абсолютная фаза: подготовка пилота
 
-Phase: RUNNING. **2026-10-04 11:02:06 MSK:** RUNNING, node cn-043, elapsed 00:05:55. Scientific fits started 0, completed 0/3. GPU gate RUNNING; smoke UNKNOWN. Next explicit poll no earlier than 2026-10-04 11:12:06 MSK (2026-10-04T08:12:06.937721+00:00). No background process.
+Phase: RUNNING. **2026-10-04 11:12:27 MSK:** RUNNING, node cn-043, elapsed 00:16:15. Scientific fits started 0, completed 0/3. GPU gate RUNNING; smoke UNKNOWN. Next explicit poll no earlier than 2026-10-04 11:22:27 MSK (2026-10-04T08:22:27.665845+00:00). No background process.
 
 Запрос: `/Users/berdov/.codex/attachments/867dda07-c9ee-42e7-a7ff-e83250722c3e/Вставленный текст.txt`.
 Выполняется только новый phase этап; старые пять исследований не повторяются.
@@ -15,7 +15,8 @@ TRAINcoverage:10000windows,301109validoccurrences,291109active;9–21апрел�
 49.56шестичасовых/12.39суточныхperiods,все24binsoccupied,9.425%zero-gapactive.
 ДополнительныхstageB/C/E/Fнет. Native targetedgate17cases/532leaves затемsmoke3×3,
 после них3freshfits2026. Sourcefreezeзавершён, никакихправокscienceпослеsubmit.
-Runtime/audit_saved.py готовит независимыйagent; этиинструментывнеманифеста.
+Независимый runtime/audit_saved.py готов: 12 stdlib regressions PASS.
+Он проверяет saved bytes без Torch, model replay и загрузки весов; вне manifest.
 
 Ограничения: всего3submit/15startedfits/18hrequestedGPU максимум. Pilot6h,
 conditionalconfirmation8h, один доказанный pre-fitwrapperretry4h. После начатого

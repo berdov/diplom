@@ -42,10 +42,10 @@
   "submitted_at": "2026-10-04T07:51:48.300796+00:00",
   "job_state": "RUNNING",
   "node": "cn-043",
-  "elapsed": "00:05:55",
+  "elapsed": "00:16:15",
   "reason": null,
-  "checked_at": "2026-10-04T08:02:06.937721+00:00",
-  "next_poll_not_before": "2026-10-04T08:12:06.937721+00:00",
+  "checked_at": "2026-10-04T08:12:27.665845+00:00",
+  "next_poll_not_before": "2026-10-04T08:22:27.665845+00:00",
   "terminal_status_verified": false,
   "gpu_gate": "RUNNING",
   "smoke": null,
@@ -73,5 +73,11 @@
       "scientific_fits": 0,
       "GPU_submissions": 0
     }
+  },
+  "saved_auditor": {
+    "path": "experiments/mamba3_absolute_phase/runtime/audit_saved.py",
+    "regression_tests": 12,
+    "status": "READY_FOR_TERMINAL_BYTES",
+    "frozen_source_changed": false
   }
 }
