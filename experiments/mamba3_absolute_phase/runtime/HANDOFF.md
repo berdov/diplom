@@ -30,3 +30,13 @@ conditionalconfirmation8h, один доказанный pre-fitwrapperretry4h. 
 Еслиfrozenruleразрешает, выполнитьconditionalconfirmation, затемполныйаудит/публикацию.
 Строго ниодного дополнительногоsubmitрадиочереди/метрики. Веткупушитьможно;
 clustercheckoutоставлятьexecution11913ff доterminal. Итог11пунктовпозапросу.
+
+## Проверка будущей confirmation-обвязки
+
+Pilot CPU100+100 PASS. Read-only запуск stdlibtests с ABS_PHASE_STAGE=confirmation
+выявил12 ошибочных testmethods: fixtures создаютseed2026, но оставляют SEEDS2027–2030.
+Это проблема областификстур, не научногоrunner; productionstage/seedпередаютсяправильно.
+Текущийjob/checkoutНЕменять. Еслиpilotразрешитconfirmation, послеterminalисправить
+толькоtestfixtures, сохранитьстарыйexecution/source и явно доказатьнеизменность
+научныхфайловприпривязкеновоготестовогоexecution. Не копироватьpilotPASSсновымstamp.
+Еслиfrozenruleнепройдёт, confirmationне готовить/не запускать.

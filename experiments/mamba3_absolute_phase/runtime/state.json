@@ -50,5 +50,17 @@
   "gpu_gate": null,
   "smoke": null,
   "pipeline_status": null,
-  "fit_counters_source": "Observed pipeline/progress; null means not recorded in this snapshot"
+  "fit_counters_source": "Observed pipeline/progress; null means not recorded in this snapshot",
+  "confirmation_preflight_review": {
+    "status": "TEST_FIXTURE_SCOPE_ISSUE",
+    "science_changed": false,
+    "current_pilot_preflight": "100/100 PASS; no-Git100/100 PASS",
+    "reproduction": "local stdlib tests under ABS_PHASE_STAGE=confirmation:52/64 methods PASS;12 methods fail because fixture scope assumes seed2026",
+    "affected_tests": [
+      "test_failure_records.scratch",
+      "test_failure_records.test_valid_control_summary_keeps_exact_scientific_values",
+      "test_protocol.test_ownership_binds_identical_valid_coverage_hashes"
+    ],
+    "handling": "Do not alter current job checkout. If confirmation is authorized, correct only fixture scoping after pilot terminal; explicitly preserve pilot execution/source and bind any new test-only execution with verified unchanged scientific files. Never relabel pilot proof as confirmation."
+  }
 }
