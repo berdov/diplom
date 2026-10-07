@@ -86,11 +86,13 @@ def sync_handoff(value,runtime):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('job');parser.add_argument('execution');parser.add_argument('--attempt',choices=['001','002'],default='001');parser.add_argument('--stage',choices=['pilot','confirmation'],default='pilot');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('job');parser.add_argument('execution');parser.add_argument('--attempt',choices=['001','002'],default='001');parser.add_argument('--stage',choices=['pilot','confirmation'],default='pilot');parser.add_argument('--ssh-identity');args=parser.parse_args()
     if not args.job.isdecimal() or len(args.execution)!=40 or any(x not in '0123456789abcdef' for x in args.execution):raise ValueError('Exact job/commit required')
     here=Path(__file__).resolve().parents[1];folder=here/'evidence'/('job'+args.job);latest=here/'runtime'/('status_'+args.job+'.json')
     if latest.exists() and (datetime.now(timezone.utc)-datetime.fromisoformat(json.loads(latest.read_text())['checked_at'])).total_seconds()<600:raise ValueError('Next compact poll is not due yet (ten-minute limit)')
-    value=json.loads(subprocess.check_output(['ssh','-o','BatchMode=yes','hse-karizma','python3','-',args.job,args.execution,args.attempt,args.stage,'no' if (folder/'submission_preservation.json').exists() else 'yes'],input=REMOTE.encode()))
+    ssh=['ssh','-o','BatchMode=yes','-o','ConnectTimeout=15']
+    if args.ssh_identity:ssh+=['-i',str(Path(args.ssh_identity).expanduser())]
+    value=json.loads(subprocess.check_output(ssh+['hse-karizma','python3','-',args.job,args.execution,args.attempt,args.stage,'no' if (folder/'submission_preservation.json').exists() else 'yes'],input=REMOTE.encode()))
     folder.mkdir(parents=True,exist_ok=True);rows=[]
     for name,encoded in value.pop('submission_files').items():
         raw=base64.b64decode(encoded);path=folder/'submission'/name;path.parent.mkdir(exist_ok=True)

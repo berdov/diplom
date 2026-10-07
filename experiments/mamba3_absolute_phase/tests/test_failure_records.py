@@ -17,7 +17,7 @@ def scratch():
         here = Path(directory) / 'study'
         here.mkdir()
         (here / 'study_plan.json').write_bytes(plan)
-        values = dict(ROOT=Path(directory), HERE=here,
+        values = dict(ROOT=Path(directory), HERE=here, STAGE='pilot', SEEDS=(2026,),
                       LOGS=here / 'slurm_logs/attempt_001', RUNS=here / 'runs/attempt_001',
                       SUMMARY=here / 'runs/attempt_001/pilot_summary.json',
                       PIPELINE=here / 'slurm_logs/attempt_001/pipeline_status.json')
@@ -196,7 +196,9 @@ class FailureRecordTests(unittest.TestCase):
                       initial_common_calibrator_hashes=record['initial_calibrator_hashes'], initial_phase_parameters={})
         for key in ('config', 'effective_config'):
             record[key]['phase_mode'] = 'baseline_dual'
-        summary = report.summarize({('baseline_dual',2026): record})
+        # This test deliberately replays the immutable seed2026 pilot fixture.
+        with patch.object(c, 'STAGE', 'pilot'), patch.object(c, 'SEEDS', (2026,)):
+            summary = report.summarize({('baseline_dual',2026): record})
         row = summary['rows'][0]
         self.assertEqual(row['status'], 'PASS')
         self.assertEqual(summary['unknown_scientific_starts'], 0)

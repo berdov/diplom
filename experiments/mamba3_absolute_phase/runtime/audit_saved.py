@@ -23,6 +23,8 @@ SOURCE = '4c404906e61121f967307e8c3e97a63e9a476711202a4a5baa005ef9899574c6'
 PERIODS = (21600000, 86400000)
 MODES = ('baseline_dual', 'relative_phase', 'absolute_phase')
 CONTRASTS = (('absolute_phase', 'relative_phase'), ('absolute_phase', 'baseline_dual'), ('relative_phase', 'baseline_dual'))
+LINEAGE_PATHS = tuple('experiments/mamba3_absolute_phase/'+path for path in
+                     ('config.py', 'provenance.py', 'tests/test_failure_records.py', 'tests/test_protocol.py'))
 METRICS = {f'{kind}@{k}' for kind in ('hit', 'ndcg', 'recall') for k in (5, 10, 20, 50)}
 PAIRING = ('initial_backbone_sha256', 'initial_common_calibrator_hashes',
            'rng_components', 'protocol', 'manifest_sha256', 'train_time_stats_sha256',
@@ -723,11 +725,97 @@ def independent_summary(summary, records, c, report):
     return replays
 
 
-def confirmation_pilot(files, base, c, read, sha, report):
+def source_manifest_name(phase, attempt):
+    require(phase in ('pilot', 'confirmation') and attempt in ('001', '002'), 'Manifest phase/attempt')
+    return 'source_manifest'+('_confirmation' if phase == 'confirmation' else '')+('_002' if attempt == '002' else '')+'.json'
+
+
+def confirmation_lineage(decision, manifest, execution, plan_sha, load, manifest_name='source_manifest_confirmation.json'):
+    """Independent byte-only verification of the four approved fixture paths.
+
+    ``load`` resolves a repository-relative preserved dependency and returns
+    its parsed value and actual SHA256. No current-source globals are mutated.
+    """
+    if decision['source_hash'] == manifest['source_hash']:
+        require(not any(k in decision for k in ('confirmation_source_hash', 'confirmation_execution_commit',
+                    'source_lineage_path', 'source_lineage_sha256')), 'Ambiguous same-source confirmation lineage')
+        return None
+    require(decision.get('confirmation_source_hash') == manifest['source_hash'] and
+            decision.get('confirmation_execution_commit') == execution and re.fullmatch('[0-9a-f]{40}', execution),
+            'Confirmation source/execution lineage target')
+    prefix = 'experiments/mamba3_absolute_phase/'
+    require(decision['source_lineage_path'] == prefix+'runtime/confirmation_source_lineage.json', 'Canonical source lineage')
+    lineage, lineage_sha = load(decision['source_lineage_path'])
+    require(lineage_sha == decision['source_lineage_sha256'], 'Confirmation lineage bytes')
+    expected = dict(schema='absolute_phase_test_scope_lineage_v1', status='PASS', study_id='mamba3_absolute_phase_001',
+        reason='confirmation_test_fixture_scope', pilot_execution_commit=decision['execution_commit'],
+        confirmation_execution_commit=execution, pilot_source_hash=decision['source_hash'],
+        confirmation_source_hash=manifest['source_hash'], plan_sha256=plan_sha)
+    require(all(lineage.get(k) == v for k, v in expected.items()) and decision['plan_sha256'] == plan_sha,
+            'Explicit unchanged-plan fixture lineage')
+    require(lineage['pilot_manifest_path'] == prefix+'source_manifest.json' and
+            manifest_name in ('source_manifest_confirmation.json', 'source_manifest_confirmation_002.json') and
+            lineage['confirmation_manifest_path'] == prefix+manifest_name,
+            'Original pilot and separate confirmation manifest paths')
+    old, old_sha = load(lineage['pilot_manifest_path'])
+    new, new_sha = load(lineage['confirmation_manifest_path'])
+    require(old_sha == lineage['pilot_manifest_sha256'] and new_sha == lineage['confirmation_manifest_sha256'] and
+            new == manifest and old['source_hash'] == SOURCE and decision['execution_commit'] == EXECUTION,
+            'Original pilot and current confirmation manifest bytes')
+    digest = lambda value: hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'), allow_nan=False).encode()).hexdigest()
+    require(old['source_hash'] == decision['source_hash'] == digest(old['files']) and
+            new['source_hash'] == digest(new['files']) and set(old['files']) == set(new['files']) and len(old['files']) == 447,
+            'Same 447 frozen source paths')
+    require(all(isinstance(value, str) and re.fullmatch('[0-9a-f]{64}', value) for row in (old, new) for value in row['files'].values()) and
+            all(old.get(k) == new.get(k) for k in set(old)|set(new) if k not in ('files', 'source_hash')),
+            'Frozen manifest metadata and file hash formats')
+    require(old['files'][prefix+'study_plan.json'] == new['files'][prefix+'study_plan.json'] == plan_sha,
+            'Study plan belongs to both unchanged source closures')
+    changes = [dict(path=name, before_sha256=old['files'][name], after_sha256=new['files'][name])
+               for name in sorted(old['files']) if old['files'][name] != new['files'][name]]
+    require([x['path'] for x in changes] == list(LINEAGE_PATHS) and lineage['changes'] == changes,
+            'Only the four reviewed fixture/config/provenance paths changed')
+    unchanged = {name: value for name, value in old['files'].items() if name not in LINEAGE_PATHS}
+    require(lineage['unchanged_file_count'] == len(unchanged) == 443 and
+            lineage['unchanged_files_sha256'] == digest(unchanged), 'All 443 remaining source bytes unchanged')
+    failure, failure_sha = load(lineage['failure_evidence_path'])
+    require(Path(lineage['failure_evidence_path']).parent == Path(prefix+'evidence/confirmation_cpu_scope_failure'),
+            'Canonical preserved CPU failure scope')
+    require(failure_sha == lineage['failure_evidence_sha256'] and failure['status'] == 'FAIL' and
+            failure['study_phase'] == 'confirmation' and failure['execution_commit'] == EXECUTION and
+            failure['source_hash'] == SOURCE and failure['scientific_fits'] == 0 and
+            failure['cpu_tests']['run'] == 100 and failure['cpu_tests']['failures'] == 29 and
+            failure['cpu_tests']['errors'] == 2 and failure['cpu_tests']['skipped'] == 0 and
+            failure['TEST'] == 'NOT_RUN' and failure['test_evaluation_count'] == failure['mimo_model_forward_calls'] == 0 and
+            all(type(failure[k]) is int for k in ('scientific_fits', 'test_evaluation_count', 'mimo_model_forward_calls')) and
+            all(type(failure['cpu_tests'][k]) is int for k in ('run', 'failures', 'errors', 'skipped')),
+            'Preserved original confirmation CPU fixture failure')
+    require(lineage['review_path'] == prefix+'runtime/confirmation_transition_review.json', 'Canonical transition review')
+    review, review_sha = load(lineage['review_path'])
+    review_expected = {k: expected[k] for k in ('status', 'study_id', 'pilot_execution_commit', 'pilot_source_hash',
+                        'confirmation_execution_commit', 'confirmation_source_hash', 'plan_sha256')}
+    review_expected['changed_paths'] = list(LINEAGE_PATHS)
+    require(review_sha == lineage['review_sha256'] and all(review.get(k) == v for k, v in review_expected.items()),
+            'Preserved transition review identity and exact changed paths')
+    return dict(source_lineage_sha256=lineage_sha, pilot_source_hash=old['source_hash'],
+        confirmation_source_hash=new['source_hash'], pilot_manifest_sha256=old_sha,
+        confirmation_manifest_sha256=new_sha, unchanged_file_count=len(unchanged),
+        changed_paths=[x['path'] for x in changes], failure_evidence_sha256=failure_sha, review_sha256=review_sha)
+
+
+def confirmation_pilot(files, base, c, read, sha, report, manifest):
     decision_path = files/'runtime/confirmation_decision.json'
     decision = read(decision_path)
-    require(decision['status'] == 'AUTHORIZED_BY_FROZEN_RULE' and decision['source_hash'] == base['source_hash'] and
+    require(decision['status'] == 'AUTHORIZED_BY_FROZEN_RULE' and
             decision['plan_sha256'] == base['plan_sha256'] and decision['pairing_verified'] is True, 'Frozen confirmation decision')
+    def preserved(path):
+        relative = Path(path)
+        prefix = Path('experiments/mamba3_absolute_phase')
+        require(not relative.is_absolute() and '..' not in relative.parts and relative.is_relative_to(prefix), 'Safe lineage dependency')
+        result = files/relative.relative_to(prefix)
+        require(result.resolve().is_relative_to(files.resolve()) and result.is_file() and not result.is_symlink(), 'Preserved lineage dependency')
+        return read(result), sha(result)
+    lineage = confirmation_lineage(decision, manifest, base['execution_commit'], base['plan_sha256'], preserved, c.MANIFEST.name)
     def local(path):
         relative = Path(path)
         require(not relative.is_absolute() and '..' not in relative.parts, 'Safe linked pilot artifact')
@@ -737,7 +825,7 @@ def confirmation_pilot(files, base, c, read, sha, report):
     audit_path = local(decision['audit_path']); audit = read(audit_path)
     require(sha(audit_path) == decision['audit_sha256'], 'Linked pilot audit SHA')
     expected = dict(status='PASS', study_id=c.STUDY, study_phase='pilot', execution_commit=decision['execution_commit'],
-        source_hash=base['source_hash'], plan_sha256=base['plan_sha256'], scientific_fits_started=3,
+        source_hash=decision['source_hash'], plan_sha256=base['plan_sha256'], scientific_fits_started=3,
         scientific_fits_completed=3, unknown_scientific_starts=0, TEST='NOT_RUN', test_evaluation_count=0, pairing_verified=True)
     require(all(audit.get(k) == v for k, v in expected.items()), 'Linked complete independent pilot audit')
     records, scores = {}, {}
@@ -747,12 +835,14 @@ def confirmation_pilot(files, base, c, read, sha, report):
         require(sha(path) == entry['sha256'] == audit['pilot_result_sha256'][mode] and r['status'] == 'PASS' and
                 r['seed'] == 2026 and r['phase_mode'] == mode and all(r[k] == expected[k] for k in
                 ('study_id', 'study_phase', 'execution_commit', 'source_hash', 'plan_sha256', 'TEST', 'test_evaluation_count')), 'Pilot raw binding')
+        if lineage is not None:
+            require(r['source_manifest_sha256'] == lineage['pilot_manifest_sha256'], 'Raw pilot original source manifest SHA')
         report.validate_record(r, mode, 2026)
         records[mode, 2026] = r; scores[mode] = r['best_valid_metrics']['ndcg@10']
     require(scores == decision['pilot_scores'] and scores['absolute_phase'] >= max(scores['baseline_dual'], scores['relative_phase']),
             'Frozen conditional metric rule')
     require(all(records[v, 2026][k] == records['baseline_dual', 2026][k] for v in MODES[1:] for k in PAIRING), 'Linked pilot actual pairing')
-    return sha(decision_path), records
+    return sha(decision_path), records, lineage
 
 
 def audit(folder, execution=EXECUTION):
@@ -839,9 +929,10 @@ def audit(folder, execution=EXECUTION):
             if progress in inventory:
                 require(report.scientific_start(read(parent_files/progress)) is False, 'Retry parent progress must agree')
     pilot_records = {}
+    lineage = None
     decision_sha = None
     if phase == 'confirmation':
-        decision_sha, pilot_records = confirmation_pilot(files, base, c, read, sha, report)
+        decision_sha, pilot_records, lineage = confirmation_pilot(files, base, c, read, sha, report, manifest)
     require(login.get('confirmation_decision_sha256') == reservation.get('confirmation_decision_sha256') == decision_sha,
             'Conditional authorization SHA chain')
     arithmetic = Arithmetic(); old = read(c.PILOT)
@@ -999,6 +1090,8 @@ def audit(folder, execution=EXECUTION):
         ])
     if phase == 'pilot':
         value['pilot_result_sha256'] = {mode: hashes[c.paths(mode, 2026)['run_id']] for mode in MODES}
+    else:
+        value['confirmation_lineage'] = lineage
     output = folder/'independent_audit.json'
     if output.exists():
         prior = read(output)

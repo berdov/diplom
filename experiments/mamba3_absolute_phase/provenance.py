@@ -58,15 +58,124 @@ def coverage_verify(commit=None):
     return sha(c.COVERAGE)
 
 
-def confirmation_authorization():
+CONFIRMATION_LINEAGE_PATHS = (
+    'experiments/mamba3_absolute_phase/config.py',
+    'experiments/mamba3_absolute_phase/provenance.py',
+    'experiments/mamba3_absolute_phase/tests/test_failure_records.py',
+    'experiments/mamba3_absolute_phase/tests/test_protocol.py',
+)
+
+
+def verify_confirmation_lineage(decision, manifest, execution_commit=None):
+    """Admit only the reviewed four-file fixture/provenance repair.
+
+    `manifest` is the current result of verify(), so current source bytes are
+    checked before this function. The old manifest and pilot evidence remain
+    immutable. This is not a general exemption for tests or runtime files.
+    """
+    if decision.get('plan_sha256') != sha(c.HERE/'study_plan.json'):
+        raise ValueError('Confirmation scientific source/plan changed')
+    if decision.get('source_hash') == manifest.get('source_hash'):
+        # Preserve the original same-source contract; no migration is needed.
+        if any(k in decision for k in ('confirmation_source_hash', 'confirmation_execution_commit',
+                                      'source_lineage_path', 'source_lineage_sha256')):
+            raise ValueError('Ambiguous same-source confirmation lineage')
+        return None
+    if c.STAGE != 'confirmation':
+        raise ValueError('Source lineage applies only to confirmation')
+    if (decision.get('confirmation_source_hash') != manifest.get('source_hash')
+        or not isinstance(decision.get('confirmation_execution_commit'), str)
+        or not re.fullmatch('[0-9a-f]{40}', decision['confirmation_execution_commit'])
+        or not isinstance(decision.get('execution_commit'), str)
+        or not re.fullmatch('[0-9a-f]{40}', decision['execution_commit'])
+        or execution_commit is not None and execution_commit != decision['confirmation_execution_commit']):
+        raise ValueError('Confirmation execution/source lineage mismatch')
+
+    def owned_file(name):
+        if not isinstance(name, str):
+            raise ValueError('Lineage path must be canonical relative text')
+        path = c.ROOT/name
+        if (path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(c.ROOT.resolve())
+            or str(path.relative_to(c.ROOT)) != name or '..' in path.relative_to(c.ROOT).parts):
+            raise ValueError('Invalid lineage path: ' + name)
+        return path
+
+    lineage_path = owned_file(decision.get('source_lineage_path'))
+    expected_lineage = c.HERE/'runtime/confirmation_source_lineage.json'
+    if lineage_path != expected_lineage or sha(lineage_path) != decision.get('source_lineage_sha256'):
+        raise ValueError('Confirmation lineage bytes changed')
+    lineage = read(lineage_path)
+    expected = dict(schema='absolute_phase_test_scope_lineage_v1', status='PASS', study_id=c.STUDY,
+        reason='confirmation_test_fixture_scope', pilot_execution_commit=decision['execution_commit'],
+        confirmation_execution_commit=decision['confirmation_execution_commit'],
+        pilot_source_hash=decision['source_hash'], confirmation_source_hash=manifest['source_hash'],
+        plan_sha256=decision['plan_sha256'])
+    if any(lineage.get(k) != value for k, value in expected.items()):
+        raise ValueError('Confirmation lineage identity/review mismatch')
+    review_path = owned_file(lineage.get('review_path'))
+    if (review_path != c.HERE/'runtime/confirmation_transition_review.json'
+        or sha(review_path) != lineage.get('review_sha256')):
+        raise ValueError('Confirmation transition review changed')
+    review = read(review_path)
+    review_keys = ('status', 'study_id', 'pilot_execution_commit', 'confirmation_execution_commit',
+                   'pilot_source_hash', 'confirmation_source_hash', 'plan_sha256')
+    if (any(review.get(k) != expected[k] for k in review_keys)
+        or review.get('changed_paths') != list(CONFIRMATION_LINEAGE_PATHS)):
+        raise ValueError('Confirmation transition review scope/identity mismatch')
+    pilot_path = owned_file(lineage.get('pilot_manifest_path'))
+    current_path = owned_file(lineage.get('confirmation_manifest_path'))
+    if (pilot_path != c.HERE/'source_manifest.json' or current_path != c.MANIFEST
+        or sha(pilot_path) != lineage.get('pilot_manifest_sha256')
+        or sha(current_path) != lineage.get('confirmation_manifest_sha256')):
+        raise ValueError('Confirmation lineage manifest identity')
+    pilot, current = read(pilot_path), read(current_path)
+    if (current != manifest or digest(pilot.get('files', {})) != decision['source_hash']
+        or pilot.get('source_hash') != decision['source_hash']
+        or digest(current.get('files', {})) != manifest['source_hash']):
+        raise ValueError('Confirmation lineage manifest content/digest')
+    old, new = pilot['files'], current['files']
+    if (set(old) != set(new) or len(old) != 447
+        or any(not isinstance(value, str) or not re.fullmatch('[0-9a-f]{64}', value)
+               for values in (old, new) for value in values.values())):
+        raise ValueError('Confirmation lineage source path set changed')
+    changed = sorted(path for path in old if old[path] != new[path])
+    if changed != list(CONFIRMATION_LINEAGE_PATHS):
+        raise ValueError('Change outside exact four-file confirmation repair')
+    changes = [dict(path=path, before_sha256=old[path], after_sha256=new[path]) for path in changed]
+    unchanged = {path: old[path] for path in sorted(old) if path not in changed}
+    if (lineage.get('changes') != changes or lineage.get('unchanged_file_count') != len(unchanged)
+        or lineage.get('unchanged_files_sha256') != digest(unchanged)):
+        raise ValueError('Confirmation lineage changed/unchanged SHA table')
+    plan_path = str((c.HERE/'study_plan.json').relative_to(c.ROOT))
+    if old.get(plan_path) != decision['plan_sha256'] or new.get(plan_path) != decision['plan_sha256']:
+        raise ValueError('Frozen study plan changed')
+    if any(pilot.get(k) != current.get(k) for k in set(pilot) | set(current) if k not in ('files', 'source_hash')):
+        raise ValueError('Confirmation lineage manifest metadata changed')
+    failure_path = owned_file(lineage.get('failure_evidence_path'))
+    if (failure_path.parent != c.HERE/'evidence/confirmation_cpu_scope_failure'
+        or sha(failure_path) != lineage.get('failure_evidence_sha256')):
+        raise ValueError('Preserved confirmation CPU failure changed')
+    failure = read(failure_path)
+    required_failure = dict(status='FAIL', study_phase='confirmation', scientific_fits=0,
+        execution_commit=decision['execution_commit'], source_hash=decision['source_hash'],
+        TEST='NOT_RUN', test_evaluation_count=0, mimo_model_forward_calls=0)
+    counts = failure.get('cpu_tests', {})
+    if (any(failure.get(k) != value for k, value in required_failure.items())
+        or any(type(failure.get(k)) is not int for k in ('scientific_fits', 'test_evaluation_count', 'mimo_model_forward_calls'))
+        or any(type(counts.get(k)) is not int or counts[k] != value
+               for k, value in dict(run=100, failures=29, errors=2, skipped=0).items())):
+        raise ValueError('Unrelated CPU failure cannot authorize fixture repair')
+    return sha(lineage_path)
+
+
+def confirmation_authorization(execution_commit=None):
     if c.STAGE == 'pilot':
         return None
     path = c.HERE/'runtime/confirmation_decision.json'
     decision = read(path)
     if decision.get('status') != 'AUTHORIZED_BY_FROZEN_RULE':
         raise ValueError('Confirmation not authorized by pilot rule')
-    if decision.get('source_hash') != verify()['source_hash'] or decision.get('plan_sha256') != sha(c.HERE/'study_plan.json'):
-        raise ValueError('Confirmation scientific source/plan changed')
+    verify_confirmation_lineage(decision, verify(), execution_commit)
     audit_path = c.ROOT/decision['audit_path']
     audit = read(audit_path)
     if sha(audit_path) != decision['audit_sha256'] or audit.get('status') != 'PASS':
@@ -141,7 +250,7 @@ def identity():
         if lock.get('job_id') != job or lock.get('reservation_token') != reservation['token']:
             raise ValueError('Pipeline already owned')
     coverage = coverage_verify(commit)
-    decision = confirmation_authorization()
+    decision = confirmation_authorization(commit)
     if coverage != login['coverage_sha256'] or decision != reservation.get('confirmation_decision_sha256'):
         raise ValueError('Coverage or confirmation decision changed after reservation')
     return dict(**expected, job_id=job, reservation_token=reservation['token'], reservation_sha256=sha(c.RESERVATION),
@@ -163,7 +272,7 @@ def login_verify():
             raise ValueError('Published blob ' + path)
     return dict(**bindings(commit, m), status='PASS', tracked_clean=True, published_commit=commit,
                 source_blobs_verified=True, verified_at=now(), runtime=runtime(False),
-                coverage_sha256=coverage_verify(commit), confirmation_decision_sha256=confirmation_authorization())
+                coverage_sha256=coverage_verify(commit), confirmation_decision_sha256=confirmation_authorization(commit))
 
 
 def validate_smoke(record):

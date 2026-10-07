@@ -19,7 +19,9 @@ if STAGE not in ('pilot', 'confirmation') or EXECUTION_ATTEMPT not in ('001', '0
 MODES = ('baseline_dual', 'relative_phase', 'absolute_phase')
 COUNTS = dict(baseline_dual=715020, relative_phase=715148, absolute_phase=715148)
 SEEDS = (2026,) if STAGE == 'pilot' else (2027, 2028, 2029, 2030)
-MANIFEST = HERE / ('source_manifest.json' if EXECUTION_ATTEMPT == '001' else 'source_manifest_002.json')
+MANIFEST = HERE / (('source_manifest.json' if EXECUTION_ATTEMPT == '001' else 'source_manifest_002.json')
+                   if STAGE == 'pilot' else ('source_manifest_confirmation.json' if EXECUTION_ATTEMPT == '001'
+                                            else 'source_manifest_confirmation_002.json'))
 PARENT_MANIFEST = ROOT / 'experiments/mamba3_time_memory/source_manifest_002.json'
 PILOT = ROOT / 'experiments/mamba3_mimo_time/runs/attempt_003/mamba3_mimo_dual_seed2026_001.json'
 LOGS = HERE / 'slurm_logs' / STAGE / ('attempt_' + EXECUTION_ATTEMPT)

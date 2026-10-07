@@ -6,6 +6,7 @@ import io
 import json
 import math
 from pathlib import Path
+from .audit_saved import confirmation_lineage, source_manifest_name
 
 ROOT = Path(__file__).resolve().parents[3]
 PREFIX_BYTES = 58287
@@ -55,7 +56,7 @@ def prepare(folder, registry, root=ROOT):
         require(path.stat().st_size == entry['bytes'] and sha(path.read_bytes()) == entry['sha256'], 'Preserved bytes changed: ' + relative)
         return path, value
 
-    source_name = 'source_manifest.json' if attempt == '001' else 'source_manifest_002.json'
+    source_name = source_manifest_name(phase, attempt)
     source_path, source = preserved(source_name)
     digest = sha(json.dumps(source['files'], sort_keys=True, separators=(',', ':')).encode())
     current_source = root / 'experiments/mamba3_absolute_phase' / source_name
@@ -64,6 +65,17 @@ def prepare(folder, registry, root=ROOT):
             len(source['files']) == audit['source_blobs'] and sha(source_path.read_bytes()) == sha(current_source.read_bytes()), 'Frozen source identity mismatch')
     plan_path, _ = preserved('study_plan.json')
     require(sha(plan_path.read_bytes()) == audit['plan_sha256'], 'Frozen plan identity mismatch')
+    if phase == 'confirmation':
+        decision_path, decision = preserved('runtime/confirmation_decision.json')
+        require(sha(decision_path.read_bytes()) == audit['confirmation_decision_sha256'], 'Audited conditional decision bytes')
+        def dependency(name):
+            relative = Path(name)
+            prefix = Path('experiments/mamba3_absolute_phase')
+            require(not relative.is_absolute() and '..' not in relative.parts and relative.is_relative_to(prefix), 'Unsafe confirmation lineage path')
+            path, value = preserved(str(relative.relative_to(prefix)))
+            return value, sha(path.read_bytes())
+        lineage = confirmation_lineage(decision, source, audit['execution_commit'], audit['plan_sha256'], dependency, source_name)
+        require(lineage == audit['confirmation_lineage'], 'Audited confirmation lineage differs')
     original = registry.read_bytes()
     require(sha(original[:PREFIX_BYTES]) == PREFIX_SHA and original.endswith(b'\n'), 'Original registry prefix or newline changed')
     reader = csv.DictReader(io.StringIO(original.decode('utf-8')))

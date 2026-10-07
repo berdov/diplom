@@ -311,7 +311,7 @@ class ProtocolTests(unittest.TestCase):
         login = dict(expected, status='PASS', tracked_clean=True, source_blobs_verified=True,
                      published_commit=expected['execution_commit'], coverage_sha256=coverage_sha)
         reservation = dict(expected, status='RESERVED', token='d' * 32, login_sha256='e' * 64,
-                           coverage_sha256=coverage_sha, max_scientific_fits=3,
+                           coverage_sha256=coverage_sha, max_scientific_fits=len(c.tasks()),
                            jobs_requested=1, tasks=c.tasks(), requested_seconds=c.allocation_seconds())
         provenance.validate_ownership(login, reservation, 'e' * 64, expected, '900001')
         for field in ('login', 'reservation'):
