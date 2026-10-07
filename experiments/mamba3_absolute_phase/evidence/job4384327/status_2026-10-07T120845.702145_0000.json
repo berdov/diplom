@@ -1,0 +1,30 @@
+{
+  "job_id": "4384327",
+  "execution_attempt": "001",
+  "study_phase": "confirmation",
+  "checked_at": "2026-10-07T12:08:45.702145+00:00",
+  "checkout": {
+    "returncode": 0,
+    "stdout": "5282984f078e7d06bbd6ef66249bd7fbf375d3dd\n",
+    "stderr": ""
+  },
+  "tracked_status": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "squeue": {
+    "returncode": 0,
+    "stdout": "4384327|PENDING|0:00||(Priority)|N/A\n",
+    "stderr": ""
+  },
+  "sacct": {
+    "returncode": 0,
+    "stdout": "JobIDRaw|State|ExitCode|Elapsed|NodeList|Start|End\n4384327|PENDING|0:0|00:00:00|None assigned|Unknown|Unknown\n",
+    "stderr": ""
+  },
+  "pipeline": null,
+  "records": [],
+  "gate": null,
+  "smoke": null
+}

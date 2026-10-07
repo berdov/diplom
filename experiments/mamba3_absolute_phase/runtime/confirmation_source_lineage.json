@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "study_id": "mamba3_absolute_phase_001",
+  "pilot_execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+  "confirmation_execution_commit": "5282984f078e7d06bbd6ef66249bd7fbf375d3dd",
+  "pilot_source_hash": "4c404906e61121f967307e8c3e97a63e9a476711202a4a5baa005ef9899574c6",
+  "confirmation_source_hash": "4da0d232b6a73757dbe6065d7d4190d6434cc6f31ca92453ba09fa3c2d2ac764",
+  "plan_sha256": "bdaf20ed3c7986df98938a201324727397afb733e91ce237ab238541a380b650",
+  "schema": "absolute_phase_test_scope_lineage_v1",
+  "reason": "confirmation_test_fixture_scope",
+  "pilot_manifest_path": "experiments/mamba3_absolute_phase/source_manifest.json",
+  "pilot_manifest_sha256": "6d4a529b6eb7a64f672e2af66d2760be51e2ffa547bb60fef6e278c7a9e2c0c7",
+  "confirmation_manifest_path": "experiments/mamba3_absolute_phase/source_manifest_confirmation.json",
+  "confirmation_manifest_sha256": "9afe8fa0fedb1ee897fcd2a39fd8ef9e823f0e9c0843f29697f417202e18a231",
+  "failure_evidence_path": "experiments/mamba3_absolute_phase/evidence/confirmation_cpu_scope_failure/cpu_preflight_11913ff8fe99aa28f124d667e2ae3aad14465098.json",
+  "failure_evidence_sha256": "f428f34449849011f794bfd102f543a6239a0bc2b8f4dabe58116361e29e6759",
+  "review_path": "experiments/mamba3_absolute_phase/runtime/confirmation_transition_review.json",
+  "review_sha256": "e598f11b98256518e361db965c1fecd36c6ef0e0ec1b0b6772963d35890b12c7",
+  "changes": [
+    {
+      "path": "experiments/mamba3_absolute_phase/config.py",
+      "before_sha256": "ef6aa72aa1148d4ef544e5d4d05514cdb4cf9a1a8893886406c1ee3616f8f2a4",
+      "after_sha256": "30e1562a80929a3d9d437e762b7b84e29ae304226a77271013d5d656fdd05f10"
+    },
+    {
+      "path": "experiments/mamba3_absolute_phase/provenance.py",
+      "before_sha256": "fc4f35e5ccf6fc927370923e9a22586b4970ac047de5814aff3c635ed4597f93",
+      "after_sha256": "0fa595513ff7dc8f7243af965c781d93594be3afa2d093457bd8b3a8e0663cd9"
+    },
+    {
+      "path": "experiments/mamba3_absolute_phase/tests/test_failure_records.py",
+      "before_sha256": "f5bc44da8ee2a15e937334e65246682eb6e4408dea48b0bb522e4e407f5a3b6a",
+      "after_sha256": "e6568a73f0ab518a9186cf0244089fd09c26a139039fbb7ed63c7be751b9e953"
+    },
+    {
+      "path": "experiments/mamba3_absolute_phase/tests/test_protocol.py",
+      "before_sha256": "b6657fb4f2bfda0a36f2108e7d5c8aa4872c6de075c6a39aaa292a35d2e4138b",
+      "after_sha256": "a21caa675dc7a57ab2ba0c3e5297827f156b0c4dc6a1a7badfe65e77e92bd3e1"
+    }
+  ],
+  "unchanged_file_count": 443,
+  "unchanged_files_sha256": "7c5d451ba1309494a459ec84fc17586ffc187574d00d2d2aaf46b3264ef396c9"
+}

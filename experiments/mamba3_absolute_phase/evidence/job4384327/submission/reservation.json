@@ -1,0 +1,101 @@
+{
+  "execution_attempt": "001",
+  "study_id": "mamba3_absolute_phase_001",
+  "execution_commit": "5282984f078e7d06bbd6ef66249bd7fbf375d3dd",
+  "source_hash": "4da0d232b6a73757dbe6065d7d4190d6434cc6f31ca92453ba09fa3c2d2ac764",
+  "source_manifest_sha256": "9afe8fa0fedb1ee897fcd2a39fd8ef9e823f0e9c0843f29697f417202e18a231",
+  "plan_sha256": "bdaf20ed3c7986df98938a201324727397afb733e91ce237ab238541a380b650",
+  "core_hash": "460bd3e687d26a458cafc21960391f83905da962ca5c992d6062c7b048f0a73f",
+  "pinned_commit": "e9594ce1c732d97440f0332fdc43170a2294dbfa",
+  "policy_version": "mimo_numeric_acceptance_v1",
+  "policy_sha256": "216fbde21dcd5d349857bef8ef963e535d92aefee1e971e0de91d67385de43b7",
+  "inherited_admission_sha256": "c673524fda1a41d472c6cafebca7e25dad5cd7bd5df99fa772dfdcd4ee8bd5bc",
+  "inherited_smoke_sha256": "ac17c67b3fc411fce5cbdd53a855e75392d5bfd953b29a434e7237f135e7db9b",
+  "pilot_execution_commit": "c1dd31eec7907c67348769b6a1811b89aa4011c0",
+  "pilot_job_id": "4358147",
+  "architecture": "MIMO",
+  "backend": "upstream",
+  "rank": 4,
+  "chunk": 8,
+  "TEST": "NOT_RUN",
+  "test_evaluation_count": 0,
+  "study_phase": "confirmation",
+  "status": "RESERVED",
+  "token": "5f63391253c98b85efb005f5c4d28021",
+  "login_sha256": "68c93760ba9b625e9879f68b736cae25a04035f5098afe201a3e71eaec956b7f",
+  "coverage_sha256": "7d31362f9a63c2ee0674a1b1b0c549c5df59f9b9070133d775cea7f70806a07c",
+  "confirmation_decision_sha256": "1772181447bbd5c69e229264c72d551049554cd9f090766d48f25e65f730dc7a",
+  "max_scientific_fits": 12,
+  "tasks": [
+    {
+      "variant": "baseline_dual",
+      "seed": 2027,
+      "run_id": "mamba3_absolute_phase_baseline_dual_seed2027_001"
+    },
+    {
+      "variant": "relative_phase",
+      "seed": 2027,
+      "run_id": "mamba3_absolute_phase_relative_phase_seed2027_001"
+    },
+    {
+      "variant": "absolute_phase",
+      "seed": 2027,
+      "run_id": "mamba3_absolute_phase_absolute_phase_seed2027_001"
+    },
+    {
+      "variant": "baseline_dual",
+      "seed": 2028,
+      "run_id": "mamba3_absolute_phase_baseline_dual_seed2028_001"
+    },
+    {
+      "variant": "relative_phase",
+      "seed": 2028,
+      "run_id": "mamba3_absolute_phase_relative_phase_seed2028_001"
+    },
+    {
+      "variant": "absolute_phase",
+      "seed": 2028,
+      "run_id": "mamba3_absolute_phase_absolute_phase_seed2028_001"
+    },
+    {
+      "variant": "baseline_dual",
+      "seed": 2029,
+      "run_id": "mamba3_absolute_phase_baseline_dual_seed2029_001"
+    },
+    {
+      "variant": "relative_phase",
+      "seed": 2029,
+      "run_id": "mamba3_absolute_phase_relative_phase_seed2029_001"
+    },
+    {
+      "variant": "absolute_phase",
+      "seed": 2029,
+      "run_id": "mamba3_absolute_phase_absolute_phase_seed2029_001"
+    },
+    {
+      "variant": "baseline_dual",
+      "seed": 2030,
+      "run_id": "mamba3_absolute_phase_baseline_dual_seed2030_001"
+    },
+    {
+      "variant": "relative_phase",
+      "seed": 2030,
+      "run_id": "mamba3_absolute_phase_relative_phase_seed2030_001"
+    },
+    {
+      "variant": "absolute_phase",
+      "seed": 2030,
+      "run_id": "mamba3_absolute_phase_absolute_phase_seed2030_001"
+    }
+  ],
+  "scientific_fits_before_submit": 0,
+  "jobs_requested": 1,
+  "requested_seconds": 28800,
+  "global_budget": {
+    "previous_submissions": 1,
+    "requested_seconds_before": 21600,
+    "requested_seconds_after": 50400
+  },
+  "retry_review_sha256": null,
+  "reserved_at": "2026-10-07T12:07:34.436709+00:00"
+}

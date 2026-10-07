@@ -1,9 +1,35 @@
-# Абсолютная фаза: пилот завершён, подготовка confirmation
+# Абсолютная фаза: пилот опубликован, confirmation отправлена
 
-Phase: CONFIRMATION_PREPARATION. Pilot job4374917 COMPLETED 0:0, cn-043,
-01:17:36. Scientific fits started3, completed3. Independent audit PASS:
-128 epochs /1536 metric cells, pairing verified. No active job or background
-process; do not submit until the reviewed confirmation execution is prepared.
+Phase: SUBMITTED_PENDING. **2026-10-07 15:08:45 MSK:** PENDING (Priority), node UNKNOWN, elapsed 00:00:00. Scientific fits started UNKNOWN, completed UNKNOWN/12. GPU gate UNKNOWN; smoke UNKNOWN. Next explicit poll no earlier than 2026-10-07 15:18:45 MSK (2026-10-07T12:18:45.702145+00:00). No background process.
+
+## Текущая confirmation, 07.10.2026
+
+Execution: `5282984f078e7d06bbd6ef66249bd7fbf375d3dd`.
+Source: `4da0d232b6a73757dbe6065d7d4190d6434cc6f31ca92453ba09fa3c2d2ac764`.
+Отдельный `source_manifest_confirmation.json`: те же447 paths, только4
+reviewed fixture/config/provenance changes; остальные443 побайтно прежние.
+Исходные pilot manifest, raw evidence и план не изменены. Lineage и decision
+в runtime связаны SHA с login/reservation. Их байты после submit НЕ МЕНЯТЬ.
+CPU100/100 и отдельный no-Git100/100 PASS; 29 stdlib regression tests PASS.
+TRAIN coverage PASS: `7d31362f9a63c2ee0674a1b1b0c549c5df59f9b9070133d775cea7f70806a07c`.
+Контрольные данные, модель, policy, периоды и fit rules не менялись.
+
+Canonical cluster HEAD соответствует execution; tracked clean;21 известных
+untracked файлов stage_confirmation/target_combination_analysis сохранены
+побайтно. Checkout под job НЕ МЕНЯТЬ. SSH работает с явно выбранным уже
+загруженным ключом: `ssh -i ~/.ssh/hse_karizma hse-karizma`; SSH config не меняли.
+
+Budget после submit:2 jobs,14h requested GPU;3 pilot fits complete,
+до12 confirmation fits. TEST0. Seeds2027–2030, baseline→relative→absolute.
+Frozen pilot rule absolute>=обоих paired controls выполнено.
+Пилот опубликован ordinary fast-forward в main `c414c2f`, registry128.
+Сведения о подготовке ниже исторические; стадия ожидания submit уже пройдена.
+
+Следующий шаг: один compact poll через runtime/capture_status.py с
+`--stage confirmation --ssh-identity ~/.ssh/hse_karizma`, далее >=600s.
+Очередь максимум4h в сессии. Terminal: preserve_terminal.py, stdlib audit,
+four-new/all-five отдельно, TeX+primary SVG, registry140 только при12/12 PASS.
+Не повторять started fits. Неполную серию не объявлять COMPLETE.
 
 Запрос: `/Users/berdov/.codex/attachments/867dda07-c9ee-42e7-a7ff-e83250722c3e/Вставленный текст.txt`.
 Репозиторий: `/Users/berdov/diplom`, cluster `/home/daryumin/iberdov/diplom`,

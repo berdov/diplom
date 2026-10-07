@@ -1,0 +1,44 @@
+{
+  "status": "AUTHORIZED_BY_FROZEN_RULE",
+  "study_id": "mamba3_absolute_phase_001",
+  "execution_commit": "11913ff8fe99aa28f124d667e2ae3aad14465098",
+  "source_hash": "4c404906e61121f967307e8c3e97a63e9a476711202a4a5baa005ef9899574c6",
+  "plan_sha256": "bdaf20ed3c7986df98938a201324727397afb733e91ce237ab238541a380b650",
+  "audit_path": "experiments/mamba3_absolute_phase/evidence/job4374917/independent_audit.json",
+  "audit_sha256": "19daa0ed41947a10ca327f5c575cff12dba6ac8354cb7433dbeac562f6205399",
+  "pilot_results": {
+    "baseline_dual": {
+      "path": "experiments/mamba3_absolute_phase/evidence/job4374917/files/runs/pilot/attempt_001/mamba3_absolute_phase_baseline_dual_seed2026_001.json",
+      "sha256": "39a470b3e83ff895dfae9d87c32d03d58267ff1a910352a51af157e0f9eb8e27"
+    },
+    "relative_phase": {
+      "path": "experiments/mamba3_absolute_phase/evidence/job4374917/files/runs/pilot/attempt_001/mamba3_absolute_phase_relative_phase_seed2026_001.json",
+      "sha256": "76179dee3b6d1004aad804a880603ab700d3241110afae9d9fbec11f8036b685"
+    },
+    "absolute_phase": {
+      "path": "experiments/mamba3_absolute_phase/evidence/job4374917/files/runs/pilot/attempt_001/mamba3_absolute_phase_absolute_phase_seed2026_001.json",
+      "sha256": "c83cdf63d745768bfb6180b72bb90350522f4515c25fbbf7ef7c867677ad97af"
+    }
+  },
+  "pilot_scores": {
+    "baseline_dual": 0.0633,
+    "relative_phase": 0.0616,
+    "absolute_phase": 0.0635
+  },
+  "pairing_verified": true,
+  "rule": "Three complete paired audited pilot fits; absolute full-run VALID NDCG@10 >= both fresh comparators",
+  "scientific_construction_changed": false,
+  "confirmation_seeds": [
+    2027,
+    2028,
+    2029,
+    2030
+  ],
+  "new_fits": 12,
+  "prepared_at": "2026-10-04T09:23:52.760884+00:00",
+  "execution_binding_status": "REVIEWED_EXACT_EXECUTION_PENDING_CPU_PREFLIGHT",
+  "confirmation_source_hash": "4da0d232b6a73757dbe6065d7d4190d6434cc6f31ca92453ba09fa3c2d2ac764",
+  "confirmation_execution_commit": "5282984f078e7d06bbd6ef66249bd7fbf375d3dd",
+  "source_lineage_path": "experiments/mamba3_absolute_phase/runtime/confirmation_source_lineage.json",
+  "source_lineage_sha256": "547cddb5690ed2b7fe30a443f06a5c407ab7a8e469068a5888c6f7c0548a39bf"
+}
